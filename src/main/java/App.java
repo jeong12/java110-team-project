@@ -17,13 +17,13 @@ public class App {
         System.out.println("호");
         System.out.println("라");
         System.out.println("...");
-        System.out.println("집집집집");
-        System.out.println("집집집집");
-        System.out.println("집집집집");
-        System.out.println("집집집집");
-        System.out.println("집집집집");
-        
-        
+        System.out.println("계획대로 되고있어");
+       
+        System.out.println("오");
+        System.out.println("호");
+        System.out.println("라");
+        System.out.println("...");
+        System.out.println("계획대로 되고있어");
         System.out.println("갈땐 가더라도  담배한대정도는 괜잖아?");
         System.out.println("갈땐 가더라도 한대정도는 괜잖아?");
     }
