@@ -1,7 +1,9 @@
 public class App {
+    String name="니노막희무쓰";
     String danger="담배 좀 그만펴연 일찍죽으니깐";
     public String getGreeting() {
         return danger;
+        // 
         //올린건가??
     }
 
