@@ -3,7 +3,7 @@ public class App {
     public String getGreeting() {
         return danger;
         //올린건가??
-
+    }
 
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
