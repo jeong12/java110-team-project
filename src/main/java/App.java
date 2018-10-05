@@ -1,7 +1,6 @@
 public class App {
 
-    String danger="담배 좀 그만펴연 일찍죽으니깐 ..... ㄴ싫어용 싫은데여!!";
-
+    String danger="담배 좀 그만펴연 일찍죽으니깐 ..... ㄴ싫어용 싫은데여 싫다구영!!!";
 	String name="니노막희무스";
     public String getGreeting() {
         return danger;
