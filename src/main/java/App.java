@@ -1,5 +1,5 @@
 public class App {
-    String danger="담배 좀 그만펴연 일찍죽으니깐 ..... ㄴ싫어용!";
+    String danger="담배 좀 그만펴연 일찍죽으니깐 ..... ㄴ싫어용 싫은데여!!";
     public String getGreeting() {
         return danger;
         //올린건가??
