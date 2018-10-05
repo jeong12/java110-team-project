@@ -7,5 +7,4 @@ public static void main(String[] args) {
         System.out.println("지금 만나러 갑니다 꼭보세연");
         System.out.println("호나우딩요");
     }
-
 }
