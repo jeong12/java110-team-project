@@ -5,7 +5,7 @@ public class App {
     String danger="담배좀그만펴연 일찍죽으니깐";
     public String getGreeting() {
         return danger;
-        
+        //올린건가??
     }
 
     public static void main(String[] args) {
