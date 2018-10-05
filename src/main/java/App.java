@@ -22,6 +22,7 @@ public class App {
     public String getGreeting() {
         return danger;
         //올린건가??
+<<<<<<< HEAD
 
 
     public static void main(String[] args) {
@@ -30,6 +31,16 @@ public class App {
         System.out.println("오");
         System.out.println("호");
         System.out.println("라");
+=======
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new App().getGreeting());
+        
+        System.out.println("오");
+        System.out.println("호");
+        System.out.println("라");
+>>>>>>> branch 'master' of https://github.com/moo-93/java110-team-project.git
         System.out.println("...");
         System.out.println("집집집집");
         
