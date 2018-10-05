@@ -1,6 +1,6 @@
 public class App {
 
-    String danger="담배 좀 그만펴연 일찍죽으니깐 ..... ㄴ싫어용 싫은데여 싫다구영!!!";
+    String danger="담배 좀 그만펴연 일찍죽으니깐 ..... ㄴ싫어용 싫은데여!!";
     String danger2="무무쓰!";
 
 	String name="니노막희무스";
@@ -18,6 +18,11 @@ public class App {
         System.out.println("라");
         System.out.println("...");
         System.out.println("집집집집");
+        System.out.println("집집집집");
+        System.out.println("집집집집");
+        System.out.println("집집집집");
+        System.out.println("집집집집");
+        
         
         System.out.println("갈땐 가더라도 담배한대정도는 괜잖아?");
     }
