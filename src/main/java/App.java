@@ -10,5 +10,6 @@ public class App {
 
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
+        System.out.println("갈땐 가더라도 담배한대정도는 괜잖아?");
     }
 }
