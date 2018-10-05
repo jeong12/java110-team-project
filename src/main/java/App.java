@@ -1,4 +1,3 @@
-
 public class App {
     public String getGreeting() {
         return "충돌충돌충돌충돌";
@@ -15,4 +14,5 @@ public class App {
         System.out.println("갈땐 가더라도 담배한대정도는 괜잖아?");
     }
 }
+
 
