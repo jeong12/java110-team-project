@@ -4,10 +4,6 @@ public class App {
         return danger;
         //올린건가??
 
-public class App {
-    public String getGreeting() {
-        return "Hello 충돌.";
-    }
 
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
