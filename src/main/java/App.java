@@ -1,7 +1,7 @@
 
 public class App {
     public String getGreeting() {
-        return "Hello world.";
+        return "Hello 충돌.";
     }
 
     public static void main(String[] args) {
