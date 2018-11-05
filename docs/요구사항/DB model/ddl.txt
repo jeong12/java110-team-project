@@ -1,0 +1,761 @@
+-- 회원
+DROP TABLE IF EXISTS memb RESTRICT;
+
+-- 버스커
+DROP TABLE IF EXISTS busk RESTRICT;
+
+-- 무대_제공자
+DROP TABLE IF EXISTS sup RESTRICT;
+
+-- 버스킹스케쥴
+DROP TABLE IF EXISTS per_sche RESTRICT;
+
+-- 사진 게시글
+DROP TABLE IF EXISTS phot RESTRICT;
+
+-- 동영상댓글
+DROP TABLE IF EXISTS avi_comt RESTRICT;
+
+-- 알림
+DROP TABLE IF EXISTS aralm RESTRICT;
+
+-- 버스킹홍보
+DROP TABLE IF EXISTS busk_board RESTRICT;
+
+-- 동영상 게시글
+DROP TABLE IF EXISTS avi RESTRICT;
+
+-- 사진댓글
+DROP TABLE IF EXISTS phot_comt RESTRICT;
+
+-- 퐐로잉
+DROP TABLE IF EXISTS folw RESTRICT;
+
+-- 무대사진
+DROP TABLE IF EXISTS stag_phot RESTRICT;
+
+-- 버스킹무대사용요청
+DROP TABLE IF EXISTS busk_req RESTRICT;
+
+-- 무대스케쥴
+DROP TABLE IF EXISTS stag_sche RESTRICT;
+
+-- 홍보댓글
+DROP TABLE IF EXISTS board_comt RESTRICT;
+
+-- 피드사진
+DROP TABLE IF EXISTS feed_phot RESTRICT;
+
+-- 동영상인기통계
+DROP TABLE IF EXISTS avi_fav RESTRICT;
+
+-- 공연장인기통계
+DROP TABLE IF EXISTS stag_fav RESTRICT;
+
+-- 무대사용요청스케줄
+DROP TABLE IF EXISTS busk_stag RESTRICT;
+
+-- 회원
+CREATE TABLE memb (
+	mno      INTEGER      NOT NULL COMMENT '회원번호', -- 회원번호
+	id       VARCHAR(50)  NOT NULL COMMENT '아이디', -- 아이디
+	email    VARCHAR(40)  NOT NULL COMMENT '이메일', -- 이메일
+	password VARCHAR(16)  NOT NULL COMMENT '비밀번호', -- 비밀번호
+	name     VARCHAR(50)  NOT NULL COMMENT '이름', -- 이름
+	nik      VARCHAR(50)  NOT NULL COMMENT '닉네임', -- 닉네임
+	phot     VARCHAR(255) NULL     COMMENT '회원사진', -- 회원사진
+	cdt      DATE         NOT NULL COMMENT '가입일', -- 가입일
+	genre1   VARCHAR(50)  NOT NULL COMMENT '선호장르1', -- 선호장르1
+	genre2   VARCHAR(50)  NOT NULL COMMENT '선호장르2', -- 선호장르2
+	genre3   VARCHAR(50)  NOT NULL COMMENT '선호장르3', -- 선호장르3
+	yn       CHAR(1)      NOT NULL COMMENT '정지여부', -- 정지여부
+	memo     VARCHAR(50)  NULL     COMMENT '메모' -- 메모
+)
+COMMENT '회원';
+
+-- 회원
+ALTER TABLE memb
+	ADD CONSTRAINT PK_memb -- 회원 기본키
+		PRIMARY KEY (
+			mno -- 회원번호
+		);
+
+-- 회원 유니크 인덱스
+CREATE UNIQUE INDEX UIX_memb
+	ON memb ( -- 회원
+		nik ASC,   -- 닉네임
+		id ASC,    -- 아이디
+		email ASC  -- 이메일
+	);
+
+-- 회원 인덱스
+CREATE INDEX IX_memb
+	ON memb( -- 회원
+		id ASC -- 아이디
+	);
+
+-- 회원 인덱스2
+CREATE INDEX IX_memb2
+	ON memb( -- 회원
+		email ASC -- 이메일
+	);
+
+ALTER TABLE memb
+	MODIFY COLUMN mno INTEGER NOT NULL AUTO_INCREMENT COMMENT '회원번호';
+
+-- 버스커
+CREATE TABLE busk (
+	bno   INTEGER      NOT NULL COMMENT '버스커번호', -- 버스커번호
+	name  VARCHAR(50)  NOT NULL COMMENT '팀명', -- 팀명
+	genre VARCHAR(50)  NOT NULL COMMENT '장르', -- 장르
+	city  VARCHAR(50)  NOT NULL COMMENT '도시', -- 도시
+	tel   VARCHAR(30)  NOT NULL COMMENT '연락처', -- 연락처
+	inst  VARCHAR(50)  NULL     COMMENT '악기', -- 악기
+	strm  VARCHAR(255) NULL     COMMENT '스트리밍url', -- 스트리밍url
+	intro TEXT         NULL     COMMENT '팀소개', -- 팀소개
+	phot  VARCHAR(255) NOT NULL COMMENT '팀 사진', -- 팀 사진
+	avi1  VARCHAR(255) NOT NULL COMMENT '승인동영상1', -- 승인동영상1
+	avi2  VARCHAR(255) NOT NULL COMMENT '승인동영상2', -- 승인동영상2
+	per   CHAR(1)      NOT NULL COMMENT '승인여부', -- 승인여부
+	lcnt  INTEGER      NULL     COMMENT '좋아요수' -- 좋아요수
+)
+COMMENT '버스커';
+
+-- 버스커
+ALTER TABLE busk
+	ADD CONSTRAINT PK_busk -- 버스커 기본키
+		PRIMARY KEY (
+			bno -- 버스커번호
+		);
+
+-- 버스커 인덱스
+CREATE INDEX IX_busk
+	ON busk( -- 버스커
+		name ASC -- 팀명
+	);
+
+-- 무대_제공자
+CREATE TABLE sup (
+	sno      INTEGER      NOT NULL COMMENT '무대제공자번호', -- 무대제공자번호
+	name     VARCHAR(50)  NOT NULL COMMENT '제공자명', -- 제공자명
+	bas_addr VARCHAR(255) NOT NULL COMMENT '기본주소', -- 기본주소
+	postno   VARCHAR(10)  NOT NULL COMMENT '우편번호', -- 우편번호
+	det_addr VARCHAR(255) NOT NULL COMMENT '상세주소', -- 상세주소
+	genre    VARCHAR(50)  NOT NULL COMMENT '장르', -- 장르
+	capa     INTEGER      NOT NULL COMMENT '수용가능인원', -- 수용가능인원
+	tel      VARCHAR(30)  NOT NULL COMMENT '연락처', -- 연락처
+	per      CHAR(1)      NOT NULL COMMENT '승인여부', -- 승인여부
+	etc      TEXT         NULL     COMMENT '메시지', -- 메시지
+	x        FLOAT        NOT NULL COMMENT '위도', -- 위도
+	y        FLOAT        NOT NULL COMMENT '경도' -- 경도
+)
+COMMENT '무대_제공자';
+
+-- 무대_제공자
+ALTER TABLE sup
+	ADD CONSTRAINT PK_sup -- 무대_제공자 기본키
+		PRIMARY KEY (
+			sno -- 무대제공자번호
+		);
+
+-- 무대_제공자 유니크 인덱스
+CREATE UNIQUE INDEX UIX_sup
+	ON sup ( -- 무대_제공자
+		name ASC -- 제공자명
+	);
+
+-- 무대_제공자 인덱스
+CREATE INDEX IX_sup
+	ON sup( -- 무대_제공자
+		name ASC -- 제공자명
+	);
+
+-- 버스킹스케쥴
+CREATE TABLE per_sche (
+	psno INTEGER      NOT NULL COMMENT '버스킹스케줄번호', -- 버스킹스케줄번호
+	sdt  DATETIME     NOT NULL COMMENT '시작일시', -- 시작일시
+	edt  DATETIME     NOT NULL COMMENT '끝일시', -- 끝일시
+	addr VARCHAR(255) NOT NULL COMMENT '주소', -- 주소
+	y    FLOAT        NOT NULL COMMENT '위도', -- 위도
+	x    FLOAT        NOT NULL COMMENT '경도', -- 경도
+	bno  INTEGER      NOT NULL COMMENT '버스커번호' -- 버스커번호
+)
+COMMENT '버스킹스케쥴';
+
+-- 버스킹스케쥴
+ALTER TABLE per_sche
+	ADD CONSTRAINT PK_per_sche -- 버스킹스케쥴 기본키
+		PRIMARY KEY (
+			psno -- 버스킹스케줄번호
+		);
+
+ALTER TABLE per_sche
+	MODIFY COLUMN psno INTEGER NOT NULL AUTO_INCREMENT COMMENT '버스킹스케줄번호';
+
+-- 사진 게시글
+CREATE TABLE phot (
+	pbno INTEGER  NOT NULL COMMENT '사게시글번호', -- 사게시글번호
+	cont TEXT     NULL     COMMENT '글내용', -- 글내용
+	lcnt INTEGER  NULL     COMMENT '좋아요 수', -- 좋아요 수
+	cdt  DATETIME NOT NULL COMMENT '작성일', -- 작성일
+	bno  INTEGER  NOT NULL COMMENT '버스커번호' -- 버스커번호
+)
+COMMENT '사진 게시글';
+
+-- 사진 게시글
+ALTER TABLE phot
+	ADD CONSTRAINT PK_phot -- 사진 게시글 기본키
+		PRIMARY KEY (
+			pbno -- 사게시글번호
+		);
+
+-- 사진 게시글 인덱스
+CREATE INDEX IX_phot
+	ON phot( -- 사진 게시글
+		lcnt ASC -- 좋아요 수
+	);
+
+ALTER TABLE phot
+	MODIFY COLUMN pbno INTEGER NOT NULL AUTO_INCREMENT COMMENT '사게시글번호';
+
+-- 동영상댓글
+CREATE TABLE avi_comt (
+	acno INTEGER  NOT NULL COMMENT '댓글번호', -- 댓글번호
+	cont TEXT     NOT NULL COMMENT '내용', -- 내용
+	cdt  DATETIME NOT NULL COMMENT '작성일', -- 작성일
+	mno  INTEGER  NOT NULL COMMENT '회원번호', -- 회원번호
+	abno INTEGER  NOT NULL COMMENT '동게시글번호' -- 동게시글번호
+)
+COMMENT '동영상댓글';
+
+-- 동영상댓글
+ALTER TABLE avi_comt
+	ADD CONSTRAINT PK_avi_comt -- 동영상댓글 기본키
+		PRIMARY KEY (
+			acno -- 댓글번호
+		);
+
+ALTER TABLE avi_comt
+	MODIFY COLUMN acno INTEGER NOT NULL AUTO_INCREMENT COMMENT '댓글번호';
+
+-- 알림
+CREATE TABLE aralm (
+	alno  INTEGER     NOT NULL COMMENT '알림번호', -- 알림번호
+	dt    DATETIME    NOT NULL COMMENT '일시', -- 일시
+	sendr INTEGER     NOT NULL COMMENT '보낸사람', -- 보낸사람
+	cont  VARCHAR(50) NOT NULL COMMENT '내용', -- 내용
+	stus  VARCHAR(50) NOT NULL COMMENT '상태매세지', -- 상태매세지
+	mno   INTEGER     NOT NULL COMMENT '회원번호' -- 회원번호
+)
+COMMENT '알림';
+
+-- 알림
+ALTER TABLE aralm
+	ADD CONSTRAINT PK_aralm -- 알림 기본키
+		PRIMARY KEY (
+			alno -- 알림번호
+		);
+
+-- 알림 인덱스
+CREATE INDEX IX_aralm
+	ON aralm( -- 알림
+		dt ASC -- 일시
+	);
+
+ALTER TABLE aralm
+	MODIFY COLUMN alno INTEGER NOT NULL AUTO_INCREMENT COMMENT '알림번호';
+
+-- 버스킹홍보
+CREATE TABLE busk_board (
+	bbno  INTEGER      NOT NULL COMMENT '버스킹번호', -- 버스킹번호
+	titl  VARCHAR(50)  NOT NULL COMMENT '제목', -- 제목
+	genre VARCHAR(50)  NOT NULL COMMENT '장르', -- 장르
+	city  VARCHAR(50)  NOT NULL COMMENT '공연도시', -- 공연도시
+	cnt   INTEGER      NOT NULL COMMENT '인원', -- 인원
+	sdt   DATETIME     NOT NULL COMMENT '시작일', -- 시작일
+	edt   DATETIME     NOT NULL COMMENT '종료일', -- 종료일
+	tel1  VARCHAR(30)  NOT NULL COMMENT '연락처1', -- 연락처1
+	tel2  VARCHAR(30)  NULL     COMMENT '연락처2', -- 연락처2
+	etc   TEXT         NULL     COMMENT '홍보내용', -- 홍보내용
+	cdt   DATETIME     NOT NULL COMMENT '등록일', -- 등록일
+	phot  VARCHAR(255) NOT NULL COMMENT '사진명', -- 사진명
+	bno   INTEGER      NOT NULL COMMENT '버스커번호' -- 버스커번호
+)
+COMMENT '버스킹홍보';
+
+-- 버스킹홍보
+ALTER TABLE busk_board
+	ADD CONSTRAINT PK_busk_board -- 버스킹홍보 기본키
+		PRIMARY KEY (
+			bbno -- 버스킹번호
+		);
+
+-- 버스킹홍보 인덱스
+CREATE INDEX IX_busk_board2
+	ON busk_board( -- 버스킹홍보
+		sdt ASC -- 시작일
+	);
+
+-- 버스킹홍보 인덱스2
+CREATE INDEX IX_busk_board3
+	ON busk_board( -- 버스킹홍보
+		edt ASC -- 종료일
+	);
+
+-- 버스킹홍보 인덱스3
+CREATE INDEX IX_busk_board4
+	ON busk_board( -- 버스킹홍보
+		city ASC -- 공연도시
+	);
+
+-- 버스킹홍보 인덱스4
+CREATE INDEX IX_busk_board5
+	ON busk_board( -- 버스킹홍보
+		genre ASC -- 장르
+	);
+
+ALTER TABLE busk_board
+	MODIFY COLUMN bbno INTEGER NOT NULL AUTO_INCREMENT COMMENT '버스킹번호';
+
+-- 동영상 게시글
+CREATE TABLE avi (
+	abno INTEGER      NOT NULL COMMENT '동게시글번호', -- 동게시글번호
+	titl VARCHAR(50)  NOT NULL COMMENT '제목', -- 제목
+	cont TEXT         NULL     COMMENT '글내용', -- 글내용
+	lcnt INTEGER      NULL     COMMENT '좋아요 수', -- 좋아요 수
+	cdt  DATETIME     NOT NULL COMMENT '작성일', -- 작성일
+	stm  VARCHAR(255) NOT NULL COMMENT 'url', -- url
+	bno  INTEGER      NOT NULL COMMENT '버스커번호' -- 버스커번호
+)
+COMMENT '동영상 게시글';
+
+-- 동영상 게시글
+ALTER TABLE avi
+	ADD CONSTRAINT PK_avi -- 동영상 게시글 기본키
+		PRIMARY KEY (
+			abno -- 동게시글번호
+		);
+
+-- 동영상 게시글 인덱스
+CREATE INDEX IX_avi
+	ON avi( -- 동영상 게시글
+		titl ASC -- 제목
+	);
+
+-- 동영상 게시글 인덱스2
+CREATE INDEX IX_avi2
+	ON avi( -- 동영상 게시글
+		lcnt ASC -- 좋아요 수
+	);
+
+ALTER TABLE avi
+	MODIFY COLUMN abno INTEGER NOT NULL AUTO_INCREMENT COMMENT '동게시글번호';
+
+-- 사진댓글
+CREATE TABLE phot_comt (
+	pcno INTEGER  NOT NULL COMMENT '댓글번호', -- 댓글번호
+	cont TEXT     NOT NULL COMMENT '내용', -- 내용
+	cdt  DATETIME NOT NULL COMMENT '작성일', -- 작성일
+	mno  INTEGER  NOT NULL COMMENT '회원번호', -- 회원번호
+	pbno INTEGER  NOT NULL COMMENT '사게시글번호' -- 사게시글번호
+)
+COMMENT '사진댓글';
+
+-- 사진댓글
+ALTER TABLE phot_comt
+	ADD CONSTRAINT PK_phot_comt -- 사진댓글 기본키
+		PRIMARY KEY (
+			pcno -- 댓글번호
+		);
+
+ALTER TABLE phot_comt
+	MODIFY COLUMN pcno INTEGER NOT NULL AUTO_INCREMENT COMMENT '댓글번호';
+
+-- 퐐로잉
+CREATE TABLE folw (
+	mno2 INTEGER NOT NULL COMMENT '회원번호', -- 회원번호
+	bno  INTEGER NOT NULL COMMENT '버스커번호' -- 버스커번호
+)
+COMMENT '퐐로잉';
+
+-- 퐐로잉
+ALTER TABLE folw
+	ADD CONSTRAINT PK_folw -- 퐐로잉 기본키
+		PRIMARY KEY (
+			mno2, -- 회원번호
+			bno   -- 버스커번호
+		);
+
+-- 무대사진
+CREATE TABLE stag_phot (
+	spno INTEGER      NOT NULL COMMENT '사진번호', -- 사진번호
+	phot VARCHAR(255) NOT NULL COMMENT '사진파일명', -- 사진파일명
+	sno  INTEGER      NOT NULL COMMENT '무대제공자번호' -- 무대제공자번호
+)
+COMMENT '무대사진';
+
+-- 무대사진
+ALTER TABLE stag_phot
+	ADD CONSTRAINT PK_stag_phot -- 무대사진 기본키
+		PRIMARY KEY (
+			spno -- 사진번호
+		);
+
+ALTER TABLE stag_phot
+	MODIFY COLUMN spno INTEGER NOT NULL AUTO_INCREMENT COMMENT '사진번호';
+
+-- 버스킹무대사용요청
+CREATE TABLE busk_req (
+	brno INTEGER  NOT NULL COMMENT '무대사용요청번호', -- 무대사용요청번호
+	bno  INTEGER  NOT NULL COMMENT '버스커번호', -- 버스커번호
+	cont TEXT     NULL     COMMENT '요청내용', -- 요청내용
+	cdt  DATETIME NOT NULL COMMENT '작성일시', -- 작성일시
+	flag CHAR(1)  NOT NULL COMMENT '상태' -- 상태
+)
+COMMENT '버스킹무대사용요청';
+
+-- 버스킹무대사용요청
+ALTER TABLE busk_req
+	ADD CONSTRAINT PK_busk_req -- 버스킹무대사용요청 기본키
+		PRIMARY KEY (
+			brno -- 무대사용요청번호
+		);
+
+-- 버스킹무대사용요청 인덱스
+CREATE INDEX IX_busk_req
+	ON busk_req( -- 버스킹무대사용요청
+		flag ASC -- 상태
+	);
+
+ALTER TABLE busk_req
+	MODIFY COLUMN brno INTEGER NOT NULL AUTO_INCREMENT COMMENT '무대사용요청번호';
+
+-- 무대스케쥴
+CREATE TABLE stag_sche (
+	ssno INTEGER  NOT NULL COMMENT '무대스케줄번호', -- 무대스케줄번호
+	sdt  DATETIME NOT NULL COMMENT '시작일시', -- 시작일시
+	edt  DATETIME NOT NULL COMMENT '종료일시', -- 종료일시
+	flag CHAR(1)  NOT NULL COMMENT '상태', -- 상태
+	sno  INTEGER  NOT NULL COMMENT '무대제공자번호' -- 무대제공자번호
+)
+COMMENT '무대스케쥴';
+
+-- 무대스케쥴
+ALTER TABLE stag_sche
+	ADD CONSTRAINT PK_stag_sche -- 무대스케쥴 기본키
+		PRIMARY KEY (
+			ssno -- 무대스케줄번호
+		);
+
+ALTER TABLE stag_sche
+	MODIFY COLUMN ssno INTEGER NOT NULL AUTO_INCREMENT COMMENT '무대스케줄번호';
+
+-- 홍보댓글
+CREATE TABLE board_comt (
+	bcno INTEGER NOT NULL COMMENT '댓글번호', -- 댓글번호
+	cont TEXT    NOT NULL COMMENT '내용', -- 내용
+	bbno INTEGER NOT NULL COMMENT '버스킹번호', -- 버스킹번호
+	mno  INTEGER NOT NULL COMMENT '회원번호' -- 회원번호
+)
+COMMENT '홍보댓글';
+
+-- 홍보댓글
+ALTER TABLE board_comt
+	ADD CONSTRAINT PK_board_comt -- 홍보댓글 기본키
+		PRIMARY KEY (
+			bcno -- 댓글번호
+		);
+
+ALTER TABLE board_comt
+	MODIFY COLUMN bcno INTEGER NOT NULL AUTO_INCREMENT COMMENT '댓글번호';
+
+-- 피드사진
+CREATE TABLE feed_phot (
+	fpno INTEGER      NOT NULL COMMENT '사진번호', -- 사진번호
+	phot VARCHAR(255) NOT NULL COMMENT '사진명', -- 사진명
+	pbno INTEGER      NOT NULL COMMENT '사게시글번호' -- 사게시글번호
+)
+COMMENT '피드사진';
+
+-- 피드사진
+ALTER TABLE feed_phot
+	ADD CONSTRAINT PK_feed_phot -- 피드사진 기본키
+		PRIMARY KEY (
+			fpno -- 사진번호
+		);
+
+ALTER TABLE feed_phot
+	MODIFY COLUMN fpno INTEGER NOT NULL AUTO_INCREMENT COMMENT '사진번호';
+
+-- 동영상인기통계
+CREATE TABLE avi_fav (
+	abno INTEGER NOT NULL COMMENT '동게시글번호', -- 동게시글번호
+	lcnt INTEGER NOT NULL COMMENT '좋아요' -- 좋아요
+)
+COMMENT '동영상인기통계';
+
+-- 동영상인기통계
+ALTER TABLE avi_fav
+	ADD CONSTRAINT PK_avi_fav -- 동영상인기통계 기본키
+		PRIMARY KEY (
+			abno -- 동게시글번호
+		);
+
+-- 공연장인기통계
+CREATE TABLE stag_fav (
+	ssno INTEGER NOT NULL COMMENT '무대스케줄번호', -- 무대스케줄번호
+	cnt  INTEGER NOT NULL COMMENT '요청수' -- 요청수
+)
+COMMENT '공연장인기통계';
+
+-- 공연장인기통계
+ALTER TABLE stag_fav
+	ADD CONSTRAINT PK_stag_fav -- 공연장인기통계 기본키
+		PRIMARY KEY (
+			ssno -- 무대스케줄번호
+		);
+
+-- 무대사용요청스케줄
+CREATE TABLE busk_stag (
+	ssno INTEGER NOT NULL COMMENT '무대스케줄번호', -- 무대스케줄번호
+	brno INTEGER NOT NULL COMMENT '무대사용요청번호' -- 무대사용요청번호
+)
+COMMENT '무대사용요청스케줄';
+
+-- 무대사용요청스케줄
+ALTER TABLE busk_stag
+	ADD CONSTRAINT PK_busk_stag -- 무대사용요청스케줄 기본키
+		PRIMARY KEY (
+			ssno, -- 무대스케줄번호
+			brno  -- 무대사용요청번호
+		);
+
+-- 버스커
+ALTER TABLE busk
+	ADD CONSTRAINT FK_memb_TO_busk -- 회원 -> 버스커
+		FOREIGN KEY (
+			bno -- 버스커번호
+		)
+		REFERENCES memb ( -- 회원
+			mno -- 회원번호
+		);
+
+-- 무대_제공자
+ALTER TABLE sup
+	ADD CONSTRAINT FK_memb_TO_sup -- 회원 -> 무대_제공자
+		FOREIGN KEY (
+			sno -- 무대제공자번호
+		)
+		REFERENCES memb ( -- 회원
+			mno -- 회원번호
+		);
+
+-- 버스킹스케쥴
+ALTER TABLE per_sche
+	ADD CONSTRAINT FK_busk_TO_per_sche -- 버스커 -> 버스킹스케쥴
+		FOREIGN KEY (
+			bno -- 버스커번호
+		)
+		REFERENCES busk ( -- 버스커
+			bno -- 버스커번호
+		);
+
+-- 사진 게시글
+ALTER TABLE phot
+	ADD CONSTRAINT FK_busk_TO_phot -- 버스커 -> 사진 게시글
+		FOREIGN KEY (
+			bno -- 버스커번호
+		)
+		REFERENCES busk ( -- 버스커
+			bno -- 버스커번호
+		);
+
+-- 동영상댓글
+ALTER TABLE avi_comt
+	ADD CONSTRAINT FK_memb_TO_avi_comt -- 회원 -> 동영상댓글
+		FOREIGN KEY (
+			mno -- 회원번호
+		)
+		REFERENCES memb ( -- 회원
+			mno -- 회원번호
+		);
+
+-- 동영상댓글
+ALTER TABLE avi_comt
+	ADD CONSTRAINT FK_avi_TO_avi_comt -- 동영상 게시글 -> 동영상댓글
+		FOREIGN KEY (
+			abno -- 동게시글번호
+		)
+		REFERENCES avi ( -- 동영상 게시글
+			abno -- 동게시글번호
+		);
+
+-- 알림
+ALTER TABLE aralm
+	ADD CONSTRAINT FK_memb_TO_aralm -- 회원 -> 알림
+		FOREIGN KEY (
+			mno -- 회원번호
+		)
+		REFERENCES memb ( -- 회원
+			mno -- 회원번호
+		);
+
+-- 버스킹홍보
+ALTER TABLE busk_board
+	ADD CONSTRAINT FK_busk_TO_busk_board -- 버스커 -> 버스킹홍보
+		FOREIGN KEY (
+			bno -- 버스커번호
+		)
+		REFERENCES busk ( -- 버스커
+			bno -- 버스커번호
+		);
+
+-- 동영상 게시글
+ALTER TABLE avi
+	ADD CONSTRAINT FK_busk_TO_avi -- 버스커 -> 동영상 게시글
+		FOREIGN KEY (
+			bno -- 버스커번호
+		)
+		REFERENCES busk ( -- 버스커
+			bno -- 버스커번호
+		);
+
+-- 사진댓글
+ALTER TABLE phot_comt
+	ADD CONSTRAINT FK_memb_TO_phot_comt -- 회원 -> 사진댓글
+		FOREIGN KEY (
+			mno -- 회원번호
+		)
+		REFERENCES memb ( -- 회원
+			mno -- 회원번호
+		);
+
+-- 사진댓글
+ALTER TABLE phot_comt
+	ADD CONSTRAINT FK_phot_TO_phot_comt -- 사진 게시글 -> 사진댓글
+		FOREIGN KEY (
+			pbno -- 사게시글번호
+		)
+		REFERENCES phot ( -- 사진 게시글
+			pbno -- 사게시글번호
+		);
+
+-- 퐐로잉
+ALTER TABLE folw
+	ADD CONSTRAINT FK_memb_TO_folw -- 회원 -> 퐐로잉
+		FOREIGN KEY (
+			mno2 -- 회원번호
+		)
+		REFERENCES memb ( -- 회원
+			mno -- 회원번호
+		);
+
+-- 퐐로잉
+ALTER TABLE folw
+	ADD CONSTRAINT FK_busk_TO_folw -- 버스커 -> 퐐로잉
+		FOREIGN KEY (
+			bno -- 버스커번호
+		)
+		REFERENCES busk ( -- 버스커
+			bno -- 버스커번호
+		);
+
+-- 무대사진
+ALTER TABLE stag_phot
+	ADD CONSTRAINT FK_sup_TO_stag_phot -- 무대_제공자 -> 무대사진
+		FOREIGN KEY (
+			sno -- 무대제공자번호
+		)
+		REFERENCES sup ( -- 무대_제공자
+			sno -- 무대제공자번호
+		);
+
+-- 버스킹무대사용요청
+ALTER TABLE busk_req
+	ADD CONSTRAINT FK_busk_TO_busk_req -- 버스커 -> 버스킹무대사용요청
+		FOREIGN KEY (
+			bno -- 버스커번호
+		)
+		REFERENCES busk ( -- 버스커
+			bno -- 버스커번호
+		);
+
+-- 무대스케쥴
+ALTER TABLE stag_sche
+	ADD CONSTRAINT FK_sup_TO_stag_sche -- 무대_제공자 -> 무대스케쥴
+		FOREIGN KEY (
+			sno -- 무대제공자번호
+		)
+		REFERENCES sup ( -- 무대_제공자
+			sno -- 무대제공자번호
+		);
+
+-- 홍보댓글
+ALTER TABLE board_comt
+	ADD CONSTRAINT FK_busk_board_TO_board_comt -- 버스킹홍보 -> 홍보댓글
+		FOREIGN KEY (
+			bbno -- 버스킹번호
+		)
+		REFERENCES busk_board ( -- 버스킹홍보
+			bbno -- 버스킹번호
+		);
+
+-- 홍보댓글
+ALTER TABLE board_comt
+	ADD CONSTRAINT FK_memb_TO_board_comt -- 회원 -> 홍보댓글
+		FOREIGN KEY (
+			mno -- 회원번호
+		)
+		REFERENCES memb ( -- 회원
+			mno -- 회원번호
+		);
+
+-- 피드사진
+ALTER TABLE feed_phot
+	ADD CONSTRAINT FK_phot_TO_feed_phot -- 사진 게시글 -> 피드사진
+		FOREIGN KEY (
+			pbno -- 사게시글번호
+		)
+		REFERENCES phot ( -- 사진 게시글
+			pbno -- 사게시글번호
+		);
+
+-- 동영상인기통계
+ALTER TABLE avi_fav
+	ADD CONSTRAINT FK_avi_TO_avi_fav -- 동영상 게시글 -> 동영상인기통계
+		FOREIGN KEY (
+			abno -- 동게시글번호
+		)
+		REFERENCES avi ( -- 동영상 게시글
+			abno -- 동게시글번호
+		);
+
+-- 공연장인기통계
+ALTER TABLE stag_fav
+	ADD CONSTRAINT FK_stag_sche_TO_stag_fav -- 무대스케쥴 -> 공연장인기통계
+		FOREIGN KEY (
+			ssno -- 무대스케줄번호
+		)
+		REFERENCES stag_sche ( -- 무대스케쥴
+			ssno -- 무대스케줄번호
+		);
+
+-- 무대사용요청스케줄
+ALTER TABLE busk_stag
+	ADD CONSTRAINT FK_busk_req_TO_busk_stag -- 버스킹무대사용요청 -> 무대사용요청스케줄
+		FOREIGN KEY (
+			brno -- 무대사용요청번호
+		)
+		REFERENCES busk_req ( -- 버스킹무대사용요청
+			brno -- 무대사용요청번호
+		);
+
+-- 무대사용요청스케줄
+ALTER TABLE busk_stag
+	ADD CONSTRAINT FK_stag_sche_TO_busk_stag -- 무대스케쥴 -> 무대사용요청스케줄
+		FOREIGN KEY (
+			ssno -- 무대스케줄번호
+		)
+		REFERENCES stag_sche ( -- 무대스케쥴
+			ssno -- 무대스케줄번호
+		);
