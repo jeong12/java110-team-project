@@ -17,7 +17,7 @@ public class Member implements Serializable {
   protected Map<String,String> genre;
   protected char yn;
   protected String memo;
-  protected Date Sdt;
+  protected Date sdt;
   protected Date edt;
   
   
