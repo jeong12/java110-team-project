@@ -1,3 +1,8 @@
+<%@ page language="java" 
+    contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+    trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,7 +84,7 @@ $(this).addClass("active");
    
    <div id="titl">
        <img src="../../img/playButton.PNG" id="logo">
-       <h2>인기 버스커</h2>
+       <h2>무대 목록</h2>
    </div>
    
    <div class="container">
@@ -113,71 +118,15 @@ $(this).addClass("active");
 
     <div class="container">
         <div class="row">
-       
-
    
         <br/>
-
+            <c:forEach  items="${list}" var="m">
             <div class="list col-lg-4 col-md-4 col-sm-4 col-xs-6" data-toggle="modal" data-target="#myModal">
-                <img src="img/%EB%B2%84%EC%8A%A4%ED%82%B9%201.jpg" class="img-responsive">
-                <h3>가나다라마바사</h3>
+                <img src="${m.photoName}" class="img-responsive" alt="${m.photoName}">
+                <h3>${m.name}</h3>
             </div>
+            </c:forEach>
 
-            <div class="list col-lg-4 col-md-4 col-sm-4 col-xs-6" data-toggle="modal" data-target="#myModal">
-                <img src="img/%EB%B2%84%EC%8A%A4%ED%82%B9%202.jpg" class="img-responsive">
-                <h3>고정은</h3>
-            </div>
-
-            <div class="list col-lg-4 col-md-4 col-sm-4 col-xs-6" data-toggle="modal" data-target="#myModal">
-                <img src="img/%EB%B2%84%EC%8A%A4%ED%82%B9%203.jpg" class="img-responsive">
-                <h3>김영록</h3>
-            </div>
-
-            <div class="list col-lg-4 col-md-4 col-sm-4 col-xs-6" data-toggle="modal" data-target="#myModal">
-                <img src="img/%EB%B2%84%EC%8A%A4%ED%82%B9%204.jpg" class="img-responsive">
-                <h3>가나다라마바사</h3>
-            </div>
-
-            <div class="list col-lg-4 col-md-4 col-sm-4 col-xs-6" data-toggle="modal" data-target="#myModal">
-                <img src="img/%EB%B2%84%EC%8A%A4%ED%82%B9%20%EC%84%9C%EC%BB%A4%EC%8A%A4.jpg" class="img-responsive">
-                <h3>가나다라마바사</h3>
-            </div>
-
-            <div class="list col-lg-4 col-md-4 col-sm-4 col-xs-6" data-toggle="modal" data-target="#myModal">
-                <img src="img/%EB%B2%84%EC%8A%A4%ED%82%B9%20%EC%8B%A4%EB%82%B41.jpg" class="img-responsive">
-                <h3>가나다라마바사</h3>
-            </div>
-
-            <div class="list col-lg-4 col-md-4 col-sm-4 col-xs-6" data-toggle="modal" data-target="#myModal">
-                <img src="img/%EB%B2%84%EC%8A%A4%ED%82%B9%20%EC%8B%A4%EB%82%B42.jpg" class="img-responsive">
-                <h3>가나다라마바사</h3>
-            </div>
-
-            <div class="list col-lg-4 col-md-4 col-sm-4 col-xs-6" data-toggle="modal" data-target="#myModal">
-                <img src="img/%EB%B2%84%EC%8A%A4%ED%82%B9%EC%9E%A5%EC%86%8C1.jpg" class="img-responsive">
-                <h3>가나다라마바사</h3>
-            </div>
-
-            <div class="list col-lg-4 col-md-4 col-sm-4 col-xs-6" data-toggle="modal" data-target="#myModal">
-                <img src="img/%EC%82%AC%EC%8A%B4.jpg" class="img-responsive">
-                <h3>가나다라마바사</h3>
-            </div>
-
-            <div class="list col-lg-4 col-md-4 col-sm-4 col-xs-6" data-toggle="modal" data-target="#myModal">
-                <img src="http://fakeimg.pl/365x365/" class="img-responsive">
-                <h3>가나다라마바사</h3>
-            </div>
-
-            <div class="list col-lg-4 col-md-4 col-sm-4 col-xs-6" data-toggle="modal" data-target="#myModal">
-                <img src="http://fakeimg.pl/365x365/" class="img-responsive">
-                <h3>가나다라마바사</h3>
-            </div>
-
-            <div class="list col-lg-4 col-md-4 col-sm-4 col-xs-6" data-toggle="modal" data-target="#myModal">
-                <img src="http://fakeimg.pl/365x365/" class="img-responsive">
-                <h3>가나다라마바사</h3>
-            </div>
-        </div>
     </div>
 
 
