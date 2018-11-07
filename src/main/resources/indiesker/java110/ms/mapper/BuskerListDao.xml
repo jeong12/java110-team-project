@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- MemberDao 클래스가 사용할 SQL이 들어 있는 파일 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indiesker.java110.ms.dao.BuskerListDao">
+
+    <resultMap type="BuskerList" id="buskerMap">
+        <id column="name"  property="teamName"/>
+        <result column="phot"  property="phot"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="buskerMap" parameterType="map">
+	SELECT B.name, FP.phot
+	FROM busk B, phot P, feed_phot FP, (SELECT MAX(pbno) as pbno
+	FROM phot
+	GROUP BY bno ) as T
+	WHERE B.bno = P.bno
+	AND P.pbno = FP.pbno
+	AND P.pbno = T.pbno
+	GROUP BY B.bno
+
+	limit #{rowNo}, #{size}
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- MemberDao 클래스가 사용할 SQL이 들어 있는 파일 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indiesker.java110.ms.dao.FeedPhotoDao">
+
+    <resultMap type="FeedPhoto" id="feedPhotoMap">
+        <id column="name"  property="teamName"/>
+        <result column="genre"  property="genre"/>
+        <result column="city"  property="city"/>
+        <result column="cont"  property="content"/>
+        <result column="lcnt"  property="likecount"/>
+    </resultMap>
+
+    <select id="findByFeedPhoto" resultMap="feedPhotoMap" >
+    select b.name, b.genre, b.city, p.cont, p.lcnt
+    from busk b, phot p
+    where b.bno=p.bno
+    and b.bno=1 and p.pbno=1
+
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+
