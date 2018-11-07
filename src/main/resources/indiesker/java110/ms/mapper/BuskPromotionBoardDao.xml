@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indiesker.java110.ms.dao.BuskerPromotionDao">
+
+    <resultMap type="BuskerPromotion" id="buskPromotionMap">
+        <id column="titl"  property="titl"/>
+        <result column="name"  property="teamName"/>
+        <result column="genre"  property="genre"/>
+        <result column="city"  property="city"/>
+        <result column="sdt"  property="sdt"/>
+        <result column="edt"  property="edt"/>
+        <result column="cnt"  property="cnt"/>
+        <result column="etc"  property="etc"/>
+        <result column="phot"  property="phot"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="buskPromotionMap" parameterType="map">
+select titl, b.name, bo.genre, bo.city, sdt, edt, cnt, etc, bo.phot
+from busk_board bo join busk b on bo.bbno = b.bno;
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+
