@@ -1,7 +1,5 @@
 package indiesker.java110.ms.domain;
 
-import java.sql.Date;
-
 public class Busker extends Member{
   private static final long serialVersionUID = 1L;
   
@@ -17,7 +15,6 @@ public class Busker extends Member{
   protected char permission; // 승인여부
   protected int likecount;
   protected String tel;
-  protected Date edt;
   
   public String getTeamname() {
     return teamname;

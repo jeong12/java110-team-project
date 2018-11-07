@@ -1,8 +1,8 @@
 package indiesker.java110.ms.domain;
 
+import java.sql.Date;
+
 public class Schedule {
-  protected String startDate;
-  protected String endDate;
-  protected String startTime;
-  protected String endTime;
+  protected Date start;
+  protected Date end;
 }
