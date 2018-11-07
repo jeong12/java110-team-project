@@ -10,7 +10,7 @@ import indiesker.java110.ms.domain.FeedPhoto;
 import indiesker.java110.ms.service.FeedPhotoService;
 
 @Controller
-@RequestMapping("/FeedPhoto")
+@RequestMapping("/feedphoto")
 public class FeedPhotoController {
 
   FeedPhotoService feedphotoService;   

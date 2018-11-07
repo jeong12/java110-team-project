@@ -11,7 +11,7 @@ import indiesker.java110.ms.domain.StageList;
 import indiesker.java110.ms.service.StageListService;
 
 @Controller
-@RequestMapping("/StageList")
+@RequestMapping("/stagelist")
 public class StageListController {
 
   StageListService stageListService;   
