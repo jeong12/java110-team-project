@@ -84,3 +84,22 @@ insert into phot_comt(pcno, cont, cdt, mno, pbno) values(5,'저희 공연 많이
 -- 동영상 댓글
 insert into avi_comt(acno, cont, cdt, mno, abno) values(5,'저희 공연 많이 와주세연',now(),5,5);
 
+-- 피드 사진
+insert into feed_phot(fpno,phot,pbno) values (1,'aaa',1);
+insert into feed_phot(fpno,phot,pbno) values (2,'bbb',1);
+insert into feed_phot(fpno,phot,pbno) values (3,'ccc',1);
+
+insert into feed_phot(fpno,phot,pbno) values (4,'ddd',3);
+insert into feed_phot(fpno,phot,pbno) values (5,'eee',3);
+insert into feed_phot(fpno,phot,pbno) values (6,'fff',3);
+
+insert into feed_phot(fpno,phot,pbno) values (7,'ggg',5);
+insert into feed_phot(fpno,phot,pbno) values (8,'hhh',5);
+insert into feed_phot(fpno,phot,pbno) values (9,'iii',5);
+
+insert into feed_phot(fpno,phot,pbno) values (10,'jjj',7);
+insert into feed_phot(fpno,phot,pbno) values (11,'kkk',7);
+insert into feed_phot(fpno,phot,pbno) values (12,'lll',7);
+
+
+
