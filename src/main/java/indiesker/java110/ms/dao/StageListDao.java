@@ -7,5 +7,5 @@ import indiesker.java110.ms.domain.StageList;
 public interface StageListDao {
   
   List<StageList> findAll(Map<String,Object> params);
-
+  List<StageList> findByName(String parms);
 }

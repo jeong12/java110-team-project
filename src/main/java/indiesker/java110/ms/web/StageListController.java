@@ -37,7 +37,11 @@ public class StageListController {
     List<StageList> list = stageListService.list(pageNo, pageSize);
     model.addAttribute("list", list);
 
-
-
+  }
+  
+  @GetMapping("name")
+  public void name(String param, Model model) {
+    List<StageList> name = stageListService.name(param);
+    model.addAttribute("name",name);
   }
 }

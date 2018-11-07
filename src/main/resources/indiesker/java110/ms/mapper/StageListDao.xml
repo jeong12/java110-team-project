@@ -16,6 +16,14 @@ FROM sup as s, stag_phot as sp, stag_sche as ss
 WHERE s.sno=sp.sno and s.sno = ss.ssno and ss.ssno is not null
 limit #{rowNo}, #{size} 
     </select>
+  
+     <select id="findByName" resultMap="StageMap" parameterType="String">
+SELECT s.name, sp.phot
+FROM sup as s, stag_phot as sp, stag_sche as ss
+WHERE s.sno=sp.sno and s.sno = ss.ssno and ss.ssno is not null 
+and s.name = #{name} 
+    </select>  
+    
 </mapper>
 
 

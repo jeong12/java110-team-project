@@ -21,8 +21,10 @@ public class StageListServiceImpl implements StageListService {
         
         return stagelistdao.findAll(params);
     }
-    
-   
+    @Override
+    public List<StageList> name(String name) {
+      return stagelistdao.findByName(name);
+    }
 }
 
 
