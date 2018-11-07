@@ -9,7 +9,7 @@ import indiesker.java110.ms.domain.BuskerSchedule;
 import indiesker.java110.ms.service.BuskerScheduleService;
 
 @Service
-public class BuskerScheduleServiceimpl implements BuskerScheduleService {
+public class BuskerScheduleServiceImpl implements BuskerScheduleService {
 
     @Autowired  BuskerScheduleDao buskerscheduleDao;
     

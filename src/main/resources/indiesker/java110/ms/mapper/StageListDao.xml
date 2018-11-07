@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- MemberDao 클래스가 사용할 SQL이 들어 있는 파일 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indiesker.java110.ms.dao.StageListDao">
+
+    <resultMap type="StageList" id="StageMap">
+        <id column="name"  property="name"/>
+        <result column="phot"  property="photoName"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="StageMap" parameterType="map">
+SELECT s.name, sp.phot
+FROM sup as s, stag_phot as sp, stag_sche as ss
+WHERE s.sno=sp.sno and s.sno = ss.ssno and ss.ssno is not null
+limit #{rowNo}, #{size} 
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+

@@ -7,7 +7,7 @@ public class Supporter extends Member {
   protected String baseaddr;
   protected String postno;
   protected String detailaddr;
-  protected String supgenre;
+  protected String genre;
   protected int capa;
   protected String tel;
   protected char permission;
@@ -39,10 +39,10 @@ public class Supporter extends Member {
     this.detailaddr = detailaddr;
   }
   public String getSupgenre() {
-    return supgenre;
+    return genre;
   }
-  public void setSupgenre(String supgenre) {
-    this.supgenre = supgenre;
+  public void setSupgenre(String genre) {
+    this.genre = genre;
   }
   public int getCapa() {
     return capa;

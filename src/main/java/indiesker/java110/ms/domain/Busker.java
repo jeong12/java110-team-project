@@ -7,7 +7,7 @@ public class Busker extends Member{
   protected String teamgenre;
   protected String city;
   protected String instrument; // 악기
-  protected String StreamingUrl; 
+  protected String streamingUrl; 
   protected String teamInfo;
   protected String teamPhoto;
   protected String avi1;
@@ -41,10 +41,10 @@ public class Busker extends Member{
     this.instrument = instrument;
   }
   public String getStreamingUrl() {
-    return StreamingUrl;
+    return streamingUrl;
   }
   public void setStreamingUrl(String streamingUrl) {
-    StreamingUrl = streamingUrl;
+    this.streamingUrl = streamingUrl;
   }
   public String getTeamInfo() {
     return teamInfo;
