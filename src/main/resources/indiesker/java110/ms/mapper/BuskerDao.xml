@@ -13,73 +13,28 @@
         <result column="posi"   property="position"/>
         <result column="photo"  property="photo"/>
     </resultMap>
-    
-     <resultMap type="busker" id="SupportMap">
-        <id column="mno"        property="no"/>
-        <result column="name"   property="name"/>
-        <result column="email"  property="email"/>
-        <result column="tel"    property="tel"/>
-        <result column="posi"   property="position"/>
-        <result column="photo"  property="photo"/>
-    </resultMap>
-    
-    <sql id="select1">
-        select 
-            m.mno,
-            m.name,
-            m.email,
-            m.tel,
-            mr.posi,
-            mp.photo
-        from 
-            p1_mgr mr
-            inner join p1_memb m on mr.mrno = m.mno
-            left outer join p1_memb_phot mp on mr.mrno = mp.mno
-    </sql>
 
     <select id="findAll" resultMap="managerMap" parameterType="map">
-        select
-            m.mno,
-            m.name, 
-            m.email, 
-            m.tel,
-            mr.posi 
-        from 
-            p1_mgr mr 
-            inner join p1_memb m on mr.mrno = m.mno
-        limit #{rowNo}, #{size}
-    </select>
+select CONCAT(DATE_FORMAT(SC.sdt,'%y.%m.%d'),
+       '(',SUBSTR('일월화수목금토', DAYOFWEEK(DATE_FORMAT(SC.sdt,'%y.%m.%d')), 1 ),')/',
+       DATE_FORMAT(SC.sdt,'%H:%i'),'~',DATE_FORMAT(SC.edt,'%H:%i')) as time,
+       B.name as name,
+       CONCAT(S.bas_addr,'/',S.det_addr) as place
+from busk_stag BS
+     join busk_req BR on BS.brno = BR. brno
+     join stag_sche SC on BS.ssno = SC.ssno
+     join busk B on BR.bno=B.bno
+     join sup S on SC.sno=S.sno
+union
+select CONCAT(DATE_FORMAT(PS.sdt,'%y.%m.%d'),'(',SUBSTR('일월화수목금토', DAYOFWEEK(DATE_FORMAT(PS.sdt,'%y.%m.%d')), 1 ),')/',DATE_FORMAT(PS.sdt,'%H:%i'),'~',DATE_FORMAT(PS.edt,'%H:%i')) as '공연시간',
+B.name as '버스커팀명',
+PS.addr as '장소'
+  from per_sche PS
+   join busk B
+    on PS.bno=B.bno
+order by 공연시간 asc
 
-    <select id="findByEmail" 
-            resultMap="managerMap" parameterType="string">
-        <include refid="select1"></include>
-        where 
-            m.email=#{value}
     </select>
-    
-    <select id="findByNo" 
-            resultMap="managerMap" parameterType="int">
-        <include refid="select1"></include>
-        where 
-            m.mno=#{value}
-    </select>
-    
-    <select id="findByEmailPassword" 
-            resultMap="managerMap" parameterType="Manager">
-        <include refid="select1"></include>
-        where
-            m.email=#{email} and m.pwd=password(#{password})
-    </select> 
-    
-    <insert id="insert" parameterType="map">
-        insert into p1_mgr(mrno,posi) 
-        values(#{no},#{position})
-    </insert> 
-    
-    <delete id="delete" parameterType="int">
-        delete from p1_mgr 
-        where mrno=#{value}
-    </delete>
 </mapper>
 
 
