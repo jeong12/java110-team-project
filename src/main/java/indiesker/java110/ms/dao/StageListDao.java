@@ -8,5 +8,5 @@ public interface StageListDao {
   
   List<StageList> findAll(Map<String,Object> params);
   List<StageList> findByName(String parms);
-  List<StageList> findBylocal(String params);
+  List<StageList> findByLocal(String params);
 }

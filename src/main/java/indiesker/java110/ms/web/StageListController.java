@@ -46,8 +46,8 @@ public class StageListController {
   }
   
   @GetMapping("local")
-  public void local(String param, Model model) {
-    List<StageList> local = stageListService.findByLocal(param);
-    model.addAttribute("local",local);
+  public void local(@RequestParam String local, Model model) {
+    List<StageList> locals = stageListService.findByLocal(local);
+    model.addAttribute("local",locals);
   }
 }

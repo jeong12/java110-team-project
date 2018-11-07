@@ -6,7 +6,7 @@
 <mapper namespace="indiesker.java110.ms.dao.StageListDao">
 
     <resultMap type="StageList" id="StageMap">
-        <id column="name"  property="name"/>
+        <result column="name"  property="name"/>
         <result column="phot"  property="photoName"/>
     </resultMap>
 
@@ -17,18 +17,18 @@ WHERE s.sno=sp.sno and s.sno = ss.ssno and ss.ssno is not null
 limit #{rowNo}, #{size} 
     </select>
   
-<select id="findByName" resultMap="StageMap" parameterType="String">
+<select id="findByName" resultMap="StageMap" parameterType="string">
 SELECT s.name, sp.phot
 FROM sup as s, stag_phot as sp, stag_sche as ss
 WHERE s.sno=sp.sno and s.sno = ss.ssno and ss.ssno is not null 
 and s.name = #{name} 
     </select>  
     
-<select id="findByLocal" resultMap="StageMap" parameterType="String">
+<select id="findByLocal" resultMap="StageMap" parameterType="string">
 SELECT s.name, sp.phot
 FROM sup as s, stag_phot as sp, stag_sche as ss
 WHERE s.sno=sp.sno and s.sno = ss.ssno and ss.ssno is not null 
-and s.name = #{name} 
+and s.bas_addr like CONCAT('%',#{name},'%')
     </select>  
     
 </mapper>

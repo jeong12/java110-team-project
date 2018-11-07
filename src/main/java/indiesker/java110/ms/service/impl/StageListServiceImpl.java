@@ -28,7 +28,7 @@ public class StageListServiceImpl implements StageListService {
     
     @Override
     public List<StageList> findByLocal(String local) {
-      return stagelistdao.findBylocal(local);
+      return stagelistdao.findByLocal(local);
     }
 }
 
