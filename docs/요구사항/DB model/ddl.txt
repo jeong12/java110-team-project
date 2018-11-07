@@ -240,12 +240,12 @@ ALTER TABLE avi_comt
 
 -- 알림
 CREATE TABLE aralm (
-	alno  INTEGER     NOT NULL COMMENT '알림번호', -- 알림번호
-	dt    DATETIME    NOT NULL COMMENT '일시', -- 일시
-	sendr INTEGER     NOT NULL COMMENT '보낸사람', -- 보낸사람
-	cont  VARCHAR(50) NOT NULL COMMENT '내용', -- 내용
-	stus  VARCHAR(50) NOT NULL COMMENT '상태매세지', -- 상태매세지
-	mno   INTEGER     NOT NULL COMMENT '회원번호' -- 회원번호
+	alno INTEGER     NOT NULL COMMENT '알림번호', -- 알림번호
+	dt   DATETIME    NOT NULL COMMENT '일시', -- 일시
+	cont VARCHAR(50) NOT NULL COMMENT '내용', -- 내용
+	stus VARCHAR(50) NOT NULL COMMENT '상태매세지', -- 상태매세지
+	brno INTEGER     NULL     COMMENT '무대사용요청번호', -- 무대사용요청번호
+	ssno INTEGER     NULL     COMMENT '무대스케줄번호' -- 무대스케줄번호
 )
 COMMENT '알림';
 
@@ -592,12 +592,22 @@ ALTER TABLE avi_comt
 
 -- 알림
 ALTER TABLE aralm
-	ADD CONSTRAINT FK_memb_TO_aralm -- 회원 -> 알림
+	ADD CONSTRAINT FK_busk_req_TO_aralm -- 버스킹무대사용요청 -> 알림
 		FOREIGN KEY (
-			mno -- 회원번호
+			brno -- 무대사용요청번호
 		)
-		REFERENCES memb ( -- 회원
-			mno -- 회원번호
+		REFERENCES busk_req ( -- 버스킹무대사용요청
+			brno -- 무대사용요청번호
+		);
+
+-- 알림
+ALTER TABLE aralm
+	ADD CONSTRAINT FK_stag_sche_TO_aralm -- 무대스케쥴 -> 알림
+		FOREIGN KEY (
+			ssno -- 무대스케줄번호
+		)
+		REFERENCES stag_sche ( -- 무대스케쥴
+			ssno -- 무대스케줄번호
 		);
 
 -- 버스킹홍보

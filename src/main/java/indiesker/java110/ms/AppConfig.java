@@ -1,10 +1,10 @@
 package indiesker.java110.ms;
 
 import javax.sql.DataSource;
-
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @PropertySource(
     {"classpath:/indiesker/java110/ms/conf/jdbc.properties",
     "classpath:/indiesker/java110/ms/conf/sec.properties" })
-//@MapperScan("bitcamp.java110.cms.dao")
+@MapperScan("indiesker.java110.ms.dao")
 @EnableTransactionManagement
 public class AppConfig {
 

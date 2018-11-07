@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- MemberDao 클래스가 사용할 SQL이 들어 있는 파일 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indiesker.java110.ms.dao.BuskerScheduleDao">
+
+    <resultMap type="BuskerSchedule" id="buskerMap">
+        <id column="name"  property="teamName"/>
+        <result column="time"  property="time"/>
+        <result column="addr"    property="addr"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="buskerMap" parameterType="map">
+select CONCAT(DATE_FORMAT(SC.sdt,'%y.%m.%d'),
+       '(',SUBSTR('일월화수목금토', DAYOFWEEK(DATE_FORMAT(SC.sdt,'%y.%m.%d')), 1 ),')/',
+       DATE_FORMAT(SC.sdt,'%H:%i'),'~',DATE_FORMAT(SC.edt,'%H:%i')) as time,
+       B.name,
+       CONCAT(S.bas_addr,'/',S.det_addr) as addr
+from busk_stag BS
+     join busk_req BR on BS.brno = BR. brno
+     join stag_sche SC on BS.ssno = SC.ssno
+     join busk B on BR.bno=B.bno
+     join sup S on SC.sno=S.sno
+union
+select CONCAT(DATE_FORMAT(PS.sdt,'%y.%m.%d'),
+      '(',SUBSTR('일월화수목금토', DAYOFWEEK(DATE_FORMAT(PS.sdt,'%y.%m.%d')), 1 ),')/',
+      DATE_FORMAT(PS.sdt,'%H:%i'),'~',DATE_FORMAT(PS.edt,'%H:%i')) as time,
+      B.name,
+      PS.addr
+from per_sche PS
+   join busk B on PS.bno=B.bno
+order by time asc
+   limit #{rowNo}, #{size}
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+
