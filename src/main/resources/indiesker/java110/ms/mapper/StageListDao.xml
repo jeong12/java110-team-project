@@ -26,9 +26,9 @@ and s.name = #{name}
     
 <select id="findByLocal" resultMap="StageMap" parameterType="String">
 SELECT s.name, sp.phot
-FROM sup as s, stag_phot as sp, stag_sche as ss
-WHERE s.sno=sp.sno and s.sno = ss.ssno and ss.ssno is not null 
-and s.name = #{name} 
+FROM stag_sche as ss, sup as s, stag_phot as sp
+where sp.sno=s.sno and s.sno=ss.sno 
+and s.bas_addr like %#{local}%
     </select>  
     
 </mapper>
