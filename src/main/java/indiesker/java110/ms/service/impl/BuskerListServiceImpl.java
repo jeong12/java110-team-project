@@ -9,7 +9,7 @@ import indiesker.java110.ms.domain.BuskerList;
 import indiesker.java110.ms.service.BuskerListService;
 
 @Service
-public class BuskerListServiceimpl implements BuskerListService {
+public class BuskerListServiceImpl implements BuskerListService {
 
     @Autowired  BuskerListDao buskerlistDao;
 
