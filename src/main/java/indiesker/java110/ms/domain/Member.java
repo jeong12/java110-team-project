@@ -1,8 +1,7 @@
 package indiesker.java110.ms.domain;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.util.Map;
+import java.util.List;
 
 public class Member implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -14,11 +13,10 @@ public class Member implements Serializable {
   protected String name;
   protected String nickname;
   protected String photo;
-  protected Map<String,String> genre;
+  protected List<String> genre;
   protected char yn;
   protected String memo;
-  protected Date sdt;
-  protected Date edt;
+  
   
   
   public int getNo() {
@@ -63,10 +61,10 @@ public class Member implements Serializable {
   public void setPhoto(String photo) {
     this.photo = photo;
   }
-  public Map<String, String> getGenre() {
+  public List<String> getGenre() {
     return genre;
   }
-  public void setGenre(Map<String, String> genre) {
+  public void setGenre(List<String> genre) {
     this.genre = genre;
   }
   public char getYn() {
@@ -81,9 +79,4 @@ public class Member implements Serializable {
   public void setMemo(String memo) {
     this.memo = memo;
   }
-  
-  
-  
-  
-
 }
