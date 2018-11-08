@@ -1,6 +1,5 @@
 package indiesker.java110.ms.service.impl;
 
-import java.util.HashMap;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,15 +13,15 @@ public class BuskerPromotionServiceimpl implements BuskerPromotionService {
     @Autowired  BuskerPromotionDao buskerPromotionDao;
     
     @Override
-    public List<BuskerPromotion> list(int pageNo, int pageSize) {
-        HashMap<String,Object> params = new HashMap<>();
-        params.put("rowNo", (pageNo - 1) * pageSize);
-        params.put("size", pageSize);
-        
-        return buskerPromotionDao.findAll(params);
+    public List<BuskerPromotion> list() {
+        return buskerPromotionDao.findAll();
     }
-    
-   
+
+    @Override
+    public List<BuskerPromotion> SearchByCity(String city) {
+      return buskerPromotionDao.findByCity(city);
+    }
+
 }
 
 

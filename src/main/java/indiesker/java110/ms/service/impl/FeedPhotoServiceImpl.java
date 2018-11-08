@@ -17,11 +17,7 @@ public class FeedPhotoServiceImpl implements FeedPhotoService {
       
       return feedphotoDao.findByFeedPhoto();
     }
-    
-   
-    
-  
-   
+ 
 }
 
 

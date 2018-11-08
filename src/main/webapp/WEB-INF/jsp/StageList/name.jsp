@@ -65,9 +65,9 @@ $(this).removeClass("active");
 }
 $(this).addClass("active");
 
+});       
 
 
-});        
          $('.search-panel .dropdown-menu').find('a').click(function(e) {
         e.preventDefault();
         var param = $(this).attr("href").replace("#","");

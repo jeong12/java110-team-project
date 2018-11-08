@@ -22,7 +22,6 @@ public class BuskerScheduleServiceimpl implements BuskerScheduleService {
         return buskerscheduleDao.findAll(params);
     }
     
-   
 }
 
 

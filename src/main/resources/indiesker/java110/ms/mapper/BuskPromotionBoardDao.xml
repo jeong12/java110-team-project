@@ -5,7 +5,7 @@
 <mapper namespace="indiesker.java110.ms.dao.BuskerPromotionDao">
 
     <resultMap type="BuskerPromotion" id="buskPromotionMap">
-        <id column="titl"  property="titl"/>
+        <result column="titl"  property="titl"/>
         <result column="name"  property="teamName"/>
         <result column="genre"  property="genre"/>
         <result column="city"  property="city"/>
@@ -19,6 +19,12 @@
     <select id="findAll" resultMap="buskPromotionMap" parameterType="map">
 select titl, b.name, bo.genre, bo.city, sdt, edt, cnt, etc, bo.phot
 from busk_board bo join busk b on bo.bbno = b.bno;
+    </select>
+    
+    <select id="findByCity" resultMap="buskPromotionMap" parameterType="String">
+select titl, b.name, bo.genre, bo.city, sdt, edt, cnt, etc, bo.phot
+from busk_board bo join busk b on bo.bbno = b.bno
+where bo.city=#{city}
     </select>
 </mapper>
 
