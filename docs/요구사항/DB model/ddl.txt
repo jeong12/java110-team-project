@@ -774,3 +774,34 @@ ALTER TABLE busk_stag
 -- 홍보댓글 작성일 컬럼추가
     ALTER TABLE board_comt ADD cdt DATETIME NOT NULL;
     
+-- 멤버 패스워드 타입변경
+    ALTER TABLE 'memb' MODIFY 'password' VARCHAR(100) NOT NULL
+    
+-- 스케줄 상호명 컬럼추가
+    ALTER TABLE 'per_sche' ADD 'shopname' VARCHAR(50) NOT NULL
+    
+-- 상호명 컬럼에 값추가
+    UPDATE per_sche SET shopname='bitcamp'
+    
+-- 스케줄 작성일 컬럼추가
+    ALTER TABLE 'per_sche' ADD 'cdt' DATETIME NOT NULL
+    
+-- 스케줄 인원 컬럼추가
+    ALTER TABLE 'per_sche' ADD 'cnt' INTEGER NOT NULL
+    
+-- 작성일, 인원 컬럼에 값추가
+    UPDATE per_sche SET cdt=now(), cnt=3
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

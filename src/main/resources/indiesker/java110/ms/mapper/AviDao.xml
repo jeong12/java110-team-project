@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indiesker.java110.ms.dao.AviDao">
+
+    <resultMap type="Avi" id="aviMap">
+        <id column="abno"  property="aviboardno"/>
+        <result column="titl"  property="title"/>
+        <result column="cont"  property="content"/>
+        <result column="cdt"  property="cdt"/>
+        <result column="stm"  property="url"/>
+        <result column="bno"  property="buskerno"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="aviMap" >
+    SELECT abno, titl, cont, cdt, stm, bno 
+    FROM avi 
+    WHERE bno=1
+
+    </select>
+    
+    
+    <insert id="insert" parameterType="avi"
+        useGeneratedKeys="true" keyColumn="abno" keyProperty="aviboardno">
+        insert into avi(abno,titl,cont,cdt,stm,bno) 
+        values(#{aviboardno},#{title},#{content},now(),#{url},1)<!-- 자동으로 증가하게! -->
+    </insert> 
+    
+</mapper>
+
+
+
+
+
+
+
+
+
