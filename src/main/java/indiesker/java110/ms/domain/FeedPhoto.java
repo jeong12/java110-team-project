@@ -1,11 +1,22 @@
 package indiesker.java110.ms.domain;
 
 public class FeedPhoto {
+  protected int no;
   protected String teamName;
   protected String genre;
   protected String city;
   protected String content;
   protected String likecount;
+  protected FeedPhotoFile feedphotoFile;
+  
+  
+  
+  public FeedPhotoFile getFeedphotoFile() {
+    return feedphotoFile;
+  }
+  public void setFeedphotoFile(FeedPhotoFile feedphotoFile) {
+    this.feedphotoFile = feedphotoFile;
+  }
   public String getTeamName() {
     return teamName;
   }

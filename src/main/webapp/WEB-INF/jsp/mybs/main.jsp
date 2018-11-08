@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset='UTF-8'>
-<title>버스커 리스트</title>
+<title>사진게시물</title>
 <link rel='stylesheet' href='/css/common.css'> <!-- 웹 브라우저 입장에서의 경로 -->
 <style>
     #titl{ margin: 10px; padding: 10px;}
@@ -38,15 +38,23 @@
 <table>
 <thead>
 <tr>
-    <th>팀명</th> <th>사진</th>
+    <th>상호명</th> <th>지역</th> <th>시작시간</th> <th>종료시간</th> <th>신청인원</th> <th>진행상태</th> <th>작성일</th><th>위도</th><th>경도</th> <th>상세보기</th>
 </tr>
 </thead>
 <tbody>
 
-<c:forEach  items="${list}" var="m">
+<c:forEach  items="${plist}" var="perlist">
 <tr>
-    <td>${m.teamName}</td>
-    <td>${m.phot}</td>
+    <td>${perlist.shopname}</td>
+    <td>${perlist.addr}</td>
+    <td>${perlist.sdt}</td>
+    <td>${perlist.edt}</td>
+    <td>${perlist.cnt}</td>
+    <td>개인스케줄</td>
+    <td>${perlist.cdt}</td>
+    <td>${perlist.x}</td>
+    <td>${perlist.y}</td>
+    <td><button>상세보기</button></td>
 </tr>
 </c:forEach>
 

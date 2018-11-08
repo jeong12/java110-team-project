@@ -35,18 +35,23 @@
     <div id="titl">
     <img id="logo" src="../../img/playButton.PNG" alt="플레이로고"><h2>버스킹 일정</h2>
     </div>
+    <p><a href='form'>추가</a></p>
 <table>
 <thead>
 <tr>
-    <th>팀명</th> <th>사진</th>
+    <th>게시글번호</th> <th>제목</th> <th>내용</th><th>작성일</th> <th>URL</th> <th>버스커번호</th> 
 </tr>
 </thead>
 <tbody>
 
 <c:forEach  items="${list}" var="m">
 <tr>
-    <td>${m.teamName}</td>
-    <td>${m.phot}</td>
+    <td>${m.aviboardno}</td>
+    <td>${m.title}</td>
+    <td>${m.content}</td>
+    <td>${m.cdt}</td>
+    <td>${m.url}</td>
+    <td>${m.buskerno}</td>
 </tr>
 </c:forEach>
 
