@@ -1,7 +1,5 @@
 package indiesker.java110.ms.web;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 import javax.servlet.ServletContext;
 import org.springframework.stereotype.Controller;

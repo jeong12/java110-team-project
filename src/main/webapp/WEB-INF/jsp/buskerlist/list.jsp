@@ -45,7 +45,7 @@
 
 <c:forEach  items="${list}" var="m">
 <tr>
-    <td>${m.teamName}</a></td>
+    <td>${m.teamName}</td>
     <td>${m.phot}</td>
 </tr>
 </c:forEach>
