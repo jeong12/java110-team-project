@@ -11,7 +11,7 @@ import indiesker.java110.ms.domain.BuskerList;
 import indiesker.java110.ms.service.BuskerListService;
 
 @Controller
-@RequestMapping("/BuskerList")
+@RequestMapping("/buskerlist")
 public class BuskerListController {
 
   BuskerListService buskerlistService;   
