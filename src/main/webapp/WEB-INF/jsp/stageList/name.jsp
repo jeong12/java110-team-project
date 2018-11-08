@@ -126,7 +126,7 @@ $(this).addClass("active");
                 <h3>${m.name}</h3>
             </div>
             </c:forEach>
-
+    </div>
     </div>
 
 
