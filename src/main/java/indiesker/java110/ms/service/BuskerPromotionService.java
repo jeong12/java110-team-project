@@ -4,5 +4,7 @@ import java.util.List;
 import indiesker.java110.ms.domain.BuskerPromotion;
 
 public interface BuskerPromotionService {
-    List<BuskerPromotion> list(int pageNo, int pageSize);
+    List<BuskerPromotion> list();
+    List<BuskerPromotion> SearchByCity(String city);
+    
 }

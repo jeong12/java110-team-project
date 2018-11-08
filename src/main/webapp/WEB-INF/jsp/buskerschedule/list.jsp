@@ -46,7 +46,7 @@
 <c:forEach  items="${list}" var="m">
 <tr>
     <td>${m.time}</td>
-    <td>${m.teamName}</a></td>
+    <td>${m.teamName}</td>
     <td>${m.addr}</td>
 </tr>
 </c:forEach>
