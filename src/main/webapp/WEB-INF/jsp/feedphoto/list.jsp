@@ -1,14 +1,11 @@
-<%@ page language="java" 
-    contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"
-    trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset='UTF-8'>
-<title>ì‚¬ì§„ê²Œì‹œë¬¼</title>
-<link rel='stylesheet' href='/css/common.css'> <!-- ì›¹ ë¸Œë¼ìš°ì € ìž…ìž¥ì—ì„œì˜ ê²½ë¡œ -->
+<title>¹ö½ºÄ¿ ½ºÄÉÁÙ</title>
+<link rel='stylesheet' href='/css/common.css'> <!-- À¥ ºê¶ó¿ìÀú ÀÔÀå¿¡¼­ÀÇ °æ·Î -->
 <style>
     #titl{ margin: 10px; padding: 10px;}
     #logo {width: 50px; height: 50px; margin: 10px;}
@@ -33,12 +30,12 @@
 </head>
 <body>
     <div id="titl">
-    <img id="logo" src="../../img/playButton.PNG" alt="í”Œë ˆì´ë¡œê³ "><h2>ë²„ìŠ¤í‚¹ ì¼ì •</h2>
+    <img id="logo" src="../../img/playButton.PNG" alt="ÇÃ·¹ÀÌ·Î°í"><h2>¹ö½ºÅ· ÀÏÁ¤</h2>
     </div>
 <table>
 <thead>
 <tr>
-    <th>íŒ€ëª…</th> <th>ìž¥ë¥´</th> <th>ë„ì‹œ</th><th>ë‚´ìš©</th><th>ì¢‹ì•„ì—°ìˆ˜</th>
+    <th>ÆÀ¸í</th> <th>Àå¸£</th> <th>µµ½Ã</th><th>³»¿ë</th><th>ÁÁ¾Æ¿¬¼ö</th>
 </tr>
 </thead>
 <tbody>
@@ -57,20 +54,3 @@
 </table>
 </body>
 </html>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
