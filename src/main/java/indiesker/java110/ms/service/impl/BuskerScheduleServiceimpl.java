@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import indiesker.java110.ms.dao.BuskerScheduleDao;
+import indiesker.java110.ms.domain.Busker;
 import indiesker.java110.ms.domain.BuskerSchedule;
 import indiesker.java110.ms.service.BuskerScheduleService;
 

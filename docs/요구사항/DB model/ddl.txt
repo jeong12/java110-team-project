@@ -1,771 +1,807 @@
--- È¸¿ø
+-- È¸ï¿½ï¿½
 DROP TABLE IF EXISTS memb RESTRICT;
 
--- ¹ö½ºÄ¿
+-- ï¿½ï¿½ï¿½ï¿½Ä¿
 DROP TABLE IF EXISTS busk RESTRICT;
 
--- ¹«´ë_Á¦°øÀÚ
+-- ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 DROP TABLE IF EXISTS sup RESTRICT;
 
--- ¹ö½ºÅ·½ºÄÉÁì
+-- ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 DROP TABLE IF EXISTS per_sche RESTRICT;
 
--- »çÁø °Ô½Ã±Û
+-- ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½
 DROP TABLE IF EXISTS phot RESTRICT;
 
--- µ¿¿µ»ó´ñ±Û
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 DROP TABLE IF EXISTS avi_comt RESTRICT;
 
--- ¾Ë¸²
+-- ï¿½Ë¸ï¿½
 DROP TABLE IF EXISTS aralm RESTRICT;
 
--- ¹ö½ºÅ·È«º¸
+-- ï¿½ï¿½ï¿½ï¿½Å·È«ï¿½ï¿½
 DROP TABLE IF EXISTS busk_board RESTRICT;
 
--- µ¿¿µ»ó °Ô½Ã±Û
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½
 DROP TABLE IF EXISTS avi RESTRICT;
 
--- »çÁø´ñ±Û
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 DROP TABLE IF EXISTS phot_comt RESTRICT;
 
--- ½t·ÎÀ×
+-- ï¿½tï¿½ï¿½ï¿½ï¿½
 DROP TABLE IF EXISTS folw RESTRICT;
 
--- ¹«´ë»çÁø
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 DROP TABLE IF EXISTS stag_phot RESTRICT;
 
--- ¹ö½ºÅ·¹«´ë»ç¿ë¿äÃ»
+-- ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»
 DROP TABLE IF EXISTS busk_req RESTRICT;
 
--- ¹«´ë½ºÄÉÁì
+-- ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½ï¿½
 DROP TABLE IF EXISTS stag_sche RESTRICT;
 
--- È«º¸´ñ±Û
+-- È«ï¿½ï¿½ï¿½ï¿½ï¿½
 DROP TABLE IF EXISTS board_comt RESTRICT;
 
--- ÇÇµå»çÁø
+-- ï¿½Çµï¿½ï¿½ï¿½ï¿½
 DROP TABLE IF EXISTS feed_phot RESTRICT;
 
--- µ¿¿µ»óÀÎ±âÅë°è
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î±ï¿½ï¿½ï¿½ï¿½
 DROP TABLE IF EXISTS avi_fav RESTRICT;
 
--- °ø¿¬ÀåÀÎ±âÅë°è
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î±ï¿½ï¿½ï¿½ï¿½
 DROP TABLE IF EXISTS stag_fav RESTRICT;
 
--- ¹«´ë»ç¿ë¿äÃ»½ºÄÉÁÙ
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 DROP TABLE IF EXISTS busk_stag RESTRICT;
 
--- È¸¿ø
+-- È¸ï¿½ï¿½
 CREATE TABLE memb (
-	mno      INTEGER      NOT NULL COMMENT 'È¸¿ø¹øÈ£', -- È¸¿ø¹øÈ£
-	id       VARCHAR(50)  NOT NULL COMMENT '¾ÆÀÌµð', -- ¾ÆÀÌµð
-	email    VARCHAR(40)  NOT NULL COMMENT 'ÀÌ¸ÞÀÏ', -- ÀÌ¸ÞÀÏ
-	password VARCHAR(16)  NOT NULL COMMENT 'ºñ¹Ð¹øÈ£', -- ºñ¹Ð¹øÈ£
-	name     VARCHAR(50)  NOT NULL COMMENT 'ÀÌ¸§', -- ÀÌ¸§
-	nik      VARCHAR(50)  NOT NULL COMMENT '´Ð³×ÀÓ', -- ´Ð³×ÀÓ
-	phot     VARCHAR(255) NULL     COMMENT 'È¸¿ø»çÁø', -- È¸¿ø»çÁø
-	cdt      DATE         NOT NULL COMMENT '°¡ÀÔÀÏ', -- °¡ÀÔÀÏ
-	genre1   VARCHAR(50)  NOT NULL COMMENT '¼±È£Àå¸£1', -- ¼±È£Àå¸£1
-	genre2   VARCHAR(50)  NOT NULL COMMENT '¼±È£Àå¸£2', -- ¼±È£Àå¸£2
-	genre3   VARCHAR(50)  NOT NULL COMMENT '¼±È£Àå¸£3', -- ¼±È£Àå¸£3
-	yn       CHAR(1)      NOT NULL COMMENT 'Á¤Áö¿©ºÎ', -- Á¤Áö¿©ºÎ
-	memo     VARCHAR(50)  NULL     COMMENT '¸Þ¸ð' -- ¸Þ¸ð
+	mno      INTEGER      NOT NULL COMMENT 'È¸ï¿½ï¿½ï¿½ï¿½È£', -- È¸ï¿½ï¿½ï¿½ï¿½È£
+	id       VARCHAR(50)  NOT NULL COMMENT 'ï¿½ï¿½ï¿½Ìµï¿½', -- ï¿½ï¿½ï¿½Ìµï¿½
+	email    VARCHAR(40)  NOT NULL COMMENT 'ï¿½Ì¸ï¿½ï¿½ï¿½', -- ï¿½Ì¸ï¿½ï¿½ï¿½
+	password VARCHAR(16)  NOT NULL COMMENT 'ï¿½ï¿½Ð¹ï¿½È£', -- ï¿½ï¿½Ð¹ï¿½È£
+	name     VARCHAR(50)  NOT NULL COMMENT 'ï¿½Ì¸ï¿½', -- ï¿½Ì¸ï¿½
+	nik      VARCHAR(50)  NOT NULL COMMENT 'ï¿½Ð³ï¿½ï¿½ï¿½', -- ï¿½Ð³ï¿½ï¿½ï¿½
+	phot     VARCHAR(255) NULL     COMMENT 'È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', -- È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	cdt      DATE         NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	genre1   VARCHAR(50)  NOT NULL COMMENT 'ï¿½ï¿½È£ï¿½å¸£1', -- ï¿½ï¿½È£ï¿½å¸£1
+	genre2   VARCHAR(50)  NOT NULL COMMENT 'ï¿½ï¿½È£ï¿½å¸£2', -- ï¿½ï¿½È£ï¿½å¸£2
+	genre3   VARCHAR(50)  NOT NULL COMMENT 'ï¿½ï¿½È£ï¿½å¸£3', -- ï¿½ï¿½È£ï¿½å¸£3
+	yn       CHAR(1)      NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	memo     VARCHAR(50)  NULL     COMMENT 'ï¿½Þ¸ï¿½' -- ï¿½Þ¸ï¿½
 )
-COMMENT 'È¸¿ø';
+COMMENT 'È¸ï¿½ï¿½';
 
--- È¸¿ø
+-- È¸ï¿½ï¿½
 ALTER TABLE memb
-	ADD CONSTRAINT PK_memb -- È¸¿ø ±âº»Å°
+	ADD CONSTRAINT PK_memb -- È¸ï¿½ï¿½ ï¿½âº»Å°
 		PRIMARY KEY (
-			mno -- È¸¿ø¹øÈ£
+			mno -- È¸ï¿½ï¿½ï¿½ï¿½È£
 		);
 
--- È¸¿ø À¯´ÏÅ© ÀÎµ¦½º
+-- È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å© ï¿½Îµï¿½ï¿½ï¿½
 CREATE UNIQUE INDEX UIX_memb
-	ON memb ( -- È¸¿ø
-		nik ASC,   -- ´Ð³×ÀÓ
-		id ASC,    -- ¾ÆÀÌµð
-		email ASC  -- ÀÌ¸ÞÀÏ
+	ON memb ( -- È¸ï¿½ï¿½
+		nik ASC,   -- ï¿½Ð³ï¿½ï¿½ï¿½
+		id ASC,    -- ï¿½ï¿½ï¿½Ìµï¿½
+		email ASC  -- ï¿½Ì¸ï¿½ï¿½ï¿½
 	);
 
--- È¸¿ø ÀÎµ¦½º
+-- È¸ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½
 CREATE INDEX IX_memb
-	ON memb( -- È¸¿ø
-		id ASC -- ¾ÆÀÌµð
+	ON memb( -- È¸ï¿½ï¿½
+		id ASC -- ï¿½ï¿½ï¿½Ìµï¿½
 	);
 
--- È¸¿ø ÀÎµ¦½º2
+-- È¸ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½2
 CREATE INDEX IX_memb2
-	ON memb( -- È¸¿ø
-		email ASC -- ÀÌ¸ÞÀÏ
+	ON memb( -- È¸ï¿½ï¿½
+		email ASC -- ï¿½Ì¸ï¿½ï¿½ï¿½
 	);
 
 ALTER TABLE memb
-	MODIFY COLUMN mno INTEGER NOT NULL AUTO_INCREMENT COMMENT 'È¸¿ø¹øÈ£';
+	MODIFY COLUMN mno INTEGER NOT NULL AUTO_INCREMENT COMMENT 'È¸ï¿½ï¿½ï¿½ï¿½È£';
 
--- ¹ö½ºÄ¿
+-- ï¿½ï¿½ï¿½ï¿½Ä¿
 CREATE TABLE busk (
-	bno   INTEGER      NOT NULL COMMENT '¹ö½ºÄ¿¹øÈ£', -- ¹ö½ºÄ¿¹øÈ£
-	name  VARCHAR(50)  NOT NULL COMMENT 'ÆÀ¸í', -- ÆÀ¸í
-	genre VARCHAR(50)  NOT NULL COMMENT 'Àå¸£', -- Àå¸£
-	city  VARCHAR(50)  NOT NULL COMMENT 'µµ½Ã', -- µµ½Ã
-	tel   VARCHAR(30)  NOT NULL COMMENT '¿¬¶ôÃ³', -- ¿¬¶ôÃ³
-	inst  VARCHAR(50)  NULL     COMMENT '¾Ç±â', -- ¾Ç±â
-	strm  VARCHAR(255) NULL     COMMENT '½ºÆ®¸®¹Öurl', -- ½ºÆ®¸®¹Öurl
-	intro TEXT         NULL     COMMENT 'ÆÀ¼Ò°³', -- ÆÀ¼Ò°³
-	phot  VARCHAR(255) NOT NULL COMMENT 'ÆÀ »çÁø', -- ÆÀ »çÁø
-	avi1  VARCHAR(255) NOT NULL COMMENT '½ÂÀÎµ¿¿µ»ó1', -- ½ÂÀÎµ¿¿µ»ó1
-	avi2  VARCHAR(255) NOT NULL COMMENT '½ÂÀÎµ¿¿µ»ó2', -- ½ÂÀÎµ¿¿µ»ó2
-	per   CHAR(1)      NOT NULL COMMENT '½ÂÀÎ¿©ºÎ', -- ½ÂÀÎ¿©ºÎ
-	lcnt  INTEGER      NULL     COMMENT 'ÁÁ¾Æ¿ä¼ö' -- ÁÁ¾Æ¿ä¼ö
+	bno   INTEGER      NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È£', -- ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È£
+	name  VARCHAR(50)  NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½', -- ï¿½ï¿½ï¿½ï¿½
+	genre VARCHAR(50)  NOT NULL COMMENT 'ï¿½å¸£', -- ï¿½å¸£
+	city  VARCHAR(50)  NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½', -- ï¿½ï¿½ï¿½ï¿½
+	tel   VARCHAR(30)  NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½Ã³', -- ï¿½ï¿½ï¿½ï¿½Ã³
+	inst  VARCHAR(50)  NULL     COMMENT 'ï¿½Ç±ï¿½', -- ï¿½Ç±ï¿½
+	strm  VARCHAR(255) NULL     COMMENT 'ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½url', -- ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½url
+	intro TEXT         NULL     COMMENT 'ï¿½ï¿½ï¿½Ò°ï¿½', -- ï¿½ï¿½ï¿½Ò°ï¿½
+	phot  VARCHAR(255) NOT NULL COMMENT 'ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½', -- ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	avi1  VARCHAR(255) NOT NULL COMMENT 'ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½1', -- ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½1
+	avi2  VARCHAR(255) NOT NULL COMMENT 'ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½2', -- ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½2
+	per   CHAR(1)      NOT NULL COMMENT 'ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½', -- ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½
+	lcnt  INTEGER      NULL     COMMENT 'ï¿½ï¿½ï¿½Æ¿ï¿½ï¿½' -- ï¿½ï¿½ï¿½Æ¿ï¿½ï¿½
 )
-COMMENT '¹ö½ºÄ¿';
+COMMENT 'ï¿½ï¿½ï¿½ï¿½Ä¿';
 
--- ¹ö½ºÄ¿
+-- ï¿½ï¿½ï¿½ï¿½Ä¿
 ALTER TABLE busk
-	ADD CONSTRAINT PK_busk -- ¹ö½ºÄ¿ ±âº»Å°
+	ADD CONSTRAINT PK_busk -- ï¿½ï¿½ï¿½ï¿½Ä¿ ï¿½âº»Å°
 		PRIMARY KEY (
-			bno -- ¹ö½ºÄ¿¹øÈ£
+			bno -- ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È£
 		);
 
--- ¹ö½ºÄ¿ ÀÎµ¦½º
+-- ï¿½ï¿½ï¿½ï¿½Ä¿ ï¿½Îµï¿½ï¿½ï¿½
 CREATE INDEX IX_busk
-	ON busk( -- ¹ö½ºÄ¿
-		name ASC -- ÆÀ¸í
+	ON busk( -- ï¿½ï¿½ï¿½ï¿½Ä¿
+		name ASC -- ï¿½ï¿½ï¿½ï¿½
 	);
 
--- ¹«´ë_Á¦°øÀÚ
+-- ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 CREATE TABLE sup (
-	sno      INTEGER      NOT NULL COMMENT '¹«´ëÁ¦°øÀÚ¹øÈ£', -- ¹«´ëÁ¦°øÀÚ¹øÈ£
-	name     VARCHAR(50)  NOT NULL COMMENT 'Á¦°øÀÚ¸í', -- Á¦°øÀÚ¸í
-	bas_addr VARCHAR(255) NOT NULL COMMENT '±âº»ÁÖ¼Ò', -- ±âº»ÁÖ¼Ò
-	postno   VARCHAR(10)  NOT NULL COMMENT '¿ìÆí¹øÈ£', -- ¿ìÆí¹øÈ£
-	det_addr VARCHAR(255) NOT NULL COMMENT '»ó¼¼ÁÖ¼Ò', -- »ó¼¼ÁÖ¼Ò
-	genre    VARCHAR(50)  NOT NULL COMMENT 'Àå¸£', -- Àå¸£
-	capa     INTEGER      NOT NULL COMMENT '¼ö¿ë°¡´ÉÀÎ¿ø', -- ¼ö¿ë°¡´ÉÀÎ¿ø
-	tel      VARCHAR(30)  NOT NULL COMMENT '¿¬¶ôÃ³', -- ¿¬¶ôÃ³
-	per      CHAR(1)      NOT NULL COMMENT '½ÂÀÎ¿©ºÎ', -- ½ÂÀÎ¿©ºÎ
-	etc      TEXT         NULL     COMMENT '¸Þ½ÃÁö', -- ¸Þ½ÃÁö
-	x        FLOAT        NOT NULL COMMENT 'À§µµ', -- À§µµ
-	y        FLOAT        NOT NULL COMMENT '°æµµ' -- °æµµ
+	sno      INTEGER      NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¹ï¿½È£', -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¹ï¿½È£
+	name     VARCHAR(50)  NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½', -- ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½
+	bas_addr VARCHAR(255) NOT NULL COMMENT 'ï¿½âº»ï¿½Ö¼ï¿½', -- ï¿½âº»ï¿½Ö¼ï¿½
+	postno   VARCHAR(10)  NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½È£', -- ï¿½ï¿½ï¿½ï¿½ï¿½È£
+	det_addr VARCHAR(255) NOT NULL COMMENT 'ï¿½ï¿½ï¿½Ö¼ï¿½', -- ï¿½ï¿½ï¿½Ö¼ï¿½
+	genre    VARCHAR(50)  NOT NULL COMMENT 'ï¿½å¸£', -- ï¿½å¸£
+	capa     INTEGER      NOT NULL COMMENT 'ï¿½ï¿½ï¿½ë°¡ï¿½ï¿½ï¿½Î¿ï¿½', -- ï¿½ï¿½ï¿½ë°¡ï¿½ï¿½ï¿½Î¿ï¿½
+	tel      VARCHAR(30)  NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½Ã³', -- ï¿½ï¿½ï¿½ï¿½Ã³
+	per      CHAR(1)      NOT NULL COMMENT 'ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½', -- ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½
+	etc      TEXT         NULL     COMMENT 'ï¿½Þ½ï¿½ï¿½ï¿½', -- ï¿½Þ½ï¿½ï¿½ï¿½
+	x        FLOAT        NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½', -- ï¿½ï¿½ï¿½ï¿½
+	y        FLOAT        NOT NULL COMMENT 'ï¿½æµµ' -- ï¿½æµµ
 )
-COMMENT '¹«´ë_Á¦°øÀÚ';
+COMMENT 'ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
 
--- ¹«´ë_Á¦°øÀÚ
+-- ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ALTER TABLE sup
-	ADD CONSTRAINT PK_sup -- ¹«´ë_Á¦°øÀÚ ±âº»Å°
+	ADD CONSTRAINT PK_sup -- ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº»Å°
 		PRIMARY KEY (
-			sno -- ¹«´ëÁ¦°øÀÚ¹øÈ£
+			sno -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¹ï¿½È£
 		);
 
--- ¹«´ë_Á¦°øÀÚ À¯´ÏÅ© ÀÎµ¦½º
+-- ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å© ï¿½Îµï¿½ï¿½ï¿½
 CREATE UNIQUE INDEX UIX_sup
-	ON sup ( -- ¹«´ë_Á¦°øÀÚ
-		name ASC -- Á¦°øÀÚ¸í
+	ON sup ( -- ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		name ASC -- ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½
 	);
 
--- ¹«´ë_Á¦°øÀÚ ÀÎµ¦½º
+-- ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½
 CREATE INDEX IX_sup
-	ON sup( -- ¹«´ë_Á¦°øÀÚ
-		name ASC -- Á¦°øÀÚ¸í
+	ON sup( -- ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		name ASC -- ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½
 	);
 
--- ¹ö½ºÅ·½ºÄÉÁì
+-- ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 CREATE TABLE per_sche (
-	psno INTEGER      NOT NULL COMMENT '¹ö½ºÅ·½ºÄÉÁÙ¹øÈ£', -- ¹ö½ºÅ·½ºÄÉÁÙ¹øÈ£
-	sdt  DATETIME     NOT NULL COMMENT '½ÃÀÛÀÏ½Ã', -- ½ÃÀÛÀÏ½Ã
-	edt  DATETIME     NOT NULL COMMENT '³¡ÀÏ½Ã', -- ³¡ÀÏ½Ã
-	addr VARCHAR(255) NOT NULL COMMENT 'ÁÖ¼Ò', -- ÁÖ¼Ò
-	y    FLOAT        NOT NULL COMMENT 'À§µµ', -- À§µµ
-	x    FLOAT        NOT NULL COMMENT '°æµµ', -- °æµµ
-	bno  INTEGER      NOT NULL COMMENT '¹ö½ºÄ¿¹øÈ£' -- ¹ö½ºÄ¿¹øÈ£
+	psno INTEGER      NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½Ù¹ï¿½È£', -- ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½Ù¹ï¿½È£
+	sdt  DATETIME     NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½Ï½ï¿½', -- ï¿½ï¿½ï¿½ï¿½ï¿½Ï½ï¿½
+	edt  DATETIME     NOT NULL COMMENT 'ï¿½ï¿½ï¿½Ï½ï¿½', -- ï¿½ï¿½ï¿½Ï½ï¿½
+	addr VARCHAR(255) NOT NULL COMMENT 'ï¿½Ö¼ï¿½', -- ï¿½Ö¼ï¿½
+	y    FLOAT        NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½', -- ï¿½ï¿½ï¿½ï¿½
+	x    FLOAT        NOT NULL COMMENT 'ï¿½æµµ', -- ï¿½æµµ
+	bno  INTEGER      NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È£' -- ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È£
 )
-COMMENT '¹ö½ºÅ·½ºÄÉÁì';
+COMMENT 'ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
 
--- ¹ö½ºÅ·½ºÄÉÁì
+-- ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ALTER TABLE per_sche
-	ADD CONSTRAINT PK_per_sche -- ¹ö½ºÅ·½ºÄÉÁì ±âº»Å°
+	ADD CONSTRAINT PK_per_sche -- ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº»Å°
 		PRIMARY KEY (
-			psno -- ¹ö½ºÅ·½ºÄÉÁÙ¹øÈ£
+			psno -- ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½Ù¹ï¿½È£
 		);
 
 ALTER TABLE per_sche
-	MODIFY COLUMN psno INTEGER NOT NULL AUTO_INCREMENT COMMENT '¹ö½ºÅ·½ºÄÉÁÙ¹øÈ£';
+	MODIFY COLUMN psno INTEGER NOT NULL AUTO_INCREMENT COMMENT 'ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½Ù¹ï¿½È£';
 
--- »çÁø °Ô½Ã±Û
+-- ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½
 CREATE TABLE phot (
-	pbno INTEGER  NOT NULL COMMENT '»ç°Ô½Ã±Û¹øÈ£', -- »ç°Ô½Ã±Û¹øÈ£
-	cont TEXT     NULL     COMMENT '±Û³»¿ë', -- ±Û³»¿ë
-	lcnt INTEGER  NULL     COMMENT 'ÁÁ¾Æ¿ä ¼ö', -- ÁÁ¾Æ¿ä ¼ö
-	cdt  DATETIME NOT NULL COMMENT 'ÀÛ¼ºÀÏ', -- ÀÛ¼ºÀÏ
-	bno  INTEGER  NOT NULL COMMENT '¹ö½ºÄ¿¹øÈ£' -- ¹ö½ºÄ¿¹øÈ£
+	pbno INTEGER  NOT NULL COMMENT 'ï¿½ï¿½Ô½Ã±Û¹ï¿½È£', -- ï¿½ï¿½Ô½Ã±Û¹ï¿½È£
+	cont TEXT     NULL     COMMENT 'ï¿½Û³ï¿½ï¿½ï¿½', -- ï¿½Û³ï¿½ï¿½ï¿½
+	lcnt INTEGER  NULL     COMMENT 'ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½ï¿½', -- ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½ï¿½
+	cdt  DATETIME NOT NULL COMMENT 'ï¿½Û¼ï¿½ï¿½ï¿½', -- ï¿½Û¼ï¿½ï¿½ï¿½
+	bno  INTEGER  NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È£' -- ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È£
 )
-COMMENT '»çÁø °Ô½Ã±Û';
+COMMENT 'ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½';
 
--- »çÁø °Ô½Ã±Û
+-- ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½
 ALTER TABLE phot
-	ADD CONSTRAINT PK_phot -- »çÁø °Ô½Ã±Û ±âº»Å°
+	ADD CONSTRAINT PK_phot -- ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½ ï¿½âº»Å°
 		PRIMARY KEY (
-			pbno -- »ç°Ô½Ã±Û¹øÈ£
+			pbno -- ï¿½ï¿½Ô½Ã±Û¹ï¿½È£
 		);
 
--- »çÁø °Ô½Ã±Û ÀÎµ¦½º
+-- ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½ ï¿½Îµï¿½ï¿½ï¿½
 CREATE INDEX IX_phot
-	ON phot( -- »çÁø °Ô½Ã±Û
-		lcnt ASC -- ÁÁ¾Æ¿ä ¼ö
+	ON phot( -- ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½
+		lcnt ASC -- ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½ï¿½
 	);
 
 ALTER TABLE phot
-	MODIFY COLUMN pbno INTEGER NOT NULL AUTO_INCREMENT COMMENT '»ç°Ô½Ã±Û¹øÈ£';
+	MODIFY COLUMN pbno INTEGER NOT NULL AUTO_INCREMENT COMMENT 'ï¿½ï¿½Ô½Ã±Û¹ï¿½È£';
 
--- µ¿¿µ»ó´ñ±Û
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 CREATE TABLE avi_comt (
-	acno INTEGER  NOT NULL COMMENT '´ñ±Û¹øÈ£', -- ´ñ±Û¹øÈ£
-	cont TEXT     NOT NULL COMMENT '³»¿ë', -- ³»¿ë
-	cdt  DATETIME NOT NULL COMMENT 'ÀÛ¼ºÀÏ', -- ÀÛ¼ºÀÏ
-	mno  INTEGER  NOT NULL COMMENT 'È¸¿ø¹øÈ£', -- È¸¿ø¹øÈ£
-	abno INTEGER  NOT NULL COMMENT 'µ¿°Ô½Ã±Û¹øÈ£' -- µ¿°Ô½Ã±Û¹øÈ£
+	acno INTEGER  NOT NULL COMMENT 'ï¿½ï¿½Û¹ï¿½È£', -- ï¿½ï¿½Û¹ï¿½È£
+	cont TEXT     NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½', -- ï¿½ï¿½ï¿½ï¿½
+	cdt  DATETIME NOT NULL COMMENT 'ï¿½Û¼ï¿½ï¿½ï¿½', -- ï¿½Û¼ï¿½ï¿½ï¿½
+	mno  INTEGER  NOT NULL COMMENT 'È¸ï¿½ï¿½ï¿½ï¿½È£', -- È¸ï¿½ï¿½ï¿½ï¿½È£
+	abno INTEGER  NOT NULL COMMENT 'ï¿½ï¿½ï¿½Ô½Ã±Û¹ï¿½È£' -- ï¿½ï¿½ï¿½Ô½Ã±Û¹ï¿½È£
 )
-COMMENT 'µ¿¿µ»ó´ñ±Û';
+COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
 
--- µ¿¿µ»ó´ñ±Û
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ALTER TABLE avi_comt
-	ADD CONSTRAINT PK_avi_comt -- µ¿¿µ»ó´ñ±Û ±âº»Å°
+	ADD CONSTRAINT PK_avi_comt -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº»Å°
 		PRIMARY KEY (
-			acno -- ´ñ±Û¹øÈ£
+			acno -- ï¿½ï¿½Û¹ï¿½È£
 		);
 
 ALTER TABLE avi_comt
-	MODIFY COLUMN acno INTEGER NOT NULL AUTO_INCREMENT COMMENT '´ñ±Û¹øÈ£';
+	MODIFY COLUMN acno INTEGER NOT NULL AUTO_INCREMENT COMMENT 'ï¿½ï¿½Û¹ï¿½È£';
 
--- ¾Ë¸²
+-- ï¿½Ë¸ï¿½
 CREATE TABLE aralm (
-	alno INTEGER     NOT NULL COMMENT '¾Ë¸²¹øÈ£', -- ¾Ë¸²¹øÈ£
-	dt   DATETIME    NOT NULL COMMENT 'ÀÏ½Ã', -- ÀÏ½Ã
-	cont VARCHAR(50) NOT NULL COMMENT '³»¿ë', -- ³»¿ë
-	stus VARCHAR(50) NOT NULL COMMENT '»óÅÂ¸Å¼¼Áö', -- »óÅÂ¸Å¼¼Áö
-	brno INTEGER     NULL     COMMENT '¹«´ë»ç¿ë¿äÃ»¹øÈ£', -- ¹«´ë»ç¿ë¿äÃ»¹øÈ£
-	ssno INTEGER     NULL     COMMENT '¹«´ë½ºÄÉÁÙ¹øÈ£' -- ¹«´ë½ºÄÉÁÙ¹øÈ£
+	alno INTEGER     NOT NULL COMMENT 'ï¿½Ë¸ï¿½ï¿½ï¿½È£', -- ï¿½Ë¸ï¿½ï¿½ï¿½È£
+	dt   DATETIME    NOT NULL COMMENT 'ï¿½Ï½ï¿½', -- ï¿½Ï½ï¿½
+	cont VARCHAR(50) NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½', -- ï¿½ï¿½ï¿½ï¿½
+	stus VARCHAR(50) NOT NULL COMMENT 'ï¿½ï¿½ï¿½Â¸Å¼ï¿½ï¿½ï¿½', -- ï¿½ï¿½ï¿½Â¸Å¼ï¿½ï¿½ï¿½
+	brno INTEGER     NULL     COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½È£', -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½È£
+	ssno INTEGER     NULL     COMMENT 'ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½Ù¹ï¿½È£' -- ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½Ù¹ï¿½È£
 )
-COMMENT '¾Ë¸²';
+COMMENT 'ï¿½Ë¸ï¿½';
 
--- ¾Ë¸²
+-- ï¿½Ë¸ï¿½
 ALTER TABLE aralm
-	ADD CONSTRAINT PK_aralm -- ¾Ë¸² ±âº»Å°
+	ADD CONSTRAINT PK_aralm -- ï¿½Ë¸ï¿½ ï¿½âº»Å°
 		PRIMARY KEY (
-			alno -- ¾Ë¸²¹øÈ£
+			alno -- ï¿½Ë¸ï¿½ï¿½ï¿½È£
 		);
 
--- ¾Ë¸² ÀÎµ¦½º
+-- ï¿½Ë¸ï¿½ ï¿½Îµï¿½ï¿½ï¿½
 CREATE INDEX IX_aralm
-	ON aralm( -- ¾Ë¸²
-		dt ASC -- ÀÏ½Ã
+	ON aralm( -- ï¿½Ë¸ï¿½
+		dt ASC -- ï¿½Ï½ï¿½
 	);
 
 ALTER TABLE aralm
-	MODIFY COLUMN alno INTEGER NOT NULL AUTO_INCREMENT COMMENT '¾Ë¸²¹øÈ£';
+	MODIFY COLUMN alno INTEGER NOT NULL AUTO_INCREMENT COMMENT 'ï¿½Ë¸ï¿½ï¿½ï¿½È£';
 
--- ¹ö½ºÅ·È«º¸
+-- ï¿½ï¿½ï¿½ï¿½Å·È«ï¿½ï¿½
 CREATE TABLE busk_board (
-	bbno  INTEGER      NOT NULL COMMENT '¹ö½ºÅ·¹øÈ£', -- ¹ö½ºÅ·¹øÈ£
-	titl  VARCHAR(50)  NOT NULL COMMENT 'Á¦¸ñ', -- Á¦¸ñ
-	genre VARCHAR(50)  NOT NULL COMMENT 'Àå¸£', -- Àå¸£
-	city  VARCHAR(50)  NOT NULL COMMENT '°ø¿¬µµ½Ã', -- °ø¿¬µµ½Ã
-	cnt   INTEGER      NOT NULL COMMENT 'ÀÎ¿ø', -- ÀÎ¿ø
-	sdt   DATETIME     NOT NULL COMMENT '½ÃÀÛÀÏ', -- ½ÃÀÛÀÏ
-	edt   DATETIME     NOT NULL COMMENT 'Á¾·áÀÏ', -- Á¾·áÀÏ
-	tel1  VARCHAR(30)  NOT NULL COMMENT '¿¬¶ôÃ³1', -- ¿¬¶ôÃ³1
-	tel2  VARCHAR(30)  NULL     COMMENT '¿¬¶ôÃ³2', -- ¿¬¶ôÃ³2
-	etc   TEXT         NULL     COMMENT 'È«º¸³»¿ë', -- È«º¸³»¿ë
-	cdt   DATETIME     NOT NULL COMMENT 'µî·ÏÀÏ', -- µî·ÏÀÏ
-	phot  VARCHAR(255) NOT NULL COMMENT '»çÁø¸í', -- »çÁø¸í
-	bno   INTEGER      NOT NULL COMMENT '¹ö½ºÄ¿¹øÈ£' -- ¹ö½ºÄ¿¹øÈ£
+	bbno  INTEGER      NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½È£', -- ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½È£
+	titl  VARCHAR(50)  NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½', -- ï¿½ï¿½ï¿½ï¿½
+	genre VARCHAR(50)  NOT NULL COMMENT 'ï¿½å¸£', -- ï¿½å¸£
+	city  VARCHAR(50)  NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	cnt   INTEGER      NOT NULL COMMENT 'ï¿½Î¿ï¿½', -- ï¿½Î¿ï¿½
+	sdt   DATETIME     NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	edt   DATETIME     NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	tel1  VARCHAR(30)  NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½Ã³1', -- ï¿½ï¿½ï¿½ï¿½Ã³1
+	tel2  VARCHAR(30)  NULL     COMMENT 'ï¿½ï¿½ï¿½ï¿½Ã³2', -- ï¿½ï¿½ï¿½ï¿½Ã³2
+	etc   TEXT         NULL     COMMENT 'È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', -- È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	cdt   DATETIME     NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½', -- ï¿½ï¿½ï¿½ï¿½ï¿½
+	phot  VARCHAR(255) NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	bno   INTEGER      NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È£' -- ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È£
 )
-COMMENT '¹ö½ºÅ·È«º¸';
+COMMENT 'ï¿½ï¿½ï¿½ï¿½Å·È«ï¿½ï¿½';
 
--- ¹ö½ºÅ·È«º¸
+-- ï¿½ï¿½ï¿½ï¿½Å·È«ï¿½ï¿½
 ALTER TABLE busk_board
-	ADD CONSTRAINT PK_busk_board -- ¹ö½ºÅ·È«º¸ ±âº»Å°
+	ADD CONSTRAINT PK_busk_board -- ï¿½ï¿½ï¿½ï¿½Å·È«ï¿½ï¿½ ï¿½âº»Å°
 		PRIMARY KEY (
-			bbno -- ¹ö½ºÅ·¹øÈ£
+			bbno -- ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½È£
 		);
 
--- ¹ö½ºÅ·È«º¸ ÀÎµ¦½º
+-- ï¿½ï¿½ï¿½ï¿½Å·È«ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½
 CREATE INDEX IX_busk_board2
-	ON busk_board( -- ¹ö½ºÅ·È«º¸
-		sdt ASC -- ½ÃÀÛÀÏ
+	ON busk_board( -- ï¿½ï¿½ï¿½ï¿½Å·È«ï¿½ï¿½
+		sdt ASC -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	);
 
--- ¹ö½ºÅ·È«º¸ ÀÎµ¦½º2
+-- ï¿½ï¿½ï¿½ï¿½Å·È«ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½2
 CREATE INDEX IX_busk_board3
-	ON busk_board( -- ¹ö½ºÅ·È«º¸
-		edt ASC -- Á¾·áÀÏ
+	ON busk_board( -- ï¿½ï¿½ï¿½ï¿½Å·È«ï¿½ï¿½
+		edt ASC -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	);
 
--- ¹ö½ºÅ·È«º¸ ÀÎµ¦½º3
+-- ï¿½ï¿½ï¿½ï¿½Å·È«ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½3
 CREATE INDEX IX_busk_board4
-	ON busk_board( -- ¹ö½ºÅ·È«º¸
-		city ASC -- °ø¿¬µµ½Ã
+	ON busk_board( -- ï¿½ï¿½ï¿½ï¿½Å·È«ï¿½ï¿½
+		city ASC -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	);
 
--- ¹ö½ºÅ·È«º¸ ÀÎµ¦½º4
+-- ï¿½ï¿½ï¿½ï¿½Å·È«ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½4
 CREATE INDEX IX_busk_board5
-	ON busk_board( -- ¹ö½ºÅ·È«º¸
-		genre ASC -- Àå¸£
+	ON busk_board( -- ï¿½ï¿½ï¿½ï¿½Å·È«ï¿½ï¿½
+		genre ASC -- ï¿½å¸£
 	);
 
 ALTER TABLE busk_board
-	MODIFY COLUMN bbno INTEGER NOT NULL AUTO_INCREMENT COMMENT '¹ö½ºÅ·¹øÈ£';
+	MODIFY COLUMN bbno INTEGER NOT NULL AUTO_INCREMENT COMMENT 'ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½È£';
 
--- µ¿¿µ»ó °Ô½Ã±Û
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½
 CREATE TABLE avi (
-	abno INTEGER      NOT NULL COMMENT 'µ¿°Ô½Ã±Û¹øÈ£', -- µ¿°Ô½Ã±Û¹øÈ£
-	titl VARCHAR(50)  NOT NULL COMMENT 'Á¦¸ñ', -- Á¦¸ñ
-	cont TEXT         NULL     COMMENT '±Û³»¿ë', -- ±Û³»¿ë
-	lcnt INTEGER      NULL     COMMENT 'ÁÁ¾Æ¿ä ¼ö', -- ÁÁ¾Æ¿ä ¼ö
-	cdt  DATETIME     NOT NULL COMMENT 'ÀÛ¼ºÀÏ', -- ÀÛ¼ºÀÏ
+	abno INTEGER      NOT NULL COMMENT 'ï¿½ï¿½ï¿½Ô½Ã±Û¹ï¿½È£', -- ï¿½ï¿½ï¿½Ô½Ã±Û¹ï¿½È£
+	titl VARCHAR(50)  NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½', -- ï¿½ï¿½ï¿½ï¿½
+	cont TEXT         NULL     COMMENT 'ï¿½Û³ï¿½ï¿½ï¿½', -- ï¿½Û³ï¿½ï¿½ï¿½
+	lcnt INTEGER      NULL     COMMENT 'ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½ï¿½', -- ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½ï¿½
+	cdt  DATETIME     NOT NULL COMMENT 'ï¿½Û¼ï¿½ï¿½ï¿½', -- ï¿½Û¼ï¿½ï¿½ï¿½
 	stm  VARCHAR(255) NOT NULL COMMENT 'url', -- url
-	bno  INTEGER      NOT NULL COMMENT '¹ö½ºÄ¿¹øÈ£' -- ¹ö½ºÄ¿¹øÈ£
+	bno  INTEGER      NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È£' -- ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È£
 )
-COMMENT 'µ¿¿µ»ó °Ô½Ã±Û';
+COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½';
 
--- µ¿¿µ»ó °Ô½Ã±Û
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½
 ALTER TABLE avi
-	ADD CONSTRAINT PK_avi -- µ¿¿µ»ó °Ô½Ã±Û ±âº»Å°
+	ADD CONSTRAINT PK_avi -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½ ï¿½âº»Å°
 		PRIMARY KEY (
-			abno -- µ¿°Ô½Ã±Û¹øÈ£
+			abno -- ï¿½ï¿½ï¿½Ô½Ã±Û¹ï¿½È£
 		);
 
--- µ¿¿µ»ó °Ô½Ã±Û ÀÎµ¦½º
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½ ï¿½Îµï¿½ï¿½ï¿½
 CREATE INDEX IX_avi
-	ON avi( -- µ¿¿µ»ó °Ô½Ã±Û
-		titl ASC -- Á¦¸ñ
+	ON avi( -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½
+		titl ASC -- ï¿½ï¿½ï¿½ï¿½
 	);
 
--- µ¿¿µ»ó °Ô½Ã±Û ÀÎµ¦½º2
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½ ï¿½Îµï¿½ï¿½ï¿½2
 CREATE INDEX IX_avi2
-	ON avi( -- µ¿¿µ»ó °Ô½Ã±Û
-		lcnt ASC -- ÁÁ¾Æ¿ä ¼ö
+	ON avi( -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½
+		lcnt ASC -- ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½ï¿½
 	);
 
 ALTER TABLE avi
-	MODIFY COLUMN abno INTEGER NOT NULL AUTO_INCREMENT COMMENT 'µ¿°Ô½Ã±Û¹øÈ£';
+	MODIFY COLUMN abno INTEGER NOT NULL AUTO_INCREMENT COMMENT 'ï¿½ï¿½ï¿½Ô½Ã±Û¹ï¿½È£';
 
--- »çÁø´ñ±Û
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 CREATE TABLE phot_comt (
-	pcno INTEGER  NOT NULL COMMENT '´ñ±Û¹øÈ£', -- ´ñ±Û¹øÈ£
-	cont TEXT     NOT NULL COMMENT '³»¿ë', -- ³»¿ë
-	cdt  DATETIME NOT NULL COMMENT 'ÀÛ¼ºÀÏ', -- ÀÛ¼ºÀÏ
-	mno  INTEGER  NOT NULL COMMENT 'È¸¿ø¹øÈ£', -- È¸¿ø¹øÈ£
-	pbno INTEGER  NOT NULL COMMENT '»ç°Ô½Ã±Û¹øÈ£' -- »ç°Ô½Ã±Û¹øÈ£
+	pcno INTEGER  NOT NULL COMMENT 'ï¿½ï¿½Û¹ï¿½È£', -- ï¿½ï¿½Û¹ï¿½È£
+	cont TEXT     NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½', -- ï¿½ï¿½ï¿½ï¿½
+	cdt  DATETIME NOT NULL COMMENT 'ï¿½Û¼ï¿½ï¿½ï¿½', -- ï¿½Û¼ï¿½ï¿½ï¿½
+	mno  INTEGER  NOT NULL COMMENT 'È¸ï¿½ï¿½ï¿½ï¿½È£', -- È¸ï¿½ï¿½ï¿½ï¿½È£
+	pbno INTEGER  NOT NULL COMMENT 'ï¿½ï¿½Ô½Ã±Û¹ï¿½È£' -- ï¿½ï¿½Ô½Ã±Û¹ï¿½È£
 )
-COMMENT '»çÁø´ñ±Û';
+COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
 
--- »çÁø´ñ±Û
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ALTER TABLE phot_comt
-	ADD CONSTRAINT PK_phot_comt -- »çÁø´ñ±Û ±âº»Å°
+	ADD CONSTRAINT PK_phot_comt -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº»Å°
 		PRIMARY KEY (
-			pcno -- ´ñ±Û¹øÈ£
+			pcno -- ï¿½ï¿½Û¹ï¿½È£
 		);
 
 ALTER TABLE phot_comt
-	MODIFY COLUMN pcno INTEGER NOT NULL AUTO_INCREMENT COMMENT '´ñ±Û¹øÈ£';
+	MODIFY COLUMN pcno INTEGER NOT NULL AUTO_INCREMENT COMMENT 'ï¿½ï¿½Û¹ï¿½È£';
 
--- ½t·ÎÀ×
+-- ï¿½tï¿½ï¿½ï¿½ï¿½
 CREATE TABLE folw (
-	mno2 INTEGER NOT NULL COMMENT 'È¸¿ø¹øÈ£', -- È¸¿ø¹øÈ£
-	bno  INTEGER NOT NULL COMMENT '¹ö½ºÄ¿¹øÈ£' -- ¹ö½ºÄ¿¹øÈ£
+	mno2 INTEGER NOT NULL COMMENT 'È¸ï¿½ï¿½ï¿½ï¿½È£', -- È¸ï¿½ï¿½ï¿½ï¿½È£
+	bno  INTEGER NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È£' -- ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È£
 )
-COMMENT '½t·ÎÀ×';
+COMMENT 'ï¿½tï¿½ï¿½ï¿½ï¿½';
 
--- ½t·ÎÀ×
+-- ï¿½tï¿½ï¿½ï¿½ï¿½
 ALTER TABLE folw
-	ADD CONSTRAINT PK_folw -- ½t·ÎÀ× ±âº»Å°
+	ADD CONSTRAINT PK_folw -- ï¿½tï¿½ï¿½ï¿½ï¿½ ï¿½âº»Å°
 		PRIMARY KEY (
-			mno2, -- È¸¿ø¹øÈ£
-			bno   -- ¹ö½ºÄ¿¹øÈ£
+			mno2, -- È¸ï¿½ï¿½ï¿½ï¿½È£
+			bno   -- ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È£
 		);
 
--- ¹«´ë»çÁø
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 CREATE TABLE stag_phot (
-	spno INTEGER      NOT NULL COMMENT '»çÁø¹øÈ£', -- »çÁø¹øÈ£
-	phot VARCHAR(255) NOT NULL COMMENT '»çÁøÆÄÀÏ¸í', -- »çÁøÆÄÀÏ¸í
-	sno  INTEGER      NOT NULL COMMENT '¹«´ëÁ¦°øÀÚ¹øÈ£' -- ¹«´ëÁ¦°øÀÚ¹øÈ£
+	spno INTEGER      NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£', -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£
+	phot VARCHAR(255) NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½', -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½
+	sno  INTEGER      NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¹ï¿½È£' -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¹ï¿½È£
 )
-COMMENT '¹«´ë»çÁø';
+COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
 
--- ¹«´ë»çÁø
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ALTER TABLE stag_phot
-	ADD CONSTRAINT PK_stag_phot -- ¹«´ë»çÁø ±âº»Å°
+	ADD CONSTRAINT PK_stag_phot -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº»Å°
 		PRIMARY KEY (
-			spno -- »çÁø¹øÈ£
+			spno -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£
 		);
 
 ALTER TABLE stag_phot
-	MODIFY COLUMN spno INTEGER NOT NULL AUTO_INCREMENT COMMENT '»çÁø¹øÈ£';
+	MODIFY COLUMN spno INTEGER NOT NULL AUTO_INCREMENT COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£';
 
--- ¹ö½ºÅ·¹«´ë»ç¿ë¿äÃ»
+-- ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»
 CREATE TABLE busk_req (
-	brno INTEGER  NOT NULL COMMENT '¹«´ë»ç¿ë¿äÃ»¹øÈ£', -- ¹«´ë»ç¿ë¿äÃ»¹øÈ£
-	bno  INTEGER  NOT NULL COMMENT '¹ö½ºÄ¿¹øÈ£', -- ¹ö½ºÄ¿¹øÈ£
-	cont TEXT     NULL     COMMENT '¿äÃ»³»¿ë', -- ¿äÃ»³»¿ë
-	cdt  DATETIME NOT NULL COMMENT 'ÀÛ¼ºÀÏ½Ã', -- ÀÛ¼ºÀÏ½Ã
-	flag CHAR(1)  NOT NULL COMMENT '»óÅÂ' -- »óÅÂ
+	brno INTEGER  NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½È£', -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½È£
+	bno  INTEGER  NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È£', -- ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È£
+	cont TEXT     NULL     COMMENT 'ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½', -- ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½
+	cdt  DATETIME NOT NULL COMMENT 'ï¿½Û¼ï¿½ï¿½Ï½ï¿½', -- ï¿½Û¼ï¿½ï¿½Ï½ï¿½
+	flag CHAR(1)  NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½' -- ï¿½ï¿½ï¿½ï¿½
 )
-COMMENT '¹ö½ºÅ·¹«´ë»ç¿ë¿äÃ»';
+COMMENT 'ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»';
 
--- ¹ö½ºÅ·¹«´ë»ç¿ë¿äÃ»
+-- ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»
 ALTER TABLE busk_req
-	ADD CONSTRAINT PK_busk_req -- ¹ö½ºÅ·¹«´ë»ç¿ë¿äÃ» ±âº»Å°
+	ADD CONSTRAINT PK_busk_req -- ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã» ï¿½âº»Å°
 		PRIMARY KEY (
-			brno -- ¹«´ë»ç¿ë¿äÃ»¹øÈ£
+			brno -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½È£
 		);
 
--- ¹ö½ºÅ·¹«´ë»ç¿ë¿äÃ» ÀÎµ¦½º
+-- ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã» ï¿½Îµï¿½ï¿½ï¿½
 CREATE INDEX IX_busk_req
-	ON busk_req( -- ¹ö½ºÅ·¹«´ë»ç¿ë¿äÃ»
-		flag ASC -- »óÅÂ
+	ON busk_req( -- ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»
+		flag ASC -- ï¿½ï¿½ï¿½ï¿½
 	);
 
 ALTER TABLE busk_req
-	MODIFY COLUMN brno INTEGER NOT NULL AUTO_INCREMENT COMMENT '¹«´ë»ç¿ë¿äÃ»¹øÈ£';
+	MODIFY COLUMN brno INTEGER NOT NULL AUTO_INCREMENT COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½È£';
 
--- ¹«´ë½ºÄÉÁì
+-- ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½ï¿½
 CREATE TABLE stag_sche (
-	ssno INTEGER  NOT NULL COMMENT '¹«´ë½ºÄÉÁÙ¹øÈ£', -- ¹«´ë½ºÄÉÁÙ¹øÈ£
-	sdt  DATETIME NOT NULL COMMENT '½ÃÀÛÀÏ½Ã', -- ½ÃÀÛÀÏ½Ã
-	edt  DATETIME NOT NULL COMMENT 'Á¾·áÀÏ½Ã', -- Á¾·áÀÏ½Ã
-	flag CHAR(1)  NOT NULL COMMENT '»óÅÂ', -- »óÅÂ
-	sno  INTEGER  NOT NULL COMMENT '¹«´ëÁ¦°øÀÚ¹øÈ£' -- ¹«´ëÁ¦°øÀÚ¹øÈ£
+	ssno INTEGER  NOT NULL COMMENT 'ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½Ù¹ï¿½È£', -- ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½Ù¹ï¿½È£
+	sdt  DATETIME NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½Ï½ï¿½', -- ï¿½ï¿½ï¿½ï¿½ï¿½Ï½ï¿½
+	edt  DATETIME NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½Ï½ï¿½', -- ï¿½ï¿½ï¿½ï¿½ï¿½Ï½ï¿½
+	flag CHAR(1)  NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½', -- ï¿½ï¿½ï¿½ï¿½
+	sno  INTEGER  NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¹ï¿½È£' -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¹ï¿½È£
 )
-COMMENT '¹«´ë½ºÄÉÁì';
+COMMENT 'ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½ï¿½';
 
--- ¹«´ë½ºÄÉÁì
+-- ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½ï¿½
 ALTER TABLE stag_sche
-	ADD CONSTRAINT PK_stag_sche -- ¹«´ë½ºÄÉÁì ±âº»Å°
+	ADD CONSTRAINT PK_stag_sche -- ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½ï¿½ ï¿½âº»Å°
 		PRIMARY KEY (
-			ssno -- ¹«´ë½ºÄÉÁÙ¹øÈ£
+			ssno -- ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½Ù¹ï¿½È£
 		);
 
 ALTER TABLE stag_sche
-	MODIFY COLUMN ssno INTEGER NOT NULL AUTO_INCREMENT COMMENT '¹«´ë½ºÄÉÁÙ¹øÈ£';
+	MODIFY COLUMN ssno INTEGER NOT NULL AUTO_INCREMENT COMMENT 'ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½Ù¹ï¿½È£';
 
--- È«º¸´ñ±Û
+-- È«ï¿½ï¿½ï¿½ï¿½ï¿½
 CREATE TABLE board_comt (
-	bcno INTEGER NOT NULL COMMENT '´ñ±Û¹øÈ£', -- ´ñ±Û¹øÈ£
-	cont TEXT    NOT NULL COMMENT '³»¿ë', -- ³»¿ë
-	bbno INTEGER NOT NULL COMMENT '¹ö½ºÅ·¹øÈ£', -- ¹ö½ºÅ·¹øÈ£
-	mno  INTEGER NOT NULL COMMENT 'È¸¿ø¹øÈ£' -- È¸¿ø¹øÈ£
+	bcno INTEGER NOT NULL COMMENT 'ï¿½ï¿½Û¹ï¿½È£', -- ï¿½ï¿½Û¹ï¿½È£
+	cont TEXT    NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½', -- ï¿½ï¿½ï¿½ï¿½
+	bbno INTEGER NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½È£', -- ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½È£
+	mno  INTEGER NOT NULL COMMENT 'È¸ï¿½ï¿½ï¿½ï¿½È£' -- È¸ï¿½ï¿½ï¿½ï¿½È£
 )
-COMMENT 'È«º¸´ñ±Û';
+COMMENT 'È«ï¿½ï¿½ï¿½ï¿½ï¿½';
 
--- È«º¸´ñ±Û
+-- È«ï¿½ï¿½ï¿½ï¿½ï¿½
 ALTER TABLE board_comt
-	ADD CONSTRAINT PK_board_comt -- È«º¸´ñ±Û ±âº»Å°
+	ADD CONSTRAINT PK_board_comt -- È«ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº»Å°
 		PRIMARY KEY (
-			bcno -- ´ñ±Û¹øÈ£
+			bcno -- ï¿½ï¿½Û¹ï¿½È£
 		);
 
 ALTER TABLE board_comt
-	MODIFY COLUMN bcno INTEGER NOT NULL AUTO_INCREMENT COMMENT '´ñ±Û¹øÈ£';
+	MODIFY COLUMN bcno INTEGER NOT NULL AUTO_INCREMENT COMMENT 'ï¿½ï¿½Û¹ï¿½È£';
 
--- ÇÇµå»çÁø
+-- ï¿½Çµï¿½ï¿½ï¿½ï¿½
 CREATE TABLE feed_phot (
-	fpno INTEGER      NOT NULL COMMENT '»çÁø¹øÈ£', -- »çÁø¹øÈ£
-	phot VARCHAR(255) NOT NULL COMMENT '»çÁø¸í', -- »çÁø¸í
-	pbno INTEGER      NOT NULL COMMENT '»ç°Ô½Ã±Û¹øÈ£' -- »ç°Ô½Ã±Û¹øÈ£
+	fpno INTEGER      NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£', -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£
+	phot VARCHAR(255) NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	pbno INTEGER      NOT NULL COMMENT 'ï¿½ï¿½Ô½Ã±Û¹ï¿½È£' -- ï¿½ï¿½Ô½Ã±Û¹ï¿½È£
 )
-COMMENT 'ÇÇµå»çÁø';
+COMMENT 'ï¿½Çµï¿½ï¿½ï¿½ï¿½';
 
--- ÇÇµå»çÁø
+-- ï¿½Çµï¿½ï¿½ï¿½ï¿½
 ALTER TABLE feed_phot
-	ADD CONSTRAINT PK_feed_phot -- ÇÇµå»çÁø ±âº»Å°
+	ADD CONSTRAINT PK_feed_phot -- ï¿½Çµï¿½ï¿½ï¿½ï¿½ ï¿½âº»Å°
 		PRIMARY KEY (
-			fpno -- »çÁø¹øÈ£
+			fpno -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£
 		);
 
 ALTER TABLE feed_phot
-	MODIFY COLUMN fpno INTEGER NOT NULL AUTO_INCREMENT COMMENT '»çÁø¹øÈ£';
+	MODIFY COLUMN fpno INTEGER NOT NULL AUTO_INCREMENT COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£';
 
--- µ¿¿µ»óÀÎ±âÅë°è
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î±ï¿½ï¿½ï¿½ï¿½
 CREATE TABLE avi_fav (
-	abno INTEGER NOT NULL COMMENT 'µ¿°Ô½Ã±Û¹øÈ£', -- µ¿°Ô½Ã±Û¹øÈ£
-	lcnt INTEGER NOT NULL COMMENT 'ÁÁ¾Æ¿ä' -- ÁÁ¾Æ¿ä
+	abno INTEGER NOT NULL COMMENT 'ï¿½ï¿½ï¿½Ô½Ã±Û¹ï¿½È£', -- ï¿½ï¿½ï¿½Ô½Ã±Û¹ï¿½È£
+	lcnt INTEGER NOT NULL COMMENT 'ï¿½ï¿½ï¿½Æ¿ï¿½' -- ï¿½ï¿½ï¿½Æ¿ï¿½
 )
-COMMENT 'µ¿¿µ»óÀÎ±âÅë°è';
+COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î±ï¿½ï¿½ï¿½ï¿½';
 
--- µ¿¿µ»óÀÎ±âÅë°è
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î±ï¿½ï¿½ï¿½ï¿½
 ALTER TABLE avi_fav
-	ADD CONSTRAINT PK_avi_fav -- µ¿¿µ»óÀÎ±âÅë°è ±âº»Å°
+	ADD CONSTRAINT PK_avi_fav -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î±ï¿½ï¿½ï¿½ï¿½ ï¿½âº»Å°
 		PRIMARY KEY (
-			abno -- µ¿°Ô½Ã±Û¹øÈ£
+			abno -- ï¿½ï¿½ï¿½Ô½Ã±Û¹ï¿½È£
 		);
 
--- °ø¿¬ÀåÀÎ±âÅë°è
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î±ï¿½ï¿½ï¿½ï¿½
 CREATE TABLE stag_fav (
-	ssno INTEGER NOT NULL COMMENT '¹«´ë½ºÄÉÁÙ¹øÈ£', -- ¹«´ë½ºÄÉÁÙ¹øÈ£
-	cnt  INTEGER NOT NULL COMMENT '¿äÃ»¼ö' -- ¿äÃ»¼ö
+	ssno INTEGER NOT NULL COMMENT 'ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½Ù¹ï¿½È£', -- ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½Ù¹ï¿½È£
+	cnt  INTEGER NOT NULL COMMENT 'ï¿½ï¿½Ã»ï¿½ï¿½' -- ï¿½ï¿½Ã»ï¿½ï¿½
 )
-COMMENT '°ø¿¬ÀåÀÎ±âÅë°è';
+COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î±ï¿½ï¿½ï¿½ï¿½';
 
--- °ø¿¬ÀåÀÎ±âÅë°è
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î±ï¿½ï¿½ï¿½ï¿½
 ALTER TABLE stag_fav
-	ADD CONSTRAINT PK_stag_fav -- °ø¿¬ÀåÀÎ±âÅë°è ±âº»Å°
+	ADD CONSTRAINT PK_stag_fav -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î±ï¿½ï¿½ï¿½ï¿½ ï¿½âº»Å°
 		PRIMARY KEY (
-			ssno -- ¹«´ë½ºÄÉÁÙ¹øÈ£
+			ssno -- ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½Ù¹ï¿½È£
 		);
 
--- ¹«´ë»ç¿ë¿äÃ»½ºÄÉÁÙ
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 CREATE TABLE busk_stag (
-	ssno INTEGER NOT NULL COMMENT '¹«´ë½ºÄÉÁÙ¹øÈ£', -- ¹«´ë½ºÄÉÁÙ¹øÈ£
-	brno INTEGER NOT NULL COMMENT '¹«´ë»ç¿ë¿äÃ»¹øÈ£' -- ¹«´ë»ç¿ë¿äÃ»¹øÈ£
+	ssno INTEGER NOT NULL COMMENT 'ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½Ù¹ï¿½È£', -- ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½Ù¹ï¿½È£
+	brno INTEGER NOT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½È£' -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½È£
 )
-COMMENT '¹«´ë»ç¿ë¿äÃ»½ºÄÉÁÙ';
+COMMENT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
 
--- ¹«´ë»ç¿ë¿äÃ»½ºÄÉÁÙ
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ALTER TABLE busk_stag
-	ADD CONSTRAINT PK_busk_stag -- ¹«´ë»ç¿ë¿äÃ»½ºÄÉÁÙ ±âº»Å°
+	ADD CONSTRAINT PK_busk_stag -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº»Å°
 		PRIMARY KEY (
-			ssno, -- ¹«´ë½ºÄÉÁÙ¹øÈ£
-			brno  -- ¹«´ë»ç¿ë¿äÃ»¹øÈ£
+			ssno, -- ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½Ù¹ï¿½È£
+			brno  -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½È£
 		);
 
--- ¹ö½ºÄ¿
+-- ï¿½ï¿½ï¿½ï¿½Ä¿
 ALTER TABLE busk
-	ADD CONSTRAINT FK_memb_TO_busk -- È¸¿ø -> ¹ö½ºÄ¿
+	ADD CONSTRAINT FK_memb_TO_busk -- È¸ï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½Ä¿
 		FOREIGN KEY (
-			bno -- ¹ö½ºÄ¿¹øÈ£
+			bno -- ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È£
 		)
-		REFERENCES memb ( -- È¸¿ø
-			mno -- È¸¿ø¹øÈ£
+		REFERENCES memb ( -- È¸ï¿½ï¿½
+			mno -- È¸ï¿½ï¿½ï¿½ï¿½È£
 		);
 
--- ¹«´ë_Á¦°øÀÚ
+-- ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ALTER TABLE sup
-	ADD CONSTRAINT FK_memb_TO_sup -- È¸¿ø -> ¹«´ë_Á¦°øÀÚ
+	ADD CONSTRAINT FK_memb_TO_sup -- È¸ï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		FOREIGN KEY (
-			sno -- ¹«´ëÁ¦°øÀÚ¹øÈ£
+			sno -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¹ï¿½È£
 		)
-		REFERENCES memb ( -- È¸¿ø
-			mno -- È¸¿ø¹øÈ£
+		REFERENCES memb ( -- È¸ï¿½ï¿½
+			mno -- È¸ï¿½ï¿½ï¿½ï¿½È£
 		);
 
--- ¹ö½ºÅ·½ºÄÉÁì
+-- ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ALTER TABLE per_sche
-	ADD CONSTRAINT FK_busk_TO_per_sche -- ¹ö½ºÄ¿ -> ¹ö½ºÅ·½ºÄÉÁì
+	ADD CONSTRAINT FK_busk_TO_per_sche -- ï¿½ï¿½ï¿½ï¿½Ä¿ -> ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		FOREIGN KEY (
-			bno -- ¹ö½ºÄ¿¹øÈ£
+			bno -- ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È£
 		)
-		REFERENCES busk ( -- ¹ö½ºÄ¿
-			bno -- ¹ö½ºÄ¿¹øÈ£
+		REFERENCES busk ( -- ï¿½ï¿½ï¿½ï¿½Ä¿
+			bno -- ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È£
 		);
 
--- »çÁø °Ô½Ã±Û
+-- ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½
 ALTER TABLE phot
-	ADD CONSTRAINT FK_busk_TO_phot -- ¹ö½ºÄ¿ -> »çÁø °Ô½Ã±Û
+	ADD CONSTRAINT FK_busk_TO_phot -- ï¿½ï¿½ï¿½ï¿½Ä¿ -> ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½
 		FOREIGN KEY (
-			bno -- ¹ö½ºÄ¿¹øÈ£
+			bno -- ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È£
 		)
-		REFERENCES busk ( -- ¹ö½ºÄ¿
-			bno -- ¹ö½ºÄ¿¹øÈ£
+		REFERENCES busk ( -- ï¿½ï¿½ï¿½ï¿½Ä¿
+			bno -- ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È£
 		);
 
--- µ¿¿µ»ó´ñ±Û
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ALTER TABLE avi_comt
-	ADD CONSTRAINT FK_memb_TO_avi_comt -- È¸¿ø -> µ¿¿µ»ó´ñ±Û
+	ADD CONSTRAINT FK_memb_TO_avi_comt -- È¸ï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		FOREIGN KEY (
-			mno -- È¸¿ø¹øÈ£
+			mno -- È¸ï¿½ï¿½ï¿½ï¿½È£
 		)
-		REFERENCES memb ( -- È¸¿ø
-			mno -- È¸¿ø¹øÈ£
+		REFERENCES memb ( -- È¸ï¿½ï¿½
+			mno -- È¸ï¿½ï¿½ï¿½ï¿½È£
 		);
 
--- µ¿¿µ»ó´ñ±Û
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ALTER TABLE avi_comt
-	ADD CONSTRAINT FK_avi_TO_avi_comt -- µ¿¿µ»ó °Ô½Ã±Û -> µ¿¿µ»ó´ñ±Û
+	ADD CONSTRAINT FK_avi_TO_avi_comt -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½ -> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		FOREIGN KEY (
-			abno -- µ¿°Ô½Ã±Û¹øÈ£
+			abno -- ï¿½ï¿½ï¿½Ô½Ã±Û¹ï¿½È£
 		)
-		REFERENCES avi ( -- µ¿¿µ»ó °Ô½Ã±Û
-			abno -- µ¿°Ô½Ã±Û¹øÈ£
+		REFERENCES avi ( -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½
+			abno -- ï¿½ï¿½ï¿½Ô½Ã±Û¹ï¿½È£
 		);
 
--- ¾Ë¸²
+-- ï¿½Ë¸ï¿½
 ALTER TABLE aralm
-	ADD CONSTRAINT FK_busk_req_TO_aralm -- ¹ö½ºÅ·¹«´ë»ç¿ë¿äÃ» -> ¾Ë¸²
+	ADD CONSTRAINT FK_busk_req_TO_aralm -- ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã» -> ï¿½Ë¸ï¿½
 		FOREIGN KEY (
-			brno -- ¹«´ë»ç¿ë¿äÃ»¹øÈ£
+			brno -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½È£
 		)
-		REFERENCES busk_req ( -- ¹ö½ºÅ·¹«´ë»ç¿ë¿äÃ»
-			brno -- ¹«´ë»ç¿ë¿äÃ»¹øÈ£
+		REFERENCES busk_req ( -- ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»
+			brno -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½È£
 		);
 
--- ¾Ë¸²
+-- ï¿½Ë¸ï¿½
 ALTER TABLE aralm
-	ADD CONSTRAINT FK_stag_sche_TO_aralm -- ¹«´ë½ºÄÉÁì -> ¾Ë¸²
+	ADD CONSTRAINT FK_stag_sche_TO_aralm -- ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½ï¿½ -> ï¿½Ë¸ï¿½
 		FOREIGN KEY (
-			ssno -- ¹«´ë½ºÄÉÁÙ¹øÈ£
+			ssno -- ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½Ù¹ï¿½È£
 		)
-		REFERENCES stag_sche ( -- ¹«´ë½ºÄÉÁì
-			ssno -- ¹«´ë½ºÄÉÁÙ¹øÈ£
+		REFERENCES stag_sche ( -- ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½ï¿½
+			ssno -- ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½Ù¹ï¿½È£
 		);
 
--- ¹ö½ºÅ·È«º¸
+-- ï¿½ï¿½ï¿½ï¿½Å·È«ï¿½ï¿½
 ALTER TABLE busk_board
-	ADD CONSTRAINT FK_busk_TO_busk_board -- ¹ö½ºÄ¿ -> ¹ö½ºÅ·È«º¸
+	ADD CONSTRAINT FK_busk_TO_busk_board -- ï¿½ï¿½ï¿½ï¿½Ä¿ -> ï¿½ï¿½ï¿½ï¿½Å·È«ï¿½ï¿½
 		FOREIGN KEY (
-			bno -- ¹ö½ºÄ¿¹øÈ£
+			bno -- ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È£
 		)
-		REFERENCES busk ( -- ¹ö½ºÄ¿
-			bno -- ¹ö½ºÄ¿¹øÈ£
+		REFERENCES busk ( -- ï¿½ï¿½ï¿½ï¿½Ä¿
+			bno -- ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È£
 		);
 
--- µ¿¿µ»ó °Ô½Ã±Û
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½
 ALTER TABLE avi
-	ADD CONSTRAINT FK_busk_TO_avi -- ¹ö½ºÄ¿ -> µ¿¿µ»ó °Ô½Ã±Û
+	ADD CONSTRAINT FK_busk_TO_avi -- ï¿½ï¿½ï¿½ï¿½Ä¿ -> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½
 		FOREIGN KEY (
-			bno -- ¹ö½ºÄ¿¹øÈ£
+			bno -- ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È£
 		)
-		REFERENCES busk ( -- ¹ö½ºÄ¿
-			bno -- ¹ö½ºÄ¿¹øÈ£
+		REFERENCES busk ( -- ï¿½ï¿½ï¿½ï¿½Ä¿
+			bno -- ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È£
 		);
 
--- »çÁø´ñ±Û
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ALTER TABLE phot_comt
-	ADD CONSTRAINT FK_memb_TO_phot_comt -- È¸¿ø -> »çÁø´ñ±Û
+	ADD CONSTRAINT FK_memb_TO_phot_comt -- È¸ï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		FOREIGN KEY (
-			mno -- È¸¿ø¹øÈ£
+			mno -- È¸ï¿½ï¿½ï¿½ï¿½È£
 		)
-		REFERENCES memb ( -- È¸¿ø
-			mno -- È¸¿ø¹øÈ£
+		REFERENCES memb ( -- È¸ï¿½ï¿½
+			mno -- È¸ï¿½ï¿½ï¿½ï¿½È£
 		);
 
--- »çÁø´ñ±Û
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ALTER TABLE phot_comt
-	ADD CONSTRAINT FK_phot_TO_phot_comt -- »çÁø °Ô½Ã±Û -> »çÁø´ñ±Û
+	ADD CONSTRAINT FK_phot_TO_phot_comt -- ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½ -> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		FOREIGN KEY (
-			pbno -- »ç°Ô½Ã±Û¹øÈ£
+			pbno -- ï¿½ï¿½Ô½Ã±Û¹ï¿½È£
 		)
-		REFERENCES phot ( -- »çÁø °Ô½Ã±Û
-			pbno -- »ç°Ô½Ã±Û¹øÈ£
+		REFERENCES phot ( -- ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½
+			pbno -- ï¿½ï¿½Ô½Ã±Û¹ï¿½È£
 		);
 
--- ½t·ÎÀ×
+-- ï¿½tï¿½ï¿½ï¿½ï¿½
 ALTER TABLE folw
-	ADD CONSTRAINT FK_memb_TO_folw -- È¸¿ø -> ½t·ÎÀ×
+	ADD CONSTRAINT FK_memb_TO_folw -- È¸ï¿½ï¿½ -> ï¿½tï¿½ï¿½ï¿½ï¿½
 		FOREIGN KEY (
-			mno2 -- È¸¿ø¹øÈ£
+			mno2 -- È¸ï¿½ï¿½ï¿½ï¿½È£
 		)
-		REFERENCES memb ( -- È¸¿ø
-			mno -- È¸¿ø¹øÈ£
+		REFERENCES memb ( -- È¸ï¿½ï¿½
+			mno -- È¸ï¿½ï¿½ï¿½ï¿½È£
 		);
 
--- ½t·ÎÀ×
+-- ï¿½tï¿½ï¿½ï¿½ï¿½
 ALTER TABLE folw
-	ADD CONSTRAINT FK_busk_TO_folw -- ¹ö½ºÄ¿ -> ½t·ÎÀ×
+	ADD CONSTRAINT FK_busk_TO_folw -- ï¿½ï¿½ï¿½ï¿½Ä¿ -> ï¿½tï¿½ï¿½ï¿½ï¿½
 		FOREIGN KEY (
-			bno -- ¹ö½ºÄ¿¹øÈ£
+			bno -- ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È£
 		)
-		REFERENCES busk ( -- ¹ö½ºÄ¿
-			bno -- ¹ö½ºÄ¿¹øÈ£
+		REFERENCES busk ( -- ï¿½ï¿½ï¿½ï¿½Ä¿
+			bno -- ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È£
 		);
 
--- ¹«´ë»çÁø
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ALTER TABLE stag_phot
-	ADD CONSTRAINT FK_sup_TO_stag_phot -- ¹«´ë_Á¦°øÀÚ -> ¹«´ë»çÁø
+	ADD CONSTRAINT FK_sup_TO_stag_phot -- ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		FOREIGN KEY (
-			sno -- ¹«´ëÁ¦°øÀÚ¹øÈ£
+			sno -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¹ï¿½È£
 		)
-		REFERENCES sup ( -- ¹«´ë_Á¦°øÀÚ
-			sno -- ¹«´ëÁ¦°øÀÚ¹øÈ£
+		REFERENCES sup ( -- ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			sno -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¹ï¿½È£
 		);
 
--- ¹ö½ºÅ·¹«´ë»ç¿ë¿äÃ»
+-- ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»
 ALTER TABLE busk_req
-	ADD CONSTRAINT FK_busk_TO_busk_req -- ¹ö½ºÄ¿ -> ¹ö½ºÅ·¹«´ë»ç¿ë¿äÃ»
+	ADD CONSTRAINT FK_busk_TO_busk_req -- ï¿½ï¿½ï¿½ï¿½Ä¿ -> ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»
 		FOREIGN KEY (
-			bno -- ¹ö½ºÄ¿¹øÈ£
+			bno -- ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È£
 		)
-		REFERENCES busk ( -- ¹ö½ºÄ¿
-			bno -- ¹ö½ºÄ¿¹øÈ£
+		REFERENCES busk ( -- ï¿½ï¿½ï¿½ï¿½Ä¿
+			bno -- ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È£
 		);
 
--- ¹«´ë½ºÄÉÁì
+-- ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½ï¿½
 ALTER TABLE stag_sche
-	ADD CONSTRAINT FK_sup_TO_stag_sche -- ¹«´ë_Á¦°øÀÚ -> ¹«´ë½ºÄÉÁì
+	ADD CONSTRAINT FK_sup_TO_stag_sche -- ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -> ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½ï¿½
 		FOREIGN KEY (
-			sno -- ¹«´ëÁ¦°øÀÚ¹øÈ£
+			sno -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¹ï¿½È£
 		)
-		REFERENCES sup ( -- ¹«´ë_Á¦°øÀÚ
-			sno -- ¹«´ëÁ¦°øÀÚ¹øÈ£
+		REFERENCES sup ( -- ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			sno -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¹ï¿½È£
 		);
 
--- È«º¸´ñ±Û
+-- È«ï¿½ï¿½ï¿½ï¿½ï¿½
 ALTER TABLE board_comt
-	ADD CONSTRAINT FK_busk_board_TO_board_comt -- ¹ö½ºÅ·È«º¸ -> È«º¸´ñ±Û
+	ADD CONSTRAINT FK_busk_board_TO_board_comt -- ï¿½ï¿½ï¿½ï¿½Å·È«ï¿½ï¿½ -> È«ï¿½ï¿½ï¿½ï¿½ï¿½
 		FOREIGN KEY (
-			bbno -- ¹ö½ºÅ·¹øÈ£
+			bbno -- ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½È£
 		)
-		REFERENCES busk_board ( -- ¹ö½ºÅ·È«º¸
-			bbno -- ¹ö½ºÅ·¹øÈ£
+		REFERENCES busk_board ( -- ï¿½ï¿½ï¿½ï¿½Å·È«ï¿½ï¿½
+			bbno -- ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½È£
 		);
 
--- È«º¸´ñ±Û
+-- È«ï¿½ï¿½ï¿½ï¿½ï¿½
 ALTER TABLE board_comt
-	ADD CONSTRAINT FK_memb_TO_board_comt -- È¸¿ø -> È«º¸´ñ±Û
+	ADD CONSTRAINT FK_memb_TO_board_comt -- È¸ï¿½ï¿½ -> È«ï¿½ï¿½ï¿½ï¿½ï¿½
 		FOREIGN KEY (
-			mno -- È¸¿ø¹øÈ£
+			mno -- È¸ï¿½ï¿½ï¿½ï¿½È£
 		)
-		REFERENCES memb ( -- È¸¿ø
-			mno -- È¸¿ø¹øÈ£
+		REFERENCES memb ( -- È¸ï¿½ï¿½
+			mno -- È¸ï¿½ï¿½ï¿½ï¿½È£
 		);
 
--- ÇÇµå»çÁø
+-- ï¿½Çµï¿½ï¿½ï¿½ï¿½
 ALTER TABLE feed_phot
-	ADD CONSTRAINT FK_phot_TO_feed_phot -- »çÁø °Ô½Ã±Û -> ÇÇµå»çÁø
+	ADD CONSTRAINT FK_phot_TO_feed_phot -- ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½ -> ï¿½Çµï¿½ï¿½ï¿½ï¿½
 		FOREIGN KEY (
-			pbno -- »ç°Ô½Ã±Û¹øÈ£
+			pbno -- ï¿½ï¿½Ô½Ã±Û¹ï¿½È£
 		)
-		REFERENCES phot ( -- »çÁø °Ô½Ã±Û
-			pbno -- »ç°Ô½Ã±Û¹øÈ£
+		REFERENCES phot ( -- ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½
+			pbno -- ï¿½ï¿½Ô½Ã±Û¹ï¿½È£
 		);
 
--- µ¿¿µ»óÀÎ±âÅë°è
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î±ï¿½ï¿½ï¿½ï¿½
 ALTER TABLE avi_fav
-	ADD CONSTRAINT FK_avi_TO_avi_fav -- µ¿¿µ»ó °Ô½Ã±Û -> µ¿¿µ»óÀÎ±âÅë°è
+	ADD CONSTRAINT FK_avi_TO_avi_fav -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½ -> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î±ï¿½ï¿½ï¿½ï¿½
 		FOREIGN KEY (
-			abno -- µ¿°Ô½Ã±Û¹øÈ£
+			abno -- ï¿½ï¿½ï¿½Ô½Ã±Û¹ï¿½È£
 		)
-		REFERENCES avi ( -- µ¿¿µ»ó °Ô½Ã±Û
-			abno -- µ¿°Ô½Ã±Û¹øÈ£
+		REFERENCES avi ( -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½
+			abno -- ï¿½ï¿½ï¿½Ô½Ã±Û¹ï¿½È£
 		);
 
--- °ø¿¬ÀåÀÎ±âÅë°è
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î±ï¿½ï¿½ï¿½ï¿½
 ALTER TABLE stag_fav
-	ADD CONSTRAINT FK_stag_sche_TO_stag_fav -- ¹«´ë½ºÄÉÁì -> °ø¿¬ÀåÀÎ±âÅë°è
+	ADD CONSTRAINT FK_stag_sche_TO_stag_fav -- ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î±ï¿½ï¿½ï¿½ï¿½
 		FOREIGN KEY (
-			ssno -- ¹«´ë½ºÄÉÁÙ¹øÈ£
+			ssno -- ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½Ù¹ï¿½È£
 		)
-		REFERENCES stag_sche ( -- ¹«´ë½ºÄÉÁì
-			ssno -- ¹«´ë½ºÄÉÁÙ¹øÈ£
+		REFERENCES stag_sche ( -- ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½ï¿½
+			ssno -- ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½Ù¹ï¿½È£
 		);
 
--- ¹«´ë»ç¿ë¿äÃ»½ºÄÉÁÙ
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ALTER TABLE busk_stag
-	ADD CONSTRAINT FK_busk_req_TO_busk_stag -- ¹ö½ºÅ·¹«´ë»ç¿ë¿äÃ» -> ¹«´ë»ç¿ë¿äÃ»½ºÄÉÁÙ
+	ADD CONSTRAINT FK_busk_req_TO_busk_stag -- ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã» -> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		FOREIGN KEY (
-			brno -- ¹«´ë»ç¿ë¿äÃ»¹øÈ£
+			brno -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½È£
 		)
-		REFERENCES busk_req ( -- ¹ö½ºÅ·¹«´ë»ç¿ë¿äÃ»
-			brno -- ¹«´ë»ç¿ë¿äÃ»¹øÈ£
+		REFERENCES busk_req ( -- ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»
+			brno -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½È£
 		);
 
--- ¹«´ë»ç¿ë¿äÃ»½ºÄÉÁÙ
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ALTER TABLE busk_stag
-	ADD CONSTRAINT FK_stag_sche_TO_busk_stag -- ¹«´ë½ºÄÉÁì -> ¹«´ë»ç¿ë¿äÃ»½ºÄÉÁÙ
+	ADD CONSTRAINT FK_stag_sche_TO_busk_stag -- ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		FOREIGN KEY (
-			ssno -- ¹«´ë½ºÄÉÁÙ¹øÈ£
+			ssno -- ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½Ù¹ï¿½È£
 		)
-		REFERENCES stag_sche ( -- ¹«´ë½ºÄÉÁì
-			ssno -- ¹«´ë½ºÄÉÁÙ¹øÈ£
+		REFERENCES stag_sche ( -- ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½ï¿½
+			ssno -- ï¿½ï¿½ï¿½ë½ºï¿½ï¿½ï¿½Ù¹ï¿½È£
 		);
+		
+		
+-- í™ë³´ëŒ“ê¸€ ìž‘ì„±ì¼ ì»¬ëŸ¼ì¶”ê°€
+    ALTER TABLE board_comt ADD cdt DATETIME NOT NULL;
+    
+-- ë©¤ë²„ íŒ¨ìŠ¤ì›Œë“œ íƒ€ìž…ë³€ê²½
+    ALTER TABLE 'memb' MODIFY 'password' VARCHAR(100) NOT NULL
+    
+-- ìŠ¤ì¼€ì¤„ ìƒí˜¸ëª… ì»¬ëŸ¼ì¶”ê°€
+    ALTER TABLE 'per_sche' ADD 'shopname' VARCHAR(50) NOT NULL
+    
+-- ìƒí˜¸ëª… ì»¬ëŸ¼ì— ê°’ì¶”ê°€
+    UPDATE per_sche SET shopname='bitcamp'
+    
+-- ìŠ¤ì¼€ì¤„ ìž‘ì„±ì¼ ì»¬ëŸ¼ì¶”ê°€
+    ALTER TABLE 'per_sche' ADD 'cdt' DATETIME NOT NULL
+    
+-- ìŠ¤ì¼€ì¤„ ì¸ì› ì»¬ëŸ¼ì¶”ê°€
+    ALTER TABLE 'per_sche' ADD 'cnt' INTEGER NOT NULL
+    
+-- ìž‘ì„±ì¼, ì¸ì› ì»¬ëŸ¼ì— ê°’ì¶”ê°€
+    UPDATE per_sche SET cdt=now(), cnt=3
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

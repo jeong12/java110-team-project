@@ -5,4 +5,5 @@ import indiesker.java110.ms.domain.FeedPhoto;
 
 public interface FeedPhotoDao {
   List<FeedPhoto> findByFeedPhoto();
+  FeedPhoto findPhotoFile(int no);
 }

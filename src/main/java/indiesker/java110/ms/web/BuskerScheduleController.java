@@ -11,7 +11,7 @@ import indiesker.java110.ms.domain.BuskerSchedule;
 import indiesker.java110.ms.service.BuskerScheduleService;
 
 @Controller
-@RequestMapping("/BuskerSchedule")
+@RequestMapping("/buskerschedule")
 public class BuskerScheduleController {
 
   BuskerScheduleService buskerscheduleService;   
