@@ -5,9 +5,8 @@
 <html>
 <head>
 <meta charset='UTF-8'>
-<title>버스커 리스트</title>
+<title>버스커피드가기</title>
 <link rel='stylesheet' href='/css/common.css'>
-<!-- 웹 브라우저 입장에서의 경로 -->
 <style>
 #titl {
 	margin: 10px;
@@ -29,28 +28,16 @@ h2 {
 <body>
 	<div id="titl">
 		<img id="logo" src="../../img/playButton.PNG" alt="플레이로고">
-		<h2>버스킹 일정</h2>
+		<h2>버스킹 피드가기</h2>
 	</div>
 
 	<form action="add" method='post' enctype="multipart/form-data">
-	 <div>
-	   <img alt="thumbnail" src="https://img.youtube.com/vi/HYlFLw5OGSw/hqdefault.jpg">
-	 </div>
 		<table>
 			<tbody>
 				<tr>
-					<th>제목</th>
+					<th>버스커번호</th>
 					<td><input type='text' name='title'></td>
 				</tr>
-				<tr>
-					<th>내용</th>
-					<td><input type='text' name='content'></td>
-				</tr>
-				<tr>
-					<th>URL</th>
-					<td><input type='text' name='url'></td>
-				</tr>
-
 				<tr>
 					<th></th>
 					<td><button>등록</button></td>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- MemberDao 클래스가 사용할 SQL이 들어 있는 파일 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indiesker.java110.ms.dao.BuskerDao">
+
+	<resultMap type="Busker" id="buskerMap">
+		<id column="mno" property="no" />
+		<result column="name" property="name" />
+		<result column="email" property="email" />
+		<result column="name" property="teamname" />
+	</resultMap>
+
+	<resultMap type="Busker" id="buskerFeedMap"> 
+		<result column="name" property="teamname"/> 
+		<result column="genre" property="teamgenre"/>
+		<result column="city" property="city"/>
+		<result column="intro" property="teamInfo"/>
+    </resultMap>
+
+
+	<select id="findAll" resultMap="buskerMap" parameterType="map">
+		select
+		m.mno,
+		m.name,
+		m.email,
+		b.name
+		from
+		busk b,memb m
+		where
+		m.mno = b.bno
+
+		limit
+		#{rowNo}, #{size}
+	</select>
+
+
+	<select id="findByNo" resultMap="buskerFeedMap" parameterType="int"> 
+	select 
+	   name, 
+	   genre, 
+		city, 
+		intro
+	from busk 
+	where bno=#{value}
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
