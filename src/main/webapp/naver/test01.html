@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>naver 로그인 연동</title>
+    <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
+</head>
+<body>
+    <!-- 네이버아이디로로그인 버튼 노출 영역 -->
+<div id="naverIdLogin"></div>
+<!-- //네이버아이디로로그인 버튼 노출 영역 -->
+
+<!-- 네이버아디디로로그인 초기화 Script -->
+<script type="text/javascript">
+    var naverLogin = new naver.LoginWithNaverId(
+        {
+            clientId: "i7CWhQxEhKTYcem_vHnQ",
+            callbackUrl: "http://localhost:8080/naver/test02.html",
+            isPopup: false, /* 팝업을 통한 연동처리 여부 */
+            loginButton: {color: "green", type: 3, height: 60}, /* 로그인 버튼의 타입을 지정 */
+            // callback 페이지가 분리되었을 경우 그 페이지에서 callback 처리해줄지 여부 설정
+            //callbackHandle: false
+        }
+    );
+    
+    /* 설정정보를 초기화하고 연동을 준비 */
+    naverLogin.init();
+    
+    naverLogin.getLoginStatus(function (status) {
+        if (status) {
+            var email = naverLogin.user.getEmail();
+            var name = naverLogin.user.getNickName();
+            var profileImage = naverLogin.user.getProfileImage();
+            var birthday = naverLogin.user.getBirthday();
+            var uniqId = naverLogin.user.getId();
+            var age = naverLogin.user.getAge();
+            
+            console.log(email, name, profileImage, birthday, uniqId, age);
+        } else {
+            console.log("AccessToken이 올바르지 않습니다.");
+        }
+    });
+    
+</script>
+<!-- // 네이버아이디로로그인 초기화 Script -->
+
+    
+</body>
+</html>
