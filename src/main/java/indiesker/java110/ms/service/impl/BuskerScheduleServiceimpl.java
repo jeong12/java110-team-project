@@ -11,17 +11,17 @@ import indiesker.java110.ms.service.BuskerScheduleService;
 @Service
 public class BuskerScheduleServiceimpl implements BuskerScheduleService {
 
-    @Autowired  BuskerScheduleDao buskerscheduleDao;
-    
-    @Override
-    public List<BuskerSchedule> list(int pageNo, int pageSize) {
-        HashMap<String,Object> params = new HashMap<>();
-        params.put("rowNo", (pageNo - 1) * pageSize);
-        params.put("size", pageSize);
-        
-        return buskerscheduleDao.findAll(params);
-    }
-    
+  @Autowired  BuskerScheduleDao buskerscheduleDao;
+
+  @Override
+  public List<BuskerSchedule> mybslist(int pageNo, int pageSize) {
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("rowNo", (pageNo - 1) * pageSize);
+    params.put("size", pageSize);
+    params.put("no", 5);
+    return buskerscheduleDao.findMybuskSchedule(params);
+  }
+
 }
 
 
