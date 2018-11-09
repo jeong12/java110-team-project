@@ -4,5 +4,5 @@ import java.util.List;
 import indiesker.java110.ms.domain.BuskerSchedule;
 
 public interface BuskerScheduleService {
-    List<BuskerSchedule> list(int pageNo, int pageSize);
+    List<BuskerSchedule> mybslist(int pageNo, int pageSize);
 }
