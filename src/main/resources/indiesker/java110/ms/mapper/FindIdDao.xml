@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 아이디 찾기에 사용할 XML입니다. -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indiesker.java110.ms.dao.MemberDao">
+
+    <resultMap type="Member" id="FindIdMap">
+        <id column="email"  property="email"/>
+        <result column="id"  property="id"/>
+    </resultMap>
+
+    <select id="findByEmail" resultMap="FindIdMap" parameterType="map">
+    SELECT a.id
+    FROM memb a, memb b
+    where a.email = b.email
+          and b.email
+
+    </select>
+</mapper>
