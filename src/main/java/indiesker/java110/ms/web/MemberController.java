@@ -52,7 +52,6 @@ public class MemberController{
    @ResponseBody
    @RequestMapping("checkId")
    public int checkId(String id, Model model) throws Exception {
-     System.out.println(id);
      return memberService.checkId(id);
    }
 
