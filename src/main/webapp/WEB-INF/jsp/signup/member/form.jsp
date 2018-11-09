@@ -54,7 +54,7 @@ h2 {
 				oninput="checkPwd()" size=30> <br> <span
 				id="rePassword"></span>
 			<h3>이메일</h3>
-			<input type="text" name="email" required class="email"
+			<input type="email" name="email" required class="email"
 				oninput="checkEmail()" id="checkemail" size=30> <br> <span
 				id="emailMsg"></span>
 			<h3>이름</h3>
@@ -67,20 +67,20 @@ h2 {
 			<input type='file' name='file1'>
 			<h3>선호하는 장르</h3>
 			<input type="checkbox" name="genre" onclick="ChkCount(this)"
-				value="발라드"><label for="ballad">발라드</label> <input
-				type="checkbox" name="genre" onclick="ChkCount(this)" value="댄스"><label
+				value="ballad"><label for="ballad">발라드</label> <input
+				type="checkbox" name="genre" onclick="ChkCount(this)" value="dance"><label
 				for="dance">댄스</label> <input type="checkbox" name="genre"
-				onclick="ChkCount(this)" value="트로트"><label for="trot">트로트</label>
+				onclick="ChkCount(this)" value="trot"><label for="trot">트로트</label>
 			<input type="checkbox" name="genre" onclick="ChkCount(this)"
-				value="포크"><label for="folk">포크</label> <input
-				type="checkbox" name="genre" onclick="ChkCount(this)" value="락"><label
+				value="folk"><label for="folk">포크</label> <input
+				type="checkbox" name="genre" onclick="ChkCount(this)" value="rock"><label
 				for="rock">락</label> <input type="checkbox" name="genre"
-				onclick="ChkCount(this)" value="재즈"><label for="jazz">재즈</label>
+				onclick="ChkCount(this)" value="jazz"><label for="jazz">재즈</label>
 			<input type="checkbox" name="genre" onclick="ChkCount(this)"
-				value="컨츄리"><label for="country">컨츄리</label> <input
-				type="checkbox" name="genre" onclick="ChkCount(this)" value="알앤비"><label
+				value="country"><label for="country">컨츄리</label> <input
+				type="checkbox" name="genre" onclick="ChkCount(this)" value="rnb"><label
 				for="rnb">알앤비</label> <input type="checkbox" name="genre"
-				onclick="ChkCount(this)" value="랩"><label for="rap">랩</label>
+				onclick="ChkCount(this)" value="rap"><label for="rap">랩</label>
 			<p>
 				팬으로 가입하셔도, 이후 메인화면의 <br> '버스커되기' '제공자되기'로 변경 가능합니다.
 			</p>
