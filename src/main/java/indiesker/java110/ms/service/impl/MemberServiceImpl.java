@@ -22,6 +22,18 @@ public class MemberServiceImpl implements MemberService {
      
      return memberDao.checkId(id);
     }
+
+    @Override
+    public int checkEmail(String email) {
+      return memberDao.checkEmail(email);
+    }
+
+    @Override
+    public int checkNickname(String nickname) {
+      return memberDao.checkNickname(nickname);
+    }
+    
+    
 }
 
 

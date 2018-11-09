@@ -1,13 +1,11 @@
 package indiesker.java110.ms.web;
 
-import java.util.List;
 import javax.servlet.ServletContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import indiesker.java110.ms.domain.BuskerSchedule;
 import indiesker.java110.ms.service.BuskerScheduleService;
 
 @Controller
@@ -34,10 +32,8 @@ public class BuskerScheduleController {
     if (pageSize < 3 || pageSize > 10)
       pageSize = 3;
 
-    List<BuskerSchedule> list = buskerscheduleService.list(pageNo, pageSize);
-    model.addAttribute("list", list);
-
-
+//    List<BuskerSchedule> list = buskerscheduleService.list(pageNo, pageSize);
+//    model.addAttribute("list", list);
 
   }
 }

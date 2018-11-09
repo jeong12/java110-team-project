@@ -5,34 +5,62 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="indiesker.java110.ms.dao.BuskerScheduleDao">
 
-    <resultMap type="BuskerSchedule" id="buskerMap">
-        <id column="name"  property="teamName"/>
-        <result column="time"  property="time"/>
+    <resultMap type="BuskerSchedule" id="perbuskerMap">
+        <id column="brno"  property="brno"/>
+        <result column="name"  property="name"/>
         <result column="addr"    property="addr"/>
+        <result column="sdt"    property="sdt"/>
+        <result column="edt"    property="edt"/>
+        <result column="cnt"    property="cnt"/>
+        <result column="flag"    property="flag"/>
+        <result column="cdt"    property="cdt"/>
+        <result column="x"    property="x"/>
+        <result column="y"    property="y"/>
     </resultMap>
 
-    <select id="findAll" resultMap="buskerMap" parameterType="map">
-select CONCAT(DATE_FORMAT(SC.sdt,'%y.%m.%d'),
-       '(',SUBSTR('일월화수목금토', DAYOFWEEK(DATE_FORMAT(SC.sdt,'%y.%m.%d')), 1 ),')/',
-       DATE_FORMAT(SC.sdt,'%H:%i'),'~',DATE_FORMAT(SC.edt,'%H:%i')) as time,
-       B.name,
-       CONCAT(S.bas_addr,'/',S.det_addr) as addr
-from busk_stag BS
-     join busk_req BR on BS.brno = BR. brno
-     join stag_sche SC on BS.ssno = SC.ssno
-     join busk B on BR.bno=B.bno
-     join sup S on SC.sno=S.sno
-union
-select CONCAT(DATE_FORMAT(PS.sdt,'%y.%m.%d'),
-      '(',SUBSTR('일월화수목금토', DAYOFWEEK(DATE_FORMAT(PS.sdt,'%y.%m.%d')), 1 ),')/',
-      DATE_FORMAT(PS.sdt,'%H:%i'),'~',DATE_FORMAT(PS.edt,'%H:%i')) as time,
-      B.name,
-      PS.addr
-from per_sche PS
-   join busk B on PS.bno=B.bno
-order by time asc
-   limit #{rowNo}, #{size}
-    </select>
+    <!-- 스케줄조회 : 확정 버스커 스케줄 출력하는 쿼리  -->
+    <select id="findbuskSchedulelist" resultMap="perbuskerMap" parameterType="map">
+    SELECT 
+           BR.brno,
+           S.name as name,
+           S.bas_addr as addr,
+           MIN(SC.sdt) as sdt,
+           MAX(SC.edt) as edt,
+           BR.cnt,
+           BR.flag, 
+           BR.cdt, 
+           S.x, 
+           S.y 
+      FROM busk B, busk_req BR, busk_stag BS,stag_sche SC, sup S
+     WHERE B.bno=BR.bno
+       AND BR.brno=BS.brno 
+       AND BS.ssno=SC.ssno
+       AND SC.sno = S.sno
+  GROUP BY BS.brno
+  limit #{rowNo}, #{size}
+ </select>
+ 
+ <select id="findMybuskSchedule" resultMap="perbuskerMap" parameterType="map">
+    SELECT 
+           BR.brno,
+           S.name as name,
+           S.bas_addr as addr,
+           MIN(SC.sdt) as sdt,
+           MAX(SC.edt) as edt,
+           BR.cnt,
+           BR.flag, 
+           BR.cdt, 
+           S.x, 
+           S.y 
+      FROM busk B, busk_req BR, busk_stag BS,stag_sche SC, sup S
+     WHERE B.bno=BR.bno
+       AND BR.brno=BS.brno 
+       AND BS.ssno=SC.ssno
+       AND SC.sno = S.sno
+       AND BR.bno=#{no}
+  GROUP BY BS.brno
+  limit #{rowNo}, #{size}
+ </select>
 </mapper>
 
 
