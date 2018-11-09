@@ -1,15 +1,25 @@
 package indiesker.java110.ms.domain;
 
-public class BuskerSchedule{
+public class BuskerSchedule extends Schedule{
 
-  protected String teamName;
+  protected int brno;
+  protected String name;
   protected String addr;
-  protected String time;
-  public String getTeamName() {
-    return teamName;
+  protected String cnt;
+  protected float x;
+  protected float y;
+  
+  public int getBrno() {
+    return brno;
   }
-  public void setTeamName(String teamName) {
-    this.teamName = teamName;
+  public void setBrno(int brno) {
+    this.brno = brno;
+  }
+  public String getName() {
+    return name;
+  }
+  public void setName(String name) {
+    this.name = name;
   }
   public String getAddr() {
     return addr;
@@ -17,14 +27,23 @@ public class BuskerSchedule{
   public void setAddr(String addr) {
     this.addr = addr;
   }
-  public String getTime() {
-    return time;
+  public String getCnt() {
+    return cnt;
   }
-  public void setTime(String time) {
-    this.time = time;
+  public void setCnt(String cnt) {
+    this.cnt = cnt;
   }
-  
-  
-  
+  public float getX() {
+    return x;
+  }
+  public void setX(float x) {
+    this.x = x;
+  }
+  public float getY() {
+    return y;
+  }
+  public void setY(float y) {
+    this.y = y;
+  }
   
 }

@@ -1,7 +1,5 @@
 package indiesker.java110.ms.domain;
 
-import java.sql.Date;
-
 public class PerSchedule extends Schedule {
   protected int psno;
   protected String shopname;
@@ -9,16 +7,9 @@ public class PerSchedule extends Schedule {
   protected float x;
   protected float y;
   protected int cnt;
-  protected Date cdt;
   protected int bno;
-  
-  
-  public Date getCdt() {
-    return cdt;
-  }
-  public void setCdt(Date cdt) {
-    this.cdt = cdt;
-  }
+
+
   public int getCnt() {
     return cnt;
   }

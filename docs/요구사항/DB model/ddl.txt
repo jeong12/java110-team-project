@@ -780,19 +780,17 @@ ALTER TABLE busk_stag
 -- 스케줄 상호명 컬럼추가
     ALTER TABLE 'per_sche' ADD 'shopname' VARCHAR(50) NOT NULL
     
--- 상호명 컬럼에 값추가
-    UPDATE per_sche SET shopname='bitcamp'
-    
 -- 스케줄 작성일 컬럼추가
     ALTER TABLE 'per_sche' ADD 'cdt' DATETIME NOT NULL
     
 -- 스케줄 인원 컬럼추가
     ALTER TABLE 'per_sche' ADD 'cnt' INTEGER NOT NULL
     
--- 작성일, 인원 컬럼에 값추가
-    UPDATE per_sche SET cdt=now(), cnt=3
+-- 버스킹 무대사용 요청 테이블에 인원 컬럼 추가
+    ALTER TABLE busk_req ADD cnt INTEGER NOT NULL
 
-    
+-- 버스킹 홍보 테이블에 상태 컬럼 추가
+    ALTER TABLE busk_board ADD flag CHAR(1) NOT NULL DEFAULT 1;
     
     
     
