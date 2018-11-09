@@ -33,6 +33,9 @@ h2 {
 	</div>
 
 	<form action="add" method='post' enctype="multipart/form-data">
+	 <div>
+	   <img alt="thumbnail" src="https://img.youtube.com/vi/HYlFLw5OGSw/hqdefault.jpg">
+	 </div>
 		<table>
 			<tbody>
 				<tr>
@@ -47,7 +50,7 @@ h2 {
 					<th>URL</th>
 					<td><input type='text' name='url'></td>
 				</tr>
-				
+
 				<tr>
 					<th></th>
 					<td><button>등록</button></td>

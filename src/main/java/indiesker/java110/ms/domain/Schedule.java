@@ -1,12 +1,15 @@
 package indiesker.java110.ms.domain;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 public class Schedule {
   protected int ssno;
   protected Timestamp sdt;
-  protected Date edt;
+  protected Timestamp edt;
+  protected Timestamp cdt;
+  protected String nsdt;
+  protected String nedt;
+  protected String ncdt;
   protected char flag;
   protected int sno;
   
@@ -22,10 +25,10 @@ public class Schedule {
   public void setSdt(Timestamp sdt) {
     this.sdt = sdt;
   }
-  public Date getEdt() {
+  public Timestamp getEdt() {
     return edt;
   }
-  public void setEdt(Date edt) {
+  public void setEdt(Timestamp edt) {
     this.edt = edt;
   }
   public char getFlag() {
@@ -40,6 +43,31 @@ public class Schedule {
   public void setSno(int sno) {
     this.sno = sno;
   }
+  public String getNsdt() {
+    return nsdt;
+  }
+  public void setNsdt(String nsdt) {
+    this.nsdt = nsdt;
+  }
+  public String getNedt() {
+    return nedt;
+  }
+  public void setNedt(String nedt) {
+    this.nedt = nedt;
+  }
+  public Timestamp getCdt() {
+    return cdt;
+  }
+  public void setCdt(Timestamp cdt) {
+    this.cdt = cdt;
+  }
+  public String getNcdt() {
+    return ncdt;
+  }
+  public void setNcdt(String ncdt) {
+    this.ncdt = ncdt;
+  }
+  
   
   
 }

@@ -101,5 +101,45 @@ insert into feed_phot(fpno,phot,pbno) values (10,'jjj',7);
 insert into feed_phot(fpno,phot,pbno) values (11,'kkk',7);
 insert into feed_phot(fpno,phot,pbno) values (12,'lll',7);
 
+-- 상호명 컬럼에 값추가
+UPDATE per_sche SET shopname='bitcamp'
+
+-- 작성일, 인원 컬럼에 값추가
+UPDATE per_sche SET cdt=now(), cnt=3
+
+-- 버스킹 무대사용 요청 테이블에 인원컬럼 값추가
+UPDATE busk_req SET cnt=3
+
+-- 무대 스케줄
+INSERT INTO stag_sche (sdt,edt,flag,sno)
+VALUES ('2018-11-10 19:00:00','2018-11-10 20:00:00',2,6);
+
+INSERT INTO stag_sche (sdt,edt,flag,sno)
+VALUES ('2018-11-10 20:00:00','2018-11-10 21:00:00',2,6);
+
+INSERT INTO stag_sche (sdt,edt,flag,sno)
+VALUES ('2018-11-11 19:00:00','2018-11-11 20:00:00',2,8);
+
+INSERT INTO stag_sche (sdt,edt,flag,sno)
+VALUES ('2018-11-11 20:00:00','2018-11-11 21:00:00',2,8);
+
+-- 무대사용 요청 스케줄
+INSERT INTO busk_stag (ssno, brno)
+VALUES (9,5);
+
+INSERT INTO busk_stag (ssno, brno)
+VALUES (10,5);
+
+INSERT INTO busk_stag (ssno, brno)
+VALUES (11,8);
+
+INSERT INTO busk_stag (ssno, brno)
+VALUES (12,8);
+
+-- 버스커홍보 테이블 플래그값 추가
+UPDATE busk_board SET flag=1;
+
+
+
 
 

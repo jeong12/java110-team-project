@@ -1,5 +1,6 @@
 package indiesker.java110.ms.web;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.servlet.ServletContext;
 import org.springframework.stereotype.Controller;
@@ -22,8 +23,8 @@ public class PerScheduleController {
 
 
   public PerScheduleController(BuskerScheduleService buskerscheduleService,
-                               PerScheduleService perscheduleService,
-                               ServletContext sc) {
+      PerScheduleService perscheduleService,
+      ServletContext sc) {
     this.buskerscheduleService = buskerscheduleService;
     this.perscheduleService = perscheduleService;
     this.sc = sc;
@@ -40,15 +41,25 @@ public class PerScheduleController {
     if (pageSize < 3 || pageSize > 10)
       pageSize = 3;
 
-    
-    List<BuskerSchedule> list = buskerscheduleService.list(pageNo, pageSize);
+
+    List<BuskerSchedule> list = buskerscheduleService.mybslist(pageNo, pageSize);
     List<PerSchedule> plist = perscheduleService.list(pageNo, pageSize);
-    
-    /*for (PerSchedule p : plist) {
-      //p.setSdt(sdt);
-       List<LocalDate> newcdt=p.getCdt().toLocalDate();
+
+
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+    for (PerSchedule pl : plist) {
+      pl.setNsdt(format.format(pl.getSdt()));
+      pl.setNedt(format.format(pl.getEdt()));
     }
-    plist.add(newcdt);*/
+
+    for (BuskerSchedule ps : list) {
+      ps.setNsdt(format.format(ps.getSdt()));
+      ps.setNedt(format.format(ps.getEdt()));
+    }
+    for (BuskerSchedule S : list) {
+      System.out.println(S.getCdt());
+    }
     model.addAttribute("list", list);
     model.addAttribute("plist", plist);
 
