@@ -1,5 +1,5 @@
 package indiesker.java110.ms.service;
 
-public interface FindIdService {
+public interface AuthService {
    String getId(String email);
 }

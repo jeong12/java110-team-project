@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 아이디 찾기에 사용할 XML입니다. -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indiesker.java110.ms.dao.AuthDao">
+
+    <select id="findByEamil" parameterType="string">
+    SELECT id 
+    FROM memb 
+    where email=#{email}
+    </select>
+</mapper>

@@ -57,8 +57,6 @@ h2 {
 			<input type="email" name="email" required class="email"
 				oninput="checkEmail()" id="checkemail" size=30> <br> <span
 				id="emailMsg"></span>
-			<h3>이름</h3>
-			<input type="text" placeholder="실명을 적어주세요" name='name' size=30>
 			<h3>닉네임</h3>
 			<input type="text" name="nickname" required class="id"
 				id="checknickname" oninput="checkNickname()" size=30> <br>

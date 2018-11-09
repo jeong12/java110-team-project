@@ -10,7 +10,6 @@ public class Member implements Serializable {
   protected String id;
   protected String email;
   protected String password;
-  protected String name;
   protected String nickname;
   protected String photo;
   protected List<String> genre;
@@ -42,12 +41,6 @@ public class Member implements Serializable {
   }
   public void setPassword(String password) {
     this.password = password;
-  }
-  public String getName() {
-    return name;
-  }
-  public void setName(String name) {
-    this.name = name;
   }
   public String getNickname() {
     return nickname;
