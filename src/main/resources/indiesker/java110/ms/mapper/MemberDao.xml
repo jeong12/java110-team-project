@@ -19,5 +19,13 @@
     <select id="checkId" parameterType="string" resultType="int">
     select count(*) from memb where id=#{id}
     </select>
+    
+    <select id="checkEmail" parameterType="string" resultType="int">
+    select count(*) from memb where email=#{email}
+    </select>
+    
+    <select id="checkNickname" parameterType="string" resultType="int">
+    select count(*) from memb where nik=#{nickname}
+    </select>
 </mapper>
 

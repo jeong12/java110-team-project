@@ -3,6 +3,7 @@ package indiesker.java110.ms.web;
 import java.io.File;
 import java.util.UUID;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -42,22 +43,30 @@ public class MemberController{
             file1.transferTo(new File(sc.getRealPath("/upload/" + filename)));
             m.setPhoto(filename);
         }
-        
-        System.out.println(m.getYn());
-        System.out.println(m.getEmail());
-        System.out.println(m.getPhoto());
         memberService.add(m);
+        System.out.println(m.getGenre());
     
         return "redirect:form";
     }
     
-    @RequestMapping()
-    public int checkId(String id) throws Exception {
-      
-      return 0;
+    @ResponseBody
+    @RequestMapping("checkId")
+    public int checkId(String id, Model model) throws Exception {
+      System.out.println(id);
+      return memberService.checkId(id);
     }
     
+    @ResponseBody
+    @RequestMapping("checkEmail")
+    public int checkEmail(String email, Model model) throws Exception {
+      return memberService.checkEmail(email);
+    }
     
+    @ResponseBody
+    @RequestMapping("checkNick")
+    public int checkNickname(String nickname, Model model) throws Exception {
+      return memberService.checkNickname(nickname);
+    }
     
 }
 
