@@ -39,7 +39,7 @@ table, th, td {
     <td>${m.cnt}</td>
     <td>${m.etc}</td>
     <td>${m.flag}</td>
-</tr>
+</tr> 
 
 </c:forEach>
     </body>
