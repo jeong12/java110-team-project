@@ -20,7 +20,7 @@ table, th, td {
 
 
 <h1>학생 목록</h1>
-<p><a href='form'>추가</a></p>
+
 <table>
 <thead>
 <tr>
@@ -30,7 +30,6 @@ table, th, td {
 <tbody>
 <c:forEach  items="${list}" var="m">
 <tr>
-    <td>${m.bbno}</td>
     <td>${m.titl}</td>
     <td>${m.name}</td>
     <td>${m.genre}</td>
@@ -41,8 +40,9 @@ table, th, td {
     <td>${m.etc}</td>
     <td>${m.flag}</td>
 </tr>
-</c:forEach>
 
+</c:forEach>
+    </body>
 </tbody>
 </table>
 
