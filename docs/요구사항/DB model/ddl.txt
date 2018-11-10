@@ -791,6 +791,9 @@ ALTER TABLE busk_stag
 
 -- 버스킹 홍보 테이블에 상태 컬럼 추가
     ALTER TABLE busk_board ADD flag CHAR(1) NOT NULL DEFAULT 1;
+
+-- 회원 테이블에 이름 컬럼 삭제
+	alter table memb drop column name;
     
     
     

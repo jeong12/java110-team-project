@@ -31,21 +31,11 @@
           <h1 id="titlefind"><i class="fas fa-arrow-alt-circle-right"></i>아이디 비밀번호 찾기</h1>
           
           <div class="findidcontent">
-          <form action="#" method="post" class="contentdetail">
+          <form action="idis" method="post" class="contentdetail">
                <h2>아이디 찾기</h2>
                <p>회원가입시 입력한 이메일을 입력해 주세요.</p>
-               <div>
-               <input type="text" name="email" class="email" placeholder="이메일 입력">@
-               <input type="text" name="domain" class="domain"> &nbsp;
-               <select name="rel_site" class="rel_site">
-                   <option value="">직접입력</option>
-                   <option value="gmail.com">gmail.com</option>
-                   <option value="naver.com">naver.com</option>
-                   <option value="daum.net">daum.net</option>
-                   <option value="nate.com">nate.com</option>
-               </select>&nbsp;
+               <input type="email" name="email" class="email" placeholder="이메일 입력">
                <input type="submit" value="전송" class="send">
-               </div>
            </form>
 
           
