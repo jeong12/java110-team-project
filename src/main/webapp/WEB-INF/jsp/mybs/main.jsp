@@ -95,15 +95,6 @@
                     <td>${list.addr}</td>
                     <td>${list.nsdt}~ ${list.nedt}</td>
                     <td>${list.cnt}</td>
-<<<<<<< HEAD
-                    <c:set var="flages" value="${list.flag}"/>
-                    <c:choose>
-                        <c:when test="${flages eq '1'.charAt(0)}">
-                        <td>진행중</td>
-                        </c:when>
-                        <c:when test="${flages eq '2'.charAt(0)}">
-                        <td>완료</td>
-=======
                     <td>
                     <c:choose>
                         <c:when test="${list.flag eq '1'.charAt(0) }">
@@ -111,10 +102,10 @@
                         </c:when>
                         <c:when test="${list.flag eq '2'.charAt(0) }">
                                                         완료
->>>>>>> 14995c6ae2b53f0b4881e753f605ab158f89a8df
+
                         </c:when>
-                        <c:otherwise><td>::</td></c:otherwise>
                     </c:choose>
+                    </td>
                     <td>${list.cdt}</td>
                     <td>${list.x}</td>
                     <td>${list.y}</td>
@@ -184,9 +175,10 @@
     // 이전값을 저장해주는 변수
     var _prevObj = null;
 $(function() {
-    
+    console.log("::::::::::");
   // 캘린더 출력해주는 코드
   $('#calendar').fullCalendar({
+      console.log(":::::::::");
 	  
       dayClick: function(date, jsEvent, view, resourceObj) {
             console.log(date.format());
@@ -204,18 +196,8 @@ $(function() {
   })
   
   
-  
-});
+});  
 
-$(function() {
-    $( "#sdtDatepicker" ).datepicker({
-    });
-});
-
-$(function() {
-    $( "#edtDatepicker" ).datepicker({
-    });
-});
 </script>
  
 </body>
