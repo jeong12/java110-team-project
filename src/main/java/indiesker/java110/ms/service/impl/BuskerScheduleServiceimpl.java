@@ -19,7 +19,7 @@ public class BuskerScheduleServiceimpl implements BuskerScheduleService {
     params.put("rowNo", (pageNo - 1) * pageSize);
     params.put("size", pageSize);
     params.put("no", 5);
-    return buskerscheduleDao.findMybuskSchedule(params);
+    return buskerscheduleDao.findMyAllSchedule(params);
   }
 
 }

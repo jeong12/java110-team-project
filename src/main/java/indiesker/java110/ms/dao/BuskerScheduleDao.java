@@ -5,6 +5,6 @@ import java.util.Map;
 import indiesker.java110.ms.domain.BuskerSchedule;
 
 public interface BuskerScheduleDao {
-  List<BuskerSchedule> findMybuskSchedule(Map<String,Object> params);
+  List<BuskerSchedule> findMyAllSchedule(Map<String,Object> params);
 
 }

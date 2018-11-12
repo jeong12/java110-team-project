@@ -5,112 +5,61 @@
 <html>
 <head>
 <meta charset='utf-8' />
-<script type="text/javascript" src="<c:url value="../../js/fullcal/lib/moment.min"/>"></script>
-<script type="text/javascript" src="<c:url value="../../js/fullcal/fullcalendar.js"/>"></script>
-<link rel="stylesheet" type="text/css" href="<c:url value="../../js/fullcal/fullcalendar.css"/>">
-<link rel="stylesheet" type="text/css" href="<c:url value="../../js/fullcal/fullcalendar.min.css"/>">
-<link rel="stylesheet" media="print" type="text/css" href="<c:url value="../../js/fullcal/fullcalendar.min.css"/>">
+<!-- 달력 -->
+<script
+    src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<link href="../../css/fullcalendar.min.css" rel="stylesheet">
+<script src="../../js/fullcalendar.min.js" type="text/javascript"></script>
+<script
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    
+ <!-- 모달 -->   
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 
 
-<script>
-    $(document).ready(function() {
-        
-        $('#calendar').fullCalendar({
-            header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'month,basicWeek,basicDay'
-            },
-            defaultDate: '2016-05-12',
-            editable: true,
-            eventLimit: true, // allow "more" link when too many events
-            events: [
-                {
-                    title: 'All Day Event',
-                    start: '2016-05-01'
-                },
-                {
-                    title: 'Long Event',
-                    start: '2016-05-07',
-                    end: '2016-05-10'
-                },
-                {
-                    id: 999,
-                    title: 'Repeating Event',
-                    start: '2016-05-09T16:00:00'
-                },
-                {
-                    id: 999,
-                    title: 'Repeating Event',
-                    start: '2016-05-16T16:00:00'
-                },
-                {
-                    title: 'Conference',
-                    start: '2016-05-11',
-                    end: '2016-05-13'
-                },
-                {
-                    title: 'Meeting',
-                    start: '2016-05-12T10:30:00',
-                    end: '2016-05-12T12:30:00'
-                },
-                {
-                    title: 'Lunch',
-                    start: '2016-05-12T12:00:00'
-                },
-                {
-                    title: 'Meeting',
-                    start: '2016-05-12T14:30:00'
-                },
-                {
-                    title: 'Happy Hour',
-                    start: '2016-05-12T17:30:00'
-                },
-                {
-                    title: 'Dinner',
-                    start: '2016-05-12T20:00:00'
-                },
-                {
-                    title: 'Birthday Party',
-                    start: '2016-05-13T07:00:00'
-                },
-                {
-                    title: 'Click for Google',
-                    url: 'http://google.com/',
-                    start: '2016-05-28'
-                }
-            ]
-        });
-        
-    });
-
-</script>
+    
+    
+    
+    
 <style>
-
-    body {
-        margin: 40px 10px;
-        padding: 0;
-        font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-        font-size: 14px;
-    }
-
-    #calendar {
-        max-width: 900px;
-        margin: 0 auto;
-    }
+#calendar {
+    max-width: 600px;
+    margin: 0 auto;
+}
+#calendar,#selectday{
+    display:inline-block;
+}
+#logo{
+    width:50px;
+    height:50px;
+}
+#addschedule{
+    float:right;
+}
 
 </style>
+
 </head>
 <body>
-
-    <div id='calendar'></div>
-    
     <div id="titl">
         <img id="logo" src="../../img/playButton.PNG" alt="플레이로고">
         <h2>버스킹 일정</h2>
     </div>
 
-    <div id="calender"></div>
+
+    <div id='calendar'></div>
+    <div id='selectday'>
+       <h2></h2>
+    </div>
+    
+ <!-- 스케줄등록 모달  -->
+ <div id="addschedule">
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">스케줄등록하기</button>   
+</div>
 
     <table>
         <thead>
@@ -146,7 +95,18 @@
                     <td>${list.addr}</td>
                     <td>${list.nsdt}~ ${list.nedt}</td>
                     <td>${list.cnt}</td>
-                    <td><c:if test="${list.flag >= 2}">완료</c:if></td>
+                    <c:set var="flages" value="${list.flag}"/>
+                    <td>${flages}</td>
+                    <td>
+                    <c:choose>
+                        <c:when test="${flages <= 1 }">
+                                                        진행중
+                        </c:when>
+                        <c:when test="${flages >= 2 }">
+                                                        완료
+                        </c:when>
+                    </c:choose>
+                    </td>
                     <td>${list.cdt}</td>
                     <td>${list.x}</td>
                     <td>${list.y}</td>
@@ -157,5 +117,92 @@
         </tbody>
     </table>
 
+<!-- 모달 id -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- 모달 내부 설정 -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">개인스케줄 올리기</h4>
+      </div>
+      <div class="modal-body">
+        <form action='addperschedule' method='post' enctype="multipart/form-data">
+            <table>
+            <tbody>
+            <tr>
+                <th>장소명</th>
+                <td><input type='text' name='name'></td>
+            </tr>
+            <tr>
+                <th>시작시간</th>
+                <td><input type="datetime" name='sdt' id='sdtDatepicker'></td>
+            </tr>
+            <tr>
+                <th>종료시간</th>
+                <td><input type="datetime" name='edt' id='edtDatepicker'></td>
+            </tr>
+            <tr>
+                <th>인원</th>
+                <td><input type="text" name='cnt'></td>
+            </tr>
+            <tr>
+                <th>주소검색</th>
+                <td><input type='text' name='addr'></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td><button>등록</button></td>
+            </tr>
+            </tbody>
+            </table>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<script>
+    
+    // 이전값을 저장해주는 변수
+    var _prevObj = null;
+$(function() {
+    
+  // 캘린더 출력해주는 코드
+  $('#calendar').fullCalendar({
+      dayClick: function(date, jsEvent, view, resourceObj) {
+            console.log(date.format());
+            alert('Date: ' + date.format());
+            if(_prevObj) {
+                _prevObj.css('background-color', 'white');
+                $(this).css('background-color', 'gray');
+            } else {
+                $(this).css('background-color', 'gray');
+            }
+              _prevObj = $(this);
+            $("#selectday h2").html(date.format());
+              
+          }  
+  })
+  
+});
+
+$(function() {
+    $( "#sdtDatepicker" ).datepicker({
+    });
+});
+
+$(function() {
+    $( "#edtDatepicker" ).datepicker({
+    });
+});
+</script>
 </body>
 </html>
