@@ -796,15 +796,8 @@ ALTER TABLE busk_stag
 	alter table memb drop column name;
 
 
-
--- 무대스케줄, 보스킹무대사용요청 테이블에 flag 컬럼 삭제
-	alter table stag_sche drop column flag;
-	alter table busk_req drop column flag;
-	
--- 무대스케줄, 보스킹무대사용요청 테이블에 flag 컬럼 삭제
-	alter table busk_stag ADD flag CHAR(1) NOT NULL DEFAULT 1;
-	
-	
+-- 무대사용요청 테이블에 flag 컬럼 삭제
+	alter table busk_stag drop column flag;
     
     
     
