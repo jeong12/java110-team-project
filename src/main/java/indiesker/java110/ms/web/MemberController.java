@@ -30,18 +30,16 @@ public class MemberController{
    }
 
    @PostMapping("add")
-   public String add(
+   public String add(String type,
            Member m,
            MultipartFile file1) throws Exception  {
-       System.out.println(m.getGenre());
        if (file1.getSize() > 0) {
            String filename = UUID.randomUUID().toString();
-           System.out.println(filename);
            file1.transferTo(new File(sc.getRealPath("/upload/" + filename)));
            m.setPhoto(filename);
        }
+       System.out.println(type);
        memberService.add(m);
-       System.out.println(m.getGenre());
 
        return "redirect:form";
    }

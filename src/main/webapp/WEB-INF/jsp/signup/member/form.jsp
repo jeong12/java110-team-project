@@ -89,10 +89,9 @@ h2 {
             <p>
                 팬으로 가입하셔도, 이후 메인화면의 <br> '버스커되기' '제공자되기'로 변경 가능합니다.
             </p>
-            <button class="signupbtn" disabled="disabled" onclick="sendMsg()">팬으로
-                가입</button>
-            <button>버스커로 가입</button>
-            <button>무대 제공자로 가입</button>
+            <button class="signupbtn" disabled="disabled" onclick="sendMsg()" name="type">팬으로 가입</button>
+            <button class="signupbtn" disabled="disabled" onclick="sendMsg()" name="type">버스커로 가입</button>
+            <button class="signupbtn" disabled="disabled" onclick="sendMsg()" name="type">무대 제공자로 가입</button>
         </form>
     </div>
 
