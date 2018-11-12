@@ -32,6 +32,11 @@ public class MemberServiceImpl implements MemberService {
     public int checkNickname(String nickname) {
       return memberDao.checkNickname(nickname);
     }
+
+    @Override
+    public Member findNoById(String id) {
+      return memberDao.findNoById(id);
+    }
     
     
 }

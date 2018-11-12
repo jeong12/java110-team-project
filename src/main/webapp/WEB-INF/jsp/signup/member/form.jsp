@@ -51,7 +51,7 @@ h2 {
                 id="checkid" size=30><br> <span id="idMsg"></span>
             <h3>비밀번호</h3>
             <input type="password" placeholder="8자 이상 영어, 숫자, 특수문자 포함"
-                name="upwd" required class="pass" id="pwd" oninput="checkPwd()"
+                name="password" required class="pass" id="pwd" oninput="checkPwd()"
                 size=30><br> <span id="pwdMsg"></span>
             <h3>비밀번호 확인</h3>
             <input type="password" placeholder="위와 같은 비밀번호를 써주세요"
@@ -91,7 +91,7 @@ h2 {
             </p>
             <button class="signupbtn" disabled="disabled" onclick="sendMsg()" name="type" value="fan">팬으로 가입</button>
             <button class="signupbtn" disabled="disabled" onclick="sendMsg()" name="type" value="busker">버스커로 가입</button>
-            <button class="signupbtn" disabled="disabled" onclick="sendMsg()" name="type" value="support">무대 제공자로 가입</button>
+            <button class="signupbtn" disabled="disabled" onclick="sendMsg()" name="type" value="supporter">무대 제공자로 가입</button>
         </form>
     </div>
 
@@ -104,7 +104,6 @@ h2 {
     var chkFile=1;
         
     function ChkCount(obj){
-        console.log(chkFile);
         var chkbox = document.getElementsByName("genre");
         var chkCnt=0;
         for(var i=0;i<chkbox.length; i++){
@@ -168,10 +167,9 @@ h2 {
     }
     
     function checkPwd() {
-        console.log(chkFile);
         var inputed = $('.pass').val();
         var reinputed = $('#repwd').val();
-            
+        
         if(/^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(inputed)){
             $('#pwd').css("background-color", "#B0F6AC");
             $('#pwdMsg').html("사용가능한 비밀번호입니다.")

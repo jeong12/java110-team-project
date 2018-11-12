@@ -46,17 +46,11 @@
 	where bno=#{value}
 	</select>
 
-    <insert id="insert" parameterType="busker"
-        useGeneratedKeys="true" keyColumn="mno" keyProperty="no">
-        insert into memb(id,email,password,nik,phot,cdt,genre1,genre2,genre3,yn)
-        values(#{id},#{email},password(#{password}),#{nickname},
-        #{photo},now(),
-        <foreach collection="genre" item="genre" separator=",">
-        #{genre}
-        </foreach>
-        ,'n')
+    <insert id="insert" parameterType="busker">
+        insert into busk(bno,name,genre,city,tel,inst,strm,intro,phot,avi1,avi2,per)
+        values(#{no},#{teamname},#{teamgenre},#{city},#{tel},#{instrument},#{streamingUrl},#{teamInfo},#{teamPhoto}
+        ,#{avi1},#{avi2},'n')
     </insert>
-
 </mapper>
 
 
