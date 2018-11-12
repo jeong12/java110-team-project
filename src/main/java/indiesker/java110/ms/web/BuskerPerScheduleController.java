@@ -15,14 +15,14 @@ import indiesker.java110.ms.service.PerScheduleService;
 
 @Controller
 @RequestMapping("/mybs")
-public class PerScheduleController {
+public class BuskerPerScheduleController {
 
   BuskerScheduleService buskerscheduleService;
   PerScheduleService perscheduleService;
   ServletContext sc;
 
 
-  public PerScheduleController(BuskerScheduleService buskerscheduleService,
+  public BuskerPerScheduleController(BuskerScheduleService buskerscheduleService,
       PerScheduleService perscheduleService,
       ServletContext sc) {
     this.buskerscheduleService = buskerscheduleService;

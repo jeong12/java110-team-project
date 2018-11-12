@@ -19,7 +19,7 @@
     </resultMap>
 
     <!-- 스케줄조회 : 확정 버스커 스케줄 출력하는 쿼리  -->
-    <select id="findbuskSchedulelist" resultMap="perbuskerMap" parameterType="map">
+    <select id="findfixdSchedule" resultMap="perbuskerMap" parameterType="map">
     SELECT 
            BR.brno,
            S.name as name,
@@ -36,11 +36,13 @@
        AND BR.brno=BS.brno 
        AND BS.ssno=SC.ssno
        AND SC.sno = S.sno
+       AND BR.flag=2
   GROUP BY BS.brno
   limit #{rowNo}, #{size}
  </select>
  
- <select id="findMybuskSchedule" resultMap="perbuskerMap" parameterType="map">
+ <!-- 스케줄조회 : 확정 버스커 스케줄 출력하는 쿼리  -->
+ <select id="findMyAllSchedule" resultMap="perbuskerMap" parameterType="map">
     SELECT 
            BR.brno,
            S.name as name,

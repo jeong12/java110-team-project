@@ -142,4 +142,35 @@ UPDATE busk_board SET flag=1;
 
 
 
+/* 제공자 스케줄 미확정 데이터 */
+insert into stag_sche(sdt,edt,flag,sno) VALUES('2018-11-10 10:00:00','2018-11-10 11:00:00',1,2);
+insert into stag_sche(sdt,edt,flag,sno) VALUES('2018-11-10 11:00:00','2018-11-10 12:00:00',1,2);
+insert into stag_sche(sdt,edt,flag,sno) VALUES('2018-11-10 12:00:00','2018-11-10 13:00:00',1,2);
+insert into stag_sche(sdt,edt,flag,sno) VALUES('2018-11-10 13:00:00','2018-11-10 14:00:00',1,2);
+insert into stag_sche(sdt,edt,flag,sno) VALUES('2018-11-02 11:00:00','2018-11-02 12:00:00',1,4);
+insert into stag_sche(sdt,edt,flag,sno) VALUES('2018-11-02 12:00:00','2018-11-02 13:00:00',1,4);
+insert into stag_sche(sdt,edt,flag,sno) VALUES('2018-11-02 13:00:00','2018-11-02 14:00:00',1,4);
+
+/* 버스커 신청 미확정 데이터 */
+insert into busk_req(bno,cont,cdt,flag,cnt) VALUES(5,'요청1테스트할게요1',now(),1,7);
+insert into busk_req(bno,cont,cdt,flag,cnt) VALUES(5,'요청1테스트할게요2',now(),1,7);
+
+/* 무대사용요청스케줄 미확정 데이터 */
+insert into busk_stag VALUES(13,9);
+insert into busk_stag VALUES(14,9);
+insert into busk_stag VALUES(15,9);
+insert into busk_stag VALUES(16,9);
+insert into busk_stag VALUES(17,10);
+insert into busk_stag VALUES(18,10);
+insert into busk_stag VALUES(19,10);
+
+
+
+
+
+
+
+
+
+
 
