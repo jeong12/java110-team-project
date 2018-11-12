@@ -49,7 +49,7 @@
         <img id="logo" src="../../img/playButton.PNG" alt="플레이로고">
         <h2>버스킹 일정</h2>
     </div>
-
+   
 
     <div id='calendar'></div>
     <div id='selectday'>
@@ -95,14 +95,12 @@
                     <td>${list.addr}</td>
                     <td>${list.nsdt}~ ${list.nedt}</td>
                     <td>${list.cnt}</td>
-                    <c:set var="flages" value="${list.flag}"/>
-                    <td>${flages}</td>
                     <td>
                     <c:choose>
-                        <c:when test="${flages == 1 }">
+                        <c:when test="${list.flag eq '1'.charAt(0) }">
                                                         진행중
                         </c:when>
-                        <c:when test="${flages >= 2 }">
+                        <c:when test="${list.flag eq '2'.charAt(0) }">
                                                         완료
                         </c:when>
                     </c:choose>
@@ -170,6 +168,8 @@
 
 
 <script>
+
+    var clickdate=null;
     
     // 이전값을 저장해주는 변수
     var _prevObj = null;
@@ -177,6 +177,7 @@ $(function() {
     
   // 캘린더 출력해주는 코드
   $('#calendar').fullCalendar({
+	  
       dayClick: function(date, jsEvent, view, resourceObj) {
             console.log(date.format());
             alert('Date: ' + date.format());
@@ -187,10 +188,12 @@ $(function() {
                 $(this).css('background-color', 'gray');
             }
               _prevObj = $(this);
-            $("#selectday h2").html(date.format());
               
+            $("#selectday h2").html(date.format());
           }  
   })
+  
+  
   
 });
 
@@ -204,5 +207,6 @@ $(function() {
     });
 });
 </script>
+ 
 </body>
 </html>
