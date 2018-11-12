@@ -27,7 +27,7 @@
            MIN(SC.sdt) as sdt,
            MAX(SC.edt) as edt,
            BR.cnt,
-           BR.flag, 
+           BS.flag, 
            BR.cdt, 
            S.x, 
            S.y 
@@ -36,7 +36,7 @@
        AND BR.brno=BS.brno 
        AND BS.ssno=SC.ssno
        AND SC.sno = S.sno
-       AND BR.flag=2
+       AND BS.flag=2
   GROUP BY BS.brno
   limit #{rowNo}, #{size}
  </select>
@@ -50,7 +50,7 @@
            MIN(SC.sdt) as sdt,
            MAX(SC.edt) as edt,
            BR.cnt,
-           BR.flag, 
+           BS.flag, 
            BR.cdt, 
            S.x, 
            S.y 

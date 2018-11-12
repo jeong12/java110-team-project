@@ -57,9 +57,12 @@ public class BuskerPerScheduleController {
       ps.setNsdt(format.format(ps.getSdt()));
       ps.setNedt(format.format(ps.getEdt()));
     }
+    
     for (BuskerSchedule S : list) {
       System.out.println(S.getCdt());
     }
+    
+    
     model.addAttribute("list", list);
     model.addAttribute("plist", plist);
 

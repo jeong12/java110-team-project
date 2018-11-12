@@ -99,7 +99,7 @@
                     <td>${flages}</td>
                     <td>
                     <c:choose>
-                        <c:when test="${flages <= 1 }">
+                        <c:when test="${flages == 1 }">
                                                         진행중
                         </c:when>
                         <c:when test="${flages >= 2 }">
