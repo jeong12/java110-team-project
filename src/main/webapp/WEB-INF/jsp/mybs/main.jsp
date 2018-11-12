@@ -96,17 +96,19 @@
                     <td>${list.nsdt}~ ${list.nedt}</td>
                     <td>${list.cnt}</td>
                     <c:set var="flages" value="${list.flag}"/>
-                    <td>${flages}</td>
-                    <td>
                     <c:choose>
+<<<<<<< HEAD
                         <c:when test="${flages == 1 }">
                                                         진행중
+=======
+                        <c:when test="${!empty flages}">
+                     <td>${flages}</td>
+>>>>>>> my
                         </c:when>
-                        <c:when test="${flages >= 2 }">
+                        <c:when test="${flages eq 2}">
                                                         완료
                         </c:when>
                     </c:choose>
-                    </td>
                     <td>${list.cdt}</td>
                     <td>${list.x}</td>
                     <td>${list.y}</td>
