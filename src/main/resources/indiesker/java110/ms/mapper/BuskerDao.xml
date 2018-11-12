@@ -55,7 +55,7 @@
         #{genre}
         </foreach>
         ,'n')
-    <
+    </insert>
 
 </mapper>
 

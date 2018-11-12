@@ -97,17 +97,13 @@
                     <td>${list.cnt}</td>
                     <c:set var="flages" value="${list.flag}"/>
                     <c:choose>
-<<<<<<< HEAD
-                        <c:when test="${flages == 1 }">
-                                                        진행중
-=======
-                        <c:when test="${!empty flages}">
-                     <td>${flages}</td>
->>>>>>> my
+                        <c:when test="${flages eq '1'.charAt(0)}">
+                        <td>진행중</td>
                         </c:when>
-                        <c:when test="${flages eq 2}">
-                                                        완료
+                        <c:when test="${flages eq '2'.charAt(0)}">
+                        <td>완료</td>
                         </c:when>
+                        <c:otherwise><td>::</td></c:otherwise>
                     </c:choose>
                     <td>${list.cdt}</td>
                     <td>${list.x}</td>

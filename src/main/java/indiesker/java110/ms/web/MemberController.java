@@ -40,8 +40,15 @@ public class MemberController{
        }
        System.out.println(type);
        memberService.add(m);
-
-       return "redirect:form";
+       if(type.equals("fan")) {
+         return "redirect:form";         
+       }else if(type.equals("busker")) {
+         return "redirect:form";  
+       }else if(type.equals("support")) {
+         return "redirect:form";  
+       }else {
+         return "redirect:form";  
+       }
    }
 
    @ResponseBody
