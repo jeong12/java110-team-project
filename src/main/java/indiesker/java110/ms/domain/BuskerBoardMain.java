@@ -13,7 +13,14 @@ public class BuskerBoardMain {
   protected int cnt;
   protected String etc;
   protected int flag;
+  protected String phot;
   
+  public String getPhot() {
+    return phot;
+  }
+  public void setPhot(String phot) {
+    this.phot = phot;
+  }
   public int getFlag() {
     return flag;
   }
