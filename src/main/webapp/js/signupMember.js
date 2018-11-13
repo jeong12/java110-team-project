@@ -38,7 +38,7 @@
     
     function checkId(){
         console.log(chkFile);
-        var inputed =$('#checkid').val();
+        var inputed = $('#checkid').val();
         $.ajax({
             data : {
                 date : inputed

@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>일반 회원 가입</title>
+<script src="/js/signupMember.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <style>
 th {
     text-align: right;
@@ -92,6 +94,5 @@ h2 {
             <button class="signupbtn" disabled="disabled" onclick="sendMsg()" name="type" value="supporter">무대 제공자로 가입</button>
         </form>
     </div>
-    <script src="/js/signupMember.js" type="text/javascript"></script>
 </body>
 </html>
