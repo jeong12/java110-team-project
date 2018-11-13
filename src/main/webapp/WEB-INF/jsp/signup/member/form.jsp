@@ -139,7 +139,7 @@ h2 {
         var inputed =$('#checkid').val();
         $.ajax({
             data : {
-                id : inputed
+                date : inputed
             },
             url : "checkId",
             success : function(data) {
