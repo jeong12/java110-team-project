@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -8,209 +8,192 @@
 
 
 <!-- 달력 -->
-<<<<<<< HEAD
-<script
-    src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script
-    src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <link href="/css/fullcalendar.min.css" rel="stylesheet">
 <script src="/js/fullcalendar.min.js" type="text/javascript"></script>
-<script
-    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    
-    
- <!-- 모달 -->   
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-=======
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-	
-<script	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-<link href="/css/fullcalendar.min.css" rel="stylesheet">
-<script src="/js/fullcalendar.min.js" type="text/javascript"></script>
-<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
 
 <!-- 달력기간조회 -->
-<link rel="stylesheet" type="text/css" href="/../css/jquery.datetimepicker.css"/ >
+<link rel="stylesheet" type="text/css" href="/css/jquery.datetimepicker.css" >
 <script src="/js/build/jquery.datetimepicker.full.min.js"></script>
 
 <!-- 모달 -->
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 
-<!-- 카카오map,주소 api -->	
+<!-- 카카오map,주소 api -->  
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=15e2302756c9e7098ec0d79f7b4d53f4&libraries=services"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c63782df6473def89780e1d964f9d83a&libraries=services"></script>
 
->>>>>>> 961d76ead307ce4e2f13da3a8a9a886609b2693e
 
 
 <style>
 #calendar {
-	max-width: 600px;
-	margin: 0 auto;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 #calendar, #selectday, #selectdate{
-	display: inline-block;
+    display: inline-block;
 }
 
 #logo {
-	width: 50px;
-	height: 50px;
+    width: 50px;
+    height: 50px;
 }
 
 #addschedule {
-	float: right;
+    float: right;
 }
 </style>
 <script>
 /* $(document).ready(function(){
-	$('#datetimepicker').datetimepicker();
+    $('#datetimepicker').datetimepicker();
 }); */
 
 </script>
 
 </head>
 <body>
-	<div id="titl">
-		<img id="logo" src="/img/playButton.PNG" alt="플레이로고">
-		<h2>버스킹 일정</h2>
-	</div>
+    <div id="titl">
+        <img id="logo" src="/img/playButton.PNG" alt="플레이로고">
+        <h2>버스킹 일정</h2>
+    </div>
 
 
-	<div id='calendar'></div>
-	<div id='selectday'>
-		<h2></h2>
-		
-		<table id="selectdate">
-		<thead>
-		  <tr>
-    		  <td>시간</td> <td>이름</td> <td>장소</td>
-		  </tr>
-		  </thead>
-		  <tbody>
-		  
-		  </tbody>
-		</table>
-		
-		<h3></h3>
-	</div>
+    <div id='calendar'></div>
+    <div id='selectday'>
+        <h2></h2>
+        
+        <table id="selectdate">
+        <thead>
+          <tr>
+              <td>시간</td> <td>이름</td> <td>장소</td>
+          </tr>
+          </thead>
+          <tbody>
+          
+          </tbody>
+        </table>
+        
+        <h3></h3>
+    </div>
 
 
-	<!-- 스케줄등록 모달  -->
-	<div id="addschedule">
-		<button type="button" class="btn btn-info btn-lg" data-toggle="modal"
-			data-target="#myModal">스케줄등록하기</button>
-	</div>
+    <!-- 스케줄등록 모달  -->
+    <div id="addschedule">
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal"
+            data-target="#myModal">스케줄등록하기</button>
+    </div>
 
-	<table>
-		<thead>
-			<tr>
-				<th>상호명</th>
-				<th>지역</th>
-				<th>공연시간</th>
-				<th>신청인원</th>
-				<th>진행상태</th>
-				<th>작성일</th>
-				<th>위도</th>
-				<th>경도</th>
-				<th>상세보기</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${plist}" var="perlist">
-				<tr>
-					<td>${perlist.shopname}</td>
-					<td>${perlist.addr}</td>
-					<td>${perlist.nsdt}~${perlist.nedt}</td>
-					<td>${perlist.cnt}</td>
-					<td>개인스케줄</td>
-					<td>${perlist.cdt}</td>
-					<td>${perlist.x}</td>
-					<td>${perlist.y}</td>
-					<td><button>상세보기</button></td>
-				</tr>
-			</c:forEach>
-			<c:forEach items="${list}" var="list">
-				<tr>
-					<td>${list.name}</td>
-					<td>${list.addr}</td>
-					<td>${list.nsdt}~${list.nedt}</td>
-					<td>${list.cnt}</td>
-					<td><c:choose>
-							<c:when test="${list.flag eq '1'.charAt(0) }">
+    <table>
+        <thead>
+            <tr>
+                <th>상호명</th>
+                <th>지역</th>
+                <th>공연시간</th>
+                <th>신청인원</th>
+                <th>진행상태</th>
+                <th>작성일</th>
+                <th>위도</th>
+                <th>경도</th>
+                <th>상세보기</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach items="${plist}" var="perlist">
+                <tr>
+                    <td>${perlist.shopname}</td>
+                    <td>${perlist.addr}</td>
+                    <td>${perlist.nsdt}~${perlist.nedt}</td>
+                    <td>${perlist.cnt}</td>
+                    <td>개인스케줄</td>
+                    <td>${perlist.cdt}</td>
+                    <td>${perlist.x}</td>
+                    <td>${perlist.y}</td>
+                    <td><button>상세보기</button></td>
+                </tr>
+            </c:forEach>
+            <c:forEach items="${list}" var="list">
+                <tr>
+                    <td>${list.name}</td>
+                    <td>${list.addr}</td>
+                    <td>${list.nsdt}~${list.nedt}</td>
+                    <td>${list.cnt}</td>
+                    <td><c:choose>
+                            <c:when test="${list.flag eq '1'.charAt(0) }">
                                                         진행중
                         </c:when>
-							<c:when test="${list.flag eq '2'.charAt(0) }">
+                            <c:when test="${list.flag eq '2'.charAt(0) }">
                                                         완료
-
                         </c:when>
-						</c:choose></td>
-					<td>${list.cdt}</td>
-					<td>${list.x}</td>
-					<td>${list.y}</td>
-					<td><button>상세보기</button></td>
-				</tr>
-			</c:forEach>
+                        </c:choose></td>
+                    <td>${list.cdt}</td>
+                    <td>${list.x}</td>
+                    <td>${list.y}</td>
+                    <td><button>상세보기</button></td>
+                </tr>
+            </c:forEach>
 
-		</tbody>
-	</table>
+        </tbody>
+    </table>
 
-	<!-- 모달 id -->
-	<div id="myModal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
+    <!-- 모달 id -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
 
-			<!-- 모달 내부 설정 -->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">개인스케줄 올리기</h4>
-				</div>
-				<div class="modal-body">
-					<form action='add' method='post'
-						enctype="multipart/form-data">
-						<table>
-							<tbody>
-								<tr>
-									<th>장소명</th>
-									<td><input type='text' name='shopname'></td>
-								</tr>
-								<tr>
-									<th>스케줄일정</th>
-									<td><input type="text" name='nsdt' id='datetimepicker'>~<input type="text" name='nedt' id='datetimepicker2'></td>
-								</tr>
-								<tr>
-									<th>인원</th>
-									<td><input type="text" name='cnt'></td>
-								</tr>
-								<tr>
-									<th>주소검색</th>
-									<td>
-									   <input type="text" id="addr" name="addr" placeholder="주소">
-									   <input type="button" onclick="search_addr()" value="주소 검색"><br>
+            <!-- 모달 내부 설정 -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">개인스케줄 올리기</h4>
+                </div>
+                <div class="modal-body">
+                    <form action='add' method='post'
+                        enctype="multipart/form-data">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>장소명</th>
+                                    <td><input type='text' name='shopname'></td>
+                                </tr>
+                                <tr>
+                                    <th>스케줄일정</th>
+                                    <td><input type="text" name='nsdt' id='datetimepicker'>~<input type="text" name='nedt' id='datetimepicker2'></td>
+                                </tr>
+                                <tr>
+                                    <th>인원</th>
+                                    <td><input type="text" name='cnt'></td>
+                                </tr>
+                                <tr>
+                                    <th>주소검색</th>
+                                    <td>
+                                       <input type="text" id="addr" name="addr" placeholder="주소">
+                                       <input type="button" onclick="search_addr()" value="주소 검색"><br>
                                        <div id="map" style="width:400px;height:400px;margin-top:10px;display:none"></div>
                                        <input type="text" id="x" name="x" >
                                        <input type="text" id="y" name="y" > <!-- style="display:none" -->
-									</td>
-								</tr>
-								<tr>
-									<th></th>
-									<td><button class="btn btn-default">등록</button></td>
-								</tr>
-							</tbody>
-						</table>
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <td><button class="btn btn-default">등록</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
 
-		</div>
-	</div>
+        </div>
+    </div>
 
     <!--   -->
     
@@ -290,7 +273,7 @@ new daum.Postcode({
         daum.maps.event.addListener(map, 'click', function(mouseEvent) {
             searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
                 if (status === daum.maps.services.Status.OK) {
-                	var detailAddr = !!result[0].road_address ? result[0].road_address.address_name :'';
+                    var detailAddr = !!result[0].road_address ? result[0].road_address.address_name :'';
                     detailAddr += result[0].address.address_name;
                     
                     
@@ -312,7 +295,7 @@ new daum.Postcode({
         
         
         /* daum.maps.event.addListener(marker, 'dragend', function(mouseEvent) {
-        	searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
+            searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
                 if (status === daum.maps.services.Status.OK) {
                     var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
                     detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
@@ -331,8 +314,8 @@ new daum.Postcode({
 
                 }   
             });
-        	
-        	
+            
+            
 
             var gps = marker.getPosition();
             var x = gps.getLat();
@@ -367,9 +350,10 @@ new daum.Postcode({
     // 이전값을 저장해주는 변수
     var _prevObj = null;
 $(function() {
+    
   // 캘린더 출력해주는 코드
   $('#calendar').fullCalendar({
-	  
+      
       dayClick: function(date, jsEvent, view, resourceObj) {
             alert('Date: ' + date.format());
             if(_prevObj) {
@@ -395,16 +379,16 @@ $(function() {
                                        //다시 POST방식으로 하게됬는데 파라미터를 넘겨줄 값이 없어서 다시 GET으로 바꾸면서 주석 
                 //contentType : "application/x-www-form-urlencoded; charset=utf-8",  // 기본값이라고 하니까 건들이지 않았고 
                 success : function(data) {
-                		$("#selectdate tbody").empty();
-                	    $("#selectday h3").empty();
-                		
+                        $("#selectdate tbody").empty();
+                        $("#selectday h3").empty();
+                        
                 if(data ==false){
-                	$("#selectday h3").append('해당일의 스케줄이 존재하지않습니다.');
+                    $("#selectday h3").append('해당일의 스케줄이 존재하지않습니다.');
                 }else{
-                	$.each(data,function(index,item){
-                		$("#selectdate tbody").append(
-                				'<tr><td>'+item.nsdt.substring(11,16)+'~'+item.nedt.substring(11,16)+
-                				'</td><td>'+item.name+'</td><td>'+item.addr+'</td></tr>');
+                    $.each(data,function(index,item){
+                        $("#selectdate tbody").append(
+                                '<tr><td>'+item.nsdt.substring(11,16)+'~'+item.nedt.substring(11,16)+
+                                '</td><td>'+item.name+'</td><td>'+item.addr+'</td></tr>');
                     });
                 }
 
@@ -421,19 +405,13 @@ $(function() {
           }  
   })
   
-<<<<<<< HEAD
-  
-});  
-
-=======
 });
 
 $('#datetimepicker').datetimepicker();
 jQuery('#datetimepicker2').datetimepicker({
-	  datepicker:false,
-	  format:'H:i'
-	});
->>>>>>> 961d76ead307ce4e2f13da3a8a9a886609b2693e
+      datepicker:false,
+      format:'H:i'
+    });
 </script>
 
 </body>

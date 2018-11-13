@@ -7,6 +7,7 @@
     var chkFile=1;
         
     function ChkCount(obj){
+        console.log(chkFile);
         var chkbox = document.getElementsByName("genre");
         var chkCnt=0;
         for(var i=0;i<chkbox.length; i++){
@@ -40,7 +41,7 @@
         var inputed =$('#checkid').val();
         $.ajax({
             data : {
-                id : inputed
+                date : inputed
             },
             url : "checkId",
             success : function(data) {
@@ -70,9 +71,10 @@
     }
     
     function checkPwd() {
+        console.log(chkFile);
         var inputed = $('.pass').val();
         var reinputed = $('#repwd').val();
-        
+            
         if(/^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(inputed)){
             $('#pwd').css("background-color", "#B0F6AC");
             $('#pwdMsg').html("사용가능한 비밀번호입니다.")
@@ -219,3 +221,4 @@
             $(".signupbtn").prop("disabled", true);          
         }
     }
+    

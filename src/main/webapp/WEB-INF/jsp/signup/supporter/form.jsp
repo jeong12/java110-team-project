@@ -69,6 +69,9 @@ h2 {
 			<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br> 
 			<input type="text" id="baseaddr" name="baseaddr" placeholder="주소" size=60><br>
 			<input type="text" id="detailaddr" name="detailaddr" placeholder="상세주소" size=60 onchange="checkDetailAddr()">
+			<div id="map" style="width:400px;height:400px;margin-top:10px;display:none"></div>
+            <input type="text" id="x" name="x" >
+            <input type="text" id="y" name="y" >
 			<span id="daMsg"></span>
 			<h3>수용가능인원</h3>
 			<input type="number" id="capa" name="capa" size=30 onchange="checkCapa()">
@@ -76,7 +79,7 @@ h2 {
 			<h3>연락처</h3>
 			<input type="tel" id="tel" name="tel" size=30 onchange="checkTel()"> <br>
 			<h3>인증번호</h3>
-			<input type="text" id="tel_chk" name="tel_chk" size=30> <br>
+			<input type="text" id="tel_chk" name="tel_chk" size=30><br>
 			<h3>기타(희망사항)</h3>
 			<input type="textarea" name="message" id="message" size=30> <br>
 			<h3>사진</h3>
