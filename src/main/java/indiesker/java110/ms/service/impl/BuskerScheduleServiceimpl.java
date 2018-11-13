@@ -22,6 +22,15 @@ public class BuskerScheduleServiceimpl implements BuskerScheduleService {
     return buskerscheduleDao.findMyAllSchedule(params);
   }
 
+  @Override
+  public List<BuskerSchedule> findbydate(String no, String date) {
+    System.out.println(date);
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("bno", no);
+    params.put("date", date);
+    return buskerscheduleDao.findbydate(params);
+  }
+
 }
 
 

@@ -7,16 +7,21 @@
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
+<link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css">
+<script src="js/jquery.js"></script>
+<script src="js/build/jquery.datetimepicker.full.min.js"></script>
 
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+
+<!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
-
+ -->
 
 
 <title>모달 테스트</title>
 </head>
 <body>
+<input id="datetimepicker" type="text" >
 <!-- 스케줄등록 모달  -->
 <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
 
@@ -40,7 +45,8 @@
 			</tr>
 			<tr>
 			    <th>시작시간</th>
-			    <td><input type="datetime" name='sdt' id='sdtDatepicker'></td>
+			    
+			    <td><input id="datetimepicker" type="text" name=sdt ></td>
 			</tr>
 			<tr>
 			    <th>종료시간</th>
@@ -72,15 +78,10 @@
 
 
 <script>
-$(function() {
-    $( "#sdtDatepicker" ).datepicker({
-    });
-});
 
-$(function() {
-    $( "#edtDatepicker" ).datepicker({
-    });
-});
+    JQuery('#datetimepicker').datetimepicker();
+    
+
 </script>
 </body>
 </html>

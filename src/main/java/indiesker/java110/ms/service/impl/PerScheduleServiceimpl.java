@@ -21,6 +21,13 @@ public class PerScheduleServiceimpl implements PerScheduleService {
         
         return perscheduleDao.findAll(params);
     }
+
+    @Override
+    public void addSchedule(PerSchedule perschedule) {
+      
+      perscheduleDao.insert(perschedule);
+      
+    }
     
    
 }

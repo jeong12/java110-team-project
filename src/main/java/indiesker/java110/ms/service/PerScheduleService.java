@@ -5,4 +5,5 @@ import indiesker.java110.ms.domain.PerSchedule;
 
 public interface PerScheduleService {
     List<PerSchedule> list(int pageNo, int pageSize);
+    void addSchedule(PerSchedule perschedule);
 }
