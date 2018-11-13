@@ -51,9 +51,6 @@ public class MemberManagerController {
           pageSize = 3;
       
       List<MemberManager> select = memberManagerService.listSelect(flag ,pageNo, pageSize);
-      for (MemberManager m : select) {
-        
-      }
       model.addAttribute("select", select);
   }
   
