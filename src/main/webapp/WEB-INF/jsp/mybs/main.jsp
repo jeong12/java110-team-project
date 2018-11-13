@@ -16,8 +16,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
 
 <!-- 달력기간조회 -->
-<link rel="stylesheet" type="text/css" href="/css/jquery.datetimepicker.css" >
-<script src="/js/build/jquery.datetimepicker.full.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/../css/jquery.datetimepicker.css">
+<script src="/js/time/jquery.datetimepicker.full.min.js"></script>
 
 <!-- 모달 -->
 <link rel="stylesheet"
