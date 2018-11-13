@@ -12,8 +12,8 @@
 
 	<insert id="insert" parameterType="Supporter">
 		insert into
-		sup(sno,name,bas_addr,postno,det_addr,genre,capa,tel,per,etc,x,y)
-		values(#{no},#{name},#{baseaddr},#{postno},#{detailaddr},#{sgnere},#{capa},#{tel},'n',#{message},5000,5000)
+		sup(sno,name,bas_addr,det_addr,genre,capa,tel,per,etc,x,y)
+		values(#{no},#{name},#{baseaddr},#{detailaddr},#{sgnere},#{capa},#{tel},'n',#{message},#{x},#{y})
 	</insert>
 
 	<insert id="insertfile" parameterType="StagePhoto" useGeneratedKeys="true" keyColumn="spno" keyProperty="spno">

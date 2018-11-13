@@ -5,8 +5,6 @@ var chkFile=0;
 
 function checkName(){
     var names=$('#teamname').val();
-    console.log(names);
-    console.log(names.length);
     if(names.length<=0) {
         $(".signupbtn").prop("disabled", true);
         $(".signupbtn").css("background-color", "#aaaaaa");

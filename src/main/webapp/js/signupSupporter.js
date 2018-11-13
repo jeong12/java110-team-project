@@ -40,20 +40,18 @@ function checkName(){
 }
 
 function checkDetailAddr(){ 
-    var pono=$('#postno').val();
     var baddr=$('#baseaddr').val();
     var detaddr=$('#detailaddr').val();
-    if(detaddr.length<=0 || pono.length<=0 || baddr.length<=0) {
+    if(detaddr.length<=0 || baddr.length<=0) {
         $(".signupbtn").prop("disabled", true);
         $(".signupbtn").css("background-color", "#aaaaaa");
         $("#detailaddr").css("background-color", "#FFCECE");
         $("#daMsg").html("주소를 입력해주세요.")
         chkDetAddr = 0;
-    }else if (detaddr.length>0 && pono.length>0 && baddr.length>0) {
+    }else if (detaddr.length>0 && baddr.length>0) {
         $("#detailaddr").css("background-color", "#B0F6AC");
         chkDetAddr = 1;
         if(chkName==1 && chkDetAddr ==1 && chkCapa ==1  && chkTel ==1 && chkFile1==1 && chkFile2==1 && chkFile3==1) {
-            console.log(chkDetAdd);
             $(".signupbtn").prop("disabled", false);
             $(".signupbtn").css("background-color", "#4CAF50");
 
@@ -62,7 +60,6 @@ function checkDetailAddr(){
 };
 
 function checkCapa(){  
-    console.log($('#supgenre').val());
     var capacity=$('#capa').val();
     if(capacity.length<=0) {
         $(".signupbtn").prop("disabled", true);
@@ -163,7 +160,6 @@ function readURL3(input) {
         reader.readAsDataURL(input.files[0]); 
         chkFile3= 1;
         if(chkName==1 && chkDetAddr ==1 && chkCapa ==1  && chkTel ==1 && chkFile1==1 && chkFile2==1 && chkFile3==1) {
-            console.log("::::::");
             $(".signupbtn").prop("disabled", false);
             $(".signupbtn").css("background-color", "#4CAF50");
         }

@@ -7,13 +7,11 @@
     var chkFile=1;
         
     function ChkCount(obj){
-        console.log(chkFile);
         var chkbox = document.getElementsByName("genre");
         var chkCnt=0;
         for(var i=0;i<chkbox.length; i++){
             if(chkbox[i].checked){
                 chkCnt++;
-                console.log("chk"+chkCnt);
             }
         }
         if(chkCnt==3){
@@ -37,11 +35,10 @@
         }
     
     function checkId(){
-        console.log(chkFile);
         var inputed = $('#checkid').val();
         $.ajax({
             data : {
-                date : inputed
+                data : inputed
             },
             url : "checkId",
             success : function(data) {
@@ -71,7 +68,6 @@
     }
     
     function checkPwd() {
-        console.log(chkFile);
         var inputed = $('.pass').val();
         var reinputed = $('#repwd').val();
             
@@ -109,7 +105,6 @@
     }
     
     function checkEmail(){
-        console.log(chkFile);
         var inserted =$('#checkemail').val();
         $.ajax({
             data : {
@@ -197,13 +192,11 @@
     }
     }
     function ChkCount(obj){
-        console.log(chkFile);
         var chkbox = document.getElementsByName("genre");
         var chkCnt=0;
         for(var i=0;i<chkbox.length; i++){
             if(chkbox[i].checked){
                 chkCnt++;
-                console.log("chk"+chkCnt);
             }
         }
         if(chkCnt==3){
