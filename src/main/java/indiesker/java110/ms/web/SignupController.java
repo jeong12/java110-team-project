@@ -51,7 +51,7 @@ public class SignupController{
     
     if (file1.getSize() > 0) {
       String filename = UUID.randomUUID().toString();
-      file1.transferTo(new File(sc.getRealPath("/upload/" + filename)));
+      file1.transferTo(new File(sc.getRealPath("/photo/" + filename)));
       m.setPhoto(filename);
     }
     
@@ -97,7 +97,7 @@ public class SignupController{
     String filename=null;
     if (file1.getSize() > 0) {
       filename = UUID.randomUUID().toString();
-      file1.transferTo(new File(sc.getRealPath("/upload/" + filename)));
+      file1.transferTo(new File(sc.getRealPath("/photo/" + filename)));
       b.setTeamPhoto(filename);
     }
     bsuknsup.put("busker", b);
@@ -146,19 +146,19 @@ public class SignupController{
     
     if (file1.getSize() > 0) {
       String filename = UUID.randomUUID().toString();
-      file1.transferTo(new File(sc.getRealPath("/upload/" + filename)));
+      file1.transferTo(new File(sc.getRealPath("/photo/" + filename)));
       sp.setPhoto(filename);
     }
     supporterService.insert(sp);
     if (file2.getSize() > 0) {
       String filename = UUID.randomUUID().toString();
-      file2.transferTo(new File(sc.getRealPath("/upload/" + filename)));
+      file2.transferTo(new File(sc.getRealPath("/photo/" + filename)));
       sp.setPhoto(filename);
     }
     supporterService.insert(sp);
     if (file3.getSize() > 0) {
       String filename = UUID.randomUUID().toString();
-      file3.transferTo(new File(sc.getRealPath("/upload/" + filename)));
+      file3.transferTo(new File(sc.getRealPath("/photo/" + filename)));
       sp.setPhoto(filename);
     }
     supporterService.insert(sp);   
