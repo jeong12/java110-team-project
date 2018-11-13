@@ -10,8 +10,8 @@
     src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script
     src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-<link href="../../css/fullcalendar.min.css" rel="stylesheet">
-<script src="../../js/fullcalendar.min.js" type="text/javascript"></script>
+<link href="/css/fullcalendar.min.css" rel="stylesheet">
+<script src="/js/fullcalendar.min.js" type="text/javascript"></script>
 <script
     src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     
@@ -175,10 +175,8 @@
     // 이전값을 저장해주는 변수
     var _prevObj = null;
 $(function() {
-    console.log("::::::::::");
   // 캘린더 출력해주는 코드
   $('#calendar').fullCalendar({
-      console.log(":::::::::");
 	  
       dayClick: function(date, jsEvent, view, resourceObj) {
             console.log(date.format());

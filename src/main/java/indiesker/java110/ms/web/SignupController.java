@@ -13,22 +13,30 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import indiesker.java110.ms.domain.Busker;
 import indiesker.java110.ms.domain.Member;
+import indiesker.java110.ms.domain.StagePhoto;
+import indiesker.java110.ms.domain.Supporter;
 import indiesker.java110.ms.service.BuskerService;
 import indiesker.java110.ms.service.MemberService;
+import indiesker.java110.ms.service.SupporterService;
 
 @RequestMapping("/signup")
 @Controller
 public class SignupController{
 
-  HashMap<String,Object> busk = new HashMap<>();
+  HashMap<String,Object> bsuknsup = new HashMap<>();
   BuskerService buskerService; 
   MemberService memberService;
+  SupporterService supporterService;
+
   ServletContext sc;
 
-  public SignupController(BuskerService buskerService, MemberService memberService,
-      ServletContext sc) {
+  public SignupController(HashMap<String, Object> busk, BuskerService buskerService,
+      MemberService memberService, SupporterService supporterService, ServletContext sc) {
+    super();
+    this.bsuknsup = busk;
     this.buskerService = buskerService;
     this.memberService = memberService;
+    this.supporterService = supporterService;
     this.sc = sc;
   }
 
@@ -40,13 +48,14 @@ public class SignupController{
   public String add(@RequestParam String type,
       Member m,@RequestParam String id,
       @RequestParam MultipartFile file1) throws Exception  {
+    
     if (file1.getSize() > 0) {
       String filename = UUID.randomUUID().toString();
       file1.transferTo(new File(sc.getRealPath("/upload/" + filename)));
       m.setPhoto(filename);
     }
-    m.setId(id);
-    busk.put("id", id);
+    
+    bsuknsup.put("id", id);
     memberService.add(m);
     if(type.equals("fan")) {
       return "redirect:form";         
@@ -91,16 +100,16 @@ public class SignupController{
       file1.transferTo(new File(sc.getRealPath("/upload/" + filename)));
       b.setTeamPhoto(filename);
     }
-    busk.put("busker", b);
-    busk.put("file", filename);
+    bsuknsup.put("busker", b);
+    bsuknsup.put("file", filename);
   }
 
   @RequestMapping("busker/add")
   public void add(Busker b, @RequestParam String url1, @RequestParam String url2, Model model) {
     
-    Busker buskers = (Busker) busk.get("busker");
-    String fileName = (String) busk.get("file");
-    String id= (String) busk.get("id");
+    Busker buskers = (Busker) bsuknsup.get("busker");
+    String fileName = (String) bsuknsup.get("file");
+    String id= (String) bsuknsup.get("id");
     Member m = memberService.findNoById(id);
     buskers.setNo(m.getNo());
     buskers.setAvi1(url1);
@@ -109,9 +118,57 @@ public class SignupController{
     buskerService.add(buskers);
   }
   
+  
   @RequestMapping("supporter/form")
   public void supporterform() {
   }
+  
+  
+  @ResponseBody
+  @RequestMapping("supporter/checkName")
+  public int checkName(String name) throws Exception {
+    return supporterService.checkName(name);
+  }
+  
+  
+  @RequestMapping("supporter/add")
+  public void add(Supporter s, StagePhoto sp, Model model, @RequestParam MultipartFile file1, 
+      @RequestParam MultipartFile file2, @RequestParam MultipartFile file3) throws Exception {
+    System.out.println(s);
+    System.out.println(s.getSupportgenre());
+    String id= (String) bsuknsup.get("id");
+    System.out.println(id);
+    Member m = memberService.findNoById(id);
+    System.out.println(m.getNo());
+    s.setNo(m.getNo());
+    sp.setSno(m.getNo());
+    supporterService.add(s);
+    
+    if (file1.getSize() > 0) {
+      String filename = UUID.randomUUID().toString();
+      file1.transferTo(new File(sc.getRealPath("/upload/" + filename)));
+      sp.setPhoto(filename);
+    }
+    supporterService.insert(sp);
+    if (file2.getSize() > 0) {
+      String filename = UUID.randomUUID().toString();
+      file2.transferTo(new File(sc.getRealPath("/upload/" + filename)));
+      sp.setPhoto(filename);
+    }
+    supporterService.insert(sp);
+    if (file3.getSize() > 0) {
+      String filename = UUID.randomUUID().toString();
+      file3.transferTo(new File(sc.getRealPath("/upload/" + filename)));
+      sp.setPhoto(filename);
+    }
+    supporterService.insert(sp);   
+
+  }
+  
+  @RequestMapping("map")
+  public void map() {
+  }
+  
 
 
 

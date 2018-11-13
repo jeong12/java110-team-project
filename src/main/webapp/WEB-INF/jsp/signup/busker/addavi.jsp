@@ -53,24 +53,44 @@ h2 {
         <td><button type="button" id="btn1" onclick="btn1_click()">추가</button></td>
         <tr><td>url 2</td>
         <td><input type="text" placeholder="ex)유뷰트, 네이버 TV..." name=url2 id="url2"></td>
-        <td><button type="button" id="btn2" onclick="btn2_click()">추가</button></td>
+        <td><button type="button" onclick="btn2_click()" id="btn2">추가</button></td>
         </table>
-        <button>가입하기</button>
+        <button disabled="disabled" id="btn">가입하기</button>
         </form>
     </div>
 
   <script>
   
+  var chkUrl1=0;
+  var chkUrl2=0;
+  
   function btn1_click(){
       var furl=($('#url1').val());
-      $('#video').attr('src',furl);      
+      if(furl.length<=0){
+          $('#btn').prop("disbled",true);
+         alert("영상 주소를 입력해주세요");
+      }else if(furl.length>0){
+      chkUrl1=1;
+      $('#video').attr('src',furl);
+      if(chkUrl1==1 && chkUrl2==1){
+          $('#btn').prop("disabled",false);
+      }
    } 
+  }
   
   function btn2_click(e){
       var surl=($('#url2').val());
-      $('#video').attr('src',fur2);      
+      if(surl.length<=0){
+          $('#btn').prop("disbled",true);
+         alert("영상 주소를 입력해주세요");
+      }else if(surl.length>0){
+      chkUrl2=1;
+      $('#video').attr('src',surl);
+      if(chkUrl1==1 && chkUrl2==1){
+          $('#btn').prop("disabled",false);
+      }
    } 
-  
+  }
 
   </script>
 

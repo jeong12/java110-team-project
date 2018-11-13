@@ -7,13 +7,22 @@ public class Supporter extends Member {
   protected String baseaddr;
   protected String postno;
   protected String detailaddr;
-  protected String genre;
+  protected String sgnere;
   protected int capa;
   protected String tel;
   protected char permission;
   protected String message;
   protected float x;
   protected float y;
+  protected StagePhoto stagephoto;
+  
+    
+  public String getSgnere() {
+    return sgnere;
+  }
+  public void setSgnere(String sgnere) {
+    this.sgnere = sgnere;
+  }
   public String getName() {
     return name;
   }
@@ -38,11 +47,13 @@ public class Supporter extends Member {
   public void setDetailaddr(String detailaddr) {
     this.detailaddr = detailaddr;
   }
-  public String getSupgenre() {
-    return genre;
+   
+  
+  public String getSupportgenre() {
+    return sgnere;
   }
-  public void setSupgenre(String genre) {
-    this.genre = genre;
+  public void setSupportgenre(String supportgenre) {
+    this.sgnere = supportgenre;
   }
   public int getCapa() {
     return capa;
@@ -80,5 +91,22 @@ public class Supporter extends Member {
   public void setY(float y) {
     this.y = y;
   }
-
+  public StagePhoto getStagephoto() {
+    return stagephoto;
+  }
+  public void setStagephoto(StagePhoto stagephoto) {
+    this.stagephoto = stagephoto;
+  }
+  public static long getSerialversionuid() {
+    return serialVersionUID;
+  }
+  @Override
+  public String toString() {
+    return "Supporter [name=" + name + ", baseaddr=" + baseaddr + ", postno=" + postno
+        + ", detailaddr=" + detailaddr + ", supgenre=" + sgnere + ", capa=" + capa + ", tel="
+        + tel + ", permission=" + permission + ", message=" + message + ", x=" + x + ", y=" + y
+        + ", stagephoto=" + stagephoto + "]";
+  }
+ 
+  
 }

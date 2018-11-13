@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>버스커 회원가입</title>
+<title>무대 제공자 회원가입</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
@@ -42,15 +42,14 @@ h2 {
 
 	<div id="titl">
 		<img id="logo" src="/img/playButton.PNG" alt="플레이로고">
-		<h2>
-			버스커 되기 >> 동영상 올리기 >> <u>신청완료</u>
-		</h2>
+		<h2>신청 완료</h2>
 	</div>
 	<div id=container>
-		<h4>버스커 신청을 해주셔서 감사합니다.</h4>
-		<h4>다시 로그인 하시면, 버스커로 활동 가능하십니다.</h4>
-		<h4>올리신 영상에 문제가 있을 경우 활동이 제약됩니다.</h4>
+		<h4>무대 제공자 신청을 해주셔서 감사합니다.</h4>
+		<h4>다시 로그인 하시면, 무대제공자로 활동 가능하십니다.</h4>
+		<h4>올리신 주소와 사진에 문제가 있을 경우 활동이 제약됩니다.</h4>
 	</div>
 	<button type="button">홈으로 </button>
+
 </body>
 </html>
