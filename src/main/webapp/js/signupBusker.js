@@ -4,17 +4,19 @@ var chkTel=0;
 var chkFile=0;
 
 function checkName(){
-    var names=$('#name').val()
+    var names=$('#teamname').val();
+    console.log(names);
+    console.log(names.length);
     if(names.length<=0) {
-        console.log(":::::::");
         $(".signupbtn").prop("disabled", true);
         $(".signupbtn").css("background-color", "#aaaaaa");
-        $("#name").css("background-color", "#FFCECE");
+        $("#teamname").css("background-color", "#FFCECE");
         $("#nameMsg").html("팀명을 입력해주세요.")
         chkName = 0;
-    } else if (names.length>0) {
-        console.log("--------");
+    }else if (names.length>0) {
         chkName = 1;
+        $("#teamname").css("background-color", "#B0F6AC");
+        $("#nameMsg").html("사용 가능한 팀명입니다.")
     }
     if(chkName==1 && chkCity ==1 && chkTel ==1 && chkFile==1) {
         $(".signupbtn").prop("disabled", false);

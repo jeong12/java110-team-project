@@ -47,7 +47,7 @@ h2 {
     <div id=container>
         <form action='addavi' method='post' enctype="multipart/form-data">
             <h3>팀명</h3>
-            <input type='text' name='teamname' oninput="checkName()" id="name"
+            <input type='text' name='teamname' oninput="checkName()" id="teamname"
                 size=30><br> <span id="nameMsg"></span>
             <h3>장르</h3>
             <select name="teamgenre" onchange="checkGenre()" id="genre">
