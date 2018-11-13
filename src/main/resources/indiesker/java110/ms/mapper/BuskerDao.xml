@@ -46,6 +46,11 @@
 	where bno=#{value}
 	</select>
 
+    <insert id="insert" parameterType="busker">
+        insert into busk(bno,name,genre,city,tel,inst,strm,intro,phot,avi1,avi2,per)
+        values(#{no},#{teamname},#{teamgenre},#{city},#{tel},#{instrument},#{streamingUrl},#{teamInfo},#{teamPhoto}
+        ,#{avi1},#{avi2},'n')
+    </insert>
 </mapper>
 
 

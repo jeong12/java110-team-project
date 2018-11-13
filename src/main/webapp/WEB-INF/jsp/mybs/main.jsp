@@ -8,6 +8,21 @@
 
 
 <!-- 달력 -->
+<<<<<<< HEAD
+<script
+    src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<link href="/css/fullcalendar.min.css" rel="stylesheet">
+<script src="/js/fullcalendar.min.js" type="text/javascript"></script>
+<script
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    
+ <!-- 모달 -->   
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+=======
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
@@ -29,6 +44,7 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=15e2302756c9e7098ec0d79f7b4d53f4&libraries=services"></script>
 
+>>>>>>> 961d76ead307ce4e2f13da3a8a9a886609b2693e
 
 
 <style>
@@ -130,6 +146,7 @@
                         </c:when>
 							<c:when test="${list.flag eq '2'.charAt(0) }">
                                                         완료
+
                         </c:when>
 						</c:choose></td>
 					<td>${list.cdt}</td>
@@ -350,7 +367,6 @@ new daum.Postcode({
     // 이전값을 저장해주는 변수
     var _prevObj = null;
 $(function() {
-    
   // 캘린더 출력해주는 코드
   $('#calendar').fullCalendar({
 	  
@@ -405,6 +421,11 @@ $(function() {
           }  
   })
   
+<<<<<<< HEAD
+  
+});  
+
+=======
 });
 
 $('#datetimepicker').datetimepicker();
@@ -412,6 +433,7 @@ jQuery('#datetimepicker2').datetimepicker({
 	  datepicker:false,
 	  format:'H:i'
 	});
+>>>>>>> 961d76ead307ce4e2f13da3a8a9a886609b2693e
 </script>
 
 </body>

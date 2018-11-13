@@ -7,5 +7,6 @@ public interface MemberDao {
   int checkId(String id);
   int checkEmail(String email);
   int checkNickname(String nickname);
+  Member findNoById(String id);
 
 }

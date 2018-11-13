@@ -33,7 +33,7 @@
           <div class="findidcontent">
           <form action="#" method="post" class="contentdetail">
                <h2>입력하신 이메일과 일치하는 아이디입니다.</h2>
-               <p>items="${list}" var="m">${m.id}</p>
+               <p>${member.id}</p>
 
            </form>
 

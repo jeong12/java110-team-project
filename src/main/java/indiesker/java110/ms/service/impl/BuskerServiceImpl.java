@@ -24,6 +24,13 @@ public class BuskerServiceImpl implements BuskerService {
     public Busker get(int no) {
         return buskerDao.findByNo(no);
     }
+
+@Override
+public void add(Busker busker) {
+buskerDao.insert(busker);
+  
+}
+
   
    
 }
