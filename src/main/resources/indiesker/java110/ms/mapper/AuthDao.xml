@@ -5,7 +5,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="indiesker.java110.ms.dao.AuthDao">
 
-    <select id="findByEamil" parameterType="string">
+    <select id="findByEamil" parameterType="string" resultType="Member">
     SELECT id 
     FROM memb 
     where email=#{email}

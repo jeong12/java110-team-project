@@ -16,13 +16,14 @@
         <result column="cnt"    property="cnt"/>
         <result column="etc"    property="etc"/>
         <result column="flag"    property="flag"/>
+         <result column="phot"    property="phot"/>
 </resultMap>
 
 
 
 
 <select id="findAll" resultMap="buskerBoardMap" parameterType="map">
-SELECT bb.bbno,bb.titl,b.name,bb.genre,bb.city,bb.sdt,bb.edt,bb.cnt,bb.etc,bb.flag
+SELECT bb.bbno,bb.titl,b.name,bb.genre,bb.city,bb.sdt,bb.edt,bb.cnt,bb.etc,bb.flag,bb.phot
 FROM busk_board as bb, busk as b
 WHERE bb.bno = b.bno
     </select>

@@ -85,6 +85,12 @@ public class MemberServiceImpl implements MemberService {
     
     return mem;
   }
+  
+  @Override
+    public Member findNoById(String id) {
+      return memberDao.findNoById(id);
+    }
+  
 }
 
 

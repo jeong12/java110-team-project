@@ -72,4 +72,14 @@ public class Member implements Serializable {
   public void setMemo(String memo) {
     this.memo = memo;
   }
+  
+  @Override
+  public String toString() {
+    return "Member [no=" + no + ", id=" + id + ", email=" + email + ", password=" + password
+        + ", nickname=" + nickname + ", photo=" + photo + ", genre=" + genre + ", yn=" + yn
+        + ", memo=" + memo + "]";
+  }
+  
+  
+  
 }

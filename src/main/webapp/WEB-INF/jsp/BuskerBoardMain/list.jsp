@@ -18,6 +18,7 @@
     .media{width: 1100px;height: 180px;}
     #phot{width: 200px; height: 220px;} 
     .mm{width: 800px; height:60px;}    
+    .media-body{margin-top: 10px;}
 </style>
  
 </head>
@@ -27,7 +28,7 @@
   <div class="well">
       <div class="media">
         <a class="pull-left" href="#">
-            <img class="media-object" id="phot" src="http://placekitten.com/150/150">
+            <img class="media-object" id="phot" src=${m.phot}>
         </a>
         <div class="media-body">
         
@@ -42,6 +43,7 @@
 <tr><th>인원:</th><td>${m.cnt}</td></tr><br>
 <tr><th>내용:</th><td class="mm">${m.etc}</td></tr>
 <tr><th>인원:</th><td>${m.flag}</td></tr><br>
+
 
      
     </div>
@@ -61,20 +63,9 @@
 
 
 <tbody>
-<c:forEach  items="${list}" var="m">
-<tr>
-    <td>${m.titl}</td>
-    <td>${m.name}</td>
-    <td>${m.genre}</td>
-    <td>${m.city}</td>
-    <td>${m.sdt}</td>
-    <td>${m.edt}</td>
-    <td>${m.cnt}</td>
-    <td>${m.etc}</td>
-    <td>${m.flag}</td>
-</tr> 
 
-</c:forEach>
+
+
     </body>
 </tbody>
 </table>

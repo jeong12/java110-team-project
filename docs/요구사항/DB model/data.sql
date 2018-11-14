@@ -164,6 +164,10 @@ insert into busk_stag VALUES(17,10);
 insert into busk_stag VALUES(18,10);
 insert into busk_stag VALUES(19,10);
 
+/* 무대사용요청 flag 업데이트 */
+update busk_stag set flag = 1 where brno in (5,8);
+update busk_stag set flag = 1 where brno in (9,10);
+
 
 
 

@@ -16,6 +16,8 @@
         <result column="x"    property="y"/>
         <result column="y"    property="x"/>
     </resultMap>
+    
+    
 
     <select id="findAll" resultMap="perscheduleMap" parameterType="map">
        select PS.psno, PS.shopname, PS.addr,  PS.sdt, PS.edt, PS.cnt, PS.cdt, PS.x, PS.y  
@@ -23,6 +25,11 @@
         where PS.bno = B.bno   
        limit #{rowNo}, #{size}
     </select>
+    
+    <insert id="insert" parameterType="PerSchedule" useGeneratedKeys="true" keyColumn="psno" keyProperty="psno">
+    insert into per_sche(sdt,edt,addr,x,y,shopname,cdt,cnt,bno) 
+    values(#{nsdt},#{nedt},#{addr},#{x},#{y},#{shopname},now(),#{cnt},5)    
+    </insert>
 </mapper>
 
 

@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import indiesker.java110.ms.domain.Member;
 import indiesker.java110.ms.service.AuthService;
 
 @Controller
@@ -27,7 +28,8 @@ public class AuthController {
     
     @PostMapping("idis")
     public void idis(String email, Model model) {
-      authService.getId(email);
+      Member m=authService.getId(email);
+      model.addAttribute("member",m);
     }
 
 }

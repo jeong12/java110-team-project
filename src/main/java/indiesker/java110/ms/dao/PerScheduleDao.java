@@ -6,5 +6,5 @@ import indiesker.java110.ms.domain.PerSchedule;
 
 public interface PerScheduleDao {
   List<PerSchedule> findAll(Map<String,Object> params);
-
+  void insert(PerSchedule perschedule);
 }

@@ -4,6 +4,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="indiesker.java110.ms.dao.MemberDao">
+<<<<<<< HEAD
     
     <resultMap type="member" id="memberMap">
     <id column="mno" property="no"/>
@@ -12,6 +13,11 @@
     <result column="pwd" property="password"/>
     <result column="nik" property="nickname"/>
     <result column="phot" property="photo"/>
+=======
+
+    <resultMap type="Member" id="MemberMap">
+    <id column="mno" property="no"/>
+>>>>>>> branch 'master' of https://github.com/moo-93/java110-team-project.git
     </resultMap>
     
 	<insert id="insert" parameterType="member"
@@ -37,6 +43,7 @@
     select count(*) from memb where nik=#{nickname}
     </select>
     
+<<<<<<< HEAD
     <select id="findByEmailPassword" parameterType="map" resultMap="memberMap">
     select mno, id, email, nik, phot
       from memb 
@@ -47,6 +54,10 @@
     select mno, id, email, nik, phot
       from memb 
      where id=#{id} and nik=#{nickname}
+=======
+    <select id="findNoById" parameterType="String" resultMap="MemberMap">
+    select mno from memb where id=#{id}
+>>>>>>> branch 'master' of https://github.com/moo-93/java110-team-project.git
     </select>
 </mapper>
 
