@@ -68,11 +68,11 @@ h2 {
             <input type="tel" name="tel" id="tel" oninput="checkTel()" size=30>
             <br> <span id="telMsg"></span>
             <h3>악기</h3>
-            <input type="text" name="inst" size=30> <br>
+            <input type="text" name="instrument" size=30> <br>
             <h3>스트리밍 url</h3>
-            <input type="text" name="strurl" size=30> <br>
+            <input type="text" name="streamingUrl" size=30> <br>
             <h3>팀소개</h3>
-            <input type="text" name="info" size=30> <br>
+            <input type="text" name="teamInfo" size=30> <br>
             <h3>사진</h3>
             <img id="upload" src="/img/anonymous.png" alt="기본이미지"><br>
             <input type='file' name='file1' id='input_img'

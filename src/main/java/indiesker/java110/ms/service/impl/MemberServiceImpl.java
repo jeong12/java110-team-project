@@ -87,7 +87,7 @@ public class MemberServiceImpl implements MemberService {
   }
   
   @Override
-    public Member findNoById(String id) {
+    public int findNoById(String id) {
       return memberDao.findNoById(id);
     }
   

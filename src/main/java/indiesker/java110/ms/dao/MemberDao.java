@@ -10,6 +10,6 @@ public interface MemberDao {
   int checkNickname(String nickname);
   Member findByEmailPassword(Map<String,Object> params);
   Member findByIdNick(Map<String,Object> params);
-  Member findNoById(String id);
+  int findNoById(String id);
 
 }

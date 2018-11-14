@@ -37,19 +37,19 @@
     select count(*) from memb where nik=#{nickname}
     </select>
     
-    <select id="findByEmailPassword" parameterType="map" resultType="Member">
+    <select id="findByEmailPassword" parameterType="map" resultType="member">
     select mno as no, id, email, nik as nickname, phot as photo
       from memb 
      where id=#{id} and pwd=password(#{password})
     </select>
     
-    <select id="findByIdNick" parameterType="map" resultType="Member">
+    <select id="findByIdNick" parameterType="map" resultType="member">
     select mno, id, email, nik as nickname, phot as photo
       from memb 
      where id=#{id} and nik=#{nickname}
      </select>
 
-    <select id="findNoById" parameterType="String" resultType="Member">
+    <select id="findNoById" parameterType="String" resultType="int">
     select mno from memb where id=#{id}
     </select>
 </mapper>

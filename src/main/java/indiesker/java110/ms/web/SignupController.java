@@ -106,15 +106,15 @@ public class SignupController{
 
   @RequestMapping("busker/add")
   public void add(Busker b, @RequestParam String url1, @RequestParam String url2, Model model) {
-    
     Busker buskers = (Busker) bsuknsup.get("busker");
     String fileName = (String) bsuknsup.get("file");
     String id= (String) bsuknsup.get("id");
-    Member m = memberService.findNoById(id);
-    buskers.setNo(m.getNo());
+    int no = memberService.findNoById(id);
     buskers.setAvi1(url1);
     buskers.setAvi2(url2);
     buskers.setTeamPhoto(fileName);
+    buskers.setNo(no);
+    System.out.println(buskers);
     buskerService.add(buskers);
   }
   
@@ -138,10 +138,9 @@ public class SignupController{
     System.out.println(s.getSupportgenre());
     String id= (String) bsuknsup.get("id");
     System.out.println(id);
-    Member m = memberService.findNoById(id);
-    System.out.println(m.getNo());
-    s.setNo(m.getNo());
-    sp.setSno(m.getNo());
+    int no = memberService.findNoById(id);
+    s.setNo(no);
+    sp.setSno(no);
     supporterService.add(s);
     
     if (file1.getSize() > 0) {
