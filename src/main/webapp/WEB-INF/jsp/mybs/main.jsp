@@ -27,7 +27,7 @@
 
 <!-- 카카오map,주소 api -->  
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c63782df6473def89780e1d964f9d83a&libraries=services"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=15e2302756c9e7098ec0d79f7b4d53f4&libraries=services"></script>
 
 
 
@@ -68,7 +68,6 @@
     <div id='calendar'></div>
     <div id='selectday'>
         <h2></h2>
-        
         <table id="selectdate">
         <thead>
           <tr>
@@ -82,7 +81,11 @@
         
         <h3></h3>
     </div>
-
+    <div class="flagsearch">
+        <button value="1">진행중</button>
+        <button value="2">완료</button>
+        <button value="3">개인스케줄</button>
+    </div>
 
     <!-- 스케줄등록 모달  -->
     <div id="addschedule">
@@ -90,7 +93,7 @@
             data-target="#myModal">스케줄등록하기</button>
     </div>
 
-    <table>
+    <table class="flagdata">
         <thead>
             <tr>
                 <th>상호명</th>
@@ -99,8 +102,6 @@
                 <th>신청인원</th>
                 <th>진행상태</th>
                 <th>작성일</th>
-                <th>위도</th>
-                <th>경도</th>
                 <th>상세보기</th>
             </tr>
         </thead>
@@ -113,14 +114,12 @@
                     <td>${perlist.cnt}</td>
                     <td>개인스케줄</td>
                     <td>${perlist.cdt}</td>
-                    <td>${perlist.x}</td>
-                    <td>${perlist.y}</td>
                     <td><button>상세보기</button></td>
                 </tr>
             </c:forEach>
             <c:forEach items="${list}" var="list">
                 <tr>
-                    <td>${list.name}</td>
+                    <td>${list.shopname}</td>
                     <td>${list.addr}</td>
                     <td>${list.nsdt}~${list.nedt}</td>
                     <td>${list.cnt}</td>
@@ -133,8 +132,6 @@
                         </c:when>
                         </c:choose></td>
                     <td>${list.cdt}</td>
-                    <td>${list.x}</td>
-                    <td>${list.y}</td>
                     <td><button>상세보기</button></td>
                 </tr>
             </c:forEach>
@@ -175,8 +172,8 @@
                                        <input type="text" id="addr" name="addr" placeholder="주소">
                                        <input type="button" onclick="search_addr()" value="주소 검색"><br>
                                        <div id="map" style="width:400px;height:400px;margin-top:10px;display:none"></div>
-                                       <input type="text" id="x" name="x" >
-                                       <input type="text" id="y" name="y" > <!-- style="display:none" -->
+                                       <input type="text" id="x" name="x" style="display:none">
+                                       <input type="text" id="y" name="y" style="display:none">
                                     </td>
                                 </tr>
                                 <tr>
@@ -292,41 +289,7 @@ new daum.Postcode({
                 }   
             });
         });
-        
-        
-        /* daum.maps.event.addListener(marker, 'dragend', function(mouseEvent) {
-            searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
-                if (status === daum.maps.services.Status.OK) {
-                    var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
-                    detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
-                    
-                    var content = '<div class="bAddr">' +
-                                    '<span class="title">법정동 주소정보</span>' + 
-                                    detailAddr + 
-                                '</div>';
-                                
-                             // 마커를 클릭한 위치에 표시합니다 
-                    marker.setPosition(mouseEvent.latLng);
-                    marker.setMap(map);
-            
-                                
-                    document.getElementById("addr").value = detailAddr;
-
-                }   
-            });
-            
-            
-
-            var gps = marker.getPosition();
-            var x = gps.getLat();
-            var y = gps.getLng();
-            document.getElementById("x").value = x;
-            document.getElementById("y").value = y;
-            
-            //var addr = geocoder.coord2RegionCode(x, y);
-            //console.log(addr);
-            
-        }); */
+       
         
         function searchDetailAddrFromCoords(coords, callback) {
             // 좌표로 법정동 상세 주소 정보를 요청합니다
@@ -334,16 +297,7 @@ new daum.Postcode({
         }
 
     }
-
-
 }).open();
-
-
-
-    
-
-
-
 }
 
 
@@ -366,8 +320,6 @@ $(function() {
             $("#selectday h2").html(date.format());
             
             
-            /* var params={"no":"5","date":date.format()} */
-            
             var values = {"no":"5" , "date":date.format()};
             
             $.ajax({ 
@@ -388,7 +340,7 @@ $(function() {
                     $.each(data,function(index,item){
                         $("#selectdate tbody").append(
                                 '<tr><td>'+item.nsdt.substring(11,16)+'~'+item.nedt.substring(11,16)+
-                                '</td><td>'+item.name+'</td><td>'+item.addr+'</td></tr>');
+                                '</td><td>'+item.shopname+'</td><td>'+item.addr+'</td></tr>');
                     });
                 }
 
@@ -412,6 +364,53 @@ jQuery('#datetimepicker2').datetimepicker({
       datepicker:false,
       format:'H:i'
     });
+    
+$('.flagsearch button').click(function(){
+	
+	var f = $(this).val();
+    console.log(f);
+    $.ajax({ 
+        type : "POST", //보내는 타입을 Post방식으로 할지,  GET방식으로 할지 결정
+        url : "clikeFlag", // /내 프로젝트명/XML파일의namespace/내가불러올XML의Query이름.do
+        //header :'Content-Type: application/json',
+        dataType: 'json',
+        data : { flag : f }, //파라미터 넘겨줄 부분? : 이게 할말이 많은데 원래 GET방식으로 하라했다가 
+                               //다시 POST방식으로 하게됬는데 파라미터를 넘겨줄 값이 없어서 다시 GET으로 바꾸면서 주석 
+        //contentType : "application/x-www-form-urlencoded; charset=utf-8",  // 기본값이라고 하니까 건들이지 않았고 
+        success : function(data) {
+                $(".flagdata tbody").empty();
+                
+        if(data ==false){
+            $(".flagdata tbody").append('해당일의 스케줄이 존재하지않습니다.');
+        }else{
+            $.each(data,function(index,item){
+            	console.log(item.shopname);
+            	
+                $(".flagdata tbody").append(
+                		'<tr>'+
+                        '<td>'+item.shopname+'</td>'+
+                        '<td>'+item.addr+'</td>'+
+                        '<td>'+item.nsdt+'~'+item.nedt+'</td>'+
+                        '<td>'+item.cnt+'</td>'+
+                        '<td>'+item.flag+'</td>'+
+                        '<td>'+item.cdt+'</td>'+
+                        '<td><button>상세보기</button></td>'+
+                        '</tr>')
+            });
+        }
+
+        },
+        error : function(request, status, error) {
+            alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+        }
+    });
+	
+	
+	
+})
+
+
+
 </script>
 
 </body>
