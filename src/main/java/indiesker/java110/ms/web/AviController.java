@@ -35,7 +35,11 @@ public class AviController {
   public void form() {
     
   }
-  
+  @RequestMapping("detail")
+  public void detail( Model model) {
+    Avi a = aviService.get(1);
+    model.addAttribute("avi",a);
+  }
   
   @PostMapping("add")
   public String add(
