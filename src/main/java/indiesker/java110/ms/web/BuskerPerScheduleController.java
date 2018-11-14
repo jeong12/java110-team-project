@@ -10,43 +10,38 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import indiesker.java110.ms.domain.BuskerSchedule;
-import indiesker.java110.ms.domain.PerSchedule;
-import indiesker.java110.ms.service.BuskerScheduleService;
-import indiesker.java110.ms.service.PerScheduleService;
+import indiesker.java110.ms.domain.Schedule;
+import indiesker.java110.ms.service.ScheduleService;
 
 @Controller
 @RequestMapping("/mybs")
 public class BuskerPerScheduleController {
 
-  BuskerScheduleService buskerscheduleService;
-  PerScheduleService perscheduleService;
+  ScheduleService scheduleService;
   ServletContext sc;
 
 
-  public BuskerPerScheduleController(BuskerScheduleService buskerscheduleService,
-      PerScheduleService perscheduleService,
+  public BuskerPerScheduleController(ScheduleService scheduleService,
       ServletContext sc) {
-    this.buskerscheduleService = buskerscheduleService;
-    this.perscheduleService = perscheduleService;
+    this.scheduleService = scheduleService;
     this.sc = sc;
   }
-  
+
   @PostMapping("add")
-  public String add(PerSchedule perschedule) {
-    
-    perschedule.setNsdt(perschedule.getNsdt().toString());
-    perschedule.setNedt(perschedule.getNsdt().substring(0, 10)+' '+perschedule.getNedt().toString());
-    
-    System.out.println(perschedule.getAddr());
-    System.out.println(perschedule.getNsdt());
-    System.out.println(perschedule.getNedt());
-    System.out.println(perschedule.getShopname());
-    System.out.println(perschedule.getX());
-    System.out.println(perschedule.getY());
-    
-    perscheduleService.addSchedule(perschedule);
-    
+  public String add(Schedule schedule) {
+
+    schedule.setNsdt(schedule.getNsdt().toString());
+    schedule.setNedt(schedule.getNsdt().substring(0, 10)+' '+schedule.getNedt().toString());
+
+    System.out.println(schedule.getAddr());
+    System.out.println(schedule.getNsdt());
+    System.out.println(schedule.getNedt());
+    System.out.println(schedule.getShopname());
+    System.out.println(schedule.getX());
+    System.out.println(schedule.getY());
+
+    scheduleService.addSchedule(schedule);
+
     return "redirect:main";
   }
 
@@ -62,59 +57,83 @@ public class BuskerPerScheduleController {
       pageSize = 3;
 
     pageSize=9;
-    List<BuskerSchedule> list = buskerscheduleService.mybslist(pageNo, pageSize);
-    List<PerSchedule> plist = perscheduleService.list(pageNo, pageSize);
+    List<Schedule> list = scheduleService.mybslist(pageNo, pageSize);
+    List<Schedule> plist = scheduleService.myperlist(pageNo, pageSize);
 
 
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-    for (PerSchedule pl : plist) {
+    for (Schedule pl : plist) {
       pl.setNsdt(format.format(pl.getSdt()));
       pl.setNedt(format.format(pl.getEdt()));
     }
 
-    for (BuskerSchedule ps : list) {
+    for (Schedule ps : list) {
       ps.setNsdt(format.format(ps.getSdt()));
       ps.setNedt(format.format(ps.getEdt()));
     }
-    
-    for (BuskerSchedule S : list) {
-      System.out.println(S.getCdt());
-    }
-    
-    
+
+
     model.addAttribute("list", list);
     model.addAttribute("plist", plist);
   }
-  
+
 
   @ResponseBody
   @RequestMapping(value="clikeDate")
-  public List<BuskerSchedule> getDateSchedule(
+  public List<Schedule> getDateSchedule(
       @RequestParam(value="no") String no,@RequestParam(value="date")String date, Model model) {
-    
-    
-    List<BuskerSchedule> clist = buskerscheduleService.findbydate(no, date);
-    
+
+
+    List<Schedule> clist = scheduleService.findbydate(no, date);
+
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-    for (BuskerSchedule ps : clist) {
+    for (Schedule ps : clist) {
       ps.setNsdt(format.format(ps.getSdt()));
       ps.setNedt(format.format(ps.getEdt()));
     }
-    
-    for (BuskerSchedule b : clist) {
-      System.out.println("================");
-      System.out.println(b.getName());
-      System.out.println(b.getNsdt());
-      System.out.println(b.getNedt());
+
+
+    return clist;
+
+  }
+
+  @ResponseBody
+  @RequestMapping(value="clikeFlag")
+  public List<Schedule> getFlagSchedule(
+      @RequestParam(value="flag") String flag,@RequestParam(defaultValue="1")int pageNo, 
+      @RequestParam(defaultValue="9")int pageSize,  Model model) {
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+    System.out.println(flag);
+
+    if(flag.equals("1")||flag.equals("2")) {
+      System.out.println(flag+"플래그 넘어감");
+      List<Schedule> flist = scheduleService.findbyflag(flag,pageNo,pageSize);
+
+      for (Schedule ps : flist) {
+        ps.setNsdt(format.format(ps.getSdt()));
+        ps.setNedt(format.format(ps.getEdt()));
+      }
+        
+      return flist;
+      
+      
+    }else  {
+      List<Schedule> plist = scheduleService.myperlist(pageNo, pageSize);
+      
+      for (Schedule ps : plist) {
+        ps.setNsdt(format.format(ps.getSdt()));
+        ps.setNedt(format.format(ps.getEdt()));
+      }
+      return plist;
     }
     
-    //model.addAttribute("data",clist);
-    return clist;
     
+
   }
-  
-  
-  
-  
+
+
+
+
 }
