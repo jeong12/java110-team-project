@@ -5,7 +5,7 @@ import indiesker.java110.ms.domain.Schedule;
 
 public interface ScheduleService {
     List<Schedule> myperlist(int pageNo, int pageSize);
-    void addSchedule(Schedule perschedule);
+    void addSchedule(Schedule schedule);
     List<Schedule> mybslist(int pageNo, int pageSize);
     List<Schedule> findbydate(String no, String date);
     List<Schedule> findbyflag(String flag, int pageNo, int pageSize);
