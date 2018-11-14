@@ -55,7 +55,7 @@ public class BuskerPerScheduleController {
       pageNo = 1;
     if (pageSize < 3 || pageSize > 10)
       pageSize = 3;
-
+    
     pageSize=9;
     List<Schedule> list = scheduleService.mybslist(pageNo, pageSize);
     List<Schedule> plist = scheduleService.myperlist(pageNo, pageSize);
@@ -66,12 +66,22 @@ public class BuskerPerScheduleController {
     for (Schedule pl : plist) {
       pl.setNsdt(format.format(pl.getSdt()));
       pl.setNedt(format.format(pl.getEdt()));
+      String naddr=pl.getAddr().substring(pl.getAddr().indexOf(" ")+1,pl.getAddr().length());
+      int startindex=pl.getAddr().indexOf(" ")+1;
+      int endindex=naddr.indexOf(" ")+startindex;
+      pl.setAddr(pl.getAddr().substring(0,endindex));
     }
 
     for (Schedule ps : list) {
       ps.setNsdt(format.format(ps.getSdt()));
       ps.setNedt(format.format(ps.getEdt()));
+      String naddr=ps.getAddr().substring(ps.getAddr().indexOf(" ")+1,ps.getAddr().length());
+      int startindex=ps.getAddr().indexOf(" ")+1;
+      int endindex=naddr.indexOf(" ")+startindex;
+      ps.setAddr(ps.getAddr().substring(0,endindex));
     }
+    
+    
 
 
     model.addAttribute("list", list);
@@ -106,6 +116,7 @@ public class BuskerPerScheduleController {
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     System.out.println(flag);
+    
 
     if(flag.equals("1")||flag.equals("2")) {
       System.out.println(flag+"플래그 넘어감");
@@ -114,6 +125,7 @@ public class BuskerPerScheduleController {
       for (Schedule ps : flist) {
         ps.setNsdt(format.format(ps.getSdt()));
         ps.setNedt(format.format(ps.getEdt()));
+        ps.setNcdt(format.format(ps.getCdt()));
       }
         
       return flist;
@@ -125,7 +137,10 @@ public class BuskerPerScheduleController {
       for (Schedule ps : plist) {
         ps.setNsdt(format.format(ps.getSdt()));
         ps.setNedt(format.format(ps.getEdt()));
+        ps.setNcdt(format.format(ps.getCdt()));
       }
+      
+      
       return plist;
     }
     

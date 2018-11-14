@@ -17,7 +17,25 @@ public class Schedule {
   protected float y;
   protected char flag;
   protected int subno;
+  protected String genre;
+  protected String buskname;
   
+  
+  
+  
+  
+  public String getBuskname() {
+    return buskname;
+  }
+  public void setBuskname(String buskname) {
+    this.buskname = buskname;
+  }
+  public String getGenre() {
+    return genre;
+  }
+  public void setGenre(String genre) {
+    this.genre = genre;
+  }
   public int getNo() {
     return no;
   }

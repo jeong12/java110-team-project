@@ -28,6 +28,7 @@
         <result column="cdt"    property="cdt"/>
         <result column="x"    property="x"/>
         <result column="y"    property="y"/>
+        <result column="buskname"    property="buskname"/>
     </resultMap>
     
     
@@ -136,6 +137,28 @@
   GROUP BY BS.brno
   limit #{rowNo}, #{size}
  </select>
+ 
+ <select id="findbypsno" resultMap="buskerscheduleMap" parameterType="int">
+ SELECT PS.psno, PS.sdt, PS.edt, PS.addr, PS.x, PS.y, PS.shopname, PS.cdt, PS.cnt, B.name as buskname ,B.genre
+  FROM per_sche PS, busk B
+ WHERE PS.bno = B.bno
+   AND PS.psno=#{value}
+ </select>
+ 
+ 
+ <select id="findbybrno" resultMap="buskerscheduleMap" parameterType="int">
+ SELECT BS.brno, S.name, S.x,S.y, S.genre, S.tel, S.det_addr,S.etc, MAX(SC.edt) as edt ,MIN(SC.sdt)as sdt
+  FROM busk_req BR, busk_stag BS, stag_sche SC, sup S
+ WHERE BR.brno=BS.brno
+   AND BS.ssno=SC.ssno
+   AND SC.sno=S.sno
+   AND BS.brno=#{value}
+  GROUP By BS.brno
+  </select>
+   
+ 
+ 
+ 
 </mapper>
 
 
