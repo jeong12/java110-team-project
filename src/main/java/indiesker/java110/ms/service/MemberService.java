@@ -1,5 +1,6 @@
 package indiesker.java110.ms.service;
 
+import java.util.Map;
 import indiesker.java110.ms.domain.Member;
 
 public interface MemberService {
@@ -7,4 +8,6 @@ public interface MemberService {
     int checkId(String id);
     int checkEmail(String email);
     int checkNickname(String nickname);
+    Member getMember(String id, String password);
+    Member getApiMember(Map<String,Object> params);
 }

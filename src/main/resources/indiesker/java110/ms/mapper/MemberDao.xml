@@ -4,10 +4,19 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="indiesker.java110.ms.dao.MemberDao">
-
+    
+    <resultMap type="member" id="memberMap">
+    <id column="mno" property="no"/>
+    <result column="id" property="id"/>
+    <result column="email" property="email"/>
+    <result column="pwd" property="password"/>
+    <result column="nik" property="nickname"/>
+    <result column="phot" property="photo"/>
+    </resultMap>
+    
 	<insert id="insert" parameterType="member"
 		useGeneratedKeys="true" keyColumn="mno" keyProperty="no">
-		insert into memb(id,email,password,nik,phot,cdt,genre1,genre2,genre3,yn)
+		insert into memb(id,email,pwd,nik,phot,cdt,genre1,genre2,genre3,yn)
 		values(#{id},#{email},password(#{password}),#{nickname},
 		#{photo},now(),
 		<foreach collection="genre" item="genre" separator=",">
@@ -26,6 +35,18 @@
     
     <select id="checkNickname" parameterType="string" resultType="int">
     select count(*) from memb where nik=#{nickname}
+    </select>
+    
+    <select id="findByEmailPassword" parameterType="map" resultMap="memberMap">
+    select mno, id, email, nik, phot
+      from memb 
+     where id=#{id} and pwd=password(#{password})
+    </select>
+    
+    <select id="findByIdNick" parameterType="map" resultMap="memberMap">
+    select mno, id, email, nik, phot
+      from memb 
+     where id=#{id} and nik=#{nickname}
     </select>
 </mapper>
 

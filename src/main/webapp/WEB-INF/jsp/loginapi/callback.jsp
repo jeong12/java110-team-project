@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 callback 처리중입니다. 이 페이지에서는 callback을 처리하고 바로 main으로 redirect하기때문에 이 메시지가 보이면 안됩니다.
@@ -14,7 +15,7 @@ callback 처리중입니다. 이 페이지에서는 callback을 처리하고 바
         var naverLogin = new naver.LoginWithNaverId(
             {
                 clientId: "i7CWhQxEhKTYcem_vHnQ",
-                callbackUrl: "http://localhost:8080/app/loginapi/login",
+                callbackUrl: "http://localhost:8080/app/loginapi/form",
                 isPopup: false,
                 callbackHandle: true
             }
@@ -36,15 +37,41 @@ callback 처리중입니다. 이 페이지에서는 callback을 처리하고 바
                         return;
                     }
 
-                    window.location.replace(
+                    var json = {}
+                    json.email = naverLogin.user.getEmail();
+                    json.nickname = naverLogin.user.getNickName();
+                    json.phot = naverLogin.user.getProfileImage();
+                    json.id = naverLogin.user.getId();
+                    jsonData(json);
+
+                    /* window.location.replace(
                             "http://" + window.location.hostname +
                             ( (location.port==""||location.port==undefined)?"":":" + location.port) +
-                            "/app/loginapi/login");
+                            "/app/loginapi/login"); */
                 } else {
                     console.log("callback 처리에 실패하였습니다.");
                 }
             });
         });
+        
+         function jsonData(json){
+            $.ajax("http://localhost:8080/app/loginapi/callback",{
+                method: 'POST',
+                headers: {
+                    'Content-Type' : 'application/json'
+                },
+                data: JSON.stringify(json)
+                ,
+                success: function(result){
+                    location.href = "http://localhost:8080";
+                },
+                error: function(xhr, status, msg){
+                    console.log(status);
+                    console.log(msg);
+                    location.herf = "http://localhost:8080/app/loginapi/form";
+                }
+            });
+        } 
         </script>
 </body>
 </html>
