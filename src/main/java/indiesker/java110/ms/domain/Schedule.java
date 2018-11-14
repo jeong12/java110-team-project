@@ -17,6 +17,7 @@ public class Schedule {
   protected float y;
   protected char flag;
   protected int subno;
+  protected String genre;
   
   public int getNo() {
     return no;
@@ -102,8 +103,11 @@ public class Schedule {
   public void setSubno(int subno) {
     this.subno = subno;
   }
-  
-  
-  
+  public String getGenre() {
+    return genre;
+  }
+  public void setGenre(String genre) {
+    this.genre = genre;
+  }
   
 }

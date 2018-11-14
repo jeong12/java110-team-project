@@ -60,6 +60,16 @@ public class ScheduleServiceimpl implements ScheduleService {
     public void addStageSchedule(Schedule schedule) {
       scheduleDao.insertstageschedule(schedule);      
     }
+
+    @Override
+    public List<Schedule> mysslist(int pageNo, int pageSize) {
+      HashMap<String,Object> params = new HashMap<>();
+      params.put("rowNo", (pageNo - 1) * pageSize);
+      params.put("size", pageSize);      
+      return scheduleDao.findreqschedule(params);
+    }
+    
+    
    
 }
 

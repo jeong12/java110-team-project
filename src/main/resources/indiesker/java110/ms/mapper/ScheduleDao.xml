@@ -30,6 +30,19 @@
         <result column="y"    property="y"/>
     </resultMap>
     
+    <resultMap type="Schedule" id="reqStageScheduleMap">
+        <result column="name"  property="shopname"/>
+        <result column="addr"    property="addr"/>
+        <result column="sdt"    property="sdt"/>
+        <result column="edt"    property="edt"/>
+        <result column="cnt"    property="cnt"/>
+        <result column="flag"    property="flag"/>
+        <result column="cdt"    property="cdt"/>
+        <result column="x"    property="x"/>
+        <result column="y"    property="y"/>
+        <result column="genre"     property="genre"/>
+    </resultMap>
+    
     
 
     <select id="findperschedule" resultMap="perscheduleMap" parameterType="map">
@@ -136,7 +149,14 @@
   GROUP BY BS.brno
   limit #{rowNo}, #{size}
  </select>
-  
+ 
+ <!-- 무대제공자 스케줄조회: 무대신청,완료된 목록을 보여주는 쿼리 -->
+ <select id="findreqschedule" parameterType="map" resultMap="reqStageScheduleMap">
+select b.name, b.genre, ss.sdt, ss.edt, br.cnt, bs.flag, br.cdt
+from busk_stag as bs, stag_sche as ss, busk as b, busk_req as br
+where bs.ssno = ss.ssno and bs.brno=br.brno and br.bno=b.bno and ss.sno=2
+</select>
+
 </mapper>
 
 
