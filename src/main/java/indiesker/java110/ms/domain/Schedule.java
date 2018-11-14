@@ -3,15 +3,15 @@ package indiesker.java110.ms.domain;
 import java.sql.Timestamp;
 
 public class Schedule {
-  protected int ssno;
-  protected Timestamp sdt;
-  protected Timestamp edt;
-  protected Timestamp cdt;
-  protected String nsdt;
+  protected int ssno; //스케쥴번호
+  protected Timestamp sdt; //시작일
+  protected Timestamp edt; //끝일
+  protected Timestamp cdt; //작성일
+  protected String nsdt; 
   protected String nedt;
   protected String ncdt;
   protected char flag;
-  protected int sno;
+  protected int sno; //제공자번호
   
   public int getSsno() {
     return ssno;

@@ -164,12 +164,5 @@ public class SignupController{
     supporterService.insert(sp);   
 
   }
-  
-  @RequestMapping("map")
-  public void map() {
-  }
-  
-
-
 
 }
