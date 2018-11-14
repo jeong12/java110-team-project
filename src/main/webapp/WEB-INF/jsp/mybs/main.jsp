@@ -111,10 +111,11 @@
                     <td>${perlist.shopname}</td>
                     <td>${perlist.addr}</td>
                     <td>${perlist.nsdt}~${perlist.nedt}</td>
-                    <td>${perlist.cnt}</td>
+                    <td>${perlist.cnt}명</td>
                     <td>개인스케줄</td>
                     <td>${perlist.cdt}</td>
-                    <td><button>상세보기</button></td>
+                    <td><button data-toggle="modal"
+            data-target="#detailModal" value="${perlist.no}">상세보기</button></td>
                 </tr>
             </c:forEach>
             <c:forEach items="${list}" var="list">
@@ -122,7 +123,7 @@
                     <td>${list.shopname}</td>
                     <td>${list.addr}</td>
                     <td>${list.nsdt}~${list.nedt}</td>
-                    <td>${list.cnt}</td>
+                    <td>${list.cnt}명</td>
                     <td><c:choose>
                             <c:when test="${list.flag eq '1'.charAt(0) }">
                                                         진행중
@@ -132,7 +133,8 @@
                         </c:when>
                         </c:choose></td>
                     <td>${list.cdt}</td>
-                    <td><button>상세보기</button></td>
+                    <td><button data-toggle="modal"
+            data-target="#detailModal" value="${perlist.no}">상세보기</button></td>
                 </tr>
             </c:forEach>
 
@@ -141,6 +143,62 @@
 
     <!-- 모달 id -->
     <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- 모달 내부 설정 -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">개인스케줄 올리기</h4>
+                </div>
+                <div class="modal-body">
+                    <form action='add' method='post'
+                        enctype="multipart/form-data">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>장소명</th>
+                                    <td><input type='text' name='shopname'></td>
+                                </tr>
+                                <tr>
+                                    <th>스케줄일정</th>
+                                    <td><input type="text" name='nsdt' id='datetimepicker'>~<input type="text" name='nedt' id='datetimepicker2'></td>
+                                </tr>
+                                <tr>
+                                    <th>인원</th>
+                                    <td><input type="text" name='cnt'></td>
+                                </tr>
+                                <tr>
+                                    <th>주소검색</th>
+                                    <td>
+                                       <input type="text" id="addr" name="addr" placeholder="주소">
+                                       <input type="button" onclick="search_addr()" value="주소 검색"><br>
+                                       <div id="map" style="width:400px;height:400px;margin-top:10px;display:none"></div>
+                                       <input type="text" id="x" name="x" style="display:none">
+                                       <input type="text" id="y" name="y" style="display:none">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <td><button class="btn btn-default">등록</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!--   -->
+    
+    
+    <!-- 상세조회 모달  -->
+    <div id="detailModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
             <!-- 모달 내부 설정 -->
@@ -338,6 +396,7 @@ $(function() {
                     $("#selectday h3").append('해당일의 스케줄이 존재하지않습니다.');
                 }else{
                     $.each(data,function(index,item){
+                    	
                         $("#selectdate tbody").append(
                                 '<tr><td>'+item.nsdt.substring(11,16)+'~'+item.nedt.substring(11,16)+
                                 '</td><td>'+item.shopname+'</td><td>'+item.addr+'</td></tr>');
@@ -384,18 +443,57 @@ $('.flagsearch button').click(function(){
             $(".flagdata tbody").append('해당일의 스케줄이 존재하지않습니다.');
         }else{
             $.each(data,function(index,item){
-            	console.log(item.shopname);
             	
-                $(".flagdata tbody").append(
-                		'<tr>'+
-                        '<td>'+item.shopname+'</td>'+
-                        '<td>'+item.addr+'</td>'+
-                        '<td>'+item.nsdt+'~'+item.nedt+'</td>'+
-                        '<td>'+item.cnt+'</td>'+
-                        '<td>'+item.flag+'</td>'+
-                        '<td>'+item.cdt+'</td>'+
-                        '<td><button>상세보기</button></td>'+
-                        '</tr>')
+            	if(item.flag==1){
+            		var naddr=item.addr.substring(item.addr.indexOf(" ")+1,item.addr.length);
+                    var startindex=item.addr.indexOf(" ")+1;
+                    var endindex=naddr.indexOf(" ")+startindex;
+                    item.addr.substring(0,endindex);
+	                $(".flagdata tbody").append(
+	                		'<tr>'+
+	                        '<td>'+item.shopname+'</td>'+
+	                        '<td>'+item.addr.substring(0,endindex)+'</td>'+
+	                        '<td>'+item.nsdt+'~'+item.nedt+'</td>'+
+	                        '<td>'+item.cnt+'명</td>'+
+	                        '<td>'+'진행중'+'</td>'+
+	                        '<td>'+item.ncdt+'</td>'+
+	                        "<td><button data-toggle='modal' data-target='#detailModal'"+ 
+	                        'value=a'+item.no+"'>"+'상세보기</button></td>'+
+	                        '</tr>');
+            	}else if(item.flag==2){
+            		var naddr=item.addr.substring(item.addr.indexOf(" ")+1,item.addr.length);
+                    var startindex=item.addr.indexOf(" ")+1;
+                    var endindex=naddr.indexOf(" ")+startindex;
+                    item.addr.substring(0,endindex);
+            		$(".flagdata tbody").append(
+                            '<tr>'+
+                            '<td>'+item.shopname+'</td>'+
+                            '<td>'+item.addr.substring(0,endindex)+'</td>'+
+                            '<td>'+item.nsdt+'~'+item.nedt+'</td>'+
+                            '<td>'+item.cnt+'명</td>'+
+                            '<td>'+'완료'+'</td>'+
+                            '<td>'+item.ncdt+'</td>'+
+                            "<td><button data-toggle='modal' data-target='#detailModal'"+ 
+                            'value=a'+item.no+"'>"+'상세보기</button></td>'+
+                            '</tr>');
+            	}else{
+            		var naddr=item.addr.substring(item.addr.indexOf(" ")+1,item.addr.length);
+            		var startindex=item.addr.indexOf(" ")+1;
+            		var endindex=naddr.indexOf(" ")+startindex;
+            		item.addr.substring(0,endindex);
+            		console.log(item.cdt);
+            		$(".flagdata tbody").append(
+                            '<tr>'+
+                            '<td>'+item.shopname+'</td>'+
+                            '<td>'+item.addr.substring(0,endindex)+'</td>'+
+                            '<td>'+item.nsdt+'~'+item.nedt+'</td>'+
+                            '<td>'+item.cnt+'명</td>'+
+                            '<td>'+'개인스케줄'+'</td>'+
+                            '<td>'+item.ncdt+'</td>'+
+                            "<td><button data-toggle='modal' data-target='#detailModal'"+ 
+                            'value=b'+item.no+"'>"+'상세보기</button></td>'+
+                            '</tr>');
+            	}
             });
         }
 
