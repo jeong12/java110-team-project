@@ -55,6 +55,11 @@ public class ScheduleServiceimpl implements ScheduleService {
       params.put("flag", flag);
       return scheduleDao.findbyflag(params);
     }
+
+    @Override
+    public void addStageSchedule(Schedule schedule) {
+      scheduleDao.insertstageschedule(schedule);      
+    }
    
 }
 

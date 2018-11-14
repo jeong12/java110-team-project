@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import indiesker.java110.ms.dao.StageListDao;
+import indiesker.java110.ms.domain.Schedule;
 import indiesker.java110.ms.domain.StageList;
 import indiesker.java110.ms.service.StageListService;
 

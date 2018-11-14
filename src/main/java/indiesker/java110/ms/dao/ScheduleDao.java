@@ -10,4 +10,5 @@ public interface ScheduleDao {
   List<Schedule> findMyAllSchedule(Map<String,Object> params);
   List<Schedule> findbydate(Map<String,Object> params);
   List<Schedule> findbyflag(Map<String,Object> params);
+  void insertstageschedule(Schedule schedule);
 }

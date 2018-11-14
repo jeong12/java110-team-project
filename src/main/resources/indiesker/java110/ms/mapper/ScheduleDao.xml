@@ -136,6 +136,7 @@
   GROUP BY BS.brno
   limit #{rowNo}, #{size}
  </select>
+  
 </mapper>
 
 

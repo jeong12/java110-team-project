@@ -11,7 +11,7 @@ import indiesker.java110.ms.domain.StageList;
 import indiesker.java110.ms.service.StageListService;
 
 @Controller
-@RequestMapping("/stagelist")
+@RequestMapping("/stage")
 public class StageListController {
 
   StageListService stageListService;   
@@ -50,4 +50,11 @@ public class StageListController {
     List<StageList> locals = stageListService.findByLocal(local);
     model.addAttribute("local",locals);
   }
+  
+  
+  @RequestMapping("add")
+  public void add() {
+    
+  }
+  
 }

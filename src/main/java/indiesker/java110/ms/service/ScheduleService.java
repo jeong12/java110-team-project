@@ -9,4 +9,5 @@ public interface ScheduleService {
     List<Schedule> mybslist(int pageNo, int pageSize);
     List<Schedule> findbydate(String no, String date);
     List<Schedule> findbyflag(String flag, int pageNo, int pageSize);
+    void addStageSchedule(Schedule schedule);
 }
