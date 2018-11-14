@@ -174,34 +174,19 @@ h2 {
 					</c:forEach>
 				</div>
 				<div id="pho">
+				<c:forEach items="${recentplist}" var="p">
 					<div class="box">
 						<div class="boxInner">
-							<img
-								src="http://www.dwuser.com/education/content/creating-responsive-tiled-layout-with-pure-css/images/demo/7.jpg" />
+                            ${p.filename}
+<%-- 							<img
+								src="${p.filename}" /> --%>
 						</div>
 					</div>
-					<div class="box">
-						<div class="boxInner">
-							<img
-								src="http://www.dwuser.com/education/content/creating-responsive-tiled-layout-with-pure-css/images/demo/1.jpg" />
-						</div>
-					</div>
-					<div class="box">
-						<div class="boxInner">
-							<img
-								src="http://www.dwuser.com/education/content/creating-responsive-tiled-layout-with-pure-css/images/demo/2.jpg" />
-						</div>
-					</div>
-					<div class="box">
-						<div class="boxInner">
-							<img
-								src="http://www.dwuser.com/education/content/creating-responsive-tiled-layout-with-pure-css/images/demo/3.jpg" />
-						</div>
-					</div>
+					   </c:forEach>
+					
 				</div>
 			</div>
 		</div>
-	</div>
 	</div>
 
 </body>

@@ -11,19 +11,18 @@
 		ofType="FeedPhotoFile"> <id column="fpno" property="no"/> <result column="phot" 
 		property="filename"/> <result column="pbno" property="pbno"/> </collection> 
 		</resultMap> -->
-<!-- 	<resultMap type="FeedPhoto" id="feedPhotoMap">
-		<result column="name" property="teamName" />
+	<resultMap type="FeedPhoto" id="feedPhotoMap">
 		<collection property="feedphotoFiles"
-			javaType="java.lang.ArrayList" ofType="FeedPhotoFile"
-			select="selectFiles">
-			 <result column="phot" property="filename" />
-			</collection>
+			javaType="List" ofType="FeedPhotoFile">
+			<result column="phot" property="filename"/>
+	    </collection>
+	    
 	</resultMap>
 
-	최신사진 조회(개인피드)
+	<!-- 최신사진 조회(개인피드) -->
 	<select id="findRecentPhot" resultMap="feedPhotoMap"
-		parameterType="map">
-		SELECT b.name, fp.phot
+		parameterType="int">
+		SELECT fp.phot
 		FROM busk b, phot p,(SELECT *
 		FROM
 		feed_phot
@@ -33,12 +32,10 @@
 		AND b.bno=#{value}
 		ORDER BY p.cdt DESC
 
-		limit #{rowNo}, #{size}
+<!-- 		limit #{rowNo}, #{size} -->
 	</select>
 
-	<select id="selectFiles" resultType="String">
-		SELECT * FROM feed_phot WHERE pbno = #{pbno}
-	</select> -->
+
 </mapper>
 
 
