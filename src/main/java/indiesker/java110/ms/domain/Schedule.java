@@ -19,6 +19,7 @@ public class Schedule {
   protected int subno;
   protected String genre;
   protected String buskname;
+
   
   
   
@@ -120,8 +121,5 @@ public class Schedule {
   public void setSubno(int subno) {
     this.subno = subno;
   }
-  
-  
-  
   
 }

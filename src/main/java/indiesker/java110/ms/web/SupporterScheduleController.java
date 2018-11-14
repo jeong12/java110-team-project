@@ -1,6 +1,7 @@
 package indiesker.java110.ms.web;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletContext;
 import org.springframework.stereotype.Controller;
@@ -57,25 +58,16 @@ public class SupporterScheduleController {
       pageSize = 3;
 
     pageSize=9;
-    List<Schedule> list = scheduleService.mybslist(pageNo, pageSize);
-    List<Schedule> plist = scheduleService.myperlist(pageNo, pageSize);
-
+    List<Schedule> list = scheduleService.mysslist(pageNo, pageSize);
 
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-    for (Schedule pl : plist) {
-      pl.setNsdt(format.format(pl.getSdt()));
-      pl.setNedt(format.format(pl.getEdt()));
+    for (Schedule s : list) {
+      s.setNsdt(format.format(s.getSdt()));
+      s.setNedt(format.format(s.getEdt()));
     }
-
-    for (Schedule ps : list) {
-      ps.setNsdt(format.format(ps.getSdt()));
-      ps.setNedt(format.format(ps.getEdt()));
-    }
-
-
+    
     model.addAttribute("list", list);
-    model.addAttribute("plist", plist);
   }
 
 

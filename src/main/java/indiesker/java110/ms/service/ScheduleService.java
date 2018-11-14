@@ -10,4 +10,5 @@ public interface ScheduleService {
     List<Schedule> findbydate(String no, String date);
     List<Schedule> findbyflag(String flag, int pageNo, int pageSize);
     void addStageSchedule(Schedule schedule);
+    List<Schedule> mysslist(int pageNo, int PageSize);
 }
