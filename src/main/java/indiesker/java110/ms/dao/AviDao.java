@@ -4,7 +4,10 @@ import java.util.List;
 import indiesker.java110.ms.domain.Avi;
 
 public interface AviDao {
-  List<Avi> findAll();
   int insert(Avi Avi);
+  List<Avi> findAll();
+  Avi findByNo(int no);
+  Avi findByAviNo(int no);
+  List<Avi> findRecent(int no);
   
 }

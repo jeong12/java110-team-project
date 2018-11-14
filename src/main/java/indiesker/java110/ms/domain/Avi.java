@@ -2,25 +2,16 @@ package indiesker.java110.ms.domain;
 
 import java.sql.Date;
 
-public class Avi {
+public class Avi extends Busker{
   protected int aviboardno;
   protected String title;
   protected String content;
-  protected int likecount;
+  protected int avilikecount;
+  protected Date cdt;
   protected String url;
   protected int buskerno;
-  protected Date cdt;
-  
-  
-  
   public int getAviboardno() {
     return aviboardno;
-  }
-  public Date getCdt() {
-    return cdt;
-  }
-  public void setCdt(Date cdt) {
-    this.cdt = cdt;
   }
   public void setAviboardno(int aviboardno) {
     this.aviboardno = aviboardno;
@@ -37,13 +28,12 @@ public class Avi {
   public void setContent(String content) {
     this.content = content;
   }
-  public int getLikecount() {
-    return likecount;
+  public Date getCdt() {
+    return cdt;
   }
-  public void setLikecount(int likecount) {
-    this.likecount = likecount;
+  public void setCdt(Date cdt) {
+    this.cdt = cdt;
   }
-
   public String getUrl() {
     return url;
   }
@@ -56,7 +46,16 @@ public class Avi {
   public void setBuskerno(int buskerno) {
     this.buskerno = buskerno;
   }
+  public int getAvilikecount() {
+    return avilikecount;
+  }
+  public void setAvilikecount(int avilikecount) {
+    this.avilikecount = avilikecount;
+  }
+
   
+  
+
   
   
   

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- MemberDao 클래스가 사용할 SQL이 들어 있는 파일 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indiesker.java110.ms.dao.FeedPhotoDao">
+	<!-- <resultMap type="FeedPhoto" id="feedPhotoMap2"> <id column="bno" property="no"/> 
+		<result column="name" property="teamName"/> <result column="genre" property="genre"/> 
+		<result column="city" property="city"/> <result column="cont" property="content"/> 
+		<result column="lcnt" property="likecount"/> <collection property="feedphotoFile" 
+		ofType="FeedPhotoFile"> <id column="fpno" property="no"/> <result column="phot" 
+		property="filename"/> <result column="pbno" property="pbno"/> </collection> 
+		</resultMap> -->
+<!-- 	<resultMap type="FeedPhoto" id="feedPhotoMap">
+		<result column="name" property="teamName" />
+		<collection property="feedphotoFiles"
+			javaType="java.lang.ArrayList" ofType="FeedPhotoFile"
+			select="selectFiles">
+			 <result column="phot" property="filename" />
+			</collection>
+	</resultMap>
+
+	최신사진 조회(개인피드)
+	<select id="findRecentPhot" resultMap="feedPhotoMap"
+		parameterType="map">
+		SELECT b.name, fp.phot
+		FROM busk b, phot p,(SELECT *
+		FROM
+		feed_phot
+		GROUP BY pbno ) as fp
+		WHERE b.bno = p.bno
+		AND p.pbno = fp.pbno
+		AND b.bno=#{value}
+		ORDER BY p.cdt DESC
+
+		limit #{rowNo}, #{size}
+	</select>
+
+	<select id="selectFiles" resultType="String">
+		SELECT * FROM feed_phot WHERE pbno = #{pbno}
+	</select> -->
+</mapper>
+
+
+
+
+
+
+
+
+

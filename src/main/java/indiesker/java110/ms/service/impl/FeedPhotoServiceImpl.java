@@ -1,5 +1,6 @@
 package indiesker.java110.ms.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,14 +11,24 @@ import indiesker.java110.ms.service.FeedPhotoService;
 @Service
 public class FeedPhotoServiceImpl implements FeedPhotoService {
 
-    @Autowired  FeedPhotoDao feedphotoDao;
+  @Autowired  FeedPhotoDao feedphotoDao;
 
-    @Override
+  /*    @Override
     public List<FeedPhoto> feedPhoto() {
-      
+
       return feedphotoDao.findByFeedPhoto();
-    }
- 
+    }*/
+
+  @Override
+  public List<FeedPhoto> recentPhotList(int buskno, int pageNo, int pageSize) {
+    HashMap<String, Object> params = new HashMap<>();
+    params.put("value", buskno);
+    params.put("rowNo", (pageNo - 1) * pageSize);
+    params.put("size", pageSize);
+    
+    return feedphotoDao.findRecentPhot(params);
+  }
+
 }
 
 
