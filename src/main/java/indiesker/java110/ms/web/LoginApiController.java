@@ -1,6 +1,7 @@
 package indiesker.java110.ms.web;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -12,15 +13,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import indiesker.java110.ms.domain.Member;
+import indiesker.java110.ms.service.BuskerService;
 import indiesker.java110.ms.service.MemberService;
+import indiesker.java110.ms.service.SupporterService;
 
 @Controller
 @RequestMapping("/loginapi")
 public class LoginApiController {
 
   MemberService memberService;
-  public LoginApiController(MemberService memberService) {
+  BuskerService buskerService;  
+  SupporterService supporterService;
+
+  public LoginApiController(
+      MemberService memberService, BuskerService buskerService,
+      SupporterService supporterService) {
     this.memberService=memberService;
+    this.buskerService=buskerService;
+    this.supporterService=supporterService;
   }
 
   @GetMapping("form")
@@ -49,8 +59,22 @@ public class LoginApiController {
 
     if(loginUser != null) {
       session.setAttribute("loginUser", loginUser);
+      List<Integer> bno = buskerService.checkBusker(loginUser.getNo());
+      List<Integer> sno = supporterService.checkSupporter(loginUser.getNo());
+
+      
+      if(bno.size() != 0) {
+        System.out.println("버스커"+bno.get(0));
+        return "redirect:../promotion/list";
+      } 
+      if(sno.size() != 0) {
+        return "redirect:../mybs/main";
+      } 
+
       // 추후에 수정해야함 일단은 기본 html로 돌리기
       return "redirect:../editprofile/form";
+
+
     } else {
       session.invalidate();
       System.out.println("비밀번호틀림쓰");

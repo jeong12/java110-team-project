@@ -8,6 +8,7 @@ public interface BuskerDao {
   Busker findByNo(int no);
   List<Busker> findAll(Map<String,Object> params);
   int insert(Busker busker);
+  List<Integer> findByBusker(int no);
 //  Busker findByEmail(String email);
 //  int delete(int no);
 //  Busker findByEmailPassword(Map<String,Object> params);

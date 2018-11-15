@@ -51,6 +51,12 @@
         values(#{no},#{teamname},#{teamgenre},#{city},#{tel},#{instrument},#{streamingUrl},#{teamInfo},#{teamPhoto}
         ,#{avi1},#{avi2},'n')
     </insert>
+    
+     <select id="findByBusker" parameterType="int" resultType="int">
+    select mno as no
+      from memb m INNER JOIN busk b 
+     where mno=#{no} and mno=bno and per in('Y','y')
+     </select>
 </mapper>
 
 

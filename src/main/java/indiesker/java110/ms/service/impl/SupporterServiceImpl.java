@@ -1,5 +1,6 @@
 package indiesker.java110.ms.service.impl;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import indiesker.java110.ms.dao.SupporterDao;
@@ -26,6 +27,11 @@ public class SupporterServiceImpl implements SupporterService {
     @Override
     public int insert(StagePhoto stagephoto) {
       return supporterDao.insertfile(stagephoto);
+    }
+
+    @Override
+    public List<Integer> checkSupporter(int no) {
+      return supporterDao.findBySupporter(no);
     }
 }
 

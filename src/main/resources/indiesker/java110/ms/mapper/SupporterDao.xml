@@ -21,5 +21,11 @@
 		stag_phot(phot,sno)
 		values(#{photo},#{sno})
 	</insert>
+	
+    <select id="findBySupporter" parameterType="int" resultType="int">
+    select sno as no
+      from memb m INNER JOIN sup s 
+     where mno=#{no} and mno=sno and per in('Y','y')
+    </select>
 </mapper>
 
