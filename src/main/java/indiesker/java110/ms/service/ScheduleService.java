@@ -14,4 +14,6 @@ public interface ScheduleService {
     Schedule myperdetail(int no);
     Schedule myreqdetail(int no);
     List<Schedule> chkStageDate(int no, String date);
+    List<Schedule> findSuggestsbyflag(String flag, int pageNo, int pageSize);
+    List<Schedule> findunableSchedule(String date, int no);
 }

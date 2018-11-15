@@ -86,6 +86,27 @@ public class ScheduleServiceimpl implements ScheduleService {
       params.put("date", date);
       return scheduleDao.findunableSchedule(params);
     }
+
+    @Override
+    public List<Schedule> findSuggestsbyflag(String flag,int pageNo, int pageSize) {
+      HashMap<String,Object> params = new HashMap<>();
+      params.put("flag", flag);
+      params.put("rowNo", (pageNo - 1) * pageSize);
+      params.put("size", pageSize); 
+      return scheduleDao.findSuggestsbyflag(params);
+    }
+
+    @Override
+    public List<Schedule> findunableSchedule(String date, int no) {
+      HashMap<String,Object> params = new HashMap<>();
+      params.put("no", no);
+      params.put("date", date);
+      return scheduleDao.findunableSchedule(params);
+    }
+    
+    
+    
+    
 }
 
 

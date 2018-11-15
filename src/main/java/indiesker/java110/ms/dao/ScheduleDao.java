@@ -15,5 +15,6 @@ public interface ScheduleDao {
   List<Schedule> findunableSchedule(Map<String,Object> params);
   Schedule findbybrno(int no);
   Schedule findbypsno(int no);
+  List<Schedule> findSuggestsbyflag(Map<String,Object> params);
 
 }

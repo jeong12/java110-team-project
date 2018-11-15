@@ -119,5 +119,14 @@ public class Schedule {
   public void setSubno(int subno) {
     this.subno = subno;
   }
+  @Override
+  public String toString() {
+    return "Schedule [sno=" + sno + ", shopname=" + shopname + ", addr=" + addr + ", sdt=" + sdt
+        + ", edt=" + edt + ", cdt=" + cdt + ", nsdt=" + nsdt + ", nedt=" + nedt + ", ncdt=" + ncdt
+        + ", cnt=" + cnt + ", x=" + x + ", y=" + y + ", flag=" + flag + ", subno=" + subno
+        + ", buskname=" + buskname + ", supporter=" + supporter + "]";
+  }
+  
+  
   
 }
