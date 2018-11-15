@@ -79,8 +79,13 @@ public class ScheduleServiceimpl implements ScheduleService {
       return scheduleDao.findbybrno(no);
     }
     
-    
-   
+    @Override
+    public List<Schedule> chkStageDate(int no, String date) {
+      HashMap<String,Object> params = new HashMap<>();
+      params.put("no", no);
+      params.put("date", date);
+      return scheduleDao.findunableSchedule(params);
+    }
 }
 
 

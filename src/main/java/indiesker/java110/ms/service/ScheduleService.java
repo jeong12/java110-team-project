@@ -13,4 +13,5 @@ public interface ScheduleService {
     List<Schedule> mysslist(int pageNo, int PageSize);
     Schedule myperdetail(int no);
     Schedule myreqdetail(int no);
+    List<Schedule> chkStageDate(int no, String date);
 }
