@@ -12,7 +12,7 @@ import indiesker.java110.ms.domain.Comment;
 import indiesker.java110.ms.service.BuskerBoardDetailService;
 
 @Controller
-@RequestMapping("/BuskerBoardDtail")
+@RequestMapping("/BuskerBoardDetail")
 public class BuskerBoardDetailController {
 
   BuskerBoardDetailService buskerBoardDetailService;
