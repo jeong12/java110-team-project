@@ -65,14 +65,13 @@
 		<h2>무대관리</h2>
 	</div>
 
-
 	<div id='calendar'></div>
 	<div id='selectday'>
 		<h2></h2>
 		<table id="insertDate">
 			<thead>
 				<tr>
-					<td colspan="3"></td>
+					<td colspan="3" id='showDate'></td>
 				</tr>
 				<tr>
 					<td><select id="starthour" name="sdt">
@@ -86,6 +85,7 @@
 							</c:forEach>
 					</select></td>
 					<td><button id="addbtn" onclick="chkHour()">등록</button></td>
+					<td><button onclick="test()">test</button></td>
 				</tr>
 			</thead>
 			<tbody>
@@ -94,23 +94,22 @@
 		</table>
 
 		<script>
-        function chkHour(){
-            var start = $("#starthour option:selected").val();
-            var end = $("#endhour option:selected").val();
-            var sdate = Number(start.split(':')[0]);
-            var edate = Number(end.split(':')[0]);
-            
-            if(edate-sdate<=0){
-                alert("시간에 맞게 다시 선택해주세요");
-                return;
-            }else if(edate-sdate == 1){
-                $('#insertDate tbody').append(
-                '<tr><td>'+start+"~"+end+'</td></tr>')
-            }else{
-                console.log("고민해봅시당! 시간을 하나씩 나누기, ajax으로 들어간 시간인지 확인하기");
+		 function chkHour(){
+
+                /*  
+                 $.ajax({ 
+                     type : "POST", 
+                     url : "chkStageDate", 
+                     dataType: 'json',
+                     data: tarr, 
+                     success : function(data) {
+                        console.log(data);
+                     },
+                     error : function(request, status, error) {
+                         alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+                     }
+                 }); */
             }
-            
-        }
         </script>
 
 	</div>
@@ -230,7 +229,7 @@ $(function() {
                 $(this).css('background-color', 'gray');
             }
               _prevObj = $(this);
-            $("#selectday h2").html(date.format());
+            $("#showDate").html(date.format());
             
             
             var values = {"no":"5" , "date":date.format()};

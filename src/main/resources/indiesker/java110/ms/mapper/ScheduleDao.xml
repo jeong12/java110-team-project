@@ -32,6 +32,7 @@
     </resultMap>
     
     <resultMap type="Schedule" id="reqStageScheduleMap">
+        <id column="sno" property="no"/>
         <result column="name"  property="shopname"/>
         <result column="addr"    property="addr"/>
         <result column="sdt"    property="sdt"/>
@@ -173,6 +174,13 @@
 select b.name, b.genre, ss.sdt, ss.edt, br.cnt, bs.flag, br.cdt
 from busk_stag as bs, stag_sche as ss, busk as b, busk_req as br
 where bs.ssno = ss.ssno and bs.brno=br.brno and br.bno=b.bno and ss.sno=2
+</select>
+
+<!-- 무대제공자 스케쥴조회: 해당 날짜에 사용불가능한 목록을 뽑아주는 쿼리 -->
+<select id="findunableSchedule" parameterType="map" resultMap="reqStageScheduleMap">
+SELECT sdt, edt, sno
+from stag_sche
+where sno=2 and substring_index(sdt,' ',1) = #{date}
 </select>
 
 </mapper>

@@ -68,6 +68,14 @@ public class ScheduleServiceimpl implements ScheduleService {
       params.put("size", pageSize);      
       return scheduleDao.findreqschedule(params);
     }
+
+    @Override
+    public List<Schedule> chkStageDate(int no, String date) {
+      HashMap<String,Object> params = new HashMap<>();
+      params.put("no", no);
+      params.put("date", date);
+      return scheduleDao.findunableSchedule(params);
+    }
     
     
    
