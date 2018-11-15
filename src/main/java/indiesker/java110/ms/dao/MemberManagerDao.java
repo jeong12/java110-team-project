@@ -7,4 +7,5 @@ import indiesker.java110.ms.domain.MemberManager;
 public interface MemberManagerDao {
   List<MemberManager> findAll(Map<String,Object> params); 
   List<MemberManager> findselect(Map<String,Object> params); 
+  List<MemberManager> searchSelect(Map<String,Object> params);
 }

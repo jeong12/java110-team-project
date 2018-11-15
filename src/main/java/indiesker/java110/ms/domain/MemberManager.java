@@ -9,14 +9,23 @@ public class MemberManager {
   protected char flag;
   protected String memo;
   protected Date cdt;
+  protected String ncdt;
+  protected String text;
+
   
-  
-  
-  public Date getCdt() {
-    return cdt;
+
+
+  public String getNcdt() {
+    return ncdt;
   }
-  public void setCdt(Date cdt) {
-    this.cdt = cdt;
+  public void setNcdt(String ncdt) {
+    this.ncdt = ncdt;
+  }
+  public String getText() {
+    return text;
+  }
+  public void setText(String text) {
+    this.text = text;
   }
   public String getId() {
     return id;
@@ -36,17 +45,30 @@ public class MemberManager {
   public void setEmail(String email) {
     this.email = email;
   }
-  public String getMemo() {
-    return memo;
-  }
-  public void setMemo(String memo) {
-    this.memo = memo;
-  }
   public char getFlag() {
     return flag;
   }
   public void setFlag(char flag) {
     this.flag = flag;
   }
+  public String getMemo() {
+    return memo;
+  }
+  public void setMemo(String memo) {
+    this.memo = memo;
+  }
+  public Date getCdt() {
+    return cdt;
+  }
+  public void setCdt(Date cdt) {
+    this.cdt = cdt;
+  }
+  @Override
+  public String toString() {
+    return "MemberManager [id=" + id + ", nik=" + nik + ", email=" + email + ", flag=" + flag
+        + ", memo=" + memo + ", cdt=" + cdt + ", text=" + text + "]";
+  }
+  
+  
   
 }

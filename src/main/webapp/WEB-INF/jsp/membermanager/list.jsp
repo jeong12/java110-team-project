@@ -2,10 +2,13 @@
     contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <title>관리자</title>
 </head>
 <body>
@@ -26,15 +29,29 @@
     <td>${m.cdt}</td>
     <td>${m.memo}</td>
 </tr>
+
 </c:forEach>
+
+<!-- <div class='searchflag'><button value='1'>진행중</button><button value='2'>완료</button><button value='3'>ㅋㅋ</button></div> -->
 <button type='button' href="" onclick='location.href = "list"'>전체보기</button>
 <button type='button' onclick='location.href = "select?flag=1"'>버스커</button>
 <button type='button' onclick='location.href = "select?flag=2"'>제공자</button>
 <button type='button' onclick='location.href = "select?flag=3"'>제공자</button>
-<script>
+<!-- <script>
 function list(){
     location.href = "list"
 }
 
+
+
+$(".searchflag button").click(function(){
+	var f= $(this).val();
+	console.log(f);
+	
+	
+	
+})
+
+</script> -->
 </body>
 </html>

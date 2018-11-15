@@ -8,8 +8,8 @@
 
 
 <!-- 달력 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <link href="/css/fullcalendar.min.css" rel="stylesheet">
 <script src="/js/fullcalendar.min.js" type="text/javascript"></script>

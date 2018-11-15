@@ -6,17 +6,95 @@
 <mapper namespace="indiesker.java110.ms.dao.MemberManagerDao">
 
 
+
 <!-- 전체 -->
 <select id="findAll" resultType="MemberManager" parameterType="map">
 SELECT m.id,m.nik,m.email,m.flag,m.cdt,m.memo
 FROM memb as m
+limit #{rowNo}, #{size} 
 </select>
 
 <!-- 선택 -->
 <select id="findselect" resultType="MemberManager" parameterType="map">
 SELECT id, nik, email, flag, cdt, memo
 FROM memb 
-where flag=#{flag}
+<where>
+<if test="flag != null or flag!=''">
+flag=#{flag}
+</if>
+</where>
+
 limit #{rowNo}, #{size} 
 </select>
+
+<select id="searchSelect" resultType="MemberManager" parameterType="map">
+SELECT id,nik,email,flag,cdt,memo
+FROM memb
+
+<where>
+<choose>
+<when test="flag == 0">
+cdt between #{cdt1} and #{cdt2}
+</when>
+<when test="flag == 1">
+cdt = #{cdt2}
+</when>
+<when test="flag == 2">
+nik = #{text}
+</when>
+<when test="flag == 3">
+email = #{text}
+</when>
+
+
+
+<!-- <when test="cdt1 == null  and cdt2 == null and flag == nik and test !=null">
+nik = #{text}
+</when>
+
+<when test="cdt1 == null and cdt2 == null and flag = email and test !=null">
+email = #{text}
+</when>
+
+<when test="cdt1 != null || cdt1 != '' and cdt2 != null || cdt2 = '' and flag == nik and flag != email and test !=null || test !='' ">
+nik = #{text}
+</when>
+
+<when test="cdt1 != null || cdt1 != '' and cdt2 != null || cdt2 = '' and flag != nik and flag == email and test !=null || test !='' ">
+email = #{text}
+
+</when> -->
+</choose>
+</where>
+
+</select> 
+
+
+<!-- <where>
+<if test="cdt1 == null || cdt1 == '' and cdt2 == null || cdt2 = '' and flag == nik || flag == email and text !=null || text !='' ">
+#{flag} = #{text}
+</if>
+
+<if test="cdt1 == null || cdt1 == '' and cdt2 != null || cdt2 = '' and  flag == nik || flag == email">
+cdt = #{cdt2}
+</if>
+
+<if test="cdt1 != null || cdt1 == '' and cdt2 != null || cdt2 = '' and flag == nik || flag == email">
+cdt between #{cdt1} and #{cdt2}
+</if>
+</where> -->
+
+
+<!-- <if test="cdt1 != null or cdt1 != '' ">
+cdt between #{cdt1} and #{cdt2}
+</if>
+<if test="flag == 1">
+nik=#{text}
+</if>
+<if test="flag == 2">
+email=#{text}
+</if> -->
+
+
+
 </mapper>

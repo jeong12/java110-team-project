@@ -34,6 +34,32 @@ public class MemberManagerServiceImpl implements MemberManagerService{
     return memberManagerDao.findselect(params);
   }
 
-
+@Override
+public List<MemberManager> dateSelect(String flag, String text,String ncdt1,String ncdt2,int pageNo, int pageSize) {
+  HashMap<String,Object> params = new HashMap<>();
+  System.out.println("============================");
+  params.put("flag", flag);
+  System.out.println(flag);
+  params.put("text", text);
+  System.out.println(text);
+  params.put("cdt1",ncdt1);
+  System.out.println(ncdt1);
+  params.put("cdt2",ncdt2);
+  System.out.println(ncdt2);
+  params.put("rowNo", (pageNo - 1) * pageSize);
+  params.put("size", pageSize);
+  
+  List<MemberManager> list = memberManagerDao.searchSelect(params);
+  
+  for (MemberManager m : list) {
+   System.out.println("서비스임");
+   System.out.println("****************");
+   System.out.println(m.getCdt());
+   System.out.println("****************");
+   System.out.println(m);
+  }
+  
+  return list;
+}
   
 }
