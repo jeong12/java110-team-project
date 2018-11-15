@@ -3,21 +3,57 @@ package indiesker.java110.ms.domain;
 import java.sql.Timestamp;
 
 public class Schedule {
-  protected int ssno; //스케쥴번호
-  protected Timestamp sdt; //시작일
-  protected Timestamp edt; //끝일
-  protected Timestamp cdt; //작성일
-  protected String nsdt; 
+  protected int no;
+  protected String shopname;
+  protected String addr;
+  protected Timestamp sdt;
+  protected Timestamp edt;
+  protected Timestamp cdt;
+  protected String nsdt;
   protected String nedt;
   protected String ncdt;
+  protected int cnt;
+  protected float x;
+  protected float y;
   protected char flag;
-  protected int sno; //제공자번호
+  protected int subno;
+  protected String genre;
+  protected String buskname;
+
   
-  public int getSsno() {
-    return ssno;
+  
+  
+  
+  
+  public String getBuskname() {
+    return buskname;
   }
-  public void setSsno(int ssno) {
-    this.ssno = ssno;
+  public void setBuskname(String buskname) {
+    this.buskname = buskname;
+  }
+  public String getGenre() {
+    return genre;
+  }
+  public void setGenre(String genre) {
+    this.genre = genre;
+  }
+  public int getNo() {
+    return no;
+  }
+  public void setNo(int no) {
+    this.no = no;
+  }
+  public String getShopname() {
+    return shopname;
+  }
+  public void setShopname(String shopname) {
+    this.shopname = shopname;
+  }
+  public String getAddr() {
+    return addr;
+  }
+  public void setAddr(String addr) {
+    this.addr = addr;
   }
   public Timestamp getSdt() {
     return sdt;
@@ -31,17 +67,11 @@ public class Schedule {
   public void setEdt(Timestamp edt) {
     this.edt = edt;
   }
-  public char getFlag() {
-    return flag;
+  public Timestamp getCdt() {
+    return cdt;
   }
-  public void setFlag(char flag) {
-    this.flag = flag;
-  }
-  public int getSno() {
-    return sno;
-  }
-  public void setSno(int sno) {
-    this.sno = sno;
+  public void setCdt(Timestamp cdt) {
+    this.cdt = cdt;
   }
   public String getNsdt() {
     return nsdt;
@@ -55,19 +85,41 @@ public class Schedule {
   public void setNedt(String nedt) {
     this.nedt = nedt;
   }
-  public Timestamp getCdt() {
-    return cdt;
-  }
-  public void setCdt(Timestamp cdt) {
-    this.cdt = cdt;
-  }
   public String getNcdt() {
     return ncdt;
   }
   public void setNcdt(String ncdt) {
     this.ncdt = ncdt;
   }
-  
-  
+  public int getCnt() {
+    return cnt;
+  }
+  public void setCnt(int cnt) {
+    this.cnt = cnt;
+  }
+  public float getX() {
+    return x;
+  }
+  public void setX(float x) {
+    this.x = x;
+  }
+  public float getY() {
+    return y;
+  }
+  public void setY(float y) {
+    this.y = y;
+  }
+  public char getFlag() {
+    return flag;
+  }
+  public void setFlag(char flag) {
+    this.flag = flag;
+  }
+  public int getSubno() {
+    return subno;
+  }
+  public void setSubno(int subno) {
+    this.subno = subno;
+  }
   
 }

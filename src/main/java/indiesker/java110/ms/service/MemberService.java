@@ -10,6 +10,6 @@ public interface MemberService {
     int checkNickname(String nickname);
     Member getMember(String id, String password);
     Member getApiMember(Map<String,Object> params);
-    Member findNoById(String id);
+    int findNoById(String id);
     void modiMem(Member member);
 }

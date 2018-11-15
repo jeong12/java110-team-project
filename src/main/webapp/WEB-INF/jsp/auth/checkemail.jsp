@@ -32,7 +32,8 @@
           <h1 id="titlefind"><i class="fas fa-arrow-alt-circle-right"></i>아이디 비밀번호 찾기</h1>
           
           <div class="findidcontent">
-               <h2>입력하신 이메일과 일치하는 아이디는 "${member.id}"입니다.</h2>
+               <h2>${check}</h2>
+               <h2>${update}</h2>
 
 
 

@@ -1,6 +1,7 @@
 package indiesker.java110.ms.web;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletContext;
 import org.springframework.stereotype.Controller;
@@ -14,14 +15,14 @@ import indiesker.java110.ms.domain.Schedule;
 import indiesker.java110.ms.service.ScheduleService;
 
 @Controller
-@RequestMapping("/mybs")
-public class BuskerPerScheduleController {
+@RequestMapping("/myss")
+public class SupporterScheduleController {
 
   ScheduleService scheduleService;
   ServletContext sc;
 
 
-  public BuskerPerScheduleController(ScheduleService scheduleService,
+  public SupporterScheduleController(ScheduleService scheduleService,
       ServletContext sc) {
     this.scheduleService = scheduleService;
     this.sc = sc;
@@ -55,37 +56,18 @@ public class BuskerPerScheduleController {
       pageNo = 1;
     if (pageSize < 3 || pageSize > 10)
       pageSize = 3;
-    
-    pageSize=9;
-    List<Schedule> list = scheduleService.mybslist(pageNo, pageSize);
-    List<Schedule> plist = scheduleService.myperlist(pageNo, pageSize);
 
+    pageSize=9;
+    List<Schedule> list = scheduleService.mysslist(pageNo, pageSize);
 
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-    for (Schedule pl : plist) {
-      pl.setNsdt(format.format(pl.getSdt()));
-      pl.setNedt(format.format(pl.getEdt()));
-      String naddr=pl.getAddr().substring(pl.getAddr().indexOf(" ")+1,pl.getAddr().length());
-      int startindex=pl.getAddr().indexOf(" ")+1;
-      int endindex=naddr.indexOf(" ")+startindex;
-      pl.setAddr(pl.getAddr().substring(0,endindex));
-    }
-
-    for (Schedule ps : list) {
-      ps.setNsdt(format.format(ps.getSdt()));
-      ps.setNedt(format.format(ps.getEdt()));
-      String naddr=ps.getAddr().substring(ps.getAddr().indexOf(" ")+1,ps.getAddr().length());
-      int startindex=ps.getAddr().indexOf(" ")+1;
-      int endindex=naddr.indexOf(" ")+startindex;
-      ps.setAddr(ps.getAddr().substring(0,endindex));
+    for (Schedule s : list) {
+      s.setNsdt(format.format(s.getSdt()));
+      s.setNedt(format.format(s.getEdt()));
     }
     
-    
-
-
     model.addAttribute("list", list);
-    model.addAttribute("plist", plist);
   }
 
 
@@ -116,7 +98,6 @@ public class BuskerPerScheduleController {
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     System.out.println(flag);
-    
 
     if(flag.equals("1")||flag.equals("2")) {
       System.out.println(flag+"플래그 넘어감");
@@ -125,7 +106,6 @@ public class BuskerPerScheduleController {
       for (Schedule ps : flist) {
         ps.setNsdt(format.format(ps.getSdt()));
         ps.setNedt(format.format(ps.getEdt()));
-        ps.setNcdt(format.format(ps.getCdt()));
       }
         
       return flist;
@@ -137,10 +117,7 @@ public class BuskerPerScheduleController {
       for (Schedule ps : plist) {
         ps.setNsdt(format.format(ps.getSdt()));
         ps.setNedt(format.format(ps.getEdt()));
-        ps.setNcdt(format.format(ps.getCdt()));
       }
-      
-      
       return plist;
     }
     

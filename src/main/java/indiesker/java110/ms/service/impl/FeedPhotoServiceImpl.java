@@ -10,14 +10,24 @@ import indiesker.java110.ms.service.FeedPhotoService;
 @Service
 public class FeedPhotoServiceImpl implements FeedPhotoService {
 
-    @Autowired  FeedPhotoDao feedphotoDao;
+  @Autowired  FeedPhotoDao feedphotoDao;
 
-    @Override
+  /*    @Override
     public List<FeedPhoto> feedPhoto() {
-      
+
       return feedphotoDao.findByFeedPhoto();
-    }
- 
+    }*/
+
+  @Override
+  public List<FeedPhoto> recentPhotList(int buskno/*, int pageNo, int pageSize*/) {
+    /*HashMap<String, Object> params = new HashMap<>();
+    params.put("value", buskno);
+    params.put("rowNo", (pageNo - 1) * pageSize);
+    params.put("size", pageSize);*/
+    
+    return feedphotoDao.findRecentPhot(buskno);
+  }
+
 }
 
 

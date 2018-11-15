@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- MemberDao 클래스가 사용할 SQL이 들어 있는 파일 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indiesker.java110.ms.dao.ScheduleDao">
+
+    <resultMap type="Schedule" id="perscheduleMap">
+        <id column="psno"  property="no"/>
+        <result column="shopname"  property="shopname"/>
+        <result column="addr"    property="addr"/>
+        <result column="sdt"    property="sdt"/>
+        <result column="edt"    property="edt"/>
+        <result column="cnt"    property="cnt"/>
+        <result column="cdt"    property="cdt"/>
+        <result column="x"    property="y"/>
+        <result column="y"    property="x"/>
+    </resultMap>
+    
+    <resultMap type="Schedule" id="buskerscheduleMap">
+        <id column="brno"  property="no"/>
+        <result column="name"  property="shopname"/>
+        <result column="addr"    property="addr"/>
+        <result column="sdt"    property="sdt"/>
+        <result column="edt"    property="edt"/>
+        <result column="cnt"    property="cnt"/>
+        <result column="flag"    property="flag"/>
+        <result column="cdt"    property="cdt"/>
+        <result column="x"    property="x"/>
+        <result column="y"    property="y"/>
+        <result column="buskname"    property="buskname"/>
+    </resultMap>
+    
+    <resultMap type="Schedule" id="reqStageScheduleMap">
+        <result column="name"  property="shopname"/>
+        <result column="addr"    property="addr"/>
+        <result column="sdt"    property="sdt"/>
+        <result column="edt"    property="edt"/>
+        <result column="cnt"    property="cnt"/>
+        <result column="flag"    property="flag"/>
+        <result column="cdt"    property="cdt"/>
+        <result column="x"    property="x"/>
+        <result column="y"    property="y"/>
+        <result column="genre"     property="genre"/>
+    </resultMap>
+    
+    
+
+    <select id="findperschedule" resultMap="perscheduleMap" parameterType="map">
+       select PS.psno, PS.shopname, PS.addr,  PS.sdt, PS.edt, PS.cnt, PS.cdt, PS.x, PS.y  
+         from per_sche PS, busk B 
+        where PS.bno = B.bno   
+       limit #{rowNo}, #{size}
+    </select>
+    
+    <insert id="insertperschedule" parameterType="Schedule" useGeneratedKeys="true" keyColumn="psno" keyProperty="psno">
+    insert into per_sche(sdt,edt,addr,x,y,shopname,cdt,cnt,bno) 
+    values(#{nsdt},#{nedt},#{addr},#{x},#{y},#{shopname},now(),#{cnt},5)    
+    </insert>
+    
+    <!-- 스케줄조회 : 확정 버스커 스케줄 출력하는 쿼리  -->
+    <select id="findfixdSchedule" resultMap="buskerscheduleMap" parameterType="map">
+    SELECT 
+           BR.brno,
+           S.name as name,
+           S.bas_addr as addr,
+           MIN(SC.sdt) as sdt,
+           MAX(SC.edt) as edt,
+           BR.cnt,
+           BS.flag, 
+           BR.cdt, 
+           S.x, 
+           S.y 
+      FROM busk B, busk_req BR, busk_stag BS,stag_sche SC, sup S
+     WHERE B.bno=BR.bno
+       AND BR.brno=BS.brno 
+       AND BS.ssno=SC.ssno
+       AND SC.sno = S.sno
+       AND BS.flag=2
+  GROUP BY BS.brno
+  limit #{rowNo}, #{size}
+ </select>
+ 
+ <!-- 스케줄조회 : 확정 버스커 스케줄 출력하는 쿼리  -->
+ <select id="findMyAllSchedule" resultMap="buskerscheduleMap" parameterType="map">
+    SELECT 
+           BR.brno,
+           S.name as name,
+           S.bas_addr as addr,
+           MIN(SC.sdt) as sdt,
+           MAX(SC.edt) as edt,
+           BR.cnt,
+           BS.flag, 
+           BR.cdt, 
+           S.x, 
+           S.y 
+      FROM busk B, busk_req BR, busk_stag BS,stag_sche SC, sup S
+     WHERE B.bno=BR.bno
+       AND BR.brno=BS.brno 
+       AND BS.ssno=SC.ssno
+       AND SC.sno = S.sno
+       AND BR.bno=#{no}
+  GROUP BY BS.brno
+  limit #{rowNo}, #{size}
+ </select>
+ 
+ 
+ <!-- 스케줄조회 : 확정 버스커 스케줄 출력하는 쿼리  -->
+ <select id="findbydate" resultMap="buskerscheduleMap" parameterType="map">
+    SELECT 
+           BR.brno,
+           S.name as name,
+           S.bas_addr as addr,
+           MIN(SC.sdt) as sdt,
+           MAX(SC.edt) as edt,
+           BR.cnt,
+           BS.flag, 
+           BR.cdt, 
+           S.x, 
+           S.y 
+      FROM busk B, busk_req BR, busk_stag BS,stag_sche SC, sup S
+     WHERE B.bno=BR.bno
+       AND BR.brno=BS.brno 
+       AND BS.ssno=SC.ssno
+       AND SC.sno = S.sno
+       AND BR.bno=#{bno}
+       AND SUBSTR(SC.sdt,1,10) = #{date}
+  GROUP BY BS.brno
+ </select>
+ 
+ <!-- 스케줄조회 : 확정 버스커 스케줄 출력하는 쿼리  -->
+ <select id="findbyflag" resultMap="buskerscheduleMap" parameterType="map">
+    SELECT 
+           BR.brno,
+           S.name as name,
+           S.bas_addr as addr,
+           MIN(SC.sdt) as sdt,
+           MAX(SC.edt) as edt,
+           BR.cnt,
+           BS.flag, 
+           BR.cdt, 
+           S.x, 
+           S.y 
+      FROM busk B, busk_req BR, busk_stag BS,stag_sche SC, sup S
+     WHERE B.bno=BR.bno
+       AND BR.brno=BS.brno 
+       AND BS.ssno=SC.ssno
+       AND SC.sno = S.sno
+       AND BS.flag=#{flag}
+  GROUP BY BS.brno
+  limit #{rowNo}, #{size}
+ </select>
+ 
+ <select id="findbypsno" resultMap="buskerscheduleMap" parameterType="int">
+ SELECT PS.psno, PS.sdt, PS.edt, PS.addr, PS.x, PS.y, PS.shopname, PS.cdt, PS.cnt, B.name as buskname ,B.genre
+  FROM per_sche PS, busk B
+ WHERE PS.bno = B.bno
+   AND PS.psno=#{value}
+ </select>
+ 
+ <select id="findbybrno" resultMap="buskerscheduleMap" parameterType="int">
+ SELECT BS.brno, S.name, S.x,S.y, S.genre, S.tel, S.det_addr,S.etc, MAX(SC.edt) as edt ,MIN(SC.sdt)as sdt
+  FROM busk_req BR, busk_stag BS, stag_sche SC, sup S
+ WHERE BR.brno=BS.brno
+   AND BS.ssno=SC.ssno
+   AND SC.sno=S.sno
+   AND BS.brno=#{value}
+  GROUP By BS.brno
+  </select>
+  
+ <!-- 무대제공자 스케줄조회: 무대신청,완료된 목록을 보여주는 쿼리 -->
+ <select id="findreqschedule" parameterType="map" resultMap="reqStageScheduleMap">
+select b.name, b.genre, ss.sdt, ss.edt, br.cnt, bs.flag, br.cdt
+from busk_stag as bs, stag_sche as ss, busk as b, busk_req as br
+where bs.ssno = ss.ssno and bs.brno=br.brno and br.bno=b.bno and ss.sno=2
+</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
