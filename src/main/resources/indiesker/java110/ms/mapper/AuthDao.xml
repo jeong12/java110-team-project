@@ -16,22 +16,21 @@
 <!-- 비밀번호 찾기 -->
     <!-- 비밀번호 찾을때 아이디와 일치하는 이메일인지 체크 -->
     <select id="checkEmail" parameterType="string" resultType="String">
-    SELECT email 
-    FROM memb 
-    where id=#{id}
+	    SELECT email 
+	    FROM memb 
+	    where id=#{id}
     </select>
 
-    <update id="update_pw" parameterType="String">
+    <update id="update_pw" parameterType="Map">
         update memb
-        set pwd = '1234'
+        set pwd = #{password}
         where email=#{email}
     </update>
 
 <!--     <select id="sendpw" parameterType="string">
 	UPDATE memb 
 	SET pwd = '1234' 
-	where id=#{id}
-	  and email=#{email}
+	where email=#{email}
     </select>
  -->	  
 	  
