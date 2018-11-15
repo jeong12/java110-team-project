@@ -50,7 +50,7 @@ public class LoginApiController {
     if(loginUser != null) {
       session.setAttribute("loginUser", loginUser);
       // 추후에 수정해야함 일단은 기본 html로 돌리기
-      return "redirect:../../";
+      return "redirect:../editprofile/form";
     } else {
       session.invalidate();
       System.out.println("비밀번호틀림쓰");
