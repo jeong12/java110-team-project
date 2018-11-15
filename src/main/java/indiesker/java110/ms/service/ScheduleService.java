@@ -11,4 +11,6 @@ public interface ScheduleService {
     List<Schedule> findbyflag(String flag, int pageNo, int pageSize);
     void addStageSchedule(Schedule schedule);
     List<Schedule> mysslist(int pageNo, int PageSize);
+    Schedule myperdetail(int no);
+    Schedule myreqdetail(int no);
 }
