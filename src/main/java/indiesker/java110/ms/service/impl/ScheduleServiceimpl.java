@@ -68,6 +68,16 @@ public class ScheduleServiceimpl implements ScheduleService {
       params.put("size", pageSize);      
       return scheduleDao.findreqschedule(params);
     }
+
+    @Override
+    public Schedule myperdetail(int no) {
+      return scheduleDao.findbypsno(no);
+    }
+
+    @Override
+    public Schedule myreqdetail(int no) {
+      return scheduleDao.findbybrno(no);
+    }
     
     
    
