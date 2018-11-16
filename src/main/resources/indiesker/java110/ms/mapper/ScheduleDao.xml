@@ -206,7 +206,7 @@ order by ss.sdt
 
 <!-- 무대제공자 스케쥴조회: 해당 날짜에 사용불가능한 목록을 뽑아주는 쿼리 -->
 <select id="findunableSchedule" parameterType="map" resultMap="reqStageScheduleMap">
-SELECT sdt, edt, sno, 
+SELECT sdt, edt, sno, ssno
 from stag_sche
 where sno=#{no} and substring_index(sdt,' ',1) = #{date};
 </select>
