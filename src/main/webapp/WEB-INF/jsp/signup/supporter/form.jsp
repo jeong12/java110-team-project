@@ -95,11 +95,11 @@ h2 {
 	</div>
 	
 	<script>
-    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+     var mapContainer = document.getElementById('map'), // 지도를 표시할 div
     mapOption = {
         center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
         level: 5 // 지도의 확대 레벨
-    };
+    }; 
 
 //지도를 미리 생성
 var map = new daum.maps.Map(mapContainer, mapOption);
@@ -109,7 +109,7 @@ var geocoder = new daum.maps.services.Geocoder();
 var marker = new daum.maps.Marker({
     position: new daum.maps.LatLng(37.537187, 127.005476),
     map: map
-});
+}); 
 
 
 function searchAddr(){
@@ -146,7 +146,7 @@ function searchAddr(){
                     // 해당 주소에 대한 좌표를 받아서
                     var coords = new daum.maps.LatLng(result.y, result.x);
                     // 지도를 보여준다.
-                    mapContainer.style.display = "block";
+                    mapContainer.style.display = "none";
                     map.relayout();
                     // 지도 중심을 변경한다.
                     map.setCenter(coords);

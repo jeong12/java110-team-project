@@ -6,7 +6,7 @@
 <mapper namespace="indiesker.java110.ms.dao.ScheduleDao">
 
     <resultMap type="Schedule" id="perscheduleMap">
-        <id column="psno"  property="sno"/>
+        <id column="psno"  property="no"/>
         <result column="shopname"  property="shopname"/>
         <result column="addr"    property="addr"/>
         <result column="sdt"    property="sdt"/>
@@ -18,7 +18,7 @@
     </resultMap>
     
     <resultMap type="Schedule" id="buskerscheduleMap">
-        <id column="brno"  property="sno"/>
+        <id column="brno"  property="no"/>
         <result column="name"  property="shopname"/>
         <result column="addr"    property="addr"/>
         <result column="sdt"    property="sdt"/>
@@ -42,7 +42,7 @@
         <result column="cdt"    property="cdt"/>
         <result column="x"    property="x"/>
         <result column="y"    property="y"/>
-        <association property="supporter" javaType="Supporter">
+        <association property="supporter" javaType="supporter">
             <id column="sno" property="no"/>
             <result column="bas_addr"    property="baseaddr"/>
             <result column="det_addr"    property="detailaddr"/>
@@ -51,10 +51,31 @@
             <result column="tel"    property="tel"/>
             <result column="etc"    property="message"/>    
         </association>
-        
     </resultMap>
     
+    <resultMap type="Schedule" id="UnableStageScheduleMap">
+        <id column="ssno" property="sno"/>
+        <result column="name"  property="shopname"/>
+        <result column="addr"    property="addr"/>
+        <result column="sdt"    property="sdt"/>
+        <result column="edt"    property="edt"/>
+        <result column="cnt"    property="cnt"/>
+        <result column="flag"    property="flag"/>
+        <result column="cdt"    property="cdt"/>
+        <result column="x"    property="x"/>
+        <result column="y"    property="y"/>
+        <association property="supporter" javaType="supporter">
+            <id column="sno" property="no"/>
+            <result column="bas_addr"    property="baseaddr"/>
+            <result column="det_addr"    property="detailaddr"/>
+            <result column="genre"    property="sgnere"/>
+            <result column="capa"    property="capa"/>
+            <result column="tel"    property="tel"/>
+            <result column="etc"    property="message"/>    
+        </association>
+    </resultMap>
 
+    
     <select id="findperschedule" resultMap="perscheduleMap" parameterType="map">
        select PS.psno, PS.shopname, PS.addr,  PS.sdt, PS.edt, PS.cnt, PS.cdt, PS.x, PS.y  
          from per_sche PS, busk B 
@@ -205,7 +226,7 @@ order by ss.sdt
 </select>
 
 <!-- 무대제공자 스케쥴조회: 해당 날짜에 사용불가능한 목록을 뽑아주는 쿼리 -->
-<select id="findunableSchedule" parameterType="map" resultMap="reqStageScheduleMap">
+<select id="findunableSchedule" parameterType="map" resultMap="UnableStageScheduleMap">
 SELECT sdt, edt, sno, ssno
 from stag_sche
 where sno=#{no} and substring_index(sdt,' ',1) = #{date};
