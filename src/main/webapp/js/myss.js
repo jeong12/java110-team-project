@@ -20,7 +20,7 @@ $(function() {
   })
 });
 
-
+//달력 아래 전체/진행중/완료 필터 처리
 $('.chkFlag button').click(function(){
     var f = $(this).val();   
     $.ajax({ 
@@ -80,13 +80,7 @@ $('.chkFlag button').click(function(){
 
 });
 
-$('#datetimepicker').datetimepicker();
-jQuery('#datetimepicker2').datetimepicker({
-      datepicker:false,
-      format:'H:i'
-    });    
-
-
+// 등록가능한 무대일정 출력 & 체크할 수 있게.
 function add(){
     var td = $('#showDate').text();
    if(td==null || td==''){
@@ -124,6 +118,7 @@ function add(){
 
    }
 
+// 삭제가능한 무대일정 출력&체크할 수 있게
 function remove(){
     var td = $('#showDate').text();
    if(td==null || td==''){
@@ -166,7 +161,7 @@ function remove(){
 
    }
 
-
+// 체크한 일정 삭젷가ㅣ
 function removeDate(){
 	var td = $('#showDate').text();
     var chkbox = document.getElementsByName("stagedate");
