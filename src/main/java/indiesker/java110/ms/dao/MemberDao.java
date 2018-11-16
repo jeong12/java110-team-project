@@ -11,5 +11,5 @@ public interface MemberDao {
   Member findByEmailPassword(Map<String,Object> params);
   Member findByIdNick(Map<String,Object> params);
   int findNoById(String id);
-
+  void updateMemb(Member member);
 }

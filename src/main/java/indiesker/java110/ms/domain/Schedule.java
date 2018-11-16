@@ -3,7 +3,7 @@ package indiesker.java110.ms.domain;
 import java.sql.Timestamp;
 
 public class Schedule {
-  protected int no;
+  protected int sno;
   protected String shopname;
   protected String addr;
   protected Timestamp sdt;
@@ -17,32 +17,30 @@ public class Schedule {
   protected float y;
   protected char flag;
   protected int subno;
-  protected String genre;
   protected String buskname;
+  protected Supporter supporter;
 
   
   
-  
-  
-  
+  public int getSno() {
+    return sno;
+  }
+  public void setSno(int sno) {
+    this.sno = sno;
+  }
+  public Supporter getSupporter() {
+    return supporter;
+  }
+  public void setSupporter(Supporter supporter) {
+    this.supporter = supporter;
+  }
   public String getBuskname() {
     return buskname;
   }
   public void setBuskname(String buskname) {
     this.buskname = buskname;
   }
-  public String getGenre() {
-    return genre;
-  }
-  public void setGenre(String genre) {
-    this.genre = genre;
-  }
-  public int getNo() {
-    return no;
-  }
-  public void setNo(int no) {
-    this.no = no;
-  }
+ 
   public String getShopname() {
     return shopname;
   }
@@ -121,5 +119,14 @@ public class Schedule {
   public void setSubno(int subno) {
     this.subno = subno;
   }
+  @Override
+  public String toString() {
+    return "Schedule [sno=" + sno + ", shopname=" + shopname + ", addr=" + addr + ", sdt=" + sdt
+        + ", edt=" + edt + ", cdt=" + cdt + ", nsdt=" + nsdt + ", nedt=" + nedt + ", ncdt=" + ncdt
+        + ", cnt=" + cnt + ", x=" + x + ", y=" + y + ", flag=" + flag + ", subno=" + subno
+        + ", buskname=" + buskname + ", supporter=" + supporter + "]";
+  }
+  
+  
   
 }

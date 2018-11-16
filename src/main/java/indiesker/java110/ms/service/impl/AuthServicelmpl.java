@@ -1,5 +1,7 @@
 package indiesker.java110.ms.service.impl;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,7 +10,7 @@ import indiesker.java110.ms.domain.Member;
 import indiesker.java110.ms.service.AuthService;
 
 @Service
-public class AuthServiceimpl implements AuthService{
+public class AuthServicelmpl implements AuthService{
 
 	@Autowired AuthDao authDao;
 	  
@@ -23,8 +25,9 @@ public class AuthServiceimpl implements AuthService{
 	}
 	
 	@Override
-	public void update_pw(String email) {
-		authDao.update_pw(email);
+	public void update_pw(Map<String, String> update_pw_map) {
+		
+		authDao.update_pw(update_pw_map);
 	}
 
 	  

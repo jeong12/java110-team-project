@@ -56,7 +56,7 @@ public class MemberServiceImpl implements MemberService {
     Member newbie = createMember(params);
     if(member != null)
       return member;
-    
+
     memberDao.insert(newbie);
     return newbie;
 
@@ -82,15 +82,20 @@ public class MemberServiceImpl implements MemberService {
     }
     mem.setPassword("1234qwer!");
     mem.setGenre(genre);
-    
+
     return mem;
   }
-  
+
   @Override
-    public int findNoById(String id) {
-      return memberDao.findNoById(id);
-    }
-  
+  public int findNoById(String id) {
+    return memberDao.findNoById(id);
+  }
+
+  @Override
+  public void modiMem(Member member) {
+    memberDao.updateMemb(member);
+  }
+
 }
 
 

@@ -8,8 +8,8 @@
 
 
 <!-- 달력 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <link href="/css/fullcalendar.min.css" rel="stylesheet">
 <script src="/js/fullcalendar.min.js" type="text/javascript"></script>
@@ -114,8 +114,8 @@
                     <td>${perlist.cnt}명</td>
                     <td>개인스케줄</td>
                     <td>${perlist.cdt}</td>
-                    <td><button data-toggle="modal"
-            data-target="#detailModal" value="${perlist.no}">상세보기</button></td>
+                    <td><button data-toggle="modal" 
+            data-target="#detailModal" value="b${perlist.no}">상세보기</button></td>
                 </tr>
             </c:forEach>
             <c:forEach items="${list}" var="list">
@@ -133,8 +133,8 @@
                         </c:when>
                         </c:choose></td>
                     <td>${list.cdt}</td>
-                    <td><button data-toggle="modal"
-            data-target="#detailModal" value="${perlist.no}">상세보기</button></td>
+                    <td><button data-toggle="modal" 
+            data-target="#detailModal" value="a${list.no}">상세보기</button></td>
                 </tr>
             </c:forEach>
 
@@ -208,37 +208,29 @@
                     <h4 class="modal-title">개인스케줄 올리기</h4>
                 </div>
                 <div class="modal-body">
-                    <form action='add' method='post'
+                    <form action='none' method='post'
                         enctype="multipart/form-data">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <th>장소명</th>
-                                    <td><input type='text' name='shopname'></td>
-                                </tr>
-                                <tr>
-                                    <th>스케줄일정</th>
-                                    <td><input type="text" name='nsdt' id='datetimepicker'>~<input type="text" name='nedt' id='datetimepicker2'></td>
-                                </tr>
-                                <tr>
-                                    <th>인원</th>
-                                    <td><input type="text" name='cnt'></td>
-                                </tr>
-                                <tr>
-                                    <th>주소검색</th>
-                                    <td>
-                                       <input type="text" id="addr" name="addr" placeholder="주소">
-                                       <input type="button" onclick="search_addr()" value="주소 검색"><br>
-                                       <div id="map" style="width:400px;height:400px;margin-top:10px;display:none"></div>
-                                       <input type="text" id="x" name="x" style="display:none">
-                                       <input type="text" id="y" name="y" style="display:none">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th></th>
-                                    <td><button class="btn btn-default">등록</button></td>
-                                </tr>
-                            </tbody>
+                        <table class='detailinfo'>
+                            <thead>
+					            <tr>
+					                <th>상호명</th>
+					                <th>지역</th>
+					                <th>공연시간</th>
+					                <th>신청인원</th>
+					                <th>진행상태</th>
+					                <th>작성일</th>
+					                <th>상세보기</th>
+					            </tr>
+					        </thead>
+					        <tbody>
+					            
+					                <tr>
+					                    <td>${detailschedule.name}</td>
+					                    <td>${perlist.nsdt}~${perlist.nedt}</td>
+					                    <td>${perlist.cnt}명</td>
+					                    <td>${perlist.cdt}</td>
+					                </tr>
+					        </tbody>
                         </table>
                     </form>
                 </div>
@@ -418,6 +410,40 @@ $(function() {
   
 });
 
+
+
+$('.flagdata button').click(function(){
+	
+	var f = $(this).val();
+	console.log(f);
+	$.ajax({ 
+        type : "POST", //보내는 타입을 Post방식으로 할지,  GET방식으로 할지 결정
+        url : "clikedetail", // /내 프로젝트명/XML파일의namespace/내가불러올XML의Query이름.do
+        //header :'Content-Type: application/json',
+        dataType: 'json',
+        data : { fakeflag : f }, //파라미터 넘겨줄 부분? : 이게 할말이 많은데 원래 GET방식으로 하라했다가 
+                               //다시 POST방식으로 하게됬는데 파라미터를 넘겨줄 값이 없어서 다시 GET으로 바꾸면서 주석 
+        //contentType : "application/x-www-form-urlencoded; charset=utf-8",  // 기본값이라고 하니까 건들이지 않았고 
+        success : function(data) {
+                $(".detailinfo tbody ").empty();
+                
+	        if(data ==false){
+	            $(".detailinfo tbody ").append('해당일의 스케줄이 존재하지않습니다.');
+	        }else{
+	        	$(".detailinfo tbody ").append('<tr><td>'+data.shopname+'</td></tr>');
+	               
+	        }
+
+        },
+        error : function(request, status, error) {
+            alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+        }
+    });
+	
+	
+	
+})
+
 $('#datetimepicker').datetimepicker();
 jQuery('#datetimepicker2').datetimepicker({
       datepicker:false,
@@ -457,7 +483,7 @@ $('.flagsearch button').click(function(){
 	                        '<td>'+item.cnt+'명</td>'+
 	                        '<td>'+'진행중'+'</td>'+
 	                        '<td>'+item.ncdt+'</td>'+
-	                        "<td><button data-toggle='modal' data-target='#detailModal'"+ 
+	                        "<td><button data-toggle='modal' data-target='#detailModal' "+ 
 	                        'value=a'+item.no+"'>"+'상세보기</button></td>'+
 	                        '</tr>');
             	}else if(item.flag==2){
@@ -473,7 +499,7 @@ $('.flagsearch button').click(function(){
                             '<td>'+item.cnt+'명</td>'+
                             '<td>'+'완료'+'</td>'+
                             '<td>'+item.ncdt+'</td>'+
-                            "<td><button data-toggle='modal' data-target='#detailModal'"+ 
+                            "<td><button data-toggle='modal' data-target='#detailModal' "+ 
                             'value=a'+item.no+"'>"+'상세보기</button></td>'+
                             '</tr>');
             	}else{
@@ -490,7 +516,7 @@ $('.flagsearch button').click(function(){
                             '<td>'+item.cnt+'명</td>'+
                             '<td>'+'개인스케줄'+'</td>'+
                             '<td>'+item.ncdt+'</td>'+
-                            "<td><button data-toggle='modal' data-target='#detailModal'"+ 
+                            "<td><button data-toggle='modal' data-target='#detailModal' "+ 
                             'value=b'+item.no+"'>"+'상세보기</button></td>'+
                             '</tr>');
             	}

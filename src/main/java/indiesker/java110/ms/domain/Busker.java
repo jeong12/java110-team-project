@@ -89,11 +89,16 @@ public class Busker extends Member{
     this.tel = tel;
   }
   @Override
+  public int getNo() {
+    return super.getNo();
+  }
+  
+  @Override
   public String toString() {
     return "Busker [teamname=" + teamname + ", teamgenre=" + teamgenre + ", city=" + city
         + ", instrument=" + instrument + ", streamingUrl=" + streamingUrl + ", teamInfo=" + teamInfo
         + ", teamPhoto=" + teamPhoto + ", avi1=" + avi1 + ", avi2=" + avi2 + ", permission="
-        + permission + ", likecount=" + likecount + ", tel=" + tel + "]";
+        + permission + ", likecount=" + likecount + ", tel=" + tel +", no=" + no + "]";
   }
   
   

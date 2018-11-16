@@ -7,11 +7,11 @@ import javax.servlet.ServletContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import indiesker.java110.ms.domain.Schedule;
+import indiesker.java110.ms.domain.Supporter;
 import indiesker.java110.ms.service.ScheduleService;
 
 @Controller
@@ -28,23 +28,6 @@ public class SupporterScheduleController {
     this.sc = sc;
   }
 
-  @PostMapping("add")
-  public String add(Schedule schedule) {
-
-    schedule.setNsdt(schedule.getNsdt().toString());
-    schedule.setNedt(schedule.getNsdt().substring(0, 10)+' '+schedule.getNedt().toString());
-
-    System.out.println(schedule.getAddr());
-    System.out.println(schedule.getNsdt());
-    System.out.println(schedule.getNedt());
-    System.out.println(schedule.getShopname());
-    System.out.println(schedule.getX());
-    System.out.println(schedule.getY());
-
-    scheduleService.addSchedule(schedule);
-
-    return "redirect:main";
-  }
 
   @GetMapping("main")
   public void main(
@@ -55,77 +38,67 @@ public class SupporterScheduleController {
     if (pageNo < 1)
       pageNo = 1;
     if (pageSize < 3 || pageSize > 10)
-      pageSize = 3;
+      pageSize = 9;
 
-    pageSize=9;
     List<Schedule> list = scheduleService.mysslist(pageNo, pageSize);
-
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-
+    List<Supporter> sup = new ArrayList<>();
     for (Schedule s : list) {
       s.setNsdt(format.format(s.getSdt()));
       s.setNedt(format.format(s.getEdt()));
-    }
-    
+      s.setNcdt(format.format(s.getCdt()));
+    }    
     model.addAttribute("list", list);
   }
-
-
+  
+  
   @ResponseBody
-  @RequestMapping(value="clikeDate")
-  public List<Schedule> getDateSchedule(
-      @RequestParam(value="no") String no,@RequestParam(value="date")String date, Model model) {
-
-
-    List<Schedule> clist = scheduleService.findbydate(no, date);
-
+  @RequestMapping("chkFlag")
+  public List<Schedule> findSuggestsbyflag(
+      String flag, @RequestParam(defaultValue="1")int pageNo, 
+      @RequestParam(defaultValue="9")int pageSize, Model model) {
+    
+    if (pageNo < 1)
+      pageNo = 1;
+    if (pageSize < 3 || pageSize > 10)
+      pageSize = 9;
+    
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-    for (Schedule ps : clist) {
+
+    if(flag.equals("1")||flag.equals("2")) {
+      List<Schedule> flist = scheduleService.findSuggestsbyflag(flag, pageNo, pageSize);
+        for (Schedule ps : flist) {
+          ps.setNsdt(format.format(ps.getSdt()));
+          ps.setNedt(format.format(ps.getEdt()));
+          ps.setNcdt(format.format(ps.getCdt()));
+        }
+      return flist;    
+    }else{
+      List<Schedule> flist = scheduleService.mysslist(pageNo, pageSize);
+      for (Schedule fs : flist) {
+        fs.setNsdt(format.format(fs.getSdt()));
+        fs.setNedt(format.format(fs.getEdt()));
+        fs.setNcdt(format.format(fs.getCdt()));
+      }
+      return flist;
+    }
+  }
+  
+  @ResponseBody
+  @RequestMapping("showDate")
+  public List<Schedule> findunableSchedule(String date,Model model){
+    
+    int no = 2;
+    
+    List<Schedule> slist = scheduleService.findunableSchedule(date, no);
+    SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+    for (Schedule ps : slist) {
       ps.setNsdt(format.format(ps.getSdt()));
       ps.setNedt(format.format(ps.getEdt()));
     }
-
-
-    return clist;
-
+    System.out.println("showDate in Controller");
+    System.out.println(slist);
+    return slist;
   }
-
-  @ResponseBody
-  @RequestMapping(value="clikeFlag")
-  public List<Schedule> getFlagSchedule(
-      @RequestParam(value="flag") String flag,@RequestParam(defaultValue="1")int pageNo, 
-      @RequestParam(defaultValue="9")int pageSize,  Model model) {
-    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-
-    System.out.println(flag);
-
-    if(flag.equals("1")||flag.equals("2")) {
-      System.out.println(flag+"플래그 넘어감");
-      List<Schedule> flist = scheduleService.findbyflag(flag,pageNo,pageSize);
-
-      for (Schedule ps : flist) {
-        ps.setNsdt(format.format(ps.getSdt()));
-        ps.setNedt(format.format(ps.getEdt()));
-      }
-        
-      return flist;
-      
-      
-    }else  {
-      List<Schedule> plist = scheduleService.myperlist(pageNo, pageSize);
-      
-      for (Schedule ps : plist) {
-        ps.setNsdt(format.format(ps.getSdt()));
-        ps.setNedt(format.format(ps.getEdt()));
-      }
-      return plist;
-    }
-    
-    
-
-  }
-
-
-
-
+  
 }

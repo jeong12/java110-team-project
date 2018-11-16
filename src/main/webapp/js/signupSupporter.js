@@ -39,6 +39,10 @@ function checkName(){
     });
 }
 
+$('chkFlag button').click(function(){
+    alert("::::::::");
+});
+
 function checkDetailAddr(){ 
     var baddr=$('#baseaddr').val();
     var detaddr=$('#detailaddr').val();
