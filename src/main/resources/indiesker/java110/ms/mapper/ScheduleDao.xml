@@ -42,7 +42,7 @@
         <result column="cdt"    property="cdt"/>
         <result column="x"    property="x"/>
         <result column="y"    property="y"/>
-        <association property="supporter" javaType="supporter">
+        <association property="supporter" javaType="Supporter">
             <id column="sno" property="no"/>
             <result column="bas_addr"    property="baseaddr"/>
             <result column="det_addr"    property="detailaddr"/>
