@@ -54,12 +54,12 @@
     </select>
     
     <update id="updateMemb" parameterType="member">
-    UPDATE busk 
+    UPDATE memb 
        SET email = #{email}, pwd = password(#{password}), phot = #{photo},
        <foreach collection="genre" item="genre" separator="," index="index">
         genre#{index} = #{genre}
         </foreach>
-           WHERE memb.mno = #{no}
+           WHERE mno = #{no}
     </update>
 </mapper>
 
