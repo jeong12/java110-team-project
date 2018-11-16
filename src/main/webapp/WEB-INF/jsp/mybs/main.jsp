@@ -49,6 +49,7 @@
 #addschedule {
     float: right;
 }
+.cc{margin-left:30%}
 </style>
 <script>
 /* $(document).ready(function(){
@@ -115,7 +116,7 @@
                     <td>개인스케줄</td>
                     <td>${perlist.cdt}</td>
                     <td><button data-toggle="modal" 
-            data-target="#detailModal" value="b${perlist.no}">상세보기</button></td>
+            data-target="#detailperModal" value="b${perlist.sno}">상세보기</button></td>
                 </tr>
             </c:forEach>
             <c:forEach items="${list}" var="list">
@@ -134,7 +135,7 @@
                         </c:choose></td>
                     <td>${list.cdt}</td>
                     <td><button data-toggle="modal" 
-            data-target="#detailModal" value="a${list.no}">상세보기</button></td>
+            data-target="#detailreqModal" value="a${list.sno}">상세보기</button></td>
                 </tr>
             </c:forEach>
 
@@ -198,7 +199,55 @@
     
     
     <!-- 상세조회 모달  -->
-    <div id="detailModal" class="modal fade" role="dialog">
+    <style>
+	    .span5 {
+	        width: auto;
+	    }
+	
+	    #emg1 {
+	        float: left;
+	        margin-left: 10%
+	    }
+	
+	    #emg2 {
+	        float: right;
+	        margin-right: 10%
+	    }
+	
+	    .row {
+	        width: 80%;
+	        margin-top: px;
+	    }
+	
+	    .container {
+	        width: 90%;
+	        margin-left: 10%;
+	    }
+	
+	    .mimg {
+	        margin-top: 30px;
+	    }
+	
+	    .ct {
+	        width: 80%
+	    }
+	
+	    .box {
+	        margin-top: 50px;
+	    }
+	
+	    .text {
+	        margin-top: 10px;
+	        margin-bottom: 20px;
+	    }
+	
+	    .text2 {
+	        margin-bottom: 10px;
+	    }
+	    .eb{width:100%;}
+    </style>
+    <!-- 성사된스케줄 모달  -->
+    <div id="detailreqModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
             <!-- 모달 내부 설정 -->
@@ -207,33 +256,87 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">개인스케줄 올리기</h4>
                 </div>
-                <div class="modal-body">
-                    <form action='none' method='post'
-                        enctype="multipart/form-data">
-                        <table class='detailinfo'>
-                            <thead>
-					            <tr>
-					                <th>상호명</th>
-					                <th>지역</th>
-					                <th>공연시간</th>
-					                <th>신청인원</th>
-					                <th>진행상태</th>
-					                <th>작성일</th>
-					                <th>상세보기</th>
-					            </tr>
-					        </thead>
-					        <tbody>
-					            
-					                <tr>
-					                    <td>${detailschedule.name}</td>
-					                    <td>${perlist.nsdt}~${perlist.nedt}</td>
-					                    <td>${perlist.cnt}명</td>
-					                    <td>${perlist.cdt}</td>
-					                </tr>
-					        </tbody>
-                        </table>
-                    </form>
+                <div class="ct container">
+    <div class="eb row">
+        <div class="span5">
+            <div class="artist-title col-md-10 ">
+                <a href="">Chris Brown</a><br />
+                <span>개인스캐줄 상세조회</span>
+            </div>
+
+            <div class="mimg center-block artist-collage col-md-14">
+
+                <div class="center-block" id="emg1">
+                    <img src="http://i.ytimg.com/i/MXDyVR2tclKWhbqNforSyA/mq1.jpg" alt="artist-image" width="150" height="150" class="center-block" />
                 </div>
+
+                <div class="center-block emg " id="emg2">
+                    <img src="http://i.ytimg.com/i/MXDyVR2tclKWhbqNforSyA/mq1.jpg" alt="artist-image" width="150" height="150" class="center-block" />
+                </div>
+
+            </div>
+            <div class="listing-tab col-md-12">
+
+
+                <!-- Tab panes -->
+                <div class="container2">
+
+                    <!---Form starting---->
+                    <div class="">
+                        <!--- For ShopName---->
+                        <div class="box col-sm-12">
+                            <div class="eb row">
+                                <div class="col-xs-5">
+                                    <label class="shopname">장소명 :</label>
+                                </div>
+                                <div class="reqshopname">
+                                </div>
+                            </div>
+                        </div>
+                        <!--- For Genre---->
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <label class="genre">희망장르/퍼포먼스 :</label>
+                                </div>
+                                <div class="reqgenre">
+                                </div>
+                            </div>
+                        </div>
+                        <!-----For Tel---->
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-xs-5">
+                                    <label class="tel">연락처 :</label></div>
+                                <div class="reqtel">
+                                </div>
+                            </div>
+                        </div>
+                        <!-----For Address---->
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-xs-5">
+                                    <label class="addr">상세주소 :</label></div>
+                                <div class="reqaddr">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-----For etc---->
+                        <div class="text col-sm-12">
+                            <div class="row">
+                                <div class="text2 col-xs-3">
+                                    <label class="etc" id="hect">메세지</label></div>
+                                <div class="reqetc">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
@@ -241,8 +344,105 @@
 
         </div>
     </div>
+    </div>
 
-    <!--   -->
+    <!-- 개인스케줄모달  -->
+    <div id="detailperModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- 모달 내부 설정 -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">개인스케줄 올리기</h4>
+                </div>
+                <div class="ct container">
+    <div class="eb row">
+        <div class="span5">
+            <div class="artist-title col-md-10 ">
+                <a href="">Chris Brown</a><br />
+                <span>개인스캐줄 상세조회</span>
+            </div>
+
+            <div class="cc center-block artist-collage col-md-8">
+
+                <div class="center-block" id="emg1">
+                    <img src="http://i.ytimg.com/i/MXDyVR2tclKWhbqNforSyA/mq1.jpg" alt="artist-image" width="150" height="150" class="center-block" />
+                </div>
+
+              
+
+            </div>
+            <div class="listing-tab col-md-12">
+
+
+                <!-- Tab panes -->
+                <div class="container2">
+
+                    <!---Form starting---->
+                    <div class="">
+                        <!--- For ShopName---->
+                        <div class="box col-sm-12">
+                            <div class="eb row">
+                                <div class="col-xs-5">
+                                    <label class="shopname">장소명 :</label>
+                                </div>
+                                <div class="pershopname">
+                                </div>
+                            </div>
+                        </div>
+                        <!--- For Genre---->
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-xs-5">
+                                    <label class="genre">희망장르/퍼포먼스 :</label>
+                                </div>
+                                <div class="pergenre">
+                                </div>
+                            </div>
+                        </div>
+                        <!-----For Tel---->
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-xs-5">
+                                    <label class="tel">연락처 :</label></div>
+                                <div class="pertel">
+                                </div>
+                            </div>
+                        </div>
+                        <!-----For Address---->
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-xs-5">
+                                    <label class="addr">상세주소 :</label></div>
+                                <div class="peraddr">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-----For etc---->
+                        <div class="text col-sm-12">
+                            <div class="row">
+                                <div class="text2 col-xs-3">
+                                    <label class="etc" id="hect">메세지</label></div>
+                                <div class="peretc">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
     
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
@@ -425,12 +625,36 @@ $('.flagdata button').click(function(){
                                //다시 POST방식으로 하게됬는데 파라미터를 넘겨줄 값이 없어서 다시 GET으로 바꾸면서 주석 
         //contentType : "application/x-www-form-urlencoded; charset=utf-8",  // 기본값이라고 하니까 건들이지 않았고 
         success : function(data) {
-                $(".detailinfo tbody ").empty();
-                
+	        	$(".reqname").empty();
+	            $(".reqgenre").empty();
+	            $(".reqtel").empty();
+	            $(".reqaddr").empty();
+	            $(".reqetc").empty();
+	            $(".pername").empty();
+                $(".pergenre").empty();
+                $(".pertel").empty();
+                $(".peraddr").empty();
+                $(".peretc").empty();
+	            
 	        if(data ==false){
-	            $(".detailinfo tbody ").append('해당일의 스케줄이 존재하지않습니다.');
+	        	cosole.log(data.addr)
+	        	
 	        }else{
-	        	$(".detailinfo tbody ").append('<tr><td>'+data.shopname+'</td></tr>');
+	        	if(data.supporter==null){
+	        		$(".pername").append('<p>'+data.shopname+'</p>');
+                    $(".pergenre").append('<p>'+'장르를만들자'+'</p>');
+                    $(".pertel").append('<p>'+data.nsdt+'~'+data.nedt+'</p>');
+                    $(".peraddr").append('<p>'+data.addr+'</p>');
+                    $(".peretc").append('<p>'+data.etc+'</p>');
+	        		
+	        	}else{
+	        		$(".reqname").append('<p>'+data.shopname+'</p>');
+	        		$(".reqgenre").append('<p>'+data.supporter.sgnere+'</p>');
+	        		$(".reqtel").append('<p>'+data.supporter.tel+'</p>');
+	        		$(".reqaddr").append('<p>'+data.supporter.baseaddr+'</p>');
+	        		$(".reqetc").append('<p>'+data.supporter.etc+'</p>');
+	        		                           
+	        	}
 	               
 	        }
 
@@ -484,7 +708,7 @@ $('.flagsearch button').click(function(){
 	                        '<td>'+'진행중'+'</td>'+
 	                        '<td>'+item.ncdt+'</td>'+
 	                        "<td><button data-toggle='modal' data-target='#detailModal' "+ 
-	                        'value=a'+item.no+"'>"+'상세보기</button></td>'+
+	                        'value=a'+item.sno+"'>"+'상세보기</button></td>'+
 	                        '</tr>');
             	}else if(item.flag==2){
             		var naddr=item.addr.substring(item.addr.indexOf(" ")+1,item.addr.length);
@@ -500,7 +724,7 @@ $('.flagsearch button').click(function(){
                             '<td>'+'완료'+'</td>'+
                             '<td>'+item.ncdt+'</td>'+
                             "<td><button data-toggle='modal' data-target='#detailModal' "+ 
-                            'value=a'+item.no+"'>"+'상세보기</button></td>'+
+                            'value=a'+item.sno+"'>"+'상세보기</button></td>'+
                             '</tr>');
             	}else{
             		var naddr=item.addr.substring(item.addr.indexOf(" ")+1,item.addr.length);
@@ -517,7 +741,7 @@ $('.flagsearch button').click(function(){
                             '<td>'+'개인스케줄'+'</td>'+
                             '<td>'+item.ncdt+'</td>'+
                             "<td><button data-toggle='modal' data-target='#detailModal' "+ 
-                            'value=b'+item.no+"'>"+'상세보기</button></td>'+
+                            'value=b'+item.sno+"'>"+'상세보기</button></td>'+
                             '</tr>');
             	}
             });
