@@ -6,7 +6,7 @@
 <mapper namespace="indiesker.java110.ms.dao.ScheduleDao">
 
     <resultMap type="Schedule" id="perscheduleMap">
-        <id column="psno"  property="no"/>
+        <id column="psno"  property="sno"/>
         <result column="shopname"  property="shopname"/>
         <result column="addr"    property="addr"/>
         <result column="sdt"    property="sdt"/>
@@ -18,7 +18,7 @@
     </resultMap>
     
     <resultMap type="Schedule" id="buskerscheduleMap">
-        <id column="brno"  property="no"/>
+        <id column="brno"  property="sno"/>
         <result column="name"  property="shopname"/>
         <result column="addr"    property="addr"/>
         <result column="sdt"    property="sdt"/>
