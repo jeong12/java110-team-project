@@ -4,37 +4,50 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="indiesker.java110.ms.dao.FeedPhotoDao">
-	<!-- <resultMap type="FeedPhoto" id="feedPhotoMap2"> <id column="bno" property="no"/> 
-		<result column="name" property="teamName"/> <result column="genre" property="genre"/> 
-		<result column="city" property="city"/> <result column="cont" property="content"/> 
-		<result column="lcnt" property="likecount"/> <collection property="feedphotoFile" 
-		ofType="FeedPhotoFile"> <id column="fpno" property="no"/> <result column="phot" 
-		property="filename"/> <result column="pbno" property="pbno"/> </collection> 
-		</resultMap> -->
+
 	<resultMap type="FeedPhoto" id="feedPhotoMap">
+		<id column="pbno" property="pno" />
+		<result column="cont" property="cont" />
+		<result column="lcnt" property="lcnt" />
+		<result column="cdt" property="cdt" />
 		<collection property="feedphotoFiles"
-			javaType="List" ofType="FeedPhotoFile">
-			<result column="phot" property="filename"/>
-	    </collection>
-	    
+			ofType="feedphotoFile">
+			<id column="fpno" property="fpno" />
+			<result column="phot" property="filename" />
+		</collection>
+	</resultMap>
+
+	<resultMap type="FeedPhoto" id="feedPhotoMap2">
+		<id column="pbno" property="pno" />
+		<result column="cont" property="cont" />
+		<result column="lcnt" property="lcnt" />
+		<result column="cdt" property="cdt" />
+		<result column="phot" property="firphot" />
 	</resultMap>
 
 	<!-- 최신사진 조회(개인피드) -->
-	<select id="findRecentPhot" resultMap="feedPhotoMap"
-		parameterType="int">
-		SELECT fp.phot
+	<select id="findRecentPhot" resultMap="feedPhotoMap2"
+		parameterType="map">
+		SELECT p.pbno, fp.phot
 		FROM busk b, phot p,(SELECT *
 		FROM
 		feed_phot
 		GROUP BY pbno ) as fp
 		WHERE b.bno = p.bno
 		AND p.pbno = fp.pbno
-		AND b.bno=#{value}
+		AND b.bno=#{no}
 		ORDER BY p.cdt DESC
-
-<!-- 		limit #{rowNo}, #{size} -->
+		limit #{rowNo}, #{size}
 	</select>
 
+    <!-- 사진상세보기(모달) -->
+	<select id="findByImage" resultMap=>
+		SELECT P.pbno, FP.phot, B.phot,B.name,B.genre, B.city, P.cont,P.lcnt
+		FROM phot P,busk B,feed_phot FP
+		WHERE P.bno=B.bno
+		AND P.pbno=FP.pbno
+		AND P.pbno=14
+	</select>
 
 </mapper>
 

@@ -15,6 +15,9 @@
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
 <style>
+body{
+    width:100%;
+}
 #titl {
 	margin: 10px;
 	padding: 10px;
@@ -30,12 +33,18 @@ h2 {
 	margin-top: -50px;
 	margin-left: 70px;
 }
-
+#pho{
+    padding: 10px;
+}
 #container {
-	width: 1000px;
-	height: 1500px;
+	width: 60%;
+	height: 1300px;;
 	border: 1px solid black;
 	margin: 50px 20%;
+}
+#content{
+    padding: 5px;
+    border-top: 1px solid black;
 }
 
 #teamphoto, #schedule {
@@ -49,7 +58,7 @@ h2 {
 #teamphot {
 	height: 300px;
 	margin: 20px;
-}
+}   
 
 #intro {
 	border: 1px solid black;
@@ -57,60 +66,54 @@ h2 {
 	width: 90%
 }
 
-#schedule, #phoavi, #pho, #avi {
+#schedule, #phoavi, #avi {
 	border: 1px solid black;
 }
 
 #phoavi {
-	float: right
+    width: 60%;
+	float: right;
+	padding: 5px;
 }
 
 #schedule {
-	width: 40%
+	width: 35%
 }
 
-#phoavi {
-	width: 55%
-}
 
 .video {
 	height: 0;
 	position: relative;
-	padding-bottom: 56.25%;
-	/* Если видео 16/9, то 9/16*100 = 56.25%. Также и с 4/3 - 3/4*100 = 75% */
+	padding-bottom: 60%;
 }
 
 .video iframe {
-	position: absolute;
+    position: absolute;
 	left: 0;
 	top: 0;
 	width: 100%;
 	height: 100%;
 }
 
+img {
+    width: 100%;
+    height: 100%;
+}
+li{
+    width: 33%;
+    height: 180px;
+    padding:5px;
+}
 .details {
 	margin: 20px;
 }
 
-.box {
-	float: left;
-	position: relative;
-	width: 33%;
-	padding-bottom: 33%;
+.list-unstyled{
+ width:90%;
+ margin:5px;
+ margin-left:30px;
 }
 
-.boxInner img {
-	width: 100%;
-}
-
-.boxInner {
-	position: absolute;
-	left: 10px;
-	right: 10px;
-	top: 10px;
-	bottom: 10px;
-	overflow: hidden;
-}
 </style>
 
 <body>
@@ -173,22 +176,48 @@ h2 {
 						</div>
 					</c:forEach>
 				</div>
-				<div id="pho">
-				<c:forEach items="${recentplist}" var="p">
-					<div class="box">
-						<div class="boxInner">
-                            ${p.filename}
-<%-- 							<img
-								src="${p.filename}" /> --%>
-						</div>
-					</div>
-					   </c:forEach>
-					
+				<div id=photo>
+				<ul class="list-unstyled row">
+				<c:forEach items="${recentplist}" var="t">
+				    <li value="${t.pno }" >
+                        <img src="${t.firphot}" />
+                    </li>
+				</c:forEach>
+				</ul>
 				</div>
+
 			</div>
 		</div>
 	</div>
 
+<script>
+$(".list-unstyled li").click(function(){
+    
+    var n = $(this).val();
+    console.log(n);
+    
+    $.ajax({ 
+        type : "POST", //보내는 타입을 Post방식으로 할지,  GET방식으로 할지 결정
+        url : "clikeImage", // /내 프로젝트명/XML파일의namespace/내가불러올XML의Query이름.do
+        //header :'Content-Type: application/json',
+        dataType: 'json',
+        data: {no:n}, //파라미터 넘겨줄 부분? : 이게 할말이 많은데 원래 GET방식으로 하라했다가 
+                               //다시 POST방식으로 하게됬는데 파라미터를 넘겨줄 값이 없어서 다시 GET으로 바꾸면서 주석 
+        //contentType : "application/x-www-form-urlencoded; charset=utf-8",  // 기본값이라고 하니까 건들이지 않았고 
+        success : function(data) {
+            
+            /* .append로 모달에 보내라 ~~~ */
+        }
+        ,
+        error : function(request, status, error) {
+            alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+        }
+    });
+    
+    
+    
+})
+</script>
 </body>
 </html>
 
