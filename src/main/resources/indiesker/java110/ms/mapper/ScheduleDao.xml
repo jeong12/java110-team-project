@@ -32,6 +32,7 @@
     </resultMap>
     
     <resultMap type="Schedule" id="reqStageScheduleMap">
+        <id column="brno" property="sno"/>
         <result column="name"  property="shopname"/>
         <result column="addr"    property="addr"/>
         <result column="sdt"    property="sdt"/>
@@ -41,9 +42,17 @@
         <result column="cdt"    property="cdt"/>
         <result column="x"    property="x"/>
         <result column="y"    property="y"/>
-        <result column="genre"     property="genre"/>
+        <association property="supporter" javaType="supporter">
+            <id column="sno" property="no"/>
+            <result column="bas_addr"    property="baseaddr"/>
+            <result column="det_addr"    property="detailaddr"/>
+            <result column="genre"    property="sgnere"/>
+            <result column="capa"    property="capa"/>
+            <result column="tel"    property="tel"/>
+            <result column="etc"    property="message"/>    
+        </association>
+        
     </resultMap>
-    
     
 
     <select id="findperschedule" resultMap="perscheduleMap" parameterType="map">
@@ -110,7 +119,7 @@
     SELECT 
            BR.brno,
            S.name as name,
-           S.bas_addr as addr,
+           S.bas_addr as baseaddr,
            MIN(SC.sdt) as sdt,
            MAX(SC.edt) as edt,
            BR.cnt,
@@ -158,14 +167,24 @@
    AND PS.psno=#{value}
  </select>
  
- <select id="findbybrno" resultMap="buskerscheduleMap" parameterType="int">
- SELECT BS.brno, S.name, S.x,S.y, S.genre, S.tel, S.det_addr,S.etc, MAX(SC.edt) as edt ,MIN(SC.sdt)as sdt
-  FROM busk_req BR, busk_stag BS, stag_sche SC, sup S
- WHERE BR.brno=BS.brno
-   AND BS.ssno=SC.ssno
-   AND SC.sno=S.sno
-   AND BS.brno=#{value}
-  GROUP By BS.brno
+ <select id="findbybrno" resultMap="reqStageScheduleMap" parameterType="int">
+     SELECT BS.brno,
+            S.name,
+            S.x,
+            S.y,
+            S.genre, 
+            S.tel, 
+            S.bas_addr, 
+            S.det_addr,
+            S.etc, 
+            MAX(SC.edt) as edt ,
+            MIN(SC.sdt)as sdt
+      FROM busk_req BR, busk_stag BS, stag_sche SC, sup S
+     WHERE BR.brno=BS.brno
+       AND BS.ssno=SC.ssno
+       AND SC.sno=S.sno
+       AND BS.brno=#{value}
+      GROUP By BS.brno
   </select>
   
  <!-- 무대제공자 스케줄조회: 무대신청,완료된 목록을 보여주는 쿼리 -->
@@ -173,6 +192,23 @@
 select b.name, b.genre, ss.sdt, ss.edt, br.cnt, bs.flag, br.cdt
 from busk_stag as bs, stag_sche as ss, busk as b, busk_req as br
 where bs.ssno = ss.ssno and bs.brno=br.brno and br.bno=b.bno and ss.sno=2
+order by ss.sdt;
+</select>
+
+ <!-- 무대제공자 스케줄조회: 무대신청,완료된 목록을 보여주는 쿼리(플래그로) -->
+ <select id="findSuggestsbyflag" parameterType="map" resultMap="reqStageScheduleMap">
+select b.name, b.genre, ss.sdt, ss.edt, br.cnt, bs.flag, br.cdt
+from busk_stag as bs, stag_sche as ss, busk as b, busk_req as br
+where bs.ssno = ss.ssno and bs.brno=br.brno and br.bno=b.bno and ss.sno=2
+and flag=#{flag}
+order by ss.sdt
+</select>
+
+<!-- 무대제공자 스케쥴조회: 해당 날짜에 사용불가능한 목록을 뽑아주는 쿼리 -->
+<select id="findunableSchedule" parameterType="map" resultMap="reqStageScheduleMap">
+SELECT sdt, edt, sno
+from stag_sche
+where sno=#{no} and substring_index(sdt,' ',1) = #{date};
 </select>
 
 </mapper>

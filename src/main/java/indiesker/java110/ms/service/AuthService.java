@@ -1,5 +1,7 @@
 package indiesker.java110.ms.service;
 
+import java.util.Map;
+
 import indiesker.java110.ms.domain.Member;
 
 public interface AuthService {
@@ -9,7 +11,7 @@ public interface AuthService {
   
   //비밀번호 찾기
   String checkEmail(String id);
-  void update_pw(String email);
+  void update_pw(Map<String, String> update_pw_map);
   
 //  Member update_pw(Member id);
 }

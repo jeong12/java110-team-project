@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import indiesker.java110.ms.domain.Schedule;
+import indiesker.java110.ms.domain.Supporter;
 import indiesker.java110.ms.service.ScheduleService;
 
 @Controller
@@ -57,8 +58,8 @@ public class BuskerPerScheduleController {
       pageSize = 3;
     
     pageSize=9;
-    List<Schedule> list = scheduleService.mybslist(pageNo, pageSize);
-    List<Schedule> plist = scheduleService.myperlist(pageNo, pageSize);
+    List<Schedule> list = scheduleService.mybslist(pageNo, pageSize); // 요청건
+    List<Schedule> plist = scheduleService.myperlist(pageNo, pageSize); // 개인스케줄
 
 
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -111,23 +112,19 @@ public class BuskerPerScheduleController {
   @ResponseBody
   @RequestMapping(value="clikeFlag")
   public List<Schedule> getFlagSchedule(
-      @RequestParam(value="flag") String flag,@RequestParam(defaultValue="1")int pageNo, 
+      /*@RequestParam(value="flag")*/ String flag,@RequestParam(defaultValue="1")int pageNo, 
       @RequestParam(defaultValue="9")int pageSize,  Model model) {
-    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-
-    System.out.println(flag);
     
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     if(flag.equals("1")||flag.equals("2")) {
       System.out.println(flag+"플래그 넘어감");
       List<Schedule> flist = scheduleService.findbyflag(flag,pageNo,pageSize);
-
       for (Schedule ps : flist) {
         ps.setNsdt(format.format(ps.getSdt()));
         ps.setNedt(format.format(ps.getEdt()));
         ps.setNcdt(format.format(ps.getCdt()));
       }
-        
       return flist;
       
       
@@ -139,16 +136,43 @@ public class BuskerPerScheduleController {
         ps.setNedt(format.format(ps.getEdt()));
         ps.setNcdt(format.format(ps.getCdt()));
       }
-      
-      
       return plist;
     }
     
     
 
   }
+  
+  
+  @ResponseBody
+  @RequestMapping(value="clikedetail")
+  public Schedule detailSchedule(String fakeflag,  Model model) {
+    System.out.println("fakeflag : "+fakeflag);
+    
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    String flag=fakeflag.substring(0,1);
+    int no=Integer.parseInt(fakeflag.substring(1, 2));  
+    Schedule detailschedule= null;
+    System.out.println("flag : "+flag);
+    System.out.println("no : "+no);
+    
+    if(flag.equals("a")) {
+      detailschedule= scheduleService.myreqdetail(no);
+    }else {
+      detailschedule= scheduleService.myperdetail(no);
+    }
+    
+    System.out.println(detailschedule.getAddr());
+    /*detailschedule.setNsdt(format.format(detailschedule.getSdt()));
+    detailschedule.setNedt(format.format(detailschedule.getEdt()));
+    detailschedule.setNcdt(format.format(detailschedule.getCdt()));*/
+    Supporter supporterinfo= detailschedule.getSupporter();
+    System.out.println(supporterinfo.getBaseaddr());
+    
+    System.out.println(detailschedule.getShopname());
+    return detailschedule;
 
-
+  }
 
 
 }

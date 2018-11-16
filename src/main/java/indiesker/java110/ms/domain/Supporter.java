@@ -2,7 +2,6 @@ package indiesker.java110.ms.domain;
 
 public class Supporter extends Member {
   private static final long serialVersionUID = 1L;
-  
   protected String name;
   protected String baseaddr;
   protected String postno;
