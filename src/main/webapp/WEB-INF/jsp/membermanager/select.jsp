@@ -110,49 +110,49 @@ console.log(data2);
 console.log(flag);
 console.log(text);
 var values={
-		  "cdt1":data1,
-		  "cdt2":data2,
-		  "flag":flag,
-		  "text":text
-		  }
+          "cdt1":data1,
+          "cdt2":data2,
+          "flag":flag,
+          "text":text
+          }
 
 $.ajax({
-	type : "POST",
-	url : "dateselect",
-	dataType: 'json',
-	data : values,
-	success : function(data){
-			alert("받아와찌롱");
-			//console.log(data)
-		 $("#testappend").empty();
-		 
-		 $.each(data,function(index,item){
-			console.log('--------------')
-			console.log(item.id);
-			console.log(item.nik);
-			console.log(item.email);
-			if(item.memo==null){
-				$("#testappend").append('<tr><td>'+item.id+'</td>'
-				+'<td>'+item.nik+'</td>'
-				+'<td>'+item.email+'</td>'
-				+'<td>'+item.flag+'</td>'
-				+'<td>'+item.ncdt+'</td>'
-				+'<td>'+" "+'</td></tr>');
-			}else{
-				$("#testappend").append('<tr><td>'+item.id+'</td>'
-			            +'<td>'+item.nik+'</td>'
-			            +'<td>'+item.email+'</td>'
-			            +'<td>'+item.flag+'</td>'
-			            +'<td>'+item.ncdt+'</td>'
-			            +'<td>'+item.memo+'</td></tr>');
-				
-			}
+    type : "POST",
+    url : "dateselect",
+    dataType: 'json',
+    data : values,
+    success : function(data){
+            alert("받아와찌롱");
+            //console.log(data)
+         $("#testappend").empty();
+         
+         $.each(data,function(index,item){
+            console.log('--------------')
+            console.log(item.id);
+            console.log(item.nik);
+            console.log(item.email);
+            if(item.memo==null){
+                $("#testappend").append('<tr><td>'+item.id+'</td>'
+                +'<td>'+item.nik+'</td>'
+                +'<td>'+item.email+'</td>'
+                +'<td>'+item.flag+'</td>'
+                +'<td>'+item.ncdt+'</td>'
+                +'<td>'+" "+'</td></tr>');
+            }else{
+                $("#testappend").append('<tr><td>'+item.id+'</td>'
+                        +'<td>'+item.nik+'</td>'
+                        +'<td>'+item.email+'</td>'
+                        +'<td>'+item.flag+'</td>'
+                        +'<td>'+item.ncdt+'</td>'
+                        +'<td>'+item.memo+'</td></tr>');
+                
+            }
         }); 
-	},
-	error : function(request, status, error) {
+    },
+    error : function(request, status, error) {
         alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
     }
-	
+    
 });
 }
 </script>
