@@ -40,13 +40,13 @@
 
 	<div id='calendar'></div>
 	<div id='selectday'>
-		<table id="insertDate">
+		<table class="insertDate">
 			<thead>
 				<tr><td colspan="4" id='showDate'><h2></h2></td></tr>
 				<tr>
 					<td id="showtype"><h4></h4></td>
 					<td><button onclick="add()">등록</button></td>
-					<td><button onclick="delete()">삭제</button></td>
+					<td><button onclick="remove()">삭제</button></td>
 				</tr>
 			</thead>
 			<tbody>

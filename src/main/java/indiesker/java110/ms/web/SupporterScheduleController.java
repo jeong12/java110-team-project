@@ -91,7 +91,7 @@ public class SupporterScheduleController {
     int no = 2;
     
     List<Schedule> slist = scheduleService.findunableSchedule(date, no);
-    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    SimpleDateFormat format = new SimpleDateFormat("HH:mm");
     for (Schedule ps : slist) {
       ps.setNsdt(format.format(ps.getSdt()));
       ps.setNedt(format.format(ps.getEdt()));

@@ -6,7 +6,6 @@ $(function() {
   // 캘린더 출력해주는 코드
   $('#calendar').fullCalendar({      
       dayClick: function(date, jsEvent, view, resourceObj) {
-            alert('Date: ' + date.format());
             if(_prevObj) {
                 _prevObj.css('background-color', 'white');
                 $(this).css('background-color', 'gray');
@@ -15,6 +14,8 @@ $(function() {
             }
               _prevObj = $(this);
             $("#selectday h2").html(date.format());
+            $('#showtype h4').empty();
+            $('.insertDate tbody').empty();
           }  
   })
 });
@@ -92,23 +93,22 @@ function add(){
        alert("날짜를 먼저 선택해주세요");
        return;
    }
+   $('#showtype h4').empty();
    $('#showtype h4').append('무대등록하기');
    
    $.ajax({ 
-       type : "GET", 
+       type : "POST", 
        url : "showDate", 
        dataType: 'json',
        data : {"date" : td},
        success : function(data){
            $('.insertDate tbody').empty();
-           if(data == null){
-               alert("if");
+           if(data.length == 0){
                $(".insertDate tbody").append(
                '<tr>'+
                '<td>'+'all'+'</td>'+
                '</tr>');      
            }else{
-               alert("else");
                $.each(data,function(index,item){
                $(".insertDate tbody").append(
                  '<tr>'+
@@ -123,3 +123,92 @@ function add(){
 });
 
    }
+
+function remove(){
+    var td = $('#showDate').text();
+   if(td==null || td==''){
+       alert("날짜를 먼저 선택해주세요");
+       return;
+   }
+   $('#showtype h4').empty();
+   $('#showtype h4').append('무대 삭제하기');
+   
+   $.ajax({ 
+       type : "POST", 
+       url : "showDate", 
+       dataType: 'json',
+       data : {"date" : td},
+       success : function(data){
+           $('.insertDate tbody').empty();
+           if(data.length == 0){
+               $(".insertDate tbody").append(
+               '<tr>'+
+               '<td>'+'해당 일자에 등록된 무대 일정이 없습니다.'+'</td>'+
+               '</tr>');      
+           }else{
+               $.each(data,function(index,item){
+               $(".insertDate tbody").append(
+                 '<tr>'+
+                 '<td>'+'<input type="checkbox" name="stagedate" value="'+item.nsdt+'">'+item.nsdt+'~'+item.nedt+'</td>'+
+                 '</tr>');
+               });
+               $(".insertDate tbody").append(
+            	'<tr>'+
+            	'<td>' + '<button onclick="removeDate()">삭제하기</button>'+'</td>'+
+            	'</tr>'
+               )
+           }
+       },
+   error : function(request, status, error) {
+       alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+   }
+});
+
+   }
+
+
+function removeDate(){
+	var td = $('#showDate').text();
+    var chkbox = document.getElementsByName("stagedate");
+    var chkCnt=0;
+    for(var i=0;i<chkbox.length; i++){
+        if(chkbox[i].checked){
+            chkCnt++;
+        }
+    }
+    if(chkCnt == 0){
+    	alert("삭제하실 일정을 체크해주세요");
+    }
+    
+    
+    $.ajax({ 
+        type : "POST", 
+        url : "showDate", 
+        dataType: 'json',
+        data : {"date" : td},
+        success : function(data){
+            $('.insertDate tbody').empty();
+            if(data.length == 0){
+                $(".insertDate tbody").append(
+                '<tr>'+
+                '<td>'+'all'+'</td>'+
+                '</tr>');      
+            }else{
+                $.each(data,function(index,item){
+                $(".insertDate tbody").append(
+                  '<tr>'+
+                  '<td>'+item.nsdt+'~'+item.nedt+'</td>'+
+                  '</tr>');
+                })
+            }
+        },
+    error : function(request, status, error) {
+        alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+    }
+ });
+    
+    
+    
+    
+    
+}
