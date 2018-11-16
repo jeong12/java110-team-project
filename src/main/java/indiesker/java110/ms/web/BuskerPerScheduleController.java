@@ -147,29 +147,22 @@ public class BuskerPerScheduleController {
   @ResponseBody
   @RequestMapping(value="clikedetail")
   public Schedule detailSchedule(String fakeflag,  Model model) {
-    System.out.println("fakeflag : "+fakeflag);
-    
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     String flag=fakeflag.substring(0,1);
     int no=Integer.parseInt(fakeflag.substring(1, 2));  
     Schedule detailschedule= null;
-    System.out.println("flag : "+flag);
-    System.out.println("no : "+no);
     
     if(flag.equals("a")) {
       detailschedule= scheduleService.myreqdetail(no);
+      Supporter s= detailschedule.getSupporter();
+      System.out.println(s.getBaseaddr());
+      System.out.println(s.getSupportgenre());
     }else {
       detailschedule= scheduleService.myperdetail(no);
     }
-    
-    System.out.println(detailschedule.getAddr());
     /*detailschedule.setNsdt(format.format(detailschedule.getSdt()));
     detailschedule.setNedt(format.format(detailschedule.getEdt()));
     detailschedule.setNcdt(format.format(detailschedule.getCdt()));*/
-    Supporter supporterinfo= detailschedule.getSupporter();
-    System.out.println(supporterinfo.getBaseaddr());
-    
-    System.out.println(detailschedule.getShopname());
     return detailschedule;
 
   }
