@@ -33,6 +33,21 @@ public class SupporterServiceImpl implements SupporterService {
     public List<Integer> checkSupporter(int no) {
       return supporterDao.findBySupporter(no);
     }
+
+    @Override
+    public void modiSup(Supporter supporter) {
+      supporterDao.updateSup(supporter);
+    }
+
+    @Override
+    public void modiSupPho(StagePhoto stagephoto) {
+      supporterDao.updateFile(stagephoto);
+    }
+
+    @Override
+    public int[] getSpno(int no) {
+      return supporterDao.findBySpno(no);
+    }
 }
 
 

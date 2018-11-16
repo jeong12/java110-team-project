@@ -10,6 +10,12 @@
 		<result column="name" property="name" />
 		<result column="email" property="email" />
 		<result column="name" property="teamname" />
+		<result column="genre" property="teamgenre" />
+		<result column="phot" property="teamphoto" />
+		<result column="city" property="city" />
+		<result column="tel" property="tel" />
+		<result column="inst" property="instrument" />
+		<result column="intro" property="teamInfo" />
 	</resultMap>
 
 	<resultMap type="Busker" id="buskerFeedMap"> 
@@ -57,6 +63,13 @@
       from memb m INNER JOIN busk b 
      where mno=#{no} and mno=bno and per in('Y','y')
      </select>
+     
+    <update id="updateBusk" parameterType="busker">
+    UPDATE busk
+       SET name = #{teamname}, genre = #{teamgenre}, phot = #{teamPhoto}, city = #{city},
+           tel = #{tel}, inst = #{instrument}, intro = #{teamInfo}
+     WHERE bno = #{no}
+    </update>
 </mapper>
 
 

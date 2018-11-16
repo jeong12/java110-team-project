@@ -9,4 +9,7 @@ public interface SupporterService {
   int add(Supporter supporter);
   int insert(StagePhoto stagephoto);
   List<Integer> checkSupporter(int no);
+  void modiSup(Supporter supporter);
+  void modiSupPho(StagePhoto stagephoto);
+  int[] getSpno(int no);
 }

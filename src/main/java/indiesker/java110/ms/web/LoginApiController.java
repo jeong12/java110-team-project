@@ -65,14 +65,14 @@ public class LoginApiController {
       
       if(bno.size() != 0) {
         System.out.println("버스커"+bno.get(0));
-        return "redirect:../promotion/list";
+        return "redirect:../editprofile/busker/form";
       } 
       if(sno.size() != 0) {
-        return "redirect:../mybs/main";
+        return "redirect:../editprofile/supporter/form";
       } 
 
       // 추후에 수정해야함 일단은 기본 html로 돌리기
-      return "redirect:../editprofile/form";
+      return "redirect:../editprofile/member/form";
 
 
     } else {

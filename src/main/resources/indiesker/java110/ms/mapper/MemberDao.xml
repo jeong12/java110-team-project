@@ -54,7 +54,7 @@
     </select>
     
     <update id="updateMemb" parameterType="member">
-    UPDATE memb 
+    UPDATE busk 
        SET email = #{email}, pwd = password(#{password}), phot = #{photo},
        <foreach collection="genre" item="genre" separator="," index="index">
         genre#{index} = #{genre}

@@ -9,5 +9,8 @@ public interface SupporterDao {
   int insert(Supporter supporter);
   int insertfile(StagePhoto stagephoto);
   List<Integer> findBySupporter(int no);
+  void updateSup(Supporter supporter);
+  void updateFile(StagePhoto phot);
+  int[] findBySpno(int no);
 }
 

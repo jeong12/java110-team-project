@@ -38,6 +38,11 @@ public class BuskerServiceImpl implements BuskerService {
     return buskerDao.findByBusker(no);
   }
 
+  @Override
+  public void modiBusk(Busker busker) {
+    buskerDao.updateBusk(busker);
+  }
+
 }
 
 

@@ -27,5 +27,24 @@
       from memb m INNER JOIN sup s 
      where mno=#{no} and mno=sno and per in('Y','y')
     </select>
+    
+    <update id="updateSup" parameterType="Supporter">
+    UPDATE sup
+       SET name = #{name}, genre = #{sgnere}, capa = #{capa}, tel = #{tel},
+           bas_addr = #{baseaddr}, det_addr = #{detailaddr}, etc = #{message}, x = #{x}, y = #{y}
+     WHERE sno = #{no}
+    </update>
+    
+    <update id="updateFile" parameterType="StagePhoto">
+    UPDATE stag_phot
+       SET phot = #{photo}
+     WHERE sno = #{sno} and spno = #{spno}
+    </update>
+    
+    <select id="findBySpno" parameterType="int" resultType="int">
+        select spno
+          from stag_phot
+         where sno = #{no}
+    </select>
 </mapper>
 

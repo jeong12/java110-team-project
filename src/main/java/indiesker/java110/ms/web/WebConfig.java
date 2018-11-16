@@ -10,10 +10,6 @@ import indiesker.java110.ms.web.interceptor.ExInterceptor;
 @EnableWebMvc
 public class WebConfig implements WebMvcConfigurer{
 
-  public WebConfig() {
-    System.out.println("WebConfig() 호출됨! test...");
-  }
-
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
     registry.addInterceptor(new ExInterceptor())

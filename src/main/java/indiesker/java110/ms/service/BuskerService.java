@@ -8,4 +8,5 @@ public interface BuskerService {
     Busker get(int no);
     void add(Busker busker);
     List<Integer> checkBusker(int no);
+    void modiBusk(Busker busker);
 }
