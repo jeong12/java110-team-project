@@ -40,14 +40,14 @@
 		limit #{rowNo}, #{size}
 	</select>
 
-    <!-- 사진상세보기(모달) -->
+<!--     사진상세보기(모달)
 	<select id="findByImage" resultMap=>
 		SELECT P.pbno, FP.phot, B.phot,B.name,B.genre, B.city, P.cont,P.lcnt
 		FROM phot P,busk B,feed_phot FP
 		WHERE P.bno=B.bno
 		AND P.pbno=FP.pbno
 		AND P.pbno=14
-	</select>
+	</select> -->
 
 </mapper>
 
