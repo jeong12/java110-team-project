@@ -6,7 +6,7 @@
 <mapper namespace="indiesker.java110.ms.dao.ScheduleDao">
 
     <resultMap type="Schedule" id="perscheduleMap">
-        <id column="psno"  property="no"/>
+        <id column="psno"  property="sno"/>
         <result column="shopname"  property="shopname"/>
         <result column="addr"    property="addr"/>
         <result column="sdt"    property="sdt"/>
@@ -19,7 +19,7 @@
     </resultMap>
     
     <resultMap type="Schedule" id="buskerscheduleMap">
-        <id column="brno"  property="no"/>
+        <id column="brno"  property="sno"/>
         <result column="name"  property="shopname"/>
         <result column="addr"    property="addr"/>
         <result column="sdt"    property="sdt"/>
@@ -27,9 +27,21 @@
         <result column="cnt"    property="cnt"/>
         <result column="flag"    property="flag"/>
         <result column="cdt"    property="cdt"/>
-        <result column="x"    property="x"/>
-        <result column="y"    property="y"/>
+        <!-- <result column="x"    property="x"/>
+        <result column="y"    property="y"/> -->
         <result column="buskname"    property="buskname"/>
+        <association property="supporter" javaType="supporter">
+            <id column="sno" property="no"/>
+            <result column="name"    property="name"/>
+            <result column="bas_addr"    property="baseaddr"/>
+            <result column="det_addr"    property="detailaddr"/>
+            <result column="genre"    property="sgnere"/>
+            <result column="capa"    property="capa"/>
+            <result column="tel"    property="tel"/>
+            <result column="etc"    property="message"/>    
+            <result column="x"    property="x"/>
+            <result column="y"    property="y"/>
+        </association>
     </resultMap>
     
     <resultMap type="Schedule" id="reqStageScheduleMap">

@@ -117,7 +117,7 @@
                     <td>${perlist.cdt}</td>
                     <td><button data-toggle="modal" 
             data-target="#detailperModal" value="b${perlist.sno}">상세보기</button></td>
-                    <td><button type="button" onclick='perremove()' value="${perlist.sno}">삭제</button></td>
+                    <td><button type="button" class='perremove()' value="${perlist.sno}">삭제</button></td>
                 </tr>
             </c:forEach>
             <c:forEach items="${list}" var="list">
@@ -126,18 +126,43 @@
                     <td>${list.addr}</td>
                     <td>${list.nsdt}~${list.nedt}</td>
                     <td>${list.cnt}명</td>
-                    <td><c:choose>
-                            <c:when test="${list.flag eq '1'.charAt(0) }">
-                                                        진행중
-                        </c:when>
-                            <c:when test="${list.flag eq '2'.charAt(0) }">
-                                                        완료
-                        </c:when>
-                        </c:choose></td>
+                    <td>
+                        <c:choose>
+	                        <c:when test="${list.flag eq '1'.charAt(0) }">
+	                                                          진행중
+	                        </c:when>
+	                        <c:when test="${list.flag eq '2'.charAt(0) }">
+	                                                           완료
+	                        </c:when>
+	                        <c:otherwise>
+	                                                           개인스케줄
+	                        </c:otherwise>
+                        </c:choose>
+                    </td>
                     <td>${list.cdt}</td>
-                    <td><button data-toggle="modal" 
-            data-target="#detailreqModal" value="a${list.sno}">상세보기</button></td>
-                    <td><button type="button" onclick='reqremove()' value="${list.sno}">삭제</button></td>
+                    
+                        <c:choose>
+                            <c:when test="${list.supporter eq null }">
+                            <td>
+                                <button data-toggle="modal" data-target="#detailreqModal" 
+                                value="a${list.sno}" class='detailinfo'>상세보기</button>
+                            </td>
+                            <td>
+                                <button type="button" class='reqremove' 
+                                value="a${list.sno}">삭제</button>
+                            </td>    
+                            </c:when>
+                            <c:otherwise>
+                            <td>
+                                <button data-toggle="modal" data-target="#detailperModal"
+                                value="b${list.sno}">상세보기</button>
+                            </td>
+                            <td>
+                                <button type="button" class='perremove' 
+                                value="b${list.sno}">삭제</button>
+                            </td>    
+                            </c:otherwise>
+                        </c:choose>    
                 </tr>
             </c:forEach>
         </tbody>

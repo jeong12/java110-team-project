@@ -2,7 +2,6 @@ package indiesker.java110.ms.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import indiesker.java110.ms.domain.Schedule;
 
 public interface ScheduleService {
