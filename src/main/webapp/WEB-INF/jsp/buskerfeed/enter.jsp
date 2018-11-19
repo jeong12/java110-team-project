@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset='UTF-8'>
-<title>버스커피드가기</title>
+<title>버스커피드</title>
 <link rel='stylesheet' href='/css/common.css'>
 <link
 	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -13,6 +13,12 @@
 <script
 	src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!-- 모달 -->
+<link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
 </head>
 <style>
 body{
@@ -38,9 +44,9 @@ h2 {
 }
 #container {
 	width: 60%;
-	height: 1300px;;
 	border: 1px solid black;
 	margin: 50px 20%;
+	padding: 5px;
 }
 #content{
     padding: 5px;
@@ -101,7 +107,7 @@ img {
 }
 li{
     width: 33%;
-    height: 180px;
+    height: 150px;
     padding:5px;
 }
 .details {
@@ -119,39 +125,39 @@ li{
 <body>
 	<div id="titl">
 		<img id="logo" src="../../img/playButton.PNG" alt="플레이로고">
-		<h2>버스킹 피드가기</h2>
+		<h2>버스커피드</h2>
 	</div>
 	<div id="container">
 		<div>
 			<div class="row">
 				<div class="col-md-5 img">
 					<img
-						src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Busker_Busker_from_acrofan_-_cropped.jpg/250px-Busker_Busker_from_acrofan_-_cropped.jpg"
+						src="${busk.teamPhoto }"
 						alt="image" id="teamphot">
 				</div>
 				<div class="col-md-6 details">
 					<table>
 						<tr>
 							<th>팀명</th>
-							<td>(팀명)</td>
+							<td>${busk.teamname }</td>
 						</tr>
 						<tr>
 							<th>주요장르</th>
-							<td>(주요장르)</td>
+							<td>${busk.teamgenre }</td>
 						</tr>
 						<tr>
 							<th>주활동지역</th>
-							<td>(주활동지역)</td>
+							<td>${busk.city }</td>
 						</tr>
 						<tr>
 							<th>인원</th>
-							<td>(인원)</td>
+							<td>(인원) 어케할까연?</td>
 						</tr>
 					</table>
 					<table>
 						<tr>
 							<th>소개말</th>
-							<td id="intro">(소개말)</td>
+							<td id="intro">${busk.teamInfo }</td>
 						</tr>
 					</table>
 				</div>
@@ -161,9 +167,16 @@ li{
 		<div id="content">
 			<div id="schedule">
 				<table>
+				    <c:forEach items="${schelist}" var="sche">
+<%-- 				    <c:if test="">
+				    
+				    </c:if> --%>
 					<tr>
-						<td>스케쥴쥴 반복문</td>
+					   <td>${sche.nsdt }~${sche.nedt }</td>
+					   <td>${sche.shopname }</td>
+					   <td>${sche.addr }</td>
 					</tr>
+					</c:forEach>
 				</table>
 			</div>
 			<div id="phoavi">
@@ -175,11 +188,12 @@ li{
 							</div>
 						</div>
 					</c:forEach>
+				    <p><a href="http://www.naver.com">동영상더보기</a></p>
 				</div>
 				<div id=photo>
 				<ul class="list-unstyled row">
 				<c:forEach items="${recentplist}" var="t">
-				    <li value="${t.pno }" >
+				    <li data-toggle="modal" data-target="#findByImageModal" value="${t.pno }" >
                         <img src="${t.firphot}" />
                     </li>
 				</c:forEach>
@@ -189,9 +203,64 @@ li{
 			</div>
 		</div>
 	</div>
+	
+	
+    <!-- 모달 id -->
+    <div id="findByImageModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- 모달 내부 설정 -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">개인스케줄 올리기</h4>
+                </div>
+                <div class="modal-body">
+                    <form action='add' method='post'
+                        enctype="multipart/form-data">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>장소명</th>
+                                    <td><input type='text' name='shopname'></td>
+                                </tr>
+                                <tr>
+                                    <th>스케줄일정</th>
+                                    <td><input type="text" name='nsdt' id='datetimepicker'>~<input type="text" name='nedt' id='datetimepicker2'></td>
+                                </tr>
+                                <tr>
+                                    <th>인원</th>
+                                    <td><input type="text" name='cnt'></td>
+                                </tr>
+                                <tr>
+                                    <th>주소검색</th>
+                                    <td>
+                                       <input type="text" id="addr" name="addr" placeholder="주소">
+                                       <input type="button" onclick="search_addr()" value="주소 검색"><br>
+                                       <div id="map" style="width:400px;height:400px;margin-top:10px;display:none"></div>
+                                       <input type="text" id="x" name="x" style="display:none">
+                                       <input type="text" id="y" name="y" style="display:none">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <td><button class="btn btn-default">등록</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+	
 
 <script>
-$(".list-unstyled li").click(function(){
+/* $(".list-unstyled li").click(function(){
     
     var n = $(this).val();
     console.log(n);
@@ -216,7 +285,7 @@ $(".list-unstyled li").click(function(){
     
     
     
-})
+}) */
 </script>
 </body>
 </html>

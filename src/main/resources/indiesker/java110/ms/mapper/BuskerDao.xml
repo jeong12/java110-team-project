@@ -11,7 +11,7 @@
 		<result column="email" property="email" />
 		<result column="name" property="teamname" />
 		<result column="genre" property="teamgenre" />
-		<result column="phot" property="teamphoto" />
+		<result column="phot" property="teamPhoto" />
 		<result column="city" property="city" />
 		<result column="tel" property="tel" />
 		<result column="inst" property="instrument" />
@@ -23,6 +23,7 @@
 		<result column="genre" property="teamgenre"/>
 		<result column="city" property="city"/>
 		<result column="intro" property="teamInfo"/>
+		<result column="phot" property="teamPhoto"/>
     </resultMap>
 
 
@@ -47,7 +48,8 @@
 	   name, 
 	   genre, 
 		city, 
-		intro
+		intro,
+		phot
 	from busk 
 	where bno=#{value}
 	</select>

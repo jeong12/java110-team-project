@@ -16,4 +16,6 @@ public interface ScheduleService {
     List<Schedule> chkStageDate(int no, String date);
     List<Schedule> findSuggestsbyflag(String flag, int pageNo, int pageSize);
     List<Schedule> findunableSchedule(String date, int no);
+    List<Schedule> findFeedPerSchedule(int no);
+    List<Schedule> findFeedFixSchedule(int no);
 }

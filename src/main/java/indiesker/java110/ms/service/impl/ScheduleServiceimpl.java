@@ -13,10 +13,8 @@ public class ScheduleServiceimpl implements ScheduleService {
 
     @Autowired  ScheduleDao scheduleDao;
     
-    
     @Override
     public void addSchedule(Schedule schedule) {
-      
       scheduleDao.insertperschedule(schedule);
       
     }
@@ -103,9 +101,18 @@ public class ScheduleServiceimpl implements ScheduleService {
       params.put("date", date);
       return scheduleDao.findunableSchedule(params);
     }
+
+    //개인피드에 들어갈 개인스케줄
+    @Override
+    public List<Schedule> findFeedPerSchedule(int no) {
+      return scheduleDao.findbynoperfeedschedule(no);
+    }
     
-    
-    
+    //개인피드에 들어갈 확정스케줄
+    @Override
+    public List<Schedule> findFeedFixSchedule(int no) {
+    return scheduleDao.findbynofixfeedschedule(no);
+    }
     
 }
 

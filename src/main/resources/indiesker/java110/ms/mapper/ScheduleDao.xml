@@ -54,8 +54,29 @@
         
     </resultMap>
     
-
-    <select id="findperschedule" resultMap="perscheduleMap" parameterType="map">
+    <!-- 개인피드에 들어갈 개인스케줄 리스트 -->
+    <select id="findbynoperfeedschedule" resultMap="perscheduleMap" parameterType="int">
+       select PS.shopname, PS.addr,  PS.sdt, PS.edt
+       from per_sche PS, busk B 
+       where PS.bno = B.bno   
+          and B.bno=#{no}
+          and substr(PS.sdt,1,10)>=substr(now(),1,10)
+    </select>
+    <!-- 개인피드에 들어갈 확정스케줄 리스트 -->
+    <select id="findbynofixfeedschedule" resultMap="reqStageScheduleMap" parameterType="int">
+        SELECT S.name, S.bas_addr,S.det_addr, MIN(SS.sdt) AS sdt, MAX(SS.edt) AS edt
+        FROM busk B, busk_req BR, busk_stag BS,stag_sche SS, sup S
+		WHERE B.bno=BR.bno
+			AND BR.brno=BS.brno
+			AND BS.ssno=SS.ssno
+			AND SS.sno=S.sno
+			AND B.bno=#{no}
+			AND BS.flag=2
+			and substr(PS.sdt,1,10)>=substr(now(),1,10)
+		GROUP BY BS.brno
+    </select>
+    
+     <select id="findperschedule" resultMap="perscheduleMap" parameterType="map">
        select PS.psno, PS.shopname, PS.addr,  PS.sdt, PS.edt, PS.cnt, PS.cdt, PS.x, PS.y  
          from per_sche PS, busk B 
         where PS.bno = B.bno   

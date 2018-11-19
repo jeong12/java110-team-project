@@ -16,5 +16,6 @@ public interface ScheduleDao {
   Schedule findbybrno(int no);
   Schedule findbypsno(int no);
   List<Schedule> findSuggestsbyflag(Map<String,Object> params);
-
+  List<Schedule> findbynoperfeedschedule(int no);
+  List<Schedule> findbynofixfeedschedule(int no);
 }
