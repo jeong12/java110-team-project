@@ -166,15 +166,15 @@ function removeDate(){
     var chkbox = document.getElementsByName("stagedate");
     var chkCnt=0;
     var chks = new Array();
+    var j=0;
     for(var i=0;i<chkbox.length; i++){
         if(chkbox[i].checked){
+        	chks[j] = chkbox[i].value;
+        	j++
             chkCnt++;
-            chks[i] = chkbox[i].value;
         }
     }
-    
-    console.log(typeof chks)
-    
+        
     if(chkCnt == 0){
     	alert("삭제하실 일정을 체크해주세요");
     }
@@ -206,15 +206,14 @@ function addDate(){
     var chkCnt=0;
     var addchk = new Array();
     var j=0;
-    for(var i=0;i<24; i++){
+    for(var i=0;i<chkbox.length; i++){
         if(chkbox[i].checked){
-        		addchk[j] = chkbox[i].value;
-        		j++;
-        		chkCnt++;
+       		addchk[j] = chkbox[i].value;
+       		j++;
+       		chkCnt++;
         	}
         }
-    
-    
+        
     if(chkCnt == 0){
     	alert("등록하실 일정을 체크해주세요");
     }

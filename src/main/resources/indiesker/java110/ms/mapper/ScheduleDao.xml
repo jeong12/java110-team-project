@@ -282,9 +282,9 @@ where ssno in
 
 <!-- 무대제공자 스케쥴 삭제: 해당 데이터가 잘 삭제되었는지 확인해주는 쿼리 -->
 <select id="chkremoveStageDates" parameterType="map" resultType="int">
-select count(*) from stag_sche
-  <foreach collection="list" item="arr" separator="">
-where sno=#{no} and sdt in #{arr.sdate}
+select count(*) from stag_sche where sno=#{no} and ssno in
+  <foreach collection="nos" item="arr" separator="," open="(" close=")">
+#{arr}
   </foreach>
 </select>
 

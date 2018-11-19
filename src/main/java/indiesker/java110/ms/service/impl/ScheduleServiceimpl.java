@@ -116,8 +116,11 @@ public class ScheduleServiceimpl implements ScheduleService {
     }
     
     @Override
-    public int chkremoveStageDates(ArrayList<String> arr) {
-      return scheduleDao.chkremoveStageDates(arr);
+    public int chkremoveStageDates(ArrayList<String> arr, int no) {
+      HashMap<String, Object> params = new HashMap<>();
+      params.put("nos", arr);
+      params.put("no", no);
+      return scheduleDao.chkremoveStageDates(params);
     }
 
     @Override

@@ -19,7 +19,7 @@ public interface ScheduleDao {
   List<Schedule> findSuggestsbyflag(Map<String,Object> params);
   void removeStageDatesinbuskStag(ArrayList<String> arr);
   void removeStageDatesinStagSche(ArrayList<String> arr);
-  int chkremoveStageDates(ArrayList<String> arr);
+  int chkremoveStageDates(Map<String,Object> params);
   void insertStageDates(List<Schedule> list);
   int chkinsertDates(Map<String,Object> params);
   int buskstagdelete(int no);

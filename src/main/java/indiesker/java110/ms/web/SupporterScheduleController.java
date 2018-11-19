@@ -149,19 +149,19 @@ public class SupporterScheduleController {
   @ResponseBody
   @RequestMapping("removeDate")
   public int removeStageDate(String[] stagedate, Model model){
-
+    int no = 2;
     ArrayList<String> arr = new ArrayList<>();
 
     for(int i=0;i<stagedate.length;i++) {
       arr.add(stagedate[i]);
     }
-
+    
     scheduleService.removeStageDatesinbuskStag(arr);
     System.out.println("버스커 요청 삭제 성공");
     scheduleService.removeStageDatesinStagSche(arr);
     System.out.println("무대 일정삭제성공!");
 
-    return scheduleService.chkremoveStageDates(arr);
+    return scheduleService.chkremoveStageDates(arr, no);
   }
   
   
