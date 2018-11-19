@@ -155,7 +155,7 @@
                 ,
                 success: function(result){
                     console.log(result);
-                    location.href = "http://localhost:8080/app/editprofile/form"; 
+                    location.href = "http://localhost:8080/app/editprofile/member/form"; 
                 },
                 error: function(xhr, status, msg){
                     console.log(status);
