@@ -117,6 +117,7 @@
                     <td>${perlist.cdt}</td>
                     <td><button data-toggle="modal" 
             data-target="#detailperModal" value="b${perlist.sno}">상세보기</button></td>
+                    <td><button type="button" onclick='perremove()' value="${perlist.sno}">삭제</button></td>
                 </tr>
             </c:forEach>
             <c:forEach items="${list}" var="list">
@@ -136,11 +137,21 @@
                     <td>${list.cdt}</td>
                     <td><button data-toggle="modal" 
             data-target="#detailreqModal" value="a${list.sno}">상세보기</button></td>
+                    <td><button type="button" onclick='reqremove()' value="${list.sno}">삭제</button></td>
                 </tr>
             </c:forEach>
-
         </tbody>
     </table>
+    <script>
+    function reqremove(){
+    	location.href='reqdelete?no=$(this).val()'
+    }
+    
+    function perremove(){
+        location.href='perdelete?no=$(this).val()'
+    }
+    
+    </script>    
 
     <!-- 모달 id -->
     <div id="myModal" class="modal fade" role="dialog">
@@ -191,7 +202,6 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -246,6 +256,7 @@
 	    }
 	    .eb{width:100%;}
     </style>
+	    
     <!-- 성사된스케줄 모달  -->
     <div id="detailreqModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -254,14 +265,13 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">개인스케줄 올리기</h4>
+                    <h4 class="modal-title">요청스케줄</h4>
                 </div>
                 <div class="ct container">
     <div class="eb row">
         <div class="span5">
             <div class="artist-title col-md-10 ">
-                <a href="">Chris Brown</a><br />
-                <span>개인스캐줄 상세조회</span>
+                <span>요청스캐줄 상세조회</span>
             </div>
 
             <div class="mimg center-block artist-collage col-md-14">
@@ -269,10 +279,8 @@
                 <div class="center-block" id="emg1">
                     <img src="http://i.ytimg.com/i/MXDyVR2tclKWhbqNforSyA/mq1.jpg" alt="artist-image" width="150" height="150" class="center-block" />
                 </div>
+                <div id="map2" style="width:250px;height:250px;"></div>
 
-                <div class="center-block emg " id="emg2">
-                    <img src="http://i.ytimg.com/i/MXDyVR2tclKWhbqNforSyA/mq1.jpg" alt="artist-image" width="150" height="150" class="center-block" />
-                </div>
 
             </div>
             <div class="listing-tab col-md-12">
@@ -289,7 +297,7 @@
                                 <div class="col-xs-5">
                                     <label class="shopname">장소명 :</label>
                                 </div>
-                                <div class="reqshopname">
+                                <div class="reqname">
                                 </div>
                             </div>
                         </div>
@@ -300,6 +308,15 @@
                                     <label class="genre">희망장르/퍼포먼스 :</label>
                                 </div>
                                 <div class="reqgenre">
+                                </div>
+                            </div>
+                        </div>
+                        <!-----For 공연시간---->
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-xs-5">
+                                    <label class="time">공연시간 :</label></div>
+                                <div class="reqtime">
                                 </div>
                             </div>
                         </div>
@@ -326,7 +343,7 @@
                         <div class="text col-sm-12">
                             <div class="row">
                                 <div class="text2 col-xs-3">
-                                    <label class="etc" id="hect">메세지</label></div>
+                                    <label class="etc" id="hect">메세지 :</label></div>
                                 <div class="reqetc">
                                 </div>
                             </div>
@@ -354,21 +371,18 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">개인스케줄 올리기</h4>
+                    <h4 class="modal-title">개인스케줄</h4>
                 </div>
                 <div class="ct container">
     <div class="eb row">
         <div class="span5">
             <div class="artist-title col-md-10 ">
-                <a href="">Chris Brown</a><br />
                 <span>개인스캐줄 상세조회</span>
             </div>
 
             <div class="cc center-block artist-collage col-md-8">
 
-                <div class="center-block" id="emg1">
-                    <img src="http://i.ytimg.com/i/MXDyVR2tclKWhbqNforSyA/mq1.jpg" alt="artist-image" width="150" height="150" class="center-block" />
-                </div>
+                <div id="map3" style="width:250px;height:250px;"></div>
 
               
 
@@ -401,12 +415,12 @@
                                 </div>
                             </div>
                         </div>
-                        <!-----For Tel---->
+                        <!-----For Time---->
                         <div class="col-sm-12">
                             <div class="row">
                                 <div class="col-xs-5">
-                                    <label class="tel">연락처 :</label></div>
-                                <div class="pertel">
+                                    <label class="time">공연시간 :</label></div>
+                                <div class="pertime">
                                 </div>
                             </div>
                         </div>
@@ -419,17 +433,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-----For etc---->
-                        <div class="text col-sm-12">
-                            <div class="row">
-                                <div class="text2 col-xs-3">
-                                    <label class="etc" id="hect">메세지</label></div>
-                                <div class="peretc">
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -462,8 +465,38 @@ map: map
 
 });
 marker.setDraggable(true);
+map.relayout();
 
 
+/* 디테일 맵을 만든다 */
+var mapContainer2 = document.getElementById('map2'), // 지도를 표시할 div 
+ mapOption2 = { 
+     center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+     level: 3 // 지도의 확대 레벨
+ };
+
+var map2 = new daum.maps.Map(mapContainer2, mapOption2); // 지도를 생성합니다
+
+var marker2 = new daum.maps.Marker({
+	position: map2.getCenter()
+});
+
+marker2.setMap(map2);
+
+/* 디테일 맵을 만든다 */
+var mapContainer3 = document.getElementById('map3'), // 지도를 표시할 div 
+ mapOption3 = { 
+     center: new daum.maps.LatLng(33.450701, 136.570667), // 지도의 중심좌표
+     level: 3 // 지도의 확대 레벨
+ };
+
+var map3 = new daum.maps.Map(mapContainer3, mapOption3); // 지도를 생성합니다
+
+var marker3 = new daum.maps.Marker({
+    position: map3.getCenter()
+});
+
+marker3.setMap(map3);
 
 
 function search_addr() {
@@ -612,6 +645,7 @@ $(function() {
 
 
 
+
 $('.flagdata button').click(function(){
 	
 	var f = $(this).val();
@@ -627,42 +661,58 @@ $('.flagdata button').click(function(){
         success : function(data) {
 	        	$(".reqname").empty();
 	            $(".reqgenre").empty();
+	            $(".reqtime").empty();
 	            $(".reqtel").empty();
 	            $(".reqaddr").empty();
 	            $(".reqetc").empty();
-	            $(".pername").empty();
+	            $(".pershopname").empty();
                 $(".pergenre").empty();
-                $(".pertel").empty();
+                $(".pertime").empty();
                 $(".peraddr").empty();
                 $(".peretc").empty();
-	            
+                //$(".mapmaker").empty();
+              /*   
+                var mapContainer= null;
+                var map2 = null;
+                var markerPosition2  = null; 
+                var marker2=null; */
+	        console.log(data);
+	        
 	        if(data ==false){
 	        	cosole.log(data.addr)
 	        	
 	        }else{
 	        	if(data.supporter==null){
-	        		$(".pername").append('<p>'+data.shopname+'</p>');
+	        		$(".pershopname").append('<p>'+data.shopname+'</p>');
                     $(".pergenre").append('<p>'+'장르를만들자'+'</p>');
-                    $(".pertel").append('<p>'+data.nsdt+'~'+data.nedt+'</p>');
+                    $(".pertime").append('<p>'+data.nsdt+'~'+data.nedt+'</p>');
                     $(".peraddr").append('<p>'+data.addr+'</p>');
-                    $(".peretc").append('<p>'+data.etc+'</p>');
-	        		
+                    var LatLon = new daum.maps.LatLng(data.x, data.y);
+                    map3.setCenter(LatLon);
+                    marker3.setPosition(new daum.maps.LatLng(LatLon.getLat(),LatLon.getLng()));
 	        	}else{
-	        		$(".reqname").append('<p>'+data.shopname+'</p>');
+	        		$(".reqname").append('<p>'+data.supporter.name+'</p>');
 	        		$(".reqgenre").append('<p>'+data.supporter.sgnere+'</p>');
-	        		$(".reqtel").append('<p>'+data.supporter.tel+'</p>');
+	        		$(".reqtime").append('<p>'+data.supporter.tel+'</p>');
+	        		$(".reqtel").append('<p>'+data.nsdt+'~'+data.nedt+'</p>');
 	        		$(".reqaddr").append('<p>'+data.supporter.baseaddr+'</p>');
-	        		$(".reqetc").append('<p>'+data.supporter.etc+'</p>');
-	        		                           
+	        		$(".reqetc").append('<p>'+data.supporter.message+'</p>');
+	        		//$(".mapmaker").append("<div id='map2' style='width:350px;height:350px;'></div>");
+	        		var LatLon = new daum.maps.LatLng(data.supporter.x, data.supporter.y);
+	                map2.setCenter(LatLon);
+	                marker2.setPosition(new daum.maps.LatLng(LatLon.getLat(),LatLon.getLng()));
 	        	}
-	               
+	        	
 	        }
 
         },
         error : function(request, status, error) {
             alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
         }
+        
+        
     });
+	
 	
 	
 	
@@ -677,6 +727,7 @@ jQuery('#datetimepicker2').datetimepicker({
 $('.flagsearch button').click(function(){
 	
 	var f = $(this).val();
+	
     console.log(f);
     $.ajax({ 
         type : "POST", //보내는 타입을 Post방식으로 할지,  GET방식으로 할지 결정
@@ -751,12 +802,13 @@ $('.flagsearch button').click(function(){
         error : function(request, status, error) {
             alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
         }
+        
+        
     });
 	
 	
 	
 })
-
 
 
 </script>

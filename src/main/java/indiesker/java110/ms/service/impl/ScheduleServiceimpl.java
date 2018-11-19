@@ -14,10 +14,8 @@ public class ScheduleServiceimpl implements ScheduleService {
 
     @Autowired  ScheduleDao scheduleDao;
     
-    
     @Override
     public void addSchedule(Schedule schedule) {
-      
       scheduleDao.insertperschedule(schedule);
       
     }
@@ -77,6 +75,7 @@ public class ScheduleServiceimpl implements ScheduleService {
 
     @Override
     public Schedule myreqdetail(int no) {
+      System.out.println(no);
       return scheduleDao.findbybrno(no);
     }
     
@@ -104,7 +103,6 @@ public class ScheduleServiceimpl implements ScheduleService {
       params.put("date", date);
       return scheduleDao.findunableSchedule(params);
     }
-
 
     @Override
     public void removeStageDatesinbuskStag(ArrayList<String> arr) {
@@ -135,7 +133,29 @@ public class ScheduleServiceimpl implements ScheduleService {
       return 0;
     }*/
     
+    @Override
+    public void deleteReqSchedule(int no) {
+      scheduleDao.buskstagdelete(no);
+      scheduleDao.buskreqdelete(no);
+    }
+
+    @Override
+    public void deletePerSchedule(int no) {
+      scheduleDao.perscheduledelete(no);
+    }
+      
+    //개인피드에 들어갈 개인스케줄
+    @Override
+    public List<Schedule> findFeedPerSchedule(int no) {
+      return scheduleDao.findbynoperfeedschedule(no);
+    }
     
+    //개인피드에 들어갈 확정스케줄
+    @Override
+    public List<Schedule> findFeedFixSchedule(int no) {
+    return scheduleDao.findbynofixfeedschedule(no);
+    }
+
     
 }
 

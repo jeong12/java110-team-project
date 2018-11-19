@@ -22,4 +22,9 @@ public interface ScheduleDao {
   int chkremoveStageDates(ArrayList<String> arr);
   void insertStageDates(Map<String,Object> params);
   int chkinsertDates(Map<String,Object> params);
+  int buskstagdelete(int no);
+  int buskreqdelete(int no);
+  int perscheduledelete(int no);
+  List<Schedule> findbynoperfeedschedule(int no);
+  List<Schedule> findbynofixfeedschedule(int no);
 }
