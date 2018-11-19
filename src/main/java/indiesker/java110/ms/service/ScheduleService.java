@@ -1,6 +1,8 @@
 package indiesker.java110.ms.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import indiesker.java110.ms.domain.Schedule;
 
 public interface ScheduleService {
@@ -16,4 +18,9 @@ public interface ScheduleService {
     List<Schedule> chkStageDate(int no, String date);
     List<Schedule> findSuggestsbyflag(String flag, int pageNo, int pageSize);
     List<Schedule> findunableSchedule(String date, int no);
+    void removeStageDatesinbuskStag(ArrayList<String> arr);
+    void removeStageDatesinStagSche(ArrayList<String> arr);
+    int chkremoveStageDates(ArrayList<String> arr);
+/*    void insertStageDates(ArrayList<String> arr, String day, int no);
+    int chkinsertDates(ArrayList<String> arr, String day, int no);*/
 }

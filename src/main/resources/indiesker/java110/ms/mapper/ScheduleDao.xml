@@ -232,7 +232,46 @@ from stag_sche
 where sno=#{no} and substring_index(sdt,' ',1) = #{date};
 </select>
 
+
+<!-- 무대제공자 스케쥴 삭제: 해당 번호에 해당하는 버스커요청스케쥴을 지워주는 쿼리 -->
+<delete id="removeStageDatesinbuskStag" parameterType="ArrayList">
+delete from busk_stag 
+where ssno in
+  <foreach collection="list" item="arr" separator="," open="(" close=")">
+   #{arr}
+  </foreach>
+and flag = 1
+</delete>
+
+
+<!-- 무대제공자 스케쥴 삭제: 해당 번호에 해당하는 무대스케쥴을 지워주는 쿼리 -->
+<delete id="removeStageDatesinStagSche" parameterType="ArrayList">
+delete from stag_sche 
+where ssno in
+  <foreach collection="list" item="arr" separator="," open="(" close=")">
+   #{arr}
+  </foreach>
+</delete>
+
+<select id="chkremoveStageDates" parameterType="ArrayList" resultType="int">
+select count(*) from stag_sche
+where ssno in 
+  <foreach collection="list" item="arr" separator="," open="(" close=")">
+   #{arr}
+  </foreach>
+</select>
+
+
+<insert id="insertStageDates" parameterType="map"
+useGeneratedKeys="true" keyColumn="ssno" keyProperty="sno">
+INSERT INTO `stag_sche`(sdt, edt, sno) 
+VALUES ([value-2],[value-3],[value-4])
+
+</insert>
+
+
 </mapper>
+
 
 
 

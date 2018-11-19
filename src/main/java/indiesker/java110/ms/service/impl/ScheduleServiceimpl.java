@@ -1,5 +1,6 @@
 package indiesker.java110.ms.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,7 +104,36 @@ public class ScheduleServiceimpl implements ScheduleService {
       params.put("date", date);
       return scheduleDao.findunableSchedule(params);
     }
+
+
+    @Override
+    public void removeStageDatesinbuskStag(ArrayList<String> arr) {
+      scheduleDao.removeStageDatesinbuskStag(arr);
+      
+    }
+
+    @Override
+    public void removeStageDatesinStagSche(ArrayList<String> arr) {
+      scheduleDao.removeStageDatesinStagSche(arr);
+    }
     
+    @Override
+    public int chkremoveStageDates(ArrayList<String> arr) {
+      return scheduleDao.chkremoveStageDates(arr);
+    }
+
+/*    @Override
+    public void insertStageDates(ArrayList<String> arr, String day, int no) {
+            
+      HashMap<String,Object> params = new HashMap<>();
+      
+    }
+
+    @Override
+    public int chkinsertDates(ArrayList<String> arr, String day, int no) {
+      // TODO Auto-generated method stub
+      return 0;
+    }*/
     
     
     
