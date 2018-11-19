@@ -127,8 +127,11 @@ public class ScheduleServiceimpl implements ScheduleService {
     }
 
     @Override
-    public int chkinsertDates(List<Schedule> rlist) {
-      return scheduleDao.chkinsertDates(rlist);
+    public int chkinsertDates(List<Schedule> rlist, int no) {
+      HashMap<String,Object> params = new HashMap<>();
+      params.put("no", no);
+      params.put("dates", rlist);
+      return scheduleDao.chkinsertDates(params);
     }
     
     @Override
@@ -156,13 +159,3 @@ public class ScheduleServiceimpl implements ScheduleService {
 
     
 }
-
-
-
-
-
-
-
-
-
-

@@ -21,7 +21,7 @@ public interface ScheduleDao {
   void removeStageDatesinStagSche(ArrayList<String> arr);
   int chkremoveStageDates(ArrayList<String> arr);
   void insertStageDates(List<Schedule> list);
-  int chkinsertDates(List<Schedule> list);
+  int chkinsertDates(Map<String,Object> params);
   int buskstagdelete(int no);
   int buskreqdelete(int no);
   int perscheduledelete(int no);

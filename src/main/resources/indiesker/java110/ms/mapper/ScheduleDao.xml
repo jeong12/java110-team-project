@@ -236,6 +236,7 @@
       GROUP By BS.brno
   </select>
   
+  
  <!-- 무대제공자 스케줄조회: 무대신청,완료된 목록을 보여주는 쿼리 -->
  <select id="findreqschedule" parameterType="map" resultMap="reqStageScheduleMap">
 select b.name, b.genre, ss.sdt, ss.edt, br.cnt, bs.flag, br.cdt
@@ -279,8 +280,16 @@ where ssno in
   </foreach>
 </delete>
 
+<!-- 무대제공자 스케쥴 삭제: 해당 데이터가 잘 삭제되었는지 확인해주는 쿼리 -->
+<select id="chkremoveStageDates" parameterType="map" resultType="int">
+select count(*) from stag_sche
+  <foreach collection="list" item="arr" separator="">
+where sno=#{no} and sdt in #{arr.sdate}
+  </foreach>
+</select>
+
 <!-- 무대제공자 스케쥴 추가: 해당 번호에 해당하는 무대 일정을 입력하는 쿼리 -->
-<insert id="insertStageDates" parameterType="map"
+<insert id="insertStageDates" parameterType="list"
 useGeneratedKeys="true" keyColumn="ssno" keyProperty="sno">
 INSERT INTO `stag_sche`(sdt, edt, sno)
 values
@@ -289,11 +298,12 @@ values
 </foreach>
 </insert>
 
-<!-- 무대제공자 스케쥴 추가: 해당 데이터가 잘 들어갔는지 확인해주는 쿼리 -->
-<select id="chkremoveStageDates" parameterType="map" resultType="int">
+<!-- 무대제공자 스케쥴  추가: 해당 데이터가 잘 추가되었는지 확인해주는 쿼리 -->
+<select id="chkinsertDates" parameterType="map" resultType="int">
 select count(*) from stag_sche
-  <foreach collection="list" item="arr" separator="">
-where sno=#{no} and sdt in #{arr.sdate}
+where sno = #{no} and sdt in 
+  <foreach collection="dates" item="arr" separator="," open="(" close=")">
+#{arr.nsdt}
   </foreach>
 </select>
 

@@ -168,7 +168,7 @@ public class SupporterScheduleController {
   
   @ResponseBody
   @RequestMapping("insertDate")
-  public void insertStageDate(String[] insertDate, String day, Model model){
+  public int insertStageDate(String[] insertDate, String day, Model model){
     int size = insertDate.length;
     List<Schedule> rlist = new ArrayList<>();
     int no=2;
@@ -184,8 +184,9 @@ public class SupporterScheduleController {
     }    
     
     scheduleService.insertStageDates(rlist);
-    System.out.println("::::::::::");
-    /*return scheduleService.chkinsertDates(slist,elist, no);*/
+    System.out.println("입력 성공!");
+   
+    return scheduleService.chkinsertDates(rlist,no);
   }
 
 }
