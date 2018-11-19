@@ -20,8 +20,8 @@ public interface ScheduleDao {
   void removeStageDatesinbuskStag(ArrayList<String> arr);
   void removeStageDatesinStagSche(ArrayList<String> arr);
   int chkremoveStageDates(ArrayList<String> arr);
-  void insertStageDates(Map<String,Object> params);
-  int chkinsertDates(Map<String,Object> params);
+  void insertStageDates(List<Schedule> list);
+  int chkinsertDates(List<Schedule> list);
   int buskstagdelete(int no);
   int buskreqdelete(int no);
   int perscheduledelete(int no);

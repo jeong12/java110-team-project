@@ -205,16 +205,21 @@ function addDate(){
     var chkbox = document.getElementsByName("insertdate");
     var chkCnt=0;
     var addchk = new Array();
-    for(var i=0;i<chkbox.length; i++){
+    var j=0;
+    for(var i=0;i<24; i++){
         if(chkbox[i].checked){
-        	addchk[i] = chkbox[i].value;
-            chkCnt++;
+        		addchk[j] = chkbox[i].value;
+        		j++;
+        		chkCnt++;
+        	}
         }
-    }
+    
     
     if(chkCnt == 0){
     	alert("등록하실 일정을 체크해주세요");
     }
+    
+    console.log(addchk);
 
     $.ajax({ 
         type : "GET", 
