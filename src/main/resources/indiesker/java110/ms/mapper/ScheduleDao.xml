@@ -270,7 +270,6 @@ where ssno in
 and flag = 1
 </delete>
 
-
 <!-- 무대제공자 스케쥴 삭제: 해당 번호에 해당하는 무대스케쥴을 지워주는 쿼리 -->
 <delete id="removeStageDatesinStagSche" parameterType="ArrayList">
 delete from stag_sche 
@@ -323,6 +322,7 @@ delete from busk_req
           and B.bno=#{no}
           and substr(PS.sdt,1,10)>=substr(now(),1,10)
     </select>
+    
     <!-- 개인피드에 들어갈 확정스케줄 리스트 -->
     <select id="findbynofixfeedschedule" resultMap="reqStageScheduleMap" parameterType="int">
         SELECT S.name, S.bas_addr,S.det_addr, MIN(SS.sdt) AS sdt, MAX(SS.edt) AS edt
