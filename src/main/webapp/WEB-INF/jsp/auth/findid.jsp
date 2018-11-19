@@ -86,7 +86,7 @@
                <p>회원가입시 입력한 이메일을 입력해 주세요.</p>
                <input type="email" name="email" class="email" placeholder="이메일 입력">
                <button class="send">전송</button>
-           </form>
+          </form>
 <!-- 
     <div class="w3-content w3-container w3-margin-top">
         <div class="w3-container w3-card-4">
