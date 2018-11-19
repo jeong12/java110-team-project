@@ -20,7 +20,7 @@ public class FollwerServiceImpl implements FollowerService{
 	}
 
 	@Override
-	public List<Follower> findDetail(int bno) {
+	public Follower findDetail(int bno) {
 		return followerDao.findDetail(bno);
 	}
 	
