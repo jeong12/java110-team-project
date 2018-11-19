@@ -12,11 +12,7 @@ import indiesker.java110.ms.service.FollowerService;
 public class FollwerServiceImpl implements FollowerService{
 
 	@Autowired FollowerDao followerDao;
-	
-	@Override
-	public int getFollwerNo(int no) {
-		return followerDao.findFollwer(no);
-	}
+
 
 	@Override
 	public List<Follower> findList(int bno) {
@@ -24,7 +20,7 @@ public class FollwerServiceImpl implements FollowerService{
 	}
 
 	@Override
-	public List<Follower> findDetail(int bno) {
+	public Follower findDetail(int bno) {
 		return followerDao.findDetail(bno);
 	}
 	

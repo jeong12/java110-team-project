@@ -20,7 +20,7 @@ $(function() {
   })
 });
 
-
+//달력 아래 전체/진행중/완료 필터 처리
 $('.chkFlag button').click(function(){
     var f = $(this).val();   
     $.ajax({ 
@@ -80,13 +80,7 @@ $('.chkFlag button').click(function(){
 
 });
 
-$('#datetimepicker').datetimepicker();
-jQuery('#datetimepicker2').datetimepicker({
-      datepicker:false,
-      format:'H:i'
-    });    
-
-
+// 등록가능한 무대일정 출력 & 체크할 수 있게.
 function add(){
     var td = $('#showDate').text();
    if(td==null || td==''){
@@ -98,24 +92,23 @@ function add(){
    
    $.ajax({ 
        type : "POST", 
-       url : "showDate", 
+       url : "showPossibleDate", 
        dataType: 'json',
        data : {"date" : td},
        success : function(data){
            $('.insertDate tbody').empty();
-           if(data.length == 0){
-               $(".insertDate tbody").append(
-               '<tr>'+
-               '<td>'+'all'+'</td>'+
-               '</tr>');      
-           }else{
                $.each(data,function(index,item){
                $(".insertDate tbody").append(
                  '<tr>'+
-                 '<td>'+item.nsdt+'~'+item.nedt+'</td>'+
+                 '<td>'+'<input type="checkbox" name="insertdate" value="'+item+'">'+item+'</td>'+
                  '</tr>');
-               })
-           }
+               });
+               $(".insertDate tbody").append(
+            	'<tr>'+
+            	'<td>' + '<button onclick="addDate()">등록하기</button>'+'</td>'+
+            	'</tr>'
+               )            
+           
        },
    error : function(request, status, error) {
        alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
@@ -124,6 +117,7 @@ function add(){
 
    }
 
+// 삭제가능한 무대일정 출력&체크할 수 있게
 function remove(){
     var td = $('#showDate').text();
    if(td==null || td==''){
@@ -149,7 +143,7 @@ function remove(){
                $.each(data,function(index,item){
                $(".insertDate tbody").append(
                  '<tr>'+
-                 '<td>'+'<input type="checkbox" name="stagedate" value="'+item.nsdt+'">'+item.nsdt+'~'+item.nedt+'</td>'+
+                 '<td>'+'<input type="checkbox" name="stagedate" value="'+item.sno+'">'+item.nsdt+'~'+item.nedt+'</td>'+
                  '</tr>');
                });
                $(".insertDate tbody").append(
@@ -166,40 +160,36 @@ function remove(){
 
    }
 
-
+// 체크한 일정 삭젷가ㅣ
 function removeDate(){
 	var td = $('#showDate').text();
     var chkbox = document.getElementsByName("stagedate");
     var chkCnt=0;
+    var chks = new Array();
     for(var i=0;i<chkbox.length; i++){
         if(chkbox[i].checked){
             chkCnt++;
+            chks[i] = chkbox[i].value;
         }
     }
+    
+    console.log(typeof chks)
+    
     if(chkCnt == 0){
     	alert("삭제하실 일정을 체크해주세요");
     }
     
     
     $.ajax({ 
-        type : "POST", 
-        url : "showDate", 
-        dataType: 'json',
-        data : {"date" : td},
+        type : "GET", 
+        url : "removeDate", 
+        traditional : true,
+        data : {"stagedate" : chks},
         success : function(data){
-            $('.insertDate tbody').empty();
-            if(data.length == 0){
-                $(".insertDate tbody").append(
-                '<tr>'+
-                '<td>'+'all'+'</td>'+
-                '</tr>');      
+            if(data == 0){
+            	alert("success!");
             }else{
-                $.each(data,function(index,item){
-                $(".insertDate tbody").append(
-                  '<tr>'+
-                  '<td>'+item.nsdt+'~'+item.nedt+'</td>'+
-                  '</tr>');
-                })
+            	alert("fail!");
             }
         },
     error : function(request, status, error) {
@@ -208,7 +198,43 @@ function removeDate(){
  });
     
     
+}
+
+function addDate(){
+	var td = $('#showDate').text();
+    var chkbox = document.getElementsByName("insertdate");
+    var chkCnt=0;
+    var addchk = new Array();
+    var j=0;
+    for(var i=0;i<24; i++){
+        if(chkbox[i].checked){
+        		addchk[j] = chkbox[i].value;
+        		j++;
+        		chkCnt++;
+        	}
+        }
     
     
+    if(chkCnt == 0){
+    	alert("등록하실 일정을 체크해주세요");
+    }
     
+    console.log(addchk);
+
+    $.ajax({ 
+        type : "GET", 
+        url : "insertDate", 
+        traditional : true,
+        data : {"insertDate" : addchk, "day" : td},
+        success : function(data){
+            if(data == 0){
+            	alert("faile!");
+            }else{
+            	alert("success!");
+            }
+        },
+    error : function(request, status, error) {
+        alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+    }
+ });
 }

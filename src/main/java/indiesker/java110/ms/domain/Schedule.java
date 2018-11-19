@@ -12,6 +12,7 @@ public class Schedule {
   protected String nsdt;
   protected String nedt;
   protected String ncdt;
+  protected Long longsdt;
   protected int cnt;
   protected float x;
   protected float y;
@@ -22,6 +23,13 @@ public class Schedule {
 
   
   
+
+  public Long getLongsdt() {
+    return longsdt;
+  }
+  public void setLongsdt(Long longsdt) {
+    this.longsdt = longsdt;
+  }
   public int getSno() {
     return sno;
   }

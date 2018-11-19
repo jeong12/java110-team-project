@@ -4,32 +4,26 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="indiesker.java110.ms.dao.FollowerDao">
 
+
 <resultMap type="Follower" id="followerMap">
-        <id column="bno"  property="bno"/>
+        <id column="mno"  property="no"/>
+        <result column="bno"  property="bno"/>
         <result column="name"    property="teamname"/>
         <result column="genre"    property="teamgenre"/>
         <result column="city"    property="city"/>
-        <result column="intro"    property="teaminfo"/>
-        <result column="phot"    property="phot"/>
+        <result column="intro"    property="teamInfo"/>
+        <result column="phot"    property="teamPhoto"/>
 </resultMap>
 
-<!-- 회원번호로 팔로우 버스커 번호 받아오기  -->
-<select id="findFollwer" resultType="int" parameterType="int">
-    SELECT bno 
-    FROM folw 
-    where mno=#{mno}
-</select>
-
-
 <!-- 즐겨찾기 목록 보기  -->
-<select id="findList" resultMap="followerMap" parameterType="map">
-    SELECT name, phot 
-    FROM busk 
-    where bno=#{bno}
+<select id="findList" resultMap="followerMap" parameterType="int">
+    SELECT busk.name, busk.phot, busk.genre, folw.bno
+    FROM busk LEFT JOIN folw on busk.bno=folw.bno
+    where folw.mno=#{no};
 </select>
 
 <!-- 즐겨찾기 우측 자세히 보기 -->
-<select id="findDetail" resultMap="followerMap" parameterType="map">
+<select id="findDetail" resultMap="followerMap" parameterType="int">
     SELECT name, genre, city, intro, phot 
     FROM busk 
     where bno=#{bno}

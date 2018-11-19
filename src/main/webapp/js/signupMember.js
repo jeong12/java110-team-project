@@ -37,6 +37,7 @@
     function checkId(){
         var inputed = $('#checkid').val();
         $.ajax({
+        	
             data : {
                 id : inputed
             },
