@@ -6,8 +6,10 @@ import javax.servlet.ServletContext;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import indiesker.java110.ms.domain.Follower;
 import indiesker.java110.ms.service.FollowerService;
@@ -25,11 +27,23 @@ public class FollowerController {
 		this.sc = sc;
 	}
 	
-	@PostMapping("follow")
-	public void follow(int no, Model model) {
-		int bno = followerService.getFollwerNo(no);
-		List<Follower> followerList = followerService.findList(bno);
-		model.addAllAttributes(followerList);
+	@GetMapping("follow")
+	public void follow(Model model) {
+		
+	int no = 6;//일단 6번 회원입력
+
+		List<Follower> followerList = followerService.findList(no);
+		model.addAttribute("followerList", followerList);
+		
+	}
+	
+	@ResponseBody
+	@PostMapping(value="clickDetail")
+	public Follower clickDetail(int bno) {
+		System.out.println(bno);
+		Follower findDetail = followerService.findDetail(bno);
+		System.out.println(findDetail.getTeamname());
+		return findDetail;
 	}
 	
 	
