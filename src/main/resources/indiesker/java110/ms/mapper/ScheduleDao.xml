@@ -13,6 +13,7 @@
         <result column="edt"    property="edt"/>
         <result column="cnt"    property="cnt"/>
         <result column="cdt"    property="cdt"/>
+        <result column="flag"    property="flag"/>
         <result column="x"    property="y"/>
         <result column="y"    property="x"/>
     </resultMap>
@@ -33,23 +34,23 @@
     
     <resultMap type="Schedule" id="reqStageScheduleMap">
         <id column="brno" property="sno"/>
-        <result column="name"  property="shopname"/>
-        <result column="addr"    property="addr"/>
+        <result column="cdt"    property="cdt"/>
         <result column="sdt"    property="sdt"/>
         <result column="edt"    property="edt"/>
         <result column="cnt"    property="cnt"/>
         <result column="flag"    property="flag"/>
-        <result column="cdt"    property="cdt"/>
-        <result column="x"    property="x"/>
-        <result column="y"    property="y"/>
+        
         <association property="supporter" javaType="Supporter">
             <id column="sno" property="no"/>
+            <result column="name"    property="name"/>
             <result column="bas_addr"    property="baseaddr"/>
             <result column="det_addr"    property="detailaddr"/>
             <result column="genre"    property="sgnere"/>
             <result column="capa"    property="capa"/>
             <result column="tel"    property="tel"/>
             <result column="etc"    property="message"/>    
+            <result column="x"    property="x"/>
+            <result column="y"    property="y"/>
         </association>
         
     </resultMap>
@@ -160,8 +161,20 @@
   limit #{rowNo}, #{size}
  </select>
  
- <select id="findbypsno" resultMap="buskerscheduleMap" parameterType="int">
- SELECT PS.psno, PS.sdt, PS.edt, PS.addr, PS.x, PS.y, PS.shopname, PS.cdt, PS.cnt, B.name as buskname ,B.genre
+ <select id="findbypsno" resultMap="perscheduleMap" parameterType="int">
+ SELECT PS.psno,
+        PS.sdt,
+        PS.edt,
+        PS.cdt, 
+        PS.addr, 
+        PS.x, 
+        PS.y, 
+        PS.shopname, 
+        PS.cdt, 
+        PS.cnt, 
+        B.name as 
+        buskname ,B.
+        genre
   FROM per_sche PS, busk B
  WHERE PS.bno = B.bno
    AND PS.psno=#{value}
@@ -169,6 +182,7 @@
  
  <select id="findbybrno" resultMap="reqStageScheduleMap" parameterType="int">
      SELECT BS.brno,
+            BR.cdt,
             S.name,
             S.x,
             S.y,
@@ -176,7 +190,8 @@
             S.tel, 
             S.bas_addr, 
             S.det_addr,
-            S.etc, 
+            S.etc,
+            S.sno, 
             MAX(SC.edt) as edt ,
             MIN(SC.sdt)as sdt
       FROM busk_req BR, busk_stag BS, stag_sche SC, sup S
@@ -210,6 +225,25 @@ SELECT sdt, edt, sno,
 from stag_sche
 where sno=#{no} and substring_index(sdt,' ',1) = #{date};
 </select>
+
+
+<delete id="perscheduledelete" parameterType="int">
+delete from per_sche
+ where psno=#{value} 
+</delete>
+
+<!-- 무대사용요청스케줄 테이블 삭제 -->
+<delete id="buskstagdelete" parameterType="int">
+delete from busk_stag
+ where brno=#{value} 
+</delete>
+
+<!-- 버스킹 무대사용 요청 테이블 삭제 -->
+<delete id="buskreqdelete" parameterType="int">
+delete from busk_req
+ where brno=#{value} 
+</delete>
+
 
 </mapper>
 

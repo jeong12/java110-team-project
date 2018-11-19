@@ -76,6 +76,7 @@ public class ScheduleServiceimpl implements ScheduleService {
 
     @Override
     public Schedule myreqdetail(int no) {
+      System.out.println(no);
       return scheduleDao.findbybrno(no);
     }
     
@@ -102,6 +103,18 @@ public class ScheduleServiceimpl implements ScheduleService {
       params.put("no", no);
       params.put("date", date);
       return scheduleDao.findunableSchedule(params);
+    }
+
+    @Override
+    public void deleteReqSchedule(int no) {
+      scheduleDao.buskstagdelete(no);
+      scheduleDao.buskreqdelete(no);
+    }
+
+    @Override
+    public void deletePerSchedule(int no) {
+      scheduleDao.perscheduledelete(no);
+      
     }
     
     

@@ -16,5 +16,8 @@ public interface ScheduleDao {
   Schedule findbybrno(int no);
   Schedule findbypsno(int no);
   List<Schedule> findSuggestsbyflag(Map<String,Object> params);
+  int buskstagdelete(int no);
+  int buskreqdelete(int no);
+  int perscheduledelete(int no);
 
 }

@@ -81,9 +81,6 @@ public class BuskerPerScheduleController {
       int endindex=naddr.indexOf(" ")+startindex;
       ps.setAddr(ps.getAddr().substring(0,endindex));
     }
-    
-    
-
 
     model.addAttribute("list", list);
     model.addAttribute("plist", plist);
@@ -146,25 +143,45 @@ public class BuskerPerScheduleController {
   
   @ResponseBody
   @RequestMapping(value="clikedetail")
-  public Schedule detailSchedule(String fakeflag,  Model model) {
+  public Schedule detailSchedule(String fakeflag) {
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     String flag=fakeflag.substring(0,1);
-    int no=Integer.parseInt(fakeflag.substring(1, 2));  
+    int no=Integer.parseInt(fakeflag.substring(1, fakeflag.length()));  
     Schedule detailschedule= null;
-    
+    System.out.println(flag);
+    System.out.println(no);
     if(flag.equals("a")) {
       detailschedule= scheduleService.myreqdetail(no);
       Supporter s= detailschedule.getSupporter();
-      System.out.println(s.getBaseaddr());
-      System.out.println(s.getSupportgenre());
+      if(s.getMessage()==null) {
+        s.setMessage("해당 메시지가 없습니다.");
+      }
     }else {
       detailschedule= scheduleService.myperdetail(no);
+      System.out.println(detailschedule.getShopname());
     }
-    /*detailschedule.setNsdt(format.format(detailschedule.getSdt()));
+    
+    detailschedule.setNsdt(format.format(detailschedule.getSdt()));
     detailschedule.setNedt(format.format(detailschedule.getEdt()));
-    detailschedule.setNcdt(format.format(detailschedule.getCdt()));*/
+    detailschedule.setNcdt(format.format(detailschedule.getCdt()));
     return detailschedule;
 
+  }
+  
+  @RequestMapping("reqdelete")
+  public String reqdelete(String no) throws Exception{
+    System.out.println(no);
+    int brno=Integer.parseInt(no);
+    scheduleService.deleteReqSchedule(brno);
+    return "redirect:main";
+  }
+  
+  @RequestMapping("perdelete")
+  public String perdelete(String no) throws Exception{
+    System.out.println(no);
+    int brno=Integer.parseInt(no);
+    scheduleService.deletePerSchedule(brno);
+    return "redirect:main";
   }
 
 
