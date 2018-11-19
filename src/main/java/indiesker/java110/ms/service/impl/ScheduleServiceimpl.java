@@ -120,18 +120,16 @@ public class ScheduleServiceimpl implements ScheduleService {
       return scheduleDao.chkremoveStageDates(arr);
     }
 
-/*    @Override
-    public void insertStageDates(ArrayList<String> arr, String day, int no) {
+    @Override
+    public void insertStageDates(List<Schedule> rlist) {
             
-      HashMap<String,Object> params = new HashMap<>();
-      
+      scheduleDao.insertStageDates(rlist);
     }
 
     @Override
-    public int chkinsertDates(ArrayList<String> arr, String day, int no) {
-      // TODO Auto-generated method stub
-      return 0;
-    }*/
+    public int chkinsertDates(List<Schedule> rlist) {
+      return scheduleDao.chkinsertDates(rlist);
+    }
     
     @Override
     public void deleteReqSchedule(int no) {

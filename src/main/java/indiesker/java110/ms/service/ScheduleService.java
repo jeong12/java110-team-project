@@ -20,8 +20,8 @@ public interface ScheduleService {
     void removeStageDatesinbuskStag(ArrayList<String> arr);
     void removeStageDatesinStagSche(ArrayList<String> arr);
     int chkremoveStageDates(ArrayList<String> arr);
-/*    void insertStageDates(ArrayList<String> arr, String day, int no);
-    int chkinsertDates(ArrayList<String> arr, String day, int no);*/
+    void insertStageDates(List<Schedule> rlist);
+    int chkinsertDates(List<Schedule> rlist);
     void deleteReqSchedule(int no);
     void deletePerSchedule(int no);
     List<Schedule> findFeedPerSchedule(int no);

@@ -2,9 +2,9 @@ package indiesker.java110.ms.web;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.servlet.ServletContext;
-import org.apache.ibatis.scripting.xmltags.ForEachSqlNode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -120,7 +120,9 @@ public class SupporterScheduleController {
     
     // 일단 24개 다 넣음
       for(int i=0;i<24;i++) {
-        if(i<10) 
+        if(i<9) 
+          list.add("0"+Integer.toString(i)+":00 ~ 0"+Integer.toString(i+1)+":00");
+        else if(i==9)
           list.add("0"+Integer.toString(i)+":00 ~ "+Integer.toString(i+1)+":00");
         else 
           list.add(Integer.toString(i)+":00 ~ " + Integer.toString(i+1)+":00");
@@ -166,20 +168,24 @@ public class SupporterScheduleController {
   
   @ResponseBody
   @RequestMapping("insertDate")
-  public int insertStageDate(String[] insertDate, String day, Model model){
-
-    ArrayList<String> arr = new ArrayList<>();
+  public void insertStageDate(String[] insertDate, String day, Model model){
+    int size = insertDate.length;
+    List<Schedule> rlist = new ArrayList<>();
     int no=2;
-    for(int i=0;i<insertDate.length;i++) {
-      arr.add(insertDate[i].substring(0,5));
-      arr.add(insertDate[i].substring(8));
-      System.out.println(":::::::");
-      System.out.println(arr.get(i));
-      System.out.println(arr.get(i+1));
+    
+    for(int i=0;i<size;i++) {
+      Schedule sche = new Schedule();
+      Supporter sup = new Supporter();
+      sche.setNsdt(day+" "+insertDate[i].substring(0,5));
+      sche.setNedt(day+" "+insertDate[i].substring(8));
+      sup.setNo(no);
+      sche.setSupporter(sup);
+      rlist.add(sche);
     }    
     
-   
-    return 0;
+    scheduleService.insertStageDates(rlist);
+    System.out.println("::::::::::");
+    /*return scheduleService.chkinsertDates(slist,elist, no);*/
   }
 
 }
