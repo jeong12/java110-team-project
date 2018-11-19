@@ -31,7 +31,7 @@ $('.chkFlag button').click(function(){
         success : function(data) {
             alert("성공!");
             $('.suggests tbody').empty();
-    if(data == null){
+    if(data.length == 0){
         $(".suggests tbody").append('해당일의 스케줄이 존재하지않습니다.');
     }else{
         $.each(data,function(index,item){
