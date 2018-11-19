@@ -18,4 +18,6 @@ public interface ScheduleService {
     List<Schedule> findunableSchedule(String date, int no);
     void deleteReqSchedule(int no);
     void deletePerSchedule(int no);
+    List<Schedule> findFeedPerSchedule(int no);
+    List<Schedule> findFeedFixSchedule(int no);
 }

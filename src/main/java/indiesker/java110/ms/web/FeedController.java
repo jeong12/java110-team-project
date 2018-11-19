@@ -1,5 +1,8 @@
 package indiesker.java110.ms.web;
 
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.servlet.ServletContext;
 import org.springframework.stereotype.Controller;
@@ -8,34 +11,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import indiesker.java110.ms.domain.Avi;
+import indiesker.java110.ms.domain.Busker;
 import indiesker.java110.ms.domain.FeedPhoto;
 import indiesker.java110.ms.domain.Schedule;
 import indiesker.java110.ms.service.AviService;
 import indiesker.java110.ms.service.BuskerService;
 import indiesker.java110.ms.service.FeedPhotoService;
+import indiesker.java110.ms.service.ScheduleService;
 
 @Controller
 @RequestMapping("/buskerfeed")
 public class FeedController {
   
   AviService aviService;
+  ScheduleService sheduleService;
   FeedPhotoService feedPhotoService;
   BuskerService buskerService;
   ServletContext sc;
   
 
-  public FeedController(AviService aviService, FeedPhotoService feedPhotoService,
-      BuskerService buskerService, ServletContext sc) {
-    super();
+  public FeedController(AviService aviService, ScheduleService sheduleService,
+      FeedPhotoService feedPhotoService, BuskerService buskerService, ServletContext sc) {
     this.aviService = aviService;
+    this.sheduleService = sheduleService;
     this.feedPhotoService = feedPhotoService;
     this.buskerService = buskerService;
     this.sc = sc;
   }
 
-
   @RequestMapping("enter")
   public void list(
+      /*int buskno,*/
       @RequestParam(defaultValue="1") int pageNo,
       @RequestParam(defaultValue="9") int pageSize,
       Model model) {
@@ -44,11 +50,44 @@ public class FeedController {
   
   if (pageSize < 9 || pageSize > 10)
       pageSize = 9;
+    int buskno=1;//임의값
+    int buskno2=5;//임의값
+  
+    List<Schedule> fplist = sheduleService.findFeedPerSchedule(buskno2);//스케줄 now()이후 날짜부터 출력!
+    List<Schedule> fflist = sheduleService.findFeedFixSchedule(buskno2);
+    fplist.addAll(fflist);
+    Busker busker = buskerService.get(buskno);
+    List<Avi> alist = aviService.recentList(buskno);
+    List<FeedPhoto> plist = feedPhotoService.recentPhotList(buskno,pageNo, pageSize);
+    
+    for(Schedule ppp:fplist) {
+      ppp.setLongsdt(ppp.getSdt().getTime());
+    }
+    
+    //fplist 시간순으로 정렬
+    Collections.sort(fplist, new Comparator<Schedule>(){
+      @Override
+      public int compare(Schedule o1, Schedule o2) {
+        if(o1.getLongsdt() > o2.getLongsdt()) {
+          return 1;
+        }else if(o1.getLongsdt() < o2.getLongsdt()) {
+          return -1;
+        }else {
+          return 0;
+        }
+      }
+    });
+    
+    SimpleDateFormat formatsdt = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    SimpleDateFormat formatedt = new SimpleDateFormat("HH:mm");
+    for (Schedule ps : fplist) {
+      ps.setNsdt(formatsdt.format(ps.getSdt()));
+      ps.setNedt(formatedt.format(ps.getEdt()));
+    }
     
     
-    List<Avi> alist = aviService.recentList(1);
-    List<FeedPhoto> plist = feedPhotoService.recentPhotList(1,pageNo, pageSize);
-    
+    model.addAttribute("schelist",fplist);
+    model.addAttribute("busk",busker);
     model.addAttribute("recentlist",alist);
     model.addAttribute("recentplist",plist);
   }
@@ -56,7 +95,7 @@ public class FeedController {
   @ResponseBody
   @RequestMapping(value="clikeImage")
   public List<Schedule> getImageNo(
-      @RequestParam(value="no") String no, Model model) {
+      @RequestParam(value="no") String no, Model model) {   
       System.out.println(no);
 
     return null;

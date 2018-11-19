@@ -63,7 +63,7 @@ callback 처리중입니다. 이 페이지에서는 callback을 처리하고 바
                 data: JSON.stringify(json)
                 ,
                 success: function(result){
-                    location.href = "http://localhost:8080";
+                    location.href = "http://localhost:8080/app/editprofile/member/form";
                 },
                 error: function(xhr, status, msg){
                     console.log(status);

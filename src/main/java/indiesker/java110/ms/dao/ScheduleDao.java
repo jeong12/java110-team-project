@@ -19,5 +19,7 @@ public interface ScheduleDao {
   int buskstagdelete(int no);
   int buskreqdelete(int no);
   int perscheduledelete(int no);
+  List<Schedule> findbynoperfeedschedule(int no);
+  List<Schedule> findbynofixfeedschedule(int no);
 
 }
