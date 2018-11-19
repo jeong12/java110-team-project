@@ -6,7 +6,6 @@ import indiesker.java110.ms.domain.Follower;
 
 public interface FollowerDao {
 	
-	int findFollwer (int no);
-	List<Follower> findList(int bno);
-	List<Follower> findDetail(int bno);
+	List<Follower> findList(int no);
+	Follower findDetail(int bno);
 }
