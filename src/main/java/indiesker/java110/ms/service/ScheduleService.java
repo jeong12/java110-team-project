@@ -22,8 +22,8 @@ public interface ScheduleService {
     int chkremoveStageDates(ArrayList<String> arr);
     void insertStageDates(List<Schedule> rlist);
     int chkinsertDates(List<Schedule> rlist);
-    void deleteReqSchedule(int no);
-    void deletePerSchedule(int no);
+    int deleteReqSchedule(int no);
+    int deletePerSchedule(int no);
     List<Schedule> findFeedPerSchedule(int no);
     List<Schedule> findFeedFixSchedule(int no);
 }

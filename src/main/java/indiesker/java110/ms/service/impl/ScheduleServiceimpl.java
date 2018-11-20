@@ -132,14 +132,16 @@ public class ScheduleServiceimpl implements ScheduleService {
     }
     
     @Override
-    public void deleteReqSchedule(int no) {
+    public int deleteReqSchedule(int no) {
+      System.out.println(no);
       scheduleDao.buskstagdelete(no);
-      scheduleDao.buskreqdelete(no);
+      return scheduleDao.buskreqdelete(no);
     }
 
     @Override
-    public void deletePerSchedule(int no) {
-      scheduleDao.perscheduledelete(no);
+    public int deletePerSchedule(int no) {
+      System.out.println(no);
+      return scheduleDao.perscheduledelete(no);
     }
       
     //개인피드에 들어갈 개인스케줄
