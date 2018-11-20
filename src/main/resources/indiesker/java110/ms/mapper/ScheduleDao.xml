@@ -14,8 +14,8 @@
         <result column="cnt"    property="cnt"/>
         <result column="cdt"    property="cdt"/>
         <result column="flag"    property="flag"/>
-        <result column="x"    property="y"/>
-        <result column="y"    property="x"/>
+        <result column="x"    property="x"/>
+        <result column="y"    property="y"/>
     </resultMap>
     
     <resultMap type="Schedule" id="buskerscheduleMap">

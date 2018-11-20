@@ -107,19 +107,6 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach items="${plist}" var="perlist">
-                <tr>
-                    <td>${perlist.shopname}</td>
-                    <td>${perlist.addr}</td>
-                    <td>${perlist.nsdt}~${perlist.nedt}</td>
-                    <td>${perlist.cnt}명</td>
-                    <td>개인스케줄</td>
-                    <td>${perlist.cdt}</td>
-                    <td><button data-toggle="modal" 
-            data-target="#detailperModal" value="b${perlist.sno}">상세보기</button></td>
-                    <td><button type="button" class='perremove()' value="${perlist.sno}">삭제</button></td>
-                </tr>
-            </c:forEach>
             <c:forEach items="${list}" var="list">
                 <tr>
                     <td>${list.shopname}</td>
@@ -144,22 +131,20 @@
                         <c:choose>
                             <c:when test="${list.supporter eq null }">
                             <td>
-                                <button data-toggle="modal" data-target="#detailreqModal" 
-                                value="a${list.sno}" class='detailinfo'>상세보기</button>
+                                <button data-toggle="modal" data-target="#detailperModal"  
+                                class="detailbtn" value="b${list.sno}">상세보기</button>
                             </td>
                             <td>
-                                <button type="button" class='reqremove' 
-                                value="a${list.sno}">삭제</button>
+                                <button class='removebtn' value="b${list.sno}">삭제</button>
                             </td>    
                             </c:when>
                             <c:otherwise>
                             <td>
-                                <button data-toggle="modal" data-target="#detailperModal"
-                                value="b${list.sno}">상세보기</button>
+                                <button data-toggle="modal" data-target="#detailreqModal"
+                                class="detailbtn" value="a${list.sno}">상세보기</button>
                             </td>
                             <td>
-                                <button type="button" class='perremove' 
-                                value="b${list.sno}">삭제</button>
+                                <button class='removebtn' value="a${list.sno}">삭제</button>
                             </td>    
                             </c:otherwise>
                         </c:choose>    
@@ -167,17 +152,8 @@
             </c:forEach>
         </tbody>
     </table>
-    <script>
-    function reqremove(){
-    	location.href='reqdelete?no=$(this).val()'
-    }
     
-    function perremove(){
-        location.href='perdelete?no=$(this).val()'
-    }
     
-    </script>    
-
     <!-- 모달 id -->
     <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -211,8 +187,8 @@
                                        <input type="text" id="addr" name="addr" placeholder="주소">
                                        <input type="button" onclick="search_addr()" value="주소 검색"><br>
                                        <div id="map" style="width:400px;height:400px;margin-top:10px;display:none"></div>
-                                       <input type="text" id="x" name="x" style="display:none">
-                                       <input type="text" id="y" name="y" style="display:none">
+                                       <input type="text" id="x" name="x" style="display:none"> 
+                                       <input type="text" id="y" name="y" style="display:none"> 
                                     </td>
                                 </tr>
                                 <tr>
@@ -233,7 +209,7 @@
     <!--   -->
     
     
-    <!-- 상세조회 모달  -->
+    <!-- 상세조회 모달 css  -->
     <style>
 	    .span5 {
 	        width: auto;
@@ -489,39 +465,40 @@ position: new daum.maps.LatLng(37.537187, 127.005476),
 map: map
 
 });
-marker.setDraggable(true);
-map.relayout();
+marker.setDraggable(true); // 마커를 움직일수 있게 설정 false일경우 고정!
+map.relayout(); //뭐지이거 ?
 
 
-/* 디테일 맵을 만든다 */
+/* 요청스케줄 상세보기에 출력해줄 맵을 생성 */
 var mapContainer2 = document.getElementById('map2'), // 지도를 표시할 div 
  mapOption2 = { 
-     center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+     center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표이나 별로 상관없음 
      level: 3 // 지도의 확대 레벨
  };
 
 var map2 = new daum.maps.Map(mapContainer2, mapOption2); // 지도를 생성합니다
 
+// 마커생성
 var marker2 = new daum.maps.Marker({
-	position: map2.getCenter()
+	position: map2.getCenter() // 마커 디폴트 값이나 별로 상관없음 
 });
 
-marker2.setMap(map2);
+marker2.setMap(map2); // 맵에 생성한 마커를 셋팅!
 
-/* 디테일 맵을 만든다 */
+/* 개인스케줄 상세보기에 출력해줄 맵을 생성 */
 var mapContainer3 = document.getElementById('map3'), // 지도를 표시할 div 
  mapOption3 = { 
-     center: new daum.maps.LatLng(33.450701, 136.570667), // 지도의 중심좌표
+     center: new daum.maps.LatLng(33.450701, 136.570667), // 지도의 중심좌표이나 별로 상관없음 
      level: 3 // 지도의 확대 레벨
  };
 
 var map3 = new daum.maps.Map(mapContainer3, mapOption3); // 지도를 생성합니다
 
 var marker3 = new daum.maps.Marker({
-    position: map3.getCenter()
+    position: map3.getCenter() // 마커 디폴트 값이나 별로 상관없음 
 });
 
-marker3.setMap(map3);
+marker3.setMap(map3); // 맵에 생성한 마커를 셋팅!
 
 
 function search_addr() {
@@ -609,44 +586,50 @@ new daum.Postcode({
 }
 
 
-    // 이전값을 저장해주는 변수
-    var _prevObj = null;
+// 클릭한 이전값을 저장해주는 변수
+var _prevObj = null;
+ 
 $(function() {
     
   // 캘린더 출력해주는 코드
   $('#calendar').fullCalendar({
       
+	  // fullCalendar에 날짜클릭시 발생하는 이벤트 function = dayClick
       dayClick: function(date, jsEvent, view, resourceObj) {
-            alert('Date: ' + date.format());
-            if(_prevObj) {
-                _prevObj.css('background-color', 'white');
-                $(this).css('background-color', 'gray');
+    	  
+    	  
+            if(_prevObj) { // 이전클릭한 데이터가 존재한다면? ture라면?
+                _prevObj.css('background-color', 'white'); // 이전날짜의 배경을 없앰 
+                $(this).css('background-color', 'gray'); // 현재의 배경을 색상을 지정
             } else {
-                $(this).css('background-color', 'gray');
+                $(this).css('background-color', 'gray'); // 이전클릭한 데이터가 없다면? 그냥 현재의 배경만 색상 지정
             }
-              _prevObj = $(this);
+              _prevObj = $(this); // 이전데이터 저장하는 변수에 현재누른 것을 넣어줌으로 첫번째 if 문에서 실행되게 함
             $("#selectday h2").html(date.format());
             
+              
+            /* 여기서 부터는 클릭 date를 받아 스케줄 출력해주는 ajax처리  */ 
             
+            // no같은 경우 버스커 번호임, 지금은 로그인안했으니까 5번으로 고정 
             var values = {"no":"5" , "date":date.format()};
             
             $.ajax({ 
-                type : "POST", //보내는 타입을 Post방식으로 할지,  GET방식으로 할지 결정
-                url : "clikeDate", // /내 프로젝트명/XML파일의namespace/내가불러올XML의Query이름.do
-                //header :'Content-Type: application/json',
+                type : "POST", 
+                url : "clikeDate",
                 dataType: 'json',
-                data: values, //파라미터 넘겨줄 부분? : 이게 할말이 많은데 원래 GET방식으로 하라했다가 
-                                       //다시 POST방식으로 하게됬는데 파라미터를 넘겨줄 값이 없어서 다시 GET으로 바꾸면서 주석 
-                //contentType : "application/x-www-form-urlencoded; charset=utf-8",  // 기본값이라고 하니까 건들이지 않았고 
+                data: values, 
                 success : function(data) {
+                	    // 데이터 출력 할 곳 초기화
                         $("#selectdate tbody").empty();
                         $("#selectday h3").empty();
-                        
-                if(data ==false){
+                        console.log(data);
+                if(data.length==0){
+                	// 해당일의 데이터가 없을경우 
                     $("#selectday h3").append('해당일의 스케줄이 존재하지않습니다.');
                 }else{
+                	
+                	// 데이터를 list로 받아와서 foreach문으로 출력해줌!
                     $.each(data,function(index,item){
-                    	
                         $("#selectdate tbody").append(
                                 '<tr><td>'+item.nsdt.substring(11,16)+'~'+item.nedt.substring(11,16)+
                                 '</td><td>'+item.shopname+'</td><td>'+item.addr+'</td></tr>');
@@ -670,20 +653,16 @@ $(function() {
 
 
 
-
-$('.flagdata button').click(function(){
-	
-	var f = $(this).val();
-	console.log(f);
+/* 상세정보 조회 ajax처리 */
+$('.detailbtn').click(function(){
+	var f = $(this).val(); // 클릭한 값을 받음 ex) a1일 경우 컨트롤러에서 a=요청스케줄, b=개인스케줄로 분류하여 처리 
 	$.ajax({ 
-        type : "POST", //보내는 타입을 Post방식으로 할지,  GET방식으로 할지 결정
-        url : "clikedetail", // /내 프로젝트명/XML파일의namespace/내가불러올XML의Query이름.do
-        //header :'Content-Type: application/json',
+        type : "POST", 
+        url : "clikedetail",
         dataType: 'json',
-        data : { fakeflag : f }, //파라미터 넘겨줄 부분? : 이게 할말이 많은데 원래 GET방식으로 하라했다가 
-                               //다시 POST방식으로 하게됬는데 파라미터를 넘겨줄 값이 없어서 다시 GET으로 바꾸면서 주석 
-        //contentType : "application/x-www-form-urlencoded; charset=utf-8",  // 기본값이라고 하니까 건들이지 않았고 
+        data: { "fakeflag" : f},
         success : function(data) {
+        	    /* 요청스케줄, 개인스케줄 모달 태크에 기존 값을 초기화 */
 	        	$(".reqname").empty();
 	            $(".reqgenre").empty();
 	            $(".reqtime").empty();
@@ -695,34 +674,33 @@ $('.flagdata button').click(function(){
                 $(".pertime").empty();
                 $(".peraddr").empty();
                 $(".peretc").empty();
-                //$(".mapmaker").empty();
-              /*   
-                var mapContainer= null;
-                var map2 = null;
-                var markerPosition2  = null; 
-                var marker2=null; */
-	        console.log(data);
 	        
 	        if(data ==false){
+	        	/* 이거왜했지? 테스트인듯.. */
 	        	cosole.log(data.addr)
-	        	
 	        }else{
-	        	if(data.supporter==null){
+	        	/* 컨트롤러에서 a,b값에 따라 요청스케줄, 개인스케줄중 한가지를 리턴해줌 */
+	        	if(data.supporter==null){// 개인스케줄의 경우 supporter 객체를 받지 않음, 고로 개인스케줄 모달에 데이터 처리
 	        		$(".pershopname").append('<p>'+data.shopname+'</p>');
                     $(".pergenre").append('<p>'+'장르를만들자'+'</p>');
                     $(".pertime").append('<p>'+data.nsdt+'~'+data.nedt+'</p>');
                     $(".peraddr").append('<p>'+data.addr+'</p>');
+                    
+                    // 다음지도 api
+                    // x,y값을 받아 다음지도의 LatLng 생성 <= 좌표만들어주는 객체인듯
                     var LatLon = new daum.maps.LatLng(data.x, data.y);
+                    // 기존 생성된 map의 중심을 데이터상의 x,y로 맞춰줌
                     map3.setCenter(LatLon);
+                    // 기존 생성된 marker의 위치를 수정해주는 매서드
                     marker3.setPosition(new daum.maps.LatLng(LatLon.getLat(),LatLon.getLng()));
-	        	}else{
+	        	}else{ // supporter객체가 있다면 요청스케줄 모달에 데이터 처리
 	        		$(".reqname").append('<p>'+data.supporter.name+'</p>');
 	        		$(".reqgenre").append('<p>'+data.supporter.sgnere+'</p>');
 	        		$(".reqtime").append('<p>'+data.supporter.tel+'</p>');
 	        		$(".reqtel").append('<p>'+data.nsdt+'~'+data.nedt+'</p>');
 	        		$(".reqaddr").append('<p>'+data.supporter.baseaddr+'</p>');
 	        		$(".reqetc").append('<p>'+data.supporter.message+'</p>');
-	        		//$(".mapmaker").append("<div id='map2' style='width:350px;height:350px;'></div>");
+	        		//위와 같음, 다만 map2객체에 설정, map2=요청스케줄 모달페이지 맵, map3=개인스케줄 도달페이지 맵  
 	        		var LatLon = new daum.maps.LatLng(data.supporter.x, data.supporter.y);
 	                map2.setCenter(LatLon);
 	                marker2.setPosition(new daum.maps.LatLng(LatLon.getLat(),LatLon.getLng()));
@@ -743,6 +721,7 @@ $('.flagdata button').click(function(){
 	
 })
 
+<<<<<<< HEAD
 $('#datetimepicker').datetimepicker();
 
 
@@ -751,7 +730,43 @@ jQuery('#datetimepicker2').datetimepicker({
       datepicker:false,
       format:'H:i'
     });
+=======
+/* 날짜입력타입 설정해주기 (현재 페이지에선 스케줄등록 모달에 사용중)  */
+$('#datetimepicker').datetimepicker({
+	//format:'YYYY-MM-DD H:i',
+	//formatTime:'H:i',
+    minDate: 0
+    ,onSelectTime: function (ct) {
+    	alert(ct.dateFormat("H:i"))
+        //$('#datetimepicker2').datetimepicker("option", "minTime", ct);
+    } 
+>>>>>>> refs/heads/b1
     
+});
+
+$('#datetimepicker2').datetimepicker({
+	  
+      datepicker:false,
+      formatTime:'H:i',
+      /* onShow:function( ct ){
+    	  var test=$('#datetimepicker').val();
+    	  console.log(test);
+    	   this.setOptions({
+    		   minDate:jQuery('#datetimepicker').val()?jQuery('#datetimepicker').val():false,
+    		   minTime:jQuery('#datetimepicker').val()?jQuery('#datetimepicker').val():false
+    	   }) 
+      }
+      */
+      
+});
+
+$('').change(function(){
+	
+	
+	
+})
+    
+/* 필터로 해당단계에 해당하는 스케줄 뿌려주기! (1=진행중,2=완료,else=개인스케줄)  */    
 $('.flagsearch button').click(function(){
 	
 	var f = $(this).val();
@@ -773,55 +788,23 @@ $('.flagsearch button').click(function(){
         }else{
             $.each(data,function(index,item){
             	
-            	if(item.flag==1){
+            	if(item.flag==1){ // 진행중(flag=1)일 경우 flag1()에 해당하는 목록을 뿌려줌
             		var naddr=item.addr.substring(item.addr.indexOf(" ")+1,item.addr.length);
                     var startindex=item.addr.indexOf(" ")+1;
                     var endindex=naddr.indexOf(" ")+startindex;
-                    item.addr.substring(0,endindex);
-	                $(".flagdata tbody").append(
-	                		'<tr>'+
-	                        '<td>'+item.shopname+'</td>'+
-	                        '<td>'+item.addr.substring(0,endindex)+'</td>'+
-	                        '<td>'+item.nsdt+'~'+item.nedt+'</td>'+
-	                        '<td>'+item.cnt+'명</td>'+
-	                        '<td>'+'진행중'+'</td>'+
-	                        '<td>'+item.ncdt+'</td>'+
-	                        "<td><button data-toggle='modal' data-target='#detailModal' "+ 
-	                        'value=a'+item.sno+"'>"+'상세보기</button></td>'+
-	                        '</tr>');
-            	}else if(item.flag==2){
+                    flag1(endindex,item);
+	                
+            	}else if(item.flag==2){ // 진행중(flag=2)일 경우 flag2()에 해당하는 목록을 뿌려줌
             		var naddr=item.addr.substring(item.addr.indexOf(" ")+1,item.addr.length);
                     var startindex=item.addr.indexOf(" ")+1;
                     var endindex=naddr.indexOf(" ")+startindex;
-                    item.addr.substring(0,endindex);
-            		$(".flagdata tbody").append(
-                            '<tr>'+
-                            '<td>'+item.shopname+'</td>'+
-                            '<td>'+item.addr.substring(0,endindex)+'</td>'+
-                            '<td>'+item.nsdt+'~'+item.nedt+'</td>'+
-                            '<td>'+item.cnt+'명</td>'+
-                            '<td>'+'완료'+'</td>'+
-                            '<td>'+item.ncdt+'</td>'+
-                            "<td><button data-toggle='modal' data-target='#detailModal' "+ 
-                            'value=a'+item.sno+"'>"+'상세보기</button></td>'+
-                            '</tr>');
-            	}else{
+                    flag2(endindex,item);
+            		
+            	}else{// flag가 없을 경우 개인스케줄 이므로 flag()로 뿌려줌 
             		var naddr=item.addr.substring(item.addr.indexOf(" ")+1,item.addr.length);
             		var startindex=item.addr.indexOf(" ")+1;
             		var endindex=naddr.indexOf(" ")+startindex;
-            		item.addr.substring(0,endindex);
-            		console.log(item.cdt);
-            		$(".flagdata tbody").append(
-                            '<tr>'+
-                            '<td>'+item.shopname+'</td>'+
-                            '<td>'+item.addr.substring(0,endindex)+'</td>'+
-                            '<td>'+item.nsdt+'~'+item.nedt+'</td>'+
-                            '<td>'+item.cnt+'명</td>'+
-                            '<td>'+'개인스케줄'+'</td>'+
-                            '<td>'+item.ncdt+'</td>'+
-                            "<td><button data-toggle='modal' data-target='#detailModal' "+ 
-                            'value=b'+item.sno+"'>"+'상세보기</button></td>'+
-                            '</tr>');
+            		flag(endindex,item);
             	}
             });
         }
@@ -836,7 +819,83 @@ $('.flagsearch button').click(function(){
 	
 	
 	
+});
+
+
+/*                  필터 뽑아주기 (진행중, 완료, 개인스케줄)                                               */
+// 진행중 필터 목록 출력
+function flag1(endindex,item){
+	$(".flagdata tbody").append(
+            '<tr>'+
+            '<td>'+item.shopname+'</td>'+
+            '<td>'+item.addr.substring(0,endindex)+'</td>'+
+            '<td>'+item.nsdt+'~'+item.nedt+'</td>'+
+            '<td>'+item.cnt+'명</td>'+
+            '<td>'+'진행중'+'</td>'+
+            '<td>'+item.ncdt+'</td>'+
+            "<td><button data-toggle='modal' data-target='#detailreqModal' "+ 
+            "class='detailbtn' value=a"+item.sno+">상세보기</button></td>"+
+            "<td><button class='removebtn' value=a"+item.sno+">삭제</button></td>"+ 
+            'value=a'+item.sno+"'>"+'상세보기</button></td>'+
+            '</tr>');
+}
+//완료 필터 목록 출력
+function flag2(endindex,item){
+	$(".flagdata tbody").append(
+            '<tr>'+
+            '<td>'+item.shopname+'</td>'+
+            '<td>'+item.addr.substring(0,endindex)+'</td>'+
+            '<td>'+item.nsdt+'~'+item.nedt+'</td>'+
+            '<td>'+item.cnt+'명</td>'+
+            '<td>'+'완료'+'</td>'+
+            '<td>'+item.ncdt+'</td>'+
+            "<td><button data-toggle='modal' data-target='#detailreqModal' "+ 
+            "class='detailbtn' value=a"+item.sno+">상세보기</button></td>"+
+            "<td><button class='removebtn' value=a"+item.sno+">삭제</button></td>"+
+            '</tr>');
+}
+//개인스케줄 필터 목록 출력 
+function flag(endindex,item){
+	$(".flagdata tbody").append(
+            '<tr>'+
+            '<td>'+item.shopname+'</td>'+
+            '<td>'+item.addr.substring(0,endindex)+'</td>'+
+            '<td>'+item.nsdt+'~'+item.nedt+'</td>'+
+            '<td>'+item.cnt+'명</td>'+
+            '<td>'+'개인스케줄'+'</td>'+
+            '<td>'+item.ncdt+'</td>'+
+            "<td><button data-toggle='modal' data-target='#detailperModal' "+ 
+            "class='detailbtn' value=b"+item.sno+">상세보기</button></td>"+
+            "<td><button class='removebtn' value=b"+item.sno+">삭제</button></td>"+
+            '</tr>');
+}
+
+
+$('.removebtn').click(function(){
+	    var f = $(this).val();
+	    console.log(f);
+	    
+    $.ajax({ 
+        type : "POST", //보내는 타입을 Post방식으로 할지,  GET방식으로 할지 결정
+        url : "deleteschedule", 
+        dataType: 'json',
+        data : { fakeflag : f }, //파라미터 넘겨줄 부분? : 이게 할말이 많은데 원래 GET방식으로 하라했다가 
+        success : function(data) { // delete, update문 같은 경우에는 기본적으로 int값을 반환함.
+            alert("성공적으로 삭제 되었습니다.");
+            window.location="/app/mybs/main" // 절대 경로이기 때문에 시작경로를 / 로 설정해줘야함
+        },
+        error : function(request, status, error) {
+            alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+        }
+        
+        
+    });
+	
+	
+	
 })
+
+
 
 
 </script>

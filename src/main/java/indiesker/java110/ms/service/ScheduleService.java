@@ -19,8 +19,8 @@ public interface ScheduleService {
     List<Schedule> findunableSchedule(String date, int no);
     int removeStageDates(ArrayList<String> arr);
     int insertStageDates(List<Schedule> rlist);
-    void deleteReqSchedule(int no);
-    void deletePerSchedule(int no);
+    int deleteReqSchedule(int no);
+    int deletePerSchedule(int no);
     List<Schedule> findFeedPerSchedule(int no);
     List<Schedule> findFeedFixSchedule(int no);
     Schedule showDatail(int no);
