@@ -721,16 +721,6 @@ $('.detailbtn').click(function(){
 	
 })
 
-<<<<<<< HEAD
-$('#datetimepicker').datetimepicker();
-
-
-
-jQuery('#datetimepicker2').datetimepicker({
-      datepicker:false,
-      format:'H:i'
-    });
-=======
 /* 날짜입력타입 설정해주기 (현재 페이지에선 스케줄등록 모달에 사용중)  */
 $('#datetimepicker').datetimepicker({
 	//format:'YYYY-MM-DD H:i',
@@ -740,7 +730,6 @@ $('#datetimepicker').datetimepicker({
     	alert(ct.dateFormat("H:i"))
         //$('#datetimepicker2').datetimepicker("option", "minTime", ct);
     } 
->>>>>>> refs/heads/b1
     
 });
 
