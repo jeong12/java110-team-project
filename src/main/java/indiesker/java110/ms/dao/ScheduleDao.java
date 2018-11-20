@@ -17,14 +17,13 @@ public interface ScheduleDao {
   Schedule findbybrno(int no);
   Schedule findbypsno(int no);
   List<Schedule> findSuggestsbyflag(Map<String,Object> params);
-  void removeStageDatesinbuskStag(ArrayList<String> arr);
-  void removeStageDatesinStagSche(ArrayList<String> arr);
-  int chkremoveStageDates(Map<String,Object> params);
-  void insertStageDates(List<Schedule> list);
-  int chkinsertDates(Map<String,Object> params);
+  int removeStageDatesinbuskStag(ArrayList<String> arr);
+  int removeStageDatesinStagSche(ArrayList<String> arr);
+  int insertStageDates(List<Schedule> list);
   int buskstagdelete(int no);
   int buskreqdelete(int no);
   int perscheduledelete(int no);
   List<Schedule> findbynoperfeedschedule(int no);
   List<Schedule> findbynofixfeedschedule(int no);
+  Schedule showDatail(int no);
 }

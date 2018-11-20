@@ -88,6 +88,52 @@
             <result column="etc"    property="message"/>    
         </association>
     </resultMap>
+    
+    <resultMap type="Schedule" id="ShowReqsToSupporterMap">
+        <id column="brno" property="sno"/>
+        <result column="cdt"    property="cdt"/>
+        <result column="sdt"    property="sdt"/>
+        <result column="edt"    property="edt"/>
+        <result column="cnt"    property="cnt" />
+        <result column="flag"   property="flag"/>
+        <!-- <result column="x"    property="x"/>
+        <result column="y"    property="y"/> -->
+        <association property="busker" javaType="Busker">
+            <id column="bno" property="no"/>
+            <result column="name"    property="teamname"/>
+            <result column="genre"   property="teamgenre"/>
+            <result column="city"    property="city"/>
+            <result column="inst"    property="instrument"/>
+            <result column="intro"   property="teamInfo"/>
+            <result column="phot"    property="teamPhoto"/>    
+            <result column="tel"     property="tel"/>
+            <result column="lcnt"    property="likecount"/>
+            <result column="cont"    property="message"/>
+        </association>
+    </resultMap>
+    
+    <resultMap type="Schedule" id="showDetailMap">
+            <id column="brno" property="sno"/>
+        <result column="cdt"    property="cdt"/>
+        <result column="cnt"    property="cnt" />
+        <result column="flag"   property="flag"/>
+        <association property="busker" javaType="Busker">
+            <id column="bno" property="no"/>
+            <result column="name"    property="teamname"/>
+            <result column="genre"   property="teamgenre"/>
+            <result column="city"    property="city"/>
+            <result column="inst"    property="instrument"/>
+            <result column="intro"   property="teamInfo"/>
+            <result column="phot"    property="teamPhoto"/>    
+            <result column="tel"     property="tel"/>
+            <result column="lcnt"    property="likecount"/>
+            <result column="cont"    property="message"/>
+        </association>
+        <collection property="scheduletime" ofType="ScheduleTime">
+            <result column="sdt"   property="ssdt"/>
+            <result column="edt"   property="sedt"/>
+        </collection>
+    </resultMap>
 
     
     <select id="findperschedule" resultMap="perscheduleMap" parameterType="map">
@@ -238,19 +284,21 @@
   
   
  <!-- 무대제공자 스케줄조회: 무대신청,완료된 목록을 보여주는 쿼리 -->
- <select id="findreqschedule" parameterType="map" resultMap="reqStageScheduleMap">
-select b.name, b.genre, ss.sdt, ss.edt, br.cnt, bs.flag, br.cdt
-from busk_stag as bs, stag_sche as ss, busk as b, busk_req as br
-where bs.ssno = ss.ssno and bs.brno=br.brno and br.bno=b.bno and ss.sno=2
+ <select id="findreqschedule" parameterType="map" resultMap="ShowReqsToSupporterMap">
+select b.name, b.genre, min(ss.sdt) as sdt, max(ss.edt)as edt, br.cnt, bs.flag, br.cdt, br.brno
+from busk_stag as bs, stag_sche as ss, busk as b, busk_req as br 
+where bs.ssno = ss.ssno and bs.brno=br.brno and br.bno=b.bno and ss.sno=2 
+GROUP BY br.brno 
 order by ss.sdt;
 </select>
 
  <!-- 무대제공자 스케줄조회: 무대신청,완료된 목록을 보여주는 쿼리(플래그로) -->
- <select id="findSuggestsbyflag" parameterType="map" resultMap="reqStageScheduleMap">
-select b.name, b.genre, ss.sdt, ss.edt, br.cnt, bs.flag, br.cdt
+ <select id="findSuggestsbyflag" parameterType="map" resultMap="ShowReqsToSupporterMap">
+select b.name, b.genre, min(ss.sdt)as sdt, max(ss.edt)as edt, br.cnt, bs.flag, br.cdt
 from busk_stag as bs, stag_sche as ss, busk as b, busk_req as br
 where bs.ssno = ss.ssno and bs.brno=br.brno and br.bno=b.bno and ss.sno=2
 and flag=#{flag}
+GROUP BY br.brno 
 order by ss.sdt
 </select>
 
@@ -280,14 +328,6 @@ where ssno in
   </foreach>
 </delete>
 
-<!-- 무대제공자 스케쥴 삭제: 해당 데이터가 잘 삭제되었는지 확인해주는 쿼리 -->
-<select id="chkremoveStageDates" parameterType="map" resultType="int">
-select count(*) from stag_sche where sno=#{no} and ssno in
-  <foreach collection="nos" item="arr" separator="," open="(" close=")">
-#{arr}
-  </foreach>
-</select>
-
 <!-- 무대제공자 스케쥴 추가: 해당 번호에 해당하는 무대 일정을 입력하는 쿼리 -->
 <insert id="insertStageDates" parameterType="list"
 useGeneratedKeys="true" keyColumn="ssno" keyProperty="sno">
@@ -298,13 +338,12 @@ values
 </foreach>
 </insert>
 
-<!-- 무대제공자 스케쥴  추가: 해당 데이터가 잘 추가되었는지 확인해주는 쿼리 -->
-<select id="chkinsertDates" parameterType="map" resultType="int">
-select count(*) from stag_sche
-where sno = #{no} and sdt in 
-  <foreach collection="dates" item="arr" separator="," open="(" close=")">
-#{arr.nsdt}
-  </foreach>
+<!-- 무대제공자 스케쥴조회: 상세보기에 출력할 팀 정보 -->
+<select id="showDatail" parameterType="int" resultMap="showDetailMap">
+SELECT b.name, b.genre, b.tel, b.lcnt, b.bno, br.cont, br.brno, ss.sdt, ss.edt
+from busk as b, busk_req as br, busk_stag as bs, stag_sche as ss
+where b.bno=br.bno and br.brno = bs.brno and bs.ssno = ss.ssno and 
+br.brno=#{no}
 </select>
 
 <delete id="perscheduledelete" parameterType="int">
@@ -325,29 +364,27 @@ delete from busk_req
 </delete>
 
 
-    <select id="findbynoperfeedschedule" resultMap="perscheduleMap" parameterType="int">
-       select PS.shopname, PS.addr,  PS.sdt, PS.edt
-       from per_sche PS, busk B 
-       where PS.bno = B.bno   
-          and B.bno=#{no}
-          and substr(PS.sdt,1,10)>=substr(now(),1,10)
-    </select>
+<select id="findbynoperfeedschedule" resultMap="perscheduleMap" parameterType="int">
+   select PS.shopname, PS.addr,  PS.sdt, PS.edt
+   from per_sche PS, busk B 
+   where PS.bno = B.bno   
+   and B.bno=#{no}
+   and substr(PS.sdt,1,10)>=substr(now(),1,10)
+</select>
     
-    <!-- 개인피드에 들어갈 확정스케줄 리스트 -->
-    <select id="findbynofixfeedschedule" resultMap="reqStageScheduleMap" parameterType="int">
-        SELECT S.name, S.bas_addr,S.det_addr, MIN(SS.sdt) AS sdt, MAX(SS.edt) AS edt
-        FROM busk B, busk_req BR, busk_stag BS,stag_sche SS, sup S
-        WHERE B.bno=BR.bno
-            AND BR.brno=BS.brno
-            AND BS.ssno=SS.ssno
-            AND SS.sno=S.sno
-            AND B.bno=#{no}
-            AND BS.flag=2
-            and substr(PS.sdt,1,10)>=substr(now(),1,10)
+<!-- 개인피드에 들어갈 확정스케줄 리스트 -->
+<select id="findbynofixfeedschedule" resultMap="reqStageScheduleMap" parameterType="int">
+  SELECT S.name, S.bas_addr,S.det_addr, MIN(SS.sdt) AS sdt, MAX(SS.edt) AS edt
+  FROM busk B, busk_req BR, busk_stag BS,stag_sche SS, sup S
+  WHERE B.bno=BR.bno
+        AND BR.brno=BS.brno
+        AND BS.ssno=SS.ssno
+        AND SS.sno=S.sno
+        AND B.bno=#{no}
+        AND BS.flag=2
+        and substr(PS.sdt,1,10)>=substr(now(),1,10)
         GROUP BY BS.brno
     </select>
-
-
 </mapper>
 
 

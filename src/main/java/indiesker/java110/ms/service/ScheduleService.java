@@ -17,16 +17,11 @@ public interface ScheduleService {
     List<Schedule> chkStageDate(int no, String date);
     List<Schedule> findSuggestsbyflag(String flag, int pageNo, int pageSize);
     List<Schedule> findunableSchedule(String date, int no);
-    
-    void removeStageDatesinbuskStag(ArrayList<String> arr);
-    void removeStageDatesinStagSche(ArrayList<String> arr);
-    int chkremoveStageDates(ArrayList<String> arr, int no);
-    
-    void insertStageDates(List<Schedule> rlist);
-    int chkinsertDates(List<Schedule> rlist, int no);
-
+    int removeStageDates(ArrayList<String> arr);
+    int insertStageDates(List<Schedule> rlist);
     void deleteReqSchedule(int no);
     void deletePerSchedule(int no);
     List<Schedule> findFeedPerSchedule(int no);
     List<Schedule> findFeedFixSchedule(int no);
+    Schedule showDatail(int no);
 }

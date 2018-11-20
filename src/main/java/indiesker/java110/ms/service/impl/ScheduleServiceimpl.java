@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import indiesker.java110.ms.dao.ScheduleDao;
 import indiesker.java110.ms.domain.Schedule;
 import indiesker.java110.ms.service.ScheduleService;
@@ -12,7 +14,11 @@ import indiesker.java110.ms.service.ScheduleService;
 @Service
 public class ScheduleServiceimpl implements ScheduleService {
 
-    @Autowired  ScheduleDao scheduleDao;
+    @Autowired  ScheduleDao scheduleDao;    
+    @Transactional(transactionManager="transactionManager",   
+                   propagation=Propagation.REQUIRED,
+                   rollbackFor=Exception.class)
+    
     
     @Override
     public void addSchedule(Schedule schedule) {
@@ -105,36 +111,14 @@ public class ScheduleServiceimpl implements ScheduleService {
     }
 
     @Override
-    public void removeStageDatesinbuskStag(ArrayList<String> arr) {
+    public int removeStageDates(ArrayList<String> arr) {
       scheduleDao.removeStageDatesinbuskStag(arr);
-      
-    }
-
-    @Override
-    public void removeStageDatesinStagSche(ArrayList<String> arr) {
-      scheduleDao.removeStageDatesinStagSche(arr);
+      return scheduleDao.removeStageDatesinStagSche(arr);
     }
     
     @Override
-    public int chkremoveStageDates(ArrayList<String> arr, int no) {
-      HashMap<String, Object> params = new HashMap<>();
-      params.put("nos", arr);
-      params.put("no", no);
-      return scheduleDao.chkremoveStageDates(params);
-    }
-
-    @Override
-    public void insertStageDates(List<Schedule> rlist) {
-            
-      scheduleDao.insertStageDates(rlist);
-    }
-
-    @Override
-    public int chkinsertDates(List<Schedule> rlist, int no) {
-      HashMap<String,Object> params = new HashMap<>();
-      params.put("no", no);
-      params.put("dates", rlist);
-      return scheduleDao.chkinsertDates(params);
+    public int insertStageDates(List<Schedule> rlist) {
+      return scheduleDao.insertStageDates(rlist);
     }
     
     @Override
@@ -158,6 +142,11 @@ public class ScheduleServiceimpl implements ScheduleService {
     @Override
     public List<Schedule> findFeedFixSchedule(int no) {
     return scheduleDao.findbynofixfeedschedule(no);
+    }
+
+    @Override
+    public Schedule showDatail(int no) {
+      return scheduleDao.showDatail(no);
     }
 
     

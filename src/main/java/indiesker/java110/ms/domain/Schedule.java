@@ -1,6 +1,7 @@
 package indiesker.java110.ms.domain;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Schedule {
   protected int sno;
@@ -18,12 +19,18 @@ public class Schedule {
   protected float y;
   protected char flag;
   protected int subno;
-  protected String buskname;
+  protected Busker busker;
   protected Supporter supporter;
-
+  protected List<ScheduleTime> scheduletime;
   
   
 
+  public List<ScheduleTime> getScheduletime() {
+    return scheduletime;
+  }
+  public void setScheduletime(List<ScheduleTime> scheduletime) {
+    this.scheduletime = scheduletime;
+  }
   public Long getLongsdt() {
     return longsdt;
   }
@@ -41,12 +48,6 @@ public class Schedule {
   }
   public void setSupporter(Supporter supporter) {
     this.supporter = supporter;
-  }
-  public String getBuskname() {
-    return buskname;
-  }
-  public void setBuskname(String buskname) {
-    this.buskname = buskname;
   }
  
   public String getShopname() {
@@ -127,12 +128,19 @@ public class Schedule {
   public void setSubno(int subno) {
     this.subno = subno;
   }
+  public Busker getBusker() {
+    return busker;
+  }
+  public void setBusker(Busker busker) {
+    this.busker = busker;
+  }
   @Override
   public String toString() {
     return "Schedule [sno=" + sno + ", shopname=" + shopname + ", addr=" + addr + ", sdt=" + sdt
         + ", edt=" + edt + ", cdt=" + cdt + ", nsdt=" + nsdt + ", nedt=" + nedt + ", ncdt=" + ncdt
-        + ", cnt=" + cnt + ", x=" + x + ", y=" + y + ", flag=" + flag + ", subno=" + subno
-        + ", buskname=" + buskname + ", supporter=" + supporter + "]";
+        + ", longsdt=" + longsdt + ", cnt=" + cnt + ", x=" + x + ", y=" + y + ", flag=" + flag
+        + ", subno=" + subno + ", busker=" + busker + ", supporter=" + supporter + ", scheduletime="
+        + scheduletime + "]";
   }
   
   

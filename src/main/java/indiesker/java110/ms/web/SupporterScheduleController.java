@@ -2,7 +2,6 @@ package indiesker.java110.ms.web;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import javax.servlet.ServletContext;
 import org.springframework.stereotype.Controller;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import indiesker.java110.ms.domain.Schedule;
+import indiesker.java110.ms.domain.ScheduleTime;
 import indiesker.java110.ms.domain.Supporter;
 import indiesker.java110.ms.service.ScheduleService;
 
@@ -43,11 +43,11 @@ public class SupporterScheduleController {
 
     List<Schedule> list = scheduleService.mysslist(pageNo, pageSize);
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-    List<Supporter> sup = new ArrayList<>();
+    SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
     for (Schedule s : list) {
       s.setNsdt(format.format(s.getSdt()));
       s.setNedt(format.format(s.getEdt()));
-      s.setNcdt(format.format(s.getCdt()));
+      s.setNcdt(dformat.format(s.getCdt()));
     }    
     model.addAttribute("list", list);
   }
@@ -65,13 +65,14 @@ public class SupporterScheduleController {
       pageSize = 9;
 
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
 
     if(flag.equals("1")||flag.equals("2")) {
       List<Schedule> flist = scheduleService.findSuggestsbyflag(flag, pageNo, pageSize);
       for (Schedule ps : flist) {
         ps.setNsdt(format.format(ps.getSdt()));
         ps.setNedt(format.format(ps.getEdt()));
-        ps.setNcdt(format.format(ps.getCdt()));
+        ps.setNcdt(dformat.format(ps.getCdt()));
       }
       return flist;    
     }else{
@@ -79,7 +80,7 @@ public class SupporterScheduleController {
       for (Schedule fs : flist) {
         fs.setNsdt(format.format(fs.getSdt()));
         fs.setNedt(format.format(fs.getEdt()));
-        fs.setNcdt(format.format(fs.getCdt()));
+        fs.setNcdt(dformat.format(fs.getCdt()));
       }
       return flist;
     }
@@ -96,8 +97,6 @@ public class SupporterScheduleController {
       ps.setNsdt(format.format(ps.getSdt()));
       ps.setNedt(format.format(ps.getEdt()));
     }
-
-    System.out.println("showDate in Controller");
     return slist;
   }
 
@@ -124,6 +123,8 @@ public class SupporterScheduleController {
           list.add("0"+Integer.toString(i)+":00 ~ 0"+Integer.toString(i+1)+":00");
         else if(i==9)
           list.add("0"+Integer.toString(i)+":00 ~ "+Integer.toString(i+1)+":00");
+        else if(i==23)
+          list.add(Integer.toString(i)+":00 ~ " + "00:00");
         else 
           list.add(Integer.toString(i)+":00 ~ " + Integer.toString(i+1)+":00");
       }    
@@ -145,7 +146,6 @@ public class SupporterScheduleController {
 
 
 
-
   @ResponseBody
   @RequestMapping("removeDate")
   public int removeStageDate(String[] stagedate, Model model){
@@ -156,12 +156,7 @@ public class SupporterScheduleController {
       arr.add(stagedate[i]);
     }
     
-    scheduleService.removeStageDatesinbuskStag(arr);
-    System.out.println("버스커 요청 삭제 성공");
-    scheduleService.removeStageDatesinStagSche(arr);
-    System.out.println("무대 일정삭제성공!");
-
-    return scheduleService.chkremoveStageDates(arr, no);
+    return scheduleService.removeStageDates(arr);
   }
   
   
@@ -182,11 +177,48 @@ public class SupporterScheduleController {
       sche.setSupporter(sup);
       rlist.add(sche);
     }    
-    
-    scheduleService.insertStageDates(rlist);
-    System.out.println("입력 성공!");
-   
-    return scheduleService.chkinsertDates(rlist,no);
+    return scheduleService.insertStageDates(rlist);
   }
-
+  
+  
+  @ResponseBody
+  @RequestMapping("showInfo")
+  public Schedule showDetail(String brno, Model model){
+  int no = Integer.parseInt(brno);
+  Schedule slist = scheduleService.showDatail(no);
+  
+  SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+  SimpleDateFormat hformat = new SimpleDateFormat("HH:mm");
+  List<ScheduleTime> stlist = new ArrayList<>();
+  for(int i=0;i<slist.getScheduletime().size();i++) {
+    ScheduleTime st = new ScheduleTime();
+    st.setSnsdt(format.format(slist.getScheduletime().get(i).getSsdt()));
+    st.setSnedt(hformat.format(slist.getScheduletime().get(i).getSedt()));
+    stlist.add(st);
+  }
+  slist.setScheduletime(stlist);
+  return slist;  
+  }
+  
+  
+  @RequestMapping("apply")
+  public int applyReqs(String[] reqdates){
+    
+    int no = 2;
+    
+    List<String> arr = new ArrayList<>();
+    for(int i=0;i<reqdates.length;i++) {
+      arr.add(reqdates[i]);
+    }
+    
+    for (String s : arr) {
+      System.out.println(s);
+    }
+    
+    return 0;
+  }
+  
+  
+  
+  
 }
