@@ -11,11 +11,35 @@
 #calendar {
 	max-width: 600px;
 	margin: 0 auto;
+	float: left;
 }
 
-#calendar, #selectday, #selectdate {
+#calendar, #selectday{
 	display: inline-block;
 }
+
+#selectday{
+position: relative;
+left:50px;
+top:-80px;
+}
+
+#showsuggests{
+display: inline-block;
+}
+
+#suggests{
+border-spacing:20px;
+text-align:center;
+}
+
+.insertDate{
+float:left;
+padding:30px;
+margin: 15px;
+}
+
+
 
 #logo {
 	width: 50px;
@@ -40,7 +64,7 @@
 
 	<div id='calendar'></div>
 	<div id='selectday'>
-		<table class="insertDate">
+		<table class='insertDate'>
 			<thead>
 				<tr><td colspan="4" id='showDate'><h2></h2></td></tr>
 				<tr>
@@ -50,25 +74,24 @@
 				</tr>
 			</thead>
 			<tbody>
-
 			</tbody>
 		</table>
 	</div>
 	
 	<!-- 필터 -->
-
+    <div id='showsuggests'>
        <div class='chkFlag'>
 	   <button value="0" >전체</button>
 	   <button value="1" >진행</button>
 	   <button value="2" >완료</button>
 	   </div>
     	
-	<table class="suggests">
+	<table id="suggests">
 	<thead>
 	   <tr>
 		<th>팀명</th>
 		<th>장르</th>
-		<th>신청시간</th>
+		<th>신청기간</th>
 		<th>신청인원</th>
 		<th>진행상태</th>
 		<th>작성일</th>
@@ -78,20 +101,56 @@
 	<tbody>
 	  <c:forEach items="${list}" var="list">
 		<tr>
-		 <td>${list.shopname}</td>
-		 <td>${list.supporter.sgnere}</td> 
-		 <td>${list.nsdt}~${list.nedt}</td>
+		 <td>${list.busker.teamname}</td>
+		 <td>${list.busker.teamgenre}</td> 
+		 <td>${list.nsdt} ~ ${list.nedt}</td>
 		 <td>${list.cnt}</td>
 		 <td><c:choose>
-			   <c:when test="${list.flag eq '1'.charAt(0) }">진행중 </c:when>
+			   <c:when test="${list.flag eq '1'.charAt(0) }">신청중 </c:when>
 			   <c:when test="${list.flag eq '2'.charAt(0) }">완료 </c:when>
 			 </c:choose></td>
-		 <td>${list.cdt}</td>
-		 <td><button>상세보기</button></td>
+		 <td>${list.ncdt}</td>
+		 <td><button type="button" class="btn btn-default" data-target="#detailModal" 
+		      data-toggle="modal" value="${list.sno}">상세보기</button><br/></td>
 		</tr>
 	  </c:forEach>
 	</tbody>
 	</table>
+	</div>
+	
+	
+	<!-- 상세보기 모달 -->	
+<div class="modal fade" id="detailModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- header -->
+      <div class="modal-header">
+        <!-- 닫기(x) 버튼 -->
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <!-- header title -->
+        <h4 class="modal-title">신청내역 상세보기</h4>
+      </div>
+      <!-- body -->
+      <div class="modal-body">
+      <form action="apply">
+      <div class="info">
+      </div>
+      <div class="dates">
+      </div>
+      </table>
+      <button type="submit">신청하기</button>
+      </form>             
+      </div>
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 	
 <!-- 달력 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -103,6 +162,10 @@
 <!-- 달력기간조회 -->
 <link rel="stylesheet" type="text/css" href="/../css/jquery.datetimepicker.css">
 <script src="/js/time/jquery.datetimepicker.full.min.js"></script>
+
+<!-- 모달 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 
 <!-- function -->
 <script src="/js/myss.js" type="text/javascript"></script>

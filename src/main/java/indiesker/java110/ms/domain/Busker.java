@@ -15,6 +15,7 @@ public class Busker extends Member{
   protected char permission; // 승인여부
   protected int likecount;
   protected String tel;
+  protected String message;
   
   public String getTeamname() {
     return teamname;
@@ -88,19 +89,22 @@ public class Busker extends Member{
   public void setTel(String tel) {
     this.tel = tel;
   }
-  @Override
-  public int getNo() {
-    return super.getNo();
-  }
   
+  public String getMessage() {
+    return message;
+  }
+  public void setMessage(String message) {
+    this.message = message;
+  }
   @Override
   public String toString() {
     return "Busker [teamname=" + teamname + ", teamgenre=" + teamgenre + ", city=" + city
         + ", instrument=" + instrument + ", streamingUrl=" + streamingUrl + ", teamInfo=" + teamInfo
         + ", teamPhoto=" + teamPhoto + ", avi1=" + avi1 + ", avi2=" + avi2 + ", permission="
-        + permission + ", likecount=" + likecount + ", tel=" + tel +", no=" + no + "]";
+        + permission + ", likecount=" + likecount + ", tel=" + tel + ", message=" + message + "]";
   }
   
+
   
   
 }

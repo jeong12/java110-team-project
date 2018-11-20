@@ -111,11 +111,16 @@ public class BuskerPerScheduleController {
   @ResponseBody
   @RequestMapping(value="clikeDate")
   public List<Schedule> getDateSchedule(
-      @RequestParam(value="no") String no,@RequestParam(value="date")String date, Model model) {
-
-
+      @RequestParam(value="no") String no,
+      @RequestParam(value="date")String date, Model model) {
+    System.out.println(no);
+    System.out.println(date);
     List<Schedule> clist = scheduleService.findbydate(no, date);
-
+    
+    for (Schedule s : clist) {
+      System.out.println(s.getNedt());
+    }
+    
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     for (Schedule ps : clist) {
       ps.setNsdt(format.format(ps.getSdt()));
@@ -130,7 +135,8 @@ public class BuskerPerScheduleController {
   @ResponseBody
   @RequestMapping(value="clikeFlag")
   public List<Schedule> getFlagSchedule(
-      /*@RequestParam(value="flag")*/ String flag,@RequestParam(defaultValue="1")int pageNo, 
+      /*@RequestParam(value="flag")*/ String flag,
+      @RequestParam(defaultValue="1")int pageNo, 
       @RequestParam(defaultValue="9")int pageSize,  Model model) {
     
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -189,21 +195,19 @@ public class BuskerPerScheduleController {
 
   }
   
-  @RequestMapping("reqdelete")
-  public String reqdelete(String no) throws Exception{
+  @ResponseBody
+  @RequestMapping("deleteschedule")
+  public int reqdelete(String fakeflag) throws Exception{
+    System.out.println(fakeflag);
+    String flag=fakeflag.substring(0,1);
+    int no=Integer.parseInt(fakeflag.substring(1, fakeflag.length()));
+    System.out.println(flag);
     System.out.println(no);
-    int brno=Integer.parseInt(no);
-    scheduleService.deleteReqSchedule(brno);
-    return "redirect:main";
+    if(flag.equals("a")) {
+      return scheduleService.deleteReqSchedule(no);
+    }else {
+      return scheduleService.deletePerSchedule(no);
+    }
   }
-  
-  @RequestMapping("perdelete")
-  public String perdelete(String no) throws Exception{
-    System.out.println(no);
-    int brno=Integer.parseInt(no);
-    scheduleService.deletePerSchedule(brno);
-    return "redirect:main";
-  }
-
 
 }
