@@ -41,8 +41,10 @@ public class EditProController{
 
     Member member;
     member = (Member)session.getAttribute("loginUser");
+    System.out.println(member.toString());
     model.addAttribute("id", member.getId());
     model.addAttribute("nick",member.getNickname());
+    model.addAttribute("photo",member.getPhoto());
   }
 
   @PostMapping("member/edit")
@@ -68,7 +70,11 @@ public class EditProController{
   }
 
   @GetMapping("busker/form")
-  public void editBusker() {
+  public void editBusker(HttpSession session, Model model) {
+    Member mem = (Member)session.getAttribute("loginUser");
+    Busker b = buskerService.get(mem.getNo());
+    System.out.println(b.toString());
+    model.addAttribute("busker",b);
   }
 
   @PostMapping("busker/editB")
@@ -89,7 +95,12 @@ public class EditProController{
   }
 
   @GetMapping("supporter/form")
-  public void editSupporter() {
+  public void editSupporter(HttpSession session, Model model) {
+    Member mem = (Member)session.getAttribute("loginUser");
+    StagePhoto[] sp = supporterService.getPhoto(mem.getNo());
+    model.addAttribute("sPhoto1",sp[0].getPhoto());
+    model.addAttribute("sPhoto2",sp[1].getPhoto());
+    model.addAttribute("sPhoto3",sp[2].getPhoto());
   }
 
   @PostMapping("supporter/editS")

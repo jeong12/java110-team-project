@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -153,6 +154,7 @@
                 var reader = new FileReader();
                 reader.onload = function(e) {
                     $('#upload').attr('src', e.target.result);
+                    $('#photo-image').attr('src', e.target.result);
                 }
                 reader.readAsDataURL(input.files[0]);
                 chkFile = 1;
@@ -186,7 +188,14 @@
                 id="rePassword"></span>
             <div class="imgfile">
             <h3>사진</h3>
-            <img id="upload" src="/img/anonymous.png" alt="기본이미지" style="height:200px; width: 200px;"><br>
+            <c:choose>
+                <c:when test="${not empty photo}">
+                    <td><img id='photo-image' src='/upload/${photo}' alt="원본이미지" style="height:200px; width: 200px;"></td>
+                </c:when>
+            <c:otherwise>
+                <img id="upload" src="/img/anonymous.png" alt="기본이미지" style="height:200px; width: 200px;"><br>
+            </c:otherwise>
+            </c:choose>
             <input type='file' name='file1' id='input_img' onchange="readURL(this);"/>
             </div>
             <h3>이메일</h3>

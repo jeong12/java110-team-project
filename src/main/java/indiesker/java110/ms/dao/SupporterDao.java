@@ -12,5 +12,7 @@ public interface SupporterDao {
   void updateSup(Supporter supporter);
   void updateFile(StagePhoto phot);
   int[] findBySpno(int no);
+  Supporter findAll(int no);
+  StagePhoto[] findbyPhoto(int no);
 }
 

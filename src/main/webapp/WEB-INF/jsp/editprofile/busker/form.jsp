@@ -161,7 +161,7 @@ function readURL(input) {
             </select><br>
             <div id="imgfile">
             <h3 id="h3_img">사진</h3>
-            <img id="upload" src="/img/anonymous.png" alt="기본이미지" style="height:200px; width: 200px;"><br>
+            <img id="upload" src="/upload/${busker.teamPhoto}" alt="기본이미지" style="height:200px; width: 200px;"><br>
             <input type='file' name='file1' id='input_img'
                 onchange="readURL(this);" />
             </div>

@@ -48,6 +48,16 @@ public class SupporterServiceImpl implements SupporterService {
     public int[] getSpno(int no) {
       return supporterDao.findBySpno(no);
     }
+
+    @Override
+    public Supporter get(int no) {
+      return supporterDao.findAll(no);
+    }
+
+    @Override
+    public StagePhoto[] getPhoto(int no) {
+      return supporterDao.findbyPhoto(no);
+    }
 }
 
 

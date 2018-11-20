@@ -46,5 +46,17 @@
           from stag_phot
          where sno = #{no}
     </select>
+    
+    <select id="findAll" parameterType="int" resultType="supporter">
+        select sno, name, bas_addr, postno, det_addr, genre, capa, tel, per, etc
+          from sup
+         where sno = #{no}
+    </select>
+    
+    <select id="findbyPhoto" parameterType="int" resultType="StagePhoto">
+        select spno, phot as photo
+          from stag_phot
+         where sno = #{no};
+    </select>
 </mapper>
 

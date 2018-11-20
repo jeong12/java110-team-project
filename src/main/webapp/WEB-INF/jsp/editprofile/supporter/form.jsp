@@ -65,15 +65,15 @@ h2 {
                 <div id="imgfile">
             <table>
                 <tr>
-                    <td><img id="upload1" src="/img/default_image.png" alt="기본이미지">
+                    <td><img id="upload1" src="/upload/${sPhoto1}" alt="기본이미지">
                     <input type='file' name='file1' id='input_img1' onchange="readURL1(this);"> </td>
                 </tr>
                 <tr>
-                    <td><img id="upload2" src="/img/default_image.png" alt="기본이미지">
+                    <td><img id="upload2" src="/upload/${sPhoto2}" alt="기본이미지">
                     <input type='file' name='file2' id='input_img2' onchange="readURL2(this);"> </td>
                 </tr>
                 <tr>
-                    <td><img id="upload3" src="/img/default_image.png" alt="기본이미지">
+                    <td><img id="upload3" src="/upload/${sPhoto3}" alt="기본이미지">
                     <input type='file' name='file3' id='input_img3' onchange="readURL3(this);"></td>
                 </tr>
             </table>

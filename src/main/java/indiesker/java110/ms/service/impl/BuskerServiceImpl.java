@@ -34,7 +34,6 @@ public class BuskerServiceImpl implements BuskerService {
 
   @Override
   public List<Integer> checkBusker(int no) {
-    System.out.println("dddd"+no);
     return buskerDao.findByBusker(no);
   }
 

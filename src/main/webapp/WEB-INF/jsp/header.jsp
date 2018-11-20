@@ -12,12 +12,19 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
 <style>
 .top-bar {
     background: black;
     color: #fff;
     font-size: 0.9rem;
     padding: 10px 0;
+}
+div.fix{
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index:9999;
 }
 
 .top-bar .contact-info {
@@ -92,7 +99,7 @@ a:focus, a:hover {
 </head>
 <body>
 
-
+<div id=headerfix>
 <div class="top-bar">
         <div class="container">
           <div class="row d-flex align-items-center">
@@ -131,6 +138,7 @@ a:focus, a:hover {
                </div>
             </div>
         </div>
+      </div>
       </div>
 </body>
 </html>

@@ -12,4 +12,6 @@ public interface SupporterService {
   void modiSup(Supporter supporter);
   void modiSupPho(StagePhoto stagephoto);
   int[] getSpno(int no);
+  Supporter get(int no);
+  StagePhoto[] getPhoto(int no);
 }
