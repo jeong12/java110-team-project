@@ -11,11 +11,30 @@
 #calendar {
 	max-width: 600px;
 	margin: 0 auto;
+	float: left;
 }
 
-#calendar, #selectday, #selectdate {
+#calendar, #selectday{
 	display: inline-block;
 }
+
+#selectday{
+position: relative;
+left:50px;
+top:-80px;
+}
+
+#showsuggests{
+display: inline-block;
+}
+
+.insertDate{
+float:left;
+padding:30px;
+margin: 15px;
+}
+
+
 
 #logo {
 	width: 50px;
@@ -40,7 +59,7 @@
 
 	<div id='calendar'></div>
 	<div id='selectday'>
-		<table class="insertDate">
+		<table class='insertDate'>
 			<thead>
 				<tr><td colspan="4" id='showDate'><h2></h2></td></tr>
 				<tr>
@@ -50,20 +69,19 @@
 				</tr>
 			</thead>
 			<tbody>
-
 			</tbody>
 		</table>
 	</div>
 	
 	<!-- 필터 -->
-
+    <div id='showsuggests'>
        <div class='chkFlag'>
 	   <button value="0" >전체</button>
 	   <button value="1" >진행</button>
 	   <button value="2" >완료</button>
 	   </div>
     	
-	<table class="suggests">
+	<table id="suggests">
 	<thead>
 	   <tr>
 		<th>팀명</th>
@@ -92,6 +110,7 @@
 	  </c:forEach>
 	</tbody>
 	</table>
+	</div>
 	
 <!-- 달력 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
