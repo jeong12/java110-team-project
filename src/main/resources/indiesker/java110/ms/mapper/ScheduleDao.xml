@@ -113,10 +113,9 @@
     </resultMap>
     
     <resultMap type="Schedule" id="showDetailMap">
-            <id column="brno" property="sno"/>
+        <id column="brno"       property="sno"/>
         <result column="cdt"    property="cdt"/>
         <result column="cnt"    property="cnt" />
-        <result column="flag"   property="flag"/>
         <association property="busker" javaType="Busker">
             <id column="bno" property="no"/>
             <result column="name"    property="teamname"/>
@@ -130,8 +129,10 @@
             <result column="cont"    property="message"/>
         </association>
         <collection property="scheduletime" ofType="ScheduleTime">
+            <result column="ssno"  property="sssno"/>
             <result column="sdt"   property="ssdt"/>
             <result column="edt"   property="sedt"/>
+            <result column="flag"   property="flag"/>
         </collection>
     </resultMap>
 
@@ -289,7 +290,7 @@ select b.name, b.genre, min(ss.sdt) as sdt, max(ss.edt)as edt, br.cnt, bs.flag, 
 from busk_stag as bs, stag_sche as ss, busk as b, busk_req as br 
 where bs.ssno = ss.ssno and bs.brno=br.brno and br.bno=b.bno and ss.sno=2 
 GROUP BY br.brno 
-order by ss.sdt;
+order by ss.sdt desc
 </select>
 
  <!-- 무대제공자 스케줄조회: 무대신청,완료된 목록을 보여주는 쿼리(플래그로) -->
@@ -299,7 +300,7 @@ from busk_stag as bs, stag_sche as ss, busk as b, busk_req as br
 where bs.ssno = ss.ssno and bs.brno=br.brno and br.bno=b.bno and ss.sno=2
 and flag=#{flag}
 GROUP BY br.brno 
-order by ss.sdt
+order by ss.sdt desc
 </select>
 
 <!-- 무대제공자 스케쥴조회: 해당 날짜에 사용불가능한 목록을 뽑아주는 쿼리 -->
@@ -340,11 +341,30 @@ values
 
 <!-- 무대제공자 스케쥴조회: 상세보기에 출력할 팀 정보 -->
 <select id="showDatail" parameterType="int" resultMap="showDetailMap">
-SELECT b.name, b.genre, b.tel, b.lcnt, b.bno, br.cont, br.brno, ss.sdt, ss.edt
+SELECT b.name, b.genre, b.tel, b.lcnt, b.bno, br.cont, br.brno, ss.ssno, ss.sdt, ss.edt, bs.flag
 from busk as b, busk_req as br, busk_stag as bs, stag_sche as ss
 where b.bno=br.bno and br.brno = bs.brno and bs.ssno = ss.ssno and 
 br.brno=#{no}
 </select>
+
+<!-- 무대제공자 업데이트: 신청온 사항을 승낙함-->
+<update id="consentapply" parameterType="ArrayList">
+UPDATE `busk_stag` 
+SET flag='2' 
+WHERE ssno in
+<foreach collection="list" item="arr" separator="," open="(" close=")">
+#{arr}
+</foreach>
+</update>
+
+<!-- 무대제공자 삭제: 신청 사항을 거절함 -->
+<delete id="refuseapply" parameterType="ArrayList">
+DELETE FROM `busk_stag` 
+WHERE ssno in
+<foreach collection="list" item="arr" separator="," open="(" close=")">
+#{arr}
+</foreach>
+</delete>
 
 <delete id="perscheduledelete" parameterType="int">
 delete from per_sche

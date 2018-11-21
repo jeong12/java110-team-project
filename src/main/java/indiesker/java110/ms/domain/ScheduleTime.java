@@ -10,6 +10,7 @@ public class ScheduleTime {
   protected String snsdt;
   protected String snedt;
   protected String sncdt;
+  protected int flag;
   
   public int getSssno() {
     return sssno;
@@ -54,11 +55,19 @@ public class ScheduleTime {
     this.sncdt = sncdt;
   }
   
+  public int getFlag() {
+    return flag;
+  }
+  public void setFlag(int flag) {
+    this.flag = flag;
+  }
   @Override
   public String toString() {
     return "ScheduleTime [sssno=" + sssno + ", ssdt=" + ssdt + ", sedt=" + sedt + ", scdt=" + scdt
-        + ", snsdt=" + snsdt + ", snedt=" + snedt + ", sncdt=" + sncdt + "]";
+        + ", snsdt=" + snsdt + ", snedt=" + snedt + ", sncdt=" + sncdt + ", flag=" + flag + "]";
   }
+
+  
  
   
   
