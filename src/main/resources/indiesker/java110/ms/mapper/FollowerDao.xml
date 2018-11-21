@@ -16,10 +16,25 @@
 </resultMap>
 
 <!-- 즐겨찾기 목록 보기  -->
-<select id="findList" resultMap="followerMap" parameterType="int">
+<!-- <select id="findList" resultMap="followerMap" parameterType="int">
     SELECT busk.name, busk.phot, busk.genre, folw.bno
     FROM busk LEFT JOIN folw on busk.bno=folw.bno
     where folw.mno=#{no};
+</select> -->
+
+<!-- 즐겨찾기 등록한 토탈카운트 계산 -->
+<select id="totalCount" resultType="int" parameterType="int">
+    SELECT COUNT(bno)
+    FROM folw
+    where mno=#{no}
+</select>
+
+<!-- 즐겨찾기 페이징 처리하기 -->
+<select id="followerPage" resultMap="followerMap" parameterType="Map">
+    SELECT busk.name, busk.phot, busk.genre, folw.bno
+    FROM busk LEFT JOIN folw on busk.bno=folw.bno
+    where folw.mno=#{no}
+    LIMIT #{startPageNo} , '9';
 </select>
 
 <!-- 즐겨찾기 우측 자세히 보기 -->
