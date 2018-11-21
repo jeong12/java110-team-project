@@ -19,13 +19,12 @@
 }
 
 #selectday{
+float : right;
 position: relative;
-left:50px;
-top:-80px;
 }
 
 #showsuggests{
-display: inline-block;
+clear:both;
 }
 
 #suggests{

@@ -90,8 +90,7 @@ var month = dt.getMonth()+1;
 var day = dt.getDate();
 var year = dt.getFullYear();
 var today=year+"-"+month+"-"+day;
-console.log(today);
-console.log(typeof today);
+
 
 
 //등록가능한 무대일정 출력 & 체크할 수 있게.
@@ -101,6 +100,7 @@ function add(){
 		alert("날짜를 먼저 선택해주세요");
 		return;
 	}
+		
 	$('#showtype h4').empty();
 	$('#showtype h4').append('무대등록하기');
 
