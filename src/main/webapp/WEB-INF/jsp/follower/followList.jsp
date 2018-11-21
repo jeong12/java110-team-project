@@ -185,7 +185,7 @@ $(this).addClass("active");
     <div class="sorter">
     <div class="OutOfpagination">
       <ul class="pagination">
-               <c:forEach var="i" begin="${paging.startPageNo}" end="${paging.endPageNo}" step="1">
+               <c:forEach var="i" begin="${PageMove.startPageNo}" end="${paging.endPageNo}" step="1">
                   <c:choose>
                       <c:when test="${i eq paging.pageNo}">
                 <li class="active"><a href="javascript:PageMove(${i})">${i}</a></li>
@@ -201,7 +201,7 @@ $(this).addClass("active");
   </div>
 </div>
 
-
+ 
         <table id='followerdetail'><!--우측 자세히 보기-->
             <h3>
             
@@ -215,37 +215,12 @@ $(this).addClass("active");
 <script>
 //페이징
 
-$('.followPagenation').click(function PageMove(pageNo){
+$('.followPagenation').click(function PageMove(i){
     var pageNo = $(this).val();
     console.log(pageNo);
+    console.log(i);
     
-    $.ajax({ 
-        type : "POST", //보내는 타입을 Post방식으로 할지,  GET방식으로 할지 결정
-        url : "followerPagination", // /내 프로젝트명/XML파일의namespace/내가불러올XML의Query이름.do
-        //header :'Content-Type: application/json',
-        dataType: 'json',
-        data : { pageNo : pageNo }, //파라미터 넘겨줄 부분? : 이게 할말이 많은데 원래 GET방식으로 하라했다가 
-                               //다시 POST방식으로 하게됬는데 파라미터를 넘겨줄 값이 없어서 다시 GET으로 바꾸면서 주석 
-        //contentType : "application/x-www-form-urlencoded; charset=utf-8",  // 기본값이라고 하니까 건들이지 않았고 
-        success : function(data) {
-           $("#followPagenation").empty();
-                
-           $("#followPagenation").append(
-                  "<c:forEach items='${followerList}' var='bno'>"
-                   +"<div class='gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter ${bno.teamgenre}'>"
-                           +"<button class='followerbtn' value='${bno.bno}'>"
-                               +"<table class='innertable'>"
-                                   +"<tr><td>${bno.teamname}</td></tr>"
-                               +"</table>"
-                           +"</button>"
-                   +"</div>"
-                   +"</c:forEach>"
-        },
-        error : function(request, status, error) {
-            alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
-        }
-    });
-    
+
    })
 
 
