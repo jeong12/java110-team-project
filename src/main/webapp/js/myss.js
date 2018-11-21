@@ -46,9 +46,9 @@ $('.chkFlag button').click(function(){
 								'<td><button type="button"'+ 
 								'class="btn btn-default"'+ 
 								'data-target="#detailModal"'+ 
-							    'data-toggle="modal"'+
-							    'value="'+item.sno+
-							    '">상세보기</button></td></tr>');
+								'data-toggle="modal"'+
+								'value="'+item.sno+
+						'">상세보기</button></td></tr>');
 					}else if(item.flag==2){
 						$("#suggests tbody").append(
 								'<tr>'+
@@ -59,7 +59,7 @@ $('.chkFlag button').click(function(){
 								'<td>'+'완료'+'</td>'+
 								'<td>'+item.ncdt+'</td>'+
 								'<td><button type="button" class="btn btn-default" data-target="#detailModal"'+ 
-							    'data-toggle="modal" value="'+item.sno+'">상세보기</button></td></tr>');
+								'data-toggle="modal" value="'+item.sno+'">상세보기</button></td></tr>');
 					}else{
 						$("#suggests tbody").append(
 								'<tr>'+
@@ -70,7 +70,7 @@ $('.chkFlag button').click(function(){
 								'<td>'+'etc'+'</td>'+
 								'<td>'+item.ncdt+'</td>'+
 								'<td><button type="button" class="btn btn-default" data-target="#detailModal"'+ 
-							    'data-toggle="modal" value="'+item.sno+'">상세보기</button></td></tr>');
+								'data-toggle="modal" value="'+item.sno+'">상세보기</button></td></tr>');
 					}
 				});
 			}
@@ -263,7 +263,7 @@ $('#suggests tbody button').click(function(){
 			$(".dates").empty();
 			if(data.length != 0){
 				$(".info").append(
-					    "<h3>"+data.busker.teamname+"</h3>"+
+						"<h3>"+data.busker.teamname+"</h3>"+
 						/*"<img src='/upload/"+data.busker.teamPhoto+"' alt='버스커 이미지'>"+*/
 						"<button value="+data.busker.no+">"+"피드링크연결필요"+"</button>"+
 						"<table>"+
@@ -273,11 +273,17 @@ $('#suggests tbody button').click(function(){
 						"<tr><td>좋아요</td><td>"+data.busker.likecount+"</td></tr>"+
 						"<tr><td>메시지</td><td>"+data.busker.message+"</td></tr>");
 				$.each(data.scheduletime,function(index,item){
-					$('.dates').append(
-					  '<tr>'+
-					  '<td>'+'<input type="checkbox" name="reqdates" value="'+item.snsdt+'">'
-					  +item.snsdt+'~'+item.snedt+'</td>');
-					});
+					if(item.flag == 1){
+						$('.dates').append(
+								'<tr>'+
+								'<td>'+
+								'<input type="checkbox" name="reqdates" value="'+item.sssno+'">'
+								+item.snsdt+'~'+item.snedt+'</td>');
+					}else if(item.flag ==2){
+						$('.dates').append(
+								'<tr>'+'<td>'+item.snsdt+'~'+item.snedt+'</td>');
+					}});	
+				
 			}else
 				alert("fail!");
 		},
