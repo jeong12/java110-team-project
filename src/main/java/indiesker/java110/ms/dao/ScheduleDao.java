@@ -26,4 +26,6 @@ public interface ScheduleDao {
   List<Schedule> findbynoperfeedschedule(int no);
   List<Schedule> findbynofixfeedschedule(int no);
   Schedule showDatail(int no);
+  int consentapply(ArrayList<Integer> list);
+  int refuseapply(ArrayList<Integer> list);
 }

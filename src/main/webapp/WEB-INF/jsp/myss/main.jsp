@@ -19,6 +19,7 @@
 }
 
 #selectday{
+float:right;
 position: relative;
 left:50px;
 top:-80px;
@@ -132,13 +133,14 @@ margin: 15px;
       </div>
       <!-- body -->
       <div class="modal-body">
-      <form action="apply">
+      <form action="consent">
       <div class="info">
       </div>
       <div class="dates">
       </div>
       </table>
-      <button type="submit">신청하기</button>
+      <button type="submit" name="type" value="consent">신청하기</button>
+      <button type="submit" name="type" value="refuse">거절하기</button>
       </form>             
       </div>
       <!-- Footer -->
