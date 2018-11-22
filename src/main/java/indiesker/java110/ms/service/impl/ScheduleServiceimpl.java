@@ -161,5 +161,11 @@ public class ScheduleServiceimpl implements ScheduleService {
     return scheduleDao.refuseapply(list);
     }
     
-    
+    @Override
+    public List<Schedule> showpast(int no, String date) {
+      HashMap<String, Object> params = new HashMap<>();
+      params.put("no", no);
+      params.put("date", date);
+    return scheduleDao.showpast(params);
+    }
 }

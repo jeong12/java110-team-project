@@ -137,8 +137,6 @@ margin: 15px;
       <div class="dates">
       </div>
       </table>
-      <button type="submit" name="type" value="consent">신청하기</button>
-      <button type="submit" name="type" value="refuse">거절하기</button>
       </form>             
       </div>
       <!-- Footer -->

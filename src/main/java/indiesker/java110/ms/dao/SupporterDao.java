@@ -14,5 +14,6 @@ public interface SupporterDao {
   int[] findBySpno(int no);
   Supporter findAll(int no);
   StagePhoto[] findbyPhoto(int no);
+  Supporter findInfo(int no);
 }
 

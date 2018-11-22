@@ -14,4 +14,5 @@ public interface SupporterService {
   int[] getSpno(int no);
   Supporter get(int no);
   StagePhoto[] getPhoto(int no);
+  Supporter findInfo(int no);
 }

@@ -2,6 +2,7 @@ package indiesker.java110.ms.web;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletContext;
 import org.springframework.stereotype.Controller;
@@ -183,22 +184,30 @@ public class SupporterScheduleController {
 
   @ResponseBody
   @RequestMapping("showInfo")
-  public Schedule showDetail(String brno, Model model){
-    int no = Integer.parseInt(brno);    
+  public Schedule showDetail(String brno, Model model)throws Exception{
+    int no = Integer.parseInt(brno);
     Schedule slist = scheduleService.showDatail(no);
       SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+      SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
       SimpleDateFormat hformat = new SimpleDateFormat("HH:mm");
       List<ScheduleTime> stlist = new ArrayList<>();
+      
+      Date td = new Date();
+      
       for(int i=0;i<slist.getScheduletime().size();i++) {
         ScheduleTime st = new ScheduleTime();
         st.setSnsdt(format.format(slist.getScheduletime().get(i).getSsdt()));
         st.setSnedt(hformat.format(slist.getScheduletime().get(i).getSedt()));
         st.setSssno(slist.getScheduletime().get(i).getSssno());
-        st.setFlag((slist.getScheduletime().get(i).getFlag()));
+        Date std = dformat.parse(dformat.format(slist.getScheduletime().get(i).getSsdt()));
+        if(std.getTime()-td.getTime()<0) {
+          st.setFlag(2);
+        }else {
+          st.setFlag((slist.getScheduletime().get(i).getFlag()));
+        }
         stlist.add(st);
       }
       slist.setScheduletime(stlist);
-    
     return slist;  
   }
 

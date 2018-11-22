@@ -1,5 +1,7 @@
 package indiesker.java110.ms.domain;
 
+import java.util.List;
+
 public class Supporter extends Member {
   private static final long serialVersionUID = 1L;
   protected String name;
@@ -14,14 +16,8 @@ public class Supporter extends Member {
   protected float x;
   protected float y;
   protected StagePhoto stagephoto;
+  protected List<StagePhoto> stagephotos;
   
-    
-  public String getSgnere() {
-    return sgnere;
-  }
-  public void setSgnere(String sgnere) {
-    this.sgnere = sgnere;
-  }
   public String getName() {
     return name;
   }
@@ -46,13 +42,11 @@ public class Supporter extends Member {
   public void setDetailaddr(String detailaddr) {
     this.detailaddr = detailaddr;
   }
-   
-  
-  public String getSupportgenre() {
+  public String getSgnere() {
     return sgnere;
   }
-  public void setSupportgenre(String supportgenre) {
-    this.sgnere = supportgenre;
+  public void setSgnere(String sgnere) {
+    this.sgnere = sgnere;
   }
   public int getCapa() {
     return capa;
@@ -96,16 +90,17 @@ public class Supporter extends Member {
   public void setStagephoto(StagePhoto stagephoto) {
     this.stagephoto = stagephoto;
   }
-  public static long getSerialversionuid() {
-    return serialVersionUID;
+  public List<StagePhoto> getStagephotos() {
+    return stagephotos;
+  }
+  public void setStagesphoto(List<StagePhoto> stagephotos) {
+    this.stagephotos = stagephotos;
   }
   @Override
   public String toString() {
     return "Supporter [name=" + name + ", baseaddr=" + baseaddr + ", postno=" + postno
-        + ", detailaddr=" + detailaddr + ", supgenre=" + sgnere + ", capa=" + capa + ", tel="
-        + tel + ", permission=" + permission + ", message=" + message + ", x=" + x + ", y=" + y
-        + ", stagephoto=" + stagephoto + "]";
+        + ", detailaddr=" + detailaddr + ", sgnere=" + sgnere + ", capa=" + capa + ", tel=" + tel
+        + ", permission=" + permission + ", message=" + message + ", x=" + x + ", y=" + y
+        + ", stagephoto=" + stagephoto + ", stagesphoto=" + stagephotos + "]";
   }
- 
-  
 }

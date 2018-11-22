@@ -134,8 +134,6 @@ public class SignupController{
   @RequestMapping("supporter/add")
   public void add(Supporter s, StagePhoto sp, Model model, @RequestParam MultipartFile file1, 
       @RequestParam MultipartFile file2, @RequestParam MultipartFile file3) throws Exception {
-    System.out.println(s);
-    System.out.println(s.getSupportgenre());
     String id= (String) bsuknsup.get("id");
     System.out.println(id);
     int no = memberService.findNoById(id);

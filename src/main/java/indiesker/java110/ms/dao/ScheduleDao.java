@@ -28,4 +28,6 @@ public interface ScheduleDao {
   Schedule showDatail(int no);
   int consentapply(ArrayList<Integer> list);
   int refuseapply(ArrayList<Integer> list);
+  List<Schedule> showpast(Map<String,Object> params);
+  List<Schedule> findAll(Map<String,Object> params);
 }

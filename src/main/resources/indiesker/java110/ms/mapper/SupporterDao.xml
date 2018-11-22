@@ -5,6 +5,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="indiesker.java110.ms.dao.SupporterDao">
 
+    <resultMap type="Supporter"      id="supporterMap">
+        <result column="name"        property="name"/>
+        <result column="bas_addr"    property="baseaddr"/>
+        <result column="det_addr"    property="detailaddr"/>
+        <result column="genre"       property="sgnere"/>
+        <result column="etc"         property="message"/>
+        <result column="capa"        property="capa"/>
+        <result column="tel"         property="tel"/>
+        <result column="x"           property="x"/>
+        <result column="y"           property="y"/>
+        <collection property="stagephotos" ofType="StagePhoto">
+        <result column="phot"  property="photo"/>
+        </collection>
+    </resultMap>
+
+
 	<select id="checkName" parameterType="string" resultType="int">
 		select
 		count(*) from sup where name=#{name}
@@ -48,9 +64,15 @@
     </select>
     
     <select id="findAll" parameterType="int" resultType="supporter">
-        select sno, name, bas_addr, postno, det_addr, genre, capa, tel, per, etc
+          select sno, name, bas_addr, postno, det_addr, genre, capa, tel, per, etc
           from sup
          where sno = #{no}
+    </select>
+    
+    <select id="findInfo" resultMap="supporterMap" parameterType="int">
+        SELECT s.name, s.bas_addr, s.det_addr, s.x, s.y, s.genre, s.capa, s.tel, s.etc, sp.phot
+        FROM sup as s, stag_phot as sp
+        WHERE s.sno = sp.sno and s.sno=#{no}
     </select>
     
     <select id="findbyPhoto" parameterType="int" resultType="StagePhoto">
