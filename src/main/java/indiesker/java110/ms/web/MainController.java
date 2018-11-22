@@ -1,13 +1,11 @@
 package indiesker.java110.ms.web;
 
 import java.util.List;
-import java.util.Map;
 import javax.servlet.ServletContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import indiesker.java110.ms.domain.Schedule;
 import indiesker.java110.ms.service.ScheduleService;
@@ -24,7 +22,10 @@ public class MainController {
   }
 
   @GetMapping("main")
-  public void main(Model model) {}
+  public void main(Model model) {
+    
+    
+  }
 
   @ResponseBody
   @PostMapping(value="main")

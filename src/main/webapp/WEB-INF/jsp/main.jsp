@@ -14,6 +14,7 @@
 <!-- custom -->
 <script src="../js/headerfixing.js"></script>
 <script src="../js/todaybuskerlist.js"></script>
+<script src="../js/todayTime.js"></script>
 
 <style>
 .clickable {cursor: pointer;}
@@ -122,7 +123,7 @@ table {
               <button type="submit" class="btn btn-outline-success ">Search</button>
             </div>
           </form>
-          <h4 style="text-align: center;">오늘의 공연 10.11Fri(서울)</h4>
+          <h4 style="text-align: center;">오늘의 공연 <span id="today"></span>(서울)</h4>
           <div class="table-responsive">
             <table class="table">
               <thead class="thead-dark">
