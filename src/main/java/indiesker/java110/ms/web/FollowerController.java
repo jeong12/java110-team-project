@@ -1,6 +1,8 @@
 package indiesker.java110.ms.web;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 
@@ -9,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import indiesker.java110.ms.domain.Follower;
@@ -27,27 +30,46 @@ public class FollowerController {
 		this.sc = sc;
 	}
 	
-	@GetMapping("follow")
-	public void follow(Model model) {
+	@GetMapping("followList")
+	public void followList(
+			
+			@RequestParam(defaultValue="1") int pageNo,
+            @RequestParam(defaultValue="9") int pageSize,
+			Model model) {
+	
+        if (pageNo < 1)
+            pageNo = 1;
+        
+        if (pageSize < 1 || pageSize > 9)
+            pageSize = 9;
 		
 	int no = 6;//일단 6번 회원입력
-
-		List<Follower> followerList = followerService.findList(no);
-		model.addAttribute("followerList", followerList);
-		
+	
+	List<Follower> followerList = followerService.findList(no,pageNo, pageSize);
+	model.addAttribute("followerList", followerList);
+	
+	int totalCount = followerService.totalCount(no);
+	int startPageNo = 1;
+	int endPageNo = (totalCount/9)+1;
+	Map<String, Integer> pageMove = new HashMap<>();
+	pageMove.put("startPageNo",startPageNo);
+	pageMove.put("endPageNo",endPageNo);
+	pageMove.put("pageNo", pageNo);
+	model.addAttribute("pageMove", pageMove);
 	}
+	
 	
 	@ResponseBody
 	@PostMapping(value="clickDetail")
 	public Follower clickDetail(int bno) {
 		System.out.println(bno);
 		Follower findDetail = followerService.findDetail(bno);
-		System.out.println(findDetail.getTeamname());
+		//System.out.println(findDetail.getTeamname());
 		return findDetail;
 	}
 	
-	
-/*    @RequestMapping(value="/board/boardList.do")
+/*	
+    @RequestMapping(value="/board/boardList.do")
     public String boardList(@ModelAttribute("boardVO") BoardVO boardVO,
             @RequestParam(defaultValue="1") int curPage,
             HttpServletRequest request,

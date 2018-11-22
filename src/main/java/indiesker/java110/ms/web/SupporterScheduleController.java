@@ -116,31 +116,31 @@ public class SupporterScheduleController {
       ps.setNsdt(format.format(ps.getSdt()));
       ps.setNedt(format.format(ps.getEdt()));
     }
-    
+
     // 일단 24개 다 넣음
-      for(int i=0;i<24;i++) {
-        if(i<9) 
-          list.add("0"+Integer.toString(i)+":00 ~ 0"+Integer.toString(i+1)+":00");
-        else if(i==9)
-          list.add("0"+Integer.toString(i)+":00 ~ "+Integer.toString(i+1)+":00");
-        else if(i==23)
-          list.add(Integer.toString(i)+":00 ~ " + "00:00");
-        else 
-          list.add(Integer.toString(i)+":00 ~ " + Integer.toString(i+1)+":00");
-      }    
+    for(int i=0;i<24;i++) {
+      if(i<9) 
+        list.add("0"+Integer.toString(i)+":00 ~ 0"+Integer.toString(i+1)+":00");
+      else if(i==9)
+        list.add("0"+Integer.toString(i)+":00 ~ "+Integer.toString(i+1)+":00");
+      else if(i==23)
+        list.add(Integer.toString(i)+":00 ~ " + "00:00");
+      else 
+        list.add(Integer.toString(i)+":00 ~ " + Integer.toString(i+1)+":00");
+    }    
 
     // 데이터 값을 삭제
-      
-          
-      for(int i=0;i<list.size();i++) {
-        for(Schedule ps : slist) {
-         if(list.get(i).substring(0,5).equals(ps.getNsdt())) {
-           list.remove(i);
-         }
+
+
+    for(int i=0;i<list.size();i++) {
+      for(Schedule ps : slist) {
+        if(list.get(i).substring(0,5).equals(ps.getNsdt())) {
+          list.remove(i);
         }
       }
-      
-    
+    }
+
+
     return list;
   }
 
@@ -155,19 +155,19 @@ public class SupporterScheduleController {
     for(int i=0;i<stagedate.length;i++) {
       arr.add(stagedate[i]);
     }
-    
+
     return scheduleService.removeStageDates(arr);
   }
-  
-  
-  
+
+
+
   @ResponseBody
   @RequestMapping("insertDate")
   public int insertStageDate(String[] insertDate, String day, Model model){
     int size = insertDate.length;
     List<Schedule> rlist = new ArrayList<>();
     int no=2;
-    
+
     for(int i=0;i<size;i++) {
       Schedule sche = new Schedule();
       Supporter sup = new Supporter();
@@ -179,46 +179,49 @@ public class SupporterScheduleController {
     }    
     return scheduleService.insertStageDates(rlist);
   }
-  
-  
+
+
   @ResponseBody
   @RequestMapping("showInfo")
   public Schedule showDetail(String brno, Model model){
-  int no = Integer.parseInt(brno);
-  Schedule slist = scheduleService.showDatail(no);
-  
-  SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-  SimpleDateFormat hformat = new SimpleDateFormat("HH:mm");
-  List<ScheduleTime> stlist = new ArrayList<>();
-  for(int i=0;i<slist.getScheduletime().size();i++) {
-    ScheduleTime st = new ScheduleTime();
-    st.setSnsdt(format.format(slist.getScheduletime().get(i).getSsdt()));
-    st.setSnedt(hformat.format(slist.getScheduletime().get(i).getSedt()));
-    stlist.add(st);
-  }
-  slist.setScheduletime(stlist);
-  return slist;  
-  }
-  
-  
-  @RequestMapping("apply")
-  public int applyReqs(String[] reqdates){
+    int no = Integer.parseInt(brno);    
+    Schedule slist = scheduleService.showDatail(no);
+      SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+      SimpleDateFormat hformat = new SimpleDateFormat("HH:mm");
+      List<ScheduleTime> stlist = new ArrayList<>();
+      for(int i=0;i<slist.getScheduletime().size();i++) {
+        ScheduleTime st = new ScheduleTime();
+        st.setSnsdt(format.format(slist.getScheduletime().get(i).getSsdt()));
+        st.setSnedt(hformat.format(slist.getScheduletime().get(i).getSedt()));
+        st.setSssno(slist.getScheduletime().get(i).getSssno());
+        st.setFlag((slist.getScheduletime().get(i).getFlag()));
+        stlist.add(st);
+      }
+      slist.setScheduletime(stlist);
     
-    int no = 2;
-    
-    List<String> arr = new ArrayList<>();
+    return slist;  
+  }
+
+
+  @RequestMapping("consent")
+  public String applyReqs(String[] reqdates, String type){
+
+    ArrayList<Integer> arr = new ArrayList<>();
     for(int i=0;i<reqdates.length;i++) {
-      arr.add(reqdates[i]);
+      arr.add(Integer.parseInt(reqdates[i]));
     }
-    
-    for (String s : arr) {
-      System.out.println(s);
-    }
-    
-    return 0;
+
+    int no = 0;
+    if(type.equals("consent")) {
+      no = scheduleService.consentapply(arr);  
+    }else {
+      no = scheduleService.refuseapply(arr);
+    } 
+    System.out.println(no);
+    return "redirect:main";
   }
-  
-  
-  
-  
+
+
+
+
 }

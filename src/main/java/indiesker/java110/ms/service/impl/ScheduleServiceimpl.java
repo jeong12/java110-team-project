@@ -156,5 +156,15 @@ public class ScheduleServiceimpl implements ScheduleService {
       return scheduleDao.findTodaySchedule();
     }
 
+    @Override
+    public int consentapply(ArrayList<Integer> list) {
+      return scheduleDao.consentapply(list);
+    }
+
+    @Override
+    public int refuseapply(ArrayList<Integer> list) {
+    return scheduleDao.refuseapply(list);
+    }
+    
     
 }

@@ -113,7 +113,7 @@
 		<id column="brno" property="sno" />
 		<result column="cdt" property="cdt" />
 		<result column="cnt" property="cnt" />
-		<result column="flag" property="flag" />
+
 		<association property="busker" javaType="Busker">
 			<id column="bno" property="no" />
 			<result column="name" property="teamname" />
@@ -129,6 +129,7 @@
 		<collection property="scheduletime" ofType="ScheduleTime">
 			<result column="sdt" property="ssdt" />
 			<result column="edt" property="sedt" />
+			<result column="flag" property="flag" />
 		</collection>
 	</resultMap>
 
