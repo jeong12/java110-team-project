@@ -60,6 +60,15 @@ public class FeedController {
     List<Avi> alist = aviService.recentList(buskno);
     List<FeedPhoto> plist = feedPhotoService.recentPhotList(buskno,pageNo, pageSize);
     
+    //영상 주소에 관한것
+    for (Avi avi : alist) {
+      String urlid = avi.getUrlid();
+      avi.setThumbnail("https://i.ytimg.com/vi/"+urlid+"/hqdefault.jpg");
+      avi.setUrl("https://www.youtube.com/embed/"+urlid);
+      System.out.println(avi.getUrlid());
+      System.out.println(avi.getUrl());
+      System.out.println(avi.getThumbnail());
+    }
     for(Schedule ppp:fplist) {
       ppp.setLongsdt(ppp.getSdt().getTime());
     }
@@ -77,10 +86,11 @@ public class FeedController {
         }
       }
     });
-    
-    SimpleDateFormat formatsdt = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    SimpleDateFormat formatdate = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat formatsdt = new SimpleDateFormat("HH:mm");
     SimpleDateFormat formatedt = new SimpleDateFormat("HH:mm");
     for (Schedule ps : fplist) {
+      ps.setDate(formatdate.format(ps.getSdt()));
       ps.setNsdt(formatsdt.format(ps.getSdt()));
       ps.setNedt(formatedt.format(ps.getEdt()));
     }
@@ -93,12 +103,14 @@ public class FeedController {
   }
   
   @ResponseBody
-  @RequestMapping(value="clikeImage")
-  public List<Schedule> getImageNo(
-      @RequestParam(value="no") String no, Model model) {   
-      System.out.println(no);
+  @RequestMapping("showavi")
+  public Avi getImageNo(
+      String abno, Model model) {   
+      int abno2 = Integer.parseInt(abno);
 
-    return null;
+      Avi feedavi = aviService.getfeedavibyAbno(abno2);
+      
+    return feedavi;
   }
   
   

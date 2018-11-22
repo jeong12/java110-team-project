@@ -20,10 +20,17 @@ public class Schedule {
   protected int subno;
   protected String buskname;
   protected Supporter supporter;
+  protected String date;
 
   
   
 
+  public String getDate() {
+    return date;
+  }
+  public void setDate(String date) {
+    this.date = date;
+  }
   public Long getLongsdt() {
     return longsdt;
   }
