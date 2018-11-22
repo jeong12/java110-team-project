@@ -33,7 +33,7 @@
 </head>
 <body>
     <div id="titl">
-    <img id="logo" src="../../img/playButton.PNG" alt="플레이로고"><h2>버스킹 일정</h2>
+    <img id="logo" src="../../img/playButton.PNG" alt="플레이로고"><h2>버스킹 목록</h2>
     </div>
 <table>
 <thead>

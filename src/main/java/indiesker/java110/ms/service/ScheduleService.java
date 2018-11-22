@@ -24,4 +24,5 @@ public interface ScheduleService {
     List<Schedule> findFeedPerSchedule(int no);
     List<Schedule> findFeedFixSchedule(int no);
     Schedule showDatail(int no);
+    List<Schedule> findTodaySchedule();
 }

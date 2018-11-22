@@ -151,5 +151,10 @@ public class ScheduleServiceimpl implements ScheduleService {
       return scheduleDao.showDatail(no);
     }
 
+    @Override
+    public List<Schedule> findTodaySchedule() {
+      return scheduleDao.findTodaySchedule();
+    }
+
     
 }

@@ -14,12 +14,24 @@
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <style>
 
-    #test{position: relative; top: 200px;}
+html, body{
+    height:100%;
+}
+#container-height{
+    min-height:80%;
+    height:auto !important;
+    overflow:hidden !important;
+}
+#login-height{
+    position: relative;
+    top: 120px;
+}
 </style>
 </head>
+<jsp:include page="../header.jsp"></jsp:include>
 <body>
-<div class="container">
-    <div class="row" id="test">
+<div class="container" id="container-height">
+    <div class="row" id="login-height">
         <div class="col-md-4 col-md-offset-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -52,7 +64,7 @@
                          data-button-type="login_with" data-show-faces="false"
                           data-auto-logout-link="false" data-use-continue-as="false"
                           onlogin="checkLoginState()"></div>
-<!--                        <div id="fb-root"></div>-->
+                       <div id="fb-root"></div>
                         
                     <div id="naverIdLogin"></div></center>
                 </div>
@@ -60,6 +72,7 @@
         </div>
     </div>
 </div>
+
 <a href="http://developers.kakao.com/logout"></a><!-- 로그아웃 -->
 <script type='text/javascript'>
     // 사용할 앱의 JavaScript 키를 설정해 주세요.
@@ -134,7 +147,7 @@
     var naverLogin = new naver.LoginWithNaverId(
             {
                 clientId: "i7CWhQxEhKTYcem_vHnQ",
-                callbackUrl: "http://localhost:8080/app/loginapi/callback",
+                callbackUrl: "http://localhost:8080/app/auth/callback",
                 isPopup: false, /* 팝업을 통한 연동처리 여부 */
                 loginButton: {color: "green", type: 3, height: 50}, /* 로그인 버튼의 타입을 지정 */
                 // callback 페이지가 분리되었을 경우 그 페이지에서 callback 처리해줄지 여부 설정
@@ -146,7 +159,7 @@
         naverLogin.init();
         
         function jsonData(json){
-            $.ajax("http://localhost:8080/app/loginapi/form",{
+            $.ajax("form",{
                 method: 'POST',
                 headers: {
                     'Content-Type' : 'application/json'
@@ -160,7 +173,7 @@
                 error: function(xhr, status, msg){
                     console.log(status);
                     console.log(msg);
-                    location.herf = "http://localhost:8080/app/loginapi/form"
+                    location.herf = "http://localhost:8080/app/auth/form"
                 }
             });
         }
@@ -168,3 +181,4 @@
 </script>
 </body>
 </html>
+<jsp:include page="../footer.jsp"></jsp:include>

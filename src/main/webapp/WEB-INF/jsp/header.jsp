@@ -104,8 +104,8 @@ a:focus, a:hover {
         <div class="container">
           <div class="row d-flex align-items-center">
             <div class="col-md-5 d-md-block d-none">
-            <img src="../img/logos.JPG" alt="logos">
-            <img src="../img/Indiesker.JPG" alt="indie">
+            <img src="http://localhost:8080/img/logos.JPG" alt="logos">
+            <img src="http://localhost:8080/img/Indiesker.JPG" alt="indie">
             </div>
             <div class="col-md-7">
               <div class="d-flex justify-content-md-end justify-content-between">
@@ -113,7 +113,13 @@ a:focus, a:hover {
                   <li class="list-inline-item"><a href="#"><i class="fa fa-phone"></i></a></li>
                   <li class="list-inline-item"><a href="#"><i class="fa fa-envelope"></i></a></li>
                 </ul>-->
-                <div class="login"><a href="#" data-toggle="modal" data-target="#login-modal" class="login-btn"><i class="fa fa-sign-in"></i><span class="d-none d-md-inline-block">Sign In</span></a><a href="customer-register.html" class="signup-btn"><i class="fa fa-user"></i><span class="d-none d-md-inline-block">Sign Up</span></a></div>
+                <div class="login">
+                <a href="auth/form" class="login-btn">
+                <i class="fa fa-sign-in"></i>
+                <span class="d-none d-md-inline-block">Sign In</span>
+                </a><a href="signup/member/form" class="signup-btn">
+                <i class="fa fa-user"></i><span class="d-none d-md-inline-block">Sign Up</span>
+                </a></div>
                 <!--<ul class="social-custom list-inline">
                   <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
                   <li class="list-inline-item"><a href="#"><i class="fa fa-google-plus"></i></a></li>
@@ -131,9 +137,9 @@ a:focus, a:hover {
                    <div class="d-flex bd-highlight">
                       <div class="flex-md-fill bd-highlight"><a href="#">버스커 일정</a></div>
                         <div class="flex-md-fill bd-highlight"><a href="#">버스커 위치</a></div>
-                        <div class="flex-md-fill bd-highlight"><a href="#">버스커 목록</a></div>
+                        <div class="flex-md-fill bd-highlight"><a href="buskerlist/list">버스커 목록</a></div>
                         <div class="flex-md-fill bd-highlight"><a href="#">공연장 현황</a></div>
-                        <div class="flex-md-fill bd-highlight"><a href="#">버스킹 홍보</a></div>
+                        <div class="flex-md-fill bd-highlight"><a href="promotion/list">버스킹 홍보</a></div>
                    </div>
                </div>
             </div>
