@@ -105,6 +105,20 @@
     margin-bottom: 30px;
 }
 /**/
+#followerdetail{
+margin-top: 200px;
+
+}
+
+.teamPhotoImg{
+margin: 5px;
+width : 250px;
+height: 250px;
+}
+
+.bigdiv{
+display: flex;
+}
 </style>
 <script>
 //장르별로 표시
@@ -142,7 +156,7 @@ $(this).addClass("active");
         <h2><img id="logo" src="../../img/playButton.PNG" alt="플레이로고">Follow 리스트</h2>
     </div>
 
-    <div>
+<div class="bigdiv">
 <div class="container">
         <div class="row">
         <div class="gallery col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -166,7 +180,7 @@ $(this).addClass("active");
             <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter ${bno.teamgenre}">
 	                <button class="followerbtn" value="${bno.bno}">
 		                <table class="innertable">
-		                   <%-- <tr><td><img src="/upload/../${bno.teamPhoto}" class="img-responsive"></td></tr> --%>
+		                    <tr><td><img src="../../img/${bno.teamPhoto}" class="teamPhotoImg"></td></tr> 
 		                    <%-- <tr><td>${bno.teamPhoto}</td></tr> --%>
 		                    <tr><td>${bno.teamname}</td></tr>
 		                </table>
@@ -175,7 +189,7 @@ $(this).addClass("active");
             </c:forEach>
         </div>
         </div>
-    </div>
+    
     
 <!-- 페이지네이션 -->
 
@@ -185,9 +199,9 @@ $(this).addClass("active");
     <div class="sorter">
     <div class="OutOfpagination">
       <ul class="pagination">
-               <c:forEach var="i" begin="${PageMove.startPageNo}" end="${paging.endPageNo}" step="1">
+               <c:forEach var="i"  begin="${pageMove.startPageNo}" end="${pageMove.endPageNo}" step="1">
                   <c:choose>
-                      <c:when test="${i eq paging.pageNo}">
+                      <c:when test="${i eq PageMove.pageNo}">
                 <li class="active"><a href="javascript:PageMove(${i})">${i}</a></li>
                       </c:when>
                       <c:otherwise>
@@ -200,8 +214,8 @@ $(this).addClass("active");
     </div>
   </div>
 </div>
-
- 
+</div>
+ <div>
         <table id='followerdetail'><!--우측 자세히 보기-->
             <h3>
             
@@ -210,18 +224,15 @@ $(this).addClass("active");
             
             </tbody>
         </table>
-    </div>
+ </div>       
+</div>
     
 <script>
 //페이징
 
-$('.followPagenation').click(function PageMove(i){
-    var pageNo = $(this).val();
-    console.log(pageNo);
-    console.log(i);
-    
-
-   })
+function PageMove(i){
+    location.href="?pageNo="+i;
+   }
 
 
  
@@ -254,7 +265,6 @@ $('.followerbtn').click(function(){
             alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
         }
     });
-    
     
 })
 
