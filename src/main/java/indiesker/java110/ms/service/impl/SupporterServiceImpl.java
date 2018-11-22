@@ -58,6 +58,13 @@ public class SupporterServiceImpl implements SupporterService {
     public StagePhoto[] getPhoto(int no) {
       return supporterDao.findbyPhoto(no);
     }
+    
+    
+    @Override
+    public Supporter findInfo(int no) {
+    return supporterDao.findInfo(no);
+    }
+    
 }
 
 

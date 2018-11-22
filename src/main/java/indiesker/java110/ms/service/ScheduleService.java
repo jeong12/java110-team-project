@@ -27,4 +27,5 @@ public interface ScheduleService {
     List<Schedule> findTodaySchedule();
     int consentapply(ArrayList<Integer> list);
     int refuseapply(ArrayList<Integer> list);
+    List<Schedule> showpast(int no, String date);
 }

@@ -24,6 +24,11 @@ public class StagePhoto {
   public void setSno(int sno) {
     this.sno = sno;
   }
+  @Override
+  public String toString() {
+    return "StagePhoto [spno=" + spno + ", photo=" + photo + ", sno=" + sno + "]";
+  }
+  
   
   
   

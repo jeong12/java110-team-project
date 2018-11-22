@@ -2,10 +2,13 @@
 //이전값을 저장해주는 변수
 var _prevObj = null;
 $(function() {
-
 	// 캘린더 출력해주는 코드
-	$('#calendar').fullCalendar({      
+	$('#calendar').fullCalendar({
 		dayClick: function(date, jsEvent, view, resourceObj) {
+			var current_date = moment().format('YYYY-MM-DD')
+			if(current_date > date.format()) {
+                alert("오늘 이후의 날짜를 골라주세요")
+              }else{
 			if(_prevObj) {
 				_prevObj.css('background-color', 'white');
 				$(this).css('background-color', 'gray');
@@ -16,7 +19,8 @@ $(function() {
 			$("#selectday h2").html(date.format());
 			$('#showtype h4').empty();
 			$('.insertDate tbody').empty();
-		}  
+		}
+		  }
 	})
 });
 
@@ -82,16 +86,6 @@ $('.chkFlag button').click(function(){
 	});
 
 });
-
-
-//날짜를 현재 날짜로 설정
-var dt = new Date();
-var month = dt.getMonth()+1;
-var day = dt.getDate();
-var year = dt.getFullYear();
-var today=year+"-"+month+"-"+day;
-
-
 
 //등록가능한 무대일정 출력 & 체크할 수 있게.
 function add(){
@@ -278,7 +272,11 @@ $('#suggests tbody button').click(function(){
 								'<tr>'+
 								'<td>'+
 								'<input type="checkbox" name="reqdates" value="'+item.sssno+'">'
-								+item.snsdt+'~'+item.snedt+'</td>');
+								+item.snsdt+'~'+item.snedt+'</td>'+						
+							    '<button type="submit" name="type" value="consent">신청하기</button>'+								
+							    '<button type="submit" name="type" value="refuse">거절하기</button>'
+								
+						);
 					}else if(item.flag ==2){
 						$('.dates').append(
 								'<tr>'+'<td>'+item.snsdt+'~'+item.snedt+'</td>');

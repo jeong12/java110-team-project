@@ -217,6 +217,15 @@ delete from busk_req
  where brno=#{value} 
 </delete>
 
+<!-- 무대제공자: 과거 날짜를 볼 시 -->
+<select id="showpast" parameterType="map" resultMap="ShowReqsToSupporterMap">
+SELECT b.name, ss.sdt, ss.edt
+FROM stag_sche as ss, busk_stag as bs, busk_req as br, busk as b
+WHERE ss.ssno = bs.ssno and bs.brno=br.brno and br.bno=b.bno and 
+ss.sno =#{no} and sdt LIKE '#{date}%' AND bs.flag=2
+</select>
+
+
 <!-- 개인피드에 들어갈 확정스케줄 리스트 -->
 <select id="findbynoperfeedschedule" resultMap="perscheduleMap" parameterType="int">
 select PS.shopname, PS.addr, PS.sdt, PS.edt
@@ -487,31 +496,6 @@ GROUP BY BS.brno
 		delete from busk_req
 		where brno=#{value}
 	</delete>
-
-
-	<select id="findbynoperfeedschedule" resultMap="perscheduleMap"
-		parameterType="int">
-		select PS.shopname, PS.addr, PS.sdt, PS.edt
-		from per_sche PS, busk B
-		where PS.bno = B.bno
-		and B.bno=#{no}
-		and substr(PS.sdt,1,10)>=substr(now(),1,10)
-	</select>
-
-	<!-- 개인피드에 들어갈 확정스케줄 리스트 -->
-	<select id="findbynofixfeedschedule"
-		resultMap="reqStageScheduleMap" parameterType="int">
-		SELECT S.name, S.bas_addr,S.det_addr, MIN(SS.sdt) AS sdt, MAX(SS.edt) AS edt
-		FROM busk B, busk_req BR, busk_stag BS,stag_sche SS, sup S
-		WHERE B.bno=BR.bno
-		AND BR.brno=BS.brno
-		AND BS.ssno=SS.ssno
-		AND SS.sno=S.sno
-		AND B.bno=#{no}
-		AND BS.flag=2
-		and substr(PS.sdt,1,10)>=substr(now(),1,10)
-		GROUP BY BS.brno
-	</select>
 </mapper>
 
 
