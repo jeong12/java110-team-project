@@ -22,6 +22,7 @@ public class Schedule {
   protected Busker busker;
   protected Supporter supporter;
   protected List<ScheduleTime> scheduletime;
+  protected String date;
   
   
 
@@ -30,6 +31,12 @@ public class Schedule {
   }
   public void setScheduletime(List<ScheduleTime> scheduletime) {
     this.scheduletime = scheduletime;
+  }
+  public String getDate() {
+    return date;
+  }
+  public void setDate(String date) {
+    this.date = date;
   }
   public Long getLongsdt() {
     return longsdt;

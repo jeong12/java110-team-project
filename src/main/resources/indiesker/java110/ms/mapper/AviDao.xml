@@ -8,41 +8,54 @@
 		<id column="abno" property="aviboardno" />
 		<result column="titl" property="title" />
 		<result column="cdt" property="cdt" />
-		<result column="stm" property="url" />
+		<result column="stm" property="urlid" />
 		<result column="name" property="teamname" />
 		<result column="city" property="city" />
 		<result column="genre" property="teamgenre" />
 		<result column="cont" property="content" />
 		<result column="lcnt" property="avilikecount" />
 		<result column="bno" property="buskerno" />
+		<result column="phot" property="teamPhoto" />
 	</resultMap>
 
 	<select id="findByNo" resultMap="aviMap" parameterType="int">
-		SELECT abno, titl, cont, cdt, stm, bno
+		SELECT
+		abno, titl, cont, cdt, stm, bno
 		FROM avi
+		WHERE abno=#{no}
+	</select>
+
+	<!-- 피드동영상 상세조회 -->
+	<select id="findfeedavibyAbno" resultMap="aviMap" parameterType="int">
+		select A.titl, A.stm, B.phot, B.name, B.genre, B.city, A.cont,A.lcnt
+		from avi A, busk B
+		where A.bno=B.bno
+		and A.abno=#{no}
 	</select>
 
 	<!-- 동영상상세조회 -->
 	<select id="findByAviNo" resultMap="aviMap" parameterType="int">
 		SELECT a.titl, a.stm, b.name, b.genre, b.city, a.cont, a.lcnt
-		FROM busk b, avi a
+		FROM busk
+		b, avi a
 		WHERE b.bno=a.bno
 		AND a.abno=#{value}
 	</select>
 
 	<!-- 최신영상3개 조회(개인피드) -->
 	<select id="findRecent" resultMap="aviMap" parameterType="int">
-		SELECT stm,titl
+		SELECT a.abno,a.stm,a.titl
 		FROM busk b, avi a
 		WHERE b.bno=a.bno
-		AND b.bno=#{value}
+		AND
+		b.bno=#{value}
 		ORDER BY cdt desc<!-- 여기 수정해야함 -->
 	</select>
 
 	<insert id="insert" parameterType="avi" useGeneratedKeys="true"
 		keyColumn="abno" keyProperty="aviboardno">
 		insert into avi(abno,titl,cont,cdt,stm,bno)
-		values(#{aviboardno},#{title},#{content},now(),#{url},1)<!-- 자동으로 증가하게! -->
+		values(#{aviboardno},#{title},#{content},now(),#{url},#{no})<!-- 자동으로 증가하게! -->
 	</insert>
 
 </mapper>

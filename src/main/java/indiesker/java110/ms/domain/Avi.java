@@ -9,7 +9,24 @@ public class Avi extends Busker{
   protected int avilikecount;
   protected Date cdt;
   protected String url;
+  protected String urlid;
+  protected String thumbnail;
   protected int buskerno;
+  
+  
+
+  public String getThumbnail() {
+    return thumbnail;
+  }
+  public void setThumbnail(String thumbnail) {
+    this.thumbnail = thumbnail;
+  }
+  public String getUrlid() {
+    return urlid;
+  }
+  public void setUrlid(String urlid) {
+    this.urlid = urlid;
+  }
   public int getAviboardno() {
     return aviboardno;
   }

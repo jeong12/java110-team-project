@@ -26,6 +26,7 @@ public class AviServiceImpl implements AviService {
     
     @Override
     public List<Avi> recentList(int no){
+      
       return aviDao.findRecent(no);
     }
 
@@ -34,6 +35,10 @@ public class AviServiceImpl implements AviService {
       return aviDao.findByAviNo(no);
     }
     
+    @Override
+    public Avi getfeedavibyAbno(int no) {
+      return aviDao.findfeedavibyAbno(no);
+    }
    
 }
 
