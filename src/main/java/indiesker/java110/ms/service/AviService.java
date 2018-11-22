@@ -8,4 +8,5 @@ public interface AviService {
   void add(Avi avi);
   Avi get(int no);
   List<Avi> recentList(int no);
+  Avi getfeedavibyAbno(int no);
 }

@@ -15,7 +15,7 @@ callback 처리중입니다. 이 페이지에서는 callback을 처리하고 바
         var naverLogin = new naver.LoginWithNaverId(
             {
                 clientId: "i7CWhQxEhKTYcem_vHnQ",
-                callbackUrl: "http://localhost:8080/app/loginapi/form",
+                callbackUrl: "http://localhost:8080/app/auth/form",
                 isPopup: false,
                 callbackHandle: true
             }
@@ -55,7 +55,7 @@ callback 처리중입니다. 이 페이지에서는 callback을 처리하고 바
         });
         
          function jsonData(json){
-            $.ajax("http://localhost:8080/app/loginapi/callback",{
+            $.ajax("callback",{
                 method: 'POST',
                 headers: {
                     'Content-Type' : 'application/json'
@@ -63,12 +63,12 @@ callback 처리중입니다. 이 페이지에서는 callback을 처리하고 바
                 data: JSON.stringify(json)
                 ,
                 success: function(result){
-                    location.href = "http://localhost:8080/app/editProfile/member/form";
+                    location.href = "http://localhost:8080/app/editprofile/member/form";
                 },
                 error: function(xhr, status, msg){
                     console.log(status);
                     console.log(msg);
-                    location.herf = "http://localhost:8080/app/loginapi/form";
+                    location.herf = "http://localhost:8080/app/auth/form";
                 }
             });
         } 

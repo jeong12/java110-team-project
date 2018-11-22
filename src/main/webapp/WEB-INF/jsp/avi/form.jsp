@@ -10,19 +10,20 @@
 <!-- 웹 브라우저 입장에서의 경로 -->
 <style>
 #titl {
-	margin: 10px;
-	padding: 10px;
+    width: 700px;
+    margin: 10px;
+    padding: 10px;
 }
 
 #logo {
-	width: 50px;
-	height: 50px;
-	margin: 10px;
+    width: 50px;
+    height: 50px;
+    margin: 10px;
 }
 
-h2 {
-	margin-top: -50px;
-	margin-left: 70px;
+#titl h2 {
+    margin-top: -50px;
+    margin-left: 70px;
 }
 </style>
 </head>

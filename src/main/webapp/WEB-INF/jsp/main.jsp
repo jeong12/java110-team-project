@@ -7,24 +7,17 @@
 <meta charset="UTF-8">
 <title>Indiesker</title>
 
-<link
-  href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-  rel="stylesheet" id="bootstrap-css"
->
-<link rel="stylesheet"
-  href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
-  integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
-  crossorigin="anonymous"
->
-<script
-  src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
-></script>
-<script
-  src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
-></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- custom -->
 <script src="../js/headerfixing.js"></script>
+<script src="../js/todaybuskerlist.js"></script>
 
 <style>
+.clickable {cursor: pointer;}
+
 img {
     height: 400px;
 }
@@ -140,46 +133,24 @@ table {
                   <th scope="col">시간</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">Smooth</th>
-                  <td>발라드</td>
-                  <td>강남</td>
-                  <td>17:00~</td>
-                </tr>
-                <tr>
-                  <th scope="row">Smooth</th>
-                  <td>발라드</td>
-                  <td>강남</td>
-                  <td>17:00~</td>
-                </tr>
-                <tr>
-                  <th scope="row">Smooth</th>
-                  <td>발라드</td>
-                  <td>강남</td>
-                  <td>17:00~</td>
-                </tr>
-              </tbody>
+              <tbody id="todayList"></tbody>
             </table>
           </div>
           <div class="row">
-            <div class="col-md-12 col-xs-12 mb-3">
-              <ul class="nav justify-content-center">
-                <li class="page-item"><a class="page-link" href="#"
+            <div class="col-md-12 col-xs-12 mb-3" id="button">
+              <!-- <ul class="nav justify-content-center" id="pasingNum">
+                <li class="page-item"><a class="page-link" href=""
                   aria-label="Previous"
                 > <span aria-hidden="true">«</span> <span
                     class="sr-only"
                   >Previous</span>
                 </a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
                 <li class="page-item"><a class="page-link" href="#"
                   aria-label="Next"
                 > <span aria-hidden="true">»</span> <span
                     class="sr-only"
                   >Next</span>
-                </a></li>
+                </a></li> -->
               </ul>
             </div>
           </div>
@@ -327,8 +298,6 @@ table {
       </div>
     </div>
   </div>
-
-
 </body>
 <jsp:include page="footer.jsp"></jsp:include>
 </html>

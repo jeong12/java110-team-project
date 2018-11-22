@@ -1,6 +1,8 @@
 package indiesker.java110.ms.web;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 
@@ -46,7 +48,14 @@ public class FollowerController {
 	List<Follower> followerList = followerService.findList(no,pageNo, pageSize);
 	model.addAttribute("followerList", followerList);
 	
-		
+	int totalCount = followerService.totalCount(no);
+	int startPageNo = 1;
+	int endPageNo = (totalCount/9)+1;
+	Map<String, Integer> pageMove = new HashMap<>();
+	pageMove.put("startPageNo",startPageNo);
+	pageMove.put("endPageNo",endPageNo);
+	pageMove.put("pageNo", pageNo);
+	model.addAttribute("pageMove", pageMove);
 	}
 	
 	
