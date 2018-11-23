@@ -11,21 +11,42 @@
 <select id="findAll" resultType="MemberManager" parameterType="map">
 SELECT m.id,m.nik,m.email,m.flag,m.cdt,m.memo
 FROM memb as m
-limit #{rowNo}, #{size} 
+
+
 </select>
 
 <!-- 선택 -->
 <select id="findselect" resultType="MemberManager" parameterType="map">
 SELECT id, nik, email, flag, cdt, memo
 FROM memb 
-<where>
-<if test="flag != null or flag!=''">
-flag=#{flag}
-</if>
-</where>
+
+<!-- <where>
+<choose>
+<when test="flag == 0">
+
+</when>
+<when test="flag ==1">
+flag = 1
+</when>
+
+<when test="flag ==2">
+flag = 2
+</when>
+
+<when test="flag ==3">
+flag = 3
+</when>
+
+<when test="value ==4">
+flag = 4
+</when>
+</choose>
+</where> -->
 
 limit #{rowNo}, #{size} 
 </select>
+
+
 
 <select id="searchSelect" resultType="MemberManager" parameterType="map">
 SELECT id,nik,email,flag,cdt,memo
@@ -95,6 +116,102 @@ nik=#{text}
 email=#{text}
 </if> -->
 
+<update id="update" parameterType="Map">
+update memb
+    SET memo = #{memo}
+    WHERE nik = #{nik}
+</update>
 
 
-</mapper>
+<select id="detailMember" resultType="MemberManager" parameterType="String">
+SELECT id,email,nik,phot,memo,genre0,genre1,genre2
+FROM memb
+where id = #{id}
+</select>
+
+<select id="detailBusker" resultType="Busker" parameterType="String">
+SELECT m.id,m.email,m.nik,m.memo,b.name,b.genre,b.city,b.inst,b.strm,b.intro,b.phot
+FROM memb as m ,busk as b
+WHERE m.mno = b.bno
+and m.id = #{id}
+</select>
+
+<select id="detailSupporter" resultType="Supporter" parameterType="String">
+SELECT m.id,m.email,m.nik,m.memo,s.name,s.det_addr,s.genre,s.capa,s.tel,s.etc
+FROM memb as m ,sup as s  
+WHERE m.mno = s.sno
+and m.id = #{id}
+</select>
+
+<select id="gradleBusker" resultType="GradleMember" parameterType="Map">
+SELECT m.nik,b.name,b.genre,m.email,m.flag
+FROM memb as m , busk as b
+where m.mno = b.bno
+and m.flag = '2'
+limit #{rowNo}, #{size} 
+</select>
+
+<select id="gradleSupporter" resultType="GradleMember" parameterType="Map">
+SELECT m.nik,s.name,s.genre,m.email,m.flag
+FROM memb as m , sup as s
+where m.mno = s.sno
+and m.flag = '3'
+limit #{rowNo}, #{size} 
+</select>
+
+<select id="gradleAjaxBusker" resultType="GradleMember" parameterType="map">
+SELECT m.nik,b.name,b.genre,m.email,m.flag
+FROM memb as m , busk as b
+where m.mno = b.bno
+and m.flag = '2'
+limit #{rowNo}, #{size} 
+</select>
+
+<select id="gradleAjaxSupporter" resultType="GradleMember" parameterType="map">
+SELECT m.nik,s.name,s.genre,m.email,m.flag
+FROM memb as m , sup as s
+where m.mno = s.sno
+and m.flag = '3'
+limit #{rowNo}, #{size} 
+</select>
+
+<select id="gradleAjaxBuskerSelect" resultType="GradleMember" parameterType="map">
+SELECT m.nik,b.name,b.genre,m.email,m.flag
+FROM memb as m , busk as b
+
+<where>
+<choose>
+<when test="sflag == nik">
+flag = '2'
+and m.mno = b.bno
+and m.nik = #{text}
+</when>
+<when test="sflag == email">
+flag = '2'
+and m.mno = b.bno
+and m.email = #{text}
+</when>
+</choose>
+</where>
+limit #{rowNo}, #{size} 
+</select> 
+
+<select id="gradleAjaxSupporterSelect" resultType="GradleMember" parameterType="map">
+SELECT m.nik,s.name,s.genre,m.email,m.flag
+FROM memb as m , sup as s
+where m.mno = s.sno
+and m.flag = '3'
+<where>
+<choose>
+<when test="flag == 3 and sflag == nik">
+and m.nik = #{text}
+</when>
+<when test="flag == 3 and sflag == email">
+and m.email = #{text}
+</when>
+</choose>
+</where>
+limit #{rowNo}, #{size} 
+</select> 
+
+ </mapper>
