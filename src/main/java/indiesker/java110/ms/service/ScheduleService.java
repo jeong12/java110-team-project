@@ -28,4 +28,6 @@ public interface ScheduleService {
     int consentapply(ArrayList<Integer> list);
     int refuseapply(ArrayList<Integer> list);
     List<Schedule> showpast(int no, String date);
+    List<Schedule> showScedule();
+    List<Integer> showSsnos(int no);
 }

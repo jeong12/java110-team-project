@@ -6,7 +6,6 @@
 <head>
 <meta charset='utf-8' />
 
-
 <style>
 #calendar {
 	max-width: 600px;
@@ -107,14 +106,28 @@ margin: 15px;
 		 <td><c:choose>
 			   <c:when test="${list.flag eq '1'.charAt(0) }">신청중 </c:when>
 			   <c:when test="${list.flag eq '2'.charAt(0) }">완료 </c:when>
+			   <c:when test="${list.flag eq '3'.charAt(0) }">기한만료 </c:when>
 			 </c:choose></td>
 		 <td>${list.ncdt}</td>
-		 <td><button type="button" class="btn btn-default" data-target="#detailModal" 
+		 <td><button type="button" class="dbtn btn-default" data-target="#detailModal" 
 		      data-toggle="modal" value="${list.sno}">상세보기</button><br/></td>
 		</tr>
 	  </c:forEach>
 	</tbody>
 	</table>
+	<nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+         <li class="page-item disabled">
+    <a class="page-link" href="#" tabindex="-1">Previous</a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">Next</a>
+    </li>
+  </ul>
+</nav>
 	</div>
 	
 	
@@ -131,13 +144,13 @@ margin: 15px;
       </div>
       <!-- body -->
       <div class="modal-body">
-      <form action="consent">
       <div class="info">
       </div>
       <div class="dates">
+      </div>      
+      <div class="abtn">
       </div>
       </table>
-      </form>             
       </div>
       <!-- Footer -->
       <div class="modal-footer">
@@ -167,5 +180,6 @@ margin: 15px;
 
 <!-- function -->
 <script src="/js/myss.js" type="text/javascript"></script>
+
 </body>
 </html>

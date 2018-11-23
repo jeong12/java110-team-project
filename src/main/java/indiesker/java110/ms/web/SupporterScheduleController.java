@@ -201,7 +201,7 @@ public class SupporterScheduleController {
         st.setSssno(slist.getScheduletime().get(i).getSssno());
         Date std = dformat.parse(dformat.format(slist.getScheduletime().get(i).getSsdt()));
         if(std.getTime()-td.getTime()<0) {
-          st.setFlag(2);
+          st.setFlag(3);
         }else {
           st.setFlag((slist.getScheduletime().get(i).getFlag()));
         }
@@ -213,20 +213,32 @@ public class SupporterScheduleController {
 
 
   @RequestMapping("consent")
-  public String applyReqs(String[] reqdates, String type){
+  public String applyReqs(String[] reqdates, String brno){
 
-    ArrayList<Integer> arr = new ArrayList<>();
+    List<Integer> ssnos = scheduleService.showSsnos(Integer.parseInt(brno));
+    List<Integer> todelete = new ArrayList<>();
+    ArrayList<Integer> reqs = new ArrayList<>();
+    
     for(int i=0;i<reqdates.length;i++) {
-      arr.add(Integer.parseInt(reqdates[i]));
+      reqs.add(Integer.parseInt(reqdates[i]));
+    }
+    scheduleService.consentapply(reqs);
+    
+    for(int i=0;i<ssnos.size();i++) {
+      for(int j=0;j<reqdates.length;j++) {
+        if(ssnos.get(i) != Integer.parseInt(reqdates[j])) 
+          todelete.add(ssnos.get(i));
+        }
+      }
+    
+    ArrayList<Integer> td = new ArrayList<Integer>();
+    for (int i = 0; i < todelete.size(); i++) {
+        if (!td.contains(todelete.get(i))) {
+          td.add(todelete.get(i));
+        }
     }
 
-    int no = 0;
-    if(type.equals("consent")) {
-      no = scheduleService.consentapply(arr);  
-    }else {
-      no = scheduleService.refuseapply(arr);
-    } 
-    System.out.println(no);
+    scheduleService.refuseapply(td);
     return "redirect:main";
   }
 

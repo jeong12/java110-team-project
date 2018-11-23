@@ -113,6 +113,7 @@
 		<id column="brno" property="sno" />
 		<result column="cdt" property="cdt" />
 		<result column="cnt" property="cnt" />
+		<result column="flag" property="flag" />
 		<association property="busker" javaType="Busker">
 			<id column="bno" property="no" />
 			<result column="name" property="teamname" />
@@ -126,9 +127,9 @@
 			<result column="cont" property="message" />
 		</association>
 		<collection property="scheduletime" ofType="ScheduleTime">
+		    <result column="ssno" property="sssno"/>
 			<result column="sdt" property="ssdt" />
 			<result column="edt" property="sedt" />
-			<result column="flag" property="flag" />
 		</collection>
 	</resultMap>
 
@@ -152,6 +153,22 @@
 			<result column="y" property="y" />
 		</association>
 	</resultMap>
+	
+	<resultMap type="Schedule" id="ScheduleMap">
+        <id column="brno" property="sno" />
+        <result column="addr" property="addr" />
+        <result column="sdt" property="sdt" />
+        <result column="edt" property="edt" />
+        <association property="busker" javaType="busker">
+            <result column="bno" property="no"/>
+            <result column="name" property="teamname" />
+            <result column="genre" property="teamgenre"/>
+        </association>
+        <association property="supporter" javaType="supporter">
+            <result column="x" property="x" />
+            <result column="y" property="y" />
+        </association>
+    </resultMap>
 	
 	<!-- 메인 오늘의 일정 뽑는 리스트 -->
 	<select id="findTodaySchedule"
@@ -412,7 +429,7 @@ GROUP BY BS.brno
 		from busk_stag as bs, stag_sche as ss, busk as b, busk_req as br
 		where bs.ssno = ss.ssno and bs.brno=br.brno and br.bno=b.bno and ss.sno=2
 		GROUP BY br.brno
-		order by ss.sdt;
+		order by ss.sdt desc;
 	</select>
 
 	<!-- 무대제공자 스케줄조회: 무대신청,완료된 목록을 보여주는 쿼리(플래그로) -->
@@ -424,7 +441,7 @@ GROUP BY BS.brno
 		where bs.ssno = ss.ssno and bs.brno=br.brno and br.bno=b.bno and ss.sno=2
 		and flag=#{flag}
 		GROUP BY br.brno
-		order by ss.sdt
+		order by ss.sdt desc;
 	</select>
 
 	<!-- 무대제공자 스케쥴조회: 해당 날짜에 사용불가능한 목록을 뽑아주는 쿼리 -->
@@ -459,14 +476,52 @@ GROUP BY BS.brno
 	</delete>
 
 	<!-- 무대제공자 스케쥴조회: 상세보기에 출력할 팀 정보 -->
-	<select id="showDatail" parameterType="int"
-		resultMap="showDetailMap">
+	<select id="showDatail" parameterType="int" resultMap="showDetailMap">
 		SELECT b.name, b.genre, b.tel, b.lcnt, b.bno, br.cont, br.brno, ss.sdt,
-		ss.edt
+		ss.edt, bs.flag, ss.ssno
 		from busk as b, busk_req as br, busk_stag as bs, stag_sche as ss
 		where b.bno=br.bno and br.brno = bs.brno and bs.ssno = ss.ssno and
 		br.brno=#{no}
 	</select>
+	
+	<!-- 전체일정 출력 -->
+	<select id="showScedule" resultMap="ScheduleMap">
+    (select b.name, ps.addr, ps.sdt,ps.edt, b.bno
+     from per_sche as ps, busk as b
+     where ps.bno = b.bno AND ps.sdt>=now())
+
+    UNION ALL
+
+    (select b.name, concat(s.bas_addr,' ',s.det_addr)as addr, ss.sdt,ss.edt, b.bno
+    from busk_stag as bs, busk as b, sup as s, stag_sche as ss, busk_req as br
+    where bs.ssno=ss.ssno and bs.brno=br.brno and ss.sno=s.sno and br.bno=b.bno AND ss.sdt>=now() 
+    AND bs.flag='2')
+    
+    ORDER BY sdt	
+	</select>
+	
+	<select id="showSsnos" parameterType="int" resultType="int">
+	select ssno as sno
+	from busk_stag
+	where brno = #{no}
+	</select>
+	
+	<update id="consentapply" parameterType="ArrayList">
+	UPDATE busk_stag 
+    SET flag='2'
+    WHERE ssno in 
+    <foreach collection="list" item="no" open="(" close=")" separator=",">
+    #{no}
+    </foreach>
+	</update>
+	
+	<delete id="refuseapply" parameterType="ArrayList">
+	DELETE FROM `busk_stag` WHERE ssno in 
+	<foreach collection="list" item="no" open="(" close=")" separator=",">
+	#{no}
+	</foreach>
+	</delete>
+	
 </mapper>
 
 

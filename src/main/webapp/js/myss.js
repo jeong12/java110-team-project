@@ -7,20 +7,20 @@ $(function() {
 		dayClick: function(date, jsEvent, view, resourceObj) {
 			var current_date = moment().format('YYYY-MM-DD')
 			if(current_date > date.format()) {
-                alert("오늘 이후의 날짜를 골라주세요")
-              }else{
-			if(_prevObj) {
-				_prevObj.css('background-color', 'white');
-				$(this).css('background-color', 'gray');
-			} else {
-				$(this).css('background-color', 'gray');
+				alert("오늘 이후의 날짜를 골라주세요")
+			}else{
+				if(_prevObj) {
+					_prevObj.css('background-color', 'white');
+					$(this).css('background-color', 'gray');
+				} else {
+					$(this).css('background-color', 'gray');
+				}
+				_prevObj = $(this);
+				$("#selectday h2").html(date.format());
+				$('#showtype h4').empty();
+				$('.insertDate tbody').empty();
 			}
-			_prevObj = $(this);
-			$("#selectday h2").html(date.format());
-			$('#showtype h4').empty();
-			$('.insertDate tbody').empty();
 		}
-		  }
 	})
 });
 
@@ -47,12 +47,8 @@ $('.chkFlag button').click(function(){
 								'<td>'+item.cnt+'명</td>'+
 								'<td>'+'신청중'+'</td>'+
 								'<td>'+item.ncdt+'</td>'+
-								'<td><button type="button"'+ 
-								'class="btn btn-default"'+ 
-								'data-target="#detailModal"'+ 
-								'data-toggle="modal"'+
-								'value="'+item.sno+
-						'">상세보기</button></td></tr>');
+								'<td><button type="button" class="dbtn btn-default" data-target="#detailModal"'+ 
+								'data-toggle="modal" value="'+item.sno+'">상세보기</button></td></tr>');
 					}else if(item.flag==2){
 						$("#suggests tbody").append(
 								'<tr>'+
@@ -62,7 +58,7 @@ $('.chkFlag button').click(function(){
 								'<td>'+item.cnt+'명</td>'+
 								'<td>'+'완료'+'</td>'+
 								'<td>'+item.ncdt+'</td>'+
-								'<td><button type="button" class="btn btn-default" data-target="#detailModal"'+ 
+								'<td><button type="button" class="dbtn btn-default" data-target="#detailModal"'+ 
 								'data-toggle="modal" value="'+item.sno+'">상세보기</button></td></tr>');
 					}else{
 						$("#suggests tbody").append(
@@ -73,7 +69,7 @@ $('.chkFlag button').click(function(){
 								'<td>'+item.cnt+'명</td>'+
 								'<td>'+'etc'+'</td>'+
 								'<td>'+item.ncdt+'</td>'+
-								'<td><button type="button" class="btn btn-default" data-target="#detailModal"'+ 
+								'<td><button type="button" class="dbtn btn-default" data-target="#detailModal"'+ 
 								'data-toggle="modal" value="'+item.sno+'">상세보기</button></td></tr>');
 					}
 				});
@@ -94,7 +90,7 @@ function add(){
 		alert("날짜를 먼저 선택해주세요");
 		return;
 	}
-		
+
 	$('#showtype h4').empty();
 	$('#showtype h4').append('무대등록하기');
 
@@ -168,7 +164,7 @@ function remove(){
 
 }
 
-//체크한 일정 삭젷가ㅣ
+//체크한 일정 삭제하기
 function removeDate(){
 	var td = $('#showDate').text();
 	var chkbox = document.getElementsByName("stagedate");
@@ -246,8 +242,11 @@ function addDate(){
 	});
 }
 
-$('#suggests tbody button').click(function(){
+
+$('.dbtn').click(function(){
+	console.log("::::::");
 	var brno = $(this).val();
+	console.log(brno);
 	$.ajax({ 
 		type : "GET", 
 		url : "showInfo", 
@@ -255,6 +254,7 @@ $('#suggests tbody button').click(function(){
 		success : function(data){
 			$('.info').empty();
 			$(".dates").empty();
+			$('.abtn').empty();
 			if(data.length != 0){
 				$(".info").append(
 						"<h3>"+data.busker.teamname+"</h3>"+
@@ -265,23 +265,22 @@ $('#suggests tbody button').click(function(){
 						"<tr><td>장르</td><td>"+data.busker.teamgenre+"</td></tr>"+
 						"<tr><td>연락처</td><td>"+data.busker.tel+"</td></tr>"+
 						"<tr><td>좋아요</td><td>"+data.busker.likecount+"</td></tr>"+
-						"<tr><td>메시지</td><td>"+data.busker.message+"</td></tr>");
-				$.each(data.scheduletime,function(index,item){
-					if(item.flag == 1){
-						$('.dates').append(
+						"<tr><td>메시지</td><td>"+data.busker.message+"</td></tr>" 					
+				);
+				if(data.flag == 1){
+					$('.abtn').append('<tr><td><button type="button" class="brno" value="'+data.sno+'">신청하기</button></td></tr>');
+					$.each(data.scheduletime,function(index,item){
+					$('.dates').append(
 								'<tr>'+
 								'<td>'+
-								'<input type="checkbox" name="reqdates" value="'+item.sssno+'">'
-								+item.snsdt+'~'+item.snedt+'</td>'+						
-							    '<button type="submit" name="type" value="consent">신청하기</button>'+								
-							    '<button type="submit" name="type" value="refuse">거절하기</button>'
-								
-						);
-					}else if(item.flag ==2){
+								'<input type="checkbox" name="reqdates" value="'+item.sssno+'">'+
+								item.snsdt+'~'+item.snedt+'</td>'+'</tr>');
+						});
+				}else if(data.flag == 2 || data.flag == 3){
+					$.each(data.scheduletime,function(index,item){
 						$('.dates').append(
 								'<tr>'+'<td>'+item.snsdt+'~'+item.snedt+'</td>');
-					}});	
-				
+					})};				
 			}else
 				alert("fail!");
 		},
@@ -291,3 +290,47 @@ $('#suggests tbody button').click(function(){
 	});
 });
 
+
+$('.abtn').click(function(){
+	var brno = $('.brno').val();
+	var chkbox = document.getElementsByName("reqdates");
+	var chkCnt=0;
+	var chks = new Array();
+	var j=0;
+	for(var i=0;i<chkbox.length; i++){
+		if(chkbox[i].checked){
+			chks[j] = chkbox[i].value;
+			j++
+			chkCnt++;
+		}
+	}
+	if(chkCnt == 0){
+		alert("삭제하실 일정을 체크해주세요");
+		
+	}
+	
+	if(confirm("체크하신 일정을 승낙하시겠습니까?") == true){
+		$.ajax({ 
+			type : "GET", 
+			url : "consent", 
+			traditional : true,
+			data : {"reqdates" : chks, "brno":brno},
+			success : function(data){
+				if(data != null){
+					alert("success!");
+					window.location.href=window.location.href;
+				}else{
+					alert("fail!");
+				}
+			},
+			error : function(request, status, error) {
+				alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+			}
+		});
+		
+		
+		
+	}else{
+		return false;
+	}
+});
