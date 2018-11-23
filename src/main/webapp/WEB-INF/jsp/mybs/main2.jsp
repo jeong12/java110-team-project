@@ -209,7 +209,7 @@
     </div>
 
     <!--   -->
-    <!-- 모달 id -->
+    <!-- 수정페이지모달  -->
     <div id="EditScheduleModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
@@ -220,7 +220,7 @@
                     <h4 class="modal-title">개인스케줄 수정</h4>
                 </div>
                 <div class="modal-body">
-                    <form action='editperschedule' method='post'
+                    <form action='edit' method='post'
                         enctype="multipart/form-data">
                         <table>
                             <tbody>
@@ -242,20 +242,19 @@
                                        <input type="text" id="addr" name="addr" placeholder="주소">
                                        <input type="button" onclick="search_addr()" value="주소 검색"><br>
                                        <div id="map" style="width:400px;height:400px;margin-top:10px;display:none"></div>
+                                       <input type="text" id="x" name="x" style="display:none"> 
+                                       <input type="text" id="y" name="y" style="display:none"> 
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                       <input type="text" id="x" name="x" style="display:none"> <!--  --> 
-                                       <input type="text" id="y" name="y" style="display:none"> <!-- test!! --> 
-                                    </td>
+                                    <th></th>
+                                    <td><button class="btn btn-default">등록</button></td>
                                 </tr>
                             </tbody>
                         </table>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-default" value="" id="editno">수정</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -402,7 +401,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -498,22 +497,16 @@
                             </div>
                         </div>
                         <!-----For x,y---->
-                        <div class="col-sm-12">
-                            <div class="row">
-                                <div class="perx" style="display:none">
-                                </div>
-                                <div class="pery" style="display:none">
-                                </div>
-                            </div>
-                        </div>
+                        <div id='perx' style='display=none'></div>
+                        <div id='pery' style='display=none'></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
                 <div class="modal-footer">
-                    <button data-toggle="modal" data-target="#EditScheduleModal" 
-                                id="editbtn">수정</button>
+                    <button data-toggle="modal" data-target="#EditScheduleModal"  
+                                class="editbtn">수정</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -729,9 +722,7 @@ $(function() {
 
 /* 상세정보 조회 ajax처리 */
 $('.detailbtn').click(function(){
-	var f = $(this).val(); // 클릭한 값을 받음 ex) a1일 경우 컨트롤러에서 a=요청스케줄, b=개인스케줄로 분류하여 처리
-	var no = f.substring(1,f.length);
-	
+	var f = $(this).val(); // 클릭한 값을 받음 ex) a1일 경우 컨트롤러에서 a=요청스케줄, b=개인스케줄로 분류하여 처리 
 	$.ajax({ 
         type : "POST", 
         url : "clikedetail",
@@ -747,12 +738,9 @@ $('.detailbtn').click(function(){
 	            $(".reqetc").empty();
 	            $(".pershopname").empty();
                 $(".pergenre").empty();
-                $(".percnt").empty();
                 $(".pertime").empty();
                 $(".peraddr").empty();
                 $(".peretc").empty();
-                $(".perx").empty();
-                $(".pery").empty();
 	        
 	        if(data ==false){
 	        	/* 이거왜했지? 테스트인듯.. */
@@ -762,12 +750,9 @@ $('.detailbtn').click(function(){
 	        	if(data.supporter==null){// 개인스케줄의 경우 supporter 객체를 받지 않음, 고로 개인스케줄 모달에 데이터 처리
 	        		$(".pershopname").append('<p>'+data.shopname+'</p>');
                     $(".pergenre").append('<p>'+'장르를만들자'+'</p>');
-                    $(".percnt").append('<p>'+data.cnt+'</p>');
                     $(".pertime").append('<p>'+data.nsdt+'~'+data.nedt+'</p>');
                     $(".peraddr").append('<p>'+data.addr+'</p>');
-                    $(".perx").append('<p>'+data.x+'</p>');
-                    $(".pery").append('<p>'+data.y+'</p>');
-                    $("#editbtn").val(no);
+                    
                     // 다음지도 api
                     // x,y값을 받아 다음지도의 LatLng 생성 <= 좌표만들어주는 객체인듯
                     var LatLon = new daum.maps.LatLng(data.x, data.y);
@@ -970,12 +955,11 @@ function flag(endindex,item){
             "class='detailbtn' value=b"+item.sno+">상세보기</button></td>"+
             "<td><button class='removebtn' value=b"+item.sno+">삭제</button></td>"+
             '</tr>');
-	
 }
 
 
 $('.removebtn').click(function(){
-	    var f = $(this).val(); 
+	    var f = $(this).val();
 	    console.log(f);
 	    
     $.ajax({ 
@@ -1038,27 +1022,8 @@ $('#datetimepicker2').focusout(function(){
 
 $(".editbtn").click(function(){
 	
-	
 	$('#detailperModal').modal('hide');
-	//var test = $('#detailperModal .pershopname').text(); //보낼값
-	//console.log("test: "+test);
-	document.getElementById('editbtn').value = 132;
-	var fulltime = $('#detailperModal .pertime').text();
-	var starttime = fulltime.substring(0,16);
-	var endtime = fulltime.substring(fulltime.length-5,fulltime.length);
-	console.log(starttime);
-	console.log(endtime);
 	
-	$('#EditScheduleModal #shopname').val($('#detailperModal .pershopname').text());
-	$('#EditScheduleModal #editstartimepicker').val(starttime);
-	$('#EditScheduleModal #editendtimepicker').val(endtime);
-	$('#EditScheduleModal #cnt').val($('#detailperModal .percnt').text());
-	$('#EditScheduleModal #addr').val($('#detailperModal .peraddr').text());
-	$('#EditScheduleModal #x').val($('#detailperModal .perx').text());
-	$('#EditScheduleModal #y').val($('#detailperModal .pery').text());
-	
-	
-	//보내야할곳 . append (보낼값)
 	
 });
 

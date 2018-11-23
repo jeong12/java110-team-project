@@ -42,116 +42,221 @@
 			<result column="y" property="y" />
 		</association>
 	</resultMap>
+    
+    <resultMap type="Schedule" id="reqStageScheduleMap">
+        <id column="brno" property="sno" />
+        <result column="cdt" property="cdt" />
+        <result column="sdt" property="sdt" />
+        <result column="edt" property="edt" />
+        <result column="cnt" property="cnt" />
+        <result column="flag" property="flag" />
+        <!-- <result column="x" property="x"/> <result column="y" property="y"/> -->
+        <association property="supporter" javaType="supporter">
+            <id column="sno" property="no" />
+            <result column="name" property="name" />
+            <result column="bas_addr" property="baseaddr" />
+            <result column="det_addr" property="detailaddr" />
+            <result column="genre" property="sgnere" />
+            <result column="capa" property="capa" />
+            <result column="tel" property="tel" />
+            <result column="etc" property="message" />
+            <result column="x" property="x" />
+            <result column="y" property="y" />
+        </association>
+    </resultMap>
 
-	<resultMap type="Schedule" id="reqStageScheduleMap">
-		<id column="brno" property="sno" />
-		<result column="cdt" property="cdt" />
-		<result column="sdt" property="sdt" />
-		<result column="edt" property="edt" />
-		<result column="cnt" property="cnt" />
-		<result column="flag" property="flag" />
-		<!-- <result column="x" property="x"/> <result column="y" property="y"/> -->
-		<association property="supporter" javaType="supporter">
-			<id column="sno" property="no" />
-			<result column="name" property="name" />
-			<result column="bas_addr" property="baseaddr" />
-			<result column="det_addr" property="detailaddr" />
-			<result column="genre" property="sgnere" />
-			<result column="capa" property="capa" />
-			<result column="tel" property="tel" />
-			<result column="etc" property="message" />
-			<result column="x" property="x" />
-			<result column="y" property="y" />
-		</association>
-	</resultMap>
+    <resultMap type="Schedule" id="UnableStageScheduleMap">
+        <id column="ssno" property="sno" />
+        <result column="name" property="shopname" />
+        <result column="addr" property="addr" />
+        <result column="sdt" property="sdt" />
+        <result column="edt" property="edt" />
+        <result column="cnt" property="cnt" />
+        <result column="flag" property="flag" />
+        <result column="cdt" property="cdt" />
+        <result column="x" property="x" />
+        <result column="y" property="y" />
+        <association property="supporter" javaType="supporter">
+            <id column="sno" property="no" />
+            <result column="bas_addr" property="baseaddr" />
+            <result column="det_addr" property="detailaddr" />
+            <result column="genre" property="sgnere" />
+            <result column="capa" property="capa" />
+            <result column="tel" property="tel" />
+            <result column="etc" property="message" />
+        </association>
+    </resultMap>
 
-	<resultMap type="Schedule" id="UnableStageScheduleMap">
-		<id column="ssno" property="sno" />
-		<result column="name" property="shopname" />
-		<result column="addr" property="addr" />
-		<result column="sdt" property="sdt" />
-		<result column="edt" property="edt" />
-		<result column="cnt" property="cnt" />
-		<result column="flag" property="flag" />
-		<result column="cdt" property="cdt" />
-		<result column="x" property="x" />
-		<result column="y" property="y" />
-		<association property="supporter" javaType="supporter">
-			<id column="sno" property="no" />
-			<result column="bas_addr" property="baseaddr" />
-			<result column="det_addr" property="detailaddr" />
-			<result column="genre" property="sgnere" />
-			<result column="capa" property="capa" />
-			<result column="tel" property="tel" />
-			<result column="etc" property="message" />
-		</association>
-	</resultMap>
+    <resultMap type="Schedule" id="ShowReqsToSupporterMap">
+        <id column="brno" property="sno" />
+        <result column="cdt" property="cdt" />
+        <result column="sdt" property="sdt" />
+        <result column="edt" property="edt" />
+        <result column="cnt" property="cnt" />
+        <result column="flag" property="flag" />
+        <!-- <result column="x" property="x"/> <result column="y" property="y"/> -->
+        <association property="busker" javaType="Busker">
+            <id column="bno" property="no" />
+            <result column="name" property="teamname" />
+            <result column="genre" property="teamgenre" />
+            <result column="city" property="city" />
+            <result column="inst" property="instrument" />
+            <result column="intro" property="teamInfo" />
+            <result column="phot" property="teamPhoto" />
+            <result column="tel" property="tel" />
+            <result column="lcnt" property="likecount" />
+            <result column="cont" property="message" />
+        </association>
+    </resultMap>
 
-	<resultMap type="Schedule" id="ShowReqsToSupporterMap">
-		<id column="brno" property="sno" />
-		<result column="cdt" property="cdt" />
-		<result column="sdt" property="sdt" />
-		<result column="edt" property="edt" />
-		<result column="cnt" property="cnt" />
-		<result column="flag" property="flag" />
-		<!-- <result column="x" property="x"/> <result column="y" property="y"/> -->
-		<association property="busker" javaType="Busker">
-			<id column="bno" property="no" />
-			<result column="name" property="teamname" />
-			<result column="genre" property="teamgenre" />
-			<result column="city" property="city" />
-			<result column="inst" property="instrument" />
-			<result column="intro" property="teamInfo" />
-			<result column="phot" property="teamPhoto" />
-			<result column="tel" property="tel" />
-			<result column="lcnt" property="likecount" />
-			<result column="cont" property="message" />
-		</association>
-	</resultMap>
+    <resultMap type="Schedule" id="showDetailMap">
+        <id column="brno" property="sno" />
+        <result column="cdt" property="cdt" />
+        <result column="cnt" property="cnt" />
+        <result column="flag" property="flag" />
+        <association property="busker" javaType="Busker">
+            <id column="bno" property="no" />
+            <result column="name" property="teamname" />
+            <result column="genre" property="teamgenre" />
+            <result column="city" property="city" />
+            <result column="inst" property="instrument" />
+            <result column="intro" property="teamInfo" />
+            <result column="phot" property="teamPhoto" />
+            <result column="tel" property="tel" />
+            <result column="lcnt" property="likecount" />
+            <result column="cont" property="message" />
+        </association>
+        <collection property="scheduletime" ofType="ScheduleTime">
+            <result column="ssno" property="sssno"/>
+            <result column="sdt" property="ssdt" />
+            <result column="edt" property="sedt" />
+        </collection>
+    </resultMap>
 
-	<resultMap type="Schedule" id="showDetailMap">
-		<id column="brno" property="sno" />
-		<result column="cdt" property="cdt" />
-		<result column="cnt" property="cnt" />
-		<association property="busker" javaType="Busker">
-			<id column="bno" property="no" />
-			<result column="name" property="teamname" />
-			<result column="genre" property="teamgenre" />
-			<result column="city" property="city" />
-			<result column="inst" property="instrument" />
-			<result column="intro" property="teamInfo" />
-			<result column="phot" property="teamPhoto" />
-			<result column="tel" property="tel" />
-			<result column="lcnt" property="likecount" />
-			<result column="cont" property="message" />
-		</association>
-		<collection property="scheduletime" ofType="ScheduleTime">
-			<result column="sdt" property="ssdt" />
-			<result column="edt" property="sedt" />
-			<result column="flag" property="flag" />
-		</collection>
-	</resultMap>
-
-	<resultMap type="Schedule" id="todayScheduleMap">
-		<id column="brno" property="sno" />
-		<result column="shopname" property="shopname" />
-		<result column="addr" property="addr" />
-		<result column="sdt" property="sdt" />
-		<result column="edt" property="edt" />
-		<association property="busker" javaType="busker">
-			<result column="teamname" property="teamname" />
-			<result column="genre" property="teamgenre"/>
-		</association>
-		<association property="supporter" javaType="supporter">
-			<id column="sno" property="no" />
-			<result column="name" property="name"/>
-			<result column="addr" property="baseaddr" />
-			<result column="det_addr" property="detailaddr" />
-			<result column="tel" property="tel" />
-			<result column="x" property="x" />
-			<result column="y" property="y" />
-		</association>
-	</resultMap>
+    <resultMap type="Schedule" id="todayScheduleMap">
+        <id column="brno" property="sno" />
+        <result column="shopname" property="shopname" />
+        <result column="addr" property="addr" />
+        <result column="sdt" property="sdt" />
+        <result column="edt" property="edt" />
+        <association property="busker" javaType="busker">
+            <result column="teamname" property="teamname" />
+            <result column="genre" property="teamgenre"/>
+        </association>
+        <association property="supporter" javaType="supporter">
+            <id column="sno" property="no" />
+            <result column="name" property="name"/>
+            <result column="addr" property="baseaddr" />
+            <result column="det_addr" property="detailaddr" />
+            <result column="tel" property="tel" />
+            <result column="x" property="x" />
+            <result column="y" property="y" />
+        </association>
+    </resultMap>
+    
+    <resultMap type="Schedule" id="ScheduleMap">
+        <id column="brno" property="sno" />
+        <result column="addr" property="addr" />
+        <result column="sdt" property="sdt" />
+        <result column="edt" property="edt" />
+        <association property="busker" javaType="busker">
+            <result column="bno" property="no"/>
+            <result column="name" property="teamname" />
+            <result column="genre" property="teamgenre"/>
+        </association>
+        <association property="supporter" javaType="supporter">
+            <result column="x" property="x" />
+            <result column="y" property="y" />
+        </association>
+    </resultMap>
+ 
+ <!-- 스케줄조회 : 확정 버스커 스케줄 출력하는 쿼리  -->
+ <select id="findbydate" resultMap="buskerscheduleMap" parameterType="map">
+    SELECT 
+           BR.brno,
+           S.name as name,
+           S.bas_addr,
+           MIN(SC.sdt) as sdt,
+           MAX(SC.edt) as edt,
+           BR.cnt,
+           BS.flag, 
+           BR.cdt, 
+           S.x, 
+           S.y 
+      FROM busk B, busk_req BR, busk_stag BS,stag_sche SC, sup S
+     WHERE B.bno=BR.bno
+       AND BR.brno=BS.brno 
+       AND BS.ssno=SC.ssno
+       AND SC.sno = S.sno
+       AND BR.bno=#{bno}
+       AND SUBSTR(SC.sdt,1,10) = #{date}
+  GROUP BY BS.brno
+ </select>
+ 
+ <!-- 스케줄조회 : 확정 버스커 스케줄 출력하는 쿼리  -->
+ <select id="findbyflag" resultMap="buskerscheduleMap" parameterType="map">
+    SELECT 
+           BR.brno,
+           S.name as name,
+           S.bas_addr as addr,
+           MIN(SC.sdt) as sdt,
+           MAX(SC.edt) as edt,
+           BR.cnt,
+           BS.flag, 
+           BR.cdt, 
+           S.x, 
+           S.y 
+      FROM busk B, busk_req BR, busk_stag BS,stag_sche SC, sup S
+     WHERE B.bno=BR.bno
+       AND BR.brno=BS.brno 
+       AND BS.ssno=SC.ssno
+       AND SC.sno = S.sno
+       AND BS.flag=#{flag}
+  GROUP BY BS.brno
+  limit #{rowNo}, #{size}
+ </select>
+ 
+ <select id="findbypsno" resultMap="perscheduleMap" parameterType="int">
+ SELECT PS.psno,
+        PS.sdt,
+        PS.edt,
+        PS.cdt, 
+        PS.addr, 
+        PS.x, 
+        PS.y, 
+        PS.shopname, 
+        PS.cdt, 
+        PS.cnt, 
+        B.name as 
+        buskname ,B.
+        genre
+  FROM per_sche PS, busk B
+ WHERE PS.bno = B.bno
+   AND PS.psno=#{value}
+ </select>
+ 
+ <select id="findbybrno" resultMap="reqStageScheduleMap" parameterType="int">
+     SELECT BS.brno,
+            BR.cdt,
+            S.name,
+            S.x,
+            S.y,
+            S.genre, 
+            S.tel, 
+            S.bas_addr, 
+            S.det_addr,
+            S.etc,
+            S.sno, 
+            MAX(SC.edt) as edt ,
+            MIN(SC.sdt)as sdt
+      FROM busk_req BR, busk_stag BS, stag_sche SC, sup S
+     WHERE BR.brno=BS.brno
+       AND BS.ssno=SC.ssno
+       AND SC.sno=S.sno
+       AND BS.brno=#{value}
+      GROUP By BS.brno
+  </select>
+  
 	
 	<!-- 메인 오늘의 일정 뽑는 리스트 -->
 	<select id="findTodaySchedule"
@@ -314,99 +419,6 @@ GROUP BY BS.brno
 		limit #{rowNo}, #{size}
 	</select>
 
-
-	<!-- 스케줄조회 : 확정 버스커 스케줄 출력하는 쿼리 -->
-	<select id="findbydate" resultMap="buskerscheduleMap"
-		parameterType="map">
-		SELECT
-		BR.brno,
-		S.name as name,
-		S.bas_addr as baseaddr,
-		MIN(SC.sdt) as sdt,
-		MAX(SC.edt) as edt,
-		BR.cnt,
-		BS.flag,
-		BR.cdt,
-		S.x,
-		S.y
-		FROM busk B, busk_req BR, busk_stag BS,stag_sche SC, sup S
-		WHERE B.bno=BR.bno
-		AND BR.brno=BS.brno
-		AND BS.ssno=SC.ssno
-		AND SC.sno = S.sno
-		AND BR.bno=#{bno}
-		AND SUBSTR(SC.sdt,1,10) = #{date}
-		GROUP BY BS.brno
-	</select>
-
-	<!-- 스케줄조회 : 확정 버스커 스케줄 출력하는 쿼리 -->
-	<select id="findbyflag" resultMap="buskerscheduleMap"
-		parameterType="map">
-		SELECT
-		BR.brno,
-		S.name as name,
-		S.bas_addr as addr,
-		MIN(SC.sdt) as sdt,
-		MAX(SC.edt) as edt,
-		BR.cnt,
-		BS.flag,
-		BR.cdt,
-		S.x,
-		S.y
-		FROM busk B, busk_req BR, busk_stag BS,stag_sche SC, sup S
-		WHERE B.bno=BR.bno
-		AND BR.brno=BS.brno
-		AND BS.ssno=SC.ssno
-		AND SC.sno = S.sno
-		AND BS.flag=#{flag}
-		GROUP BY BS.brno
-		limit #{rowNo}, #{size}
-	</select>
-
-	<select id="findbypsno" resultMap="perscheduleMap"
-		parameterType="int">
-		SELECT PS.psno,
-		PS.sdt,
-		PS.edt,
-		PS.cdt,
-		PS.addr,
-		PS.x,
-		PS.y,
-		PS.shopname,
-		PS.cdt,
-		PS.cnt,
-		B.name as
-		buskname ,B.
-		genre
-		FROM per_sche PS, busk B
-		WHERE PS.bno = B.bno
-		AND PS.psno=#{value}
-	</select>
-
-	<select id="findbybrno" resultMap="reqStageScheduleMap"
-		parameterType="int">
-		SELECT BS.brno,
-		BR.cdt,
-		S.name,
-		S.x,
-		S.y,
-		S.genre,
-		S.tel,
-		S.bas_addr,
-		S.det_addr,
-		S.etc,
-		S.sno,
-		MAX(SC.edt) as edt ,
-		MIN(SC.sdt)as sdt
-		FROM busk_req BR, busk_stag BS, stag_sche SC, sup S
-		WHERE BR.brno=BS.brno
-		AND BS.ssno=SC.ssno
-		AND SC.sno=S.sno
-		AND BS.brno=#{value}
-		GROUP By BS.brno
-	</select>
-
-
 	<!-- 무대제공자 스케줄조회: 무대신청,완료된 목록을 보여주는 쿼리 -->
 	<select id="findreqschedule" parameterType="map"
 		resultMap="ShowReqsToSupporterMap">
@@ -415,7 +427,7 @@ GROUP BY BS.brno
 		from busk_stag as bs, stag_sche as ss, busk as b, busk_req as br
 		where bs.ssno = ss.ssno and bs.brno=br.brno and br.bno=b.bno and ss.sno=2
 		GROUP BY br.brno
-		order by ss.sdt;
+		order by ss.sdt desc;
 	</select>
 
 	<!-- 무대제공자 스케줄조회: 무대신청,완료된 목록을 보여주는 쿼리(플래그로) -->
@@ -427,7 +439,7 @@ GROUP BY BS.brno
 		where bs.ssno = ss.ssno and bs.brno=br.brno and br.bno=b.bno and ss.sno=2
 		and flag=#{flag}
 		GROUP BY br.brno
-		order by ss.sdt
+		order by ss.sdt desc;
 	</select>
 
 	<!-- 무대제공자 스케쥴조회: 해당 날짜에 사용불가능한 목록을 뽑아주는 쿼리 -->
@@ -462,14 +474,95 @@ GROUP BY BS.brno
 	</delete>
 
 	<!-- 무대제공자 스케쥴조회: 상세보기에 출력할 팀 정보 -->
-	<select id="showDatail" parameterType="int"
-		resultMap="showDetailMap">
+	<select id="showDatail" parameterType="int" resultMap="showDetailMap">
 		SELECT b.name, b.genre, b.tel, b.lcnt, b.bno, br.cont, br.brno, ss.sdt,
-		ss.edt
+		ss.edt, bs.flag, ss.ssno
 		from busk as b, busk_req as br, busk_stag as bs, stag_sche as ss
 		where b.bno=br.bno and br.brno = bs.brno and bs.ssno = ss.ssno and
 		br.brno=#{no}
 	</select>
+
+  <!-- SELECT S.name, S.bas_addr,S.det_addr, MIN(SS.sdt) AS sdt, MAX(SS.edt) AS edt
+  FROM busk B, busk_req BR, busk_stag BS,stag_sche SS, sup S
+  WHERE B.bno=BR.bno
+        AND BR.brno=BS.brno
+        AND BS.ssno=SS.ssno
+        AND SS.sno=S.sno
+        AND B.bno=#{no}
+        AND BS.flag=2
+        and substr(PS.sdt,1,10)>=substr(now(),1,10)
+        GROUP BY BS.brno
+    </select> -->
+    
+<select id="checkreqschedule" parameterType="map" resultType="int">
+    SELECT COUNT(*)
+	  FROM (SELECT SS.sdt as sdt, SS.edt as edt
+	          FROM busk B, busk_req BR, busk_stag BS, stag_sche SS 
+	         WHERE B.bno = BR.bno
+	           AND BR.brno = BS.brno
+	           AND BS.ssno = SS.ssno
+	           AND B.bno=#{no}
+	         GROUP BY BS.brno
+	       ) c
+	 WHERE sdt BETWEEN #{sdt} and #{edt}
+	    OR edt BETWEEN #{sdt} and #{edt}
+</select>
+
+<select id="checkperschedule" parameterType="map" resultType="int">
+    SELECT count(sdt)
+      FROM per_sche
+     WHERE sdt BETWEEN #{sdt} and #{edt}
+        OR edt BETWEEN #{sdt} and #{edt}
+       AND bno=#{no}  
+</select>    
+
+<update id='editperschedule' parameterType="Schedule" >
+    update per_sche
+       set sdt=#{nsdt}, edt={nedt}, addr=#{addr}, x=#{x}, y=#{y}, shopname=#{shopname}, cnt=#{cnt}, cdt=now()
+     where psno=#{no}
+
+
+</update>
+    
+	
+	<!-- 전체일정 출력 -->
+	<select id="showScedule" resultMap="ScheduleMap">
+    (select b.name, ps.addr, ps.sdt,ps.edt, b.bno
+     from per_sche as ps, busk as b
+     where ps.bno = b.bno AND ps.sdt>=now())
+
+    UNION ALL
+
+    (select b.name, concat(s.bas_addr,' ',s.det_addr)as addr, ss.sdt,ss.edt, b.bno
+    from busk_stag as bs, busk as b, sup as s, stag_sche as ss, busk_req as br
+    where bs.ssno=ss.ssno and bs.brno=br.brno and ss.sno=s.sno and br.bno=b.bno AND ss.sdt>=now() 
+    AND bs.flag='2')
+    
+    ORDER BY sdt	
+	</select>
+	
+	<select id="showSsnos" parameterType="int" resultType="int">
+	select ssno as sno
+	from busk_stag
+	where brno = #{no}
+	</select>
+	
+	<update id="consentapply" parameterType="ArrayList">
+	UPDATE busk_stag 
+    SET flag='2'
+    WHERE ssno in 
+    <foreach collection="list" item="no" open="(" close=")" separator=",">
+    #{no}
+    </foreach>
+	</update>
+	
+	<delete id="refuseapply" parameterType="ArrayList">
+	DELETE FROM `busk_stag` WHERE ssno in 
+	<foreach collection="list" item="no" open="(" close=")" separator=",">
+	#{no}
+	</foreach>
+	</delete>
+
 </mapper>
 
 

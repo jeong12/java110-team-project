@@ -11,10 +11,18 @@ public class MemberManager {
   protected Date cdt;
   protected String ncdt;
   protected String text;
+  protected String sflag;
+  
 
   
 
 
+  public String getSflag() {
+    return sflag;
+  }
+  public void setSflag(String sflag) {
+    this.sflag = sflag;
+  }
   public String getNcdt() {
     return ncdt;
   }
