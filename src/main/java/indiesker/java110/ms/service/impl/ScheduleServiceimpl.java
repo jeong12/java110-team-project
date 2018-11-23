@@ -204,4 +204,15 @@ public class ScheduleServiceimpl implements ScheduleService {
       params.put("date", date);
     return scheduleDao.showpast(params);
     }
+    
+    @Override
+    public List<Schedule> showScedule() {
+    return scheduleDao.showScedule();
+    }
+    
+    @Override
+    public List<Integer> showSsnos(int no) {
+    return scheduleDao.showSsnos(no);
+    }
+    
 }

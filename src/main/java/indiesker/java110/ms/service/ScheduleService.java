@@ -31,4 +31,6 @@ public interface ScheduleService {
     int checkperschedule(String sdt, String edt, int no);
     int checkreqschedule(String sdt, String edt, int no);
     void editperschedule(Schedule schedule);
+    List<Schedule> showScedule();
+    List<Integer> showSsnos(int no);
 }

@@ -6,6 +6,8 @@
 <head>
 <meta charset='utf-8' />
 
+<!-- 지도 -->
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c63782df6473def89780e1d964f9d83a&libraries=services"></script>
 
 <style>
 #calendar {
@@ -46,7 +48,7 @@ clear: both;
 padding : 10px;
 }
 #photo{
-margin: auto;
+margin: 30px;
 }
 img{
 width: 25%; height:10%;
@@ -91,13 +93,25 @@ margin: auto;
     </tbody>
     </table>
     </div>
+    <div id="map" style="width:500px;height:400px;"></div>
    
-   
-    
-  
+<script type="text/javascript">
+   //달력 출력하는 코드
+ var container = document.getElementById('map');
+ var options = {
+     center: new daum.maps.LatLng(${list.x}, ${list.y}),
+     level: 3
+};
 
-
-    
+ var map = new daum.maps.Map(container, options);
+ var marker = new daum.maps.Marker({
+        position: new daum.maps.LatLng(${list.x}, ${list.y}),
+        map: map
+ });
+ marker.setDraggable(true); // 마커를 움직일수 있게 설정 false일경우 고정!
+ map.relayout();
+</script>
+        
 <!-- 달력 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>

@@ -34,5 +34,6 @@ public interface ScheduleDao {
   int checkperschedule(Map<String, Object> params);
   int checkreqschedule(Map<String, Object> params);
   void editperschedule(Schedule schedule);
-  
+  List<Schedule> showScedule();
+  List<Integer> showSsnos(int no);
 }
