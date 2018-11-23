@@ -27,6 +27,7 @@ public interface ScheduleDao {
   List<Schedule> findbynofixfeedschedule(int no);
   Schedule showDatail(int no);
   List<Schedule> findTodaySchedule();
+  List<Schedule> findTodaySchedule(String city);
   int consentapply(ArrayList<Integer> list);
   int refuseapply(ArrayList<Integer> list);
   List<Schedule> showpast(Map<String,Object> params);

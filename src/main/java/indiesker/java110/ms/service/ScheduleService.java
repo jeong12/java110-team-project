@@ -25,6 +25,7 @@ public interface ScheduleService {
     List<Schedule> findFeedFixSchedule(int no);
     Schedule showDatail(int no);
     List<Schedule> findTodaySchedule();
+    List<Schedule> findTodaySchedule(String city);
     int consentapply(ArrayList<Integer> list);
     int refuseapply(ArrayList<Integer> list);
     List<Schedule> showpast(int no, String date);

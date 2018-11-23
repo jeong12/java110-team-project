@@ -17,7 +17,7 @@
 <script src="../js/todayTime.js"></script>
 
 <style>
-.clickable {cursor: pointer;}
+.disabled {cursor: default;}
 
 img {
     height: 400px;
@@ -115,15 +115,13 @@ table {
     <div class="container-fluid">
       <div class="row">
         <div class="col-xs-5 col-md-5">
-          <form method="post" class="form-inline" id="scheduleform">
-            <div class="input-group">
+            <div class="input-group" id="scheduleform">
               <input class="form-control" type="text" name="test"
                 size="100"
               />
-              <button type="submit" class="btn btn-outline-success ">Search</button>
+              <button type="button" class="btn btn-outline" id="TodaySear">Search</button>
             </div>
-          </form>
-          <h4 style="text-align: center;">오늘의 공연 <span id="today"></span>(서울)</h4>
+          <h4 style="text-align: center;">오늘의 공연 <span id="today"></span></h4>
           <div class="table-responsive">
             <table class="table">
               <thead class="thead-dark">

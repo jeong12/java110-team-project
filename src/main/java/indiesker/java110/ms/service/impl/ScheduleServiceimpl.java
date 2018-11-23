@@ -173,4 +173,9 @@ public class ScheduleServiceimpl implements ScheduleService {
       params.put("date", date);
     return scheduleDao.showpast(params);
     }
+
+    @Override
+    public List<Schedule> findTodaySchedule(String city) {
+      return scheduleDao.findTodaySchedule(city);
+    }
 }

@@ -155,7 +155,7 @@
 	
 	<!-- 메인 오늘의 일정 뽑는 리스트 -->
 	<select id="findTodaySchedule"
-		resultMap="todayScheduleMap" parameterType="int">	
+		resultMap="todayScheduleMap" parameterType="String">	
     SELECT
         BR.brno,
         SC.ssno,
@@ -174,9 +174,12 @@
         AND SC.sno = S.sno
         AND BS.flag=2
         <![CDATA[  
-        AND CURRENT_DATE < SC.sdt
+        AND CURRENT_DATE <= SC.sdt
         AND CURRENT_DATE+1 > SC.sdt
         ]]>
+        <if test="_parameter != null">
+        AND S.bas_addr LIKE CONCAT('%',#{city},'%')
+        </if>
         GROUP BY BS.brno
 	</select>
 

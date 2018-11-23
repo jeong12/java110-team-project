@@ -32,4 +32,11 @@ public class MainController {
   public List<Schedule> mainpst() {
     return scheduleService.findTodaySchedule(); 
   }
+  
+  @ResponseBody
+  @PostMapping(value="todaySear")
+  public List<Schedule> todaySear(String city) {
+    System.out.println(city);
+    return scheduleService.findTodaySchedule(city); 
+  }
 }
