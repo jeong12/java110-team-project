@@ -42,6 +42,162 @@
 			<result column="y" property="y" />
 		</association>
 	</resultMap>
+    
+    <select id="findperschedule" resultMap="perscheduleMap" parameterType="map">
+       select PS.psno, PS.shopname, PS.addr,  PS.sdt, PS.edt, PS.cnt, PS.cdt, PS.x, PS.y  
+         from per_sche PS, busk B 
+        where PS.bno = B.bno   
+       limit #{rowNo}, #{size}
+    </select>
+    
+    <insert id="insertperschedule" parameterType="Schedule" useGeneratedKeys="true" keyColumn="psno" keyProperty="psno">
+    insert into per_sche(sdt,edt,addr,x,y,shopname,cdt,cnt,bno) 
+    values(#{nsdt},#{nedt},#{addr},#{x},#{y},#{shopname},now(),#{cnt},5)    
+    </insert>
+    
+    <!-- 스케줄조회 : 확정 버스커 스케줄 출력하는 쿼리  -->
+    <select id="findfixdSchedule" resultMap="buskerscheduleMap" parameterType="map">
+    SELECT 
+           BR.brno,
+           S.name as name,
+           S.bas_addr as addr,
+           MIN(SC.sdt) as sdt,
+           MAX(SC.edt) as edt,
+           BR.cnt,
+           BS.flag, 
+           BR.cdt, 
+           S.x, 
+           S.y 
+      FROM busk B, busk_req BR, busk_stag BS,stag_sche SC, sup S
+     WHERE B.bno=BR.bno
+       AND BR.brno=BS.brno 
+       AND BS.ssno=SC.ssno
+       AND SC.sno = S.sno
+       AND BS.flag=2
+  GROUP BY BS.brno
+  limit #{rowNo}, #{size}
+ </select>
+ 
+ <!-- 스케줄조회 : 확정 버스커 스케줄 출력하는 쿼리  -->
+ <select id="findMyAllSchedule" resultMap="buskerscheduleMap" parameterType="map">
+    SELECT 
+           BR.brno,
+           S.name as name,
+           S.bas_addr as addr,
+           MIN(SC.sdt) as sdt,
+           MAX(SC.edt) as edt,
+           BR.cnt,
+           BS.flag, 
+           BR.cdt, 
+           S.x, 
+           S.y 
+      FROM busk B, busk_req BR, busk_stag BS,stag_sche SC, sup S
+     WHERE B.bno=BR.bno
+       AND BR.brno=BS.brno 
+       AND BS.ssno=SC.ssno
+       AND SC.sno = S.sno
+       AND BR.bno=#{no}
+  GROUP BY BS.brno
+  limit #{rowNo}, #{size}
+ </select>
+ 
+ 
+ <!-- 스케줄조회 : 확정 버스커 스케줄 출력하는 쿼리  -->
+ <select id="findbydate" resultMap="buskerscheduleMap" parameterType="map">
+    SELECT 
+           BR.brno,
+           S.name as name,
+           S.bas_addr,
+           MIN(SC.sdt) as sdt,
+           MAX(SC.edt) as edt,
+           BR.cnt,
+           BS.flag, 
+           BR.cdt, 
+           S.x, 
+           S.y 
+      FROM busk B, busk_req BR, busk_stag BS,stag_sche SC, sup S
+     WHERE B.bno=BR.bno
+       AND BR.brno=BS.brno 
+       AND BS.ssno=SC.ssno
+       AND SC.sno = S.sno
+       AND BR.bno=#{bno}
+       AND SUBSTR(SC.sdt,1,10) = #{date}
+  GROUP BY BS.brno
+ </select>
+ 
+ <!-- 스케줄조회 : 확정 버스커 스케줄 출력하는 쿼리  -->
+ <select id="findbyflag" resultMap="buskerscheduleMap" parameterType="map">
+    SELECT 
+           BR.brno,
+           S.name as name,
+           S.bas_addr as addr,
+           MIN(SC.sdt) as sdt,
+           MAX(SC.edt) as edt,
+           BR.cnt,
+           BS.flag, 
+           BR.cdt, 
+           S.x, 
+           S.y 
+      FROM busk B, busk_req BR, busk_stag BS,stag_sche SC, sup S
+     WHERE B.bno=BR.bno
+       AND BR.brno=BS.brno 
+       AND BS.ssno=SC.ssno
+       AND SC.sno = S.sno
+       AND BS.flag=#{flag}
+  GROUP BY BS.brno
+  limit #{rowNo}, #{size}
+ </select>
+ 
+ <select id="findbypsno" resultMap="perscheduleMap" parameterType="int">
+ SELECT PS.psno,
+        PS.sdt,
+        PS.edt,
+        PS.cdt, 
+        PS.addr, 
+        PS.x, 
+        PS.y, 
+        PS.shopname, 
+        PS.cdt, 
+        PS.cnt, 
+        B.name as 
+        buskname ,B.
+        genre
+  FROM per_sche PS, busk B
+ WHERE PS.bno = B.bno
+   AND PS.psno=#{value}
+ </select>
+ 
+ <select id="findbybrno" resultMap="reqStageScheduleMap" parameterType="int">
+     SELECT BS.brno,
+            BR.cdt,
+            S.name,
+            S.x,
+            S.y,
+            S.genre, 
+            S.tel, 
+            S.bas_addr, 
+            S.det_addr,
+            S.etc,
+            S.sno, 
+            MAX(SC.edt) as edt ,
+            MIN(SC.sdt)as sdt
+      FROM busk_req BR, busk_stag BS, stag_sche SC, sup S
+     WHERE BR.brno=BS.brno
+       AND BS.ssno=SC.ssno
+       AND SC.sno=S.sno
+       AND BS.brno=#{value}
+      GROUP By BS.brno
+  </select>
+  
+  
+ <!-- 무대제공자 스케줄조회: 무대신청,완료된 목록을 보여주는 쿼리 -->
+ <select id="findreqschedule" parameterType="map" resultMap="ShowReqsToSupporterMap">
+select b.name, b.genre, min(ss.sdt) as sdt, max(ss.edt)as edt, br.cnt, bs.flag, br.cdt, br.brno
+from busk_stag as bs, stag_sche as ss, busk as b, busk_req as br 
+where bs.ssno = ss.ssno and bs.brno=br.brno and br.bno=b.bno and ss.sno=2 
+GROUP BY br.brno 
+order by ss.sdt;
+</select>
 
 	<resultMap type="Schedule" id="reqStageScheduleMap">
 		<id column="brno" property="sno" />
@@ -467,6 +623,48 @@ GROUP BY BS.brno
 		where b.bno=br.bno and br.brno = bs.brno and bs.ssno = ss.ssno and
 		br.brno=#{no}
 	</select>
+  <!-- SELECT S.name, S.bas_addr,S.det_addr, MIN(SS.sdt) AS sdt, MAX(SS.edt) AS edt
+  FROM busk B, busk_req BR, busk_stag BS,stag_sche SS, sup S
+  WHERE B.bno=BR.bno
+        AND BR.brno=BS.brno
+        AND BS.ssno=SS.ssno
+        AND SS.sno=S.sno
+        AND B.bno=#{no}
+        AND BS.flag=2
+        and substr(PS.sdt,1,10)>=substr(now(),1,10)
+        GROUP BY BS.brno
+    </select> -->
+    
+<select id="checkreqschedule" parameterType="map" resultType="int">
+    SELECT COUNT(*)
+	  FROM (SELECT SS.sdt as sdt, SS.edt as edt
+	          FROM busk B, busk_req BR, busk_stag BS, stag_sche SS 
+	         WHERE B.bno = BR.bno
+	           AND BR.brno = BS.brno
+	           AND BS.ssno = SS.ssno
+	           AND B.bno=#{no}
+	         GROUP BY BS.brno
+	       ) c
+	 WHERE sdt BETWEEN #{sdt} and #{edt}
+	    OR edt BETWEEN #{sdt} and #{edt}
+</select>
+
+<select id="checkperschedule" parameterType="map" resultType="int">
+    SELECT count(sdt)
+      FROM per_sche
+     WHERE sdt BETWEEN #{sdt} and #{edt}
+        OR edt BETWEEN #{sdt} and #{edt}
+       AND bno=#{no}  
+</select>    
+
+<update id='editperschedule' parameterType="Schedule" >
+    update per_sche
+       set sdt=#{nsdt}, edt={nedt}, addr=#{addr}, x=#{x}, y=#{y}, shopname=#{shopname}, cnt=#{cnt}, cdt=now()
+     where psno=#{no}
+
+
+</update>
+    
 </mapper>
 
 

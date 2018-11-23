@@ -28,4 +28,7 @@ public interface ScheduleService {
     int consentapply(ArrayList<Integer> list);
     int refuseapply(ArrayList<Integer> list);
     List<Schedule> showpast(int no, String date);
+    int checkperschedule(String sdt, String edt, int no);
+    int checkreqschedule(String sdt, String edt, int no);
+    void editperschedule(Schedule schedule);
 }

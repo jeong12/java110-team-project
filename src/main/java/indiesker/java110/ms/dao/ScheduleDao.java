@@ -31,4 +31,8 @@ public interface ScheduleDao {
   int refuseapply(ArrayList<Integer> list);
   List<Schedule> showpast(Map<String,Object> params);
   List<Schedule> findAll(Map<String,Object> params);
+  int checkperschedule(Map<String, Object> params);
+  int checkreqschedule(Map<String, Object> params);
+  void editperschedule(Schedule schedule);
+  
 }
