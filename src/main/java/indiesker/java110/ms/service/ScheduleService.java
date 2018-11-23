@@ -24,4 +24,7 @@ public interface ScheduleService {
     List<Schedule> findFeedPerSchedule(int no);
     List<Schedule> findFeedFixSchedule(int no);
     Schedule showDatail(int no);
+    int checkperschedule(String sdt, String edt, int no);
+    int checkreqschedule(String sdt, String edt, int no);
+    void editperschedule(Schedule schedule);
 }

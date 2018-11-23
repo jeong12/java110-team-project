@@ -26,4 +26,8 @@ public interface ScheduleDao {
   List<Schedule> findbynoperfeedschedule(int no);
   List<Schedule> findbynofixfeedschedule(int no);
   Schedule showDatail(int no);
+  int checkperschedule(Map<String, Object> params);
+  int checkreqschedule(Map<String, Object> params);
+  void editperschedule(Schedule schedule);
+  
 }

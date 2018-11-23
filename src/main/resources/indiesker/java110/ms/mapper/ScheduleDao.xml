@@ -200,7 +200,7 @@
     SELECT 
            BR.brno,
            S.name as name,
-           S.bas_addr as baseaddr,
+           S.bas_addr,
            MIN(SC.sdt) as sdt,
            MAX(SC.edt) as edt,
            BR.cnt,
@@ -385,6 +385,37 @@ delete from busk_req
         and substr(PS.sdt,1,10)>=substr(now(),1,10)
         GROUP BY BS.brno
     </select>
+    
+<select id="checkreqschedule" parameterType="map" resultType="int">
+    SELECT COUNT(*)
+	  FROM (SELECT SS.sdt as sdt, SS.edt as edt
+	          FROM busk B, busk_req BR, busk_stag BS, stag_sche SS 
+	         WHERE B.bno = BR.bno
+	           AND BR.brno = BS.brno
+	           AND BS.ssno = SS.ssno
+	           AND B.bno=#{no}
+	         GROUP BY BS.brno
+	       ) c
+	 WHERE sdt BETWEEN #{sdt} and #{edt}
+	    OR edt BETWEEN #{sdt} and #{edt}
+</select>
+
+<select id="checkperschedule" parameterType="map" resultType="int">
+    SELECT count(sdt)
+      FROM per_sche
+     WHERE sdt BETWEEN #{sdt} and #{edt}
+        OR edt BETWEEN #{sdt} and #{edt}
+       AND bno=#{no}  
+</select>    
+
+<update id='editperschedule' parameterType="Schedule" >
+    update per_sche
+       set sdt=#{nsdt}, edt={nedt}, addr=#{addr}, x=#{x}, y=#{y}, shopname=#{shopname}, cnt=#{cnt}, cdt=now()
+     where psno=#{no}
+
+
+</update>
+    
 </mapper>
 
 

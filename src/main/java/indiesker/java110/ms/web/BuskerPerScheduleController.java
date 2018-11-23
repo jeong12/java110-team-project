@@ -58,18 +58,18 @@ public class BuskerPerScheduleController {
       pageNo = 1;
     if (pageSize < 3 || pageSize > 10)
       pageSize = 3;
-    
+
     pageSize=9;
     List<Schedule> list = scheduleService.mybslist(pageNo, pageSize); // 요청건
     List<Schedule> plist = scheduleService.myperlist(pageNo, pageSize); // 개인스케줄
-    
+
     list.addAll(plist);
-    
+
     for(Schedule p:list) {
       p.setLongsdt(p.getSdt().getTime());
     }
-    
-  //fplist 시간순으로 정렬
+
+    //fplist 시간순으로 정렬
     Collections.sort(list, new Comparator<Schedule>(){
       @Override
       public int compare(Schedule o1, Schedule o2) {
@@ -82,8 +82,8 @@ public class BuskerPerScheduleController {
         }
       }
     });
-    
-    
+
+
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     /*for (Schedule pl : plist) {
@@ -103,7 +103,7 @@ public class BuskerPerScheduleController {
       int endindex=naddr.indexOf(" ")+startindex;
       ps.setAddr(ps.getAddr().substring(0,endindex));
     }
-   
+
     model.addAttribute("list", list);
   }
 
@@ -116,11 +116,11 @@ public class BuskerPerScheduleController {
     System.out.println(no);
     System.out.println(date);
     List<Schedule> clist = scheduleService.findbydate(no, date);
-    
+
     for (Schedule s : clist) {
       System.out.println(s.getNedt());
     }
-    
+
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     for (Schedule ps : clist) {
       ps.setNsdt(format.format(ps.getSdt()));
@@ -138,7 +138,7 @@ public class BuskerPerScheduleController {
       /*@RequestParam(value="flag")*/ String flag,
       @RequestParam(defaultValue="1")int pageNo, 
       @RequestParam(defaultValue="9")int pageSize,  Model model) {
-    
+
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     if(flag.equals("1")||flag.equals("2")) {
@@ -150,11 +150,11 @@ public class BuskerPerScheduleController {
         ps.setNcdt(format.format(ps.getCdt()));
       }
       return flist;
-      
-      
+
+
     }else  {
       List<Schedule> plist = scheduleService.myperlist(pageNo, pageSize);
-      
+
       for (Schedule ps : plist) {
         ps.setNsdt(format.format(ps.getSdt()));
         ps.setNedt(format.format(ps.getEdt()));
@@ -162,12 +162,12 @@ public class BuskerPerScheduleController {
       }
       return plist;
     }
-    
-    
+
+
 
   }
-  
-  
+
+
   @ResponseBody
   @RequestMapping(value="clikedetail")
   public Schedule detailSchedule(String fakeflag) {
@@ -187,14 +187,14 @@ public class BuskerPerScheduleController {
       detailschedule= scheduleService.myperdetail(no);
       System.out.println(detailschedule.getShopname());
     }
-    
+
     detailschedule.setNsdt(format.format(detailschedule.getSdt()));
     detailschedule.setNedt(format.format(detailschedule.getEdt()));
     detailschedule.setNcdt(format.format(detailschedule.getCdt()));
     return detailschedule;
 
   }
-  
+
   @ResponseBody
   @RequestMapping("deleteschedule")
   public int reqdelete(String fakeflag) throws Exception{
@@ -210,4 +210,42 @@ public class BuskerPerScheduleController {
     }
   }
 
+  @ResponseBody
+  @RequestMapping("checkschedule")
+  public int checkschedule( String sdt, 
+                            String edt, 
+                            int no) throws Exception{
+    edt = sdt.substring(0, 10)+" "+edt;
+    sdt=sdt.replaceAll("/", "-");
+    edt=edt.replaceAll("/", "-");
+    System.out.println(sdt);
+    System.out.println(edt);
+    int total=scheduleService.checkperschedule(sdt, edt, no);
+    total+=scheduleService.checkreqschedule(sdt, edt, no);
+    System.out.println("======================");
+    System.out.println(total);
+    return total; 
+    
+  }
+  
+  @PostMapping("editperschedule")
+  public String editperschedule(Schedule schedule) {
+
+    schedule.setNsdt(schedule.getNsdt().toString());
+    schedule.setNedt(schedule.getNsdt().substring(0, 10)+' '+schedule.getNedt().toString());
+
+    System.out.println(schedule.getAddr());
+    System.out.println(schedule.getNsdt());
+    System.out.println(schedule.getNedt());
+    System.out.println(schedule.getShopname());
+    System.out.println(schedule.getX());
+    System.out.println(schedule.getY());
+
+    scheduleService.addSchedule(schedule);
+
+    return "redirect:main";
+  }
+
+
 }
+

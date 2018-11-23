@@ -3,6 +3,7 @@ package indiesker.java110.ms.service.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -143,12 +144,42 @@ public class ScheduleServiceimpl implements ScheduleService {
     //개인피드에 들어갈 확정스케줄
     @Override
     public List<Schedule> findFeedFixSchedule(int no) {
+      Map<String, Object> params=new HashMap<>(); 
+      int sno = scheduleDao.checkperschedule(params);
+      System.out.println(sno);
     return scheduleDao.findbynofixfeedschedule(no);
     }
 
     @Override
     public Schedule showDatail(int no) {
       return scheduleDao.showDatail(no);
+    }
+
+    @Override
+    public int checkperschedule(String sdt, String edt, int no) {
+      Map<String, Object> params=new HashMap<>();
+      params.put("sdt", sdt);
+      params.put("edt", edt);
+      params.put("no", 5);
+      
+      return scheduleDao.checkperschedule(params);
+    }
+    
+    @Override
+    public int checkreqschedule(String sdt, String edt, int no) {
+      Map<String, Object> params=new HashMap<>();
+      params.put("sdt", sdt);
+      params.put("edt", edt);
+      params.put("no", 5);
+      
+      return scheduleDao.checkreqschedule(params);
+    }
+
+    @Override
+    public void editperschedule(Schedule schedule) {
+      
+      scheduleDao.editperschedule(schedule);
+      
     }
 
     
