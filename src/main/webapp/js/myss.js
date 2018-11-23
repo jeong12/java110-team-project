@@ -27,6 +27,65 @@ $(function() {
 //달력 아래 전체/진행중/완료 필터 처리
 $('.chkFlag button').click(function(){
 	var f = $(this).val();
+	var data = $(list);
+	if(f == 0){
+		$.ajax({ 
+			type : "POST", 
+			url : "chkFlag", 
+			dataType: 'json',
+			data : {"flag" : f},
+			success : function(data) {
+				$('#suggests tbody').empty();
+				if(data.length == 0){
+					$("#suggests tbody").append('해당일의 스케줄이 존재하지않습니다.');
+				}else{
+					$.each(data,function(index,item){
+						if(item.flag==1){
+							$('#suggests tbody').empty();
+							$("#suggests tbody").append(
+									'<tr>'+
+									'<td>'+item.busker.teamname+'</td>'+
+									'<td>'+item.busker.teamgenre+'</td>'+
+									'<td>'+item.nsdt+'~'+item.nedt+'</td>'+
+									'<td>'+item.cnt+'명</td>'+
+									'<td>'+'신청중'+'</td>'+
+									'<td>'+item.ncdt+'</td>'+
+									'<td><button type="button" class="dbtn btn-default" data-target="#detailModal"'+ 
+									'data-toggle="modal" value="'+item.sno+'" onclick="chk(this)">상세보기</button></td></tr>');
+						}else if(item.flag==2){
+							$('#suggests tbody').empty();
+							$("#suggests tbody").append(
+									'<tr>'+
+									'<td>'+item.busker.teamname+'</td>'+
+									'<td>'+item.busker.teamgenre+'</td>'+
+									'<td>'+item.nsdt+'~'+item.nedt+'</td>'+
+									'<td>'+item.cnt+'명</td>'+
+									'<td>'+'완료'+'</td>'+
+									'<td>'+item.ncdt+'</td>'+
+									'<td><button type="button" class="dbtn btn-default" data-target="#detailModal"'+ 
+									'data-toggle="modal" value="'+item.sno+'" onclick="chk(this)">상세보기</button></td></tr>');
+						}else{
+							$('#suggests tbody').empty();
+							$("#suggests tbody").append(
+									'<tr>'+
+									'<td>'+item.busker.teamname+'</td>'+
+									'<td>'+item.busker.teamgenre+'</td>'+
+									'<td>'+item.nsdt+'~'+item.nedt+'</td>'+
+									'<td>'+item.cnt+'명</td>'+
+									'<td>'+'etc'+'</td>'+
+									'<td>'+item.ncdt+'</td>'+
+									'<td><button type="button" class="dbtn btn-default" data-target="#detailModal"'+ 
+									'data-toggle="modal" value="'+item.sno+'" onclick="chk(this)">상세보기</button></td></tr>');
+						}
+					});
+				}
+
+			},
+			error : function(request, status, error) {
+				alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+			}
+		});
+	}
 	$.ajax({ 
 		type : "POST", 
 		url : "chkFlag", 
@@ -39,6 +98,7 @@ $('.chkFlag button').click(function(){
 			}else{
 				$.each(data,function(index,item){
 					if(item.flag==1){
+						$('#suggests tbody').empty();
 						$("#suggests tbody").append(
 								'<tr>'+
 								'<td>'+item.busker.teamname+'</td>'+
@@ -48,8 +108,9 @@ $('.chkFlag button').click(function(){
 								'<td>'+'신청중'+'</td>'+
 								'<td>'+item.ncdt+'</td>'+
 								'<td><button type="button" class="dbtn btn-default" data-target="#detailModal"'+ 
-								'data-toggle="modal" value="'+item.sno+'">상세보기</button></td></tr>');
+								'data-toggle="modal" value="'+item.sno+'" onclick="chk(this)">상세보기</button></td></tr>');
 					}else if(item.flag==2){
+						$('#suggests tbody').empty();
 						$("#suggests tbody").append(
 								'<tr>'+
 								'<td>'+item.busker.teamname+'</td>'+
@@ -59,8 +120,9 @@ $('.chkFlag button').click(function(){
 								'<td>'+'완료'+'</td>'+
 								'<td>'+item.ncdt+'</td>'+
 								'<td><button type="button" class="dbtn btn-default" data-target="#detailModal"'+ 
-								'data-toggle="modal" value="'+item.sno+'">상세보기</button></td></tr>');
+								'data-toggle="modal" value="'+item.sno+'" onclick="chk(this)">상세보기</button></td></tr>');
 					}else{
+						$('#suggests tbody').empty();
 						$("#suggests tbody").append(
 								'<tr>'+
 								'<td>'+item.busker.teamname+'</td>'+
@@ -70,7 +132,7 @@ $('.chkFlag button').click(function(){
 								'<td>'+'etc'+'</td>'+
 								'<td>'+item.ncdt+'</td>'+
 								'<td><button type="button" class="dbtn btn-default" data-target="#detailModal"'+ 
-								'data-toggle="modal" value="'+item.sno+'">상세보기</button></td></tr>');
+								'data-toggle="modal" value="'+item.sno+'" onclick="chk(this)">상세보기</button></td></tr>');
 					}
 				});
 			}
@@ -80,7 +142,7 @@ $('.chkFlag button').click(function(){
 			alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
 		}
 	});
-
+	}
 });
 
 //등록가능한 무대일정 출력 & 체크할 수 있게.
@@ -243,7 +305,7 @@ function addDate(){
 }
 
 
-$('.dbtn').click(function(){
+/*$('.dbtn').click(function(){
 	console.log("::::::");
 	var brno = $(this).val();
 	console.log(brno);
@@ -258,7 +320,7 @@ $('.dbtn').click(function(){
 			if(data.length != 0){
 				$(".info").append(
 						"<h3>"+data.busker.teamname+"</h3>"+
-						/*"<img src='/upload/"+data.busker.teamPhoto+"' alt='버스커 이미지'>"+*/
+						"<img src='/upload/"+data.busker.teamPhoto+"' alt='버스커 이미지'>"+
 						"<button value="+data.busker.no+">"+"피드링크연결필요"+"</button>"+
 						"<table>"+
 						"<tr><td>팀명</td><td>"+data.busker.teamname+"</td></tr>"+
@@ -289,7 +351,7 @@ $('.dbtn').click(function(){
 		}
 	});
 });
-
+*/
 
 $('.abtn').click(function(){
 	var brno = $('.brno').val();
@@ -334,3 +396,11 @@ $('.abtn').click(function(){
 		return false;
 	}
 });
+
+
+function chk(e) {
+	console.log("::");
+	var d = e.value;
+	console.log(d);
+
+}

@@ -110,7 +110,7 @@ margin: 15px;
 			 </c:choose></td>
 		 <td>${list.ncdt}</td>
 		 <td><button type="button" class="dbtn btn-default" data-target="#detailModal" 
-		      data-toggle="modal" value="${list.sno}">상세보기</button><br/></td>
+		      data-toggle="modal" value="${list.sno}" onclick="chk(this)" >상세보기</button><br/></td>
 		</tr>
 	  </c:forEach>
 	</tbody>

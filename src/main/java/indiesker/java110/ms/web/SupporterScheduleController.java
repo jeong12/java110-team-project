@@ -75,6 +75,7 @@ public class SupporterScheduleController {
         ps.setNedt(format.format(ps.getEdt()));
         ps.setNcdt(dformat.format(ps.getCdt()));
       }
+      System.out.println(flist);
       return flist;    
     }else{
       List<Schedule> flist = scheduleService.mysslist(pageNo, pageSize);
@@ -83,8 +84,10 @@ public class SupporterScheduleController {
         fs.setNedt(format.format(fs.getEdt()));
         fs.setNcdt(dformat.format(fs.getCdt()));
       }
+      System.out.println(flist);
       return flist;
     }
+    
   }
 
   @ResponseBody
