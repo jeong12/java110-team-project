@@ -16,24 +16,53 @@ contentType="text/html; charset=UTF-8"
 </head>
 <style>
 .tab{display: none}
+.hide-bullets {list-style:none;
+margin-left: -40px;
+margin-top:20px;
+}
+    #mmain{margin-left:  8%; margin-top: 15px;}
+    #myCarousel{width: 400px;}
+    #myCarousel2{width: 400px;}
+    #ff{width: 400px;height: 200px;}
+    #ig{width: 133px;height: 60px;}
+    .thumbnail{padding: 0px; }
+    .mli{width: 133px;height: 50px; float: left;}
+   
+    .aac{margin-left: -24px; margin-top: 0px;}
+    .mtb{margin: auto; margin:26px auto 20px; ;
+        border: 1px solid silver;
+        width: 500px; padding: 10px; padding-bottom: 30px;
+    }
+    .btb{margin: auto; margin:26px auto 20px; ;
+        border: 1px solid silver;
+        width: 500px; padding: 10px; padding-bottom: 30px;
+    }
+    .close{margin-right: 15px;}
+    #ttl{margin-left: 21px;}
+    .mtb label{float:left;}
 </style>
 <body>
-
-
-       
-        <div class="tab" id="bt1" style="display: contents">
-         <button class="bt btn-default btn-sm"  onclick="openCity('bt1')">전체</button>
+       <button class="bt1 btn-default btn-sm"  onclick="openCity('bt1')">전체</button>
        <button class="bt2 btn-primary btn-sm" value="2" onclick="openCity('bt2')">버스커</button>
        <button class="bt3 btn-sussess btn-sm" value="3" onclick="openCity('bt3')">제공자</button>
        <div id="ccc">      
-            
+
+            <select class="gradle">
+                <option value="busk">버스커</option>
+                <option value="sup">제공자</option>
+            </select>
+                        
             <select name="st" id="selt" class="flag">
            <option class="select" value="nik">닉네임</option> 
-               <option class="select" value="email">이메일</option>
+           <option class="select" value="email">이메일</option>
         </select>
         <input type="text" id="input" class="text">
-        <button type="button"  class="slectbtn" value="1">클릭</button>
+        <button type="button"  class="slectbtn">클릭</button>
         </div>  
+
+       
+        <div class="tab" id="bt1" style="display: contents">
+      
  <table>         
                   <thead>                   
                        <th>닉네임</th>
@@ -41,6 +70,8 @@ contentType="text/html; charset=UTF-8"
                        <th>선호장르</th>
                        <th>이메일</th>
                        <th>요청등급</th>
+                       <th>상세보기</th>
+                       <th>확정</th>
                    </thead>
     <tbody id="ajappend1">
           <c:forEach items="${sup}" var="m">
@@ -50,6 +81,10 @@ contentType="text/html; charset=UTF-8"
                     <td>${m.genre}</td>
                     <td>${m.email}</td>
                     <td>${m.flag}</td>
+                    <td><button type="button" class="dtailSupbutton" value="${m.sno}" 
+                    data-target="#model-id" data-toggle="modal">상세보기</button></td>
+                    <td><button>확정</button></td>
+                   
              </tr>
              </c:forEach>
                 <c:forEach  items="${list}" var="m">
@@ -59,24 +94,16 @@ contentType="text/html; charset=UTF-8"
                     <td>${m.genre}</td>
                     <td>${m.email}</td>
                     <td>${m.flag}</td>
+                    <td><button type="button" class="dtailbuskbutton" value="${m.bno}"
+                     data-target="#model-id2" data-toggle="modal">상세보기</button></td>
+                    <td><button value=>확정</button></td>
              </tr>
              </c:forEach>
           </tbody>   
       </table>  
       </div>     
       <div class="tab" id="bt2">
-              <button class="bt btn-default btn-sm"  onclick="openCity('bt1')">전체</button>
-       <button class="bt2 btn-primary btn-sm" value="2" onclick="openCity('bt2')">버스커</button>
-       <button class="bt3 btn-sussess btn-sm" value="3" onclick="openCity('bt3')">제공자</button>
-       <div id="ccc">      
-            
-            <select name="st" id="selt" class="flag">
-           <option class="select" value="nik">닉네임</option> 
-               <option class="select" value="email">이메일</option>
-        </select>
-        <input type="text" id="input" class="text2">
-        <button type="button" class="slectbtn" value="2">클릭</button>
-        </div> 
+       
  <table>         
                   <thead>                   
                        <th>닉네임</th>
@@ -84,6 +111,8 @@ contentType="text/html; charset=UTF-8"
                        <th>선호장르</th>
                        <th>이메일</th>
                        <th>요청등급</th>
+                        <th>상세보기</th>
+                       <th>확정</th>
                    </thead>
     <tbody id="ajappend2">
       
@@ -100,18 +129,7 @@ contentType="text/html; charset=UTF-8"
       </table>  
       </div>     
       <div class="tab" id="bt3">
-       <button class="bt btn-default btn-sm"  onclick="openCity('bt1')">전체</button>
-       <button class="bt2 btn-primary btn-sm" value="2" onclick="openCity('bt2')">버스커</button>
-       <button class="bt3 btn-sussess btn-sm" value="3" onclick="openCity('bt3')">제공자</button>
-       <div id="ccc">      
-            
-            <select name="st" id="selt" class="flag">
-           <option class="select" value="nik">닉네임</option> 
-               <option class="select" value="email">이메일</option>
-        </select>
-        <input type="text" id="input" class="text">
-        <button type="button"  class="slectbtn" value="3">클릭</button>
-        </div>  
+     
  <table>         
                   <thead>                   
                        <th>닉네임</th>
@@ -119,6 +137,8 @@ contentType="text/html; charset=UTF-8"
                        <th>선호장르</th>
                        <th>이메일</th>
                        <th>요청등급</th>
+                        <th>상세보기</th>
+                       <th>확정</th>
                    </thead>
     <tbody id="ajappend3">
          <%--  <c:forEach items="${sup}" var="m">
@@ -134,14 +154,247 @@ contentType="text/html; charset=UTF-8"
           </tbody>   
       </table>  
       </div>     
+      
+<!-- 모달 서포터 -->      
+      <div class="container">
+
+  <div id="model-id" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="ttl">용찬하우스</h3>
+      </div>
+      
+      <div id="mmain">
+        <div id="mmain">
+                <!-- Slider -->
+                <div class="row">
+                    <div class="col-xs-12" id="slider" id="main">
+                        <!-- Top part of the slider -->
+                        <div class="row">
+                            <div class="col-sm-4" id="carousel-bounding-box" >
+                                <div class="carousel slide" id="myCarousel">
+                                    <!-- Carousel items -->
+                                    <div class="carousel-inner" >
+                                        <div class="active item"   data-slide-number="0">
+                                        <img id="ff" src=""></div>
+
+                                        <div class="item"  data-slide-number="1">
+                                        <img id="ff"  src=""></div>
+
+                                        <div class="item" data-slide-number="2">
+                                        <img id="ff" src=""></div>
+
+                               
+                                    </div><!-- Carousel nav -->
+                                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                                        <span class="glyphicon glyphicon-chevron-left"></span>                                       
+                                    </a>
+                                    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                                        <span class="glyphicon glyphicon-chevron-right"></span>                                       
+                                    </a>                                
+                                    </div>
+                            </div>        
+
+                          
+                        </div>
+                    </div>
+                </div><!--/Slider-->
+                <div class="aab row hidden-xs" id="slider-thumbs">
+                        <!-- Bottom switcher of slider -->
+                        <ul class="aac hide-bullets">
+                            <li class="mli">
+                                <a class="thumbnail" id="carousel-selector-0"><img id="ig" src=""></a>
+                            </li>
+
+                            <li class="mli">
+                                <a class="thumbnail" id="carousel-selector-1"><img id="ig" src=""></a>
+                            </li>
+
+                            <li class="mli">
+                                <a class="thumbnail" id="carousel-selector-2"><img id="ig" src=""></a>
+                            </li>
+
+                        </ul>                 
+                </div>
+        </div>
+</div>
+<div class="mtb">
+        <label>장소명 :</label><div class="sname"></div>
+        <label>인원 :</label><div class="scnt"></div>
+        <label>상세주소 :</label><div class="saddr"></div>
+        <label>선호장르 :</label><div class="sgenre"></div>
+        <label>연락처 :</label><div class="stel"></div>
+        <label>희망사항 :</label><div class="smessage"></div>
+ </div>    
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+      </div>
+    </div>
+  </div>
+  </div>
+
+</div>
+<!-- 모달 서포터 여기까지 -->  
+<!-- 버스커 모달 -->
+
+        <div class="container">
+
+
+ 
+
+  <div id="model-id2" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="ttl">용찬하우스</h3>
+      </div>
+      
+      <div id="mmain">
+        <div id="mmain">
+                <!-- Slider -->
+                <div class="row">
+                    <div class="col-xs-12" id="slider" id="main">
+                        <!-- Top part of the slider -->
+                        <div class="row">
+                            <div class="col-sm-4" id="carousel-bounding-box" >
+                                <div class="carousel slide" id="myCarousel2">
+                                    <!-- Carousel items -->
+                                    <div class="carousel-inner" >
+                                        <div class="active item"   data-slide-number="0">
+                                        <div class="iframe1">
+                                        <iframe id="ff" src="https://www.youtube.com/embed/fiGSDywrX1Y" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                       </div>
+                                        </div>
+
+                                        <div class="item"  data-slide-number="1">
+                                        <div class="iframe2">
+                                        <iframe id="ff" src="https://www.youtube.com/embed/OYNcPTat5pY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        </div>
+                                        </div>
+                               
+                                    </div><!-- Carousel nav -->
+                                    <a class="left carousel-control" href="#myCarousel2" role="button" data-slide="prev">
+                                        <span class="glyphicon glyphicon-chevron-left"></span>                                       
+                                    </a>
+                                    <a class="right carousel-control" href="#myCarousel2" role="button" data-slide="next">
+                                        <span class="glyphicon glyphicon-chevron-right"></span>                                       
+                                    </a>                                
+                                    </div>
+                            </div>        
+
+                          
+                        </div>
+                    </div>
+                </div><!--/Slider-->
+
+                <div class="aab row hidden-xs" id="slider-thumbs">
+                        <!-- Bottom switcher of slider -->
+                        <ul class="aac hide-bullets">
+                            <li class="mli">
+                                 <a class="thumbnail" id="carousel-selector-0"><img id="ig" src="https://img.youtube.com/vi/fiGSDywrX1Y/hqdefault.jpg"></a> 
+                            </li>
+
+                            <li class="mli">
+                                <a class="thumbnail" id="carousel-selector-1"><img id="ig" src="https://img.youtube.com/vi/fiGSDywrX1Y/hqdefault.jpg"></a>
+                            </li>
+                        </ul>                 
+                </div>
+        </div>
+</div>
+
+    <div class="mtb">
+        <label>팀명 :</label><div class="bname"></div>
+        <label>선호지역 :</label><div class="bcity"></div>
+        <label>장르 :</label><div class="bgenre"></div>
+        <label>연락처 :</label><div class="btel"></div>
+        <label>팀소개 :</label><div class="bintro"></div>
+    </div>  
+     
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+      </div>
+    </div>
+  </div>
+  </div>
+   
+ 
+</div>                           
+                  
+ 
+ <!-- 버스커모달 여기까지 -->
+ 
 </body>
 <script>
+$('.dtailSupbutton').click(function(){
+	var n = $(this).val();
+	alert(n);
+    $.ajax({ 
+        type : "POST", 
+        url : "supdetail",
+        dataType: 'json',
+		data : {"no":n},
+	     success : function(data) {
+			 $(".sname").empty();
+			 $(".scnt").empty();
+			 $(".saddr").empty();
+			 $(".sgenre").empty();
+			 $(".stel").empty();
+			 $(".smessage").empty();
+			console.log(data);
+			console.log(data.det_addr);
+			console.log(data.etc);
+			console.log(data.capa);
+	                $(".sname").append('<p>'+data.name+'</p>');
+	                $(".scnt").append('<p>'+data.capa+'</p>');
+	                $(".saddr").append('<p>'+data.detailaddr+'</p>');
+	                $(".sgenre").append('<p>'+data.genre+'</p>');
+	                $(".stel").append('<p>'+data.tel+'</p>');
+	                $(".smessage").append('<p>'+data.message+'</p>');
+		} 
+	})
+})
+
+$('.dtailbuskbutton').click(function(){
+    var n = $(this).val();
+    alert(n);
+    $.ajax({ 
+        type : "POST", 
+        url : "buskdetail",
+        dataType: 'json',
+        data : {"no":n},
+         success : function(data) {
+             $(".bname").empty();
+             $(".bcity").empty();
+             $(".bgenre").empty();
+             $(".btel").empty();
+             $(".bintro").empty();
+             $(".iframe1").empty();  
+             $(".iframe2").empty();
+             
+              $(".iframe1").append("<iframe id='ff' src="+data.avi1+"frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
+               $(".iframe2").append("<iframe id='ff' src="+data.avi2+"frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
+                    $(".bname").append('<p>'+data.teamname+'</p>');
+                    $(".bcity").append('<p>'+data.city+'</p>');
+                    $(".bgenre").append('<p>'+data.teamgenre+'</p>');
+                    $(".btel").append('<p>'+data.tel+'</p>');
+                    $(".bintro").append('<p>'+data.message+'</p>');
+        } 
+    })
+})
+
+
+$('.bt1').click(function(){
+        	window.location.href=window.location.href;
+})
 
 $('.bt2').click(function(){
 	var flag = $('.bt2').val();
 	$.ajax({
 		type : "POST",
-        url : "gradleAjaxBusker",
+		url : "gradleAjaxBusker",
         dataType: 'json',
         data : {"flag":flag},
 		success :function(data){
@@ -190,21 +443,20 @@ $('.bt3').click(function(){
 })
 
 $('.slectbtn').click(function(){
-
-    var sflag = $('.select').val();  // nik,email
-    var text = $('.text2').val(); // 입력값
-    var flag = $(this).val(); // 플래그
+    var gradle = $('.gradle').val(); // grade
+    var sflag = $('.flag').val();  // nik,email
+    var text = $('.text').val(); // 입력값
     
-    console.log(sflag);
-    console.log(text);
-    console.log(flag);
+    console.log("sflag:"+sflag);
+    console.log("text:"+text);
+    console.log("gradle:"+gradle);
+    
     var values={
-    		"flag":flag,
     		"text":text,
-    		"sflag":sflag
+    		"sflag":sflag,
     }
-                                                                                        
-    if(flag == 2){
+                                                                                                                              
+    if(gradle == 'busk'){
     	$.ajax({
     		type:"POST",
     		url :"gradleAjaxBuskerSelect",
@@ -213,11 +465,15 @@ $('.slectbtn').click(function(){
     		success : function(data){
     			$("#ajappend1").empty();
     			$("#ajappend2").empty();
+    			$("#ajappend3").empty();
     			alert("1번이지롱");
-    			                      
+    			 if(data.length == 0){
+    				 alert("다시입력해주세요");
+                 }             
+    			
     			  $.each(data,function(index,item){
     		            console.log('--------------');
-                                                             
+    		                                              
     		                                                   
     		            $("#ajappend1").append('<tr><td>'+item.nik+'</td>'
     		                    +'<td>'+item.name+'</td>'
@@ -225,8 +481,6 @@ $('.slectbtn').click(function(){
     		                    +'<td>'+item.email+'</td>'
     		                    +'<td>'+item.flag+'</td></tr>'
     		                    );
-    		            
-    		            
     		            $("#ajappend2").append('<tr><td>'+item.nik+'</td>'
     		                	+'<td>'+item.name+'</td>'
     	                        +'<td>'+item.genre+'</td>'
@@ -239,40 +493,58 @@ $('.slectbtn').click(function(){
                                 +'<td>'+item.email+'</td>'
                                 +'<td>'+item.flag+'</td></tr>'
                                 );
-                       
-    		           
-    		           
     		        }); 
     		    },
     		    error : function(request, status, error) {
     		        alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
     		    }
-    			
-    		                  
-    		
     	})
-    	
     }
                                            
-    if(flag ==3){
-    	$.ajax({
-            type:"POST",
-            url :"gradleAjaxSupporterSelect",
-            dataType : 'json',
-            success : function(date){
-            	$("#ajappend1").empty();
-            	$("#ajappend3").empty();
-            	alert("2번이지롱");
-            }
-            
-        })
-    	
+    if(gradle == "sup"){
+    	   $.ajax({
+               type:"POST",
+               url :"gradleAjaxSupporterSelect",
+               data : values,
+               dataType : 'json',
+               success : function(data){
+                   $("#ajappend1").empty();
+                   $("#ajappend2").empty();
+                   $("#ajappend3").empty();
+                   alert("2번이지롱");
+                   if(data.length == 0){
+                       alert("다시입력해주세요");
+                   }             
+                     $.each(data,function(index,item){
+                           console.log('--------------');
+                           $("#ajappend1").append('<tr><td>'+item.nik+'</td>'
+                                   +'<td>'+item.name+'</td>'
+                                   +'<td>'+item.genre+'</td>'
+                                   +'<td>'+item.email+'</td>'
+                                   +'<td>'+item.flag+'</td></tr>'
+                                   );
+                           $("#ajappend2").append('<tr><td>'+item.nik+'</td>'
+                                   +'<td>'+item.name+'</td>'
+                                   +'<td>'+item.genre+'</td>'
+                                   +'<td>'+item.email+'</td>'
+                                   +'<td>'+item.flag+'</td></tr>'
+                                   );
+                           $("#ajappend3").append('<tr><td>'+item.nik+'</td>'
+                                   +'<td>'+item.name+'</td>'
+                                   +'<td>'+item.genre+'</td>'
+                                   +'<td>'+item.email+'</td>'
+                                   +'<td>'+item.flag+'</td></tr>'
+                                   );
+                       }); 
+                   },
+                   error : function(request, status, error) {
+                       alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+                   }
+           })
     }
-    
-
 }) 
 
-
+//////////////////////////////////////////////////탭
 function openCity(cityName) {
 	var i;
 	var x = document.getElementsByClassName("tab");
@@ -281,5 +553,33 @@ function openCity(cityName) {
 	}
 	document.getElementById(cityName).style.display = "contents"; 
 	} 
+//////////////////////////////////////////////////모달서포터
+$('#carousel-text').html($('#slide-content-0').html());
+
+//Handles the carousel thumbnails
+$('[id^=carousel-selector-]').click( function(){
+    var id = this.id.substr(this.id.lastIndexOf("-") + 1);
+    var id = parseInt(id);
+    $('#myCarousel').carousel(id);
+});
+// When the carousel slides, auto update the text
+$('#myCarousel').on('slid.bs.carousel', function (e) {
+         var id = $('.item.active').data('slide-number');
+        $('#carousel-text').html($('#slide-content-'+id).html());
+});
+//////////////////////////////////////////////////버스커 모달
+  $('[id^=carousel-selector-]').click( function(){
+            var id = this.id.substr(this.id.lastIndexOf("-") + 1);
+            var id = parseInt(id);
+            $('#myCarousel2').carousel(id);
+        });
+ 
+ 
+        // When the carousel slides, auto update the text
+        $('#myCarousel2').on('slid.bs.carousel', function (e) {
+                 var id = $('.item.active').data('slide-number');
+                $('#carousel-text').html($('#slide-content-'+id).html());
+        });
+
 </script>
 </html>

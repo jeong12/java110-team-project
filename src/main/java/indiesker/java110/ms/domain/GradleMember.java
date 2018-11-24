@@ -7,6 +7,37 @@ public class GradleMember {
   protected String genre;
   protected String email;
   protected char flag;
+  protected String sflag;
+  protected String gradle;
+  protected int sno;
+  protected int bno;
+  
+  
+  
+  public int getSno() {
+    return sno;
+  }
+  public void setSno(int sno) {
+    this.sno = sno;
+  }
+  public int getBno() {
+    return bno;
+  }
+  public void setBno(int bno) {
+    this.bno = bno;
+  }
+  public String getGradle() {
+    return gradle;
+  }
+  public void setGradle(String gradle) {
+    this.gradle = gradle;
+  }
+  public String getSflag() {
+    return sflag;
+  }
+  public void setSflag(String sflag) {
+    this.sflag = sflag;
+  }
   public String getId() {
     return id;
   }

@@ -109,10 +109,10 @@ public List<MemberManager> dateSelect(String flag, String text,String ncdt1,Stri
  }
  
  @Override
- public List<GradleMember> gradleAjaxBuskerSelect (String sflag,String flag, String text,int pageNo, int pageSize) {
+ public List<GradleMember> gradleAjaxBuskerSelect (String sflag, String text,int pageNo, int pageSize) {
    HashMap<String,Object> params = new HashMap<>();
-   params.put("flag", flag);
    params.put("text", text);
+   params.put("sflag", sflag);
    params.put("rowNo", (pageNo - 1) * pageSize);
    params.put("size", pageSize);
    
@@ -123,17 +123,27 @@ public List<MemberManager> dateSelect(String flag, String text,String ncdt1,Stri
  }
 
  @Override
- public List<GradleMember> gradleAjaxSupporterSelect (String sflag,String flag, String text,int pageNo, int pageSize) {
+ public List<GradleMember> gradleAjaxSupporterSelect (String sflag, String text,int pageNo, int pageSize) {
    HashMap<String,Object> params = new HashMap<>();
-   params.put("flag", flag);
    params.put("text", text);
+   params.put("sflag", sflag);
    params.put("rowNo", (pageNo - 1) * pageSize);
    params.put("size", pageSize);
    
    List<GradleMember> list = memberManagerDao.gradleAjaxSupporterSelect(params);
    
-   
    return list;
+ }
+ 
+ 
+ @Override//등급관리 서포터 상세보기
+ public Supporter supGet(int no) {
+   return memberManagerDao.findbyNo(no);
+ }
+
+ @Override// 등급관리 버스커 상세보기
+ public Busker buskGet(int no) {
+   return memberManagerDao.fidnBuskbyNo(no);
  }
  
  /////////////////////////////////////////////////////////
@@ -165,6 +175,9 @@ public Supporter getSupporter(String nik) {
   // TODO Auto-generated method stub
   return null;
 }
+
+
+
 
 
 

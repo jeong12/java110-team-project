@@ -5,6 +5,23 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="indiesker.java110.ms.dao.MemberManagerDao">
 
+    <resultMap type="Supporter" id="SupporterMap">
+        <result column="name"   property="name"/>
+        <result column="capa"  property="capa"/>
+        <result column="det_addr"    property="detailaddr"/>
+        <result column="tel"   property="tel"/>
+        <result column="etc"   property="message"/>
+    </resultMap>
+    
+       <resultMap type="Busker" id="BuskerMap">
+        <result column="name"   property="teamname"/>
+        <result column="city"  property="city"/>
+        <result column="genre"    property="teamgenre"/>
+        <result column="tel"   property="tel"/>
+        <result column="intro"   property="message"/>
+         <result column="avi1"   property="avi1"/>
+          <result column="avi2"   property="avi2"/>
+    </resultMap>
 
 
 <!-- 전체 -->
@@ -66,55 +83,9 @@ nik = #{text}
 <when test="flag == 3">
 email = #{text}
 </when>
-
-
-
-<!-- <when test="cdt1 == null  and cdt2 == null and flag == nik and test !=null">
-nik = #{text}
-</when>
-
-<when test="cdt1 == null and cdt2 == null and flag = email and test !=null">
-email = #{text}
-</when>
-
-<when test="cdt1 != null || cdt1 != '' and cdt2 != null || cdt2 = '' and flag == nik and flag != email and test !=null || test !='' ">
-nik = #{text}
-</when>
-
-<when test="cdt1 != null || cdt1 != '' and cdt2 != null || cdt2 = '' and flag != nik and flag == email and test !=null || test !='' ">
-email = #{text}
-
-</when> -->
 </choose>
 </where>
-
 </select> 
-
-
-<!-- <where>
-<if test="cdt1 == null || cdt1 == '' and cdt2 == null || cdt2 = '' and flag == nik || flag == email and text !=null || text !='' ">
-#{flag} = #{text}
-</if>
-
-<if test="cdt1 == null || cdt1 == '' and cdt2 != null || cdt2 = '' and  flag == nik || flag == email">
-cdt = #{cdt2}
-</if>
-
-<if test="cdt1 != null || cdt1 == '' and cdt2 != null || cdt2 = '' and flag == nik || flag == email">
-cdt between #{cdt1} and #{cdt2}
-</if>
-</where> -->
-
-
-<!-- <if test="cdt1 != null or cdt1 != '' ">
-cdt between #{cdt1} and #{cdt2}
-</if>
-<if test="flag == 1">
-nik=#{text}
-</if>
-<if test="flag == 2">
-email=#{text}
-</if> -->
 
 <update id="update" parameterType="Map">
 update memb
@@ -144,74 +115,82 @@ and m.id = #{id}
 </select>
 
 <select id="gradleBusker" resultType="GradleMember" parameterType="Map">
-SELECT m.nik,b.name,b.genre,m.email,m.flag
+SELECT m.nik,b.name,b.genre,m.email,m.flag,b.bno
 FROM memb as m , busk as b
 where m.mno = b.bno
 and m.flag = '2'
+and b.per = 'n'
 limit #{rowNo}, #{size} 
 </select>
 
 <select id="gradleSupporter" resultType="GradleMember" parameterType="Map">
-SELECT m.nik,s.name,s.genre,m.email,m.flag
+SELECT m.nik,s.name,s.genre,m.email,m.flag,s.sno
 FROM memb as m , sup as s
 where m.mno = s.sno
 and m.flag = '3'
+and s.per = 'n'
 limit #{rowNo}, #{size} 
 </select>
 
+
+
 <select id="gradleAjaxBusker" resultType="GradleMember" parameterType="map">
-SELECT m.nik,b.name,b.genre,m.email,m.flag
+SELECT m.nik,b.name,b.genre,m.email,m.flag,b.bno
 FROM memb as m , busk as b
 where m.mno = b.bno
 and m.flag = '2'
+and b.per ='n'
 limit #{rowNo}, #{size} 
 </select>
 
 <select id="gradleAjaxSupporter" resultType="GradleMember" parameterType="map">
-SELECT m.nik,s.name,s.genre,m.email,m.flag
+SELECT m.nik,s.name,s.genre,m.email,m.flag,s.sno
 FROM memb as m , sup as s
 where m.mno = s.sno
 and m.flag = '3'
+and s.per = 'n'
 limit #{rowNo}, #{size} 
 </select>
 
 <select id="gradleAjaxBuskerSelect" resultType="GradleMember" parameterType="map">
-SELECT m.nik,b.name,b.genre,m.email,m.flag
+SELECT m.nik,b.name,b.genre,m.email,m.flag,b.bno
 FROM memb as m , busk as b
-
-<where>
-<choose>
-<when test="sflag == nik">
-flag = '2'
-and m.mno = b.bno
-and m.nik = #{text}
-</when>
-<when test="sflag == email">
-flag = '2'
-and m.mno = b.bno
-and m.email = #{text}
-</when>
-</choose>
-</where>
+where  m.mno = b.bno 
+and b.per = 'n' and 
+<if test='sflag.equals("email")'>
+m.email = #{text}
+</if>
+<if test='sflag.equals("nik")'>
+m.nik = #{text}
+</if>
 limit #{rowNo}, #{size} 
 </select> 
 
 <select id="gradleAjaxSupporterSelect" resultType="GradleMember" parameterType="map">
-SELECT m.nik,s.name,s.genre,m.email,m.flag
+SELECT m.nik,s.name,s.genre,m.email,m.flag,s.sno
 FROM memb as m , sup as s
-where m.mno = s.sno
-and m.flag = '3'
-<where>
-<choose>
-<when test="flag == 3 and sflag == nik">
-and m.nik = #{text}
-</when>
-<when test="flag == 3 and sflag == email">
-and m.email = #{text}
-</when>
-</choose>
-</where>
+where m.mno = s.sno 
+and s.per = 'n' and
+<if test='sflag.equals("email")'>
+m.email = #{text}
+</if>
+<if test='sflag.equals("nik")'>
+m.nik = #{text}
+</if>
 limit #{rowNo}, #{size} 
 </select> 
+
+
+<select id="findbyNo" resultMap="SupporterMap" parameterType="int">
+SELECT name, capa,det_addr,genre,tel,etc
+FROM sup
+where sno = #{no}
+</select>
+
+<select id="fidnBuskbyNo" resultMap="BuskerMap" parameterType="int">
+SELECT name,city,genre,tel,intro,avi1,avi2
+FROM busk
+where bno = #{no}
+</select>
 
  </mapper>
