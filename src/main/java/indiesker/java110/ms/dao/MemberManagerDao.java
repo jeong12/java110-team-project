@@ -17,10 +17,9 @@ public interface MemberManagerDao {
   List<GradleMember> gradleAjaxSupporter(Map<String,Object>params);
   List<GradleMember> gradleAjaxBuskerSelect(Map<String,Object>params);
   List<GradleMember> gradleAjaxSupporterSelect(Map<String,Object>params);
-  List<GradleMember> gradleSelecet(Map<String,Object>params);
-  
-  
   int update(Map<String,Object> params);
+  Supporter findbyNo(int no);
+  Busker fidnBuskbyNo(int no);
   
   MemberManager detailMember(String nik);
   Busker detailBusker(String nik);
