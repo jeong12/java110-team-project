@@ -69,11 +69,15 @@ public class SupporterScheduleController {
     SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
 
     if(flag.equals("1")||flag.equals("2")) {
-      List<Schedule> flist = scheduleService.findSuggestsbyflag(flag, pageNo, pageSize);
+      List<Schedule> flist = scheduleService.findSuggestsbyflag(Integer.parseInt(flag), pageNo, pageSize);
       for (Schedule ps : flist) {
         ps.setNsdt(format.format(ps.getSdt()));
         ps.setNedt(format.format(ps.getEdt()));
         ps.setNcdt(dformat.format(ps.getCdt()));
+      }
+
+      for (Schedule s : flist) {
+        System.out.println(s.getSno());
       }
       System.out.println(flist);
       return flist;    

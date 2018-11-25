@@ -95,7 +95,8 @@ public class ScheduleServiceimpl implements ScheduleService {
     }
 
     @Override
-    public List<Schedule> findSuggestsbyflag(String flag,int pageNo, int pageSize) {
+    public List<Schedule> findSuggestsbyflag(int flag,int pageNo, int pageSize) {
+      System.out.println(flag);
       HashMap<String,Object> params = new HashMap<>();
       params.put("flag", flag);
       params.put("rowNo", (pageNo - 1) * pageSize);

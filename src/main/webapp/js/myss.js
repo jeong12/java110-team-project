@@ -1,4 +1,3 @@
-
 //이전값을 저장해주는 변수
 var _prevObj = null;
 $(function() {
@@ -24,126 +23,20 @@ $(function() {
 	})
 });
 
-//달력 아래 전체/진행중/완료 필터 처리
-$('.chkFlag button').click(function(){
-	var f = $(this).val();
-	var data = $(list);
-	if(f == 0){
-		$.ajax({ 
-			type : "POST", 
-			url : "chkFlag", 
-			dataType: 'json',
-			data : {"flag" : f},
-			success : function(data) {
-				$('#suggests tbody').empty();
-				if(data.length == 0){
-					$("#suggests tbody").append('해당일의 스케줄이 존재하지않습니다.');
-				}else{
-					$.each(data,function(index,item){
-						if(item.flag==1){
-							$('#suggests tbody').empty();
-							$("#suggests tbody").append(
-									'<tr>'+
-									'<td>'+item.busker.teamname+'</td>'+
-									'<td>'+item.busker.teamgenre+'</td>'+
-									'<td>'+item.nsdt+'~'+item.nedt+'</td>'+
-									'<td>'+item.cnt+'명</td>'+
-									'<td>'+'신청중'+'</td>'+
-									'<td>'+item.ncdt+'</td>'+
-									'<td><button type="button" class="dbtn btn-default" data-target="#detailModal"'+ 
-									'data-toggle="modal" value="'+item.sno+'" onclick="chk(this)">상세보기</button></td></tr>');
-						}else if(item.flag==2){
-							$('#suggests tbody').empty();
-							$("#suggests tbody").append(
-									'<tr>'+
-									'<td>'+item.busker.teamname+'</td>'+
-									'<td>'+item.busker.teamgenre+'</td>'+
-									'<td>'+item.nsdt+'~'+item.nedt+'</td>'+
-									'<td>'+item.cnt+'명</td>'+
-									'<td>'+'완료'+'</td>'+
-									'<td>'+item.ncdt+'</td>'+
-									'<td><button type="button" class="dbtn btn-default" data-target="#detailModal"'+ 
-									'data-toggle="modal" value="'+item.sno+'" onclick="chk(this)">상세보기</button></td></tr>');
-						}else{
-							$('#suggests tbody').empty();
-							$("#suggests tbody").append(
-									'<tr>'+
-									'<td>'+item.busker.teamname+'</td>'+
-									'<td>'+item.busker.teamgenre+'</td>'+
-									'<td>'+item.nsdt+'~'+item.nedt+'</td>'+
-									'<td>'+item.cnt+'명</td>'+
-									'<td>'+'etc'+'</td>'+
-									'<td>'+item.ncdt+'</td>'+
-									'<td><button type="button" class="dbtn btn-default" data-target="#detailModal"'+ 
-									'data-toggle="modal" value="'+item.sno+'" onclick="chk(this)">상세보기</button></td></tr>');
-						}
-					});
-				}
 
-			},
-			error : function(request, status, error) {
-				alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
-			}
-		});
-	}
-	$.ajax({ 
-		type : "POST", 
-		url : "chkFlag", 
-		dataType: 'json',
-		data : {"flag" : f},
-		success : function(data) {
-			$('#suggests tbody').empty();
-			if(data.length == 0){
-				$("#suggests tbody").append('해당일의 스케줄이 존재하지않습니다.');
-			}else{
-				$.each(data,function(index,item){
-					if(item.flag==1){
-						$('#suggests tbody').empty();
-						$("#suggests tbody").append(
-								'<tr>'+
-								'<td>'+item.busker.teamname+'</td>'+
-								'<td>'+item.busker.teamgenre+'</td>'+
-								'<td>'+item.nsdt+'~'+item.nedt+'</td>'+
-								'<td>'+item.cnt+'명</td>'+
-								'<td>'+'신청중'+'</td>'+
-								'<td>'+item.ncdt+'</td>'+
-								'<td><button type="button" class="dbtn btn-default" data-target="#detailModal"'+ 
-								'data-toggle="modal" value="'+item.sno+'" onclick="chk(this)">상세보기</button></td></tr>');
-					}else if(item.flag==2){
-						$('#suggests tbody').empty();
-						$("#suggests tbody").append(
-								'<tr>'+
-								'<td>'+item.busker.teamname+'</td>'+
-								'<td>'+item.busker.teamgenre+'</td>'+
-								'<td>'+item.nsdt+'~'+item.nedt+'</td>'+
-								'<td>'+item.cnt+'명</td>'+
-								'<td>'+'완료'+'</td>'+
-								'<td>'+item.ncdt+'</td>'+
-								'<td><button type="button" class="dbtn btn-default" data-target="#detailModal"'+ 
-								'data-toggle="modal" value="'+item.sno+'" onclick="chk(this)">상세보기</button></td></tr>');
-					}else{
-						$('#suggests tbody').empty();
-						$("#suggests tbody").append(
-								'<tr>'+
-								'<td>'+item.busker.teamname+'</td>'+
-								'<td>'+item.busker.teamgenre+'</td>'+
-								'<td>'+item.nsdt+'~'+item.nedt+'</td>'+
-								'<td>'+item.cnt+'명</td>'+
-								'<td>'+'etc'+'</td>'+
-								'<td>'+item.ncdt+'</td>'+
-								'<td><button type="button" class="dbtn btn-default" data-target="#detailModal"'+ 
-								'data-toggle="modal" value="'+item.sno+'" onclick="chk(this)">상세보기</button></td></tr>');
-					}
-				});
-			}
-
-		},
-		error : function(request, status, error) {
-			alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
-		}
-	});
-	}
+$('ul.tabs li').click(function(){
+	var tab_id = $(this).attr('data-tab');
+	$('ul.tabs li').removeClass('current');
+	$('.tab-content').removeClass('current');
+	 
+    $(this).addClass('current');
+	$("#"+tab_id).addClass('current');
+	
+	
 });
+
+
+
 
 //등록가능한 무대일정 출력 & 체크할 수 있게.
 function add(){
@@ -173,14 +66,10 @@ function add(){
 					'<tr>'+
 					'<td>' + '<button onclick="addDate()">등록하기</button>'+'</td>'+
 					'</tr>'
-			)            
-
-		},
-		error : function(request, status, error) {
-			alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
-		}
-	});
-
+			)},
+			error : function(request, status, error) {
+				alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+			}});
 }
 
 //삭제가능한 무대일정 출력&체크할 수 있게
@@ -241,10 +130,8 @@ function removeDate(){
 		}
 	}
 
-	if(chkCnt == 0){
+	if(chkCnt == 0)
 		alert("삭제하실 일정을 체크해주세요");
-	}
-
 
 	$.ajax({ 
 		type : "GET", 
@@ -255,16 +142,13 @@ function removeDate(){
 			if(data != null){
 				alert("success!");
 				window.location.href=window.location.href;
-			}else{
+			}else
 				alert("fail!");
-			}
 		},
 		error : function(request, status, error) {
 			alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
 		}
 	});
-
-
 }
 
 function addDate(){
@@ -281,9 +165,8 @@ function addDate(){
 		}
 	}
 
-	if(chkCnt == 0){
+	if(chkCnt == 0)
 		alert("등록하실 일정을 체크해주세요");
-	}
 
 	$.ajax({ 
 		type : "GET", 
@@ -294,9 +177,8 @@ function addDate(){
 			if(data != null){
 				alert("success!");
 				window.location.href=window.location.href;
-			}else{
+			}else
 				alert("fail!");
-			}
 		},
 		error : function(request, status, error) {
 			alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
@@ -304,11 +186,8 @@ function addDate(){
 	});
 }
 
-
-/*$('.dbtn').click(function(){
-	console.log("::::::");
-	var brno = $(this).val();
-	console.log(brno);
+function chk(e){
+	var brno = e.value;
 	$.ajax({ 
 		type : "GET", 
 		url : "showInfo", 
@@ -332,12 +211,12 @@ function addDate(){
 				if(data.flag == 1){
 					$('.abtn').append('<tr><td><button type="button" class="brno" value="'+data.sno+'">신청하기</button></td></tr>');
 					$.each(data.scheduletime,function(index,item){
-					$('.dates').append(
+						$('.dates').append(
 								'<tr>'+
 								'<td>'+
 								'<input type="checkbox" name="reqdates" value="'+item.sssno+'">'+
 								item.snsdt+'~'+item.snedt+'</td>'+'</tr>');
-						});
+					});
 				}else if(data.flag == 2 || data.flag == 3){
 					$.each(data.scheduletime,function(index,item){
 						$('.dates').append(
@@ -350,8 +229,8 @@ function addDate(){
 			alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
 		}
 	});
-});
-*/
+};
+
 
 $('.abtn').click(function(){
 	var brno = $('.brno').val();
@@ -367,10 +246,9 @@ $('.abtn').click(function(){
 		}
 	}
 	if(chkCnt == 0){
-		alert("삭제하실 일정을 체크해주세요");
-		
+		alert("승낙하실 시간을 체크해주세요");
 	}
-	
+
 	if(confirm("체크하신 일정을 승낙하시겠습니까?") == true){
 		$.ajax({ 
 			type : "GET", 
@@ -381,26 +259,14 @@ $('.abtn').click(function(){
 				if(data != null){
 					alert("success!");
 					window.location.href=window.location.href;
-				}else{
+				}else
 					alert("fail!");
-				}
 			},
 			error : function(request, status, error) {
 				alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
 			}
 		});
-		
-		
-		
 	}else{
 		return false;
 	}
 });
-
-
-function chk(e) {
-	console.log("::");
-	var d = e.value;
-	console.log(d);
-
-}
