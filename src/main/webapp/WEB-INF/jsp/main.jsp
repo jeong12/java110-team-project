@@ -1,25 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
   pageEncoding="UTF-8" trimDirectiveWhitespaces="true"
 %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Indiesker</title>
 
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link
+  href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+  rel="stylesheet" id="bootstrap-css"
+>
+<link rel="stylesheet"
+  href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+  integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+  crossorigin="anonymous"
+>
+<script
+  src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+></script>
+<script
+  src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
+></script>
 <!-- custom -->
 <script src="../js/headerfixing.js"></script>
 <script src="../js/todaybuskerlist.js"></script>
 <script src="../js/todayTime.js"></script>
 
 <style>
-.disabled {cursor: default;}
+.disabled {
+    cursor: default;
+}
 
-img {
+.carousel-item img {
     height: 400px;
 }
 
@@ -51,8 +65,9 @@ table {
 .contents-sub {
     font-size: 0.75rem; margin-left: -36px;
 }
-.underline{
-    border:1px solid black;
+
+.underline {
+    border: 1px solid black;
 }
 
 @media ( min-width : 750px) and ( max-width : 1281px) {
@@ -66,12 +81,11 @@ table {
         font-size: 4em;
     }
 }
-
 </style>
 </head>
 <jsp:include page="header.jsp"></jsp:include>
 <body>
-<div id="pos"></div>
+  <div id="pos"></div>
   <div class="container-mr">
     <div id="carouselExampleIndicators" class="carousel slide"
       data-ride="carousel"
@@ -115,13 +129,15 @@ table {
     <div class="container-fluid">
       <div class="row">
         <div class="col-xs-5 col-md-5">
-            <div class="input-group" id="scheduleform">
-              <input class="form-control" type="text" name="test"
-                size="100"
-              />
-              <button type="button" class="btn btn-outline" id="TodaySear">Search</button>
-            </div>
-          <h4 style="text-align: center;">오늘의 공연 <span id="today"></span></h4>
+          <div class="input-group" id="scheduleform">
+            <input class="form-control" type="text" name="test"
+              size="100"
+            />
+            <button type="button" class="btn btn-outline" id="TodaySear">Search</button>
+          </div>
+          <h4 style="text-align: center;">
+            오늘의 공연 <span id="today"></span>
+          </h4>
           <div class="table-responsive">
             <table class="table">
               <thead class="thead-dark">
@@ -217,84 +233,43 @@ table {
     <div class="row mt-md-3">
       <h3>인기동영상</h3>
     </div>
-      <p class="underline"></p>
+    <p class="underline"></p>
 
     <div class="row">
-
-      <div class="col-sm-3 nopadding">
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe width="560" height="315"
-            src="https://www.youtube.com/embed/YBzJ0jmHv-4"
-            allowfullscreen
-          ></iframe>
+      <c:forEach items="${avipop}" var="avi">
+        <div class="col-sm-3 nopadding my-md-1">
+          <a href="javascript:void(0)"
+            onClick="window.open('https://www.youtube.com/watch?v=${avi.urlid}')"
+          > <img class="img-thumbnail" alt="avi"
+            src="https://img.youtube.com/vi/${avi.urlid}/hqdefault.jpg"
+            style="width: 300px;"
+          >
+          </a>
+          <div class="text-center small">팀명 : ${avi.teamname}</div>
+          <div class="text-center small">제목 : ${avi.title}</div>
+          <div class="text-center small">좋아요 수: ${avi.likeAvi}</div>
         </div>
-      </div>
-      <div class="col-sm-3 nopadding">
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe width="560" height="315"
-            src="https://www.youtube.com/embed/Uvnru8qalXQ"
-            allowfullscreen
-          ></iframe>
-        </div>
-      </div>
-
-      <div class="col-sm-3 nopadding">
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe width="560" height="315"
-            src="https://www.youtube.com/embed/GCfcl1z9pJI"
-            allowfullscreen
-          ></iframe>
-        </div>
-      </div>
-
-      <div class="col-sm-3 nopadding">
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe width="560" height="315"
-            src="https://www.youtube.com/embed/mAKsZ26SabQ"
-            allowfullscreen
-          ></iframe>
-        </div>
-      </div>
-
+        </c:forEach>
     </div>
 
     <div class="row mt-md-3">
       <h3>최신 동영상</h3>
     </div>
-      <p class="underline"></p>
-
+    <p class="underline"></p>
     <div class="row">
-
-      <div class="col-sm-3 nopadding">
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe width="560" height="315"
-            src="//www.youtube.com/embed/cV0tCphFMr8" allowfullscreen
-          ></iframe>
+      <c:forEach items="${avirec}" var="avi">
+        <div class="col-sm-3 nopadding my-md-1">
+          <a href="javascript:void(0)"
+            onClick="window.open('https://www.youtube.com/watch?v=${avi.urlid}')"
+          > <img class="img-thumbnail" alt="avi"
+            src="https://img.youtube.com/vi/${avi.urlid}/hqdefault.jpg"
+            style="width: 300px;"
+          >
+          </a>
+          <div class="text-center small">팀명 : ${avi.teamname}</div>
+          <div class="text-center small">제목 : ${avi.title}</div>
         </div>
-      </div>
-      <div class="col-sm-3 nopadding">
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe width="560" height="315"
-            src="//www.youtube.com/embed/cV0tCphFMr8" allowfullscreen
-          ></iframe>
-        </div>
-      </div>
-
-      <div class="col-sm-3 nopadding">
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe width="560" height="315"
-            src="//www.youtube.com/embed/npjOSLCR2hE" allowfullscreen
-          ></iframe>
-        </div>
-      </div>
-
-      <div class="col-sm-3 nopadding">
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe width="420" height="315"
-            src="//www.youtube.com/embed/kQFKtI6gn9Y" allowfullscreen
-          ></iframe>
-        </div>
-      </div>
+      </c:forEach>
     </div>
   </div>
 </body>

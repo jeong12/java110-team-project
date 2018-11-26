@@ -39,6 +39,16 @@ public class AviServiceImpl implements AviService {
     public Avi getfeedavibyAbno(int no) {
       return aviDao.findfeedavibyAbno(no);
     }
+
+    @Override
+    public List<Avi> getAll() {
+      return aviDao.findAll();
+    }
+
+    @Override
+    public List<Avi> getPop() {
+      return aviDao.findbypopul();
+    }
    
 }
 

@@ -34,4 +34,5 @@ public interface ScheduleService {
     void editperschedule(Schedule schedule);
     List<Schedule> showScedule();
     List<Integer> showSsnos(int no);
+    String weekOfAvi();
 }

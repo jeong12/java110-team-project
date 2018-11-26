@@ -9,4 +9,6 @@ public interface AviService {
   Avi get(int no);
   List<Avi> recentList(int no);
   Avi getfeedavibyAbno(int no);
+  List<Avi> getAll();
+  List<Avi> getPop();
 }

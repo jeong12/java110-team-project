@@ -16,6 +16,7 @@
 		<result column="lcnt" property="avilikecount" />
 		<result column="bno" property="buskerno" />
 		<result column="phot" property="teamPhoto" />
+		<result column="lcnt" property="likeAvi" />
 	</resultMap>
 
 	<select id="findByNo" resultMap="aviMap" parameterType="int">
@@ -57,6 +58,25 @@
 		insert into avi(abno,titl,cont,cdt,stm,bno)
 		values(#{aviboardno},#{title},#{content},now(),#{url},#{no})<!-- 자동으로 증가하게! -->
 	</insert>
+	
+	<!-- 최신영상 조회(메인) -->
+    <select id="findAll" resultMap="aviMap">
+        SELECT a.abno,a.stm,a.titl, b.name
+        FROM busk b, avi a
+        WHERE b.bno=a.bno
+        ORDER BY cdt desc
+        LIMIT 8<!-- 여기 수정해야함 -->
+    </select>
+    
+    <!-- 인기영상 조회(메인) -->
+    <select id="findbypopul" resultMap="aviMap">
+        SELECT a.abno,a.stm,a.titl, af.lcnt, b.name
+        FROM busk b, avi a, avi_fav af
+        WHERE b.bno=a.bno
+          AND a.abno=af.abno
+        ORDER BY lcnt desc
+        LIMIT 8<!-- 여기 수정해야함 -->
+    </select>
 
 </mapper>
 

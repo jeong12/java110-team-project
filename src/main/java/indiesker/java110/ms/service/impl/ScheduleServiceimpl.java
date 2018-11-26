@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -218,5 +219,11 @@ public class ScheduleServiceimpl implements ScheduleService {
       scheduleDao.editperschedule(schedule);
       
     }
-    
+
+    // 통계 관련
+    @Override
+    @Scheduled(fixedDelay=100)
+    public String weekOfAvi() {
+      return "test";
+    }
 }

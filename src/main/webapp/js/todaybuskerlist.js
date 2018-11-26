@@ -77,7 +77,7 @@ function zeroPlus(min){
 function pasing(){
     $('#todayList').each(function() {
         var currentPage = 1;
-        var numPerPage = 1; // 페이지당 보일 갯수
+        var numPerPage = 3; // 페이지당 보일 리스트 갯수
         var $table = $(this).show();
         $table.bind('repaginate', function() {
             $table.find('tr').hide()
@@ -121,7 +121,7 @@ function pasing(){
             $($Previous).prependTo('#pasingNum');
         }
 
-        var blockPerPage = 1;//블럭당 페이지 수
+        var blockPerPage = 3;//블럭당 페이지 수
         var blockPage = 1; // 블럭 갯수 처음은 1개로 초기화
         var firstbtn = 1; //블럭의 첫 페이지 번호 처음은 1로 초기화
         var lastbtn; // 블럭의 마지막 페이지 번호

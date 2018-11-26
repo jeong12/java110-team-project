@@ -3,6 +3,7 @@ package indiesker.java110.ms.domain;
 import java.sql.Date;
 
 public class Avi extends Busker{
+  private static final long serialVersionUID = 1L;
   protected int aviboardno;
   protected String title;
   protected String content;
@@ -12,9 +13,14 @@ public class Avi extends Busker{
   protected String urlid;
   protected String thumbnail;
   protected int buskerno;
-  
-  
+  protected int likeAvi;
 
+  public int getLikeAvi() {
+    return likeAvi;
+  }
+  public void setLikeAvi(int likeAvi) {
+    this.likeAvi = likeAvi;
+  }
   public String getThumbnail() {
     return thumbnail;
   }

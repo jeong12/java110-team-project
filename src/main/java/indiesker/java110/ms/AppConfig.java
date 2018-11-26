@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -21,6 +22,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
     "classpath:/indiesker/java110/ms/conf/sec.properties" })
 @MapperScan("indiesker.java110.ms.dao")
 @EnableTransactionManagement
+@EnableScheduling
 public class AppConfig {
 
   @Autowired
