@@ -515,8 +515,8 @@ GROUP BY BS.brno
 
 <update id='editperschedule' parameterType="Schedule" >
     update per_sche
-       set sdt=#{nsdt}, edt={nedt}, addr=#{addr}, x=#{x}, y=#{y}, shopname=#{shopname}, cnt=#{cnt}, cdt=now()
-     where psno=#{no}
+       set sdt=#{nsdt}, edt=#{nedt}, addr=#{addr}, x=#{x}, y=#{y}, shopname=#{shopname}, cnt=#{cnt}, cdt=now()
+     where psno=#{sno}
 
 
 </update>

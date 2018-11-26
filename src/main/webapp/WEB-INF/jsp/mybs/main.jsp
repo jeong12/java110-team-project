@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -8,50 +8,56 @@
 
 
 <!-- 달력 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <link href="/css/fullcalendar.min.css" rel="stylesheet">
 <script src="/js/fullcalendar.min.js" type="text/javascript"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <!-- 달력기간조회 -->
-<link rel="stylesheet" type="text/css" href="/../css/jquery.datetimepicker.css">
+<link rel="stylesheet" type="text/css"
+	href="/../css/jquery.datetimepicker.css">
 <script src="/js/time/jquery.datetimepicker.full.min.js"></script>
 
 <!-- 모달 -->
 <link rel="stylesheet"
-    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet"
-    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 
-<!-- 카카오map,주소 api -->  
+<!-- 카카오map,주소 api -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=15e2302756c9e7098ec0d79f7b4d53f4&libraries=services"></script>
+<script
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=15e2302756c9e7098ec0d79f7b4d53f4&libraries=services"></script>
 
 
 
 <style>
 #calendar {
-    max-width: 600px;
-    margin: 0 auto;
+	max-width: 600px;
+	margin: 0 auto;
 }
 
-#calendar, #selectday, #selectdate{
-    display: inline-block;
+#calendar, #selectday, #selectdate {
+	display: inline-block;
 }
 
 #logo {
-    width: 50px;
-    height: 50px;
+	width: 50px;
+	height: 50px;
 }
 
 #addschedule {
-    float: right;
+	float: right;
 }
-.cc{margin-left:30%}
 
-
+.cc {
+	margin-left: 30%
+}
 </style>
 <script>
 /* $(document).ready(function(){
@@ -62,467 +68,473 @@
 
 </head>
 <body>
-    <div id="titl">
-        <img id="logo" src="/img/playButton.PNG" alt="플레이로고">
-        <h2>버스킹 일정</h2>
-    </div>
+	<div id="titl">
+		<img id="logo" src="/img/playButton.PNG" alt="플레이로고">
+		<h2>버스킹 일정</h2>
+	</div>
 
 
-    <div id='calendar'></div>
-    <div id='selectday'>
-        <h2></h2>
-        <table id="selectdate">
-        <thead>
-          <tr>
-              <td>시간</td> <td>이름</td> <td>장소</td>
-          </tr>
-          </thead>
-          <tbody>
-          
-          </tbody>
-        </table>
-        
-        <h3></h3>
-    </div>
-    <div class="flagsearch">
-        <button value="1">진행중</button>
-        <button value="2">완료</button>
-        <button value="3">개인스케줄</button>
-    </div>
+	<div id='calendar'></div>
+	<div id='selectday'>
+		<h2></h2>
+		<table id="selectdate">
+			<thead>
+				<tr>
+					<td>시간</td>
+					<td>이름</td>
+					<td>장소</td>
+				</tr>
+			</thead>
+			<tbody>
 
-    <!-- 스케줄등록 모달  -->
-    <div id="addschedule">
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal"
-            data-target="#myModal">스케줄등록하기</button>
-    </div>
+			</tbody>
+		</table>
 
-    <table class="flagdata">
-        <thead>
-            <tr>
-                <th>상호명</th>
-                <th>지역</th>
-                <th>공연시간</th>
-                <th>신청인원</th>
-                <th>진행상태</th>
-                <th>작성일</th>
-                <th>상세보기</th>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach items="${list}" var="list">
-                <tr>
-                    <td>${list.shopname}</td>
-                    <td>${list.addr}</td>
-                    <td>${list.nsdt}~${list.nedt}</td>
-                    <td>${list.cnt}명</td>
-                    <td>
-                        <c:choose>
-	                        <c:when test="${list.flag eq '1'.charAt(0) }">
+		<h3></h3>
+	</div>
+	<div class="flagsearch">
+		<button value="1">진행중</button>
+		<button value="2">완료</button>
+		<button value="3">개인스케줄</button>
+	</div>
+
+	<!-- 스케줄등록 모달  -->
+	<div id="addschedule">
+		<button type="button" class="btn btn-info btn-lg" data-toggle="modal"
+			data-target="#myModal">스케줄등록하기</button>
+	</div>
+
+	<table class="flagdata">
+		<thead>
+			<tr>
+				<th>상호명</th>
+				<th>지역</th>
+				<th>공연시간</th>
+				<th>신청인원</th>
+				<th>진행상태</th>
+				<th>작성일</th>
+				<th>상세보기</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach items="${list}" var="list">
+				<tr>
+					<td>${list.shopname}</td>
+					<td>${list.addr}</td>
+					<td>${list.nsdt}~${list.nedt}</td>
+					<td>${list.cnt}명</td>
+					<td><c:choose>
+							<c:when test="${list.flag eq '1'.charAt(0) }">
 	                                                          진행중
 	                        </c:when>
-	                        <c:when test="${list.flag eq '2'.charAt(0) }">
+							<c:when test="${list.flag eq '2'.charAt(0) }">
 	                                                           완료
 	                        </c:when>
-	                        <c:otherwise>
+							<c:otherwise>
 	                                                           개인스케줄
 	                        </c:otherwise>
-                        </c:choose>
-                    </td>
-                    <td>${list.cdt}</td>
-                    
-                        <c:choose>
-                            <c:when test="${list.supporter eq null }">
-                            <td>
-                                <button data-toggle="modal" data-target="#detailperModal"  
-                                class="detailbtn" value="b${list.sno}">상세보기</button>
-                            </td>
-                            <td>
-                                <button class='removebtn' value="b${list.sno}">삭제</button>
-                            </td>    
-                            </c:when>
-                            <c:otherwise>
-                            <td>
-                                <button data-toggle="modal" data-target="#detailreqModal"
-                                class="detailbtn" value="a${list.sno}">상세보기</button>
-                            </td>
-                            <td>
-                                <button class='removebtn' value="a${list.sno}">삭제</button>
-                            </td>    
-                            </c:otherwise>
-                        </c:choose>    
-                </tr>
-            </c:forEach>
-        </tbody>
-    </table>
-    
-    
-    <!-- 모달 id -->
-    <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+						</c:choose></td>
+					<td>${list.cdt}</td>
 
-            <!-- 모달 내부 설정 -->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">개인스케줄 올리기</h4>
-                </div>
-                <div class="modal-body">
-                    <form action='add' method='post'
-                        enctype="multipart/form-data">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <th>장소명</th>
-                                    <td><input type='text' name='shopname'></td>
-                                </tr>
-                                <tr>
-                                    <th>스케줄일정</th>
-                                    <td><input type="text" name='nsdt' id='regstarttimepicker' autocomplete="off">~<input type="text" name='nedt' id='regendtimepicker' autocomplete="off"></td>
-                                </tr>
-                                <tr>
-                                    <th>인원</th>
-                                    <td><input type="text" name='cnt'></td>
-                                </tr>
-                                <tr>
-                                    <th>주소검색</th>
-                                    <td>
-                                       <input type="text" id="addr" name="addr" placeholder="주소">
-                                       <input type="button" onclick="search_addr()" value="주소 검색"><br>
-                                       <div id="map" style="width:400px;height:400px;margin-top:10px;display:none"></div>
-                                       <input type="text" id="x" name="x" style="display:none"> 
-                                       <input type="text" id="y" name="y" style="display:none"> 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th></th>
-                                    <td><button class="btn btn-default">등록</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+					<c:choose>
+						<c:when test="${list.supporter eq null }">
+							<td>
+								<button data-toggle="modal" data-target="#detailperModal"
+									class="detailinfobtn" value="b${list.sno}">상세보기</button>
+							</td>
+							<td>
+								<button class='removebtn' value="b${list.sno}">삭제</button>
+							</td>
+						</c:when>
+						<c:otherwise>
+							<td>
+								<button data-toggle="modal" data-target="#detailreqModal"
+									class="detailinfobtn" value="a${list.sno}">상세보기</button>
+							</td>
+							<td>
+								<button class='removebtn' value="a${list.sno}">삭제</button>
+							</td>
+						</c:otherwise>
+					</c:choose>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
 
-    <!--   -->
-    <!-- 모달 id -->
-    <div id="EditScheduleModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
 
-            <!-- 모달 내부 설정 -->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">개인스케줄 수정</h4>
-                </div>
-                <div class="modal-body">
-                    <form action='editperschedule' method='post'
-                        enctype="multipart/form-data">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <th>장소명</th>
-                                    <td><input type='text' name='shopname' id='shopname'></td>
-                                </tr>
-                                <tr>
-                                    <th>스케줄일정</th>
-                                    <td><input type="text" name='nsdt' id='editstartimepicker' autocomplete="off">~<input type="text" name='nedt' id='editendtimepicker' autocomplete="off"></td>
-                                </tr>
-                                <tr>
-                                    <th>인원</th>
-                                    <td><input type="text" name='cnt' id='cnt'></td>
-                                </tr>
-                                <tr>
-                                    <th>주소검색</th>
-                                    <td>
-                                       <input type="text" id="addr" name="addr" placeholder="주소">
-                                       <input type="button" onclick="search_addr()" value="주소 검색"><br>
-                                       <div id="map" style="width:400px;height:400px;margin-top:10px;display:none"></div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                       <input type="text" id="x" name="x" style="display:none"> <!--  --> 
-                                       <input type="text" id="y" name="y" style="display:none"> <!-- test!! --> 
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-default" value="" id="editno">수정</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- 상세조회 모달 css  -->
-    <style>
-	    .span5 {
-	        width: auto;
-	    }
+	<!-- 모달 id -->
+	<div id="myModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- 모달 내부 설정 -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">개인스케줄 올리기</h4>
+				</div>
+				<div class="modal-body">
+					<form action='add' method='post' enctype="multipart/form-data">
+						<table>
+							<tbody>
+								<tr>
+									<th>장소명</th>
+									<td><input type='text' name='shopname'></td>
+								</tr>
+								<tr>
+									<th>스케줄일정</th>
+									<td><input type="text" name='nsdt' id='regstarttimepicker'
+										autocomplete="off">~<input type="text" name='nedt'
+										id='regendtimepicker' autocomplete="off"><p id='datecheck'></p></td>
+								</tr>
+								<tr>
+									<th>인원</th>
+									<td><input type="text" name='cnt'></td>
+								</tr>
+								<tr>
+									<th>주소검색</th>
+									<td><input type="text" id="addr" name="addr"
+										placeholder="주소"> <input type="button"
+										onclick="search_addr()" value="주소 검색"><br>
+										<div id="map"
+											style="width: 400px; height: 400px; margin-top: 10px; display: none"></div>
+										<input type="text" id="x" name="x" style="display: none">
+										<input type="text" id="y" name="y" style="display: none">
+									</td>
+								</tr>
+								<tr>
+									<th></th>
+									<td><button class="btn btn-default" id='appbtn'>등록</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--   -->
+	<!-- 모달 id -->
+	<div id="EditScheduleModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- 모달 내부 설정 -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">개인스케줄 수정</h4>
+				</div>
+				<div class="modal-body">
+					<form action='editperschedule' method='post'
+						enctype="multipart/form-data">
+						<table>
+							<tbody>
+								<tr>
+									<th>장소명</th>
+									<td><input type='text' name='shopname' id='shopname'></td>
+								</tr>
+								<tr>
+									<th>스케줄일정</th>
+									<td><input type="text" name='nsdt' id='editstartimepicker'
+										autocomplete="off">~<input type="text" name='nedt'
+										id='editendtimepicker' autocomplete="off"></td>
+								</tr>
+								<tr>
+									<th>인원</th>
+									<td><input type="text" name='cnt' id='cnt'></td>
+								</tr>
+								<tr>
+									<th>주소검색</th>
+									<td><input type="text" id="edit_addr" name="addr"
+										placeholder="주소"> <input type="button"
+										onclick="search_edit_addr()" value="주소 검색"><br>
+										<div id="map"
+											style="width: 400px; height: 400px; margin-top: 10px; display: none"></div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+									<input type="text" id="edit_x" name="x" style="display: none"> <!--  --> 
+									<input type="text" id="edit_y" name="y" style="display: none"> <!-- test!! -->
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-default" value="" id="editno">수정</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 상세조회 모달 css  -->
+	<style>
+.span5 {
+	width: auto;
+}
+
+#emg1 {
+	float: left;
+	margin-left: 10%
+}
+
+#emg2 {
+	float: right;
+	margin-right: 10%
+}
+
+.row {
+	width: 80%;
+	margin-top: px;
+}
+
+.container {
+	width: 90%;
+	margin-left: 10%;
+}
+
+.mimg {
+	margin-top: 30px;
+}
+
+.ct {
+	width: 80%
+}
+
+.box {
+	margin-top: 50px;
+}
+
+.text {
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+.text2 {
+	margin-bottom: 10px;
+}
+
+.eb {
+	width: 100%;
+}
+</style>
+
+	<!-- 성사된스케줄 모달  -->
+	<div id="detailreqModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- 모달 내부 설정 -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">요청스케줄</h4>
+				</div>
+				<div class="ct container">
+					<div class="eb row">
+						<div class="span5">
+							<div class="artist-title col-md-10 ">
+								<span>요청스캐줄 상세조회</span>
+							</div>
+
+							<div class="mimg center-block artist-collage col-md-14">
+
+								<div class="center-block" id="emg1">
+									<img src="http://i.ytimg.com/i/MXDyVR2tclKWhbqNforSyA/mq1.jpg"
+										alt="artist-image" width="150" height="150"
+										class="center-block" />
+								</div>
+								<div id="map2" style="width: 250px; height: 250px;"></div>
+
+
+							</div>
+							<div class="listing-tab col-md-12">
+
+
+								<!-- Tab panes -->
+								<div class="container2">
+
+									<!---Form starting---->
+									<div class="">
+										<!--- For ShopName---->
+										<div class="box col-sm-12">
+											<div class="eb row">
+												<div class="col-xs-5">
+													<label class="shopname">장소명 :</label>
+												</div>
+												<div class="reqname"></div>
+											</div>
+										</div>
+										<!--- For Genre---->
+										<div class="col-sm-12">
+											<div class="row">
+												<div class="col-xs-12">
+													<label class="genre">희망장르/퍼포먼스 :</label>
+												</div>
+												<div class="reqgenre"></div>
+											</div>
+										</div>
+										<!-----For 공연시간---->
+										<div class="col-sm-12">
+											<div class="row">
+												<div class="col-xs-5">
+													<label class="time">공연시간 :</label>
+												</div>
+												<div class="reqtime"></div>
+											</div>
+										</div>
+										<!-----For Tel---->
+										<div class="col-sm-12">
+											<div class="row">
+												<div class="col-xs-5">
+													<label class="tel">연락처 :</label>
+												</div>
+												<div class="reqtel"></div>
+											</div>
+										</div>
+										<!-----For Address---->
+										<div class="col-sm-12">
+											<div class="row">
+												<div class="col-xs-5">
+													<label class="addr">상세주소 :</label>
+												</div>
+												<div class="reqaddr"></div>
+											</div>
+										</div>
+
+										<!-----For etc---->
+										<div class="text col-sm-12">
+											<div class="row">
+												<div class="text2 col-xs-3">
+													<label class="etc" id="hect">메세지 :</label>
+												</div>
+												<div class="reqetc"></div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- 개인스케줄모달  -->
+	<div id="detailperModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- 모달 내부 설정 -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">개인스케줄</h4>
+				</div>
+				<div class="ct container">
+					<div class="eb row">
+						<div class="span5">
+							<div class="artist-title col-md-10 ">
+								<span>개인스캐줄 상세조회</span>
+							</div>
+
+							<div class="cc center-block artist-collage col-md-8">
+
+								<div id="map3" style="width: 250px; height: 250px;"></div>
+
+
+
+							</div>
+							<div class="listing-tab col-md-12">
+
+
+								<!-- Tab panes -->
+								<div class="container2">
+
+									<!---Form starting---->
+									<div class="">
+										<!--- For ShopName---->
+										<div class="box col-sm-12">
+											<div class="eb row">
+												<div class="col-xs-5">
+													<label class="shopname">장소명 :</label>
+												</div>
+												<div class="pershopname"></div>
+											</div>
+										</div>
+										<!--- For Genre---->
+										<div class="col-sm-12">
+											<div class="row">
+												<div class="col-xs-5">
+													<label class="genre">희망장르/퍼포먼스 :</label>
+												</div>
+												<div class="pergenre"></div>
+											</div>
+										</div>
+										<!--- For Cnt---->
+										<div class="col-sm-12">
+											<div class="row">
+												<div class="col-xs-5">
+													<label class="cnt">공연인원 :</label>
+												</div>
+												<div class="percnt"></div>
+											</div>
+										</div>
+										<!-----For Time---->
+										<div class="col-sm-12">
+											<div class="row">
+												<div class="col-xs-5">
+													<label class="time">공연시간 :</label>
+												</div>
+												<div class="pertime"></div>
+											</div>
+										</div>
+										<!-----For Address---->
+										<div class="col-sm-12">
+											<div class="row">
+												<div class="col-xs-5">
+													<label class="addr">상세주소 :</label>
+												</div>
+												<div class="peraddr"></div>
+											</div>
+										</div>
+										<!-----For x,y---->
+										<div class="col-sm-12">
+											<div class="row">
+												<div class="perx" style="display: none"></div>
+												<div class="pery" style="display: none"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button data-toggle="modal" data-target="#EditScheduleModal"
+							id="editbtn">수정</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<script>
+
+
 	
-	    #emg1 {
-	        float: left;
-	        margin-left: 10%
-	    }
-	
-	    #emg2 {
-	        float: right;
-	        margin-right: 10%
-	    }
-	
-	    .row {
-	        width: 80%;
-	        margin-top: px;
-	    }
-	
-	    .container {
-	        width: 90%;
-	        margin-left: 10%;
-	    }
-	
-	    .mimg {
-	        margin-top: 30px;
-	    }
-	
-	    .ct {
-	        width: 80%
-	    }
-	
-	    .box {
-	        margin-top: 50px;
-	    }
-	
-	    .text {
-	        margin-top: 10px;
-	        margin-bottom: 20px;
-	    }
-	
-	    .text2 {
-	        margin-bottom: 10px;
-	    }
-	    .eb{width:100%;}
-    </style>
-	    
-    <!-- 성사된스케줄 모달  -->
-    <div id="detailreqModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- 모달 내부 설정 -->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">요청스케줄</h4>
-                </div>
-                <div class="ct container">
-    <div class="eb row">
-        <div class="span5">
-            <div class="artist-title col-md-10 ">
-                <span>요청스캐줄 상세조회</span>
-            </div>
-
-            <div class="mimg center-block artist-collage col-md-14">
-
-                <div class="center-block" id="emg1">
-                    <img src="http://i.ytimg.com/i/MXDyVR2tclKWhbqNforSyA/mq1.jpg" alt="artist-image" width="150" height="150" class="center-block" />
-                </div>
-                <div id="map2" style="width:250px;height:250px;"></div>
-
-
-            </div>
-            <div class="listing-tab col-md-12">
-
-
-                <!-- Tab panes -->
-                <div class="container2">
-
-                    <!---Form starting---->
-                    <div class="">
-                        <!--- For ShopName---->
-                        <div class="box col-sm-12">
-                            <div class="eb row">
-                                <div class="col-xs-5">
-                                    <label class="shopname">장소명 :</label>
-                                </div>
-                                <div class="reqname">
-                                </div>
-                            </div>
-                        </div>
-                        <!--- For Genre---->
-                        <div class="col-sm-12">
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <label class="genre">희망장르/퍼포먼스 :</label>
-                                </div>
-                                <div class="reqgenre">
-                                </div>
-                            </div>
-                        </div>
-                        <!-----For 공연시간---->
-                        <div class="col-sm-12">
-                            <div class="row">
-                                <div class="col-xs-5">
-                                    <label class="time">공연시간 :</label></div>
-                                <div class="reqtime">
-                                </div>
-                            </div>
-                        </div>
-                        <!-----For Tel---->
-                        <div class="col-sm-12">
-                            <div class="row">
-                                <div class="col-xs-5">
-                                    <label class="tel">연락처 :</label></div>
-                                <div class="reqtel">
-                                </div>
-                            </div>
-                        </div>
-                        <!-----For Address---->
-                        <div class="col-sm-12">
-                            <div class="row">
-                                <div class="col-xs-5">
-                                    <label class="addr">상세주소 :</label></div>
-                                <div class="reqaddr">
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-----For etc---->
-                        <div class="text col-sm-12">
-                            <div class="row">
-                                <div class="text2 col-xs-3">
-                                    <label class="etc" id="hect">메세지 :</label></div>
-                                <div class="reqetc">
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    </div>
-
-    <!-- 개인스케줄모달  -->
-    <div id="detailperModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- 모달 내부 설정 -->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">개인스케줄</h4>
-                </div>
-                <div class="ct container">
-    <div class="eb row">
-        <div class="span5">
-            <div class="artist-title col-md-10 ">
-                <span>개인스캐줄 상세조회</span>
-            </div>
-
-            <div class="cc center-block artist-collage col-md-8">
-
-                <div id="map3" style="width:250px;height:250px;"></div>
-
-              
-
-            </div>
-            <div class="listing-tab col-md-12">
-
-
-                <!-- Tab panes -->
-                <div class="container2">
-
-                    <!---Form starting---->
-                    <div class="">
-                        <!--- For ShopName---->
-                        <div class="box col-sm-12">
-                            <div class="eb row">
-                                <div class="col-xs-5">
-                                    <label class="shopname">장소명 :</label>
-                                </div>
-                                <div class="pershopname">
-                                </div>
-                            </div>
-                        </div>
-                        <!--- For Genre---->
-                        <div class="col-sm-12">
-                            <div class="row">
-                                <div class="col-xs-5">
-                                    <label class="genre">희망장르/퍼포먼스 :</label>
-                                </div>
-                                <div class="pergenre">
-                                </div>
-                            </div>
-                        </div>
-                        <!--- For Cnt---->
-                        <div class="col-sm-12">
-                            <div class="row">
-                                <div class="col-xs-5">
-                                    <label class="cnt">공연인원 :</label>
-                                </div>
-                                <div class="percnt">
-                                </div>
-                            </div>
-                        </div>
-                        <!-----For Time---->
-                        <div class="col-sm-12">
-                            <div class="row">
-                                <div class="col-xs-5">
-                                    <label class="time">공연시간 :</label></div>
-                                <div class="pertime">
-                                </div>
-                            </div>
-                        </div>
-                        <!-----For Address---->
-                        <div class="col-sm-12">
-                            <div class="row">
-                                <div class="col-xs-5">
-                                    <label class="addr">상세주소 :</label></div>
-                                <div class="peraddr">
-                                </div>
-                            </div>
-                        </div>
-                        <!-----For x,y---->
-                        <div class="col-sm-12">
-                            <div class="row">
-                                <div class="perx" style="display:none">
-                                </div>
-                                <div class="pery" style="display:none">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-                <div class="modal-footer">
-                    <button data-toggle="modal" data-target="#EditScheduleModal" 
-                                id="editbtn">수정</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    </div>
-    
-<script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 mapOption = {
     center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
@@ -573,6 +585,91 @@ var marker3 = new daum.maps.Marker({
 });
 
 marker3.setMap(map3); // 맵에 생성한 마커를 셋팅!
+
+// 개인스케줄조회
+function search_edit_addr() {
+	new daum.Postcode({
+	    oncomplete: function(data) {
+	        // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+	        // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+	        var fullAddr = data.address; // 최종 주소 변수
+	        var extraAddr = ''; // 조합형 주소 변수
+
+	        // 기본 주소가 도로명 타입일때 조합한다.
+	        if(data.addressType === 'R'){
+	            //법정동명이 있을 경우 추가한다.
+	            if(data.bname !== ''){
+	                extraAddr += data.bname;
+	            }
+	            // 건물명이 있을 경우 추가한다.
+	            if(data.buildingName !== ''){
+	                extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+	            }
+	            // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+	            fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+	        }
+
+	        // 주소 정보를 해당 필드에 넣는다.
+	        document.getElementById("edit_addr").value = fullAddr;
+	        // 주소로 상세 정보를 검색
+	        geocoder.addressSearch(data.address, function(results, status) {
+	            // 정상적으로 검색이 완료됐으면
+	            if (status === daum.maps.services.Status.OK) {
+
+	                var result = results[0]; //첫번째 결과의 값을 활용
+
+	                // 해당 주소에 대한 좌표를 받아서
+	                var coords = new daum.maps.LatLng(result.y, result.x);
+	                // 지도를 보여준다.
+	                mapContainer.style.display = "block";
+	                map.relayout();
+	                // 지도 중심을 변경한다.
+	                map.setCenter(coords);
+	                // 마커를 결과값으로 받은 위치로 옮긴다.
+	                marker.setPosition(coords)
+	                var gps = marker.getPosition();
+	                var x = gps.getLat();
+	                var y = gps.getLng();
+	                
+	                // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+	                document.getElementById("edit_x").value = x;
+	                document.getElementById("edit_y").value = y;
+	                
+	            }
+	        });
+	        
+	        daum.maps.event.addListener(map, 'click', function(mouseEvent) {
+	            searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
+	                if (status === daum.maps.services.Status.OK) {
+	                    var detailAddr = !!result[0].road_address ? result[0].road_address.address_name :'';
+	                    detailAddr += result[0].address.address_name;
+	                    
+	                    
+	                    // 마커를 클릭한 위치에 표시합니다 
+	                    marker.setPosition(mouseEvent.latLng);
+	                    marker.setMap(map);            
+	                                
+	                    var gps = marker.getPosition();
+	                    var x = gps.getLat();
+	                    var y = gps.getLng();
+	                    
+	                    // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+	                    document.getElementById("edit_addr").value = detailAddr;
+	                    document.getElementById("edit_x").value = x;
+	                    document.getElementById("edit_y").value = y;
+	                }   
+	            });
+	        });
+	       
+	        
+	        function searchDetailAddrFromCoords(coords, callback) {
+	            // 좌표로 법정동 상세 주소 정보를 요청합니다
+	            geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+	        }
+
+	    }
+	}).open();
+	}
 
 
 function search_addr() {
@@ -727,81 +824,7 @@ $(function() {
 
 
 
-/* 상세정보 조회 ajax처리 */
-$('.detailbtn').click(function(){
-	var f = $(this).val(); // 클릭한 값을 받음 ex) a1일 경우 컨트롤러에서 a=요청스케줄, b=개인스케줄로 분류하여 처리
-	var no = f.substring(1,f.length);
-	
-	$.ajax({ 
-        type : "POST", 
-        url : "clikedetail",
-        dataType: 'json',
-        data: { "fakeflag" : f},
-        success : function(data) {
-        	    /* 요청스케줄, 개인스케줄 모달 태크에 기존 값을 초기화 */
-	        	$(".reqname").empty();
-	            $(".reqgenre").empty();
-	            $(".reqtime").empty();
-	            $(".reqtel").empty();
-	            $(".reqaddr").empty();
-	            $(".reqetc").empty();
-	            $(".pershopname").empty();
-                $(".pergenre").empty();
-                $(".percnt").empty();
-                $(".pertime").empty();
-                $(".peraddr").empty();
-                $(".peretc").empty();
-                $(".perx").empty();
-                $(".pery").empty();
-	        
-	        if(data ==false){
-	        	/* 이거왜했지? 테스트인듯.. */
-	        	cosole.log(data.addr)
-	        }else{
-	        	/* 컨트롤러에서 a,b값에 따라 요청스케줄, 개인스케줄중 한가지를 리턴해줌 */
-	        	if(data.supporter==null){// 개인스케줄의 경우 supporter 객체를 받지 않음, 고로 개인스케줄 모달에 데이터 처리
-	        		$(".pershopname").append('<p>'+data.shopname+'</p>');
-                    $(".pergenre").append('<p>'+'장르를만들자'+'</p>');
-                    $(".percnt").append('<p>'+data.cnt+'</p>');
-                    $(".pertime").append('<p>'+data.nsdt+'~'+data.nedt+'</p>');
-                    $(".peraddr").append('<p>'+data.addr+'</p>');
-                    $(".perx").append('<p>'+data.x+'</p>');
-                    $(".pery").append('<p>'+data.y+'</p>');
-                    $("#editbtn").val(no);
-                    // 다음지도 api
-                    // x,y값을 받아 다음지도의 LatLng 생성 <= 좌표만들어주는 객체인듯
-                    var LatLon = new daum.maps.LatLng(data.x, data.y);
-                    // 기존 생성된 map의 중심을 데이터상의 x,y로 맞춰줌
-                    map3.setCenter(LatLon);
-                    // 기존 생성된 marker의 위치를 수정해주는 매서드
-                    marker3.setPosition(new daum.maps.LatLng(LatLon.getLat(),LatLon.getLng()));
-	        	}else{ // supporter객체가 있다면 요청스케줄 모달에 데이터 처리
-	        		$(".reqname").append('<p>'+data.supporter.name+'</p>');
-	        		$(".reqgenre").append('<p>'+data.supporter.sgnere+'</p>');
-	        		$(".reqtime").append('<p>'+data.supporter.tel+'</p>');
-	        		$(".reqtel").append('<p>'+data.nsdt+'~'+data.nedt+'</p>');
-	        		$(".reqaddr").append('<p>'+data.supporter.baseaddr+'</p>');
-	        		$(".reqetc").append('<p>'+data.supporter.message+'</p>');
-	        		//위와 같음, 다만 map2객체에 설정, map2=요청스케줄 모달페이지 맵, map3=개인스케줄 도달페이지 맵  
-	        		var LatLon = new daum.maps.LatLng(data.supporter.x, data.supporter.y);
-	                map2.setCenter(LatLon);
-	                marker2.setPosition(new daum.maps.LatLng(LatLon.getLat(),LatLon.getLng()));
-	        	}
-	        	
-	        }
 
-        },
-        error : function(request, status, error) {
-            alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
-        }
-        
-        
-    });
-	
-	
-	
-	
-})
 
 
 
@@ -867,6 +890,80 @@ $('#editendtimepicker').datetimepicker({
       onChangeDateTime:minimum,
       onShow:minimum
 });
+
+/* 상세정보 조회 ajax처리 */
+$(document).on('click','.detailinfobtn',function(){
+    var f = $(this).val(); // 클릭한 값을 받음 ex) a1일 경우 컨트롤러에서 a=요청스케줄, b=개인스케줄로 분류하여 처리
+    console.log(f);
+    var no = f.substring(1,f.length);
+    
+    
+    $.ajax({ 
+        type : "POST", 
+        url : "clikedetail",
+        dataType: 'json',
+        data: { "fakeflag" : f},
+        success : function(data) {
+                /* 요청스케줄, 개인스케줄 모달 태크에 기존 값을 초기화 */
+                $(".reqname").empty();
+                $(".reqgenre").empty();
+                $(".reqtime").empty();
+                $(".reqtel").empty();
+                $(".reqaddr").empty();
+                $(".reqetc").empty();
+                $(".pershopname").empty();
+                $(".pergenre").empty();
+                $(".percnt").empty();
+                $(".pertime").empty();
+                $(".peraddr").empty();
+                $(".peretc").empty();
+                $(".perx").empty();
+                $(".pery").empty();
+            
+            if(data ==false){
+                /* 이거왜했지? 테스트인듯.. */
+                cosole.log(data.addr)
+            }else{
+                /* 컨트롤러에서 a,b값에 따라 요청스케줄, 개인스케줄중 한가지를 리턴해줌 */
+                if(data.supporter==null){// 개인스케줄의 경우 supporter 객체를 받지 않음, 고로 개인스케줄 모달에 데이터 처리
+                    $(".pershopname").append('<p>'+data.shopname+'</p>');
+                    $(".pergenre").append('<p>'+'장르를만들자'+'</p>');
+                    $(".percnt").append('<p>'+data.cnt+'</p>');
+                    $(".pertime").append('<p>'+data.nsdt+'~'+data.nedt+'</p>');
+                    $(".peraddr").append('<p>'+data.addr+'</p>');
+                    $(".perx").append('<p>'+data.x+'</p>');
+                    $(".pery").append('<p>'+data.y+'</p>');
+                    $("#editno").val(no);
+                    // 다음지도 api
+                    // x,y값을 받아 다음지도의 LatLng 생성 <= 좌표만들어주는 객체인듯
+                    var LatLon = new daum.maps.LatLng(data.x, data.y);
+                    // 기존 생성된 map의 중심을 데이터상의 x,y로 맞춰줌
+                    map3.setCenter(LatLon);
+                    // 기존 생성된 marker의 위치를 수정해주는 매서드
+                    marker3.setPosition(new daum.maps.LatLng(LatLon.getLat(),LatLon.getLng()));
+                }else{ // supporter객체가 있다면 요청스케줄 모달에 데이터 처리
+                    $(".reqname").append('<p>'+data.supporter.name+'</p>');
+                    $(".reqgenre").append('<p>'+data.supporter.sgnere+'</p>');
+                    $(".reqtime").append('<p>'+data.supporter.tel+'</p>');
+                    $(".reqtel").append('<p>'+data.nsdt+'~'+data.nedt+'</p>');
+                    $(".reqaddr").append('<p>'+data.supporter.baseaddr+'</p>');
+                    $(".reqetc").append('<p>'+data.supporter.message+'</p>');
+                    //위와 같음, 다만 map2객체에 설정, map2=요청스케줄 모달페이지 맵, map3=개인스케줄 도달페이지 맵  
+                    var LatLon = new daum.maps.LatLng(data.supporter.x, data.supporter.y);
+                    map2.setCenter(LatLon);
+                    marker2.setPosition(new daum.maps.LatLng(LatLon.getLat(),LatLon.getLng()));
+                }
+                
+            }
+
+        },
+        error : function(request, status, error) {
+            alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+        }
+        
+        
+    });
+});
     
 /* 필터로 해당단계에 해당하는 스케줄 뿌려주기! (1=진행중,2=완료,else=개인스케줄)  */    
 $('.flagsearch button').click(function(){
@@ -895,6 +992,7 @@ $('.flagsearch button').click(function(){
                     var startindex=item.addr.indexOf(" ")+1;
                     var endindex=naddr.indexOf(" ")+startindex;
                     flag1(endindex,item);
+                  
 	                
             	}else if(item.flag==2){ // 진행중(flag=2)일 경우 flag2()에 해당하는 목록을 뿌려줌
             		var naddr=item.addr.substring(item.addr.indexOf(" ")+1,item.addr.length);
@@ -918,9 +1016,6 @@ $('.flagsearch button').click(function(){
         
         
     });
-	
-	
-	
 });
 
 
@@ -936,11 +1031,11 @@ function flag1(endindex,item){
             '<td>'+'진행중'+'</td>'+
             '<td>'+item.ncdt+'</td>'+
             "<td><button data-toggle='modal' data-target='#detailreqModal' "+ 
-            "class='detailbtn' value=a"+item.sno+">상세보기</button></td>"+
+            "class='detailinfobtn' value=a"+item.sno+">상세보기</button></td>"+
             "<td><button class='removebtn' value=a"+item.sno+">삭제</button></td>"+ 
             'value=a'+item.sno+"'>"+'상세보기</button></td>'+
             '</tr>');
-}
+} 
 //완료 필터 목록 출력
 function flag2(endindex,item){
 	$(".flagdata tbody").append(
@@ -952,7 +1047,7 @@ function flag2(endindex,item){
             '<td>'+'완료'+'</td>'+
             '<td>'+item.ncdt+'</td>'+
             "<td><button data-toggle='modal' data-target='#detailreqModal' "+ 
-            "class='detailbtn' value=a"+item.sno+">상세보기</button></td>"+
+            "class='detailinfobtn' value=a"+item.sno+">상세보기</button></td>"+
             "<td><button class='removebtn' value=a"+item.sno+">삭제</button></td>"+
             '</tr>');
 }
@@ -967,12 +1062,11 @@ function flag(endindex,item){
             '<td>'+'개인스케줄'+'</td>'+
             '<td>'+item.ncdt+'</td>'+
             "<td><button data-toggle='modal' data-target='#detailperModal' "+ 
-            "class='detailbtn' value=b"+item.sno+">상세보기</button></td>"+
+            "class='detailinfobtn' value=b"+item.sno+">상세보기</button></td>"+
             "<td><button class='removebtn' value=b"+item.sno+">삭제</button></td>"+
             '</tr>');
 	
 }
-
 
 $('.removebtn').click(function(){
 	    var f = $(this).val(); 
@@ -996,18 +1090,19 @@ $('.removebtn').click(function(){
 	
 	
 	
-})
+});
+	
 
 
-$('#datetimepicker2').focusout(function(){
+$('#regendtimepicker').focusout(function(){
 	
 	
 	console.log("aaa");
 	
 	
        var f = {
-        		"sdt": $('#datetimepicker').val(),
-        		"edt": $('#datetimepicker2').val(),
+        		"sdt": $('#regstarttimepicker').val(),
+        		"edt": $('#regendtimepicker').val(),
         		"no": 5
         }
         console.log(f);
@@ -1019,9 +1114,13 @@ $('#datetimepicker2').focusout(function(){
         data : f, //파라미터 넘겨줄 부분? : 이게 할말이 많은데 원래 GET방식으로 하라했다가 
         success : function(data) { // delete, update문 같은 경우에는 기본적으로 int값을 반환함.
         	if(data==0){
+        		$('#datecheck').html('등록 가능한 일정입니다.').css('color','green');
+        		$("#appbtn").prop("disabled", false);
         		console.log(data+"중복값이없어 바꾼다");	
         	}else{
+        		$("#appbtn").prop("disabled", true);
         		console.log(data+"중복일정이있어 못바꾸게한다");
+        		$('#datecheck').html('중복된 일정이 존재합니다.').css('color','red');
         	} 
             
         },
@@ -1036,13 +1135,13 @@ $('#datetimepicker2').focusout(function(){
     
 });
 
-$(".editbtn").click(function(){
+//$(document).on('click','#editbtn',function(){///tet
+$('#editbtn').click(function(){
 	
 	
 	$('#detailperModal').modal('hide');
 	//var test = $('#detailperModal .pershopname').text(); //보낼값
 	//console.log("test: "+test);
-	document.getElementById('editbtn').value = 132;
 	var fulltime = $('#detailperModal .pertime').text();
 	var starttime = fulltime.substring(0,16);
 	var endtime = fulltime.substring(fulltime.length-5,fulltime.length);
@@ -1053,14 +1152,50 @@ $(".editbtn").click(function(){
 	$('#EditScheduleModal #editstartimepicker').val(starttime);
 	$('#EditScheduleModal #editendtimepicker').val(endtime);
 	$('#EditScheduleModal #cnt').val($('#detailperModal .percnt').text());
-	$('#EditScheduleModal #addr').val($('#detailperModal .peraddr').text());
-	$('#EditScheduleModal #x').val($('#detailperModal .perx').text());
-	$('#EditScheduleModal #y').val($('#detailperModal .pery').text());
+	$('#EditScheduleModal #edit_addr').val($('#detailperModal .peraddr').text());
+	$('#EditScheduleModal #edit_x').val($('#detailperModal .perx').text());
+	$('#EditScheduleModal #edit_y').val($('#detailperModal .pery').text());
 	
 	
 	//보내야할곳 . append (보낼값)
 	
 });
+
+$('#editno').click(function(){
+	console.log($(this).val());
+	var schedule= { "sno":$(this).val(),
+			        "shopname": $('#EditScheduleModal #shopname').val() ,
+			        "nsdt": $('#EditScheduleModal #editstartimepicker').val(),
+			        "nedt": $('#EditScheduleModal #editendtimepicker').val(),
+			        "addr": $('#EditScheduleModal #addr').val(),
+			        "cnt" : $('#EditScheduleModal #cnt').val(),
+			        "x"   : $('#EditScheduleModal #x').val(),
+			        "y"   : $('#EditScheduleModal #y').val() 
+			      }
+	console.log(schedule);
+	
+	$.ajax({ 
+        type : "POST", //보내는 타입을 Post방식으로 할지,  GET방식으로 할지 결정
+        url : "editperschedule", 
+        dataType: 'json',
+        data : /* JSON.stringify(schedule) */schedule, //파라미터 넘겨줄 부분? : 이게 할말이 많은데 원래 GET방식으로 하라했다가 
+        success : function(data) { // delete, update문 같은 경우에는 기본적으로 int값을 반환함.
+            console.log(data);            
+        },
+        error : function(request, status, error) {
+            alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+        }
+        
+        
+    });
+	
+	
+	
+})
+
+
+
+
 
 
 </script>

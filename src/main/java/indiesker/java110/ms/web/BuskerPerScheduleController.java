@@ -230,7 +230,9 @@ public class BuskerPerScheduleController {
   
   @PostMapping("editperschedule")
   public String editperschedule(Schedule schedule) {
-
+    
+    System.out.println(schedule);
+    
     schedule.setNsdt(schedule.getNsdt().toString());
     schedule.setNedt(schedule.getNsdt().substring(0, 10)+' '+schedule.getNedt().toString());
 
@@ -240,10 +242,9 @@ public class BuskerPerScheduleController {
     System.out.println(schedule.getShopname());
     System.out.println(schedule.getX());
     System.out.println(schedule.getY());
+    scheduleService.editperschedule(schedule);
+    return "good"; 
 
-    scheduleService.addSchedule(schedule);
-
-    return "redirect:main";
   }
 
 
