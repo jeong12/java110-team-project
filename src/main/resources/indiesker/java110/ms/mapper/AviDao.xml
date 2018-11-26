@@ -52,16 +52,6 @@
 		WHERE abno=#{no}
 	</select>
 
-	<!-- 피드동영상 상세조회 -->
-	<select id="findfeedavibyAbno" resultMap="aviMap"
-		parameterType="int">
-		select A.titl, A.stm, B.phot, B.name, B.genre, B.city,
-		A.cont,A.lcnt
-		from avi A, busk B
-		where A.bno=B.bno
-		and A.abno=#{no}
-	</select>
-
 	<!-- 피드동영상 모달 -->
 	<select id="findfeedavibyAbno" resultMap="aviMap2"
 		parameterType="int">
