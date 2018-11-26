@@ -34,6 +34,8 @@
 
 .pagination {
     display: inline-block;
+    color: #01DF01;
+    text-decoration: none;
 }
 
 .pagination a {
@@ -41,11 +43,6 @@
     float: left;
     padding: 8px 16px;
     text-decoration: none;
-}
-
-.pagination a.active {
-    background-color: #4CAF50;
-    color: white;
 }
 
 .pagination a:hover:not(.active) {background-color: #ddd;}
@@ -91,6 +88,7 @@
 }
 .btn-default:active .filter-button:active
 {
+    text-decoration: none;
     background-color: #42B32F;
     color: white;
 }
@@ -104,10 +102,23 @@
 {
     margin-bottom: 30px;
 }
-/**/
-#followerdetail{
-margin-top: 200px;
 
+/*오른쪽 자세히*/
+.wrapfollowerdetail{
+transform:translate(-50%, 15%);
+}
+#followerdetail{
+width : 300px;
+text-align: center;
+border: 1px black;
+}
+.leftside{
+width: 100px;
+text-align: left;
+}
+#detailphoto{
+width: 290px;
+height: 290px;
 }
 
 .teamPhotoImg{
@@ -118,6 +129,7 @@ height: 250px;
 
 .bigdiv{
 display: flex;
+text-align: center;
 }
 </style>
 <script>
@@ -200,14 +212,7 @@ $(this).addClass("active");
     <div class="OutOfpagination">
       <ul class="pagination">
                <c:forEach var="i"  begin="${pageMove.startPageNo}" end="${pageMove.endPageNo}" step="1">
-                  <c:choose>
-                      <c:when test="${i eq PageMove.pageNo}">
-                <li class="active"><a href="javascript:PageMove(${i})">${i}</a></li>
-                      </c:when>
-                      <c:otherwise>
-                        <li><a href="javascript:PageMove(${i})">${i}</a></li>
-                      </c:otherwise>
-                  </c:choose>
+                        <li><a href="javascript:PageMove(${i})" style="color: #000000;">${i}</a></li>
               </c:forEach> 
       </ul>
       </div>
@@ -215,11 +220,9 @@ $(this).addClass("active");
   </div>
 </div>
 </div>
- <div>
+ <div class="wrapfollowerdetail">
         <table id='followerdetail'><!--우측 자세히 보기-->
-            <h3>
-            
-            </h3>
+
             <tbody>
             
             </tbody>
@@ -255,11 +258,12 @@ $('.followerbtn').click(function(){
            $("#followerdetail tbody ").empty();
                 
            $("#followerdetail tbody ").append(
-          	  '<tr><td>팀명 : </td><td>'+data.teamname+'</td></tr>'
-              +'<tr><td>주요장르 : </td><td>'+data.teamgenre+'</td></tr>'
-              +'<tr><td>주요활동도시</td><td>'+data.city+'</td></tr>'
-              +'<tr><td>소개말</td><td>'+data.teamInfo+'</td></tr>'
-              +'<tr><td><button value='+data.bno+'>피드가기</button></td></tr>');
+        	  '<tr><td colspan="2"><img src="../../img/'+data.teamPhoto+'" id="detailphoto"></td></tr>'
+          	  +'<tr><td class="leftside">팀    명 : </td><td>'+data.teamname+'</td></tr>'
+              +'<tr><td class="leftside">주요장르 : </td><td>'+data.teamgenre+'</td></tr>'
+              +'<tr><td class="leftside">활동도시 : </td><td>'+data.city+'</td></tr>'
+              +'<tr><td class="leftside">소 개 말 : </td><td>'+data.teamInfo+'</td></tr>'
+              +'<tr><td class="leftside"><button value='+data.bno+'>피드가기</button></td></tr>');
         },
         error : function(request, status, error) {
             alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
