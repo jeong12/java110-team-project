@@ -62,6 +62,9 @@ $('document').ready(function(){
             }
         });
     });
+    
+    
+    $('#carouselPop').find('.custom-item:first').addClass('active');
 });
 
 

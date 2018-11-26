@@ -33,7 +33,7 @@
     cursor: default;
 }
 
-.carousel-item img {
+.carousel-item .Ad-slide {
     height: 400px;
 }
 
@@ -99,18 +99,18 @@ table {
       </ol>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img class="d-block w-100" src="../img/main_test1.JPG"
-            alt="첫번째 슬라이드"
+          <img class="d-block w-100 Ad-slide"
+            src="../img/main_test1.JPG" alt="첫번째 슬라이드"
           >
         </div>
         <div class="carousel-item">
-          <img class="d-block w-100" src="../img/main_test2.JPG"
-            alt="두번째 슬라이드"
+          <img class="d-block w-100 Ad-slide"
+            src="../img/main_test2.JPG" alt="두번째 슬라이드"
           >
         </div>
         <div class="carousel-item">
-          <img class="d-inline-block w-100" src="../img/main_test3.JPG"
-            alt="세번째 슬라이드"
+          <img class="d-inline-block w-100 Ad-slide"
+            src="../img/main_test3.JPG" alt="세번째 슬라이드"
           >
         </div>
       </div>
@@ -235,21 +235,37 @@ table {
     </div>
     <p class="underline"></p>
 
-    <div class="row">
-      <c:forEach items="${avipop}" var="avi">
-        <div class="col-sm-3 nopadding my-md-1">
-          <a href="javascript:void(0)"
-            onClick="window.open('https://www.youtube.com/watch?v=${avi.urlid}')"
-          > <img class="img-thumbnail" alt="avi"
-            src="https://img.youtube.com/vi/${avi.urlid}/hqdefault.jpg"
-            style="width: 300px;"
-          >
-          </a>
-          <div class="text-center small">팀명 : ${avi.teamname}</div>
-          <div class="text-center small">제목 : ${avi.title}</div>
-          <div class="text-center small">좋아요 수: ${avi.likeAvi}</div>
+    <div id="carouselPop" class="row carousel slide"
+      data-rade="carousel"
+    >
+      <div class="carousel-item custom-item">
+        <div class="col-sm-12 justify-content-center">
+          <c:forEach items="${avipop}" var="avi" begin="0" end="3">
+            <div class="col-sm-2 px-md-1 my-md-1 d-inline-block ">
+              <a href="javascript:void(0)"
+                onClick="window.open('https://www.youtube.com/watch?v=${avi.urlid}')"
+              > <img class="img-thumbnail" alt="avi"
+                src="https://img.youtube.com/vi/${avi.urlid}/hqdefault.jpg"
+                style="width: 250px;"
+              >
+              </a>
+              <div class="text-center small">팀명 : ${avi.teamname}</div>
+              <div class="text-center small">제목 : ${avi.title}</div>
+              <div class="text-center small">좋아요 수: ${avi.likeAvi}</div>
+            </div>
+          </c:forEach>
         </div>
-        </c:forEach>
+
+        <a class="carousel-control-prev" href="#carouselPop"
+          role="button" data-slide="prev"
+        > <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">이전</span>
+        </a> <a class="carousel-control-next" href="#carouselPop"
+          role="button" data-slide="next"
+        > <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">다음</span>
+        </a>
+      </div>
     </div>
 
     <div class="row mt-md-3">
