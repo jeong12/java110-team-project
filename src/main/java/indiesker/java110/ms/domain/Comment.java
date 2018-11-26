@@ -1,6 +1,7 @@
 package indiesker.java110.ms.domain;
 
 import java.sql.Date;
+import java.util.List;
 
 //  사진,동영상,홍보 댓글
 public class Comment {
@@ -15,9 +16,37 @@ public class Comment {
   protected int bbno;
   protected int abno;
   protected String nik;
+  protected String comtphot;
+  protected String comtname;
+  protected String flag;
+  protected String strcdt;
   
   
   
+  public String getStrcdt() {
+    return strcdt;
+  }
+  public void setStrcdt(String strcdt) {
+    this.strcdt = strcdt;
+  }
+  public String getComtphot() {
+    return comtphot;
+  }
+  public void setComtphot(String comtphot) {
+    this.comtphot = comtphot;
+  }
+  public String getComtname() {
+    return comtname;
+  }
+  public void setComtname(String comtname) {
+    this.comtname = comtname;
+  }
+  public String getFlag() {
+    return flag;
+  }
+  public void setFlag(String flag) {
+    this.flag = flag;
+  }
   public String getNik() {
     return nik;
   }

@@ -15,9 +15,15 @@ public class Member implements Serializable {
   protected List<String> genre;
   protected char yn;
   protected String memo;
+  protected char flag;
   
   
-  
+  public char getFlag() {
+    return flag;
+  }
+  public void setFlag(char flag) {
+    this.flag = flag;
+  }
   public int getNo() {
     return no;
   }

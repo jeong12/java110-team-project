@@ -1,6 +1,6 @@
 package indiesker.java110.ms.domain;
 
-public class FeedPhotoFile {
+public class FeedPhotoFile{
   protected int fpno;
   protected String filename;
   protected int pbno;
