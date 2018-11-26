@@ -1,6 +1,7 @@
 package indiesker.java110.ms.domain;
 
 import java.sql.Date;
+import java.util.List;
 
 public class Avi extends Busker{
   private static final long serialVersionUID = 1L;
@@ -14,7 +15,14 @@ public class Avi extends Busker{
   protected String thumbnail;
   protected int buskerno;
   protected int likeAvi;
+  protected List<Comment> comments;
 
+  public List<Comment> getComments() {
+    return comments;
+  }
+  public void setComments(List<Comment> comments) {
+    this.comments = comments;
+  }
   public int getLikeAvi() {
     return likeAvi;
   }

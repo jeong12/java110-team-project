@@ -96,7 +96,8 @@ public class ScheduleServiceimpl implements ScheduleService {
     }
 
     @Override
-    public List<Schedule> findSuggestsbyflag(String flag,int pageNo, int pageSize) {
+    public List<Schedule> findSuggestsbyflag(int flag,int pageNo, int pageSize) {
+      System.out.println(flag);
       HashMap<String,Object> params = new HashMap<>();
       params.put("flag", flag);
       params.put("rowNo", (pageNo - 1) * pageSize);
@@ -220,6 +221,23 @@ public class ScheduleServiceimpl implements ScheduleService {
       
     }
 
+    @Override
+    public List<Schedule> findPossibleStages(int no, String date) {
+      Map<String,Object> params = new HashMap<>();
+      params.put("no", no);
+      params.put("date", date);      
+    return scheduleDao.findPossibleStages(params);
+    }
+    
+    @Override
+    public int ApplyStagesinBuskreq(int no, String cont, String count) {
+      Map<String,Object> params = new HashMap<>();
+      params.put("bno", no);
+      params.put("cont", cont);
+      params.put("count", count);
+    return scheduleDao.ApplyStagesinBuskreq(params);
+    }
+    
     // 통계 관련
     @Override
     @Scheduled(fixedDelay=100)

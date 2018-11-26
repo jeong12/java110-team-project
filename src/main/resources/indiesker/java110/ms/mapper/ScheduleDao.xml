@@ -434,7 +434,7 @@ GROUP BY BS.brno
 	<select id="findSuggestsbyflag" parameterType="map"
 		resultMap="ShowReqsToSupporterMap">
 		select b.name, b.genre, min(ss.sdt)as sdt, max(ss.edt)as edt, br.cnt,
-		bs.flag, br.cdt
+		bs.flag, br.cdt, br.brno
 		from busk_stag as bs, stag_sche as ss, busk as b, busk_req as br
 		where bs.ssno = ss.ssno and bs.brno=br.brno and br.bno=b.bno and ss.sno=2
 		and flag=#{flag}
@@ -518,8 +518,8 @@ GROUP BY BS.brno
 
 <update id='editperschedule' parameterType="Schedule" >
     update per_sche
-       set sdt=#{nsdt}, edt={nedt}, addr=#{addr}, x=#{x}, y=#{y}, shopname=#{shopname}, cnt=#{cnt}, cdt=now()
-     where psno=#{no}
+       set sdt=#{nsdt}, edt=#{nedt}, addr=#{addr}, x=#{x}, y=#{y}, shopname=#{shopname}, cnt=#{cnt}, cdt=now()
+     where psno=#{sno}
 
 
 </update>
@@ -562,6 +562,22 @@ GROUP BY BS.brno
 	#{no}
 	</foreach>
 	</delete>
+
+    <!-- 버스커: 신청 가능한 무대일정 뽑기 -->
+    <select id="findPossibleStages" parameterType="map" resultMap="UnableStageScheduleMap" >
+    select ss.ssno, ss.sdt, ss.edt
+    from stag_sche ss inner join busk_stag bs
+    where ss.ssno != bs.ssno and ss.sno = #{no} and ss.sdt LIKE CONCAT(#{date},'%') 
+    group by ss.ssno
+    order by ss.sdt
+    </select>
+    
+   <insert id="ApplyStagesinBuskreq" parameterType="map"
+   useGeneratedKeys="true" keyColumn="brno" keyProperty="sno">
+   INSERT INTO `busk_req`(`bno`, `cont`, `cdt`, `cnt`) 
+   VALUES (#{bno},#{cont},now(),#{count})
+   </insert>
+
 
 </mapper>
 

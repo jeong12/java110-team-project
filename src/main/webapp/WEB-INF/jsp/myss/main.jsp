@@ -51,6 +51,23 @@ margin: 15px;
 .flagdata td {
 	width: 300px;
 }
+
+.tabs{
+list-style:none;
+}
+
+.tabs li{
+display: inline-block;
+cursor:pointer;
+}
+
+.tab-content{
+display: none;
+}
+
+.tab-content.current{
+display:inherit;
+}
 </style>
 
 </head>
@@ -78,31 +95,33 @@ margin: 15px;
 	
 	<!-- 필터 -->
     <div id='showsuggests'>
-       <div class='chkFlag'>
-	   <button value="0" >전체</button>
-	   <button value="1" >진행</button>
-	   <button value="2" >완료</button>
-	   </div>
+       <ul class='tabs'>
+       <li class='tab-link current' data-tab='tab1'>전체</li>
+       <li class='tab-link' data-tab='tab2'>신청</li>
+       <li class='tab-link' data-tab='tab3'>완료</li>
+       </ul>
     	
-	<table id="suggests">
-	<thead>
-	   <tr>
-		<th>팀명</th>
-		<th>장르</th>
-		<th>신청기간</th>
-		<th>신청인원</th>
-		<th>진행상태</th>
-		<th>작성일</th>
-		<th>상세보기</th>
-		</tr>
-	</thead>
-	<tbody>
+	
+	<div id="tab1" class="tab-content current">
+	<table class="suggests">
+    <thead>
+       <tr>
+        <th>팀명</th>
+        <th>장르</th>
+        <th>신청기간</th>
+        <th>신청인원</th>
+        <th>진행상태</th>
+        <th>작성일</th>
+        <th>상세보기</th>
+        </tr>
+    </thead>
+    <tbody>
 	  <c:forEach items="${list}" var="list">
 		<tr>
 		 <td>${list.busker.teamname}</td>
 		 <td>${list.busker.teamgenre}</td> 
 		 <td>${list.nsdt} ~ ${list.nedt}</td>
-		 <td>${list.cnt}</td>
+		 <td>${list.cnt}명</td>
 		 <td><c:choose>
 			   <c:when test="${list.flag eq '1'.charAt(0) }">신청중 </c:when>
 			   <c:when test="${list.flag eq '2'.charAt(0) }">완료 </c:when>
@@ -110,26 +129,75 @@ margin: 15px;
 			 </c:choose></td>
 		 <td>${list.ncdt}</td>
 		 <td><button type="button" class="dbtn btn-default" data-target="#detailModal" 
-		      data-toggle="modal" value="${list.sno}">상세보기</button><br/></td>
+		      data-toggle="modal" value="${list.sno}" onclick="chk(this)" >상세보기</button><br/></td>
 		</tr>
 	  </c:forEach>
-	</tbody>
-	</table>
-	<nav aria-label="Page navigation example">
-      <ul class="pagination justify-content-center">
-         <li class="page-item disabled">
-    <a class="page-link" href="#" tabindex="-1">Previous</a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#">Next</a>
-    </li>
-  </ul>
-</nav>
-	</div>
-	
+	   </tbody>
+    </table>
+	 </div>
+	 
+	  <div id="tab2" class="tab-content">
+	  <table class="suggests">
+    <thead>
+       <tr>
+        <th>팀명</th>
+        <th>장르</th>
+        <th>신청기간</th>
+        <th>신청인원</th>
+        <th>진행상태</th>
+        <th>작성일</th>
+        <th>상세보기</th>
+        </tr>
+    </thead>
+    <tbody>
+      <c:forEach items="${flist}" var="list">
+        <tr>
+         <td>${list.busker.teamname}</td>
+         <td>${list.busker.teamgenre}</td> 
+         <td>${list.nsdt} ~ ${list.nedt}</td>
+         <td>${list.cnt}명</td>
+         <td>신청중</td>
+         <td>${list.ncdt}</td>
+         <td><button type="button" class="dbtn btn-default" data-target="#detailModal" 
+              data-toggle="modal" value="${list.sno}" onclick="chk(this)" >상세보기</button><br/></td>
+         </tr>
+      </c:forEach>
+      </tbody>
+      </table>
+     </div>
+	 
+	  <div id="tab3" class="tab-content">
+	  <table class="suggests">
+    <thead>
+       <tr>
+        <th>팀명</th>
+        <th>장르</th>
+        <th>신청기간</th>
+        <th>신청인원</th>
+        <th>진행상태</th>
+        <th>작성일</th>
+        <th>상세보기</th>
+        </tr>
+    </thead>
+    <tbody>
+      <c:forEach items="${slist}" var="list">
+        <tr>
+         <td>${list.busker.teamname}</td>
+         <td>${list.busker.teamgenre}</td> 
+         <td>${list.nsdt} ~ ${list.nedt}</td>
+         <td>${list.cnt}명</td>
+         <td>완료</td>
+         <td>${list.ncdt}</td>
+         <td><button type="button" class="dbtn btn-default" data-target="#detailModal" 
+              data-toggle="modal" value="${list.sno}" onclick="chk(this)" >상세보기</button><br/></td>
+         </tr>
+      </c:forEach>
+     </tbody>
+    </table>
+     </div>
+     
+     
+</div>	
 	
 	<!-- 상세보기 모달 -->	
 <div class="modal fade" id="detailModal">

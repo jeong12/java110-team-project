@@ -60,6 +60,11 @@ body .container {
   border: 0;
   padding: 0;
 }
+
+.col-md-4.photo button {
+  border: 0;
+  padding: 0;
+}
 </style>
 <body>
   <div class="feedpage" style="margin: 0 300px 0 300px;">
@@ -153,13 +158,15 @@ body .container {
             </p>
           </div>
           <!-- 사진 게시물 -->
-          <div class="photo"
-            style="border: 1px dotted red; margin: 3px;">
+          <div class="photo" style="border: 1px dotted red; margin: 3px;">
             <div class="row">
               <c:forEach items="${recentplist}" var="t">
                 <div class="col-md-4 photo">
-                  <img style="width: 110px; height: 100px;"
-                    src="${t.firphot}">
+                  <button data-target="#photomodal" data-toggle="modal"
+                    <%-- value="${m.aviboardno }" --%>>
+                    <img src="${t.firphot }"
+                      style="width: 110px; height: 100px;">
+                  </button>
                 </div>
               </c:forEach>
             </div>
@@ -243,10 +250,8 @@ h2 {
               </div>
             </div>
             <div class="comment">
-              <ul class="list-unstyled">
-                <li>aaaa</li>
-                <li>bbbb</li>
-                <li>쭉쭉쭉</li>
+              <ul class="list-unstyled comt">
+
               </ul>
             </div>
           </div>
@@ -256,83 +261,93 @@ h2 {
   </div>
 
   <!-- 사진모달 -->
+    <style>
+.modal-body {
+  height: 500px;
+}
+
+.photocontent {
+  float: left;
+  width: 60%;
+}
+
+.comment {
+  float: right;
+  width: 40%;
+}
+
+.teaminfo td {
+  padding: 10px 20px 10px 0;
+}
+
+.contents {
+  padding: 10px;
+  margin-right: 20px;
+  border: 1px solid red;
+  height: 140px;
+}
+
+.list-unstyled {
+  border: 1px solid red;
+  height: 475px
+}
+
+.list-unstyled li {
+  border: 1px solid black;
+  height: 15%;
+}
+#teamphoto{
+    width:30px;
+    height:30px;
+}
+
+h2 {
+  margin: 0;
+}
+</style>
   <div class="modal fade" id="photomodal" tabindex="-1" role="dialog"
     aria-labelledby="enlargeImageModal" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          사진 모달 머리여!~
+          사진상세조회
           <button type="button" class="close" data-dismiss="modal"
             aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
         </div>
         <div class="modal-body">
-          사진 모달 바디여!~
-          <!--<img src="" class="enlargeImageModalSource" style="width: 100%;">-->
+          <div class="modalcontainer">
+            <div class="photocontent">
+              <div class="feedphoto"></div>
+              <div class="teaminfo">
+                <table class="phototeamimgtb">
+
+                </table>
+              </div>
+              <div class="contents">
+                 <div class="content" style="height:80%">
+                 
+                 </div>
+                <div class="likecount" style="text-align:right;">
+                
+                </div>
+              </div>
+            </div>
+            <div class="comment">
+              <ul class="list-unstyled comt">
+
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <!-- ===================================================================== -->
-  <script>
-    /* 사진 모달 처리 */
-    $(function() {
-        $(".col-md-4.photo img").on('click', function() {
-            var n = $(this).val();
-            console.log(n);
-            
-            $('#photomodal').modal('show');
-        });
-    });
-
-    
-    /* 영상 모달처리 */
-    $('.col-md-4.avi button').on('click', function() {
-        var abno=$(this).val();
-        console.log(abno);
-        $.ajax({
-            type:"GET",
-            url:"showavi",
-            data:{"abno" : abno},
-            success: function(data){
-                $(".feedavi").empty();
-                $(".avimodal-header").empty();
-                $(".aviteamimgtb").empty();
-                $(".content").empty();
-                $(".likecount").empty();
-                if(data.length != 0){
-                    $(".feedavi").append(
-                            "<iframe src='https://www.youtube.com/embed/"+data.urlid+"?ecver=2'"+
-                                    "width='500' height='280px' frameborder='0'"+ 
-                                    "allow='autoplay; encrypted-media' allowfullscreen></iframe>"
-                            );
-                    $(".avimodal-header").append(
-                            "<h2>"+data.title+"</h2>"
-                            );
-                    $(".aviteamimgtb").append(
-                            "<tr>"+
-                            "<td>"+
-                              "<img id='teamphoto' src='"+data.teamPhoto+"' alt='프로필사진'>"+
-                            "</td>"+
-                            "<td>"+data.teamname+"</td>"+
-                            "<td>"+data.teamgenre+"</td>"+
-                            "<td>"+data.teamcity+"</td>"+
-                          "</tr>"
-                            );
-                     $(".content").append(
-                             "<p>"+data.content+"<p>"
-                            );
-                    $(".likecount").append(
-                            "<p>"+data.avilikecount+"</p>"
-                            ); 
-                }
-            }
-            })
-    });
-        
-</script>
+  
+<script src="/js/feeddetail.js" type="text/javascript"></script>
 </body>
 </html>
 

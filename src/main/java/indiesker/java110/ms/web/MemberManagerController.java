@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import indiesker.java110.ms.domain.Busker;
 import indiesker.java110.ms.domain.GradleMember;
 import indiesker.java110.ms.domain.MemberManager;
+import indiesker.java110.ms.domain.Supporter;
 import indiesker.java110.ms.service.MemberManagerService;
 
 @Controller
@@ -156,7 +158,7 @@ public class MemberManagerController {
   
   @ResponseBody
   @RequestMapping(value="gradleAjaxBuskerSelect")
-  public List<GradleMember> gradleAjaxBuskerSelect(String sflag,String flag, String text,
+  public List<GradleMember> gradleAjaxBuskerSelect(String sflag, String text,
           @RequestParam(defaultValue="1") int pageNo,
           @RequestParam(defaultValue="10") int pageSize,
           Model model) throws ParseException {
@@ -167,30 +169,48 @@ public class MemberManagerController {
       if (pageSize < 3 || pageSize > 10)
           pageSize = 3;
       
-      List<GradleMember> list =memberManagerService.gradleAjaxBuskerSelect(sflag,flag, text, pageNo, pageSize);
+      List<GradleMember> list =memberManagerService.gradleAjaxBuskerSelect(sflag, text, pageNo, pageSize);
+
+      for (GradleMember gradleMember : list) {
+        System.out.println(gradleMember.getEmail());
+      }
+      
+      return list; 
+  }
+  
+  @ResponseBody
+  @RequestMapping(value="gradleAjaxSupporterSelect")
+  public List<GradleMember> gradleAjaxSupporterSelect(String sflag, String text,
+          @RequestParam(defaultValue="1") int pageNo,
+          @RequestParam(defaultValue="10") int pageSize,
+          Model model) throws ParseException {
+        
+      if (pageNo < 1)
+          pageNo = 1;
+      
+      if (pageSize < 3 || pageSize > 10)
+          pageSize = 3;
+      
+      List<GradleMember> list =memberManagerService.gradleAjaxSupporterSelect(sflag, text, pageNo, pageSize);
      
 
       return list; 
   }
   
   @ResponseBody
-  @RequestMapping(value="gradleAjaxSupporterSelect")
-  public List<GradleMember> gradleAjaxSupporterSelect(String sflag,String flag, String text,
-          @RequestParam(defaultValue="1") int pageNo,
-          @RequestParam(defaultValue="10") int pageSize,
-          Model model) throws ParseException {
-        
-      if (pageNo < 1)
-          pageNo = 1;
-      
-      if (pageSize < 3 || pageSize > 10)
-          pageSize = 3;
-      
-      List<GradleMember> list =memberManagerService.gradleAjaxSupporterSelect(sflag,flag, text, pageNo, pageSize);
-     
-
-      return list; 
-  }
+  @RequestMapping(value="supdetail")
+  public Supporter supDetail(int no, Model model) {
+    Supporter s  = memberManagerService.supGet(no);
+    System.out.println(s);
+    return s;
+  } 
+  
+  @ResponseBody
+  @RequestMapping(value="buskdetail")
+  public Busker buskDetail(int no, Model model) {
+    Busker b  = memberManagerService.buskGet(no);
+    return b;
+  } 
   
 /*  @ResponseBody
   @RequestMapping(value="detailMember")

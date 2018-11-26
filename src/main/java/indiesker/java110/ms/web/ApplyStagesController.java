@@ -1,5 +1,6 @@
 package indiesker.java110.ms.web;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletContext;
@@ -34,7 +35,7 @@ public class ApplyStagesController {
 
   @GetMapping("main")
   public void main(Model model) {
-    int no = 121;
+    int no = 2;
     Supporter supporter = supporterService.findInfo(no);
     List<StagePhoto> arr = new ArrayList<>();
     
@@ -48,12 +49,42 @@ public class ApplyStagesController {
     
   }
 
-/*  @ResponseBody
+  @ResponseBody
   @RequestMapping("chkDates")
   public List<Schedule> chkDates(String date){
     int no = 2;
-    return null;
+    List<Schedule> slist = scheduleService.findPossibleStages(no, date);
+
+    SimpleDateFormat hformat = new SimpleDateFormat("HH:mm");
+    for (Schedule s : slist) {
+      s.setNsdt(hformat.format(s.getSdt()));
+      s.setNedt(hformat.format(s.getEdt()));
+    }
+    return slist;
   }
-*/
+  
+  @ResponseBody
+  @RequestMapping("applyStage")
+  public int applyStage(String[] ssno, String cont, String count){
+    
+    int no = 5;
+    List<Integer> list = new ArrayList<>();
+    for(int i=0;i<ssno.length;i++) {
+      list.add(Integer.parseInt(ssno[i]));
+    }
+    for (Integer i : list) {
+      System.out.println(i);
+    }
+    
+    int i = scheduleService.ApplyStagesinBuskreq(no, cont, count);
+    
+    return 0;
+    
+    
+  }
+  
+  
+  
+
 
 }

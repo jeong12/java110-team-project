@@ -15,8 +15,11 @@ public interface MemberManagerService {
   List<GradleMember> gradleSupporter (int pageNo, int pageSize);
   List<GradleMember> gradleAjaxBusker(int pageNo, int pageSize);
   List<GradleMember> gradleAjaxSupporter(int pageNo, int pageSize);
-  List<GradleMember> gradleAjaxBuskerSelect(String sflag,String flag, String text,int pageNo, int pageSize);
-  List<GradleMember> gradleAjaxSupporterSelect(String sflag,String flag, String text,int pageNo, int pageSize);
+  List<GradleMember> gradleAjaxBuskerSelect(String sflag, String text,int pageNo, int pageSize);
+  List<GradleMember> gradleAjaxSupporterSelect(String sflag, String text,int pageNo, int pageSize);
+  Supporter supGet(int no);
+  Busker buskGet(int no);
+  
   
   List<GradleMember> gradleSelect(char flag,String email, String nik, int pageNo, int pageSize);
   

@@ -10,23 +10,33 @@
 		<result column="cont" property="cont" />
 		<result column="lcnt" property="lcnt" />
 		<result column="cdt" property="cdt" />
-		<collection property="feedphotoFiles"
-			ofType="feedphotoFile">
-			<id column="fpno" property="fpno" />
-			<result column="phot" property="filename" />
-		</collection>
-	</resultMap>
-
-	<resultMap type="FeedPhoto" id="feedPhotoMap2">
-		<id column="pbno" property="pno" />
-		<result column="cont" property="cont" />
-		<result column="lcnt" property="lcnt" />
-		<result column="cdt" property="cdt" />
 		<result column="phot" property="firphot" />
 	</resultMap>
+	
+       <resultMap type="FeedPhoto" id="feedphotomodal">
+        <id column="abno" property="aviboardno" />
+        <result column="titl" property="title" />
+        <result column="stm" property="urlid" />
+        <result column="avicdt" property="cdt" />
+        <result column="buskprofile" property="teamPhoto" />
+        <result column="buskteamname" property="teamname" />
+        <result column="genre" property="teamgenre" />
+        <result column="city" property="city" />
+        <result column="cont" property="content" />
+        <result column="lcnt" property="avilikecount" />
+        <result column="flag" property="flag"></result>
+        <collection property="comments" ofType="Comment">
+            <id column="acno" property="acno" />
+            <result column="phot" property="comtphot" />
+            <result column="name" property="comtname" />
+            <result column="comtcont" property="cont" />
+            <result column="cdt" property="cdt" />
+        </collection>
+    </resultMap>
+
 
 	<!-- 최신사진 조회(개인피드) -->
-	<select id="findRecentPhot" resultMap="feedPhotoMap2"
+	<select id="findRecentPhot" resultMap="feedPhotoMap"
 		parameterType="map">
 		SELECT p.pbno, fp.phot
 		FROM busk b, phot p,(SELECT *
@@ -39,6 +49,24 @@
 		ORDER BY p.cdt DESC
 		limit #{rowNo}, #{size}
 	</select>
+	
+	   <!-- 피드사진모달 -->
+    <select id="findfeedavibyAbno" resultMap="aviMap2" parameterType="int">
+select * from(
+select * from(SELECT m.flag,a.titl, a.stm, a.cdt as avicdt, bb.phot as buskprofile,bb.name as buskteamname,bb.genre,bb.city, a.cont, a.lcnt, b.phot,b.name,ac.cdt,ac.cont as comtcont, ac.acno,a.abno
+FROM busk as b, avi as a, avi_comt as ac, busk as bb, memb as m
+WHERE a.abno = ac.abno and ac.mno = b.bno AND bb.bno = a.bno AND a.abno=#{no} AND m.mno = b.bno) as t1
+UNION ALL
+select * from (SELECT m.flag,a.titl, a.stm, a.cdt as avicdt, bb.phot as buskprofile,bb.name as buskteamname,bb.genre,bb.city, a.cont, a.lcnt, m.phot,s.name,ac.cdt,ac.cont as comtcont, ac.acno,a.abno
+FROM sup as s, avi as a, avi_comt as ac, busk as bb, memb as m
+WHERE a.abno = ac.abno and ac.mno = s.sno AND bb.bno = a.bno AND a.abno=#{no} AND m.mno = s.sno) as t2
+UNION ALL
+select * from (SELECT m.flag,a.titl, a.stm, a.cdt as avicdt, bb.phot as buskprofile,bb.name as buskteamname,bb.genre,bb.city,a.cont, a.lcnt, m.phot, m.nik ,ac.cdt,ac.cont as comtcont, ac.acno,a.abno
+FROM memb as m, avi as a, avi_comt as ac, busk as bb
+WHERE a.abno = ac.abno and ac.mno = m.mno AND bb.bno = a.bno AND a.abno=#{no} AND m.flag=1) as t3
+) as tab
+order by cdt desc
+    </select>
 
 <!--     사진상세보기(모달)
 	<select id="findByImage" resultMap=>
