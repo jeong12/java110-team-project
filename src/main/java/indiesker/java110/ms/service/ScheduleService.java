@@ -34,4 +34,6 @@ public interface ScheduleService {
     void editperschedule(Schedule schedule);
     List<Schedule> showScedule();
     List<Integer> showSsnos(int no);
+    List<Schedule> findPossibleStages(int no, String date);
+    int ApplyStagesinBuskreq(int no, String cont, String count);
 }

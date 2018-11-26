@@ -6,6 +6,7 @@
 <mapper namespace="indiesker.java110.ms.dao.SupporterDao">
 
     <resultMap type="Supporter"      id="supporterMap">
+        <id column="sno"         property="no"/>
         <result column="name"        property="name"/>
         <result column="bas_addr"    property="baseaddr"/>
         <result column="det_addr"    property="detailaddr"/>
@@ -16,6 +17,7 @@
         <result column="x"           property="x"/>
         <result column="y"           property="y"/>
         <collection property="stagephotos" ofType="StagePhoto">
+        <id column="spno"      property="spno"/>
         <result column="phot"  property="photo"/>
         </collection>
     </resultMap>
@@ -70,7 +72,7 @@
     </select>
     
     <select id="findInfo" resultMap="supporterMap" parameterType="int">
-        SELECT s.name, s.bas_addr, s.det_addr, s.x, s.y, s.genre, s.capa, s.tel, s.etc, sp.phot
+        SELECT s.name, s.bas_addr, s.det_addr, s.x, s.y, s.genre, s.capa, s.tel, s.etc, sp.phot, s.sno, sp.spno
         FROM sup as s, stag_phot as sp
         WHERE s.sno = sp.sno and s.sno=#{no}
     </select>
