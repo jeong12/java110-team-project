@@ -27,6 +27,22 @@ border-collapse: true;
 		<h2>버스킹 일정</h2>
 	</div>
 
+<div id='calendar'></div>
+    <div id='selectday'>
+        <table class='insertDate'>
+            <thead>
+                <tr><td colspan="4" id='showDate'><h2></h2></td></tr>
+                <tr>
+                    <td id="showtype"><h4></h4></td>
+                    <td><button onclick="add()">등록</button></td>
+                    <td><button onclick="remove()">삭제</button></td>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
 	<table>
 	<thead>
 	<tr><th>날짜/시간</th><th>팀명</th><th>장소</th></tr>

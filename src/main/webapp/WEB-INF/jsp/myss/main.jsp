@@ -121,7 +121,7 @@ display:inherit;
 		 <td>${list.busker.teamname}</td>
 		 <td>${list.busker.teamgenre}</td> 
 		 <td>${list.nsdt} ~ ${list.nedt}</td>
-		 <td>${list.cnt}</td>
+		 <td>${list.cnt}명</td>
 		 <td><c:choose>
 			   <c:when test="${list.flag eq '1'.charAt(0) }">신청중 </c:when>
 			   <c:when test="${list.flag eq '2'.charAt(0) }">완료 </c:when>
@@ -150,18 +150,17 @@ display:inherit;
         </tr>
     </thead>
     <tbody>
-      <c:forEach items="${list}" var="list">
-        <c:if test="${list.flag eq '1'.charAt(0)}">
+      <c:forEach items="${flist}" var="list">
         <tr>
          <td>${list.busker.teamname}</td>
          <td>${list.busker.teamgenre}</td> 
          <td>${list.nsdt} ~ ${list.nedt}</td>
-         <td>${list.cnt}</td>
+         <td>${list.cnt}명</td>
          <td>신청중</td>
          <td>${list.ncdt}</td>
          <td><button type="button" class="dbtn btn-default" data-target="#detailModal" 
               data-toggle="modal" value="${list.sno}" onclick="chk(this)" >상세보기</button><br/></td>
-         </tr></c:if>
+         </tr>
       </c:forEach>
       </tbody>
       </table>
@@ -181,18 +180,17 @@ display:inherit;
         </tr>
     </thead>
     <tbody>
-      <c:forEach items="${list}" var="list">
-        <c:if test="${list.flag eq '2'.charAt(0)}">
+      <c:forEach items="${slist}" var="list">
         <tr>
          <td>${list.busker.teamname}</td>
          <td>${list.busker.teamgenre}</td> 
          <td>${list.nsdt} ~ ${list.nedt}</td>
-         <td>${list.cnt}</td>
+         <td>${list.cnt}명</td>
          <td>완료</td>
          <td>${list.ncdt}</td>
          <td><button type="button" class="dbtn btn-default" data-target="#detailModal" 
               data-toggle="modal" value="${list.sno}" onclick="chk(this)" >상세보기</button><br/></td>
-         </tr></c:if>
+         </tr>
       </c:forEach>
      </tbody>
     </table>

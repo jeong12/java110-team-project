@@ -42,15 +42,34 @@ public class SupporterScheduleController {
     if (pageSize < 3 || pageSize > 10)
       pageSize = 9;
 
+    int flag = 1;
+    
     List<Schedule> list = scheduleService.mysslist(pageNo, pageSize);
+    List<Schedule> flist = scheduleService.findSuggestsbyflag(flag, pageNo, pageSize);
+    flag = 2;
+    List<Schedule> slist = scheduleService.findSuggestsbyflag(flag, pageNo, pageSize);
+    
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    SimpleDateFormat hformat = new SimpleDateFormat("HH:mm");
     SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
     for (Schedule s : list) {
       s.setNsdt(format.format(s.getSdt()));
-      s.setNedt(format.format(s.getEdt()));
+      s.setNedt(hformat.format(s.getEdt()));
       s.setNcdt(dformat.format(s.getCdt()));
-    }    
+    }   
+    for (Schedule s : flist) {
+      s.setNsdt(format.format(s.getSdt()));
+      s.setNedt(hformat.format(s.getEdt()));
+      s.setNcdt(dformat.format(s.getCdt()));
+    } 
+    for (Schedule s : slist) {
+      s.setNsdt(format.format(s.getSdt()));
+      s.setNedt(hformat.format(s.getEdt()));
+      s.setNcdt(dformat.format(s.getCdt()));
+    } 
     model.addAttribute("list", list);
+    model.addAttribute("flist", flist);
+    model.addAttribute("slist",slist);
   }
 
 
