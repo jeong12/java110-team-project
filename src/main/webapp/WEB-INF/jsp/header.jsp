@@ -135,10 +135,10 @@ a:focus, a:hover {
             <div class="row">
                <div class="col-md-12">
                    <div class="d-flex bd-highlight">
-                      <div class="flex-md-fill bd-highlight"><a href="#">버스커 일정</a></div>
+                      <div class="flex-md-fill bd-highlight"><a href="schedule/main">버스커 일정</a></div>
                         <div class="flex-md-fill bd-highlight"><a href="#">버스커 위치</a></div>
                         <div class="flex-md-fill bd-highlight"><a href="buskerlist/list">버스커 목록</a></div>
-                        <div class="flex-md-fill bd-highlight"><a href="#">공연장 현황</a></div>
+                        <div class="flex-md-fill bd-highlight"><a href="stage/list">공연장 현황</a></div>
                         <div class="flex-md-fill bd-highlight"><a href="promotion/list">버스킹 홍보</a></div>
                    </div>
                </div>
