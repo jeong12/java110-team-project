@@ -50,7 +50,7 @@
 		limit #{rowNo}, #{size}
 	</select>
 	
-	   <!-- 피드사진모달 -->
+<!-- 	   피드사진모달
     <select id="findfeedavibyAbno" resultMap="aviMap2" parameterType="int">
 select * from(
 select * from(SELECT m.flag,a.titl, a.stm, a.cdt as avicdt, bb.phot as buskprofile,bb.name as buskteamname,bb.genre,bb.city, a.cont, a.lcnt, b.phot,b.name,ac.cdt,ac.cont as comtcont, ac.acno,a.abno
@@ -66,7 +66,7 @@ FROM memb as m, avi as a, avi_comt as ac, busk as bb
 WHERE a.abno = ac.abno and ac.mno = m.mno AND bb.bno = a.bno AND a.abno=#{no} AND m.flag=1) as t3
 ) as tab
 order by cdt desc
-    </select>
+    </select> -->
 
 <!--     사진상세보기(모달)
 	<select id="findByImage" resultMap=>
