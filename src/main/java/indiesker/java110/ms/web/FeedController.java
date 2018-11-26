@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import indiesker.java110.ms.domain.Avi;
 import indiesker.java110.ms.domain.Busker;
+import indiesker.java110.ms.domain.Comment;
 import indiesker.java110.ms.domain.FeedPhoto;
 import indiesker.java110.ms.domain.Schedule;
 import indiesker.java110.ms.service.AviService;
@@ -107,11 +108,24 @@ public class FeedController {
   public Avi getImageNo(
       String abno, Model model) {   
       int abno2 = Integer.parseInt(abno);
-
-      Avi feedavi = aviService.getfeedavibyAbno(abno2);
+      
+      Avi feedavi=aviService.getfeedavibyAbno(abno2);
+      List<Comment> comt=feedavi.getComments();
+      
+      for (Comment comment : comt) {
+        System.out.println(comment.getCdt());
+        comment.setStrcdt(comment.getCdt().toString());
+      }
       
     return feedavi;
   }
   
+  @ResponseBody
+  @RequestMapping("showphoto")
+  public Avi getPhotoNo(
+      String pbno, Model model) {   
+
+    return null;
+  }
   
 }

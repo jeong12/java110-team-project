@@ -3,13 +3,16 @@ package indiesker.java110.ms.domain;
 import java.sql.Date;
 import java.util.List;
 
-public class FeedPhoto {
+public class FeedPhoto extends Busker{
   protected int pno;
   protected String cont;
   protected String lcnt;
   protected Date cdt;
   protected String firphot;
   protected List<FeedPhotoFile> feedphotoFiles;
+  protected List<Comment> comments;
+  
+  
   public int getPno() {
     return pno;
   }

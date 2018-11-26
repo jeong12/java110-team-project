@@ -16,7 +16,34 @@
 		<result column="lcnt" property="avilikecount" />
 		<result column="bno" property="buskerno" />
 		<result column="phot" property="teamPhoto" />
+		<collection property="comments" ofType="Comment">
+			<id column="acno" property="acno" />
+			<result column="cont" property="cont" />
+			<result column="cdt" property="cdt" />
+		</collection>
 	</resultMap>
+	
+	   <resultMap type="Avi" id="aviMap2">
+        <id column="abno" property="aviboardno" />
+        <result column="titl" property="title" />
+        <result column="stm" property="urlid" />
+        <result column="avicdt" property="cdt" />
+        <result column="buskprofile" property="teamPhoto" />
+        <result column="buskteamname" property="teamname" />
+        <result column="genre" property="teamgenre" />
+        <result column="city" property="city" />
+        <result column="cont" property="content" />
+        <result column="lcnt" property="avilikecount" />
+        <result column="flag" property="flag"></result>
+        <collection property="comments" ofType="Comment">
+            <id column="acno" property="acno" />
+            <result column="phot" property="comtphot" />
+            <result column="name" property="comtname" />
+            <result column="comtcont" property="cont" />
+            <result column="cdt" property="cdt" />
+        </collection>
+    </resultMap>
+	
 
 	<select id="findByNo" resultMap="aviMap" parameterType="int">
 		SELECT
@@ -25,12 +52,22 @@
 		WHERE abno=#{no}
 	</select>
 
-	<!-- 피드동영상 상세조회 -->
-	<select id="findfeedavibyAbno" resultMap="aviMap" parameterType="int">
-		select A.titl, A.stm, B.phot, B.name, B.genre, B.city, A.cont,A.lcnt
-		from avi A, busk B
-		where A.bno=B.bno
-		and A.abno=#{no}
+	<!-- 피드동영상 모달 -->
+	<select id="findfeedavibyAbno" resultMap="aviMap2" parameterType="int">
+select * from(
+select * from(SELECT m.flag,a.titl, a.stm, a.cdt as avicdt, bb.phot as buskprofile,bb.name as buskteamname,bb.genre,bb.city, a.cont, a.lcnt, b.phot,b.name,ac.cdt,ac.cont as comtcont, ac.acno,a.abno
+FROM busk as b, avi as a, avi_comt as ac, busk as bb, memb as m
+WHERE a.abno = ac.abno and ac.mno = b.bno AND bb.bno = a.bno AND a.abno=#{no} AND m.mno = b.bno) as t1
+UNION ALL
+select * from (SELECT m.flag,a.titl, a.stm, a.cdt as avicdt, bb.phot as buskprofile,bb.name as buskteamname,bb.genre,bb.city, a.cont, a.lcnt, m.phot,s.name,ac.cdt,ac.cont as comtcont, ac.acno,a.abno
+FROM sup as s, avi as a, avi_comt as ac, busk as bb, memb as m
+WHERE a.abno = ac.abno and ac.mno = s.sno AND bb.bno = a.bno AND a.abno=#{no} AND m.mno = s.sno) as t2
+UNION ALL
+select * from (SELECT m.flag,a.titl, a.stm, a.cdt as avicdt, bb.phot as buskprofile,bb.name as buskteamname,bb.genre,bb.city,a.cont, a.lcnt, m.phot, m.nik ,ac.cdt,ac.cont as comtcont, ac.acno,a.abno
+FROM memb as m, avi as a, avi_comt as ac, busk as bb
+WHERE a.abno = ac.abno and ac.mno = m.mno AND bb.bno = a.bno AND a.abno=#{no} AND m.flag=1) as t3
+) as tab
+order by cdt desc
 	</select>
 
 	<!-- 동영상상세조회 -->
