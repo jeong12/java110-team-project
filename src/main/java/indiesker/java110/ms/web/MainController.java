@@ -2,12 +2,15 @@ package indiesker.java110.ms.web;
 
 import java.util.List;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import indiesker.java110.ms.domain.Avi;
+import indiesker.java110.ms.domain.Member;
 import indiesker.java110.ms.domain.Schedule;
 import indiesker.java110.ms.service.AviService;
 import indiesker.java110.ms.service.ScheduleService;
@@ -28,11 +31,13 @@ public class MainController {
   }
 
   @GetMapping("main")
-  public void main(Model model) {
+  public void main(HttpSession session, Model model,HttpServletRequest request) {
     List<Avi> recentAvi = aviService.getAll();
-    model.addAttribute("avirec",recentAvi);
     List<Avi> poppulAvi = aviService.getPop();
+    model.addAttribute("avirec",recentAvi);
     model.addAttribute("avipop",poppulAvi);
+    System.out.println((Member)session.getAttribute("loginUser"));
+    
   }
 
   @ResponseBody

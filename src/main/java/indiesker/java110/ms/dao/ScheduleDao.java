@@ -3,7 +3,6 @@ package indiesker.java110.ms.dao;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import org.springframework.scheduling.config.ScheduledTaskHolder;
 import indiesker.java110.ms.domain.Schedule;
 
 public interface ScheduleDao {

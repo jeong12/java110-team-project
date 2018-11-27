@@ -14,6 +14,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -225,15 +226,23 @@ public class AuthController {
           return "redirect:../editprofile/supporter/form";
         } 
 
-        // 추후에 수정해야함 일단은 기본 html로 돌리기
-        return "redirect:../editprofile/member/form";
-
+        return "redirect:../main";
 
       } else {
         session.invalidate();
-        System.out.println("비밀번호틀림쓰");
         return "redirect:form";
       }
+    }
+    
+    @GetMapping("logout")
+    public String service(
+            HttpServletRequest request, 
+            HttpServletResponse response) {
+        
+        HttpSession session = request.getSession();
+        session.invalidate();
+
+        return "redirect:../main";
     }
 
     @ResponseBody

@@ -70,6 +70,20 @@ table {
     border: 1px solid black;
 }
 
+.carousel-control-next {
+    float: right; color: black;
+}
+
+.avi-margin {
+    margin-left: 8.7rem;
+}
+
+.carousel-control-next, .carousel-control-prev, .carousel-control-next:hover,
+    .carousel-control-prev:hover, .carousel-control-next:focus,
+    .carousel-control-prev:focus {
+    color: black !important;
+}
+
 @media ( min-width : 750px) and ( max-width : 1281px) {
     .container-mr {
         margin-left: 6rem; margin-right: 6rem;
@@ -152,22 +166,7 @@ table {
             </table>
           </div>
           <div class="row">
-            <div class="col-md-12 col-xs-12 mb-3" id="button">
-              <!-- <ul class="nav justify-content-center" id="pasingNum">
-                <li class="page-item"><a class="page-link" href=""
-                  aria-label="Previous"
-                > <span aria-hidden="true">«</span> <span
-                    class="sr-only"
-                  >Previous</span>
-                </a></li>
-                <li class="page-item"><a class="page-link" href="#"
-                  aria-label="Next"
-                > <span aria-hidden="true">»</span> <span
-                    class="sr-only"
-                  >Next</span>
-                </a></li> -->
-              </ul>
-            </div>
+            <div class="col-md-12 col-xs-12 mb-3" id="button"></div>
           </div>
         </div>
         <div class="col-md-2 col-xs-1"></div>
@@ -207,7 +206,7 @@ table {
                 제공합니다.</div></li>
 
             <li class="list-inline-item ml-2 mr-2" style="width: 180px"><a
-              href="#" class="contents-a"
+              href="signup/busker/form" class="contents-a"
             > <i class="fas fa-microphone fa-5x"></i><br> <span
                 class="contents-menu"
               >버스킹 신청</span></a><br>
@@ -215,7 +214,7 @@ table {
                 합니다.</div></li>
 
             <li class="list-inline-item ml-2" style="width: 180px"><a
-              href="#" class="contents-a"
+              href="signup/supporter/form" class="contents-a"
             > <i class="fas fa-user-plus fa-5x"></i><br> <span
                 class="contents-menu"
               >제공자 신청</span></a><br>
@@ -240,9 +239,9 @@ table {
     >
       <div class="carousel-inner">
         <div class="carousel-item custom-item">
-          <div class="col-sm-12 justify-content-center">
-            <c:forEach items="${avipop}" var="avi" begin="0" end="3">
-              <div class="col-sm-2 px-md-1 my-md-1 d-inline-block ">
+          <div class="avi-margin">
+            <c:forEach items="${avipop}" var="avi" begin="0" end="2">
+              <div class="col-ms-3 px-md-1 my-md-1 d-inline-block">
                 <a href="javascript:void(0)"
                   onClick="window.open('https://www.youtube.com/watch?v=${avi.urlid}')"
                 > <img class="img-thumbnail" alt="avi"
@@ -261,9 +260,9 @@ table {
         </div>
 
         <div class="carousel-item custom-item">
-          <div class="col-sm-12 justify-content-center">
-            <c:forEach items="${avipop}" var="avi" begin="4">
-              <div class="col-sm-2 px-md-1 my-md-1 d-inline-block ">
+          <div class="avi-margin">
+            <c:forEach items="${avipop}" var="avi" begin="3" end="5">
+              <div class="col-ms-3 px-md-1 my-md-1 d-inline-block">
                 <a href="javascript:void(0)"
                   onClick="window.open('https://www.youtube.com/watch?v=${avi.urlid}')"
                 > <img class="img-thumbnail" alt="avi"
@@ -280,15 +279,38 @@ table {
             </c:forEach>
           </div>
         </div>
+
+        <div class="carousel-item custom-item">
+          <div class="avi-margin">
+            <c:forEach items="${avipop}" var="avi" begin="6">
+              <div class="col-ms-3 px-md-1 my-md-1 d-inline-block">
+                <a href="javascript:void(0)"
+                  onClick="window.open('https://www.youtube.com/watch?v=${avi.urlid}')"
+                > <img class="img-thumbnail" alt="avi"
+                  src="https://img.youtube.com/vi/${avi.urlid}/hqdefault.jpg"
+                  style="width: 250px;"
+                >
+                </a>
+                <div class="text-center small">팀명 :
+                  ${avi.teamname}</div>
+                <div class="text-center small">제목 : ${avi.title}</div>
+                <div class="text-center small">좋아요 수:
+                  ${avi.likeAvi}</div>
+              </div>
+            </c:forEach>
+          </div>
+        </div>
+
       </div>
       <a class="carousel-control-prev" href="#carouselPop" role="button"
         data-slide="prev"
-      > <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      > <span aria-hidden="true"><i class="fas fa-chevron-left"></i></span>
         <span class="sr-only">이전</span>
       </a> <a class="carousel-control-next" href="#carouselPop"
         role="button" data-slide="next"
-      > <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">다음</span>
+      > <span aria-hidden="true"><i
+          class="fas fa-chevron-right"
+        ></i></span> <span class="sr-only">다음</span>
       </a>
     </div>
 
@@ -296,21 +318,78 @@ table {
       <h3>최신 동영상</h3>
     </div>
     <p class="underline"></p>
-    <div class="row">
-      <c:forEach items="${avirec}" var="avi">
-        <div class="col-sm-3 nopadding my-md-1">
-          <a href="javascript:void(0)"
-            onClick="window.open('https://www.youtube.com/watch?v=${avi.urlid}')"
-          > <img class="img-thumbnail" alt="avi"
-            src="https://img.youtube.com/vi/${avi.urlid}/hqdefault.jpg"
-            style="width: 300px;"
-          >
-          </a>
-          <div class="text-center small">팀명 : ${avi.teamname}</div>
-          <div class="text-center small">제목 : ${avi.title}</div>
+
+    <div id="carouselRec" class="row carousel slide"
+      data-rade="carousel"
+    >
+      <div class="carousel-inner">
+        <div class="carousel-item custom-item">
+          <div class="avi-margin">
+            <c:forEach items="${avirec}" var="avi" begin="0" end="2">
+              <div class="col-ms-3 px-md-1 my-md-1 d-inline-block">
+                <a href="javascript:void(0)"
+                  onClick="window.open('https://www.youtube.com/watch?v=${avi.urlid}')"
+                > <img class="img-thumbnail" alt="avi"
+                  src="https://img.youtube.com/vi/${avi.urlid}/hqdefault.jpg"
+                  style="width: 250px;"
+                >
+                </a>
+                <div class="text-center small">팀명 :
+                  ${avi.teamname}</div>
+                <div class="text-center small">제목 : ${avi.title}</div>
+              </div>
+            </c:forEach>
+          </div>
         </div>
-      </c:forEach>
+        <div class="carousel-item custom-item">
+          <div class="avi-margin">
+            <c:forEach items="${avirec}" var="avi" begin="3" end="5">
+              <div class="col-ms-3 px-md-1 my-md-1 d-inline-block">
+                <a href="javascript:void(0)"
+                  onClick="window.open('https://www.youtube.com/watch?v=${avi.urlid}')"
+                > <img class="img-thumbnail" alt="avi"
+                  src="https://img.youtube.com/vi/${avi.urlid}/hqdefault.jpg"
+                  style="width: 250px;"
+                >
+                </a>
+                <div class="text-center small">팀명 :
+                  ${avi.teamname}</div>
+                <div class="text-center small">제목 : ${avi.title}</div>
+              </div>
+            </c:forEach>
+          </div>
+        </div>
+        <div class="carousel-item custom-item">
+          <div class="avi-margin">
+            <c:forEach items="${avirec}" var="avi" begin="6">
+              <div class="col-ms-3 px-md-1 my-md-1 d-inline-block">
+                <a href="javascript:void(0)"
+                  onClick="window.open('https://www.youtube.com/watch?v=${avi.urlid}')"
+                > <img class="img-thumbnail" alt="avi"
+                  src="https://img.youtube.com/vi/${avi.urlid}/hqdefault.jpg"
+                  style="width: 250px;"
+                >
+                </a>
+                <div class="text-center small">팀명 :
+                  ${avi.teamname}</div>
+                <div class="text-center small">제목 : ${avi.title}</div>
+              </div>
+            </c:forEach>
+          </div>
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#carouselRec" role="button"
+        data-slide="prev"
+      > <span aria-hidden="true"><i class="fas fa-chevron-left"></i></span>
+        <span class="sr-only">이전</span>
+      </a> <a class="carousel-control-next" href="#carouselRec"
+        role="button" data-slide="next"
+      > <span aria-hidden="true"><i
+          class="fas fa-chevron-right"
+        ></i></span> <span class="sr-only">다음</span>
+      </a>
     </div>
+
   </div>
 </body>
 <jsp:include page="footer.jsp"></jsp:include>

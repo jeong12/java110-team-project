@@ -111,7 +111,7 @@
 		FROM busk b, avi a
 		WHERE b.bno=a.bno
 		ORDER BY cdt desc
-		LIMIT 8<!-- 여기 수정해야함 -->
+		LIMIT 9<!-- 여기 수정해야함 -->
 	</select>
 
 	<!-- 인기영상 조회(메인) -->
@@ -120,8 +120,7 @@
 		FROM busk b, avi a, avi_fav af
 		WHERE b.bno=a.bno
 		AND a.abno=af.abno
-		ORDER BY lcnt desc
-		LIMIT 8<!-- 여기 수정해야함 -->
+		LIMIT 9<!-- 여기 수정해야함 -->
 	</select>
 
 </mapper>
