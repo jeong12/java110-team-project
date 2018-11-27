@@ -6,35 +6,12 @@
 <mapper namespace="indiesker.java110.ms.dao.FeedPhotoDao">
 
 	<resultMap type="FeedPhoto" id="feedPhotoMap">
-		<id column="pbno" property="pno" />
+		<id column="pbno" property="pbno" />
 		<result column="cont" property="cont" />
 		<result column="lcnt" property="lcnt" />
 		<result column="cdt" property="cdt" />
 		<result column="phot" property="firphot" />
 	</resultMap>
-	
-       <resultMap type="FeedPhoto" id="feedphotomodal">
-        <id column="abno" property="aviboardno" />
-        <result column="titl" property="title" />
-        <result column="stm" property="urlid" />
-        <result column="avicdt" property="cdt" />
-        <result column="buskprofile" property="teamPhoto" />
-        <result column="buskteamname" property="teamname" />
-        <result column="genre" property="teamgenre" />
-        <result column="city" property="city" />
-        <result column="cont" property="content" />
-        <result column="lcnt" property="avilikecount" />
-        <result column="flag" property="flag"></result>
-        <collection property="comments" ofType="Comment">
-            <id column="acno" property="acno" />
-            <result column="phot" property="comtphot" />
-            <result column="name" property="comtname" />
-            <result column="comtcont" property="cont" />
-            <result column="cdt" property="cdt" />
-        </collection>
-    </resultMap>
-
-
 	<!-- 최신사진 조회(개인피드) -->
 	<select id="findRecentPhot" resultMap="feedPhotoMap"
 		parameterType="map">
@@ -49,33 +26,89 @@
 		ORDER BY p.cdt DESC
 		limit #{rowNo}, #{size}
 	</select>
-	
-<!-- 	   피드사진모달
-    <select id="findfeedavibyAbno" resultMap="aviMap2" parameterType="int">
-select * from(
-select * from(SELECT m.flag,a.titl, a.stm, a.cdt as avicdt, bb.phot as buskprofile,bb.name as buskteamname,bb.genre,bb.city, a.cont, a.lcnt, b.phot,b.name,ac.cdt,ac.cont as comtcont, ac.acno,a.abno
-FROM busk as b, avi as a, avi_comt as ac, busk as bb, memb as m
-WHERE a.abno = ac.abno and ac.mno = b.bno AND bb.bno = a.bno AND a.abno=#{no} AND m.mno = b.bno) as t1
-UNION ALL
-select * from (SELECT m.flag,a.titl, a.stm, a.cdt as avicdt, bb.phot as buskprofile,bb.name as buskteamname,bb.genre,bb.city, a.cont, a.lcnt, m.phot,s.name,ac.cdt,ac.cont as comtcont, ac.acno,a.abno
-FROM sup as s, avi as a, avi_comt as ac, busk as bb, memb as m
-WHERE a.abno = ac.abno and ac.mno = s.sno AND bb.bno = a.bno AND a.abno=#{no} AND m.mno = s.sno) as t2
-UNION ALL
-select * from (SELECT m.flag,a.titl, a.stm, a.cdt as avicdt, bb.phot as buskprofile,bb.name as buskteamname,bb.genre,bb.city,a.cont, a.lcnt, m.phot, m.nik ,ac.cdt,ac.cont as comtcont, ac.acno,a.abno
-FROM memb as m, avi as a, avi_comt as ac, busk as bb
-WHERE a.abno = ac.abno and ac.mno = m.mno AND bb.bno = a.bno AND a.abno=#{no} AND m.flag=1) as t3
-) as tab
-order by cdt desc
-    </select> -->
 
-<!--     사진상세보기(모달)
-	<select id="findByImage" resultMap=>
-		SELECT P.pbno, FP.phot, B.phot,B.name,B.genre, B.city, P.cont,P.lcnt
-		FROM phot P,busk B,feed_phot FP
-		WHERE P.bno=B.bno
-		AND P.pbno=FP.pbno
-		AND P.pbno=14
-	</select> -->
+
+	<resultMap type="FeedPhoto" id="feedphotomodal">
+		<id column="pbno" property="pbno" />
+		<result column="feedprofphot" property="teamPhoto" />
+		<result column="teamname" property="teamname" />
+		<result column="genre" property="teamgenre" />
+		<result column="city" property="city" />
+		<result column="feedcont" property="feedcont" />
+		<result column="lcnt" property="lcnt" />
+		<collection property="feedphotoFiles"
+			ofType="FeedPhotoFile">
+			<id column="fpno" property="fpno" />
+			<result column="feedphotos" property="filename" />
+		</collection>
+		<collection property="comments" ofType="Comment">
+			<id column="pcno" property="pcno" />
+			<result column="comtphot" property="comtphot" />
+			<result column="comtname" property="comtname" />
+			<result column="cdt" property="cdt" />
+			<result column="cont" property="cont" />
+		</collection>
+	</resultMap>
+	<!-- 피드사진모달 -->
+	<select id="findfeedphotobyPbno" resultMap="feedphotomodal"
+		parameterType="int">
+		select * from(
+		select * from(SELECT
+		p.pbno,fp.fpno,pc.pcno, fp.phot AS feedphotos,fb.phot
+		AS
+		feedprofphot,fb.name AS teamname,
+		fb.genre,fb.city, p.cont AS feedcont,
+		p.lcnt, cb.phot AS comtphot, cb.name AS comtname,
+		pc.cdt, pc.cont
+		FROM
+		phot p, feed_phot fp, phot_comt pc,busk fb,memb m,busk cb
+		WHERE
+		p.pbno=fp.pbno
+		AND p.pbno=pc.pbno
+		AND p.bno=fb.bno
+		AND pc.mno=m.mno
+		AND
+		m.mno=cb.bno
+		AND p.pbno=#{no}) as t1
+		UNION ALL
+		select * from (SELECT
+		p.pbno,fp.fpno,pc.pcno,fp.phot AS feedphot,fb.phot AS
+		feedprofphot,fb.name AS teamname,
+		fb.genre,fb.city, p.cont AS
+		feedcont,p.lcnt,m.phot AS comtphot,s.name AS
+		comtname,pc.cdt,pc.cont
+		FROM phot p, feed_phot fp, phot_comt pc,busk fb,memb m,sup s
+		WHERE
+		p.pbno=fp.pbno
+		AND p.pbno=pc.pbno
+		AND p.bno=fb.bno
+		AND pc.mno=m.mno
+		AND
+		m.mno=s.sno
+		AND p.pbno=#{no}) as t2
+		UNION ALL
+		select * from (SELECT
+		p.pbno,fp.fpno,pc.pcno,fp.phot AS feedphot,fb.phot AS
+		feedprofphot,fb.name AS teamname,
+		fb.genre,fb.city, p.cont AS
+		feedcont,p.lcnt,m.phot AS comtphot,m.nik AS
+		comtname,pc.cdt,pc.cont
+		FROM phot p, feed_phot fp, phot_comt pc,busk fb,memb m
+		WHERE
+		p.pbno=fp.pbno
+		AND p.pbno=pc.pbno
+		AND p.bno=fb.bno
+		AND pc.mno=m.mno
+		AND
+		m.flag=1
+		AND p.pbno=#{no}) as t3
+		) as tab
+		order by cdt desc
+	</select>
+
+	<!-- 사진상세보기(모달) <select id="findByImage" resultMap=> SELECT P.pbno, FP.phot, 
+		B.phot,B.name,B.genre, B.city, P.cont,P.lcnt FROM phot P,busk B,feed_phot 
+		FP WHERE P.bno=B.bno AND P.pbno=FP.pbno AND P.pbno=14 </select> -->
 
 </mapper>
 

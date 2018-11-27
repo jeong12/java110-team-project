@@ -122,10 +122,23 @@ public class FeedController {
   
   @ResponseBody
   @RequestMapping("showphoto")
-  public Avi getPhotoNo(
+  public FeedPhoto getPhotoNo(
       String pbno, Model model) {   
-
-    return null;
+    int abno2 = Integer.parseInt(pbno);
+    System.out.println(abno2);
+    
+    FeedPhoto feedphoto=feedPhotoService.getfeedphotobyPbno(abno2);
+    
+    System.out.println(feedphoto);
+    List<Comment> comt=feedphoto.getComments();
+    
+    for (Comment comment : comt) {
+      System.out.println(comment.getCdt());
+      comment.setStrcdt(comment.getCdt().toString());
+    }
+    
+    return feedphoto;
   }
   
+
 }

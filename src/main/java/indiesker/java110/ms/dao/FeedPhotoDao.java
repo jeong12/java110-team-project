@@ -9,4 +9,5 @@ public interface FeedPhotoDao {
   FeedPhoto findPhotoFile(int no);*/
   List<FeedPhoto> findRecentPhot(Map<String,Object> params);
   FeedPhoto findByImage(int no);
+  FeedPhoto findfeedphotobyPbno(int no);
 }

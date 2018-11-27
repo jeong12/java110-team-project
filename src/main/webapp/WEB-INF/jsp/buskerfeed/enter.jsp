@@ -163,7 +163,7 @@ body .container {
               <c:forEach items="${recentplist}" var="t">
                 <div class="col-md-4 photo">
                   <button data-target="#photomodal" data-toggle="modal"
-                    <%-- value="${m.aviboardno }" --%>>
+                   value="${t.pbno }" >
                     <img src="${t.firphot }"
                       style="width: 110px; height: 100px;">
                   </button>
@@ -296,6 +296,9 @@ h2 {
   border: 1px solid black;
   height: 15%;
 }
+.list-unstyled.comtphoto{
+    height:590px;
+}
 #teamphoto{
     width:30px;
     height:30px;
@@ -304,11 +307,27 @@ h2 {
 h2 {
   margin: 0;
 }
+.feedphoto button{
+border:0;
+padding:0;
+margin:9px;
+}
+.smallimg{
+    width:150px;
+    height:100px;
+}
+.bigimg{
+    width:95%;
+    height:290px;
+}
+.modal-content.photo{
+    height:670px;
+}
 </style>
   <div class="modal fade" id="photomodal" tabindex="-1" role="dialog"
     aria-labelledby="enlargeImageModal" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
+      <div class="modal-content photo">
         <div class="modal-header">
           사진상세조회
           <button type="button" class="close" data-dismiss="modal"
@@ -319,7 +338,18 @@ h2 {
         <div class="modal-body">
           <div class="modalcontainer">
             <div class="photocontent">
-              <div class="feedphoto"></div>
+              <div class="feedphoto">
+                <div class="feedphoto1">
+                
+                </div>
+                <div>
+                    <table>
+                    <tr class="feedphoto2">
+                    
+                    </tr>
+                    </table>
+                </div>
+              </div>
               <div class="teaminfo">
                 <table class="phototeamimgtb">
 
@@ -335,7 +365,7 @@ h2 {
               </div>
             </div>
             <div class="comment">
-              <ul class="list-unstyled comt">
+              <ul class="list-unstyled comtphoto">
 
               </ul>
             </div>

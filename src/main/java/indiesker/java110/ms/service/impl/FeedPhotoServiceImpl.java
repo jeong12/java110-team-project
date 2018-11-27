@@ -30,7 +30,10 @@ public class FeedPhotoServiceImpl implements FeedPhotoService {
     return feedphotoDao.findRecentPhot(params);
   }
   
-  
+  @Override
+  public FeedPhoto getfeedphotobyPbno(int no) {
+    return feedphotoDao.findfeedphotobyPbno(no);
+  }
 
 }
 
