@@ -26,7 +26,7 @@
 	</insert>
 
     <select id="checkId" parameterType="string" resultType="int">
-    select count(*) from memb where id=#{id}
+    select count(*) from memb where id=Lower(#{id})
     </select>
     
     <select id="checkEmail" parameterType="string" resultType="int">
@@ -34,7 +34,7 @@
     </select>
     
     <select id="checkNickname" parameterType="string" resultType="int">
-    select count(*) from memb where nik=#{nickname}
+    select count(*) from memb where nik=Lower(#{nickname})
     </select>
     
     <select id="findByEmailPassword" parameterType="map" resultType="Member">

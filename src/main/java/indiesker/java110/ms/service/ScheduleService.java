@@ -38,4 +38,5 @@ public interface ScheduleService {
     int ApplyStagesinBuskreq(int no, String cont, String count);
     String weekOfAvi();
     List<Schedule> mybslistbyflag(int flag, int no, int pageNo, int pageSize);
+    int ApplyStagesinBuskstag(ArrayList<Integer>ssno, int brno);
 }

@@ -237,7 +237,9 @@ public class ScheduleServiceimpl implements ScheduleService {
       params.put("bno", no);
       params.put("cont", cont);
       params.put("count", count);
-    return scheduleDao.ApplyStagesinBuskreq(params);
+      scheduleDao.ApplyStagesinBuskreq(params);
+      System.out.println(params.get("brno"));
+      return (int) params.get("brno");
     }
 
     @Override
@@ -256,4 +258,13 @@ public class ScheduleServiceimpl implements ScheduleService {
     public String weekOfAvi() {
       return "test";
     }
+     
+    @Override
+    public int ApplyStagesinBuskstag(ArrayList<Integer> ssno, int brno) {
+      Map<String,Object>params = new HashMap<>();
+      params.put("list", ssno);
+      params.put("brno", brno);
+      return scheduleDao.ApplyStagesinBuskstag(params);
+    }
+    
 }
