@@ -578,7 +578,6 @@ GROUP BY BS.brno
     SELECT LAST_INSERT_ID()
     </selectKey>
    </insert>
-<<<<<<< HEAD
    
    
    <!-- 스케줄조회 : 확정 버스커 스케줄 출력하는 쿼리 -->
@@ -606,8 +605,6 @@ GROUP BY BS.brno
         limit #{rowNo}, #{size}
     </select>
     
-=======
-
    <insert id="ApplyStagesinBuskstag" parameterType="map">
    INSERT INTO `busk_stag`(`ssno`, `brno`, `flag`) values
    <foreach collection="list" item="item" separator=",">
@@ -615,7 +612,6 @@ GROUP BY BS.brno
     </foreach>
    </insert>
 
->>>>>>> a2
 </mapper>
 
 
