@@ -25,7 +25,7 @@
 
 	<select id="checkName" parameterType="string" resultType="int">
 		select
-		count(*) from sup where name=#{name}
+		count(*) from sup where name=Lower(#{name})
 	</select>
 
 	<insert id="insert" parameterType="Supporter">

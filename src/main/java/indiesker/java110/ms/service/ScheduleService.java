@@ -37,4 +37,5 @@ public interface ScheduleService {
     List<Schedule> findPossibleStages(int no, String date);
     int ApplyStagesinBuskreq(int no, String cont, String count);
     String weekOfAvi();
+    int ApplyStagesinBuskstag(ArrayList<Integer>ssno, int brno);
 }

@@ -40,4 +40,5 @@ public interface ScheduleDao {
   List<Integer> showSsnos(int no);
   List<Schedule> findPossibleStages(Map<String,Object> params);
   int ApplyStagesinBuskreq(Map<String,Object> params); 
+  int ApplyStagesinBuskstag(Map<String,Object> params); 
 }
