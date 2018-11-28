@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import indiesker.java110.ms.dao.MemberManagerDao;
 import indiesker.java110.ms.domain.Busker;
 import indiesker.java110.ms.domain.GradleMember;
+import indiesker.java110.ms.domain.Member;
 import indiesker.java110.ms.domain.MemberManager;
 import indiesker.java110.ms.domain.Supporter;
 import indiesker.java110.ms.service.MemberManagerService;
@@ -73,6 +74,26 @@ public List<MemberManager> dateSelect(String flag, String text,String ncdt1,Stri
    
     return memberManagerDao.update(params);
   }
+ 
+ 
+ @Override
+ public Member memListDetail(String nik) {
+   return memberManagerDao.memListDetail(nik);
+ }
+
+
+
+ @Override
+ public Supporter supListDetail(String nik) {
+   return memberManagerDao.supListDetail(nik);
+ }
+
+ @Override
+ public Busker buskListDetail(String nik) {
+   return memberManagerDao.buskListDetail(nik);
+ }
+
+ 
  // 등급관리//////////////////////////////////////////////
  @Override
  public List<GradleMember> gradleBusker(int pageNo, int pageSize) {
@@ -146,17 +167,26 @@ public List<MemberManager> dateSelect(String flag, String text,String ncdt1,Stri
    return memberManagerDao.fidnBuskbyNo(no);
  }
  
+ @Override// 등급관리 승인 버스커
+ public int gradleBuskUpdate(int no) {
+   HashMap<String,Object> params = new HashMap<>();
+   params.put("no",no);
+   
+    return memberManagerDao.gradleBuskUpdate(params);
+ }
+
+ @Override// 등급관리 승인 서포터
+ public int gradleSupUpdate(int no) {
+   HashMap<String,Object> params = new HashMap<>();
+   params.put("no",no);
+   
+    return memberManagerDao.gradleSupUpdate(params);
+ }
+ 
+ 
  /////////////////////////////////////////////////////////
  
-@Override
-public MemberManager getMember(String nik) {
-  return memberManagerDao.detailMember(nik);
-}
 
-@Override
-public Busker getBusker(String nik) {
-  return memberManagerDao.detailBusker(nik);
-}
 
 
 
@@ -168,13 +198,19 @@ public List<GradleMember> gradleSelect(char flag, String email, String nik, int 
   return null;
 }
 
-
-
 @Override
-public Supporter getSupporter(String nik) {
+public List<String> memListDetailByGenre(String nik) {
   // TODO Auto-generated method stub
   return null;
 }
+
+
+
+
+
+
+
+
 
 
 

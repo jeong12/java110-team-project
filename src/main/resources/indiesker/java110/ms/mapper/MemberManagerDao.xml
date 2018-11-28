@@ -6,11 +6,17 @@
 <mapper namespace="indiesker.java110.ms.dao.MemberManagerDao">
 
     <resultMap type="Supporter" id="SupporterMap">
+        <id column="sno"        property="no"/>
         <result column="name"   property="name"/>
         <result column="capa"  property="capa"/>
         <result column="det_addr"    property="detailaddr"/>
         <result column="tel"   property="tel"/>
         <result column="etc"   property="message"/>
+        <result column="genre" property="sgnere"/>
+     <collection property="stagephotos" ofType="StagePhoto">
+        <id column="spno"       property="spno"/>
+        <result column="phot"  property="photo"/>
+     </collection>
     </resultMap>
     
        <resultMap type="Busker" id="BuskerMap">
@@ -22,7 +28,31 @@
          <result column="avi1"   property="avi1"/>
           <result column="avi2"   property="avi2"/>
     </resultMap>
-
+    
+    <resultMap type="Busker" id="BuskerDetail">
+       <result column="id" property="id"></result>
+       <result column="email" property="email"></result>
+       <result column="nik" property="nickname"></result>
+       <result column="bname" property="teamname"></result>
+       <result column="genre" property="teamgenre"></result>
+       <result column="city" property="city"></result>
+       <result column="tel" property="tel"></result>
+       <result column="inst" property="instrument"></result>
+       <result column="intro" property="teamInfo"></result>
+       <result column="phot" property="teamPhoto"></result>
+    </resultMap>
+    
+    <resultMap type="Member" id="MemberDetail">
+        <id column="mno" property="no"/>
+        <result column="id" property="id"/>
+        <result column="email" property="email"/>
+        <result column="nik" property="nickname"/>
+        <result column="phot" property="photo"/>
+        <result column="memo" property="memo"/>
+        <result column='genre0' property="genre0"/>
+        <result column='genre1' property="genre1"/>
+        <result column='genre2' property="genre2"/>
+    </resultMap>
 
 <!-- 전체 -->
 <select id="findAll" resultType="MemberManager" parameterType="map">
@@ -180,11 +210,11 @@ m.nik = #{text}
 limit #{rowNo}, #{size} 
 </select> 
 
-
 <select id="findbyNo" resultMap="SupporterMap" parameterType="int">
-SELECT name, capa,det_addr,genre,tel,etc
-FROM sup
-where sno = #{no}
+SELECT s.name, s.capa,s.det_addr,s.genre,s.tel,s.etc,sp.phot, s.sno, sp.spno
+FROM sup as s , stag_phot as sp
+where s.sno = sp.sno
+and s.sno = #{no}
 </select>
 
 <select id="fidnBuskbyNo" resultMap="BuskerMap" parameterType="int">
@@ -192,5 +222,44 @@ SELECT name,city,genre,tel,intro,avi1,avi2
 FROM busk
 where bno = #{no}
 </select>
+
+<update id="gradleBuskUpdate" parameterType="Map">
+update busk
+    SET per = 'y'
+    WHERE bno = #{no}
+</update>
+
+<update id="gradleSupUpdate" parameterType="Map">
+update sup
+    SET per = 'y'
+    WHERE sno = #{no}
+</update>
+
+<select id="findGradlePhoto" resultType="StagePhoto" parameterType="int" >
+        select spno, phot as photo
+          from stag_phot
+         where sno = #{no};
+    </select>
+ 
+<select id="memListDetail" resultMap="MemberDetail" parameterType="String">
+SELECT id,email,nik,phot,memo,genre0,genre1,genre2,mno
+FROM memb
+where nik = #{nik}
+</select>
+<select id="supListDetail" parameterType="String">
+SELECT m.id,m.email,m.nik,s.name,s.det_addr,s.genre,s.capa,s.tel,s.etc
+FROM memb as m, sup as s
+where m.mno = s.sno
+m.nik = #{nik}
+</select>
+
+<select id="buskListDetail" resultMap="BuskerDetail" parameterType="String">
+SELECT m.id,m.email,m.nik,b.name as bname,b.genre,b.city,b.tel,b.inst,b.intro,b.phot
+FROM memb as m, busk as b
+where m.mno = b.bno
+and m.nik = #{nik}
+</select>    
+
+
 
  </mapper>
