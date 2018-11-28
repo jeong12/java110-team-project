@@ -9,14 +9,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Document</title>
-<link
+<link rel="stylesheet" href="http://localhost:8080/css/indiesker.css"/>
+<!-- <link
     href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
     rel="stylesheet"
     id="bootstrap-css"
 >
 <script
     src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
-></script>
+></script> -->
 <script
     src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
 ></script>
@@ -63,12 +64,12 @@ footer {
     background-color: var(-main-color);
 }
 
-footer .container {
+footer .container_c {
     padding-top: 10px;
 }
 
 /* @media ( min-width : 768px) {
-    footer .container {
+    footer .container_c {
         display: flex;
         flex-wrap: wrap;
         /*        max-width: 1000px;*/
@@ -134,7 +135,7 @@ footer .container {
 <body>
 
     <footer>
-        <div class="container">
+        <div class="container_c">
             <div class="footB">
                 <ul>
                     <li><a href="#">이용약관</a></li>
