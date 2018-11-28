@@ -67,12 +67,8 @@ body .container {
 }
 </style>
 <body>
+<%-- <jsp:include page="../header.jsp"></jsp:include> --%>
   <div class="feedpage" style="margin: 0 300px 0 300px;">
-    <div>
-      <p>
-        <a href='../../app/avi/form'>영상 Insert</a>
-      </p>
-    </div>
     <div class="container"
       style="width: 750px; padding: 0 20px 20px 20px;">
       <div id="titl">
@@ -82,8 +78,16 @@ body .container {
       <div class="buskerinfo"
         style="height: 300px; margin-bottom: 30px;">
         <div class="imgschecon" style="height: 300px;">
-          <img style="max-width: 100%; max-height: 100%"
-            src="${busk.teamPhoto }" alt="aa">
+          <c:choose>
+            <c:when test="${not empty busk.teamPhoto }">
+              <img style="width: 100%; height: 100%"
+                src="/upload/${busk.teamPhoto }" alt="aa">
+            </c:when>
+            <c:otherwise>
+              <img style="width: 100%; height: 100%"
+                src='/img/phot1.png'>
+            </c:otherwise>
+          </c:choose>
         </div>
         <div class="aviphotcont">
           <table>
@@ -140,6 +144,11 @@ body .container {
           </table>
         </div>
         <div class="aviphotcont">
+          <div style="padding-left: 170px;">
+            <button id="aviupload">영상올리기</button>
+            <button id="photoupload" data-target="#photoUploadModal"
+              data-toggle="modal">사진올리기</button>
+          </div>
           <!-- 영상썸네일 -->
           <div class=avi style="border: 1px dotted red; margin: 3px;">
             <div class="row">
@@ -158,12 +167,13 @@ body .container {
             </p>
           </div>
           <!-- 사진 게시물 -->
-          <div class="photo" style="border: 1px dotted red; margin: 3px;">
+          <div class="photo"
+            style="border: 1px dotted red; margin: 3px;">
             <div class="row">
               <c:forEach items="${recentplist}" var="t">
                 <div class="col-md-4 photo">
                   <button data-target="#photomodal" data-toggle="modal"
-                   value="${t.pbno }" >
+                    value="${t.pbno }">
                     <img src="${t.firphot }"
                       style="width: 110px; height: 100px;">
                   </button>
@@ -212,9 +222,10 @@ body .container {
   border: 1px solid black;
   height: 15%;
 }
-#teamphoto{
-    width:30px;
-    height:30px;
+
+#teamphoto {
+  width: 30px;
+  height: 30px;
 }
 
 h2 {
@@ -241,11 +252,9 @@ h2 {
                 </table>
               </div>
               <div class="contents">
-                 <div class="content" style="height:80%">
-                 
-                 </div>
-                <div class="likecount" style="text-align:right;">
-                
+                <div class="content" style="height: 80%"></div>
+                <div class="likecount" style="text-align: right;">
+
                 </div>
               </div>
             </div>
@@ -261,7 +270,7 @@ h2 {
   </div>
 
   <!-- 사진모달 -->
-    <style>
+  <style>
 .modal-body {
   height: 500px;
 }
@@ -296,32 +305,38 @@ h2 {
   border: 1px solid black;
   height: 15%;
 }
-.list-unstyled.comtphoto{
-    height:590px;
+
+.list-unstyled.comtphoto {
+  height: 590px;
 }
-#teamphoto{
-    width:30px;
-    height:30px;
+
+#teamphoto {
+  width: 30px;
+  height: 30px;
 }
 
 h2 {
   margin: 0;
 }
-.feedphoto button{
-border:0;
-padding:0;
-margin:9px;
+
+.feedphoto button {
+  border: 0;
+  padding: 0;
+  margin: 9px;
 }
-.smallimg{
-    width:150px;
-    height:100px;
+
+.smallimg {
+  width: 150px;
+  height: 100px;
 }
-.bigimg{
-    width:95%;
-    height:290px;
+
+.bigimg {
+  width: 95%;
+  height: 290px;
 }
-.modal-content.photo{
-    height:670px;
+
+.modal-content.photo {
+  height: 670px;
 }
 </style>
   <div class="modal fade" id="photomodal" tabindex="-1" role="dialog"
@@ -339,15 +354,13 @@ margin:9px;
           <div class="modalcontainer">
             <div class="photocontent">
               <div class="feedphoto">
-                <div class="feedphoto1">
-                
-                </div>
+                <div class="feedphoto1"></div>
                 <div>
-                    <table>
+                  <table>
                     <tr class="feedphoto2">
-                    
+
                     </tr>
-                    </table>
+                  </table>
                 </div>
               </div>
               <div class="teaminfo">
@@ -356,17 +369,15 @@ margin:9px;
                 </table>
               </div>
               <div class="contents">
-                 <div class="content" style="height:80%">
-                 
-                 </div>
-                <div class="likecount" style="text-align:right;">
-                
+                <div class="content" style="height: 80%"></div>
+                <div class="likecount" style="text-align: right;">
+
                 </div>
               </div>
             </div>
             <div class="comment">
-              <ul class="list-unstyled comtphoto">
 
+              <ul class="list-unstyled comtphoto">
               </ul>
             </div>
           </div>
@@ -374,10 +385,112 @@ margin:9px;
       </div>
     </div>
   </div>
+  <!-- ==============================업로드 모달======================================= -->
+  <!-- 사진업로드 모달 -->
+  <style>
+.modal-body.photup {
+  height: 450px;
+}
+</style>
+  <div class="modal fade" id="photoUploadModal" tabindex="-1"
+    role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          사진 게시글 업로드
+          <button type="button" class="close" data-dismiss="modal">
+            <span>×</span>
+          </button>
+        </div>
+        <div class="modal-body photup">
+          <div class="modalcontainer" style="border: 1px dotted red;">
+            <form action='addphoto' method='post' enctype="multipart/form-data">
+              <div style="border: 1px dotted orange; padding: 10px;">
+                <div>
+                    <textarea style="width: 100%; height: 250px;" name="content" id="content"></textarea></div>
+                  <div>
+                    <div style="margin: 20px 0;">
+                      <table>
+                        <tr>
+                          <td><img style="height: 70px; width: 100px; margin:0 50px 10px 0;" id="upload1" src="/img/default_image.png" alt="기본이미지"></td>
+                          <td><img style="height: 70px; width: 100px; margin:0 50px 10px 0;" id="upload2" src="/img/default_image.png" alt="기본이미지"></td>
+                          <td><img style="height: 70px; width: 100px; margin:0 50px 10px 0;" id="upload3" src="/img/default_image.png" alt="기본이미지"></td>
+                        </tr>
+                        <tr>
+                          <td><input style="width:150px;" type='file' name='file1' id='input_img1' onchange="readURL1(this);" /></td>
+                          <td><input style="width:150px;" type='file' name='file2' id='input_img2' onchange="readURL2(this);" /></td>
+                          <td><input style="width:150px;" type='file' name='file3' id='input_img3' onchange="readURL3(this);" /></td>
+                        </tr>
+                      </table>
+                            <button style="float: right;margin-left: 20px;">취소</button>
+                            <button class="uploadbtn" style="float: right;margin-left: 20px;" disabled="disabled">등록</button>
+                    </div>
+                  </div>
+                  </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 영상 업로드 모달 -->
+  <style>
+.modal-body.aviup {
+  height: 450px;
+}
+</style>
+  <div class="modal fade" id="photoUploadModal" tabindex="-1"
+    role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          영상 게시글 업로드
+          <button type="button" class="close" data-dismiss="modal">
+            <span>×</span>
+          </button>
+        </div>
+        <div class="modal-body aviup">
+          <div class="modalcontainer" style="border: 1px dotted red;">
+
+            <div style="border: 1px dotted orange; padding: 10px;">
+              <div>
+                <textarea style="width: 100%; height: 250px;"></textarea>
+              </div>
+              <div style="margin: 20px 0;">
+                <table>
+                  <tr>
+                    <img src=""
+                      style="height: 70px; width: 100px; margin-right: 20px; border: 1px solid green" />
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div>
+              <button>파일업로드</button>
+              <button style="float: right; margin-left: 20px;">취소</button>
+              <button style="float: right; margin-left: 20px;">등록</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
 
   <!-- ===================================================================== -->
+
+  <script src="/js/feeddetail.js" type="text/javascript"></script>
+  <script src="/js/feedupload.js" type="text/javascript"></script>
   
-<script src="/js/feeddetail.js" type="text/javascript"></script>
+  <%-- <jsp:include page="../footer.jsp"></jsp:include> --%>
 </body>
 </html>
 
