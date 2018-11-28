@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import indiesker.java110.ms.domain.Busker;
 import indiesker.java110.ms.domain.GradleMember;
+import indiesker.java110.ms.domain.Member;
 import indiesker.java110.ms.domain.MemberManager;
 import indiesker.java110.ms.domain.Supporter;
 import indiesker.java110.ms.service.MemberManagerService;
@@ -97,6 +98,28 @@ public class MemberManagerController {
       return list; 
   }
   
+  @ResponseBody
+  @RequestMapping(value="memberListDetail")
+  public Member memberListDetail(String nik) {
+    Member mno = memberManagerService.memListDetail(nik);
+    return mno;
+    
+  }
+  
+  @ResponseBody
+  @RequestMapping(value="buskListDetail")
+  public Busker buskerListDetail(String nik) {
+    Busker bno = memberManagerService.buskListDetail(nik);
+    return bno;
+  }
+  
+  @ResponseBody
+  @RequestMapping(value="supListDetail")
+  public Supporter supListDetail(String nik) {
+    Supporter sno = memberManagerService.supListDetail(nik);
+    return sno;
+  }
+ /////////////////////////////////////////////////////////////// 
   @ResponseBody
   @RequestMapping(value="update")
   public int update(String memo,String nik, Model medel) {
@@ -211,6 +234,24 @@ public class MemberManagerController {
     Busker b  = memberManagerService.buskGet(no);
     return b;
   } 
+  
+  @ResponseBody
+  @RequestMapping(value="gradlebuskupdate")
+  public int gradleBuskUpdate(int no, Model medel) {
+  
+  int bno = memberManagerService.gradleBuskUpdate(no);
+    System.out.println(bno);
+  return bno;
+}
+  
+  @ResponseBody
+  @RequestMapping(value="gradlesupupdate")
+  public int gradleSupUpdate(int no, Model medel) {
+  
+  int sno = memberManagerService.gradleSupUpdate(no);
+    System.out.println(sno);
+  return sno;
+}
   
 /*  @ResponseBody
   @RequestMapping(value="detailMember")

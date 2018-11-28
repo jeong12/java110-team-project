@@ -15,7 +15,9 @@ contentType="text/html; charset=UTF-8"
 <title>Insert title here</title>
 </head>
 <style>
-.tab{display: none}
+
+.tab{display: none;
+}
 .hide-bullets {list-style:none;
 margin-left: -40px;
 margin-top:20px;
@@ -29,6 +31,7 @@ margin-top:20px;
     .mli{width: 133px;height: 50px; float: left;}
    
     .aac{margin-left: -24px; margin-top: 0px;}
+    .aad{margin-left: -24px; margin-top: 0px;}
     .mtb{margin: auto; margin:26px auto 20px; ;
         border: 1px solid silver;
         width: 500px; padding: 10px; padding-bottom: 30px;
@@ -83,7 +86,7 @@ margin-top:20px;
                     <td>${m.flag}</td>
                     <td><button type="button" class="dtailSupbutton" value="${m.sno}" 
                     data-target="#model-id" data-toggle="modal">상세보기</button></td>
-                    <td><button>확정</button></td>
+                    <td><button class="gradleSupUpdate" type="button" value="${m.sno}">확정</button></td>
                    
              </tr>
              </c:forEach>
@@ -96,7 +99,7 @@ margin-top:20px;
                     <td>${m.flag}</td>
                     <td><button type="button" class="dtailbuskbutton" value="${m.bno}"
                      data-target="#model-id2" data-toggle="modal">상세보기</button></td>
-                    <td><button value=>확정</button></td>
+                    <td><button class="gradleBuskUpdate" type="button" value="${m.bno}">확정</button></td>
              </tr>
              </c:forEach>
           </tbody>   
@@ -176,14 +179,15 @@ margin-top:20px;
                             <div class="col-sm-4" id="carousel-bounding-box" >
                                 <div class="carousel slide" id="myCarousel">
                                     <!-- Carousel items -->
-                                    <div class="carousel-inner" >
-                                        <div class="active item"   data-slide-number="0">
+                                    <div class="ttttt carousel-inner" >
+                                        <div data-slide-number="0">
                                         <img id="ff" src=""></div>
 
-                                        <div class="item"  data-slide-number="1">
+                                        <div  data-slide-number="1">
+                                        
                                         <img id="ff"  src=""></div>
 
-                                        <div class="item" data-slide-number="2">
+                                        <div data-slide-number="2">
                                         <img id="ff" src=""></div>
 
                                
@@ -204,7 +208,9 @@ margin-top:20px;
                 <div class="aab row hidden-xs" id="slider-thumbs">
                         <!-- Bottom switcher of slider -->
                         <ul class="aac hide-bullets">
-                            <li class="mli">
+                           
+                        
+                     <!--        <li class="mli">
                                 <a class="thumbnail" id="carousel-selector-0"><img id="ig" src=""></a>
                             </li>
 
@@ -214,7 +220,7 @@ margin-top:20px;
 
                             <li class="mli">
                                 <a class="thumbnail" id="carousel-selector-2"><img id="ig" src=""></a>
-                            </li>
+                            </li> -->
 
                         </ul>                 
                 </div>
@@ -238,7 +244,7 @@ margin-top:20px;
 </div>
 <!-- 모달 서포터 여기까지 -->  
 <!-- 버스커 모달 -->
-
+ 
         <div class="container">
 
 
@@ -254,14 +260,14 @@ margin-top:20px;
       
       <div id="mmain">
         <div id="mmain">
-                <!-- Slider -->
+             
                 <div class="row">
                     <div class="col-xs-12" id="slider" id="main">
-                        <!-- Top part of the slider -->
+                     
                         <div class="row">
                             <div class="col-sm-4" id="carousel-bounding-box" >
                                 <div class="carousel slide" id="myCarousel2">
-                                    <!-- Carousel items -->
+                          
                                     <div class="carousel-inner" >
                                         <div class="active item"   data-slide-number="0">
                                         <div class="iframe1">
@@ -275,7 +281,7 @@ margin-top:20px;
                                         </div>
                                         </div>
                                
-                                    </div><!-- Carousel nav -->
+                                    </div>
                                     <a class="left carousel-control" href="#myCarousel2" role="button" data-slide="prev">
                                         <span class="glyphicon glyphicon-chevron-left"></span>                                       
                                     </a>
@@ -285,14 +291,14 @@ margin-top:20px;
                                     </div>
                             </div>        
 
-                          
+                        
                         </div>
                     </div>
-                </div><!--/Slider-->
+                </div>
 
                 <div class="aab row hidden-xs" id="slider-thumbs">
-                        <!-- Bottom switcher of slider -->
-                        <ul class="aac hide-bullets">
+                   
+                        <ul class="aad hide-bullets">
                             <li class="mli">
                                  <a class="thumbnail" id="carousel-selector-0"><img id="ig" src="https://img.youtube.com/vi/fiGSDywrX1Y/hqdefault.jpg"></a> 
                             </li>
@@ -321,13 +327,57 @@ margin-top:20px;
   </div>
    
  
-</div>                           
+</div>                            
                   
  
  <!-- 버스커모달 여기까지 -->
  
 </body>
 <script>
+
+$('.gradleSupUpdate').click(function(){
+	var no = $(this).val();
+	alert(no);
+	
+	$.ajax({
+		type : "POST",
+		url : "gradlesupupdate",
+		dataType : "json",
+		data : {"no":no},
+		success : function(data){
+			alert("변경됨")
+			window.location.href=window.location.href;
+		},
+		 error : function(request, status, error) {
+             alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+         }
+		
+	})
+	
+})
+
+$('.gradleBuskUpdate').click(function(){
+    var no = $(this).val();
+    alert(no);
+    
+    $.ajax({
+        type : "POST",
+        url : "gradlebuskupdate",
+        dataType : "json",
+        data : {"no":no},
+        success : function(data){
+            alert("변경됨")
+            window.location.href=window.location.href;
+        },
+         error : function(request, status, error) {
+             alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+         }
+        
+    })
+    
+})
+
+
 $('.dtailSupbutton').click(function(){
 	var n = $(this).val();
 	alert(n);
@@ -343,17 +393,28 @@ $('.dtailSupbutton').click(function(){
 			 $(".sgenre").empty();
 			 $(".stel").empty();
 			 $(".smessage").empty();
+			 $(".ttttt").empty();
+			 $(".aac").empty();
 			console.log(data);
 			console.log(data.det_addr);
 			console.log(data.etc);
 			console.log(data.capa);
+	         $.each(data.stagephotos,function(index,item){
+	        	 $(".ttttt").append("<div class='item' data-slide-number='"+index+"'><img id='ff' src="+item.photo+"></div>")
+	         });
+	         $.each(data.stagephotos,function(index,item){
+	        	 $(".aac").append("<li class='mli'><a class='carousel-selector-"+index+"'><img id='ig' src="+item.photo+"></a></li>")
+	         });
+	         
+	         $(".item:first").removeClass("item").addClass("active item");
+	                                             
 	                $(".sname").append('<p>'+data.name+'</p>');
 	                $(".scnt").append('<p>'+data.capa+'</p>');
 	                $(".saddr").append('<p>'+data.detailaddr+'</p>');
-	                $(".sgenre").append('<p>'+data.genre+'</p>');
+	                $(".sgenre").append('<p>'+data.sgnere+'</p>');
 	                $(".stel").append('<p>'+data.tel+'</p>');
 	                $(".smessage").append('<p>'+data.message+'</p>');
-		} 
+		}                                          
 	})
 })
 
@@ -373,9 +434,10 @@ $('.dtailbuskbutton').click(function(){
              $(".bintro").empty();
              $(".iframe1").empty();  
              $(".iframe2").empty();
+           
              
-              $(".iframe1").append("<iframe id='ff' src="+data.avi1+"frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
-               $(".iframe2").append("<iframe id='ff' src="+data.avi2+"frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
+              $(".iframe1").append("<iframe id='ff' src='"+data.avi1+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
+               $(".iframe2").append("<iframe id='ff' src='"+data.avi2+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
                     $(".bname").append('<p>'+data.teamname+'</p>');
                     $(".bcity").append('<p>'+data.city+'</p>');
                     $(".bgenre").append('<p>'+data.teamgenre+'</p>');
@@ -538,7 +600,7 @@ $('.slectbtn').click(function(){
                        }); 
                    },
                    error : function(request, status, error) {
-                       alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+                       alert("에러가 발생했습니다. 이태형에게 문의하시기 바랍니다");
                    }
            })
     }
@@ -554,32 +616,32 @@ function openCity(cityName) {
 	document.getElementById(cityName).style.display = "contents"; 
 	} 
 //////////////////////////////////////////////////모달서포터
-$('#carousel-text').html($('#slide-content-0').html());
+ $('#carousel-text').html($('#slide-content-0').html());
 
 //Handles the carousel thumbnails
 $('[id^=carousel-selector-]').click( function(){
     var id = this.id.substr(this.id.lastIndexOf("-") + 1);
     var id = parseInt(id);
-    $('#myCarousel').carousel(id);
+    $('#myCarousel2').carousel(id);
 });
 // When the carousel slides, auto update the text
-$('#myCarousel').on('slid.bs.carousel', function (e) {
+$('#myCarousel2').on('slid.bs.carousel', function (e) {
          var id = $('.item.active').data('slide-number');
         $('#carousel-text').html($('#slide-content-'+id).html());
-});
+}); 
 //////////////////////////////////////////////////버스커 모달
-  $('[id^=carousel-selector-]').click( function(){
-            var id = this.id.substr(this.id.lastIndexOf("-") + 1);
-            var id = parseInt(id);
-            $('#myCarousel2').carousel(id);
-        });
- 
- 
-        // When the carousel slides, auto update the text
-        $('#myCarousel2').on('slid.bs.carousel', function (e) {
-                 var id = $('.item.active').data('slide-number');
-                $('#carousel-text').html($('#slide-content-'+id).html());
-        });
 
+	$('[class^=carousel-selector-]').on('click', function(){
+		console.log("aaa");
+    var id = this.className.substr(this.className.lastIndexOf("-") + 1);
+    var id = parseInt(id);
+    $('#myCarousel').carousel(id);
+});
+
+	// When the carousel slides, auto update the text
+	$('#myCarousel').on('slid.bs.carousel', function(e) {
+		var id = $('.item.active').data('slide-number');
+		$('#carousel-text').html($('#slide-content-' + id).html());
+	});
 </script>
 </html>
