@@ -49,6 +49,11 @@ public class AviServiceImpl implements AviService {
     public List<Avi> getPop() {
       return aviDao.findbypopul();
     }
+
+    @Override
+    public List<Avi> getFolAvi(int no) {
+      return aviDao.findByFolAvi(no);
+    }
    
 }
 

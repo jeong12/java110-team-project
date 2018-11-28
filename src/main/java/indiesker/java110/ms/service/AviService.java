@@ -11,4 +11,5 @@ public interface AviService {
   Avi getfeedavibyAbno(int no);
   List<Avi> getAll();
   List<Avi> getPop();
+  List<Avi> getFolAvi(int no);
 }

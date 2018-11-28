@@ -2,7 +2,6 @@ package indiesker.java110.ms.web;
 
 import java.util.List;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,12 +30,18 @@ public class MainController {
   }
 
   @GetMapping("main")
-  public void main(HttpSession session, Model model,HttpServletRequest request) {
+  public void main(HttpSession session, Model model) {
     List<Avi> recentAvi = aviService.getAll();
     List<Avi> poppulAvi = aviService.getPop();
     model.addAttribute("avirec",recentAvi);
     model.addAttribute("avipop",poppulAvi);
-    System.out.println((Member)session.getAttribute("loginUser"));
+    
+    Member loginUser = (Member)session.getAttribute("loginUser");
+    System.out.println(loginUser);
+    if(loginUser != null) {
+      List<Avi> folAvi = aviService.getFolAvi(loginUser.getNo());
+      model.addAttribute("folavi", folAvi);
+    }
     
   }
 

@@ -32,10 +32,8 @@ public class BuskerPromotionController {
 
   @GetMapping(value="list", params="city", produces="text/plain;charset=UTF-8")
   public void city(String city, Model model) {
-    System.out.println("..."+city);
     List<BuskerPromotion> list = buskerPromotionService.SearchByCity(city);
     model.addAttribute("city",list);
-
   }
 
   @PostMapping(value="list", params="city")

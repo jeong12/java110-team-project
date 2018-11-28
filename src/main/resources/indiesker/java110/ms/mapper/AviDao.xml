@@ -44,6 +44,14 @@
 			<result column="cdt" property="cdt" />
 		</collection>
 	</resultMap>
+	
+	<resultMap type="Avi" id="aviMap3">
+        <id column="abno" property="aviboardno" />
+        <result column="titl" property="title" />
+        <result column="stm" property="urlid" />
+        <result column="name" property="teamname" />
+        <result column="lcnt" property="avilikecount" />
+    </resultMap>
 
 	<select id="findByNo" resultMap="aviMap" parameterType="int">
 		SELECT
@@ -122,6 +130,17 @@
 		AND a.abno=af.abno
 		LIMIT 9<!-- 여기 수정해야함 -->
 	</select>
+	
+	<select id="findByFolAvi" resultMap="aviMap3" parameterType="int">
+	  SELECT a.stm, a.titl, b.name
+	    FROM memb m, folw f, busk b, avi a
+	   WHERE m.mno=#{no}
+	     AND m.mno=f.mno
+	     AND b.bno=f.bno
+	     AND b.bno=a.bno
+	ORDER BY a.cdt desc
+	   LIMIT 9
+    </select>
 
 </mapper>
 

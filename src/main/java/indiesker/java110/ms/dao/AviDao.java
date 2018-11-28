@@ -11,4 +11,5 @@ public interface AviDao {
   Avi findByAviNo(int no);
   List<Avi> findRecent(int no);
   Avi findfeedavibyAbno(int no);
+  List<Avi> findByFolAvi(int no);
 }

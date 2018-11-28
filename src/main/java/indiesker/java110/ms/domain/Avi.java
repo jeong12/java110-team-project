@@ -83,6 +83,13 @@ public class Avi extends Busker{
   public void setAvilikecount(int avilikecount) {
     this.avilikecount = avilikecount;
   }
+  @Override
+  public String toString() {
+    return "Avi [aviboardno=" + aviboardno + ", title=" + title + ", content=" + content
+        + ", avilikecount=" + avilikecount + ", cdt=" + cdt + ", url=" + url + ", urlid=" + urlid
+        + ", thumbnail=" + thumbnail + ", buskerno=" + buskerno + ", likeAvi=" + likeAvi
+        + ", comments=" + comments + "]";
+  }
 
   
   
