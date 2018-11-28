@@ -9,7 +9,6 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-    <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
     <link rel="stylesheet" href="http://localhost:8080/css/indiesker.css"/>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="http://localhost:8080/js/filter.js"></script>
@@ -101,7 +100,7 @@ a:focus, a:hover {
 }
 
 .icon-bar a {
-    display: block; text-align: center; padding: 11px;
+    display: block; padding: 11px; margin-left: 1.4rem;
     transition: all 0.5s ease; color: white; font-size: 17px;
     font-weight: 800; text-decoration-line: none;
 }
@@ -145,16 +144,19 @@ a:focus, a:hover {
                 <span class="accordion"><i class="fas fa-chevron-circle-down fa-2x"></i></span>
                   <div class="tab">
                       <div class="icon-bar">
-                          <a href="#"><i class="fas fa-chevron-circle-down"></i>
+                          <a href="#"><i class="fas fa-bookmark"></i>
                           <span class="d-md-inline-block_c">Follow 리스트</span></a>
+                          <a href="#"><i class="fas fa-info-circle"></i>
+                          <span class=" d-md-inline-block_c">내 정보수정</span></a>
+                          <!--버스커일 경우-->
+                          <a href="#"><i class="fa fa-globe"></i>
+                          <span class=" d-md-inline-block_c">내 의뢰현황</span></a>
+                          <!--제공자일 경우--> 
+                          <a href="#"><i class="fa fa-globe"></i>
+                          <span class=" d-md-inline-block_c">무대뭘까연</span></a>  
                           <a href="http://localhost:8080//app/auth/logout" class="logout-btn">
                           <i class="fas fa-sign-out-alt"></i>
                           <span class="d-md-inline-block_c">Sign Out</span></a>
-                          <a href="#"><i class="fa fa-envelope"></i>
-                          <span class=" d-md-inline-block_c">내 정보수정</span></a>
-                          <a href="#"><i class="fa fa-globe"></i>
-                          <span class=" d-md-inline-block_c">내 의뢰현황</span></a> <!--버스커일 경우-->
-                          <span class=" d-md-inline-block_c">제공자뭐할까</span></a> <!--제공자일 경우--> 
                       </div>
                   </div>
                 
@@ -181,23 +183,29 @@ a:focus, a:hover {
         </div>
       </div>
       </div>
-      
-<script>
+
+  <script>
     /* accordion & icon-bar */
-    var acc = document.getElementsByClassName("accordion");
-    var i;
+    
+      var acc = document.getElementsByClassName("accordion");
+      acc[0].addEventListener("click", function(e) {
 
-    for (i = 0; i < acc.length; i++) {
-        acc[i].addEventListener("click", function() {
+          var panel = this.nextElementSibling;
+          if (panel.style.maxHeight) {
+              panel.style.maxHeight = null;
+          } else {
+              panel.style.maxHeight = panel.scrollHeight + "px";
+          }
+          
+          $(document).click(function(e) {
+              if (e.target.parentNode != acc[0]) {
+                  if(panel.style.maxHeight){
+                      panel.style.maxHeight = null;
+                  }
+              }
+          }); 
 
-            var panel = this.nextElementSibling;
-            if (panel.style.maxHeight) {
-                panel.style.maxHeight = null;
-            } else {
-                panel.style.maxHeight = panel.scrollHeight + "px";
-            }
-        });
-    }
-</script>
+      });
+    </script>
 </body>
 </html>

@@ -28,6 +28,7 @@ $.ajax({
 
 
 $('document').ready(function(){
+
     pasing(); //페이징 처리
 
     /*오늘의 공연 검색 기능 */

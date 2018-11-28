@@ -7,6 +7,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
 <title>로그인</title>
+<jsp:include page="../header.jsp"></jsp:include>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
@@ -19,7 +20,7 @@ html, body{
 }
 #container-height{
     min-height:80%;
-    height:auto !important;
+    /* height:auto !important; */
     overflow:hidden !important;
 }
 #login-height{
@@ -28,7 +29,6 @@ html, body{
 }
 </style>
 </head>
-<jsp:include page="../header.jsp"></jsp:include>
 <body>
 <div class="container" id="container-height">
     <div class="row" id="login-height">

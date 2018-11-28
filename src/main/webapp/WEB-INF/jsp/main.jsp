@@ -467,7 +467,6 @@ table {
   $('#carouselPop').find('.custom-item:first').addClass('active');
   $('#carouselRec').find('.custom-item:first').addClass('active');
   $('#carouselFol').find('.custom-item:first').addClass('active');
-
   </script>
 </body>
 <jsp:include page="footer.jsp"></jsp:include>
