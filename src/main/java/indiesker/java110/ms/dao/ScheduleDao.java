@@ -3,7 +3,6 @@ package indiesker.java110.ms.dao;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import org.springframework.scheduling.config.ScheduledTaskHolder;
 import indiesker.java110.ms.domain.Schedule;
 
 public interface ScheduleDao {
@@ -39,5 +38,7 @@ public interface ScheduleDao {
   List<Schedule> showScedule();
   List<Integer> showSsnos(int no);
   List<Schedule> findPossibleStages(Map<String,Object> params);
-  int ApplyStagesinBuskreq(Map<String,Object> params); 
+  int ApplyStagesinBuskreq(Map<String,Object> params);
+  List<Schedule> findMyAllSchedulebyflag(Map<String,Object> params);
+  
 }

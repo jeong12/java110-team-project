@@ -44,6 +44,8 @@ public class ScheduleServiceimpl implements ScheduleService {
       params.put("no", 5);
       return scheduleDao.findMyAllSchedule(params);
     }
+    
+    
 
     @Override
     public List<Schedule> findbydate(String no, String date) {
@@ -235,6 +237,16 @@ public class ScheduleServiceimpl implements ScheduleService {
       params.put("cont", cont);
       params.put("count", count);
     return scheduleDao.ApplyStagesinBuskreq(params);
+    }
+
+    @Override
+    public List<Schedule> mybslistbyflag(int flag, int no, int pageNo, int pageSize) {
+      Map<String,Object> params = new HashMap<>();
+      params.put("flag", flag);
+      params.put("no", no);
+      params.put("rowNo", (pageNo - 1) * pageSize);
+      params.put("size", pageSize); 
+      return scheduleDao.findMyAllSchedulebyflag(params);
     }
     
 }
