@@ -577,8 +577,33 @@ GROUP BY BS.brno
    INSERT INTO `busk_req`(`bno`, `cont`, `cdt`, `cnt`) 
    VALUES (#{bno},#{cont},now(),#{count})
    </insert>
-
-
+   
+   
+   <!-- 스케줄조회 : 확정 버스커 스케줄 출력하는 쿼리 -->
+    <select id="findMyAllSchedulebyflag" resultMap="buskerscheduleMap"
+        parameterType="map">
+        SELECT
+        BR.brno,
+        S.name as name,
+        S.bas_addr as addr,
+        MIN(SC.sdt) as sdt,
+        MAX(SC.edt) as edt,
+        BR.cnt,
+        BS.flag,
+        BR.cdt,
+        S.x,
+        S.y
+        FROM busk B, busk_req BR, busk_stag BS,stag_sche SC, sup S
+        WHERE B.bno=BR.bno
+        AND BR.brno=BS.brno
+        AND BS.ssno=SC.ssno
+        AND SC.sno = S.sno
+        AND BR.bno=#{no}
+        AND BS.flag=#{flag}
+        GROUP BY BS.brno
+        limit #{rowNo}, #{size}
+    </select>
+    
 </mapper>
 
 
