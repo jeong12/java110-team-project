@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indiesker.java110.ms.dao.TotalFeedDao">
+
+    <resultMap type="Busker" id="findTotalFeedMap">
+        <result column="name"  property="teamname"/>
+        <result column="genre"  property="teamgenre"/>
+        <result column="city"  property="city"/>
+        <result column="lcnt"  property="likecount"/>
+        <result column="phot"  property="teamPhoto"/>
+    </resultMap>
+
+    <select id="findTotalFeed" resultMap="findTotalFeedMap" parameterType="map">
+select name, genre, phot, city, lcnt
+from busk
+ORDER by lcnt DESC
+    </select>
+    
+    <select id="findByCity" resultMap="findTotalFeedMap" parameterType="String">
+select name, genre, phot, city, lcnt
+from busk
+where city=#{city}
+ORDER by lcnt DESC
+    </select>
+    
+    <select id="findByTeamname" resultMap="findTotalFeedMap" parameterType="String">
+select name, genre, phot, city, lcnt
+from busk
+where name=#{teamname}
+ORDER by lcnt DESC
+    </select>
+    
+    <select id="findByGenre" resultMap="findTotalFeedMap" parameterType="String">
+select name, genre, phot, city, lcnt
+from busk
+where genre=#{teamgenre}
+ORDER by lcnt DESC
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+
