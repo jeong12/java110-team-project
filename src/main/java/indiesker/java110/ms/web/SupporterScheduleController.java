@@ -41,13 +41,13 @@ public class SupporterScheduleController {
       pageNo = 1;
     if (pageSize < 3 || pageSize > 10)
       pageSize = 9;
-
-    int flag = 1;
     
-    List<Schedule> list = scheduleService.mysslist(pageNo, pageSize);
-    List<Schedule> flist = scheduleService.findSuggestsbyflag(flag, pageNo, pageSize);
+    int sno = 2;
+    int flag=1;
+    List<Schedule> list = scheduleService.mysslist(sno, pageNo, pageSize);
+    List<Schedule> flist = scheduleService.findSuggestsbyflag(sno, flag, pageNo, pageSize);
     flag = 2;
-    List<Schedule> slist = scheduleService.findSuggestsbyflag(flag, pageNo, pageSize);
+    List<Schedule> slist = scheduleService.findSuggestsbyflag(sno, flag, pageNo, pageSize);
     
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     SimpleDateFormat hformat = new SimpleDateFormat("HH:mm");
@@ -72,46 +72,6 @@ public class SupporterScheduleController {
     model.addAttribute("slist",slist);
   }
 
-
-  @ResponseBody
-  @RequestMapping("chkFlag")
-  public List<Schedule> findSuggestsbyflag(
-      String flag, @RequestParam(defaultValue="1")int pageNo, 
-      @RequestParam(defaultValue="9")int pageSize, Model model) {
-
-    if (pageNo < 1)
-      pageNo = 1;
-    if (pageSize < 3 || pageSize > 10)
-      pageSize = 9;
-
-    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-    SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
-
-    if(flag.equals("1")||flag.equals("2")) {
-      List<Schedule> flist = scheduleService.findSuggestsbyflag(Integer.parseInt(flag), pageNo, pageSize);
-      for (Schedule ps : flist) {
-        ps.setNsdt(format.format(ps.getSdt()));
-        ps.setNedt(format.format(ps.getEdt()));
-        ps.setNcdt(dformat.format(ps.getCdt()));
-      }
-
-      for (Schedule s : flist) {
-        System.out.println(s.getSno());
-      }
-      System.out.println(flist);
-      return flist;    
-    }else{
-      List<Schedule> flist = scheduleService.mysslist(pageNo, pageSize);
-      for (Schedule fs : flist) {
-        fs.setNsdt(format.format(fs.getSdt()));
-        fs.setNedt(format.format(fs.getEdt()));
-        fs.setNcdt(dformat.format(fs.getCdt()));
-      }
-      System.out.println(flist);
-      return flist;
-    }
-    
-  }
 
   @ResponseBody
   @RequestMapping("showDate")

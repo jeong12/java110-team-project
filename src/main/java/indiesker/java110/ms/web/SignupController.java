@@ -1,7 +1,9 @@
 package indiesker.java110.ms.web;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 import javax.servlet.ServletContext;
 import org.springframework.stereotype.Controller;
@@ -144,30 +146,33 @@ public class SignupController{
   public void add(Supporter s, StagePhoto sp, Model model, @RequestParam MultipartFile file1, 
       @RequestParam MultipartFile file2, @RequestParam MultipartFile file3) throws Exception {
     String id= (String) bsuknsup.get("id");
-    System.out.println(id);
     int no = memberService.findNoById(id);
     s.setNo(no);
     sp.setSno(no);
-    supporterService.add(s);
-    
+    List<StagePhoto> splist = new ArrayList<>();
+    System.out.println(s);
     if (file1.getSize() > 0) {
       String filename = UUID.randomUUID().toString();
       file1.transferTo(new File(sc.getRealPath("/upload/" + filename)));
       sp.setPhoto(filename);
+      splist.add(0, sp);
     }
-    supporterService.insert(sp);
+    
     if (file2.getSize() > 0) {
       String filename = UUID.randomUUID().toString();
       file2.transferTo(new File(sc.getRealPath("/upload/" + filename)));
       sp.setPhoto(filename);
+      splist.add(1,sp);
     }
-    supporterService.insert(sp);
     if (file3.getSize() > 0) {
       String filename = UUID.randomUUID().toString();
       file3.transferTo(new File(sc.getRealPath("/upload/" + filename)));
       sp.setPhoto(filename);
+      splist.add(2,sp);
     }
-    supporterService.insert(sp);   
+    s.setStagesphoto(splist);
+    
+    supporterService.insert(s);  
 
   }
 

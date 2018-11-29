@@ -23,7 +23,7 @@ $(function() {
 	})
 });
 
-
+// 탭으로 필터 처리
 $('ul.tabs li').click(function(){
 	var tab_id = $(this).attr('data-tab');
 	$('ul.tabs li').removeClass('current');
@@ -34,7 +34,6 @@ $('ul.tabs li').click(function(){
 	
 	
 });
-
 
 
 
@@ -56,6 +55,7 @@ function add(){
 		data : {"date" : td},
 		success : function(data){
 			$('.insertDate tbody').empty();
+			if(data.length<=10){
 			$.each(data,function(index,item){
 				$(".insertDate tbody").append(
 						'<tr>'+
@@ -65,12 +65,17 @@ function add(){
 			$(".insertDate tbody").append(
 					'<tr>'+
 					'<td>' + '<button onclick="addDate()">등록하기</button>'+'</td>'+
-					'</tr>'
-			)},
+					'</tr>');
+			}else{
+				
+				
+			}
+			},
 			error : function(request, status, error) {
 				alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
 			}});
 }
+
 
 //삭제가능한 무대일정 출력&체크할 수 있게
 function remove(){
@@ -188,6 +193,7 @@ function addDate(){
 
 function chk(e){
 	var brno = e.value;
+	console.log(brno);
 	$.ajax({ 
 		type : "GET", 
 		url : "showInfo", 

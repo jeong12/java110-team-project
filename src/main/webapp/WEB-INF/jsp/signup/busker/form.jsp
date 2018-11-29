@@ -145,7 +145,7 @@ select {
             </select><br>
              <label for="city">도시</label><br>
             <input type="text" name="city" id="city" oninput="checkCity()"
-                size=30><br> <span id="cityMsg"></span>
+                size=30><br> <span id="cityMsg"></span><br>
              <label for="tel">전화번호</label><br>
             <input type="tel" name="tel" id="tel" oninput="checkTel()" size=30>
             <br> <span id="telMsg"></span>
