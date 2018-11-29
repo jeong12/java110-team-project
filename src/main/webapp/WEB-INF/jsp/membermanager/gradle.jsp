@@ -1,7 +1,8 @@
 <%@ page language="java" 
-contentType="text/html; charset=UTF-8"
+    contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,31 +13,30 @@ contentType="text/html; charset=UTF-8"
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<title>Insert title here</title>
 </head>
+<title>관리자</title>
+</head>
+
 <style>
 
-.tab{display: none;
-}
-.hide-bullets {list-style:none;
-margin-left: -40px;
-margin-top:20px;
-}
-    #mmain{margin-left:  8%; margin-top: 15px;}
+.tab{display: none;}
+.hide-bullets {list-style:none;margin-left:-40px;margin-top:20px;}
+    #mmain{margin-left:8%; margin-top: 15px;}
     #myCarousel{width: 400px;}
     #myCarousel2{width: 400px;}
     #ff{width: 400px;height: 200px;}
-    #ig{width: 133px;height: 60px;}
-    .thumbnail{padding: 0px; }
-    .mli{width: 133px;height: 50px; float: left;}
-   
-    .aac{margin-left: -24px; margin-top: 0px;}
+    #ig{width: 129px;height: 60px;}            
+    .mli{padding:0px; float: left;}
+    .aac{ margin-top: 0px; margin-left:3%;}
     .aad{margin-left: -24px; margin-top: 0px;}
-    .mtb{margin: auto; margin:26px auto 20px; ;
-        border: 1px solid silver;
+    .mtb{
+        margin: auto; margin:26px auto 20px;
+        border: 1px solid silver; !importatnt;
         width: 500px; padding: 10px; padding-bottom: 30px;
     }
-    .btb{margin: auto; margin:26px auto 20px; ;
+ 
+    .btb{margin: auto; margin:26px auto 20px; 
+    background-color:red;
         border: 1px solid silver;
         width: 500px; padding: 10px; padding-bottom: 30px;
     }
@@ -44,6 +44,8 @@ margin-top:20px;
     #ttl{margin-left: 21px;}
     .mtb label{float:left;}
 </style>
+
+
 <body>
        <button class="bt1 btn-default btn-sm"  onclick="openCity('bt1')">전체</button>
        <button class="bt2 btn-primary btn-sm" value="2" onclick="openCity('bt2')">버스커</button>
@@ -207,9 +209,10 @@ margin-top:20px;
                 </div><!--/Slider-->
                 <div class="aab row hidden-xs" id="slider-thumbs">
                         <!-- Bottom switcher of slider -->
-                        <ul class="aac hide-bullets">
-                           
-                        
+                        <div class="aac">
+                       
+                         
+                       
                      <!--        <li class="mli">
                                 <a class="thumbnail" id="carousel-selector-0"><img id="ig" src=""></a>
                             </li>
@@ -221,11 +224,13 @@ margin-top:20px;
                             <li class="mli">
                                 <a class="thumbnail" id="carousel-selector-2"><img id="ig" src=""></a>
                             </li> -->
-
-                        </ul>                 
+                   
+                          
+                        </div>             
                 </div>
         </div>
 </div>
+<div class="maaa">
 <div class="mtb">
         <label>장소명 :</label><div class="sname"></div>
         <label>인원 :</label><div class="scnt"></div>
@@ -234,6 +239,7 @@ margin-top:20px;
         <label>연락처 :</label><div class="stel"></div>
         <label>희망사항 :</label><div class="smessage"></div>
  </div>    
+ </div>
       <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
       </div>
@@ -311,7 +317,7 @@ margin-top:20px;
         </div>
 </div>
 
-    <div class="mtb">
+    <div class="btb">
         <label>팀명 :</label><div class="bname"></div>
         <label>선호지역 :</label><div class="bcity"></div>
         <label>장르 :</label><div class="bgenre"></div>
@@ -333,8 +339,11 @@ margin-top:20px;
  <!-- 버스커모달 여기까지 -->
  
 </body>
-<script>
 
+
+
+
+<script>
 $('.gradleSupUpdate').click(function(){
 	var no = $(this).val();
 	alert(no);
@@ -402,12 +411,16 @@ $('.dtailSupbutton').click(function(){
 	         $.each(data.stagephotos,function(index,item){
 	        	 $(".ttttt").append("<div class='item' data-slide-number='"+index+"'><img id='ff' src="+item.photo+"></div>")
 	         });
-	         $.each(data.stagephotos,function(index,item){
-	        	 $(".aac").append("<li class='mli'><a class='carousel-selector-"+index+"'><img id='ig' src="+item.photo+"></a></li>")
-	         });
-	         
+	          $.each(data.stagephotos,function(index,item){
+         	 $(".aac").append("<button value="+item.photo+" class='mli'><img id='ig'class='photoimg' src="+item.photo+"></button>")
+	         }); 
+	         $(".mli").click(function(){
+	             var src = $(this).val();
+	             $(".ttttt").empty();
+	             $(".ttttt").append("<img id='ff'class='photoimg' src="+src+">")
+	         })  
 	         $(".item:first").removeClass("item").addClass("active item");
-	                                             
+	                                          
 	                $(".sname").append('<p>'+data.name+'</p>');
 	                $(".scnt").append('<p>'+data.capa+'</p>');
 	                $(".saddr").append('<p>'+data.detailaddr+'</p>');
