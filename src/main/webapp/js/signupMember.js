@@ -7,10 +7,12 @@
     var chkFile=1;
         
     function ChkCount(obj){
+    	
         var chkbox = document.getElementsByName("genre");
         var chkCnt=0;
         for(var i=0;i<chkbox.length; i++){
             if(chkbox[i].checked){
+            	alert(chkbox[i]);
                 chkCnt++;
             }
         }
@@ -18,7 +20,6 @@
             chkGenre =1;
             if(chkId==1 && chkPwd == 1 && chkEmail ==1 && chkNick ==1 && chkGenre==1 && chkFile==1){
                 $(".signupbtn").prop("disabled", false);
-                $(".signupbtn").css("background-color", "#4CAF50");
             }
         }else if(chkCnt>3){
             alert("최대 3개까지만 선택하실 수 있습니다.");
@@ -26,13 +27,13 @@
             obj.checked = false;
             return false;
           }else if(chkCnt<3){
-            $(".signupbtn").prop("disabled", true);          
+            $(".signupbtn").prop("disabled", true);
         }
-    }
+    };
     
     function sendMsg(){
         alert($('#checknickname').val() + '님 환영합니다!')
-        }
+        };
     
     function checkId(){
         var inputed = $('#checkid').val();
@@ -45,7 +46,6 @@
             success : function(data) {
                 if(inputed=="" && data=='0') {
                     $(".signupbtn").prop("disabled", true);
-                    $(".signupbtn").css("background-color", "#aaaaaa");
                     $("#checkid").css("background-color", "#FFCECE");
                     $("#idMsg").html("아이디를 입력해주세요.")
                     chkId = 0;
@@ -55,21 +55,19 @@
                     chkId = 1;
                     if(chkId==1 && chkPwd == 1 && chkEmail ==1 && chkNick ==1 && chkGenre==1 && chkFile==1) {
                         $(".signupbtn").prop("disabled", false);
-                        $(".signupbtn").css("background-color", "#4CAF50");
                     } 
                 } else if (data >= '1') {
                     $(".signupbtn").prop("disabled", true);
-                    $(".signupbtn").css("background-color", "#aaaaaa");
                     $("#checkid").css("background-color", "#FFCECE");
                     $("#idMsg").html("이미 존재하는 아이디입니다.")
                     chkId = 0;
                 } 
             }
         });
-    }
+    };
     
     function checkPwd() {
-        var inputed = $('.pass').val();
+        var inputed = $('#pwd').val();
         var reinputed = $('#repwd').val();
             
         if(/^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(inputed)){
@@ -84,7 +82,6 @@
         if(reinputed=="" && (inputed != reinputed || inputed == reinputed)){
             $("#rePassword").html("위와 같은 비밀먼호를 입력해주세요")
             $(".signupbtn").prop("disabled", true);
-            $(".signupbtn").css("background-color", "#aaaaaa");
             $("#repwd").css("background-color", "#FFCECE");
         }
         else if (inputed == reinputed) {
@@ -93,17 +90,15 @@
             chkPwd = 1;
             if(chkId==1 && chkPwd == 1 && chkEmail ==1 && chkNick==1 && chkGenre==1 && chkFile==1) {
                 $(".signupbtn").prop("disabled", false);
-                $(".signupbtn").css("background-color", "#4CAF50");
             }
         } else if (inputed != reinputed) {
             $("#rePassword").html("비밀번호가 일치하지않습니다.")
             chkPwd = 0;
             $(".signupbtn").prop("disabled", true);
-            $(".signupbtn").css("background-color", "#aaaaaa");
             $("#repwd").css("background-color", "#FFCECE");
             
         }
-    }
+    };
     
     function checkEmail(){
         var inserted =$('#checkemail').val();
@@ -115,7 +110,6 @@
             success : function(data) {
                 if(inserted=="" && data=='0') {
                     $(".signupbtn").prop("disabled", true);
-                    $(".signupbtn").css("background-color", "#aaaaaa");
                     $("#checkemail").css("background-color", "#FFCECE");
                     $("#emailMsg").html("이메일을 입력해주세요.")
                     chkEmail = 0;
@@ -125,18 +119,21 @@
                     chkEmail = 1;
                     if(chkId==1 && chkPwd == 1 && chkEmail ==1 && chkNick ==1 && chkGenre==1 && chkFile==1) {
                         $(".signupbtn").prop("disabled", false);
-                        $(".signupbtn").css("background-color", "#4CAF50");
                     } 
                 } else if (data >= '1') {
                     $(".signupbtn").prop("disabled", true);
                     $("#emailMsg").html("이미 존재하는 이메일입니다.")
-                    $(".signupbtn").css("background-color", "#aaaaaa");
                     $("#checkemail").css("background-color", "#FFCECE");
                     chkEmail = 0;
-                } 
+                }else if (data = '-1') {
+                    $(".signupbtn").prop("disabled", true);
+                    $("#emailMsg").html("정확한 이메일을 입력해주세요.")
+                    $("#checkemail").css("background-color", "#FFCECE");
+                    chkEmail = 0;
+                }
             }
         });
-    }
+    };
     
     function checkNickname(){
         var nick =$('#checknickname').val();
@@ -148,7 +145,6 @@
             success : function(data) {
                 if(nick=="" && data=='0') {
                     $(".signupbtn").prop("disabled", true);
-                    $(".signupbtn").css("background-color", "#aaaaaa");
                     $("#checknickname").css("background-color", "#FFCECE");
                     $("#nickMsg").html("닉네임을 입력해주세요.")
                     chkNick = 0;
@@ -158,18 +154,17 @@
                     chkNick = 1;
                     if(chkId==1 && chkPwd == 1 && chkEmail==1 && chkNick==1 && chkGenre==1 & chkFile==1) {
                         $(".signupbtn").prop("disabled", false);
-                        $(".signupbtn").css("background-color", "#4CAF50");
+                        $(".signupbtn").removeAttr("background-color");
                     } 
                 } else if (data >= '1') {
                     $(".signupbtn").prop("disabled", true);
                     $("#nickMsg").html("이미 존재하는 닉네임입니다.")
-                    $(".signupbtn").css("background-color", "#aaaaaa");
                     $("#checknickname").css("background-color", "#FFCECE");
                     chkNick = 0;
                 } 
             }
         });
-    }
+    };
 
     function readURL(input) { 
     
@@ -180,7 +175,9 @@
         $(".signupbtn").prop("disabled", true);
         alert("이미지 파일만 올려주세요");
         $('#upload').attr('src', "/img/anonymous.png");}
-    else if (input.files && input.files[0]){ 
+    else if (input.files && input.files[0]){
+    	console.log(input.files);
+    	console.log(input.files[0]);
             var reader = new FileReader(); 
         reader.onload = function (e) { 
             $('#upload').attr('src', e.target.result); } 
@@ -188,10 +185,11 @@
     chkFile = 1;
     if(chkId==1 && chkPwd == 1 && chkEmail==1 && chkNick==1 && chkGenre==1 & chkFile==1) {
         $(".signupbtn").prop("disabled", false);
-        $(".signupbtn").css("background-color", "#4CAF50");
+        $(".signupbtn").removeAttr("background-color");
     } 
     }
-    }
+    };
+    
     function ChkCount(obj){
         var chkbox = document.getElementsByName("genre");
         var chkCnt=0;
@@ -204,7 +202,6 @@
             chkGenre =1;
             if(chkId==1 && chkPwd == 1 && chkEmail ==1 && chkNick ==1 && chkGenre==1 && chkFile==1){
                 $(".signupbtn").prop("disabled", false);
-                $(".signupbtn").css("background-color", "#4CAF50");
             }
         }else if(chkCnt>3){
             alert("최대 3개까지만 선택하실 수 있습니다.");
@@ -214,5 +211,6 @@
           }else if(chkCnt<3){
             $(".signupbtn").prop("disabled", true);          
         }
-    }
+    };
     
+

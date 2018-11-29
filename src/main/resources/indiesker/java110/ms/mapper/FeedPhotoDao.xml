@@ -109,6 +109,24 @@
 	<!-- 사진상세보기(모달) <select id="findByImage" resultMap=> SELECT P.pbno, FP.phot, 
 		B.phot,B.name,B.genre, B.city, P.cont,P.lcnt FROM phot P,busk B,feed_phot 
 		FP WHERE P.bno=B.bno AND P.pbno=FP.pbno AND P.pbno=14 </select> -->
+    
+	<insert id="feedPhotoUpload" parameterType="map"
+		useGeneratedKeys="true" keyColumn="pbno" keyProperty="pbno">
+		insert into phot (cont,lcnt,cdt,bno)
+		values( #{cont},0,now(),#{no})
+		<selectKey resultType="integer" keyProperty="pbno" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+    <insert id="feedPhotoFileUpload" parameterType="map"
+        useGeneratedKeys="true" keyColumn="fpno" keyProperty="fpno">
+        INSERT INTO 'feed_phot` (phot,pbno) 
+        values
+        <foreach collection="list" item="item" separator=",">
+        (#{photsrc},#{pbno})
+        </foreach>
+    </insert>
 
 </mapper>
 

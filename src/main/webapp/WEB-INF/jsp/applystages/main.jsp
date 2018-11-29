@@ -93,7 +93,7 @@ list-style: none;
     <tr><td>수용가능인원</td><td>${list.capa}</td></tr> 
     <tr><td>희망 장르</td><td>${list.sgnere}</td></tr> 
     <tr><td>연락처</td><td>${list.tel}</td></tr> 
-    <tr><td>장소 소개</td><td>${list.message}</td></tr>    
+    <tr><td>장소 위치</td><td>${list.message}</td></tr>    
     </tbody>
     </table>
     </div>
@@ -119,11 +119,12 @@ list-style: none;
         </ul>
       </div>
       <div class="content">
+      <label for="count">팀 인원</label>
+      <input type="number" id="count"><br> 
+      <br> <span id="countMsg"></span><br>
       <label for="cont">추가 전달사항</label><br>
       <textarea name="cont" id="cont" cols="40" rows="8"></textarea><br>
-      <label for="count">팀 인원</label>
-      <input type="number" id="count" name="count"><br> 
-      <button onclick="applyStage()" id='applybtn' disabled="disabled">신청하기</button>
+      <button type="button" onclick="applyStage()" id='applybtn'>신청하기</button>
       </div>      
       </div>
       <!-- Footer -->
@@ -150,8 +151,8 @@ list-style: none;
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 
-
 <script>
+document.getElementById("cont").focus();
 var _prevObj = null;
 $(function() {  
   $('#calendar').fullCalendar({      
@@ -163,11 +164,12 @@ $(function() {
               if(_prevObj) {
                   _prevObj.css('background-color', 'white');
                   $(this).css('background-color', 'gray');
-              } else {
+              } else 
                   $(this).css('background-color', 'gray');
-              }
+
               _prevObj = $(this); 
             $("#selectday h2").html(date.format());
+            $('.applydates tbody').empty();
             
             $.ajax({ 
                 type : "POST", 
@@ -178,33 +180,30 @@ $(function() {
                         $("#selectday h3").empty();
                  if(data.length==0){
                     // 해당일의 데이터가 없을경우 
-                    $("#selectday h3").append('해당일의 무대가 존재하지않습니다.');
+                    $(".applydates tbody").append('<p>해당일의 무대가 존재하지않습니다.</p>');
+                    return
                 }else{
-                }
+                
        $.each(data,function(index,item){
-                    	$(".applydates tbody").append(
-                                '<tr>'+
-                                '<td>'+'<input type="checkbox" name="applydate" value="'+item.sno+'_'+item.nsdt+'~'+item.nedt+'">'+
-                                item.nsdt+'~'+item.nedt+
-                                '</td>'+
-                        '</tr>');
-                    });
-       $(".applydates tbody").append(
-               '<tr>'+
-               '<td>' + '<button type="button" class="abtn btn-default" data-target="#addcontModal"'+ 
-               'onclick="addcont()">신청하기</button><br/></td>'+
-               '</tr>'
-       );
-                     },
+               	$(".applydates tbody").append(
+               	 '<tr>'+
+                 '<td>'+'<input type="checkbox" name="applydate"'+ 
+                 'value="'+item.sno+'_'+item.nsdt+'~'+item.nedt+'">'+item.nsdt+'~'+item.nedt+
+                 '</td>'+'</tr>');
+               	});
+       
+                $(".applydates tbody").append(
+                  '<tr><td>' + 
+                  '<button type="button" class="abtn btn-default" data-target="#addcontModal"'+ 
+                  'onclick="addcont()">신청하기</button><br/></td></tr>');
+                }},
                 error : function(request, status, error) {
                     alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
                 }
             });
           }  
   }})
-  
 });
-
 
 
 function addcont(){
@@ -226,23 +225,21 @@ function addcont(){
         $('#addcontModal').modal('hide');
         return
     }
+   
+    $('#addcontModal').on('shown.bs.modal',function(){
+    	document.getElementById("count").focus();
+    });
     
     $('#addcontModal').modal('show');
     $.each(chks,function(index,item){
     $('.info ul').append(
     		'<li>'+item+'</li>');    	
-    }
-    )
-    
-    var count = $('#count').val();
-    if(count.size != 0){
-    	$('#applybtn').prop("disabled",false);
-    }
-    
+    });
 };
 
 
 function applyStage(){
+	document.getElementById("count").focus(); 
     var chkbox = document.getElementsByName("applydate");
     var chkCnt=0;
     var addchk = new Array();
@@ -279,6 +276,16 @@ function applyStage(){
 }
 
 
+$('#count').on("focusout",function(){
+    var cnt = $('#count').val();
+    if(cnt == "" || cnt == 0){
+       $('#applybtn').prop("disabled", true);
+       $('#countMsg').html("1 이상의 팀원 수를 적어주세요").css("background-color", "#FFCECE");
+    }else{
+    	 $('#applybtn').prop("disabled", false);
+    	  $('#countMsg').html("");
+    }
+});
 
 
  var container = document.getElementById('map');

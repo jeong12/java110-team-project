@@ -77,7 +77,11 @@ public class SignupController{
   @ResponseBody
   @RequestMapping("member/checkEmail")
   public int checkEmail(String email, Model model) throws Exception {
-    return memberService.checkEmail(email);
+    
+    if(email.contains("@")) {
+      return memberService.checkEmail(email);
+    }
+    return -1;
   }
 
   @ResponseBody
@@ -110,8 +114,13 @@ public class SignupController{
     String fileName = (String) bsuknsup.get("file");
     String id= (String) bsuknsup.get("id");
     int no = memberService.findNoById(id);
-    buskers.setAvi1(url1);
-    buskers.setAvi2(url2);
+    
+    String[]fid = url1.split("=");
+    String[]sid = url2.split("=");
+
+    buskers.setAvi1(fid[1]);
+    buskers.setAvi2(sid[1]);
+    
     buskers.setTeamPhoto(fileName);
     buskers.setNo(no);
     System.out.println(buskers);
