@@ -71,8 +71,9 @@ public class ScheduleServiceimpl implements ScheduleService {
     }
 
     @Override
-    public List<Schedule> mysslist(int pageNo, int pageSize) {
+    public List<Schedule> mysslist(int no, int pageNo, int pageSize) {
       HashMap<String,Object> params = new HashMap<>();
+      params.put("no", no);
       params.put("rowNo", (pageNo - 1) * pageSize);
       params.put("size", pageSize);      
       return scheduleDao.findreqschedule(params);
@@ -98,9 +99,9 @@ public class ScheduleServiceimpl implements ScheduleService {
     }
 
     @Override
-    public List<Schedule> findSuggestsbyflag(int flag,int pageNo, int pageSize) {
-      System.out.println(flag);
+    public List<Schedule> findSuggestsbyflag(int no, int flag,int pageNo, int pageSize) {
       HashMap<String,Object> params = new HashMap<>();
+      params.put("no", no);
       params.put("flag", flag);
       params.put("rowNo", (pageNo - 1) * pageSize);
       params.put("size", pageSize); 
@@ -232,17 +233,18 @@ public class ScheduleServiceimpl implements ScheduleService {
     }
     
     @Override
-    public int ApplyStagesinBuskreq(int no, String cont, String count) {
+    public int ApplyStages(int no, String cont, String count,ArrayList<Integer>ssno) {
       Map<String,Object> params = new HashMap<>();
       params.put("bno", no);
       params.put("cont", cont);
       params.put("count", count);
       scheduleDao.ApplyStagesinBuskreq(params);
-      System.out.println(params.get("brno"));
-      return (int) params.get("brno");
+      int brno = (int) params.get("brno");
+      params.put("brno", brno);
+      params.put("list", ssno);
+      return scheduleDao.ApplyStagesinBuskstag(params);
     }
 
-    @Override
     public List<Schedule> mybslistbyflag(int flag, int no, int pageNo, int pageSize) {
       Map<String,Object> params = new HashMap<>();
       params.put("flag", flag);
@@ -258,13 +260,5 @@ public class ScheduleServiceimpl implements ScheduleService {
     public String weekOfAvi() {
       return "test";
     }
-     
-    @Override
-    public int ApplyStagesinBuskstag(ArrayList<Integer> ssno, int brno) {
-      Map<String,Object>params = new HashMap<>();
-      params.put("list", ssno);
-      params.put("brno", brno);
-      return scheduleDao.ApplyStagesinBuskstag(params);
-    }
-    
+
 }
