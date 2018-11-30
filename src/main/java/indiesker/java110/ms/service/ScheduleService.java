@@ -31,11 +31,13 @@ public interface ScheduleService {
     List<Schedule> showpast(int no, String date);
     int checkperschedule(String sdt, String edt, int no);
     int checkreqschedule(String sdt, String edt, int no);
-    void editperschedule(Schedule schedule);
+    int editperschedule(Schedule schedule);
     List<Schedule> showScedule();
     List<Integer> showSsnos(int no);
     List<Schedule> findPossibleStages(int no, String date);
     int ApplyStagesinBuskreq(int no, String cont, String count);
     String weekOfAvi();
     List<Schedule> mybslistbyflag(int flag, int no, int pageNo, int pageSize);
+    int checkeditperschedule(String sdt, String edt, String nsdt, String nedt, int no);
+    int checkeditreqschedule(String sdt, String edt, String nsdt, String nedt, int no);
 }
