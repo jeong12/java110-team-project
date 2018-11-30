@@ -521,7 +521,6 @@ GROUP BY BS.brno
        set sdt=#{nsdt}, edt=#{nedt}, addr=#{addr}, x=#{x}, y=#{y}, shopname=#{shopname}, cnt=#{cnt}, cdt=now()
      where psno=#{sno}
 
-
 </update>
     
 	
@@ -630,6 +629,38 @@ GROUP BY BS.brno
           and flag=#{flag}
           GROUP BY br.brno)as b
     </select>
+
+<select id="checkeditreqschedule" parameterType="map" resultType="int">
+    SELECT COUNT(*) 
+      FROM 
+            (SELECT sdt, edt
+               FROM (SELECT SS.sdt as sdt, SS.edt as edt
+                       FROM busk B, busk_req BR, busk_stag BS, stag_sche SS 
+                      WHERE B.bno = BR.bno
+                        AND BR.brno = BS.brno
+                        AND BS.ssno = SS.ssno
+                        AND B.bno=#{no}
+                   GROUP BY BS.brno
+                     ) c
+              WHERE sdt NOT BETWEEN #{sdt} and #{edt}
+                AND edt NOT BETWEEN #{sdt} and #{edt}
+             ) d
+     WHERE sdt BETWEEN #{nsdt} and #{nedt}
+        OR edt BETWEEN #{nsdt} and #{nedt}
+</select>
+
+<select id="checkeditperschedule" parameterType="map" resultType="int">
+    SELECT COUNT(*)
+    FROM(SELECT sdt, edt
+           FROM per_sche
+          WHERE sdt NOT BETWEEN #{sdt} and #{edt}
+            AND edt NOT BETWEEN #{sdt} and #{edt}
+            AND bno=#{no}
+        )  c
+   WHERE sdt BETWEEN #{nsdt} and #{nedt}
+      OR edt BETWEEN #{nsdt} and #{nedt}
+</select>    
+
 </mapper>
 
 

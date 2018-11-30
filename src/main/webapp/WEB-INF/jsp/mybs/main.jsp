@@ -11,10 +11,13 @@
 <link rel="stylesheet"
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 <!-- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css"> -->
-
 <link rel="stylesheet" type="text/css"
     href="/../css/jquery.datetimepicker.css">
     
+<!-- 모달내부 css -->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha256-3dkvEK0WLHRJ7/Csr0BZjAWxERc5WH7bdeUya2aXxdU= sha512-+L4yy6FRcDGbXJ9mPG8MT/3UCDzwR9gPeyFNMCtInsol++5m3bk2bXWKdZjvybmohrAsn3Ua5x8gfLnbE1YkOg==" crossorigin="anonymous">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+
 <link href="/css/fullcalendar.min.css" rel="stylesheet">
 <style>
 #calendar {
@@ -79,10 +82,17 @@ display: none;
 display:inherit;
 }
 
+#map{
+    margin-top: 10px;
+    border: 3px solid gray;
+}
 </style>
 
 </head>
 <body>
+    <%-- <jsp:include page="../header.jsp"></jsp:include> --%> 
+
+
 	<div id="titl">
 		<img id="logo" src="/img/playButton.PNG" alt="플레이로고">
 		<h2>버스킹 일정</h2>
@@ -98,7 +108,7 @@ display:inherit;
 			<div class="agenda" style="float: left;">
 				<div class="table-responsive">
 					<div id='selectday'>
-						<h4></h4>
+						<h4>날짜를 선택해주세요.</h4>
 						<table class="table table-condensed table-bordered">
 							<thead>
 								<tr>
@@ -185,7 +195,6 @@ display:inherit;
 			                        </c:otherwise>
 								</c:choose></td>
 							<td>${list.cdt}</td>
-		
 							<c:choose>
 								<c:when test="${list.supporter eq null }">
 									<td>
@@ -326,8 +335,86 @@ display:inherit;
 </div>		
         		
 
+<style>
+input, textarea, button { margin-top:0px }
 
-	<!-- 모달 id -->
+/* Required field START */
+
+.required-field-block {
+    position: relative;   
+}
+
+.required-field-block .required-icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin: -0.25em 0.25em 0em;
+    background-color: #E8E8E8;
+    border-color: #E8E8E8;
+    padding: 0.5em 0.8em;
+    color: rgba(0, 0, 0, 0.65);
+    text-transform: uppercase;
+    font-weight: normal;
+    border-radius: 0.325em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: background 0.1s linear;
+    -moz-transition: background 0.1s linear;
+    transition: background 0.1s linear;
+    font-size: 75%;
+}
+    
+.required-field-block .required-icon {
+    background-color: transparent;
+    position: absolute;
+    top: 0em;
+    right: 0em;
+    z-index: 10;
+    margin: 0em;
+    width: 30px;
+    height: 30px;
+    padding: 0em;
+    text-align: center;
+    -webkit-transition: color 0.2s ease;
+    -moz-transition: color 0.2s ease;
+    transition: color 0.2s ease;
+}
+
+.required-field-block .required-icon:after {
+    position: absolute;
+    content: "";
+    right: 1px;
+    top: 1px;
+    z-index: -1;
+    width: 0em;
+    height: 0em;
+    border-top: 0em solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 30px solid transparent;
+    border-left: 0em solid transparent;
+    border-right-color: inherit;
+    -webkit-transition: border-color 0.2s ease;
+    -moz-transition: border-color 0.2s ease;
+    transition: border-color 0.2s ease;
+}
+
+.required-field-block .required-icon .text {
+    color: #B80000;
+    font-size: 26px;
+    margin: -3px 0 0 12px;
+}
+
+
+.col-md-4.control-label{
+    width:25%;
+}  
+    
+
+    
+</style>
+
+	<!-- 스케줄 등록모달 -->
 	<div id="myModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 
@@ -335,50 +422,121 @@ display:inherit;
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">개인스케줄 올리기</h4>
+					<h4 class="modal-title">개인스케줄 등록하기</h4>
 				</div>
 				<div class="modal-body">
-					<form action='add' method='post' enctype="multipart/form-data">
-						<table>
-							<tbody>
-								<tr>
-									<th>장소명</th>
-									<td><input type='text' name='shopname'></td>
-								</tr>
-								<tr>
-									<th>스케줄일정</th>
-									<td><input type="text" name='nsdt' id='regstarttimepicker'
-										autocomplete="off">~<input type="text" name='nedt'
-										id='regendtimepicker' autocomplete="off"><p id='datecheck'></p></td>
-								</tr>
-								<tr>
-									<th>인원</th>
-									<td><input type="text" name='cnt'></td>
-								</tr>
-								<tr>
-									<th>주소검색</th>
-									<td><input type="text" id="addr" name="addr"
-										placeholder="주소"> <input type="button"
-										onclick="search_addr()" value="주소 검색"><br>
-										<div id="map"
-											style="width: 400px; height: 400px; margin-top: 10px; display: none"></div>
-										<input type="text" id="x" name="x" style="display: none">
-										<input type="text" id="y" name="y" style="display: none">
-									</td>
-								</tr>
-								<tr>
-									<th></th>
-									<td><button class="btn btn-default" id='appbtn'>등록</button></td>
-								</tr>
-							</tbody>
-						</table>
+				
+				    <!-- <div class="container"> -->
+					<div class="row" style="width:auto">
+					<div class="col-md-12">
+					<form action='add' method='post' enctype="multipart/form-data" class="form-horizontal" >
+					<fieldset>
+					
+					<!-- 장소 입력 input -->
+					<div class="form-group">
+					  <label class="col-md-4 control-label" for="shopname">장소명</label>  
+					  <div class="col-md-5">
+					 <div class="input-group">
+					       <div class="input-group-addon">
+					        <i class="fa fa-user">
+					        </i>
+					       </div>
+					       <input id="shopname" name="shopname" type="text" placeholder="장소/상호명" class="form-control input-md">
+					      </div>
+					  </div>
+					</div>
+					
+					<!-- 인원 입력 input -->
+					<div class="form-group">
+					  <label class="col-md-4 control-label" for="cnt">인원</label>  
+					  <div class="col-md-5">
+					  <div class="input-group">
+					       <div class="input-group-addon">
+					      <i class="fa fa-male" style="font-size: 20px;"></i>
+					        
+					       </div>
+					      <input id="cnt" name="cnt" type="text" placeholder="공연인원수" class="form-control input-md">
+					
+					      </div>
+					    
+					  </div>
+					</div>
+					
+					<!-- 공연일시 input -->
+					<div class="form-group">
+					  <label class="col-md-4 control-label col-xs-12" for="regstarttimepicker">공연시간</label>  
+					  <div class="col-md-4  col-xs-4">
+					     <div class="input-group">
+					          <div class="input-group-addon">
+					             <i class="fa fa-clock-o"></i>
+					           </div>
+					          <input id="regstarttimepicker" name="nsdt" type="text" placeholder="시작일시" class="form-control input-md" autocomplete="off">
+					      </div>
+					  </div>
+					
+					  <div class="col-md-3 col-xs-4">
+					    <div class="input-group">
+					          <div class="input-group-addon">
+					             <i class="fa fa-clock-o"></i>
+					           </div>
+					              <input id="regendtimepicker" name="nedt" type="text" placeholder="종료일시" class="form-control input-md" autocomplete="off">
+					      </div>
+					  </div>
+					
+					</div>
+					
+					<!-- 공연시간 발류 채크 -->
+					<div class="form-group">
+					  <label class="col-md-4 control-label" for="check"></label>  
+					  <div class="col-md-2  col-xs-4">
+					      <p id="datecheck"></p>  
+					  </div>  
+					</div>
+					
+					<div class="form-group">
+					  <label class="col-md-4 control-label col-xs-12" for="addr">주소</label>  
+					  <div class="col-md-5  col-xs-4">
+					     <div class="input-group">
+					          <div class="input-group-addon">
+					             <i class="fa fa-street-view"></i>
+					           </div>
+					          <input id="addr" name="addr" type="text" placeholder="주소" class="form-control input-md ">
+					      </div>
+					  </div>
+					
+					
+					  <div>
+					    <div class="input-group">
+					            <input type='button' class="btn btn-default" onclick="search_addr()" value='주소검색'>
+					      </div>
+					  </div>
+					
+					</div>
+					
+					
+					<!-- 지도 -->
+                    <div class="form-group">
+                      <div id="map" style="width:400px;height:400px;margin-top:10px;display:none; margin:0 auto;"></div>
+                        <input type="text" id="x" name="x" style="display:none"> 
+                        <input type="text" id="y" name="y" style="display:none">
+                    </div>
+					
+					<div class="form-group" style='float:right; margin-right: 10px;'>
+					  <label class="col-md-4 control-label" ></label>  
+					  <div class="col-md-4">
+					  <button class="btn btn-success" id="addbtn">등록하기</button>
+					  <!-- <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-remove-sign"></span> Clear</a> -->
+					  </div>
+					</div>
+					</fieldset>
+					
 					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+					
+					</div>
+					</div>
 				</div>
 			</div>
-		</div>
 	</div>
 
 	<!--   -->
@@ -405,16 +563,18 @@ display:inherit;
 									<th>스케줄일정</th>
 									<td><input type="text" name='nsdt' id='editstartimepicker'
 										autocomplete="off">~<input type="text" name='nedt'
-										id='editendtimepicker' autocomplete="off"></td>
+										id='editendtimepicker' autocomplete="off">
+										<p id='editdatecheck'></p>
+										</td>
 								</tr>
 								<tr>
 									<th>인원</th>
-									<td><input type="text" name='cnt' id='cnt'></td>
+									<td><input type="text" name='cnt' id='cnt'>명</td>
 								</tr>
 								<tr>
 									<th>주소검색</th>
 									<td><input type="text" id="edit_addr" name="addr"
-										placeholder="주소"> <input type="button"
+										placeholder="주소" size='55'><br> <input type="button"
 										onclick="search_edit_addr()" value="주소 검색"><br>
 										<div id="map"
 											style="width: 400px; height: 400px; margin-top: 10px; display: none"></div>
@@ -439,61 +599,6 @@ display:inherit;
 	</div>
 
 	<!-- 상세조회 모달 css  -->
-<style>
-.span5 {
-	width: auto;
-}
-
-#emg1 {
-	float: left;
-	margin-left: 10%
-}
-
-#emg2 {
-	float: right;
-	margin-right: 10%
-}
-
-.row {
-	width: 80%;
-	margin-top: px;
-}
-
-.container {
-	width: 90%;
-	margin-left: 10%;
-}
-
-.mimg {
-	margin-top: 30px;
-}
-
-.ct {
-	width: 80%
-}
-
-
-.text {
-	margin-top: 10px;
-	margin-bottom: 20px;
-}
-
-.text2 {
-	margin-bottom: 10px;
-}
-
-.eb {
-	width: 100%;
-}
-
-.boxborder{
-    border: 1px solid silver; 
-    padding:20px;
-    margin-top:20px;
-    border-radius: 10px;
-    margin-bottom:20px;
-}
-</style>
 
 	<!-- 성사된스케줄 모달  -->
 	<div id="detailreqModal" class="modal fade" role="dialog">
@@ -695,8 +800,9 @@ display:inherit;
 
 			</div>
 	    </div>
-	</div> 
+	</div>
 
+    <%-- <jsp:include page="../footer.jsp"></jsp:include> --%>
 <!-- 달력 -->
 <script
     src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -719,7 +825,7 @@ display:inherit;
 
 <script src="/js/mybs.js" type="text/javascript"></script>
 
-
+    
 
 </body>
 </html>

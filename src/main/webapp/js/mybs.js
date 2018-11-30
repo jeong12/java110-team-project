@@ -265,15 +265,7 @@ $(function() {
                 }else{
                 	
                 	// 데이터를 list로 받아와서 foreach문으로 출력해줌!
-                	// 데이터를 list로 받아와서 foreach문으로 출력해줌!
-                	// 데이터를 list로 받아와서 foreach문으로 출력해줌!
-                	// 데이터를 list로 받아와서 foreach문으로 출력해줌!
-                	// 데이터를 list로 받아와서 foreach문으로 출력해줌!
-                	// 데이터를 list로 받아와서 foreach문으로 출력해줌!
-                	// 데이터를 list로 받아와서 foreach문으로 출력해줌!
-                	// 데이터를 list로 받아와서 foreach문으로 출력해줌!
                     $.each(data,function(index,item){
-                    	console.log(index);///test
                         $("#clickdate").append(
                         		'<tr class="agenda-date" class="active"><td>'+item.nsdt.substring(11,16)+'~'+item.nedt.substring(11,16)+
                                 '</td><td class="agenda-time">'+item.shopname+'</td><td class="agenda-events">'+item.supporter.baseaddr+'</td></tr>');
@@ -351,9 +343,7 @@ $('#editstartimepicker').change(function(){
     
     jsDate = moment($(this).val(), 'DD-MM-YYYY HH:mm');
     var faketime=$(this).val();
-    console.log(faketime);
     minitime=(parseInt(faketime.substring(10,13))+1) +':00';
-    console.log(minitime);
 })
 
   
@@ -367,7 +357,6 @@ $('#editendtimepicker').datetimepicker({
 /* 상세정보 조회 ajax처리 */
 $(document).on('click','.detailinfobtn',function(){
     var f = $(this).val(); // 클릭한 값을 받음 ex) a1일 경우 컨트롤러에서 a=요청스케줄, b=개인스케줄로 분류하여 처리
-    console.log(f);
     var no = f.substring(1,f.length);
     
     
@@ -409,9 +398,9 @@ $(document).on('click','.detailinfobtn',function(){
                     $("#editno").val(no);
                     // 다음지도 api
                     // x,y값을 받아 다음지도의 LatLng 생성 <= 좌표만들어주는 객체인듯
-                    var LatLon = new daum.maps.LatLng(data.x, data.y);
+                    var LatLon3 = new daum.maps.LatLng(data.x, data.y);
                     // 기존 생성된 map의 중심을 데이터상의 x,y로 맞춰줌
-                    map3.setCenter(LatLon);
+                    map3.setCenter(LatLon3);
                     // 기존 생성된 marker의 위치를 수정해주는 매서드
                     marker3.setPosition(new daum.maps.LatLng(LatLon.getLat(),LatLon.getLng()));
                 }else{ // supporter객체가 있다면 요청스케줄 모달에 데이터 처리
@@ -422,8 +411,8 @@ $(document).on('click','.detailinfobtn',function(){
                     $(".reqaddr").append('<p>'+data.supporter.baseaddr+'</p>');
                     $(".reqetc").append('<p>'+data.supporter.message+'</p>');
                     //위와 같음, 다만 map2객체에 설정, map2=요청스케줄 모달페이지 맵, map3=개인스케줄 도달페이지 맵  
-                    var LatLon = new daum.maps.LatLng(data.supporter.x, data.supporter.y);
-                    map2.setCenter(LatLon);
+                    var LatLon2 = new daum.maps.LatLng(data.supporter.x, data.supporter.y);
+                    map2.setCenter(LatLon2);
                     marker2.setPosition(new daum.maps.LatLng(LatLon.getLat(),LatLon.getLng()));
                 }
                 
@@ -440,10 +429,7 @@ $(document).on('click','.detailinfobtn',function(){
     
 /* 필터로 해당단계에 해당하는 스케줄 뿌려주기! (1=진행중,2=완료,else=개인스케줄)  */    
 $('.flagsearch button').click(function(){
-	
 	var f = $(this).val();
-	
-    console.log(f);
     $.ajax({ 
         type : "POST", //보내는 타입을 Post방식으로 할지,  GET방식으로 할지 결정
         url : "clikeFlag", // /내 프로젝트명/XML파일의namespace/내가불러올XML의Query이름.do
@@ -557,28 +543,18 @@ $('.removebtn').click(function(){
         error : function(request, status, error) {
             alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
         }
-        
-        
     });
-	
-	
-	
 });
 	
 
 
 $('#regendtimepicker').focusout(function(){
 	
-	
-	console.log("aaa");
-	
-	
        var f = {
         		"sdt": $('#regstarttimepicker').val(),
         		"edt": $('#regendtimepicker').val(),
         		"no": 5
         }
-        console.log(f);
        
     $.ajax({ 
         type : "POST", //보내는 타입을 Post방식으로 할지,  GET방식으로 할지 결정
@@ -595,31 +571,23 @@ $('#regendtimepicker').focusout(function(){
         		console.log(data+"중복일정이있어 못바꾸게한다");
         		$('#datecheck').html('중복된 일정이 존재합니다.').css('color','red');
         	} 
-            
         },
         error : function(request, status, error) {
             alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
         }
         
-        
     });
     
-    
-    
 });
+var oldsdt ;
+var oldedt ;
 
-//$(document).on('click','#editbtn',function(){///tet
 $('#editbtn').click(function(){
 	
-	
 	$('#detailperModal').modal('hide');
-	//var test = $('#detailperModal .pershopname').text(); //보낼값
-	//console.log("test: "+test);
 	var fulltime = $('#detailperModal .pertime').text();
 	var starttime = fulltime.substring(0,16);
 	var endtime = fulltime.substring(fulltime.length-5,fulltime.length);
-	console.log(starttime);
-	console.log(endtime);
 	
 	$('#EditScheduleModal #shopname').val($('#detailperModal .pershopname').text());
 	$('#EditScheduleModal #editstartimepicker').val(starttime);
@@ -629,13 +597,52 @@ $('#editbtn').click(function(){
 	$('#EditScheduleModal #edit_x').val($('#detailperModal .perx').text());
 	$('#EditScheduleModal #edit_y').val($('#detailperModal .pery').text());
 	
-	
-	//보내야할곳 . append (보낼값)
-	
+	oldsdt = $('#EditScheduleModal #editstartimepicker').val();
+	oldedt = $('#EditScheduleModal #editendtimepicker').val();
 });
 
+//edit스케줄 수정
+$('#editendtimepicker').focusout(function(){
+	console.log('oldsdt:'+ oldsdt);
+	console.log('oldedt:'+ oldedt);
+	
+    var f = {
+ 		   	"sdt": oldsdt,
+    		"edt": oldedt,
+     		"nsdt": $('#editstartimepicker').val(),
+     		"nedt": $('#editendtimepicker').val(),
+     		"no": 5
+    }
+     console.log(f);
+    
+ $.ajax({ 
+     type : "POST", //보내는 타입을 Post방식으로 할지,  GET방식으로 할지 결정
+     url : "editcheckschedule", 
+     dataType: 'json',
+     data : f, //파라미터 넘겨줄 부분? : 이게 할말이 많은데 원래 GET방식으로 하라했다가 
+     success : function(data) { // delete, update문 같은 경우에는 기본적으로 int값을 반환함.
+    	 
+    	 console.log(data);
+     	if(data==0){
+     		$('#editdatecheck').html('등록 가능한 일정입니다.').css('color','green');
+     		$("#editno").prop("disabled", false);
+     		console.log(data+"중복값이없어 바꾼다");	
+     	}else{
+     		$("#editno").prop("disabled", true);
+     		console.log(data+"중복일정이있어 못바꾸게한다");
+     		$('#editdatecheck').html('중복된 일정이 존재합니다.').css('color','red');
+     	}
+     },
+     error : function(request, status, error) {
+         alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+     }
+     
+ });
+ 
+});
+
+
 $('#editno').click(function(){
-	console.log($(this).val());
 	var schedule= { "sno":$(this).val(),
 			        "shopname": $('#EditScheduleModal #shopname').val() ,
 			        "nsdt": $('#EditScheduleModal #editstartimepicker').val(),
@@ -645,53 +652,38 @@ $('#editno').click(function(){
 			        "x"   : $('#EditScheduleModal #edit_x').val(),
 			        "y"   : $('#EditScheduleModal #edit_y').val() 
 			      }
-	console.log(schedule);
-	
 	$.ajax({ 
         type : "POST", //보내는 타입을 Post방식으로 할지,  GET방식으로 할지 결정
         url : "editperschedule", 
         dataType: 'json',
-        data : /* JSON.stringify(schedule) */schedule, //파라미터 넘겨줄 부분? : 이게 할말이 많은데 원래 GET방식으로 하라했다가 
-        success : function(data) { // delete, update문 같은 경우에는 기본적으로 int값을 반환함.
-            console.log(data);            
+        data : schedule, 
+        success : function(data) { 
+        	 window.location = '/app/mybs/main';            
         },
         error : function(request, status, error) {
             alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
         }
-        
-        
     });
-	
-	
-	
 });
 
 
-$(document).on('.tabs li','click',function(){
-	console.log('test');
-	var tab_id = $(this).attr('data-tab');
-	$('.tabs li').removeClass('active current');
-	$('.span12').removeClass('current');
-
-	$(this).addClass('current');
-	$("#"+tab_id).addClass('current');
-
-
+$('.tabs li').click(function(){
+    console.log('test');
+    var tab_id = $(this).attr('data-tab');
+    $('.tabs li').removeClass('active current');
+    $('.span12').removeClass('active current');
+     
+    $(this).addClass('active current');
+    $("#"+tab_id).addClass('active current');
+    
 });
 
-/*$('.tabs li').click(function(){
-	console.log('test');
-	var tab_id = $(this).attr('data-tab');
-	$('.tabs li').removeClass('active current');
-	$('.span12').removeClass('current');
-	 
-    $(this).addClass('current');
-	$("#"+tab_id).addClass('current');
-	
-	
-});*/
 
 
+$('.modal').on('hidden.bs.modal', function (e) {
+    console.log('modal close');
+  $(this).find('form')[0].reset()
+});
 
 
 

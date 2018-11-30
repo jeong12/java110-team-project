@@ -218,9 +218,10 @@ public class ScheduleServiceimpl implements ScheduleService {
     }
 
     @Override
-    public void editperschedule(Schedule schedule) {
-      
-      scheduleDao.editperschedule(schedule);
+    public int editperschedule(Schedule schedule) {
+      int no =scheduleDao.editperschedule(schedule);
+      System.out.println("test insert반환값 : " +no);
+      return 1;
       
     }
 
@@ -261,4 +262,28 @@ public class ScheduleServiceimpl implements ScheduleService {
       return "test";
     }
 
+    @Override
+    public int checkeditperschedule(String sdt, String edt, String nsdt, String nedt, int no) {
+      Map<String, Object> params=new HashMap<>();
+      params.put("sdt", sdt);
+      params.put("edt", edt);
+      params.put("nsdt", nsdt);
+      params.put("nedt", nedt);
+      params.put("no", no);
+      
+      return scheduleDao.checkeditperschedule(params);
+    }
+
+    @Override
+    public int checkeditreqschedule(String sdt, String edt, String nsdt, String nedt, int no) {
+      // TODO Auto-generated method stub
+      Map<String, Object> params=new HashMap<>();
+      params.put("sdt", sdt);
+      params.put("edt", edt);
+      params.put("nsdt", nsdt);
+      params.put("nedt", nedt);
+      params.put("no", no);
+      
+      return scheduleDao.checkeditreqschedule(params);
+    }
 }
