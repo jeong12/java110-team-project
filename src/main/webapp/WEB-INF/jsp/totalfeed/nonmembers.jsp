@@ -94,14 +94,27 @@
                             </select>
                         </div>
                         <input type="text" class="form-control" name="city" placeholder="시,도,군" onkeydown="pushenter()">
-                        <!-- <input type="hidden" name="search_param" value="all" id="search_param"> -->
                         <span class="input-group-btn">  
                         <button class="btn btn-default" id="selectsearchbtn" onclick="PageMove()"><span class="glyphicon glyphicon-search"></span></button>
                         <!-- <button class="btn btn-default" id="selectsearchbtn" onclick="button1_click();"><span class="glyphicon glyphicon-search"></span></button> -->
                     </span>
+
                     </div>
+
                <!-- </form>  -->
             </div>
+                    <!-- 인기순 최신순 -->
+                    <div>
+                        <div>
+                          <input type="radio" class="likedate" id="like" name="like" value="like" checked >
+                          <label for="like">인기순</label>
+                        </div>
+                        
+                        <div>
+                          <input type="radio" class="likedate" id="date" name="date" value="date">
+                          <label for="date">최신순</label>
+                        </div>
+                    </div>
         </div>
     </div>
     
@@ -115,7 +128,7 @@
                         <div class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${tf.teamgenre}">
                             <button class="js-load">
                                 <table>
-                                    <tr><td><img src="../../img/${tf.teamPhoto}" class="teamPhotoImg"></td></tr> 
+                                    <tr><td><img src="../../img/${tf.teamPhoto}.png" class="teamPhotoImg"></td></tr> 
                                     <tr><td>${tf.teamname}</td></tr>
                                 </table>
                             </button>
@@ -137,7 +150,7 @@
                         <div class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${tf.teamgenre}">
                             <button class="js-load">
                                 <table>
-                                    <tr><td><img src="../../img/${tf.teamPhoto}" class="teamPhotoImg"></td></tr> 
+                                    <tr><td><img src="../../img/${tf.teamPhoto}.png" class="teamPhotoImg"></td></tr> 
                                     <tr><td>${tf.teamname}</td></tr>
                                 </table>
                             </button>
@@ -148,7 +161,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -158,7 +171,7 @@
                         <div class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${tf.teamgenre}">
                             <button class="js-load">
                                 <table>
-                                    <tr><td><img src="../../img/${tf.teamPhoto}" class="teamPhotoImg"></td></tr> 
+                                    <tr><td><img src="../../img/${tf.teamPhoto}.png" class="teamPhotoImg"></td></tr> 
                                     <tr><td>${tf.teamname}</td></tr>
                                 </table>
                             </button>
@@ -169,21 +182,23 @@
             </div>
         </div>
     </div>
-    
 
     <div id="js-btn-wrap" class="btn-wrap"> <a href="javascript:;" class="more-button">더보기</a> </div>
     
     
 <script>
    // document.getElementById("selectsearchbtn").onclick = function() {PageMove()};
-
+/* 
+   function likedate(){
+    	var likedate = $(".likedate option:selected").val();
+        console.log(likedate);
+   }
+    */
     function PageMove(){
         var searchType = $("#selectsearch option:selected").val();
         var keyword = $("input[name='city']").val();
 
         location.href= '?' + searchType + '=' + keyword;
-        // location.href="?city="+i;
-        // location.href="?teamname="+i;
     }
     
     function pushenter() {

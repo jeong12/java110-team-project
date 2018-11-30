@@ -5,12 +5,13 @@ import java.sql.Date;
 public class BuskerPromotion {
 
   protected String titl;
-  protected String teamName;
+  protected String teamname;
   protected String genre;
   protected String city;
   protected Date sdt;
   protected Date edt;
   protected int cnt;
+  protected Date cdt;
   protected String etc;
   protected String phot;
   
@@ -20,11 +21,11 @@ public class BuskerPromotion {
   public void setTitl(String titl) {
     this.titl = titl;
   }
-  public String getTeamName() {
-    return teamName;
+  public String getTeamname() {
+    return teamname;
   }
-  public void setTeamName(String teamName) {
-    this.teamName = teamName;
+  public void setTeamname(String teamname) {
+    this.teamname = teamname;
   }
   public String getGenre() {
     return genre;
@@ -55,6 +56,12 @@ public class BuskerPromotion {
   }
   public void setCnt(int cnt) {
     this.cnt = cnt;
+  }
+  public Date getCdt() {
+	return cdt;
+  }
+  public void setCdt(Date cdt) {
+	this.cdt = cdt;
   }
   public String getEtc() {
     return etc;

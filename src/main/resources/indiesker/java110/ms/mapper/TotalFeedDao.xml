@@ -9,13 +9,14 @@
         <result column="genre"  property="teamgenre"/>
         <result column="city"  property="city"/>
         <result column="lcnt"  property="likecount"/>
+        <result column="cdt"  property="cdt"/>
         <result column="phot"  property="teamPhoto"/>
     </resultMap>
 
     <select id="findTotalFeed" resultMap="findTotalFeedMap" parameterType="map">
-select name, genre, phot, city, lcnt
-from busk
-ORDER by lcnt DESC
+select b.name, b.genre, b.phot, b.city, b.lcnt, m.cdt
+from busk b join memb m on b.bno = m.mno
+ORDER by b.lcnt DESC
     </select>
     
     <select id="findByCity" resultMap="findTotalFeedMap" parameterType="String">

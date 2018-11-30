@@ -6,4 +6,5 @@ import indiesker.java110.ms.domain.BuskerPromotion;
 public interface BuskerPromotionDao {
   List<BuskerPromotion> findAll();
   List<BuskerPromotion> findByCity(String city);
+  List<BuskerPromotion> findByTeamname(String teamname);
 }
