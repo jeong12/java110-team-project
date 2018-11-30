@@ -1,9 +1,13 @@
 package indiesker.java110.ms.web;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.UUID;
 import javax.servlet.ServletContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +20,6 @@ import indiesker.java110.ms.domain.Avi;
 import indiesker.java110.ms.domain.Busker;
 import indiesker.java110.ms.domain.Comment;
 import indiesker.java110.ms.domain.FeedPhoto;
-import indiesker.java110.ms.domain.FeedPhotoFile;
 import indiesker.java110.ms.domain.Schedule;
 import indiesker.java110.ms.service.AviService;
 import indiesker.java110.ms.service.BuskerService;
@@ -26,13 +29,14 @@ import indiesker.java110.ms.service.ScheduleService;
 @Controller
 @RequestMapping("/buskerfeed")
 public class FeedController {
-  
+
+  int buskno=5;//임의값
   AviService aviService;
   ScheduleService sheduleService;
   FeedPhotoService feedPhotoService;
   BuskerService buskerService;
   ServletContext sc;
-  
+
 
   public FeedController(AviService aviService, ScheduleService sheduleService,
       FeedPhotoService feedPhotoService, BuskerService buskerService, ServletContext sc) {
@@ -51,32 +55,27 @@ public class FeedController {
       Model model) {
     if (pageNo < 1)
       pageNo = 1;
-  
-  if (pageSize < 9 || pageSize > 10)
+
+    if (pageSize < 9 || pageSize > 10)
       pageSize = 9;
-    int buskno=1;//임의값
-    int buskno2=5;//임의값
-  
-    List<Schedule> fplist = sheduleService.findFeedPerSchedule(buskno2);//스케줄 now()이후 날짜부터 출력!
-    List<Schedule> fflist = sheduleService.findFeedFixSchedule(buskno2);
+
+    List<Schedule> fplist = sheduleService.findFeedPerSchedule(buskno);//스케줄 now()이후 날짜부터 출력!
+    List<Schedule> fflist = sheduleService.findFeedFixSchedule(buskno);
     fplist.addAll(fflist);
     Busker busker = buskerService.get(buskno);
     List<Avi> alist = aviService.recentList(buskno);
     List<FeedPhoto> plist = feedPhotoService.recentPhotList(buskno,pageNo, pageSize);
-    
+
     //영상 주소에 관한것
     for (Avi avi : alist) {
       String urlid = avi.getUrlid();
       avi.setThumbnail("https://i.ytimg.com/vi/"+urlid+"/hqdefault.jpg");
       avi.setUrl("https://www.youtube.com/embed/"+urlid);
-      System.out.println(avi.getUrlid());
-      System.out.println(avi.getUrl());
-      System.out.println(avi.getThumbnail());
     }
     for(Schedule ppp:fplist) {
       ppp.setLongsdt(ppp.getSdt().getTime());
     }
-    
+
     //fplist 시간순으로 정렬
     Collections.sort(fplist, new Comparator<Schedule>(){
       @Override
@@ -98,65 +97,94 @@ public class FeedController {
       ps.setNsdt(formatsdt.format(ps.getSdt()));
       ps.setNedt(formatedt.format(ps.getEdt()));
     }
-    for (Schedule ss : fplist) {
-      System.out.println(ss);
-    }
-    
+
     model.addAttribute("schelist",fplist);
     model.addAttribute("busk",busker);
     model.addAttribute("recentlist",alist);
     model.addAttribute("recentplist",plist);
   }
-  
+
   @ResponseBody
   @RequestMapping("showavi")
-  public Avi getImageNo(
+  public Avi getAviNo(
       String abno, Model model) {   
-      int abno2 = Integer.parseInt(abno);
-      
-      Avi feedavi=aviService.getfeedavibyAbno(abno2);
-      List<Comment> comt=feedavi.getComments();
-      
-      for (Comment comment : comt) {
-        System.out.println(comment.getCdt());
+    int abno2 = Integer.parseInt(abno);
+    Avi feedavi=aviService.getfeedavibyAbno(abno2);
+
+    if(feedavi == null) {
+      feedavi = aviService.getfeedavibyAbnoNoComt(abno2);
+      feedavi.setComtcount(0);
+      return feedavi;
+    }else {
+      feedavi.setComtcount(5);
+      List<Comment> comts=feedavi.getComments();
+      for (Comment comment : comts) {
         comment.setStrcdt(comment.getCdt().toString());
       }
-      
-    return feedavi;
+      return feedavi;
+    }
   }
-  
+
   @ResponseBody
   @RequestMapping("showphoto")
   public FeedPhoto getPhotoNo(
       String pbno, Model model) {   
-    int abno2 = Integer.parseInt(pbno);
-    System.out.println(abno2);
-    
-    FeedPhoto feedphoto=feedPhotoService.getfeedphotobyPbno(abno2);
-    
-    System.out.println(feedphoto);
-    List<Comment> comt=feedphoto.getComments();
-    
-    for (Comment comment : comt) {
-      System.out.println(comment.getCdt());
-      comment.setStrcdt(comment.getCdt().toString());
+    int pbno2 = Integer.parseInt(pbno);
+    FeedPhoto feedphoto=feedPhotoService.getfeedphotobyPbno(pbno2);
+
+    if(feedphoto == null) {
+      feedphoto = feedPhotoService.getfeedphotobyPbnoNoComt(pbno2);
+      feedphoto.setComtcount(0);
+      return feedphoto;
+    }else {
+      feedphoto.setComtcount(5);
+      List<Comment> comts=feedphoto.getComments();
+      for (Comment comment : comts) {
+        comment.setStrcdt(comment.getCdt().toString());
+      }
+      return feedphoto;
     }
-    
-    return feedphoto;
   }
-  
+
+  @RequestMapping("form")
+  public void addform() {
+  }
+
   @PostMapping("addphoto")
-  public String addphoto(FeedPhoto feedphot,FeedPhotoFile photfile,
-      @RequestParam MultipartFile file1, @RequestParam MultipartFile file2, @RequestParam MultipartFile file3
-      ) {
-    
-    
-    
-    
+  public String addphoto(@RequestParam String content, @RequestParam MultipartFile file1,
+      @RequestParam MultipartFile file2, @RequestParam MultipartFile file3
+      ) throws IllegalStateException, IOException {
+
+
+    List<String> files = new ArrayList<>();
+
+    if (file1.getSize() > 0) {
+      String filename = UUID.randomUUID().toString();
+      file1.transferTo(new File(sc.getRealPath("/upload/" + filename)));
+      files.add(filename);
+    }
+
+    if (file2.getSize() > 0) {
+      String filename = UUID.randomUUID().toString();
+      file2.transferTo(new File(sc.getRealPath("/upload/" + filename)));
+      files.add(filename);
+    }
+    if (file3.getSize() > 0) {
+      String filename = UUID.randomUUID().toString();
+      file3.transferTo(new File(sc.getRealPath("/upload/" + filename)));
+      files.add(filename);
+    }
+    feedPhotoService.feedPhotoAndFileUpload(buskno, content, files);
     return "redirect:enter";
   }
-  
-  
-  
+
+  @PostMapping("addavi")
+  public String addphoto(String title, String content, String url) {
+    String urlid = url.substring(32,43);
+
+    aviService.uploadAvi(buskno, title, content, urlid);
+
+    return "redirect:enter";
+  }
 
 }

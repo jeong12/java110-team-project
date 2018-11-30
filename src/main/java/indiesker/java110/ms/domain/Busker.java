@@ -2,7 +2,7 @@ package indiesker.java110.ms.domain;
 
 public class Busker extends Member{
   private static final long serialVersionUID = 1L;
-  
+  protected int bno;
   protected String teamname;
   protected String teamgenre;
   protected String city;
@@ -17,6 +17,13 @@ public class Busker extends Member{
   protected String tel;
   protected String message;
   
+  
+  public int getBno() {
+    return bno;
+  }
+  public void setBno(int bno) {
+    this.bno = bno;
+  }
   public String getTeamname() {
     return teamname;
   }

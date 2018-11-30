@@ -15,31 +15,22 @@ public class Avi extends Busker{
   protected String thumbnail;
   protected int buskerno;
   protected int likeAvi;
+  protected char flag;
   protected List<Comment> comments;
-
-  public List<Comment> getComments() {
-    return comments;
+  protected int comtcount;
+  
+  
+  public int getComtcount() {
+    return comtcount;
   }
-  public void setComments(List<Comment> comments) {
-    this.comments = comments;
+  public void setComtcount(int comtcount) {
+    this.comtcount = comtcount;
   }
-  public int getLikeAvi() {
-    return likeAvi;
+  public char getFlag() {
+    return flag;
   }
-  public void setLikeAvi(int likeAvi) {
-    this.likeAvi = likeAvi;
-  }
-  public String getThumbnail() {
-    return thumbnail;
-  }
-  public void setThumbnail(String thumbnail) {
-    this.thumbnail = thumbnail;
-  }
-  public String getUrlid() {
-    return urlid;
-  }
-  public void setUrlid(String urlid) {
-    this.urlid = urlid;
+  public void setFlag(char flag) {
+    this.flag = flag;
   }
   public int getAviboardno() {
     return aviboardno;
@@ -59,6 +50,12 @@ public class Avi extends Busker{
   public void setContent(String content) {
     this.content = content;
   }
+  public int getAvilikecount() {
+    return avilikecount;
+  }
+  public void setAvilikecount(int avilikecount) {
+    this.avilikecount = avilikecount;
+  }
   public Date getCdt() {
     return cdt;
   }
@@ -71,21 +68,37 @@ public class Avi extends Busker{
   public void setUrl(String url) {
     this.url = url;
   }
+  public String getUrlid() {
+    return urlid;
+  }
+  public void setUrlid(String urlid) {
+    this.urlid = urlid;
+  }
+  public String getThumbnail() {
+    return thumbnail;
+  }
+  public void setThumbnail(String thumbnail) {
+    this.thumbnail = thumbnail;
+  }
   public int getBuskerno() {
     return buskerno;
   }
   public void setBuskerno(int buskerno) {
     this.buskerno = buskerno;
   }
-  public int getAvilikecount() {
-    return avilikecount;
+  public int getLikeAvi() {
+    return likeAvi;
   }
-  public void setAvilikecount(int avilikecount) {
-    this.avilikecount = avilikecount;
+  public void setLikeAvi(int likeAvi) {
+    this.likeAvi = likeAvi;
+  }
+  public List<Comment> getComments() {
+    return comments;
+  }
+  public void setComments(List<Comment> comments) {
+    this.comments = comments;
   }
 
-  
-  
 
   
   
