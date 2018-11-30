@@ -50,6 +50,7 @@ public class BuskerPerScheduleController {
 
   @GetMapping("main")
   public void main(
+      @RequestParam(defaultValue="5")int bno,
       @RequestParam(defaultValue="1")int pageNo, 
       @RequestParam(defaultValue="3")int pageSize, 
       Model model) {
@@ -58,18 +59,22 @@ public class BuskerPerScheduleController {
       pageNo = 1;
     if (pageSize < 3 || pageSize > 10)
       pageSize = 3;
-
+    
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    
     pageSize=9;
     List<Schedule> list = scheduleService.mybslist(pageNo, pageSize); // 요청건
     List<Schedule> plist = scheduleService.myperlist(pageNo, pageSize); // 개인스케줄
+    List<Schedule> inglist = scheduleService.mybslistbyflag(1, bno, pageNo, pageSize);
+    List<Schedule> edlist = scheduleService.mybslistbyflag(2, bno, pageNo, pageSize);
 
     list.addAll(plist);
 
-    for(Schedule p:list) {
-      p.setLongsdt(p.getSdt().getTime());
+    // 전체스케줄  list
+    for(Schedule l:list) {
+      l.setLongsdt(l.getSdt().getTime());
     }
-
-    //fplist 시간순으로 정렬
+    // 전체스케줄 list 시간순으로 정렬
     Collections.sort(list, new Comparator<Schedule>(){
       @Override
       public int compare(Schedule o1, Schedule o2) {
@@ -82,29 +87,107 @@ public class BuskerPerScheduleController {
         }
       }
     });
-
-
-    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-
-    /*for (Schedule pl : plist) {
+    
+    // 전체스케줄 list 데이터 형식 수정
+    for (Schedule ll : list) {
+      ll.setNsdt(format.format(ll.getSdt()));
+      ll.setNedt(format.format(ll.getEdt()));
+      String naddr=ll.getAddr().substring(ll.getAddr().indexOf(" ")+1,ll.getAddr().length());
+      int startindex=ll.getAddr().indexOf(" ")+1;
+      int endindex=naddr.indexOf(" ")+startindex;
+      ll.setAddr(ll.getAddr().substring(0,endindex));
+    }
+    
+    
+    // 개인스케줄 plist
+    for(Schedule p:plist) {
+      p.setLongsdt(p.getSdt().getTime());
+    }
+    //개인스케줄 list 시간순으로 정렬
+    Collections.sort(plist, new Comparator<Schedule>(){
+      @Override
+      public int compare(Schedule o1, Schedule o2) {
+        if(o1.getLongsdt() > o2.getLongsdt()) {
+          return 1;
+        }else if(o1.getLongsdt() < o2.getLongsdt()) {
+          return -1;
+        }else {
+          return 0;
+        }
+      }
+    });
+    
+    // 개인스케줄 list 데이터 형식 수정
+    for (Schedule pl : plist) {
       pl.setNsdt(format.format(pl.getSdt()));
       pl.setNedt(format.format(pl.getEdt()));
       String naddr=pl.getAddr().substring(pl.getAddr().indexOf(" ")+1,pl.getAddr().length());
       int startindex=pl.getAddr().indexOf(" ")+1;
       int endindex=naddr.indexOf(" ")+startindex;
       pl.setAddr(pl.getAddr().substring(0,endindex));
-    }*/
-
-    for (Schedule ps : list) {
-      ps.setNsdt(format.format(ps.getSdt()));
-      ps.setNedt(format.format(ps.getEdt()));
-      String naddr=ps.getAddr().substring(ps.getAddr().indexOf(" ")+1,ps.getAddr().length());
-      int startindex=ps.getAddr().indexOf(" ")+1;
+    }
+    
+    // 진행중스케줄  inglist
+    for(Schedule ing:inglist) {
+      ing.setLongsdt(ing.getSdt().getTime());
+    }
+    // 진행중스케줄 inglist 시간순으로 정렬
+    Collections.sort(inglist, new Comparator<Schedule>(){
+      @Override
+      public int compare(Schedule o1, Schedule o2) {
+        if(o1.getLongsdt() > o2.getLongsdt()) {
+          return 1;
+        }else if(o1.getLongsdt() < o2.getLongsdt()) {
+          return -1;
+        }else {
+          return 0;
+        }
+      }
+    });
+    
+    // 진행스케줄 inglist 데이터 형식 수정
+    for (Schedule ing : inglist) {
+      ing.setNsdt(format.format(ing.getSdt()));
+      ing.setNedt(format.format(ing.getEdt()));
+      String naddr=ing.getAddr().substring(ing.getAddr().indexOf(" ")+1,ing.getAddr().length());
+      int startindex=ing.getAddr().indexOf(" ")+1;
       int endindex=naddr.indexOf(" ")+startindex;
-      ps.setAddr(ps.getAddr().substring(0,endindex));
+      ing.setAddr(ing.getAddr().substring(0,endindex));
+    }
+    
+    // 완료스케줄  edlist
+    for(Schedule ed:edlist) {
+      ed.setLongsdt(ed.getSdt().getTime());
+    }
+    // 완료스케줄 edlist 시간순으로 정렬
+    Collections.sort(edlist, new Comparator<Schedule>(){
+      @Override
+      public int compare(Schedule o1, Schedule o2) {
+        if(o1.getLongsdt() > o2.getLongsdt()) {
+          return 1;
+        }else if(o1.getLongsdt() < o2.getLongsdt()) {
+          return -1;
+        }else {
+          return 0;
+        }
+      }
+    });
+    
+    // 완료스케줄 edlist 데이터 형식 수정
+    for (Schedule ed : edlist) {
+      ed.setNsdt(format.format(ed.getSdt()));
+      ed.setNedt(format.format(ed.getEdt()));
+      String naddr=ed.getAddr().substring(ed.getAddr().indexOf(" ")+1,ed.getAddr().length());
+      int startindex=ed.getAddr().indexOf(" ")+1;
+      int endindex=naddr.indexOf(" ")+startindex;
+      ed.setAddr(ed.getAddr().substring(0,endindex));
     }
 
+    
     model.addAttribute("list", list);
+    model.addAttribute("plist", plist);
+    model.addAttribute("inglist", inglist);
+    model.addAttribute("edlist", edlist);
   }
 
 
@@ -228,25 +311,39 @@ public class BuskerPerScheduleController {
     
   }
   
+  @ResponseBody
   @PostMapping("editperschedule")
-  public String editperschedule(Schedule schedule) {
-    
-    System.out.println(schedule);
+  public int editperschedule(Schedule schedule) {
     
     schedule.setNsdt(schedule.getNsdt().toString());
     schedule.setNedt(schedule.getNsdt().substring(0, 10)+' '+schedule.getNedt().toString());
 
-    System.out.println(schedule.getAddr());
-    System.out.println(schedule.getNsdt());
-    System.out.println(schedule.getNedt());
-    System.out.println(schedule.getShopname());
-    System.out.println(schedule.getX());
-    System.out.println(schedule.getY());
-    scheduleService.editperschedule(schedule);
-    return "good"; 
+    return scheduleService.editperschedule(schedule);
 
   }
-
+  
+  @ResponseBody
+  @RequestMapping("editcheckschedule")
+  public int checkeditschedule( String sdt,
+                            String edt,
+                            String nsdt, 
+                            String nedt, 
+                            int no) throws Exception{
+    edt = sdt.substring(0, 10)+" "+edt;
+    sdt=sdt.replaceAll("/", "-");
+    edt=edt.replaceAll("/", "-");
+    
+    nedt = nsdt.substring(0, 10)+" "+nedt;
+    nsdt=nsdt.replaceAll("/", "-");
+    nedt=nedt.replaceAll("/", "-");
+    
+    int total=scheduleService.checkeditperschedule(sdt, edt, nsdt, nedt, no);
+    total+=scheduleService.checkeditreqschedule(sdt, edt, nsdt, nedt, no);
+    System.out.println("======================");
+    System.out.println(total);
+    return total;
+    
+  }
 
 }
 

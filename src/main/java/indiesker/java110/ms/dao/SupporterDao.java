@@ -8,7 +8,7 @@ import indiesker.java110.ms.domain.Supporter;
 public interface SupporterDao {
   int checkName(String name);
   int insert(Supporter supporter);
-  int insertfile(StagePhoto stagephoto);
+  int insertfile(List<StagePhoto>list);
   List<Integer> findBySupporter(int no);
   void updateSup(Supporter supporter);
   void updateFile(StagePhoto phot);

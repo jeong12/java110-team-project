@@ -1,5 +1,6 @@
 package indiesker.java110.ms.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +22,17 @@ public class SupporterServiceImpl implements SupporterService {
       }
 
     @Override
-    public int add(Supporter supporter) {
-      return supporterDao.insert(supporter);
-    }
-
-    @Override
-    public int insert(StagePhoto stagephoto) {
-      return supporterDao.insertfile(stagephoto);
+    public int insert(Supporter s) {
+      List<StagePhoto> list = new ArrayList<>();
+      StagePhoto sp = new StagePhoto();
+      for(int i=0;i<3;i++) {
+        sp.setSno(s.getStagephotos().get(i).getSno());
+        sp.setPhoto(s.getStagephotos().get(i).getPhoto());
+        list.add(sp);
+      }
+      
+      supporterDao.insert(s);
+      return supporterDao.insertfile(list);
     }
 
     @Override

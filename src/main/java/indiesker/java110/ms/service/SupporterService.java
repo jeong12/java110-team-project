@@ -7,8 +7,7 @@ import indiesker.java110.ms.domain.Supporter;
 
 public interface SupporterService {
   int checkName(String name);
-  int add(Supporter supporter);
-  int insert(StagePhoto stagephoto);
+  int insert(Supporter s);
   List<Integer> checkSupporter(int no);
   void modiSup(Supporter supporter);
   void modiSupPho(StagePhoto stagephoto);

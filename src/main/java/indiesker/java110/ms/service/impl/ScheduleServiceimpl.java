@@ -45,6 +45,8 @@ public class ScheduleServiceimpl implements ScheduleService {
       params.put("no", 5);
       return scheduleDao.findMyAllSchedule(params);
     }
+    
+    
 
     @Override
     public List<Schedule> findbydate(String no, String date) {
@@ -69,8 +71,9 @@ public class ScheduleServiceimpl implements ScheduleService {
     }
 
     @Override
-    public List<Schedule> mysslist(int pageNo, int pageSize) {
+    public List<Schedule> mysslist(int no, int pageNo, int pageSize) {
       HashMap<String,Object> params = new HashMap<>();
+      params.put("no", no);
       params.put("rowNo", (pageNo - 1) * pageSize);
       params.put("size", pageSize);      
       return scheduleDao.findreqschedule(params);
@@ -96,9 +99,9 @@ public class ScheduleServiceimpl implements ScheduleService {
     }
 
     @Override
-    public List<Schedule> findSuggestsbyflag(int flag,int pageNo, int pageSize) {
-      System.out.println(flag);
+    public List<Schedule> findSuggestsbyflag(int no, int flag,int pageNo, int pageSize) {
       HashMap<String,Object> params = new HashMap<>();
+      params.put("no", no);
       params.put("flag", flag);
       params.put("rowNo", (pageNo - 1) * pageSize);
       params.put("size", pageSize); 
@@ -215,9 +218,10 @@ public class ScheduleServiceimpl implements ScheduleService {
     }
 
     @Override
-    public void editperschedule(Schedule schedule) {
-      
-      scheduleDao.editperschedule(schedule);
+    public int editperschedule(Schedule schedule) {
+      int no =scheduleDao.editperschedule(schedule);
+      System.out.println("test insert반환값 : " +no);
+      return 1;
       
     }
 
@@ -230,12 +234,25 @@ public class ScheduleServiceimpl implements ScheduleService {
     }
     
     @Override
-    public int ApplyStagesinBuskreq(int no, String cont, String count) {
+    public int ApplyStages(int no, String cont, String count,ArrayList<Integer>ssno) {
       Map<String,Object> params = new HashMap<>();
       params.put("bno", no);
       params.put("cont", cont);
       params.put("count", count);
-    return scheduleDao.ApplyStagesinBuskreq(params);
+      scheduleDao.ApplyStagesinBuskreq(params);
+      int brno = (int) params.get("brno");
+      params.put("brno", brno);
+      params.put("list", ssno);
+      return scheduleDao.ApplyStagesinBuskstag(params);
+    }
+
+    public List<Schedule> mybslistbyflag(int flag, int no, int pageNo, int pageSize) {
+      Map<String,Object> params = new HashMap<>();
+      params.put("flag", flag);
+      params.put("no", no);
+      params.put("rowNo", (pageNo - 1) * pageSize);
+      params.put("size", pageSize); 
+      return scheduleDao.findMyAllSchedulebyflag(params);
     }
     
     // 통계 관련
@@ -243,5 +260,30 @@ public class ScheduleServiceimpl implements ScheduleService {
     @Scheduled(fixedDelay=100)
     public String weekOfAvi() {
       return "test";
+    }
+
+    @Override
+    public int checkeditperschedule(String sdt, String edt, String nsdt, String nedt, int no) {
+      Map<String, Object> params=new HashMap<>();
+      params.put("sdt", sdt);
+      params.put("edt", edt);
+      params.put("nsdt", nsdt);
+      params.put("nedt", nedt);
+      params.put("no", no);
+      
+      return scheduleDao.checkeditperschedule(params);
+    }
+
+    @Override
+    public int checkeditreqschedule(String sdt, String edt, String nsdt, String nedt, int no) {
+      // TODO Auto-generated method stub
+      Map<String, Object> params=new HashMap<>();
+      params.put("sdt", sdt);
+      params.put("edt", edt);
+      params.put("nsdt", nsdt);
+      params.put("nedt", nedt);
+      params.put("no", no);
+      
+      return scheduleDao.checkeditreqschedule(params);
     }
 }

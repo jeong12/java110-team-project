@@ -1,7 +1,9 @@
 package indiesker.java110.ms.web;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 import javax.servlet.ServletContext;
 import org.springframework.stereotype.Controller;
@@ -77,7 +79,11 @@ public class SignupController{
   @ResponseBody
   @RequestMapping("member/checkEmail")
   public int checkEmail(String email, Model model) throws Exception {
-    return memberService.checkEmail(email);
+    
+    if(email.contains("@")) {
+      return memberService.checkEmail(email);
+    }
+    return -1;
   }
 
   @ResponseBody
@@ -109,8 +115,13 @@ public class SignupController{
     String fileName = (String) bsuknsup.get("file");
     String id= (String) bsuknsup.get("id");
     int no = memberService.findNoById(id);
-    buskers.setAvi1(url1);
-    buskers.setAvi2(url2);
+    
+    String[]fid = url1.split("=");
+    String[]sid = url2.split("=");
+
+    buskers.setAvi1(fid[1]);
+    buskers.setAvi2(sid[1]);
+    
     buskers.setTeamPhoto(fileName);
     buskers.setNo(no);
     System.out.println(buskers);
@@ -134,30 +145,33 @@ public class SignupController{
   public void add(Supporter s, StagePhoto sp, Model model, @RequestParam MultipartFile file1, 
       @RequestParam MultipartFile file2, @RequestParam MultipartFile file3) throws Exception {
     String id= (String) bsuknsup.get("id");
-    System.out.println(id);
     int no = memberService.findNoById(id);
     s.setNo(no);
     sp.setSno(no);
-    supporterService.add(s);
-    
+    List<StagePhoto> splist = new ArrayList<>();
+    System.out.println(s);
     if (file1.getSize() > 0) {
       String filename = UUID.randomUUID().toString();
       file1.transferTo(new File(sc.getRealPath("/upload/" + filename)));
       sp.setPhoto(filename);
+      splist.add(0, sp);
     }
-    supporterService.insert(sp);
+    
     if (file2.getSize() > 0) {
       String filename = UUID.randomUUID().toString();
       file2.transferTo(new File(sc.getRealPath("/upload/" + filename)));
       sp.setPhoto(filename);
+      splist.add(1,sp);
     }
-    supporterService.insert(sp);
     if (file3.getSize() > 0) {
       String filename = UUID.randomUUID().toString();
       file3.transferTo(new File(sc.getRealPath("/upload/" + filename)));
       sp.setPhoto(filename);
+      splist.add(2,sp);
     }
-    supporterService.insert(sp);   
+    s.setStagesphoto(splist);
+    
+    supporterService.insert(s);  
 
   }
 

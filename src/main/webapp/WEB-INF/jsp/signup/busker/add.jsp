@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>버스커 회원가입</title>
+<title>Indisker : 버스커 회원가입</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
@@ -43,7 +43,7 @@ h2 {
 	<div id="titl">
 		<img id="logo" src="/img/playButton.PNG" alt="플레이로고">
 		<h2>
-			버스커 되기 >> 동영상 올리기 >> <u>신청완료</u>
+			버스커 되기 >> 동영상 올리기 >> <b>신청완료</b>
 		</h2>
 	</div>
 	<div id=container>

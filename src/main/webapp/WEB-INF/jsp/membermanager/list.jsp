@@ -20,7 +20,7 @@
 </head>
 
 <style>
-  
+    .mc{margin-left:52%;}
     .container{width: 80%; margin-left: 10%;}
     .pagination{margin-right: 39%;}    
     td{text-align: center;}
@@ -32,13 +32,18 @@
     #bun{float: left;}
     #ccc{float: right;}
     .tab{display: none}
-    .hide-bullets {list-style:none;
+    .hide-bullets {list-style:none;}
+    #img{margin:0auto;}
+    #mttl,.bttl{margin-left:45%;}
+ }
 margin-left: -40px;
 margin-top:20px;
 }
     #mmain{margin-left:  8%; margin-top: 15px;}
     #myCarousel{width: 400px;}
-    #ff{width: 400px;height: 200px;}
+    #myCarousel2{width: 400px;}
+    .mmimg{width: 400px;height: 300px;}
+    .bbbmimg{width: 400px;height: 300px;}
     #ig{width: 133px;height: 60px;}
     .thumbnail{padding: 0px; }
     .mli{width: 133px;height: 50px; float: left;}
@@ -46,11 +51,13 @@ margin-top:20px;
     .aac{margin-left: -24px; margin-top: 0px;}
     .mtb{margin: auto; margin:26px auto 20px; ;
         border: 1px solid silver;
-        width: 500px; height: 200px;
+        border-radius: 10px;
+        width: 500px;
         padding: 10px;
     }
-    .close{margin-right: 15px;}
+  
     #ttl{margin-left: 21px;}
+    .mtb label{float: left}
 </style>
 
 
@@ -107,11 +114,11 @@ margin-top:20px;
 				    <td>${m.id}</td>
 				    <td class=niks>${m.nik}</td>
 				    <td>${m.email}</td>
-				    <td>${m.flag}</td>
+				    <td>회원</td>
 				    <td>${m.cdt}</td>
 				    <td id="memow">${m.memo}</td>
 				    <td><button class="btt btn-primary btn-xs"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
-				    <td><button class="btt2 btn-primary btn-xs"  data-toggle="modal" data-target="#model-id" value="${m.nik}">상세보기</button></td>
+				    <td><button class="memberDetail btn-primary btn-xs"  data-toggle="modal" data-target="#memberDetail" value="${m.nik}">상세보기</button></td>
 				    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></p></td>
              </tr>
              
@@ -123,11 +130,11 @@ margin-top:20px;
                     <td>${m.id}</td>
                     <td class=niks>${m.nik}</td>
                     <td>${m.email}</td>
-                    <td>${m.flag}</td>
+                    <td>버스커</td>
                     <td>${m.cdt}</td>
                     <td id="memow">${m.memo}</td>
                     <td><button class="btt btn-primary btn-xs"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
-                    <td><button class="btt2 btn-primary btn-xs"  data-toggle="modal" data-target="#model-id" value="${m.nik}">상세보기</button></td>
+                    <td><button class="buskDetail btn-primary btn-xs"  data-toggle="modal" data-target=".modelbusk" value="${m.nik}">상세보기</button></td>
                     <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></p></td>
              </tr>
              
@@ -139,11 +146,11 @@ margin-top:20px;
                     <td>${m.id}</td>
                     <td class=niks>${m.nik}</td>
                     <td>${m.email}</td>
-                    <td>${m.flag}</td>
+                    <td>제공자</td>
                     <td>${m.cdt}</td>
                     <td id="memow">${m.memo}</td>
                     <td><button class="btt btn-primary btn-xs"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
-                    <td><button class="btt2 btn-primary btn-xs"  data-toggle="modal" data-target="#model-id" value="${m.nik}">상세보기</button></td>
+                    <td><button class="btt2 btn-primary btn-xs"  data-toggle="modal" data-target="#supDetail" value="${m.nik}">상세보기</button></td>
                     <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></p></td>
              </tr>
              
@@ -207,7 +214,7 @@ margin-top:20px;
 						    <td>${m.cdt}</td>
 						    <td>${m.memo}</td>
 						    <td><button class="btt btn-primary btn-xs"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}"></span>메모수정</button></td>
-						    <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon"></span>상세보기</button></p></td>
+						     <td><button class="memberDetail btn-primary btn-xs"  data-toggle="modal" data-target="#memberDetail" value="${m.nik}">상세보기</button></td>
 						    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></p></td>
                       </tr> 
               
@@ -252,9 +259,9 @@ margin-top:20px;
 					    <td>버스커</td>
 					    <td>${m.cdt}</td>
 					    <td>${m.memo}</td>
-					    <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon"></span>메모수정</button></p></td>
-					    <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon"></span>상세보기</button></p></td>
-					    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></p></td>
+					    <td><button class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#edit" ><span class="glyphicon"></span>메모수정</button></td>
+					    <td><button class="buskDetail btn-primary btn-xs"  data-toggle="modal" data-target=".modelbusk" value="${m.nik}">상세보기</button></td>
+					    <td><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></td>
 
                     </tr>  
               </c:if>
@@ -479,12 +486,263 @@ margin-top:20px;
   </div>
    
 
+
+
+<div class="container"><!-- 버스커 모달 시작 -->
+ 
+  <div class="modelbusk modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <div class="bttl">
+        
+        </div>
+      </div>
+      <div id="mmain">
+        <div id="mmain">
+                <div class="row">
+                    <div class="col-xs-12" id="slider" id="main">
+                        <!-- Top part of the slider -->
+                        <div class="row">
+                            <div class="col-sm-4" id="carousel-bounding-box" >
+                                <div class="mc carousel slide" id="myCarousel">
+                                                          
+                                        <div class="bmimg active item"  data-slide-number="0">
+                                        </div>
+                                </div>                               
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+        </div>
+</div>
+     <div class="mtb">
+        <label>아이디 :</label><div class="bid"></div>
+        <label>이메일 :</label><div class="bemail"></div>
+        <label>닉네임 :</label><div class="bnik"></div>
+        <label>팀명 :</label><div class="bteam"></div>
+        <label>선호 장르 :</label><div class="bgenre"></div>
+        <label>도시 :</label><div class="bcity"></div>
+        <label>연락처 :</label><div class="btel"></div>
+        <label>악기 :</label><div class="binst"></div>
+        <label style="margin: 0px;">팀소개 :</label><div class="bmemo"></div>
+     </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+      </div>
+    </div>
+  </div>
+  </div>
+</div><!-- 버스커 모달끝 -->
+
+<!-- 회원모달 시작 -->
+<div class="container">
+
+  <div id="memberDetail" class="memberDetail modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <div id="mttl">
+        </div>
+      </div>
+      
+      <div id="mmain">
+        <div id="mmain">
+                <!-- Slider -->
+                <div class="row">
+                    <div class="col-xs-12" id="slider" id="main">
+                        <!-- Top part of the slider -->
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="mc" id="myCarousel2">
+                                  
+                                    <div class="carousel-inner" >
+                                        <div class="mmimg active item">
+                                        </div>
+                                    </div><!-- Carousel nav -->
+                                    </div>
+                            </div>        
+                        </div>
+                    </div>
+                </div>
+        </div>
 </div>
 
+     <div class="mtb">
+        <label>아이디 :</label><div class="mid"></div>
+        <label>이메일 :</label><div class="meamil"></div>
+        <label>닉네임 :</label><div class="mnik"></div>
+        <label>선호장르:</label><div class="mgenre"></div>
+        <label>메모 :</label><div class="mmemo"></div>
+     </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+      </div>
+    </div>
+  </div>
+  </div>
+
+</div>
+<!-- 회원모달 끝 -->
+<!-- 서포터모달 시작 -->
+<div class="container">
+
+
+
+  
+  <div id="supDetail" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="ttl">용찬하우스</h3>
+      </div>
+      
+      <div id="mmain">
+        <div id="mmain">
+                <!-- Slider -->
+                <div class="row">
+                    <div class="col-xs-12" id="slider" id="main">
+                        <!-- Top part of the slider -->
+                        <div class="row">
+                            <div class="col-sm-4" id="carousel-bounding-box" >
+                                <div class="carousel slide" id="myCarousel">
+                                    <!-- Carousel items -->
+                                    <div class="carousel-inner" >
+                                        <div class="active item"   data-slide-number="0">
+                                        <img id="ff" src=""></div>
+
+                                        <div class="item"  data-slide-number="0">
+                                        <img id="ff"  src=""></div>
+
+                                        <div class="item" data-slide-number="0">
+                                        <img id="ff" src=""></div>
+
+                               
+                                    </div><!-- Carousel nav -->
+                                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                                        <span class="glyphicon glyphicon-chevron-left"></span>                                       
+                                    </a>
+                                    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                                        <span class="glyphicon glyphicon-chevron-right"></span>                                       
+                                    </a>                                
+                                    </div>
+                            </div>        
+                        </div>
+                    </div>
+                </div><!--/Slider-->
+
+                <div class="aab row hidden-xs" id="slider-thumbs">
+                        <!-- Bottom switcher of slider -->
+                        <ul class="aac hide-bullets">
+                            <li class="mli">
+                                <a class="carousel-selector-0"></a>
+                            </li>
+
+                            <li class="mli">
+                                <a class="carousel-selector-1"></a>
+                            </li>
+
+                            <li class="mli">
+                                <a class="carousel-selector-2"></a>
+                            </li>
+
+                        </ul>                 
+                </div>
+        </div>
+</div>
+     <div class="mtb">
+        <label>아이디 :</label><div><p>용찬하우스</p></div>
+        <label>이메일 :</label><div><p>fdafsa</p></div>
+        <label>닉네임 :</label><div><p>dfasfa</p></div>
+        <label>제공자명 :</label><div><p>fewafwa</p></div>
+        <label>상세주소 :</label><div><p>fewafwa</p></div>
+        <label>선호 장르 :</label><div><p>fewafwa</p></div>
+        <label>수용가능 인원 :</label><div><p>fewafwa</p></div>
+        <label>연락처 :</label><div><p>fewafwa</p></div>
+        <label>메시지 :</label><div><p>fewafwa</p></div>
+     </div>
+     
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+<!-- 서포터모달 끝 -->
 <script>
 
 
-
+$('.memberDetail').click(function(){
+	var m = $(this).val();
+	alert(m);
+	
+	$.ajax({
+		type : "POST",
+        url : "memberListDetail",
+        dataType : 'json',
+        data : {"nik":m},
+        success : function(data){
+        	$("#mttl").empty();
+            $(".mid").empty();
+            $(".meamil").empty();
+            $(".mnik").empty();
+            $(".mgenre").empty();
+            $(".mmemo").empty();
+            $(".mmimg").empty();
+            
+            $(".mmimg").append("<img src='/upload/"+data.photo+"'>")
+            $("#mttl").append('<h3>'+data.nickname+'</h3>')
+            $(".mid").append('<p>'+data.id+'</p>')
+            $(".meamil").append('<p>'+data.email+'</p>')
+            $(".mnik").append('<p>'+data.nickname+'</p>')
+            $(".mgenre").append('<p>'+data.genre0+','+data.genre1+','+data.genre2+'</p>')
+            $(".mmemo").append('<p>'+data.memo+'</p>')
+        }
+	})
+	
+})
+                                                                           
+$('.buskDetail').click(function(){
+    var b = $(this).val();
+    alert(b);
+	
+    $.ajax({
+    	type : "POST",
+    	url : "buskListDetail",
+    	dataType : 'json',
+    	data : {"nik":b},
+    	success : function(data){
+    		$(".bttl").empty();
+    		$(".bid").empty();
+    		$(".bemail").empty();
+    		$(".bnik").empty();
+    		$(".bteam").empty();
+    		$(".bgenre").empty();
+    		$(".bcity").empty();
+    		$(".btel").empty();
+    		$(".binst").empty();
+    		$(".bmemo").empty();
+    		$(".bmimg").empty();
+    		
+    	    $(".bmimg").append("<img class='bbbmimg' src='/upload/"+data.teamPhoto+"'>")
+    		$(".bttl").append('<h3>'+data.teamname+'</h3>')
+    		$(".bid").append('<p>'+data.id+'</p>')
+    	    $(".bemail").append('<p>'+data.email+'</p>')
+            $(".bnik").append('<p>'+data.nickname+'</p>')
+            $(".bteam").append('<p>'+data.teamname+'</p>')
+            $(".bgenre").append('<p>'+data.teamgenre+'</p>')
+            $(".bcity").append('<p>'+data.city+'</p>')
+            $(".btel").append('<p>'+data.tel+'</p>')
+            $(".binst").append('<p>'+data.instrument+'</p>')
+            $(".bmemo").append("<p>"+data.teamInfo+"</p>")
+    	}
+    })
+    
+})
 
 function openCity(cityName) {
 var i;
@@ -593,7 +851,7 @@ $.ajax({
                     +'<td>'+item.ncdt+'</td>'
                     +'<td>'+item.memo+'</td>'
                     +'<td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon"></span>메모수정</button></p></td>'
-                    +'<td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon"></span>상세보기</button></p></td>'
+                    +'<td><button class="memberDetail btn-primary btn-xs"  data-toggle="modal" data-target="#memberDetail" value="${m.nik}">상세보기</button></td>'
                     +'<td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></p></td></tr>'
                     );
             
@@ -605,7 +863,7 @@ $.ajax({
                     +'<td>'+item.ncdt+'</td>'
                     +'<td>'+item.memo+'</td>'
                     +'<td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon"></span>메모수정</button></p></td>'
-                    +'<td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon"></span>상세보기</button></p></td>'
+                    +'<td><button class="memberDetail btn-primary btn-xs"  data-toggle="modal" data-target="#memberDetail" value="${m.nik}">상세보기</button></td>'
                     +'<td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></p></td></tr>'
                     );
             }else if(item.flag==2){
@@ -616,7 +874,7 @@ $.ajax({
                         +'<td>'+item.ncdt+'</td>'
                         +'<td>'+item.memo+'</td>'
                         +'<td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon"></span>메모수정</button></p></td>'
-                        +'<td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon"></span>상세보기</button></p></td>'
+                        +'<td><button class="buskDetail btn-primary btn-xs"  data-toggle="modal" data-target=".modelbusk" value="${m.nik}">상세보기</button></td>'
                         +'<td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></p></td></tr>'
                         );
             }else if(item.flag==3){
@@ -627,7 +885,7 @@ $.ajax({
                         +'<td>'+item.ncdt+'</td>'
                         +'<td>'+item.memo+'</td>'
                         +'<td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon"></span>메모수정</button></p></td>'
-                        +'<td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon"></span>상세보기</button></p></td>'
+                        +"<td><button class='btt2 btn-primary btn-xs'  data-toggle='modal' data-target='#supDetail'>상세보기</button></td>"
                         +'<td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></p></td></tr>'
                         );
             }else if(item.flag==4){

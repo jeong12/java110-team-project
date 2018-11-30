@@ -105,7 +105,7 @@
 
 /*오른쪽 자세히*/
 .wrapfollowerdetail{
-transform:translate(-50%, 15%);
+transform:translate(-35%, 15%);
 }
 #followerdetail{
 width : 300px;

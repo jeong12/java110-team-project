@@ -7,13 +7,16 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import indiesker.java110.ms.domain.Avi;
 import indiesker.java110.ms.domain.Busker;
 import indiesker.java110.ms.domain.Comment;
 import indiesker.java110.ms.domain.FeedPhoto;
+import indiesker.java110.ms.domain.FeedPhotoFile;
 import indiesker.java110.ms.domain.Schedule;
 import indiesker.java110.ms.service.AviService;
 import indiesker.java110.ms.service.BuskerService;
@@ -95,7 +98,9 @@ public class FeedController {
       ps.setNsdt(formatsdt.format(ps.getSdt()));
       ps.setNedt(formatedt.format(ps.getEdt()));
     }
-    
+    for (Schedule ss : fplist) {
+      System.out.println(ss);
+    }
     
     model.addAttribute("schelist",fplist);
     model.addAttribute("busk",busker);
@@ -122,10 +127,36 @@ public class FeedController {
   
   @ResponseBody
   @RequestMapping("showphoto")
-  public Avi getPhotoNo(
+  public FeedPhoto getPhotoNo(
       String pbno, Model model) {   
-
-    return null;
+    int abno2 = Integer.parseInt(pbno);
+    System.out.println(abno2);
+    
+    FeedPhoto feedphoto=feedPhotoService.getfeedphotobyPbno(abno2);
+    
+    System.out.println(feedphoto);
+    List<Comment> comt=feedphoto.getComments();
+    
+    for (Comment comment : comt) {
+      System.out.println(comment.getCdt());
+      comment.setStrcdt(comment.getCdt().toString());
+    }
+    
+    return feedphoto;
   }
   
+  @PostMapping("addphoto")
+  public String addphoto(FeedPhoto feedphot,FeedPhotoFile photfile,
+      @RequestParam MultipartFile file1, @RequestParam MultipartFile file2, @RequestParam MultipartFile file3
+      ) {
+    
+    
+    
+    
+    return "redirect:enter";
+  }
+  
+  
+  
+
 }

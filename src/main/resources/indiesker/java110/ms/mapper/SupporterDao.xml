@@ -25,7 +25,7 @@
 
 	<select id="checkName" parameterType="string" resultType="int">
 		select
-		count(*) from sup where name=#{name}
+		count(*) from sup where name=Lower(#{name})
 	</select>
 
 	<insert id="insert" parameterType="Supporter">
@@ -34,10 +34,12 @@
 		values(#{no},#{name},#{baseaddr},#{detailaddr},#{sgnere},#{capa},#{tel},'n',#{message},#{x},#{y})
 	</insert>
 
-	<insert id="insertfile" parameterType="StagePhoto" useGeneratedKeys="true" keyColumn="spno" keyProperty="spno">
+	<insert id="insertfile" parameterType="list" useGeneratedKeys="true" keyColumn="spno" keyProperty="spno">
 		insert into
-		stag_phot(phot,sno)
-		values(#{photo},#{sno})
+		stag_phot(phot,sno) values
+    <foreach collection="list" item="item" separator=",">
+        (#{item.photo},#{item.sno})
+    </foreach>
 	</insert>
 	
     <select id="findBySupporter" parameterType="int" resultType="int">

@@ -4,26 +4,24 @@ import java.sql.Date;
 import java.util.List;
 
 public class FeedPhoto extends Busker{
-  protected int pno;
-  protected String cont;
+  protected int pbno;
+  protected String feedcont;
   protected String lcnt;
   protected Date cdt;
   protected String firphot;
   protected List<FeedPhotoFile> feedphotoFiles;
   protected List<Comment> comments;
-  
-  
-  public int getPno() {
-    return pno;
+  public int getPbno() {
+    return pbno;
   }
-  public void setPno(int pno) {
-    this.pno = pno;
+  public void setPbno(int pbno) {
+    this.pbno = pbno;
   }
-  public String getCont() {
-    return cont;
+  public String getFeedcont() {
+    return feedcont;
   }
-  public void setCont(String cont) {
-    this.cont = cont;
+  public void setFeedcont(String feedcont) {
+    this.feedcont = feedcont;
   }
   public String getLcnt() {
     return lcnt;
@@ -49,10 +47,11 @@ public class FeedPhoto extends Busker{
   public void setFeedphotoFiles(List<FeedPhotoFile> feedphotoFiles) {
     this.feedphotoFiles = feedphotoFiles;
   }
-  @Override
-  public String toString() {
-    return "FeedPhoto [pno=" + pno + ", cont=" + cont + ", lcnt=" + lcnt + ", cdt=" + cdt
-        + ", firphot=" + firphot + ", feedphotoFiles=" + feedphotoFiles + "]";
+  public List<Comment> getComments() {
+    return comments;
+  }
+  public void setComments(List<Comment> comments) {
+    this.comments = comments;
   }
   
   

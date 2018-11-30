@@ -1,7 +1,8 @@
 <%@ page language="java" 
-contentType="text/html; charset=UTF-8"
+    contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,28 +13,30 @@ contentType="text/html; charset=UTF-8"
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<title>Insert title here</title>
 </head>
+<title>관리자</title>
+</head>
+
 <style>
-.tab{display: none}
-.hide-bullets {list-style:none;
-margin-left: -40px;
-margin-top:20px;
-}
-    #mmain{margin-left:  8%; margin-top: 15px;}
+
+.tab{display: none;}
+.hide-bullets {list-style:none;margin-left:-40px;margin-top:20px;}
+    #mmain{margin-left:8%; margin-top: 15px;}
     #myCarousel{width: 400px;}
     #myCarousel2{width: 400px;}
     #ff{width: 400px;height: 200px;}
-    #ig{width: 133px;height: 60px;}
-    .thumbnail{padding: 0px; }
-    .mli{width: 133px;height: 50px; float: left;}
-   
-    .aac{margin-left: -24px; margin-top: 0px;}
-    .mtb{margin: auto; margin:26px auto 20px; ;
-        border: 1px solid silver;
+    #ig{width: 129px;height: 60px;}            
+    .mli{padding:0px; float: left;}
+    .aac{ margin-top: 0px; margin-left:3%;}
+    .aad{margin-left: -24px; margin-top: 0px;}
+    .mtb{
+        margin: auto; margin:26px auto 20px;
+        border: 1px solid silver; !importatnt;
         width: 500px; padding: 10px; padding-bottom: 30px;
     }
-    .btb{margin: auto; margin:26px auto 20px; ;
+ 
+    .btb{margin: auto; margin:26px auto 20px; 
+    background-color:red;
         border: 1px solid silver;
         width: 500px; padding: 10px; padding-bottom: 30px;
     }
@@ -41,6 +44,8 @@ margin-top:20px;
     #ttl{margin-left: 21px;}
     .mtb label{float:left;}
 </style>
+
+
 <body>
        <button class="bt1 btn-default btn-sm"  onclick="openCity('bt1')">전체</button>
        <button class="bt2 btn-primary btn-sm" value="2" onclick="openCity('bt2')">버스커</button>
@@ -83,7 +88,7 @@ margin-top:20px;
                     <td>${m.flag}</td>
                     <td><button type="button" class="dtailSupbutton" value="${m.sno}" 
                     data-target="#model-id" data-toggle="modal">상세보기</button></td>
-                    <td><button>확정</button></td>
+                    <td><button class="gradleSupUpdate" type="button" value="${m.sno}">확정</button></td>
                    
              </tr>
              </c:forEach>
@@ -96,7 +101,7 @@ margin-top:20px;
                     <td>${m.flag}</td>
                     <td><button type="button" class="dtailbuskbutton" value="${m.bno}"
                      data-target="#model-id2" data-toggle="modal">상세보기</button></td>
-                    <td><button value=>확정</button></td>
+                    <td><button class="gradleBuskUpdate" type="button" value="${m.bno}">확정</button></td>
              </tr>
              </c:forEach>
           </tbody>   
@@ -176,14 +181,15 @@ margin-top:20px;
                             <div class="col-sm-4" id="carousel-bounding-box" >
                                 <div class="carousel slide" id="myCarousel">
                                     <!-- Carousel items -->
-                                    <div class="carousel-inner" >
-                                        <div class="active item"   data-slide-number="0">
+                                    <div class="ttttt carousel-inner" >
+                                        <div data-slide-number="0">
                                         <img id="ff" src=""></div>
 
-                                        <div class="item"  data-slide-number="1">
+                                        <div  data-slide-number="1">
+                                        
                                         <img id="ff"  src=""></div>
 
-                                        <div class="item" data-slide-number="2">
+                                        <div data-slide-number="2">
                                         <img id="ff" src=""></div>
 
                                
@@ -203,8 +209,11 @@ margin-top:20px;
                 </div><!--/Slider-->
                 <div class="aab row hidden-xs" id="slider-thumbs">
                         <!-- Bottom switcher of slider -->
-                        <ul class="aac hide-bullets">
-                            <li class="mli">
+                        <div class="aac">
+                       
+                         
+                       
+                     <!--        <li class="mli">
                                 <a class="thumbnail" id="carousel-selector-0"><img id="ig" src=""></a>
                             </li>
 
@@ -214,12 +223,14 @@ margin-top:20px;
 
                             <li class="mli">
                                 <a class="thumbnail" id="carousel-selector-2"><img id="ig" src=""></a>
-                            </li>
-
-                        </ul>                 
+                            </li> -->
+                   
+                          
+                        </div>             
                 </div>
         </div>
 </div>
+<div class="maaa">
 <div class="mtb">
         <label>장소명 :</label><div class="sname"></div>
         <label>인원 :</label><div class="scnt"></div>
@@ -228,6 +239,7 @@ margin-top:20px;
         <label>연락처 :</label><div class="stel"></div>
         <label>희망사항 :</label><div class="smessage"></div>
  </div>    
+ </div>
       <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
       </div>
@@ -238,7 +250,7 @@ margin-top:20px;
 </div>
 <!-- 모달 서포터 여기까지 -->  
 <!-- 버스커 모달 -->
-
+ 
         <div class="container">
 
 
@@ -254,14 +266,14 @@ margin-top:20px;
       
       <div id="mmain">
         <div id="mmain">
-                <!-- Slider -->
+             
                 <div class="row">
                     <div class="col-xs-12" id="slider" id="main">
-                        <!-- Top part of the slider -->
+                     
                         <div class="row">
                             <div class="col-sm-4" id="carousel-bounding-box" >
                                 <div class="carousel slide" id="myCarousel2">
-                                    <!-- Carousel items -->
+                          
                                     <div class="carousel-inner" >
                                         <div class="active item"   data-slide-number="0">
                                         <div class="iframe1">
@@ -275,7 +287,7 @@ margin-top:20px;
                                         </div>
                                         </div>
                                
-                                    </div><!-- Carousel nav -->
+                                    </div>
                                     <a class="left carousel-control" href="#myCarousel2" role="button" data-slide="prev">
                                         <span class="glyphicon glyphicon-chevron-left"></span>                                       
                                     </a>
@@ -285,14 +297,14 @@ margin-top:20px;
                                     </div>
                             </div>        
 
-                          
+                        
                         </div>
                     </div>
-                </div><!--/Slider-->
+                </div>
 
                 <div class="aab row hidden-xs" id="slider-thumbs">
-                        <!-- Bottom switcher of slider -->
-                        <ul class="aac hide-bullets">
+                   
+                        <ul class="aad hide-bullets">
                             <li class="mli">
                                  <a class="thumbnail" id="carousel-selector-0"><img id="ig" src="https://img.youtube.com/vi/fiGSDywrX1Y/hqdefault.jpg"></a> 
                             </li>
@@ -305,7 +317,7 @@ margin-top:20px;
         </div>
 </div>
 
-    <div class="mtb">
+    <div class="btb">
         <label>팀명 :</label><div class="bname"></div>
         <label>선호지역 :</label><div class="bcity"></div>
         <label>장르 :</label><div class="bgenre"></div>
@@ -321,13 +333,60 @@ margin-top:20px;
   </div>
    
  
-</div>                           
+</div>                            
                   
  
  <!-- 버스커모달 여기까지 -->
  
 </body>
+
+
+
+
 <script>
+$('.gradleSupUpdate').click(function(){
+	var no = $(this).val();
+	alert(no);
+	
+	$.ajax({
+		type : "POST",
+		url : "gradlesupupdate",
+		dataType : "json",
+		data : {"no":no},
+		success : function(data){
+			alert("변경됨")
+			window.location.href=window.location.href;
+		},
+		 error : function(request, status, error) {
+             alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+         }
+		
+	})
+	
+})
+
+$('.gradleBuskUpdate').click(function(){
+    var no = $(this).val();
+    alert(no);
+    
+    $.ajax({
+        type : "POST",
+        url : "gradlebuskupdate",
+        dataType : "json",
+        data : {"no":no},
+        success : function(data){
+            alert("변경됨")
+            window.location.href=window.location.href;
+        },
+         error : function(request, status, error) {
+             alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+         }
+        
+    })
+    
+})
+
+
 $('.dtailSupbutton').click(function(){
 	var n = $(this).val();
 	alert(n);
@@ -343,17 +402,32 @@ $('.dtailSupbutton').click(function(){
 			 $(".sgenre").empty();
 			 $(".stel").empty();
 			 $(".smessage").empty();
+			 $(".ttttt").empty();
+			 $(".aac").empty();
 			console.log(data);
 			console.log(data.det_addr);
 			console.log(data.etc);
 			console.log(data.capa);
+	         $.each(data.stagephotos,function(index,item){
+	        	 $(".ttttt").append("<div class='item' data-slide-number='"+index+"'><img id='ff' src="+item.photo+"></div>")
+	         });
+	          $.each(data.stagephotos,function(index,item){
+         	 $(".aac").append("<button value="+item.photo+" class='mli'><img id='ig'class='photoimg' src="+item.photo+"></button>")
+	         }); 
+	         $(".mli").click(function(){
+	             var src = $(this).val();
+	             $(".ttttt").empty();
+	             $(".ttttt").append("<img id='ff'class='photoimg' src="+src+">")
+	         })  
+	         $(".item:first").removeClass("item").addClass("active item");
+	                                          
 	                $(".sname").append('<p>'+data.name+'</p>');
 	                $(".scnt").append('<p>'+data.capa+'</p>');
 	                $(".saddr").append('<p>'+data.detailaddr+'</p>');
-	                $(".sgenre").append('<p>'+data.genre+'</p>');
+	                $(".sgenre").append('<p>'+data.sgnere+'</p>');
 	                $(".stel").append('<p>'+data.tel+'</p>');
 	                $(".smessage").append('<p>'+data.message+'</p>');
-		} 
+		}                                          
 	})
 })
 
@@ -373,9 +447,10 @@ $('.dtailbuskbutton').click(function(){
              $(".bintro").empty();
              $(".iframe1").empty();  
              $(".iframe2").empty();
+           
              
-              $(".iframe1").append("<iframe id='ff' src="+data.avi1+"frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
-               $(".iframe2").append("<iframe id='ff' src="+data.avi2+"frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
+              $(".iframe1").append("<iframe id='ff' src='"+data.avi1+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
+               $(".iframe2").append("<iframe id='ff' src='"+data.avi2+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
                     $(".bname").append('<p>'+data.teamname+'</p>');
                     $(".bcity").append('<p>'+data.city+'</p>');
                     $(".bgenre").append('<p>'+data.teamgenre+'</p>');
@@ -538,7 +613,7 @@ $('.slectbtn').click(function(){
                        }); 
                    },
                    error : function(request, status, error) {
-                       alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+                       alert("에러가 발생했습니다. 이태형에게 문의하시기 바랍니다");
                    }
            })
     }
@@ -554,32 +629,32 @@ function openCity(cityName) {
 	document.getElementById(cityName).style.display = "contents"; 
 	} 
 //////////////////////////////////////////////////모달서포터
-$('#carousel-text').html($('#slide-content-0').html());
+ $('#carousel-text').html($('#slide-content-0').html());
 
 //Handles the carousel thumbnails
 $('[id^=carousel-selector-]').click( function(){
     var id = this.id.substr(this.id.lastIndexOf("-") + 1);
     var id = parseInt(id);
-    $('#myCarousel').carousel(id);
+    $('#myCarousel2').carousel(id);
 });
 // When the carousel slides, auto update the text
-$('#myCarousel').on('slid.bs.carousel', function (e) {
+$('#myCarousel2').on('slid.bs.carousel', function (e) {
          var id = $('.item.active').data('slide-number');
         $('#carousel-text').html($('#slide-content-'+id).html());
-});
+}); 
 //////////////////////////////////////////////////버스커 모달
-  $('[id^=carousel-selector-]').click( function(){
-            var id = this.id.substr(this.id.lastIndexOf("-") + 1);
-            var id = parseInt(id);
-            $('#myCarousel2').carousel(id);
-        });
- 
- 
-        // When the carousel slides, auto update the text
-        $('#myCarousel2').on('slid.bs.carousel', function (e) {
-                 var id = $('.item.active').data('slide-number');
-                $('#carousel-text').html($('#slide-content-'+id).html());
-        });
 
+	$('[class^=carousel-selector-]').on('click', function(){
+		console.log("aaa");
+    var id = this.className.substr(this.className.lastIndexOf("-") + 1);
+    var id = parseInt(id);
+    $('#myCarousel').carousel(id);
+});
+
+	// When the carousel slides, auto update the text
+	$('#myCarousel').on('slid.bs.carousel', function(e) {
+		var id = $('.item.active').data('slide-number');
+		$('#carousel-text').html($('#slide-content-' + id).html());
+	});
 </script>
 </html>

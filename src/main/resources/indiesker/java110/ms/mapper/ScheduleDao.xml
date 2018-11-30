@@ -425,7 +425,7 @@ GROUP BY BS.brno
 		select b.name, b.genre, min(ss.sdt) as sdt, max(ss.edt)as edt, br.cnt,
 		bs.flag, br.cdt, br.brno
 		from busk_stag as bs, stag_sche as ss, busk as b, busk_req as br
-		where bs.ssno = ss.ssno and bs.brno=br.brno and br.bno=b.bno and ss.sno=2
+		where bs.ssno = ss.ssno and bs.brno=br.brno and br.bno=b.bno and ss.sno=#{no}
 		GROUP BY br.brno
 		order by ss.sdt desc;
 	</select>
@@ -436,7 +436,7 @@ GROUP BY BS.brno
 		select b.name, b.genre, min(ss.sdt)as sdt, max(ss.edt)as edt, br.cnt,
 		bs.flag, br.cdt, br.brno
 		from busk_stag as bs, stag_sche as ss, busk as b, busk_req as br
-		where bs.ssno = ss.ssno and bs.brno=br.brno and br.bno=b.bno and ss.sno=2
+		where bs.ssno = ss.ssno and bs.brno=br.brno and br.bno=b.bno and ss.sno=#{no}
 		and flag=#{flag}
 		GROUP BY br.brno
 		order by ss.sdt desc;
@@ -521,7 +521,6 @@ GROUP BY BS.brno
        set sdt=#{nsdt}, edt=#{nedt}, addr=#{addr}, x=#{x}, y=#{y}, shopname=#{shopname}, cnt=#{cnt}, cdt=now()
      where psno=#{sno}
 
-
 </update>
     
 	
@@ -565,19 +564,102 @@ GROUP BY BS.brno
 
     <!-- 버스커: 신청 가능한 무대일정 뽑기 -->
     <select id="findPossibleStages" parameterType="map" resultMap="UnableStageScheduleMap" >
-    select ss.ssno, ss.sdt, ss.edt
-    from stag_sche ss inner join busk_stag bs
-    where ss.ssno != bs.ssno and ss.sno = #{no} and ss.sdt LIKE CONCAT(#{date},'%') 
-    group by ss.ssno
-    order by ss.sdt
+    select ss.ssno, ss.sdt, ss.edt from stag_sche ss LEFT outer join busk_stag bs 
+    ON ss.ssno = bs.ssno where bs.ssno is null and ss.sno = #{no} and 
+    ss.sdt LIKE CONCAT(#{date},'%') group by ss.ssno order by ss.sdt
     </select>
     
    <insert id="ApplyStagesinBuskreq" parameterType="map"
    useGeneratedKeys="true" keyColumn="brno" keyProperty="sno">
    INSERT INTO `busk_req`(`bno`, `cont`, `cdt`, `cnt`) 
    VALUES (#{bno},#{cont},now(),#{count})
+    <selectKey resultType="integer" keyProperty="brno" order="AFTER">
+    SELECT LAST_INSERT_ID()
+    </selectKey>
+   </insert>
+   
+   
+   <!-- 스케줄조회 : 확정 버스커 스케줄 출력하는 쿼리 -->
+    <select id="findMyAllSchedulebyflag" resultMap="buskerscheduleMap"
+        parameterType="map">
+        SELECT
+        BR.brno,
+        S.name as name,
+        S.bas_addr as addr,
+        MIN(SC.sdt) as sdt,
+        MAX(SC.edt) as edt,
+        BR.cnt,
+        BS.flag,
+        BR.cdt,
+        S.x,
+        S.y
+        FROM busk B, busk_req BR, busk_stag BS,stag_sche SC, sup S
+        WHERE B.bno=BR.bno
+        AND BR.brno=BS.brno
+        AND BS.ssno=SC.ssno
+        AND SC.sno = S.sno
+        AND BR.bno=#{no}
+        AND BS.flag=#{flag}
+        GROUP BY BS.brno
+        limit #{rowNo}, #{size}
+    </select>
+    
+   <insert id="ApplyStagesinBuskstag" parameterType="map">
+   INSERT INTO `busk_stag`(`ssno`, `brno`, `flag`) values
+   <foreach collection="list" item="item" separator=",">
+    (#{item},#{brno},'1')
+    </foreach>
    </insert>
 
+    <select id="totFindreqschedule" parameterType="int" resultType="Integer">
+    select count(*)
+    FROM (SELECT b.name, b.genre, min(ss.sdt) as sdt, max(ss.edt)as edt, br.cnt,
+          bs.flag, br.cdt, br.brno
+          from busk_stag as bs, stag_sche as ss, busk as b, busk_req as br
+          where bs.ssno = ss.ssno and bs.brno=br.brno and br.bno=b.bno and ss.sno=#{no}
+          GROUP BY br.brno)as b
+    </select>
+
+    <select id="totfindSuggestsbyflag" parameterType="map" resultType="Integer">
+    select count(*)
+    FROM (SELECT b.name, b.genre, min(ss.sdt) as sdt, max(ss.edt)as edt, br.cnt,
+          bs.flag, br.cdt, br.brno
+          from busk_stag as bs, stag_sche as ss, busk as b, busk_req as br
+          where bs.ssno = ss.ssno and bs.brno=br.brno and br.bno=b.bno and ss.sno=#{no}
+          and flag=#{flag}
+          GROUP BY br.brno)as b
+    </select>
+
+<select id="checkeditreqschedule" parameterType="map" resultType="int">
+    SELECT COUNT(*) 
+      FROM 
+            (SELECT sdt, edt
+               FROM (SELECT SS.sdt as sdt, SS.edt as edt
+                       FROM busk B, busk_req BR, busk_stag BS, stag_sche SS 
+                      WHERE B.bno = BR.bno
+                        AND BR.brno = BS.brno
+                        AND BS.ssno = SS.ssno
+                        AND B.bno=#{no}
+                   GROUP BY BS.brno
+                     ) c
+              WHERE sdt NOT BETWEEN #{sdt} and #{edt}
+                AND edt NOT BETWEEN #{sdt} and #{edt}
+             ) d
+     WHERE sdt BETWEEN #{nsdt} and #{nedt}
+        OR edt BETWEEN #{nsdt} and #{nedt}
+</select>
+
+<select id="checkeditperschedule" parameterType="map" resultType="int">
+    SELECT COUNT(*)
+    FROM(SELECT sdt, edt
+           FROM per_sche
+          WHERE sdt NOT BETWEEN #{sdt} and #{edt}
+            AND edt NOT BETWEEN #{sdt} and #{edt}
+            AND bno=#{no}
+        )  c
+   WHERE sdt BETWEEN #{nsdt} and #{nedt}
+      OR edt BETWEEN #{nsdt} and #{nedt}
+</select>    
 
 </mapper>
 
