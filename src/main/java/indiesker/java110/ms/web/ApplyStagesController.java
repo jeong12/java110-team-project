@@ -68,20 +68,12 @@ public class ApplyStagesController {
   @RequestMapping("applyStage")
   public int applyStage(String[] ssno, String cont, String count){
     
-    int no = 5;
-    List<Integer> list = new ArrayList<>();
+    int bno = 5;
+    ArrayList<Integer> list = new ArrayList<>();
     for(int i=0;i<ssno.length;i++) {
       list.add(Integer.parseInt(ssno[i]));
     }
-    for (Integer i : list) {
-      System.out.println(i);
-    }
-    
-    int i = scheduleService.ApplyStagesinBuskreq(no, cont, count);
-    
-    return 0;
-    
-    
+    return scheduleService.ApplyStages(bno, cont, count,list);
   }
   
   
