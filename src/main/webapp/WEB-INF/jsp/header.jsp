@@ -149,11 +149,17 @@ a:focus, a:hover {
                           <a href="#"><i class="fas fa-info-circle"></i>
                           <span class=" d-md-inline-block_c">내 정보수정</span></a>
                           <!--버스커일 경우-->
+                          <div id="busk_icon" style="display:none">
                           <a href="#"><i class="fa fa-globe"></i>
                           <span class=" d-md-inline-block_c">내 의뢰현황</span></a>
+                          <a href="#"><i class="fas fa-drum"></i>
+                          <span class=" d-md-inline-block_c">버스킹 신청</span></a>
+                          </div>
                           <!--제공자일 경우--> 
+                          <div id="sup_icon" style="display:none">
                           <a href="#"><i class="fa fa-globe"></i>
-                          <span class=" d-md-inline-block_c">무대뭘까연</span></a>  
+                          <span class=" d-md-inline-block_c">무대뭘까연</span></a>
+                          </div>  
                           <a href="http://localhost:8080//app/auth/logout" class="logout-btn">
                           <i class="fas fa-sign-out-alt"></i>
                           <span class="d-md-inline-block_c">Sign Out</span></a>
@@ -165,8 +171,6 @@ a:focus, a:hover {
             </div>
           </div>
         </div>
-        <div id="memPro" style="display:none">${sessionScope.loginUser.photo}</div>
-        <div id="memId" style="display:none">${sessionScope.loginUser.no}</div>
         <p id ="underline"></p>
         <div class="container_c">
             <div class="row_c">
@@ -184,6 +188,14 @@ a:focus, a:hover {
       </div>
       </div>
 
+        <div id="memPro" style="display:none">${sessionScope.loginUser.photo}</div>
+        <div id="memId" style="display:none">${sessionScope.loginUser.no}</div>
+        <div id="busPro" style="display:none">${sessionScope.loginBusker.teamPhoto}</div>
+        <div id="busker" style="display:none">${sessionScope.loginBusker.teamname}</div>
+        <div id="sup" style="display:none">${sessionScope.loginSupporter.name}</div>
+        
+        
+        
   <script>
     /* accordion & icon-bar */
     

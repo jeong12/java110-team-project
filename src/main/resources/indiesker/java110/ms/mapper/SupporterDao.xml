@@ -82,5 +82,17 @@
           from stag_phot
          where sno = #{no};
     </select>
+    
+    <!-- 메인 HOT PLACE -->
+    <select id="findByHot" parameterType="map" resultType="supporter">
+          select sno as no, name, bas_addr as baseaddr, postno, det_addr as detailaddr,
+                  genre as sgnere, capa, tel, etc as message, tcnt
+          from sup
+          where per in('Y','y')
+          <if test="city != null">
+            and bas_addr LIKE CONCAT('%',#{city},'%') 
+          </if>
+          order by tcnt desc;
+    </select>
 </mapper>
 

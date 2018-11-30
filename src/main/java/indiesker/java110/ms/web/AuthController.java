@@ -219,11 +219,12 @@ public class AuthController {
 
         
         if(bno.size() != 0) {
-          System.out.println("버스커"+bno.get(0));
-          return "redirect:../editprofile/busker/form";
+          session.setAttribute("loginBusker", buskerService.get(bno.get(0)));
+          return "redirect:../main";
         } 
         if(sno.size() != 0) {
-          return "redirect:../editprofile/supporter/form";
+          session.setAttribute("loginSupporter", supporterService.get(sno.get(0)));
+          return "redirect:../main";
         } 
 
         return "redirect:../main";

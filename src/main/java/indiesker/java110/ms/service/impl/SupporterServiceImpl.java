@@ -1,6 +1,7 @@
 package indiesker.java110.ms.service.impl;
 
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import indiesker.java110.ms.dao.SupporterDao;
@@ -63,6 +64,16 @@ public class SupporterServiceImpl implements SupporterService {
     @Override
     public Supporter findInfo(int no) {
     return supporterDao.findInfo(no);
+    }
+
+    @Override
+    public List<Supporter> getHot() {
+      return supporterDao.findByHot();
+    }
+
+    @Override
+    public List<Supporter> getHot(Map<String,Object> city) {
+      return supporterDao.findByHot(city);
     }
     
 }

@@ -32,7 +32,6 @@ public class ApplyStagesController {
   }
 
 
-
   @GetMapping("main")
   public void main(Model model) {
     int no = 2;

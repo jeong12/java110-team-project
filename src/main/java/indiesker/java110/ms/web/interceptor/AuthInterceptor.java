@@ -13,11 +13,15 @@ public class AuthInterceptor implements HandlerInterceptor{
       Object handler) throws Exception {
 
     System.out.println("AuthInterceptor.preHandler()..");
-
     HttpSession session = request.getSession();
     if(session.getAttribute("loginUser") == null) { // 로그인하지 않았으면
       response.sendRedirect("/app/auth/form");
       return false; 
+    }
+    if(session.getAttribute("loginBusker") != null
+        || session.getAttribute("loginSupporter") != null) {
+      response.sendRedirect("/app/main");
+      return false;
     }
 
     return true;
