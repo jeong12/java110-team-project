@@ -11,6 +11,16 @@ public class FeedPhoto extends Busker{
   protected String firphot;
   protected List<FeedPhotoFile> feedphotoFiles;
   protected List<Comment> comments;
+  protected int comtcount;
+  
+  
+  
+  public int getComtcount() {
+    return comtcount;
+  }
+  public void setComtcount(int comtcount) {
+    this.comtcount = comtcount;
+  }
   public int getPbno() {
     return pbno;
   }

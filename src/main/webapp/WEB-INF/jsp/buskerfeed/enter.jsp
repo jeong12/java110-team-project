@@ -67,7 +67,7 @@ body .container {
 }
 </style>
 <body>
-<%-- <jsp:include page="../header.jsp"></jsp:include> --%>
+  <%-- <jsp:include page="../header.jsp"></jsp:include> --%>
   <div class="feedpage" style="margin: 0 300px 0 300px;">
     <div class="container"
       style="width: 750px; padding: 0 20px 20px 20px;">
@@ -123,7 +123,9 @@ body .container {
               <th><h4>소개말</h4></th>
             </tr>
             <tr>
-              <td style="padding: 5px;">${busk.teamInfo }</td>
+              <td style="padding: 5px;"><textarea style="width:340px;resize:none" rows="5"
+              readonly="readonly" disabled 
+              >${busk.teamInfo }</textarea></td>
             </tr>
           </table>
         </div>
@@ -145,7 +147,8 @@ body .container {
         </div>
         <div class="aviphotcont">
           <div style="padding-left: 170px;">
-            <button id="aviupload">영상올리기</button>
+            <button id="aviupload" data-target="#aviUploadModal"
+              data-toggle="modal">영상올리기</button>
             <button id="photoupload" data-target="#photoUploadModal"
               data-toggle="modal">사진올리기</button>
           </div>
@@ -174,7 +177,7 @@ body .container {
                 <div class="col-md-4 photo">
                   <button data-target="#photomodal" data-toggle="modal"
                     value="${t.pbno }">
-                    <img src="${t.firphot }"
+                    <img src="../../upload/${t.firphot }"
                       style="width: 110px; height: 100px;">
                   </button>
                 </div>
@@ -236,11 +239,11 @@ h2 {
     aria-labelledby="avimodal" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
-        <div class="avimodal-header">
           <button type="button" class="close" data-dismiss="modal"
-            aria-label="Close">
+            aria-label="Close" style="padding-right:10px;">
             <span aria-hidden="true">×</span>
           </button>
+        <div class="avimodal-header">
         </div>
         <div class="modal-body">
           <div class="modalcontainer">
@@ -391,6 +394,9 @@ h2 {
 .modal-body.photup {
   height: 450px;
 }
+.uploadbtn{
+    color:snow;
+}
 </style>
   <div class="modal fade" id="photoUploadModal" tabindex="-1"
     role="dialog">
@@ -404,29 +410,50 @@ h2 {
         </div>
         <div class="modal-body photup">
           <div class="modalcontainer" style="border: 1px dotted red;">
-            <form action='addphoto' method='post' enctype="multipart/form-data">
+            <form action='addphoto' method='post'
+              enctype="multipart/form-data">
               <div style="border: 1px dotted orange; padding: 10px;">
                 <div>
-                    <textarea style="width: 100%; height: 250px;" name="content" id="content"></textarea></div>
-                  <div>
-                    <div style="margin: 20px 0;">
-                      <table>
-                        <tr>
-                          <td><img style="height: 70px; width: 100px; margin:0 50px 10px 0;" id="upload1" src="/img/default_image.png" alt="기본이미지"></td>
-                          <td><img style="height: 70px; width: 100px; margin:0 50px 10px 0;" id="upload2" src="/img/default_image.png" alt="기본이미지"></td>
-                          <td><img style="height: 70px; width: 100px; margin:0 50px 10px 0;" id="upload3" src="/img/default_image.png" alt="기본이미지"></td>
-                        </tr>
-                        <tr>
-                          <td><input style="width:150px;" type='file' name='file1' id='input_img1' onchange="readURL1(this);" /></td>
-                          <td><input style="width:150px;" type='file' name='file2' id='input_img2' onchange="readURL2(this);" /></td>
-                          <td><input style="width:150px;" type='file' name='file3' id='input_img3' onchange="readURL3(this);" /></td>
-                        </tr>
-                      </table>
-                            <button style="float: right;margin-left: 20px;">취소</button>
-                            <button class="uploadbtn" style="float: right;margin-left: 20px;" disabled="disabled">등록</button>
-                    </div>
+                  <textarea style="width: 100%; height: 250px;"
+                    name="content" id="content" placeholder="내용 입력"></textarea>
+                </div>
+                <div>
+                  <div style="margin: 20px 0;">
+                    <table>
+                      <tr>
+                        <td><img
+                          style="height: 70px; width: 100px; margin: 0 50px 10px 0;"
+                          id="upload1" src="/img/default_image.png"
+                          alt="기본이미지"></td>
+                        <td><img
+                          style="height: 70px; width: 100px; margin: 0 50px 10px 0;"
+                          id="upload2" src="/img/default_image.png"
+                          alt="기본이미지"></td>
+                        <td><img
+                          style="height: 70px; width: 100px; margin: 0 50px 10px 0;"
+                          id="upload3" src="/img/default_image.png"
+                          alt="기본이미지"></td>
+                      </tr>
+                      <tr>
+                        <td><input style="width: 150px;"
+                          type='file' name='file1' id='input_img1'
+                          onchange="readURL1(this);" /></td>
+                        <td><input style="width: 150px;"
+                          type='file' name='file2' id='input_img2'
+                          onchange="readURL2(this);" /></td>
+                        <td><input style="width: 150px;"
+                          type='file' name='file3' id='input_img3'
+                          onchange="readURL3(this);" /></td>
+                      </tr>
+                    </table>
+                    <button type="button" data-dismiss="modal"
+                      style="float: right; margin-left: 20px;">취소</button>
+                    <button class="uploadbtn"
+                      style="float: right; margin-left: 20px;"
+                      disabled="disabled">등록</button>
                   </div>
-                  </div>
+                </div>
+              </div>
             </form>
           </div>
         </div>
@@ -436,10 +463,10 @@ h2 {
   <!-- 영상 업로드 모달 -->
   <style>
 .modal-body.aviup {
-  height: 450px;
+  height: 490px;
 }
 </style>
-  <div class="modal fade" id="photoUploadModal" tabindex="-1"
+  <div class="modal fade" id="aviUploadModal" tabindex="-1"
     role="dialog">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
@@ -451,45 +478,54 @@ h2 {
         </div>
         <div class="modal-body aviup">
           <div class="modalcontainer" style="border: 1px dotted red;">
-
-            <div style="border: 1px dotted orange; padding: 10px;">
+            <form action='addavi' method='post'
+              enctype="multipart/form-data">
+              <div style="border: 1px dotted orange; padding: 10px;">
               <div>
-                <textarea style="width: 100%; height: 250px;"></textarea>
+              <textarea id="title" name="title" rows="1" style="width: 100%;"placeholder="제목 입력"></textarea>
               </div>
-              <div style="margin: 20px 0;">
-                <table>
-                  <tr>
-                    <img src=""
-                      style="height: 70px; width: 100px; margin-right: 20px; border: 1px solid green" />
-                  </tr>
-                </table>
+                <div>
+                  <textarea style="width: 100%; height: 250px;"
+                    name="content" id="content" placeholder="내용 입력"></textarea>
+                </div>
+                <div>
+                  <div style="margin: 20px 0;">
+                    <table>
+                      <tr>
+                        <td><img
+                          style="height: 70px; width: 100px; margin: 0 50px 10px 0;"
+                          id="uploadavi" src="/img/default_image.png"
+                          alt="기본이미지"></td>
+                      </tr>
+                      <tr>
+                        <td><input style="width: 600px; margin-right:20px;"
+                          type='text' name='url' id='url' placeholder='URL 입력'/></td>
+                          <td><button type="button" class="urlchk">확인</button></td>
+                      </tr>
+                    </table>
+                    <button type="button" data-dismiss="modal" style="float: right; margin-left: 20px;">취소</button>
+                    <button class="uploadbtn" style="float: right; margin-left: 20px;" disabled="disabled">등록</button>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div>
-              <button>파일업로드</button>
-              <button style="float: right; margin-left: 20px;">취소</button>
-              <button style="float: right; margin-left: 20px;">등록</button>
-            </div>
-
+            </form>
           </div>
         </div>
       </div>
     </div>
   </div>
-
-
-
-
-
-
-
-
-
   <!-- ===================================================================== -->
+
 
   <script src="/js/feeddetail.js" type="text/javascript"></script>
   <script src="/js/feedupload.js" type="text/javascript"></script>
-  
+<script>
+/* $(".modal.fade .modal-content:not").on("click",function(){
+    console.log("kkkk");
+    $(".feedavi").find("iframe").remove();
+})
+ */
+</script>
   <%-- <jsp:include page="../footer.jsp"></jsp:include> --%>
 </body>
 </html>
