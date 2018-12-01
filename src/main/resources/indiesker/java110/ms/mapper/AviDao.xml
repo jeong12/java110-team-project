@@ -131,6 +131,7 @@
 		LIMIT 9<!-- 여기 수정해야함 -->
 	</select>
 	
+	<!-- 인기영상 조회(메인) -->
 	<select id="findByFolAvi" resultMap="aviMap3" parameterType="int">
 	  SELECT a.stm, a.titl, b.name
 	    FROM memb m, folw f, busk b, avi a

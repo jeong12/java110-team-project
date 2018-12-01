@@ -9,9 +9,9 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-    <link rel="stylesheet" href="http://localhost:8080/css/indiesker.css"/>
+    <link rel="stylesheet" href="/css/indiesker.css"/>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="http://localhost:8080/js/filter.js"></script>
+    <script src="/js/filter.js"></script>
 <style>
 .top-bar {
     background: black; color: #fff; font-size: 0.9rem; padding: 10px 0;
@@ -121,22 +121,22 @@ a:focus, a:hover {
         <div class="container_c">
           <div class="row_c d-flex_c align-items-center_c">
             <div class="col-md-5 d-md-block_c">
-            <a href="http://localhost:8080/app/main" style="text-decoration: none;">
-            <img src="http://localhost:8080/img/logos.JPG" alt="logos">
-            <img src="http://localhost:8080/img/Indiesker.JPG" alt="indie"></a>
+            <a href="/app/main" style="text-decoration: none;">
+            <img src="/img/logos.JPG" alt="logos">
+            <img src="/img/Indiesker.JPG" alt="indie"></a>
             </div>
             <div class="col-md-7">
               <div class="d-flex_c justify-content-md-end_c justify-content-between_c">
                 <div class="login">
-                <a href="http://localhost:8080/app/auth/form" class="login-btn">
+                <a href="/app/auth/form" class="login-btn">
                 <i class="fas fa-sign-in-alt"></i>
                 <span class="d-md-inline-block_c">Sign In</span>
-                </a><a href="http://localhost:8080/app/signup/member/form" class="signup-btn">
+                </a><a href="/app/signup/member/form" class="signup-btn">
                 <i class="fas fa-user" style="margin-right:0.5rem;"></i><span class="d-md-inline-block_c">Sign Up</span>
                 </a></div>
                 <div class="prof" style="display:none;">
                 <a href="#" class="pro-btn">
-                <img alt="profile" src="http://localhost:8080/img/anonymous.png" id="pro_img">
+                <img alt="profile" src="/img/anonymous.png" id="pro_img">
                 <span class="d-md-inline-block_c">${sessionScope.loginUser.nickname}</span>
                 </a>
                 </div>
@@ -158,9 +158,9 @@ a:focus, a:hover {
                           <!--제공자일 경우--> 
                           <div id="sup_icon" style="display:none">
                           <a href="#"><i class="fa fa-globe"></i>
-                          <span class=" d-md-inline-block_c">무대뭘까연</span></a>
+                          <span class=" d-md-inline-block_c">내 무대 관리하기</span></a>
                           </div>  
-                          <a href="http://localhost:8080//app/auth/logout" class="logout-btn">
+                          <a href="/app/auth/logout" class="logout-btn">
                           <i class="fas fa-sign-out-alt"></i>
                           <span class="d-md-inline-block_c">Sign Out</span></a>
                       </div>
@@ -176,11 +176,11 @@ a:focus, a:hover {
             <div class="row_c">
                <div class="col-md-12">
                    <div class="d-flex_c">
-                      <div class="flex-md-fill_c "><a href="http://localhost:8080/app/schedule/main">버스커 일정</a></div>
+                      <div class="flex-md-fill_c "><a href="/app/schedule/main">버스커 일정</a></div>
                         <div class="flex-md-fill_c"><a href="#">버스커 위치</a></div>
-                        <div class="flex-md-fill_c "><a href="http://localhost:8080/app/buskerlist/list">버스커 목록</a></div>
-                        <div class="flex-md-fill_c "><a href="http://localhost:8080/app/stage/list">공연장 현황</a></div>
-                        <div class="flex-md-fill_c "><a href="http://localhost:8080/app/promotion/list">버스킹 홍보</a></div>
+                        <div class="flex-md-fill_c "><a href="/app/buskerlist/list">버스커 목록</a></div>
+                        <div class="flex-md-fill_c "><a href="/app/stage/list">공연장 현황</a></div>
+                        <div class="flex-md-fill_c "><a href="/app/promotion/list">버스킹 홍보</a></div>
                    </div>
                </div>
             </div>

@@ -1,6 +1,7 @@
 package indiesker.java110.ms.service.impl;
 
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import indiesker.java110.ms.dao.BuskerDao;
@@ -40,6 +41,21 @@ public class BuskerServiceImpl implements BuskerService {
   @Override
   public void modiBusk(Busker busker) {
     buskerDao.updateBusk(busker);
+  }
+
+  @Override
+  public List<Busker> getByBest() {
+    return buskerDao.findByBest();
+  }
+
+  @Override
+  public List<Busker> getByBest(Map<String,Object> params) {
+    return buskerDao.findByBest(params);
+  }
+
+  @Override
+  public List<Busker> getByBestDetail(int no) {
+    return buskerDao.findByBestDetail(no);
   }
 
 }

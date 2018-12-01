@@ -1,6 +1,7 @@
 package indiesker.java110.ms.service;
 
 import java.util.List;
+import java.util.Map;
 import indiesker.java110.ms.domain.Busker;
 
 public interface BuskerService {
@@ -9,4 +10,7 @@ public interface BuskerService {
     void add(Busker busker);
     List<Integer> checkBusker(int no);
     void modiBusk(Busker busker);
+    List<Busker> getByBest();
+    List<Busker> getByBest(Map<String,Object> params);
+    List<Busker> getByBestDetail(int no);
 }
