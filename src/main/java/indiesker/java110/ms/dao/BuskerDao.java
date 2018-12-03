@@ -10,8 +10,11 @@ public interface BuskerDao {
   int insert(Busker busker);
   List<Integer> findByBusker(int no);
   void updateBusk(Busker busker);
+  List<Busker> findByBest();
+  List<Busker> findByBest(Map<String,Object> params);
+  List<Busker> findByBestDetail(int no);
 //  Busker findByEmail(String email);
 //  int delete(int no);
 //  Busker findByEmailPassword(Map<String,Object> params);
-  
+  Busker findBukserInfo(int no);
 }

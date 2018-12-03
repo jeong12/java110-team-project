@@ -37,12 +37,12 @@ public class SupporterScheduleController {
       @RequestParam(defaultValue="3")int pageSize, 
       Model model) {
 
+    int sno =2;
     if (pageNo < 1)
       pageNo = 1;
     if (pageSize < 3 || pageSize > 10)
       pageSize = 9;
     
-    int sno = 2;
     int flag=1;
     List<Schedule> list = scheduleService.mysslist(sno, pageNo, pageSize);
     List<Schedule> flist = scheduleService.findSuggestsbyflag(sno, flag, pageNo, pageSize);
@@ -127,7 +127,7 @@ public class SupporterScheduleController {
       }
     }
 
-
+    System.out.println(list);
     return list;
   }
 

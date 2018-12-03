@@ -78,7 +78,7 @@ table {
 #mainList tr{
     cursor: pointer;
 }
-.placeMainImg{
+.placeMainImg, .BusMainImg{
     width:300px;
     height: 200px;
     margin-top: 1.5rem;
@@ -130,6 +130,22 @@ table {
   border: 0.2rem solid #fff;
   border-radius: 2rem;
 } 
+
+    .custab{
+    border: 1px solid #ccc; 
+    box-shadow: 3px 3px 2px #ccc;
+    transition: 0.5s;
+    }
+.custab:hover{
+    box-shadow: 3px 3px 0px transparent;
+    transition: 0.5s;
+    }
+    .busTh{
+    border-right: 1px solid #ccc;
+    width: 33%;
+    } 
+    
+    
 
 /* @media ( min-width : 750px) and ( max-width : 1281px) {
     .container-mr {
@@ -267,8 +283,7 @@ table {
             />
             <button type="button" class="btn btn-outline" id="Sear">Search</button>
           </div>
-          <h4 id="list_titl" style="text-align: center;">
-          </h4>
+          <h4 id="list_titl" style="text-align: center;"></h4>
           <div class="table-responsive">
             <table class="table">
             <!-- 비회원,일반 -->
@@ -288,6 +303,14 @@ table {
                   <th scope="col">지역</th>
                 </tr>
               </thead>
+              <!-- 제공자 -->
+              <thead class="thead-dark" id="sup_lis_head" style="display:none;">
+                <tr>
+                  <th scope="col">팀명</th>
+                  <th scope="col">장르</th>
+                  <th scope="col">주활동지역</th>
+                </tr>
+              </thead>
               <tbody id="mainList"></tbody>
             </table>
           </div>
@@ -297,31 +320,44 @@ table {
         </div>
         <div class="col-md-2 col-xs-1"></div>
         <div class="col-md-5 col-xs-5">
-        <!-- 스트리밍 -->
-        <div class="streaming">
-          <h1 class="text-center">현재 공연중</h1>
-          <iframe width="400" height="300"
-            src="https://www.youtube.com/embed/aR8Fe1lTKHo"
-            frameborder="0"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen style="display: block; margin: 0 auto;"
-          ></iframe>
+          <!-- 스트리밍 -->
+          <div class="streaming"> 
+            <h1 class="text-center">현재 공연중</h1>
+            <iframe width="400" height="300"
+              src="https://www.youtube.com/embed/aR8Fe1lTKHo"
+              frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen style="display: block; margin: 0 auto;"
+            ></iframe>
           </div>
-          <!-- 버스커,제공자 리스트 자세히 볼때 -->
-          <div class="hotPlace" style="display:none">
-          <div class="thumb">
-            <div class="caption" style="display:none;">
-                <h4>무대가 마음에 드시나요?</h4> 
+          <!-- HOT PLACE 리스트 자세히 볼때 -->
+          <div class="hotPlace" style="display: none">
+            <div class="thumb">
+              <div class="caption" style="display: none;">
+                <h4>무대가 마음에 드시나요?</h4>
                 <p>마음에 드신다면 신청하세요!</p>
-                <a href="/app/applystages/main"><i class="fas fa-angle-right"></i></a>
-            </div>
-            <img class="placeMainImg" alt="test"><br>
+                <a href="/app/applystages/page?no="><i
+                  class="fas fa-angle-right"
+                ></i></a>
+              </div>
+              <img class="placeMainImg" alt="test">
             </div>
             <div class="placMainSub">
-            <img class="placeImg" alt="test" onclick="placeImg();">
-            <img class="placeImg" alt="test" onclick="placeImg();">
-            <img class="placeImg" alt="test" onclick="placeImg();">
+              <img class="placeImg" alt="test" onclick="placeImg();">
+              <img class="placeImg" alt="test" onclick="placeImg();">
+              <img class="placeImg" alt="test" onclick="placeImg();">
             </div>
+          </div>
+          <!-- Best Buskers 리스트 자세히 볼때 -->
+          <div class="bestBus" style="display: none">
+            <div class="thumb">
+              <div class="caption" style="display: none;">
+                <h4>더 자세히 보고 싶다면?</h4>
+                <a href="#"><i class="fas fa-angle-right"></i></a>
+              </div>
+              <img class="BusMainImg" alt="test"><br>
+            </div>
+            <table class="table table-striped custab"></table>
           </div>
         </div>
         <div class="col-md-12">
@@ -351,15 +387,15 @@ table {
                 제공합니다.</div></li>
 
             <li class="list-inline-item ml-2 mr-2" ><a
-              href="javascript:void(0)" class="contents-a blueMenuF"
+              href="javascript:void(0)" class="contents-a" id="blueMenuB"
             > <i class="fas fa-microphone fa-5x"></i><br> <span
                 class="contents-menu"
-              >버스킹 신청</span></a><br>
+              >버스커 신청</span></a><br>
               <div class="contents-sub col-md-10">도전은 인생을 흥미롭게
                 합니다.</div></li>
 
             <li class="list-inline-item ml-2"><a
-              href="signup/supporter/form" class="contents-a blueMenuF"
+              href="javascript:void(0)" class="contents-a" id="blueMenuS"
             > <i class="fas fa-user-plus fa-5x"></i><br> <span
                 class="contents-menu"
               >제공자 신청</span></a><br>
@@ -566,6 +602,7 @@ table {
               </c:forEach>
             </div>
           </div>
+          <c:if test="${not empty folavi[3].urlid}"> 
           <div class="carousel-item custom-item">
             <div class="avi-margin">
               <c:forEach items="${folavi}" var="avi" begin="3" end="5">
@@ -584,6 +621,8 @@ table {
               </c:forEach>
             </div>
           </div>
+          </c:if>
+          <c:if test="${not empty folavi[6].urlid}">
           <div class="carousel-item custom-item">
             <div class="avi-margin">
               <c:forEach items="${folavi}" var="avi" begin="6">
@@ -602,6 +641,7 @@ table {
               </c:forEach>
             </div>
           </div>
+          </c:if>
         </div>
         <a class="carousel-control-prev" href="#carouselFol"
           role="button" data-slide="prev"

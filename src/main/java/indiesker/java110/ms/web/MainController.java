@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import indiesker.java110.ms.domain.Avi;
+import indiesker.java110.ms.domain.Busker;
 import indiesker.java110.ms.domain.Member;
 import indiesker.java110.ms.domain.Schedule;
 import indiesker.java110.ms.domain.StagePhoto;
 import indiesker.java110.ms.domain.Supporter;
 import indiesker.java110.ms.service.AviService;
+import indiesker.java110.ms.service.BuskerService;
 import indiesker.java110.ms.service.ScheduleService;
 import indiesker.java110.ms.service.SupporterService;
 
@@ -24,15 +26,18 @@ public class MainController {
 
   ScheduleService scheduleService;
   SupporterService supporterService;
+  BuskerService buskerService;
   AviService aviService;
   ServletContext sc;
 
   public MainController(
       ScheduleService scheduleService, AviService aviService,
-      SupporterService supporterService, ServletContext sc) {
+      SupporterService supporterService, BuskerService buskerService,
+      ServletContext sc) {
     this.scheduleService = scheduleService;
     this.supporterService = supporterService;
     this.aviService=aviService;
+    this.buskerService= buskerService;
     this.sc = sc;
   }
 
@@ -43,7 +48,7 @@ public class MainController {
     model.addAttribute("avirec",recentAvi);
     model.addAttribute("avipop",poppulAvi);
     
-    //System.out.println(session.getAttribute("loginSupporter"));
+    System.out.println(session.getAttribute("loginUser"));
     
     Member loginUser = (Member)session.getAttribute("loginUser");
     if(loginUser != null) {
@@ -84,4 +89,25 @@ public class MainController {
   public StagePhoto[] supPhoto(int no) {
     return supporterService.getPhoto(no);
   }
+  
+  @ResponseBody
+  @PostMapping(value="bestBuskers")
+  public List<Busker> bestBuskers() {
+    return buskerService.getByBest();
+  }
+  
+  @ResponseBody
+  @PostMapping(value="bestSear")
+  public List<Busker> bestSear(String city) {
+    Map<String,Object> params = new HashMap<>();
+    params.put("city", city);
+    return buskerService.getByBest(params);
+  }
+  
+  @ResponseBody
+  @PostMapping(value="busDetail")
+  public List<Busker> busDetail(int no) {
+    return buskerService.getByBestDetail(no);
+  }
+  
 }

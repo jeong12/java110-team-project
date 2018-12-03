@@ -59,7 +59,7 @@ function add(){
 			$.each(data,function(index,item){
 				$(".insertDate tbody").append(
 						'<tr>'+
-						'<td>'+'<input type="checkbox" name="insertdate" value="'+item+'">'+item+'</td>'+
+						'<td><div class="less10">'+'<input type="checkbox" name="insertdate" value="'+item+'">'+item+'</div></td>'+
 				'</tr>');
 			});
 			$(".insertDate tbody").append(
@@ -67,10 +67,20 @@ function add(){
 					'<td>' + '<button onclick="addDate()">등록하기</button>'+'</td>'+
 					'</tr>');
 			}else{
-				
-				
+				console.log("10 이상");
+				$.each(data,function(index,item){
+					if(index % 2 == 0){
+				$(".insertDate tbody").append(
+						'<tr>'+
+						'<td>'+'<input type="checkbox" name="insertdate" value="'+item+'">'+item+'</td>');
+					}else{
+					$(".insertDate tbody").append(
+							'<td>'+'<input type="checkbox" name="insertdate" value="'+item+'">'+item+'</td></tr>');
+				}
+				});
 			}
-			},
+		},
+		
 			error : function(request, status, error) {
 				alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
 			}});

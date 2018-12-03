@@ -15,10 +15,10 @@
     href="/../css/jquery.datetimepicker.css">
     
 <!-- 모달내부 css -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha256-3dkvEK0WLHRJ7/Csr0BZjAWxERc5WH7bdeUya2aXxdU= sha512-+L4yy6FRcDGbXJ9mPG8MT/3UCDzwR9gPeyFNMCtInsol++5m3bk2bXWKdZjvybmohrAsn3Ua5x8gfLnbE1YkOg=="><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha256-3dkvEK0WLHRJ7/Csr0BZjAWxERc5WH7bdeUya2aXxdU= sha512-+L4yy6FRcDGbXJ9mPG8MT/3UCDzwR9gPeyFNMCtInsol++5m3bk2bXWKdZjvybmohrAsn3Ua5x8gfLnbE1YkOg==" crossorigin="anonymous">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
 
 <link href="/css/fullcalendar.min.css" rel="stylesheet">
-
 <style>
 #calendar {
 	max-width: 900px;
@@ -175,7 +175,7 @@ display:inherit;
 						<th>상세보기</th>
 					</tr>
 				</thead>
-				<tbody id='schedulelist'>
+				<tbody>
 					<c:forEach items="${list}" var="list">
 						<tr>
 							<td>${list.shopname}</td>
@@ -723,11 +723,7 @@ input, textarea, button { margin-top:0px }
 	</div> -->
 
 	<!-- 상세조회 모달 css  -->
-    <style>
-    .form-group{
-        border: 1px dotted red;
-    }
-    </style>
+
 	<!-- 성사된스케줄 모달  -->
 	<div id="detailreqModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
@@ -736,20 +732,25 @@ input, textarea, button { margin-top:0px }
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">개인스케줄 상세보기</h4>
+                    <h4 class="modal-title">개인스케줄 상세보기하기</h4>
                 </div>
                 <div class="modal-body">
                 
                     <div class="row" style="width:auto">
                     <div class="col-md-12">
+                    <form action='edit' method='post' enctype="multipart/form-data" class="form-horizontal" >
                     <fieldset>
                     
                     <!-- 장소 입력 input -->
                     <div class="form-group">
-                      <label class="col-md-4 control-label" for="shopname">지도</label>  
+                      <label class="col-md-4 control-label" for="shopname">장소명</label>  
                       <div class="col-md-5">
                      <div class="input-group">
-                           <div id="map2" style="width: 250px; height: 250px;"></div>
+                           <div class="input-group-addon">
+                            <i class="fa fa-user">
+                            </i>
+                           </div>
+                           <input id="shopname" name="shopname" type="text" class="form-control input-md">
                           </div>
                       </div>
                     </div>
@@ -763,7 +764,6 @@ input, textarea, button { margin-top:0px }
                           <i class="fa fa-male" style="font-size: 20px;"></i>
                             
                            </div>
-                          <div class="reqname"></div>
                           <input id="cnt" name="cnt" type="text" class="form-control input-md">
                     
                           </div>
@@ -779,13 +779,28 @@ input, textarea, button { margin-top:0px }
                               <div class="input-group-addon">
                                  <i class="fa fa-clock-o"></i>
                                </div>
-                              <div class="reqtime"></div>
+                              <input id="editstarttimepicker" name="nsdt" type="text" placeholder="시작일시" class="form-control input-md" autocomplete="off">
                           </div>
                       </div>
+                    
+                      <div class="col-md-3 col-xs-4">
+                        <div class="input-group">
+                              <div class="input-group-addon">
+                                 <i class="fa fa-clock-o"></i>
+                               </div>
+                                  <input id="editendtimepicker" name="nedt" type="text" placeholder="종료일시" class="form-control input-md" autocomplete="off">
+                          </div>
+                      </div>
+                    
                     </div>
                     
                     <!-- 공연시간 발류 채크 -->
-                    
+                    <div class="form-group">
+                      <label class="col-md-4 control-label" for="check"></label>  
+                      <div class="col-md-2  col-xs-4">
+                          <p class="editdatecheck"></p>  
+                      </div>  
+                    </div>
                     
                     <div class="form-group">
                       <label class="col-md-4 control-label col-xs-12" for="edit_addr">주소</label>  
@@ -794,39 +809,26 @@ input, textarea, button { margin-top:0px }
                               <div class="input-group-addon">
                                  <i class="fa fa-street-view"></i>
                                </div>
-                              <div class="reqgenre"></div>
+                              <input id="edit_addr" name="edit_addr" type="text" placeholder="주소" class="form-control input-md ">
+                          </div>
+                      </div>
+                    
+                    
+                      <div>
+                        <div class="input-group">
+                                <input type='button' class="btn btn-default" onclick="search_edit_addr()" value='주소검색'>
                           </div>
                       </div>
                     
                     </div>
                     
-                    <!-- 공연일시 input -->
+                    
+                    <!-- 지도 -->
                     <div class="form-group">
-                      <label class="col-md-4 control-label col-xs-12" for="editstarttimepicker">공연시간</label>  
-                      <div class="col-md-4  col-xs-4">
-                         <div class="input-group">
-                              <div class="input-group-addon">
-                                 <i class="fa fa-clock-o"></i>
-                               </div>
-                              <div class="reqaddr"></div>
-                          </div>
-                      </div>
+                      <div id="editmap" style="width:400px;height:400px;margin-top:10px; margin:0 auto;"></div>
+                        <input type="text" id="edit_x" name="x" style="display:none"> 
+                        <input type="text" id="edit_y" name="y" style="display:none">
                     </div>
-                    
-                     <!-- 공연일시 input -->
-                    <div class="form-group">
-                      <label class="col-md-4 control-label col-xs-12" for="editstarttimepicker">공연시간</label>  
-                      <div class="col-md-4  col-xs-4">
-                         <div class="input-group">
-                              <div class="input-group-addon">
-                                 <i class="fa fa-clock-o"></i>
-                               </div>
-                              <div class="reqetc"></div>
-                          </div>
-                      </div>
-                    </div>
-                    
-                  
                     
                     <div class="form-group" style='float:right; margin-right: 10px;'>
                       <label class="col-md-4 control-label" ></label>  
@@ -839,6 +841,7 @@ input, textarea, button { margin-top:0px }
                     </div>
                     </fieldset>
                     
+                    </form>
                     </div>
                     
                     </div>
@@ -988,7 +991,6 @@ input, textarea, button { margin-top:0px }
 													<label class="shopname">장소명 :</label>
 												</div>
 												<div class="pershopname"></div>
-												
 											</div>
 										</div>
 										<!-- For Genre-->
@@ -1073,8 +1075,6 @@ input, textarea, button { margin-top:0px }
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=15e2302756c9e7098ec0d79f7b4d53f4&libraries=services"></script>
 
 <script src="/js/mybs.js" type="text/javascript"></script>
-
-
 
     
 
