@@ -10,6 +10,7 @@
 
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/common.css"/> 
 <!-- jquery 먼저 로딩 -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -39,7 +40,7 @@ table {
 }
 
 .container-mr {
-    margin-left: 300px; margin-right: 300px;
+    margin-left: 15rem; margin-right: 15rem;
 }
 
 .contents-menu {
@@ -321,7 +322,7 @@ table {
         <div class="col-md-2 col-xs-1"></div>
         <div class="col-md-5 col-xs-5">
           <!-- 스트리밍 -->
-          <div class="streaming"> 
+          <div class="streaming mb-3"> 
             <h1 class="text-center">현재 공연중</h1>
             <iframe width="400" height="300"
               src="https://www.youtube.com/embed/aR8Fe1lTKHo"

@@ -18,7 +18,8 @@
 <style>
     body{background-color: snow; margin-top: 10%;}
     table{border-collapse: separate;border-spacing: 10px 20px; margin : 0 auto;}  
-    .container{border:1px solid silver; width:60%; height:70rem; margin: 0 auto; border-radius: 10px; background-color: white;}
+    .container{border:1px solid silver; width:60%; height:47rem; margin: 0 auto; border-radius: 10px; background-color: white;
+    margin-top: 7%; margin-bottom: 4%}
     .form-horizontal{ margin: auto;}
     .All{width:100%;  margin-top: 6%;}
     .left{width: 60%; float: left; padding-left: 4%;}
@@ -39,8 +40,19 @@
     .xybtn{width: 30%; margin: auto;}             
     .lbtn{float: left;}
     .rbtn{float: right;}
+    #logo{width: 3rem; float: left;}
+    #titl{margin-top: 2%; margin-left: 17%;}
+    #titleh2{float: left;}
 </style>
 </head>
+<header>
+<jsp:include page="../header.jsp"></jsp:include>
+  </header>  
+    <div id="titl">
+        <img id="logo" src="/img/playButton.PNG" alt="플레이로고">
+        <h2 id="titleh2">무대관리</h2>
+    </div>
+    
 <body>         
 
 <div class="container">
@@ -172,6 +184,7 @@ function readURL1(input) {
 };
 
 </script>
+<jsp:include page="../footer.jsp"></jsp:include>
 </html>
     
     
