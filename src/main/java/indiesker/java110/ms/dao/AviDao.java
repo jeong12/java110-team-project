@@ -1,6 +1,7 @@
 package indiesker.java110.ms.dao;
 
 import java.util.List;
+import java.util.Map;
 import indiesker.java110.ms.domain.Avi;
 
 public interface AviDao {
@@ -11,4 +12,7 @@ public interface AviDao {
   Avi findByAviNo(int no);
   List<Avi> findRecent(int no);
   Avi findfeedavibyAbno(int no);
+  List<Avi> findByFolAvi(int no);
+  void uploadAvi(Map<String, Object> param);
+  Avi findByFeedAviNoNC(int no);
 }

@@ -8,7 +8,7 @@ public class Supporter extends Member {
   protected String baseaddr;
   protected String postno;
   protected String detailaddr;
-  protected String sgnere;
+  protected String sgnere; // 어휴 ㅡㅡ
   protected int capa;
   protected String tel;
   protected char permission;
@@ -17,7 +17,14 @@ public class Supporter extends Member {
   protected float y;
   protected StagePhoto stagephoto;
   protected List<StagePhoto> stagephotos;
+  protected int tcnt; //누적 인기 카운트
   
+  public int getTcnt() {
+    return tcnt;
+  }
+  public void setTcnt(int tcnt) {
+    this.tcnt = tcnt;
+  }
   public String getName() {
     return name;
   }

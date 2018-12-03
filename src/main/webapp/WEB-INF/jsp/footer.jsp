@@ -9,14 +9,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Document</title>
-<link
-    href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-    rel="stylesheet"
-    id="bootstrap-css"
->
-<script
-    src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
-></script>
 <script
     src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
 ></script>
@@ -63,15 +55,15 @@ footer {
     background-color: var(-main-color);
 }
 
-footer .container {
+footer .container_c {
     padding-top: 10px;
 }
 
-/* @media ( min-width : 768px) {
-    footer .container {
+@media ( min-width : 768px) {
+    footer .container_c {
         display: flex;
         flex-wrap: wrap;
-        /*        max-width: 1000px;*/
+               max-width: 1000px;
         max-width: var(-large-width);
         margin-left: auto;
         margin-right: auto;
@@ -79,11 +71,11 @@ footer .container {
     .footB {
         flex: 0 0 60%;
     }
-} */
+} 
 
 .footB {
     margin-bottom: 10px;
-    padding-left: 250px;
+    /* padding-left: 250px; */
 }
 
 .footB ul {
@@ -95,6 +87,7 @@ footer .container {
 .footB ul li {
     list-style-type: none;
     display: inline-block;
+    font-size: 1rem;
 }
 
 .footB a {
@@ -134,7 +127,7 @@ footer .container {
 <body>
 
     <footer>
-        <div class="container">
+        <div class="container_c">
             <div class="footB">
                 <ul>
                     <li><a href="#">이용약관</a></li>

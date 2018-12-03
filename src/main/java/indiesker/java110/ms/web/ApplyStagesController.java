@@ -25,15 +25,14 @@ public class ApplyStagesController {
   BuskerService buskerService;
   ServletContext sc;
 
-
   public ApplyStagesController(SupporterService supporterService, ScheduleService scheduleService,
-      BuskerService buskerService, ServletContext sc) {
+      ServletContext sc) {
     super();
     this.supporterService = supporterService;
     this.scheduleService = scheduleService;
-    this.buskerService = buskerService;
     this.sc = sc;
   }
+
 
   @GetMapping("main")
   public void main(Model model) {
@@ -64,7 +63,7 @@ public class ApplyStagesController {
     }
     return slist;
   }
-    
+  
   @ResponseBody
   @RequestMapping("applyStage")
   public int applyStage(String[] ssno, String cont, String count){
@@ -76,8 +75,6 @@ public class ApplyStagesController {
     }
     return scheduleService.ApplyStages(bno, cont, count,list);
   }
-  
-  
   
   
   

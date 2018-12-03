@@ -6,5 +6,6 @@ import indiesker.java110.ms.domain.BuskerPromotion;
 public interface BuskerPromotionService {
     List<BuskerPromotion> list();
     List<BuskerPromotion> SearchByCity(String city);
+	List<BuskerPromotion> SearchByTeamname(String teamname);
     
 }

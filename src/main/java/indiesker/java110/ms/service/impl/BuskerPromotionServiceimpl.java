@@ -22,6 +22,11 @@ public class BuskerPromotionServiceimpl implements BuskerPromotionService {
       return buskerPromotionDao.findByCity(city);
     }
 
+	@Override
+	public List<BuskerPromotion> SearchByTeamname(String teamname) {
+		return buskerPromotionDao.findByTeamname(teamname);
+	}
+
 }
 
 

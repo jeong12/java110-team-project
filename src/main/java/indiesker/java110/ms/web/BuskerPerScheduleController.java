@@ -311,25 +311,39 @@ public class BuskerPerScheduleController {
     
   }
   
+  @ResponseBody
   @PostMapping("editperschedule")
-  public String editperschedule(Schedule schedule) {
-    
-    System.out.println(schedule);
+  public int editperschedule(Schedule schedule) {
     
     schedule.setNsdt(schedule.getNsdt().toString());
     schedule.setNedt(schedule.getNsdt().substring(0, 10)+' '+schedule.getNedt().toString());
 
-    System.out.println(schedule.getAddr());
-    System.out.println(schedule.getNsdt());
-    System.out.println(schedule.getNedt());
-    System.out.println(schedule.getShopname());
-    System.out.println(schedule.getX());
-    System.out.println(schedule.getY());
-    scheduleService.editperschedule(schedule);
-    return "good"; 
+    return scheduleService.editperschedule(schedule);
 
   }
-
+  
+  @ResponseBody
+  @RequestMapping("editcheckschedule")
+  public int checkeditschedule( String sdt,
+                            String edt,
+                            String nsdt, 
+                            String nedt, 
+                            int no) throws Exception{
+    edt = sdt.substring(0, 10)+" "+edt;
+    sdt=sdt.replaceAll("/", "-");
+    edt=edt.replaceAll("/", "-");
+    
+    nedt = nsdt.substring(0, 10)+" "+nedt;
+    nsdt=nsdt.replaceAll("/", "-");
+    nedt=nedt.replaceAll("/", "-");
+    
+    int total=scheduleService.checkeditperschedule(sdt, edt, nsdt, nedt, no);
+    total+=scheduleService.checkeditreqschedule(sdt, edt, nsdt, nedt, no);
+    System.out.println("======================");
+    System.out.println(total);
+    return total;
+    
+  }
 
 }
 

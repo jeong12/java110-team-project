@@ -1,6 +1,7 @@
 package indiesker.java110.ms.service;
 
 import java.util.List;
+import java.util.Map;
 import indiesker.java110.ms.domain.StagePhoto;
 import indiesker.java110.ms.domain.Supporter;
 
@@ -14,4 +15,6 @@ public interface SupporterService {
   Supporter get(int no);
   StagePhoto[] getPhoto(int no);
   Supporter findInfo(int no);
+  List<Supporter> getHot();
+  List<Supporter> getHot(Map<String,Object> city);
 }

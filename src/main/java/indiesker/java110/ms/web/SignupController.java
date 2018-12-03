@@ -94,8 +94,7 @@ public class SignupController{
 
 
   @RequestMapping("busker/form")
-  public void buskerform(Busker b) {
-
+  public void buskerform() {
   }
 
   @RequestMapping("busker/addavi")

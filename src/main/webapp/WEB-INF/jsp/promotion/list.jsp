@@ -22,9 +22,9 @@
         });
 
         $(window).on('load', function () {
-            load('.js-load', '2');
+            load('.js-load', '9');
             $("#js-btn-wrap .more-button").on("click", function () {
-                load('.js-load', '1', '#js-btn-wrap');
+                load('.js-load', '9', '#js-btn-wrap');
             })
         });
 
@@ -76,27 +76,21 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-8 col-xs-offset-2">
-                <form method="post" class="form-inline">
+                <!-- <form method="post" class="form-inline"> -->
                     <div class="input-group">
                         <div class="input-group-btn search-panel">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            <span id="search_concept">시간설정</span> <span class="caret"></span>
-                            </button>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-                            <li><a href="#">행동</a></li>
-                            <li><a href="#">다른 행동</a></li>
-                            <li><a href="#">여기에는 또 다른</a></li>
-                            <li class="divider">ㅎㅇ</li>
-                            <li><a href="#">따로 떨어진 링크</a></li>
-                        </ul>
+                            <select id="selectsearch" class="btn btn-default dropdown-toggle">
+                                <option value="city">도시</option>
+                                <option value="teamname" selected="selected">팀명</option>
+                            </select>
                         </div>
-                        <input type="text" class="form-control" name="city" placeholder="시,도,군">
+                        <input type="text" class="form-control" name="city" placeholder="시,도,군" onkeydown="pushenter()">
                         <!-- <input type="hidden" name="search_param" value="all" id="search_param"> -->
                         <span class="input-group-btn">  
-                        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                        <button class="btn btn-default" id="selectsearchbtn" onclick="PageMove()"><span class="glyphicon glyphicon-search"></span></button>
                     </span>
                     </div>
-               </form> 
+               <!-- </form>  -->
             </div>
         </div>
     </div>
@@ -112,7 +106,7 @@
                             <td class="td2">
                                 <ul>
                                     <li>제목 : ${pro.titl}</li>
-                                    <li>팀명 : ${pro.teamName}</li>
+                                    <li>팀명 : ${pro.teamname}</li>
                                     <li>장르 : ${pro.genre}</li>
                                     <li>공연지역 : ${pro.city}</li>
                                     <li>날짜 : ${pro.sdt} ~ ${pro.edt}</li>
@@ -123,7 +117,7 @@
                             <td id="td3"><button type="button" class="btn btn-primary">버스커피드</button>
                                     <button type="button" class="btn btn-primary">상세보기</button></td>
                         </tr>
-                        </c:forEach>
+                    </c:forEach>
                     
                     </table>
                 </div>
@@ -142,7 +136,36 @@
                             <td class="td2">
                                 <ul>
                                     <li>제목 : ${pro.titl}</li>
-                                    <li>팀명 : ${pro.teamName}</li>
+                                    <li>팀명 : ${pro.teamname}</li>
+                                    <li>장르 : ${pro.genre}</li>
+                                    <li>공연지역 : ${pro.city}</li>
+                                    <li>날짜 : ${pro.sdt} ~ ${pro.edt}</li>
+                                    <li>인원 : ${pro.cnt}</li>
+                                    <li>내용 : ${pro.etc}</li>
+                                </ul>
+                            </td>
+                            <td id="td3"><button type="button" class="btn btn-primary">버스커피드</button>
+                                    <button type="button" class="btn btn-primary">상세보기</button></td>
+                        </tr>
+                        </c:forEach>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main">
+                    <table class="table table-list-search">
+                    <c:forEach items="${teamname}" var="pro">
+                        <tr class="js-load">
+                            <td><img src="../../img/${pro.phot}.png" alt="test1" style="height: 200px; width: 200px;"></td>
+                            <td class="td2">
+                                <ul>
+                                    <li>제목 : ${pro.titl}</li>
+                                    <li>팀명 : ${pro.teamname}</li>
                                     <li>장르 : ${pro.genre}</li>
                                     <li>공연지역 : ${pro.city}</li>
                                     <li>날짜 : ${pro.sdt} ~ ${pro.edt}</li>
@@ -161,7 +184,26 @@
     </div>
     <div id="js-btn-wrap" class="btn-wrap"> <a href="javascript:;" class="more-button">더보기</a> </div>
 
+<script>
+   // document.getElementById("selectsearchbtn").onclick = function() {PageMove()};
 
+    function PageMove(){
+        var searchType = $("#selectsearch option:selected").val();
+        var keyword = $("input[name='city']").val();
+
+        location.href= '?' + searchType + '=' + keyword;
+        // location.href="?city="+i;
+        // location.href="?teamname="+i;
+    }
+
+    function pushenter() {
+        if (window.event.keyCode == 13) {
+            PageMove();
+        }
+    }
+
+
+</script>  
 </body>
 
 </html>

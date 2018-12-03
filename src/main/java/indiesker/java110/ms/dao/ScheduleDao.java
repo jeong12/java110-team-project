@@ -34,7 +34,7 @@ public interface ScheduleDao {
   List<Schedule> findAll(Map<String,Object> params);
   int checkperschedule(Map<String, Object> params);
   int checkreqschedule(Map<String, Object> params);
-  void editperschedule(Schedule schedule);
+  int editperschedule(Schedule schedule);
   List<Schedule> showScedule();
   List<Integer> showSsnos(int no);
   List<Schedule> findPossibleStages(Map<String,Object> params);
@@ -43,4 +43,6 @@ public interface ScheduleDao {
   int ApplyStagesinBuskstag(Map<String,Object> params);
   int totFindreqschedule(int no);
   int totfindSuggestsbyflag(int no);
+  int checkeditperschedule(Map<String, Object> params);
+  int checkeditreqschedule(Map<String, Object> params); 
 }

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -14,8 +15,10 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import indiesker.java110.ms.domain.Member;
 import indiesker.java110.ms.service.AuthService;
 import indiesker.java110.ms.service.BuskerService;
@@ -218,22 +222,31 @@ public class AuthController {
 
         
         if(bno.size() != 0) {
-          System.out.println("버스커"+bno.get(0));
-          return "redirect:../editprofile/busker/form";
+          session.setAttribute("loginBusker", buskerService.get(bno.get(0)));
+          return "redirect:../main";
         } 
         if(sno.size() != 0) {
-          return "redirect:../editprofile/supporter/form";
+          session.setAttribute("loginSupporter", supporterService.get(sno.get(0)));
+          return "redirect:../main";
         } 
 
-        // 추후에 수정해야함 일단은 기본 html로 돌리기
-        return "redirect:../editprofile/member/form";
-
+        return "redirect:../main";
 
       } else {
         session.invalidate();
-        System.out.println("비밀번호틀림쓰");
         return "redirect:form";
       }
+    }
+    
+    @GetMapping("logout")
+    public String service(
+            HttpServletRequest request, 
+            HttpServletResponse response) {
+        
+        HttpSession session = request.getSession();
+        session.invalidate();
+
+        return "redirect:http://localhost:8080/app/main";
     }
 
     @ResponseBody

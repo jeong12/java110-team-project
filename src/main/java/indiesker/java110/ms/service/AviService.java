@@ -11,4 +11,7 @@ public interface AviService {
   Avi getfeedavibyAbno(int no);
   List<Avi> getAll();
   List<Avi> getPop();
+  List<Avi> getFolAvi(int no);
+  void uploadAvi(int bno, String title, String content, String url);
+  Avi getfeedavibyAbnoNoComt(int no);
 }
