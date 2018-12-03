@@ -518,6 +518,7 @@ h2 {
         </div>
         <div class="modal-body aviup">
           <div class="modalcontainer" style="border: 1px dotted red;">
+          <!-- upload 폼 -->
             <form action='addavi' method='post'
               enctype="multipart/form-data">
               <div style="display: none">
@@ -558,6 +559,7 @@ h2 {
                 </div>
               </div>
             </form>
+            
           </div>
         </div>
       </div>
