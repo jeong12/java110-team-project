@@ -1,6 +1,7 @@
 package indiesker.java110.ms.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,23 +16,23 @@ public class TotalFeedServiceImpl implements TotalFeedService{
 	@Autowired TotalFeedDao totalFeedDao;
 	
 	@Override
-	public List<Busker> findTotalFeed() {
-		return totalFeedDao.findTotalFeed();
+	public List<Busker> findTotalFeed(String sortType) {
+		return totalFeedDao.findTotalFeed(sortType);
 	}
 
 	@Override
-	public List<Busker> SearchByCity(String city) {
-		return totalFeedDao.findByCity(city);
+	public List<Busker> SearchByCity(Map<String, Object> params) {
+		return totalFeedDao.findByCity(params);
 	}
 
 	@Override
-	public List<Busker> SearchByTeamname(String teamname) {
-		return totalFeedDao.findByTeamname(teamname);
+	public List<Busker> SearchByTeamname(Map<String, Object> params) {
+		return totalFeedDao.findByTeamname(params);
 	}
 
 	@Override
-	public List<Busker> SearchByGenre(String teamgenre) {
-		return totalFeedDao.findByGenre(teamgenre);
+	public List<Busker> SearchByGenre(Map<String, Object> params) {
+		return totalFeedDao.findByGenre(params);
 	}
 	
 }

@@ -66,27 +66,12 @@ public class MemberManagerController {
           @RequestParam(defaultValue="10") int pageSize,
           Model model) throws ParseException {
         
-/*    
-    DateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-    String ncdt1= sdFormat.format(cdt1);
-    String ncdt2= sdFormat.format(cdt2);*/
-    
-/*    Date ncdt1 = Date.valueOf(cdt1);
-    Date ncdt2 = Date.valueOf(cdt2);
-         */
-    System.out.println(flag);
-    System.out.println(cdt1);
-    System.out.println(cdt2);
-    System.out.println(text);
       if (pageNo < 1)
           pageNo = 1;
-      
       if (pageSize < 3 || pageSize > 10)
           pageSize = 3;
       
       List<MemberManager> list =memberManagerService.dateSelect(flag,text,cdt1,cdt2,pageNo, pageSize);
-     
       DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
       for(MemberManager m:list) {
@@ -102,7 +87,12 @@ public class MemberManagerController {
   @RequestMapping(value="memberListDetail")
   public Member memberListDetail(String nik) {
     Member mno = memberManagerService.memListDetail(nik);
+ if(mno.getMemo() == null) {
+   mno.setMemo("메모없음");
+ }    
+    System.out.println(mno.getMemo());
     return mno;
+    
     
   }
   
@@ -110,6 +100,11 @@ public class MemberManagerController {
   @RequestMapping(value="buskListDetail")
   public Busker buskerListDetail(String nik) {
     Busker bno = memberManagerService.buskListDetail(nik);
+    
+    if(bno.getMemo() == null) {
+      bno.setMemo("메모없음");
+    }
+    
     return bno;
   }
   
@@ -117,6 +112,10 @@ public class MemberManagerController {
   @RequestMapping(value="supListDetail")
   public Supporter supListDetail(String nik) {
     Supporter sno = memberManagerService.supListDetail(nik);
+
+    if(sno.getMemo() == null) {
+      sno.setMemo("메모없음");
+    }
     return sno;
   }
  /////////////////////////////////////////////////////////////// 
@@ -252,6 +251,16 @@ public class MemberManagerController {
     System.out.println(sno);
   return sno;
 }
+  
+  @ResponseBody
+  @RequestMapping(value="getMemo", produces = "application/text; charset=utf8")
+  public String getMemo(String nik) {
+    String memo = memberManagerService.getMemo(nik);
+    return memo;
+    
+  }
+  
+  
   
 /*  @ResponseBody
   @RequestMapping(value="detailMember")

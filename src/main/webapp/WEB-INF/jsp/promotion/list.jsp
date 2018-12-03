@@ -8,23 +8,15 @@
     <meta charset="UTF-8">
     <title>버스커홍보</title>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="/css/button.css"/> 
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script>
-        $(document).ready(function(e){
-            $('.search-panel .dropdown-menu').find('a').click(function(e) {
-            e.preventDefault();
-            var param = $(this).attr("href").replace("#","");
-            var concept = $(this).text();
-            $('.search-panel span#search_concept').text(concept);
-            $('.input-group #search_param').val(param);
-            });
-        });
-
+    
         $(window).on('load', function () {
-            load('.js-load', '9');
+            load('.js-load', '5');
             $("#js-btn-wrap .more-button").on("click", function () {
-                load('.js-load', '9', '#js-btn-wrap');
+                load('.js-load', '5', '#js-btn-wrap');
             })
         });
 
@@ -43,12 +35,18 @@
         
     </script>
     <style>
+    .container{ 
+        width:1000px;
+    }
    #titl{ margin: 10px; padding: 10px;}
-   #logo {width: 50px; height: 50px; margin: 10px;}
-   h2{margin-top: -50px; margin-left: 70px; }
+   #logo {width: 40px; height: 40px; margin: 10px;}
+   h3{display:inline-block; position: relative; top:.5rem;}
    body{margin-top: 20px;}
+   #td2 .more-button{
+    font-size:1rem; 
+   }
    #td3{text-align:right; vertical-align: bottom;}
-   ul li{list-style-type: none; line-height: 30px; width: 80%;}
+   ul li.promotion{list-style-type: none; line-height: 1.2rem; width: 80%; font-size:.8rem;}
    .td2{width:700px;}
     
     .js-load {
@@ -66,15 +64,47 @@
     .btn-wrap {
         text-align: center;
     }
+    tbody tr td {
+        background-color: #fff !important;
+    }
+    .mb{
+        margin-bottom: .4rem;
+    }
+    .proimg{
+    border-radius:2rem;
+        height: 8.5rem;
+        width: 9.2rem;
+    }
+    td{ 
+    padding-bottom:0.1rem !important; 
+    }
+    .pro_list{
+        padding-left:0.8rem;
+        margin:0.1rem 0 0.1rem 0;
+    }
+    .btn-list{
+        left: 6rem;
+    }
+    .btn-enroll, .btn-enroll:hover, .btn-enroll:after,
+     .btn-enroll:visited, .btn-enroll:active, .btn-enroll:link{
+        top:0;
+        left:-2rem;
+        color:#fff;
+        text-decoration: none;
+    }
+    .btn-enroll
     </style>
 </head>
+<jsp:include page="../header.jsp"></jsp:include>
 <body>
+<div id="pos"></div>
+    <div class="container">
     <div id="titl">
         <img id="logo" src="../../img/playButton.PNG" alt="플레이로고">
-        <h2>버스킹 홍보</h2>
+        <h3>버스킹 홍보</h3>
+        <a href="javascript:void(0)" class="btns btn-dark btn-enroll">홍보하기</a>
     </div>
-    <div class="container">
-        <div class="row">
+        <div class="row mb">
             <div class="col-xs-8 col-xs-offset-2">
                 <!-- <form method="post" class="form-inline"> -->
                     <div class="input-group">
@@ -95,27 +125,29 @@
         </div>
     </div>
     
-    <div class="container">
+    <div class="container default">
         <div class="row">
             <div class="col-md-12">
                 <div class="main">
                     <table class="table table-list-search">
                     <c:forEach items="${list}" var="pro">
                         <tr class="js-load">
-                            <td><img src="../../img/${pro.phot}.png" alt="test1" style="height: 200px; width: 200px;"></td>
+                            <td>
+                            <img src="../../upload/${pro.phot}" alt="test1" class="proimg">
+                            </td>
                             <td class="td2">
-                                <ul>
-                                    <li>제목 : ${pro.titl}</li>
-                                    <li>팀명 : ${pro.teamname}</li>
-                                    <li>장르 : ${pro.genre}</li>
-                                    <li>공연지역 : ${pro.city}</li>
-                                    <li>날짜 : ${pro.sdt} ~ ${pro.edt}</li>
-                                    <li>인원 : ${pro.cnt}</li>
-                                    <li>내용 : ${pro.etc}</li>
+                                <ul class="pro_list">
+                                    <li class="promotion">제목 : ${pro.titl}</li>
+                                    <li class="promotion">팀명 : ${pro.teamname}</li>
+                                    <li class="promotion">장르 : ${pro.genre}</li>
+                                    <li class="promotion">공연지역 : ${pro.city}</li>
+                                    <li class="promotion">날짜 : ${pro.sdt} ~ ${pro.edt}</li>
+                                    <li class="promotion">인원 : ${pro.cnt}</li>
+                                    <li class="promotion">내용 : ${pro.etc}</li>
+                                    <li class="promotion"><a href="#" class="btns btn-dark btn-list">피드가기</a>
+                                    <a href="#" class="btns btn-dark btn-list">상세보기</a></li>
                                 </ul>
                             </td>
-                            <td id="td3"><button type="button" class="btn btn-primary">버스커피드</button>
-                                    <button type="button" class="btn btn-primary">상세보기</button></td>
                         </tr>
                     </c:forEach>
                     
@@ -125,27 +157,27 @@
         </div>
     </div>
     
-    <div class="container">
+    <div class="container city">
         <div class="row">
             <div class="col-md-12">
                 <div class="main">
                     <table class="table table-list-search">
                     <c:forEach items="${city}" var="pro">
                         <tr class="js-load">
-                            <td><img src="../../img/${pro.phot}.png" alt="test1" style="height: 200px; width: 200px;"></td>
+                            <td><img src="../../upload/${pro.phot}" alt="test1" style="height: 200px; width: 200px;"></td>
                             <td class="td2">
-                                <ul>
-                                    <li>제목 : ${pro.titl}</li>
-                                    <li>팀명 : ${pro.teamname}</li>
-                                    <li>장르 : ${pro.genre}</li>
-                                    <li>공연지역 : ${pro.city}</li>
-                                    <li>날짜 : ${pro.sdt} ~ ${pro.edt}</li>
-                                    <li>인원 : ${pro.cnt}</li>
-                                    <li>내용 : ${pro.etc}</li>
+                                <ul class="pro_list">
+                                    <li class="promotion">제목 : ${pro.titl}</li>
+                                    <li class="promotion">팀명 : ${pro.teamname}</li>
+                                    <li class="promotion">장르 : ${pro.genre}</li>
+                                    <li class="promotion">공연지역 : ${pro.city}</li>
+                                    <li class="promotion">날짜 : ${pro.sdt} ~ ${pro.edt}</li>
+                                    <li class="promotion">인원 : ${pro.cnt}</li>
+                                    <li class="promotion">내용 : ${pro.etc}</li>
+                                    <li class="promotion"><a href="#" class="btns btn-dark">피드가기</a>
+                                    <a href="#" class="btns btn-dark">상세보기</a></li>
                                 </ul>
                             </td>
-                            <td id="td3"><button type="button" class="btn btn-primary">버스커피드</button>
-                                    <button type="button" class="btn btn-primary">상세보기</button></td>
                         </tr>
                         </c:forEach>
                     </table>
@@ -154,27 +186,27 @@
         </div>
     </div>
     
-    <div class="container">
+    <div class="container teamname">
         <div class="row">
             <div class="col-md-12">
                 <div class="main">
                     <table class="table table-list-search">
                     <c:forEach items="${teamname}" var="pro">
                         <tr class="js-load">
-                            <td><img src="../../img/${pro.phot}.png" alt="test1" style="height: 200px; width: 200px;"></td>
+                            <td><img src="../../upload/${pro.phot}" alt="test1" style="height: 200px; width: 200px;"></td>
                             <td class="td2">
-                                <ul>
-                                    <li>제목 : ${pro.titl}</li>
-                                    <li>팀명 : ${pro.teamname}</li>
-                                    <li>장르 : ${pro.genre}</li>
-                                    <li>공연지역 : ${pro.city}</li>
-                                    <li>날짜 : ${pro.sdt} ~ ${pro.edt}</li>
-                                    <li>인원 : ${pro.cnt}</li>
-                                    <li>내용 : ${pro.etc}</li>
+                                <ul class="pro_list">
+                                    <li class="promotion">제목 : ${pro.titl}</li>
+                                    <li class="promotion">팀명 : ${pro.teamname}</li>
+                                    <li class="promotion">장르 : ${pro.genre}</li>
+                                    <li class="promotion">공연지역 : ${pro.city}</li>
+                                    <li class="promotion">날짜 : ${pro.sdt} ~ ${pro.edt}</li>
+                                    <li class="promotion">인원 : ${pro.cnt}</li>
+                                    <li class="promotion">내용 : ${pro.etc}</li>
+                                    <li class="promotion"><a href="#" class="btns btn-dark">피드가기</a>
+                                    <a href="#" class="btns btn-dark">상세보기</a></li>
                                 </ul>
                             </td>
-                            <td id="td3"><button type="button" class="btn btn-primary">버스커피드</button>
-                                    <button type="button" class="btn btn-primary">상세보기</button></td>
                         </tr>
                         </c:forEach>
                     </table>
@@ -182,8 +214,12 @@
             </div>
         </div>
     </div>
-    <div id="js-btn-wrap" class="btn-wrap"> <a href="javascript:;" class="more-button">더보기</a> </div>
+    <div id="js-btn-wrap" class="btn-wrap"> <button class="more-button">더보기</button> </div>
 
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="/js/headerfixing.js"></script>
+<script src="/js/promotion/promofilter.js"></script>
 <script>
    // document.getElementById("selectsearchbtn").onclick = function() {PageMove()};
 
@@ -203,7 +239,8 @@
     }
 
 
-</script>  
+</script>
+  
 </body>
-
+<jsp:include page="../footer.jsp"></jsp:include>
 </html>

@@ -30,5 +30,6 @@ public interface MemberManagerService {
   int gradleSupUpdate(int no);
   
   List<GradleMember> gradleSelect(char flag,String email, String nik, int pageNo, int pageSize);
+  String getMemo(String nik);
   
 }

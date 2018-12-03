@@ -33,6 +33,7 @@ public interface MemberManagerDao {
   int gradleBuskUpdate(Map<String,Object> params);
   int gradleSupUpdate(Map<String,Object> params);
   ////////////////////////////////gradle끝
+  String getMemo(String nik);
   
   
   

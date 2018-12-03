@@ -61,6 +61,16 @@
 .tab-content.current {
 	display: inherit;
 }
+.container{margin-bottom: 5%;}
+.suggests {width: 100%;}
+.ttable{maring:0 auto;}
+#ttable{margin-top: 4%;}
+#filter{margin-top: 4%;}
+table{text-align: center;}
+tr th{text-align: center;}
+.dbtn{margin: 3%;}
+body{background-color: snow;}
+.container{background-color: white;}
 </style>
 
 </head>
@@ -69,33 +79,28 @@
 		<img id="logo" src="/img/playButton.PNG" alt="플레이로고">
 		<h2>무대관리</h2>
 	</div>
-	<div class=container>
+	
+	
+	<div class="container">
 		<div class="row">
 			<div class='col-lg-12'>
+			<div id="ttable">
 			  <div class='col-lg-6'>
 				<div id='calendar'></div>
 				</div>
 				<div class='col-lg-6'>
 				<div id='selectday'>
-					<table class='insertDate'>
-						<thead>
-							<tr>
-								<td colspan="4" id='showDate'><h2></h2></td>
-							</tr>
-							<tr>
-								<td id="showtype"><h4></h4></td>
-								<td><button onclick="add()">등록</button></td>
-								<td><button onclick="remove()">삭제</button></td>
-							</tr>
-						</thead>
-						<tbody>
-						</tbody>
-					</table>
+				<div class='col-lg-6' id='showDate'><h2></h2></div>
+				<div class='col-lg-4' id='showtype'><h4></h4></div>
+				<div class='col-lg-2'><button onclick="add()">등록</button><button onclick="remove()">삭제</button></div>
+                <div class='right col-lg-3 float="left"'></div>
+                <div class='left col-lg-3 float="right"'></div>
+				</div>
 				</div>
 				</div>
 
 				<!-- 필터 -->
-				<div class='col-lg-12'>
+				<div class='col-lg-12' id="filter">
 				<div id='showsuggests'>
 					<ul class='tabs'>
 						<li class='tab-link current' data-tab='tab1'>전체</li>
@@ -105,7 +110,7 @@
 
 
 					<div id="tab1" class="tab-content current">
-						<table class="suggests">
+						<table class="suggests table-bordred table-striped">
 							<thead>
 								<tr>
 									<th>팀명</th>
@@ -130,7 +135,7 @@
 												<c:when test="${list.flag eq '3'.charAt(0) }">기한만료 </c:when>
 											</c:choose></td>
 										<td>${list.ncdt}</td>
-										<td><button type="button" class="dbtn btn-default"
+										<td><button type="button" class="dbtn btn-primary btn-xs"
 												data-target="#detailModal" data-toggle="modal"
 												value="${list.sno}" onclick="chk(this)">상세보기</button>
 											<br /></td>
@@ -141,7 +146,7 @@
 					</div>
 
 					<div id="tab2" class="tab-content">
-						<table class="suggests">
+						<table class="suggests table-bordred table-striped">
 							<thead>
 								<tr>
 									<th>팀명</th>
@@ -152,7 +157,7 @@
 									<th>작성일</th>
 									<th>상세보기</th>
 								</tr>
-							</thead>
+							</thead> 
 							<tbody>
 								<c:forEach items="${flist}" var="list">
 									<tr>
@@ -162,7 +167,7 @@
 										<td>${list.cnt}명</td>
 										<td>신청중</td>
 										<td>${list.ncdt}</td>
-										<td><button type="button" class="dbtn btn-default"
+										<td><button type="button" class="dbtn btn-primary btn-xs"
 												data-target="#detailModal" data-toggle="modal"
 												value="${list.sno}" onclick="chk(this)">상세보기</button>
 											<br /></td>
@@ -173,7 +178,7 @@
 					</div>
 
 					<div id="tab3" class="tab-content">
-						<table class="suggests">
+						<table class="suggests table-bordred table-striped">
 							<thead>
 								<tr>
 									<th>팀명</th>
@@ -194,7 +199,7 @@
 										<td>${list.cnt}명</td>
 										<td>완료</td>
 										<td>${list.ncdt}</td>
-										<td><button type="button" class="dbtn btn-default"
+										<td><button type="button" class="dbtn btn-primary btn-xs"
 												data-target="#detailModal" data-toggle="modal"
 												value="${list.sno}" onclick="chk(this)">상세보기</button>
 											<br /></td>
@@ -207,7 +212,6 @@
 			</div>
 		</div>
 		</div>
-
 
 	</div>
 

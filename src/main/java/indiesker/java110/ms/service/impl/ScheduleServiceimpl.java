@@ -286,4 +286,13 @@ public class ScheduleServiceimpl implements ScheduleService {
       
       return scheduleDao.checkeditreqschedule(params);
     }
+    
+    @Override
+    public List<Schedule> searchScehdule(String type, String keyword, String date) {
+      Map<String,Object> params = new HashMap<>();
+      params.put("type", type);
+      params.put("keyword", keyword);
+      params.put("date", date);
+    return scheduleDao.searchSchedule(params);
+    }
 }

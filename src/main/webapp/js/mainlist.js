@@ -2,20 +2,30 @@
 $().ready(function(){
     /*메인 리스트 필터*/
     var busker = document.getElementById('busker').innerHTML;
+    var sup = document.getElementById('sup').innerHTML;
     var mem_list_head = document.getElementById('mem_lis_head');
     var bus_list_head = document.getElementById('bus_lis_head');
+    var sup_list_head = document.getElementById('sup_lis_head');
     var list_titl = document.getElementById('list_titl');
+
     if(busker.length > 0 ){
-        list_titl.innerHTML = 'HOT PLACE <span id="today"></span>';
+        list_titl.innerHTML = 'HOT PLACE';
         mem_list_head.style.display = 'none';
         bus_list_head.style.display = 'table-header-group';
+        sup_list_head.style.dispaly = 'none';
+    } else if (sup.length > 0){
+        list_titl.innerHTML = 'Best Buskers';
+        mem_list_head.style.display = 'none';
+        bus_list_head.style.display = 'none';
+        sup_list_head.style.display = 'table-header-group';
     } else {
         list_titl.innerHTML = '오늘의 공연 <span id="today"></span>';
         mem_list_head.style.display = 'table-header-group';
         bus_list_head.style.display = 'none';
+        sup_list_head.style.dispaly = 'none';
         todayTime(); // 시간 설정
     }
-    
+
     //오늘의 리스트 //
     if($('#mem_lis_head').css("display") != "none" && $('#bus_lis_head').css("display") == "none"){
 
@@ -106,10 +116,8 @@ $().ready(function(){
                                 '<td>'+item.baseaddr.substring(6,8)+'</td>'+
                                 '<td class="supno" style="display:none">'+item.no+'</td></tr>'
                         ).hide();
-
-                        pasing();
-
                     });
+                    pasing();
                 },
                 error : function(request, status, error) {
                     alert("실패~");
@@ -146,6 +154,63 @@ $().ready(function(){
             });
         });
     }
+
+    if($('#sup_lis_head').css("display") != "none"){ 
+        //  제공자회원일때 Best Buskers 뽑는 ajax
+        $('#sup_lis_head').ready(function(){
+            $.ajax({ 
+                type : "POST", 
+                url : "bestBuskers",
+                dataType: 'json',
+                //data: values, 
+                success : function(data) {
+                    console.log(data);
+                    $('#mainList').empty();
+                    $.each(data,function(index,item){
+                        $('#mainList').append(
+                                '<tr onclick="OpenDetail();"><td scope="row">'+item.teamname+'</td>'+
+                                '<td>'+item.teamgenre+'</td>'+
+                                '<td>'+item.city+'</td>'+
+                                '<td class="bno" style="display:none">'+item.no+'</td></tr>'
+                        ).hide();
+                    });
+                    pasing();
+                },
+                error : function(request, status, error) {
+                    alert("실패~");
+                }
+            });
+
+        });
+
+        $('#Sear').click(function(){
+            var city = $('input.form-control').val();
+            console.log(city);
+            $.ajax({ 
+                type : "POST", 
+                url : "bestSear",
+                dataType: 'json',
+                data: {"city":city}, 
+                success : function(data) {
+                    console.log(data);
+                    $('#mainList').empty();
+                    $.each(data,function(index,item){
+                        $('#mainList').append(
+                                '<tr onclick="OpenDetail();"><td scope="row">'+item.teamname+'</td>'+
+                                '<td>'+item.teamgenre+'</td>'+
+                                '<td>'+item.city+'</td>'+
+                                '<td class="bno" style="display:none">'+item.no+'</td></tr>'
+                        ).hide();
+                    });
+                    pasing();
+                },
+                error : function(request, status, error) {
+                    alert("실패~");
+                }
+            });
+        });
+    }
+
 });
 
 function zeroPlus(min){
@@ -213,7 +278,6 @@ function pasing(){
         for(var i = 0; i< numPages; i++){
             if(i >= blockPerPage) {
                 btn[i].style.display ='none';
-            } else {
                 lastbtn = i+1;
             }
         }
@@ -221,25 +285,29 @@ function pasing(){
         $($Previous).addClass('disabled'); // 처음 이전 버튼은 비활성화
 
         $($Next).click(function(){
-            if(lastbtn<numPages){
+            if(lastbtn<=numPages && !$($Next).hasClass('disabled')){ 
                 $($Next).removeClass('disabled');
 
-                for(var i = firstbtn-1; i<lastbtn; i++){ // 다음 블럭으로 넘어갈때 해당 페이지 active 비활성화
-                    if(btn[i].getAttribute('class') == 'page-link page-btn active disabled'){
-                        btn[i].classList.remove('active');
-                        btn[i].classList.remove('disabled');
+                for(var i = firstbtn; i<lastbtn; i++){ // 다음 블럭으로 넘어갈때 해당 페이지 active 비활성화
+                    if(btn[i-1].getAttribute('class') == 'page-link page-btn active disabled'){
+                        btn[i-1].classList.remove('active');
+                        btn[i-1].classList.remove('disabled');
                     }
                 }
 
-                for(firstbtn; firstbtn<=lastbtn; firstbtn++){
+                for(firstbtn; firstbtn < lastbtn; firstbtn++){
                     btn[firstbtn-1].style.display ='none';
                 }
 
                 blockPage++;
 
-                for(lastbtn; lastbtn < (blockPerPage*blockPage); lastbtn++){
-                    btn[lastbtn].style.display = 'inline';
+                for(lastbtn; lastbtn <= (blockPerPage*blockPage); lastbtn++){
+                    if(btn[lastbtn-1] != null){
+                        btn[lastbtn-1].style.display = 'inline';
+                    } else break;
                 }
+                lastbtn--;
+
                 $($Previous).removeClass('disabled'); // 다음 페이지 버튼 눌렀을때 이전 버튼 활성화
 
                 btn[firstbtn-1].classList.add('active');
@@ -247,13 +315,13 @@ function pasing(){
                 $('.active').trigger('click'); // 해당 버튼 강제로 클릭이벤트 발생
             } 
 
-            if(lastbtn == numPages) {
+            if(lastbtn >= numPages) {
                 $($Next).addClass('disabled');
             }
         });
 
         $($Previous).click(function(){
-            if(firstbtn>1){
+            if(firstbtn>3){
                 $($Previous).removeClass('disabled');
 
                 btn[lastbtn-1].classList.remove('active');
@@ -264,9 +332,10 @@ function pasing(){
                     btn[lastbtn-1].style.display = 'none';
                 }
 
-                for(firstbtn; firstbtn > lastbtn; firstbtn--){
-                    btn[firstbtn-2].style.display ='inline';
+                for(var i = firstbtn; i > firstbtn-3; i--){
+                    btn[i-2].style.display ='inline';
                 }
+                firstbtn-=3;
 
                 for(var i = lastbtn-1; i<lastbtn; i++){ // 다음 블럭으로 넘어갈때 해당 페이지 active 활성화
                     if(btn[i].getAttribute('class') == 'page-link page-btn'){
@@ -274,6 +343,9 @@ function pasing(){
                         btn[i].classList.add('disabled');
                     }
                 }
+
+                lastbtn++;
+
                 $('.active').trigger('click'); // 해당 버튼 강제로 클릭이벤트 발생
 
             } 
@@ -292,8 +364,8 @@ function pasing(){
     }); 
 
 }
-/*HOT PLACE 클릭시 이벤트 */
 
+/*HOT PLACE 클릭시 이벤트 */
 function OpenImg(){
     $(document).on('click','tbody#mainList tr',function(e){
 
@@ -307,7 +379,10 @@ function OpenImg(){
             data: {"no":no}, 
             success : function(data) {
                 //console.log(data);
-                //$('.hotPlace').empty();
+                
+                var $consup = $('.hotPlace').find('a');
+                $consup.attr('href','applystages/page?sno='+no);
+                
                 var subimg = document.getElementsByClassName('placeImg');
                 $.each(data,function(index,item){
                     if(index == 0){
@@ -315,7 +390,7 @@ function OpenImg(){
                     }
                     subimg[index].setAttribute('src','/upload/'+item.photo);
                 });
-                
+
                 $('.streaming').find('h1').next().remove();
             },
             error : function(request, status, error) {
@@ -325,6 +400,45 @@ function OpenImg(){
 
         $('.streaming').hide();
         $('.hotPlace').show();
+    });  
+}
+
+/*Best Buskers 클릭시 이벤트 */
+function OpenDetail(){
+    $(document).on('click','tbody#mainList tr',function(e){
+
+        e.stopImmediatePropagation();
+
+        var no = $(this).find('.bno').text();
+
+        $.ajax({ 
+            type : "POST", 
+            url : "busDetail",
+            dataType: 'json',
+            data: {"no":no}, 
+            success : function(data) {
+                console.log(data);
+                $('table.custab').empty();
+                $.each(data,function(index,item){
+                    $('.BusMainImg').attr('src' ,'/upload/'+item.teamPhoto);
+                    $('table.custab').append(
+                            '<tr><th class="busTh">팀명</th>'+
+                            '<td>'+item.teamname+'</td></tr>'+
+                            '<tr><th class="busTh">장르/퍼포먼스</th>'+
+                            '<td>'+item.teamgenre+'</td></tr>'+
+                            '<tr><th class="busTh">좋아요</th>'+
+                            '<td>'+item.likecount+'</td></tr>'
+                    );
+                });
+
+                $('.streaming').find('h1').next().remove();
+            },
+            error : function(request, status, error) {
+                alert("실패~");
+            }
+        });
+        $('.streaming').hide();
+        $('.bestBus').show();
     });  
 }
 
