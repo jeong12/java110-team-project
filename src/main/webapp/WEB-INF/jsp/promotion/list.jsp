@@ -41,7 +41,6 @@
    #titl{ margin: 10px; padding: 10px;}
    #logo {width: 40px; height: 40px; margin: 10px;}
    h3{display:inline-block; position: relative; top:.5rem;}
-   body{margin-top: 20px;}
    #td2 .more-button{
     font-size:1rem; 
    }
@@ -92,7 +91,6 @@
         color:#fff;
         text-decoration: none;
     }
-    .btn-enroll
     </style>
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
