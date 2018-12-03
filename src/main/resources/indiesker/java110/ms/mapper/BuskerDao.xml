@@ -76,6 +76,12 @@
      WHERE bno = #{no}
     </update>
     
+   	<select id="findBukserInfo" resultMap="buskerFeedMap" parameterType="int"> 
+    select bno, name, genre, intro, phot
+    from busk 
+    where bno=#{value}
+    </select>  
+    
     <!-- Best Buskers -->
     <select id="findByBest" resultMap="buskerFeedMap" parameterType="map">
 		select

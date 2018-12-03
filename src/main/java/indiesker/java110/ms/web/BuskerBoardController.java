@@ -34,7 +34,7 @@ public class BuskerBoardController {
     public String add(
             BuskerBoard buskerBoard,
             MultipartFile file1) throws Exception {
-        
+        System.out.println(buskerBoard);
         
         buskerBoardService.add(buskerBoard);
         

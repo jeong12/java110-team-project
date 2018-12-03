@@ -13,4 +13,5 @@ public interface BuskerService {
     List<Busker> getByBest();
     List<Busker> getByBest(Map<String,Object> params);
     List<Busker> getByBestDetail(int no);
+    Busker findInfo(int no);
 }

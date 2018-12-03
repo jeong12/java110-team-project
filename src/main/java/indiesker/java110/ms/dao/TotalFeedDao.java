@@ -1,12 +1,13 @@
 package indiesker.java110.ms.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import indiesker.java110.ms.domain.Busker;
 
 public interface TotalFeedDao {
-	List<Busker> findTotalFeed();
-	List<Busker> findByCity(String city);
-	List<Busker> findByTeamname(String teamname);
-	List<Busker> findByGenre(String teamgenre);
+	List<Busker> findTotalFeed(String sortType);
+	List<Busker> findByCity(Map<String, Object> params);
+	List<Busker> findByTeamname(Map<String, Object> params);
+	List<Busker> findByGenre(Map<String, Object> params);
 }

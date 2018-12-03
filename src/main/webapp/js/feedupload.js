@@ -75,7 +75,34 @@ function readURL3(input) {
         }
     }
 };
+
 /* 영상 업로드 처리 */
+$(".urlchk").on('click', function() {
+    var url=document.getElementById('url').value;
+    console.log(url.length);
+    var fronturl = url.substring(0,32);
+
+    if(fronturl != 'https://www.youtube.com/watch?v='){
+        alert('똑바로 유튜브 위의 url을 써주세요!!');
+    }else if(url.length != 43){
+        alert('똑바로 유튜브 위의 url을 써주세요!!');
+    }
+    else{
+        var thumbnail="https://i.ytimg.com/vi/"+url.substring(32,43)+"/hqdefault.jpg";
+         $("#uploadavi").attr("src",thumbnail);
+         $(".uploadbtn").prop("disabled", false);
+         $(".uploadbtn").css("background-color", "#4CAF50");
+    }
+});
+
+
+
+
+
+
+
+
+
 
 
 

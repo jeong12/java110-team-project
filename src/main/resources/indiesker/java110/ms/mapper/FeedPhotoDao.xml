@@ -105,28 +105,52 @@
 		) as tab
 		order by cdt desc
 	</select>
+	   <resultMap type="FeedPhoto" id="feedphotomodal2">
+        <id column="pbno" property="pbno" />
+        <result column="teamphot" property="teamPhoto" />
+        <result column="name" property="teamname" />
+        <result column="genre" property="teamgenre" />
+        <result column="city" property="city" />
+        <result column="cont" property="feedcont" />
+        <result column="lcnt" property="lcnt" />
+        <collection property="feedphotoFiles"
+            ofType="FeedPhotoFile">
+            <id column="fpno" property="fpno" />
+            <result column="phot" property="filename" />
+        </collection>
+    </resultMap>
+	<!-- 피드사진모달 댓글 없을때 -->
+	<select id="findfeedphotobyPbnoNC" resultMap="feedphotomodal2"
+		parameterType="int">
+		select p.cont, p.lcnt, fp.phot,fp.fpno,b.phot as teamphot,b.name,b.city,b.genre
+		from phot p, feed_phot fp,busk b
+		where p.pbno=fp.pbno
+		and p.bno=b.bno
+		and p.pbno=#{no}
+	</select>
 
 	<!-- 사진상세보기(모달) <select id="findByImage" resultMap=> SELECT P.pbno, FP.phot, 
 		B.phot,B.name,B.genre, B.city, P.cont,P.lcnt FROM phot P,busk B,feed_phot 
 		FP WHERE P.bno=B.bno AND P.pbno=FP.pbno AND P.pbno=14 </select> -->
-    
+
 	<insert id="feedPhotoUpload" parameterType="map"
 		useGeneratedKeys="true" keyColumn="pbno" keyProperty="pbno">
 		insert into phot (cont,lcnt,cdt,bno)
 		values( #{cont},0,now(),#{no})
-		<selectKey resultType="integer" keyProperty="pbno" order="AFTER">
+		<selectKey resultType="Integer" keyProperty="pbno"
+			order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
 
-    <insert id="feedPhotoFileUpload" parameterType="map"
-        useGeneratedKeys="true" keyColumn="fpno" keyProperty="fpno">
-        INSERT INTO 'feed_phot` (phot,pbno) 
-        values
-        <foreach collection="list" item="item" separator=",">
-        (#{photsrc},#{pbno})
-        </foreach>
-    </insert>
+	<insert id="feedPhotoFileUpload" parameterType="map"
+		useGeneratedKeys="true" keyColumn="fpno" keyProperty="fpno">
+		INSERT INTO `feed_phot` (`phot`,`pbno`)
+		values
+		<foreach collection="photsrc" item="item" separator=",">
+			(#{item},#{pbno})
+		</foreach>
+	</insert>
 
 </mapper>
 

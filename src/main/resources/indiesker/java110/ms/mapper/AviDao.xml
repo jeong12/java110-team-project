@@ -64,30 +64,55 @@
 	<select id="findfeedavibyAbno" resultMap="aviMap2"
 		parameterType="int">
 		select * from(
-		select * from(SELECT m.flag,a.titl, a.stm, a.cdt as avicdt, bb.phot as
-		buskprofile,bb.name as buskteamname,bb.genre,bb.city, a.cont, a.lcnt,
+		select * from(SELECT m.flag,a.titl, a.stm,
+		a.cdt as avicdt, bb.phot as
+		buskprofile,bb.name as
+		buskteamname,bb.genre,bb.city, a.cont, a.lcnt,
 		b.phot,b.name,ac.cdt,ac.cont as comtcont, ac.acno,a.abno
-		FROM busk as b, avi as a, avi_comt as ac, busk as bb, memb as m
-		WHERE a.abno = ac.abno and ac.mno = b.bno AND bb.bno = a.bno AND
-		a.abno=#{no} AND m.mno = b.bno) as t1
+		FROM busk as
+		b, avi as a, avi_comt as ac, busk as bb, memb as m
+		WHERE a.abno =
+		ac.abno and ac.mno = b.bno AND bb.bno = a.bno AND
+		a.abno=#{no} AND
+		m.mno = b.bno) as t1
 		UNION ALL
-		select * from (SELECT m.flag,a.titl, a.stm, a.cdt as avicdt, bb.phot as
-		buskprofile,bb.name as buskteamname,bb.genre,bb.city, a.cont, a.lcnt,
+		select * from (SELECT m.flag,a.titl,
+		a.stm, a.cdt as avicdt, bb.phot as
+		buskprofile,bb.name as
+		buskteamname,bb.genre,bb.city, a.cont, a.lcnt,
 		m.phot,s.name,ac.cdt,ac.cont as comtcont, ac.acno,a.abno
-		FROM sup as s, avi as a, avi_comt as ac, busk as bb, memb as m
-		WHERE a.abno = ac.abno and ac.mno = s.sno AND bb.bno = a.bno AND
-		a.abno=#{no} AND m.mno = s.sno) as t2
+		FROM sup as s,
+		avi as a, avi_comt as ac, busk as bb, memb as m
+		WHERE a.abno = ac.abno
+		and ac.mno = s.sno AND bb.bno = a.bno AND
+		a.abno=#{no} AND m.mno =
+		s.sno) as t2
 		UNION ALL
-		select * from (SELECT m.flag,a.titl, a.stm, a.cdt as avicdt, bb.phot as
-		buskprofile,bb.name as buskteamname,bb.genre,bb.city,a.cont, a.lcnt,
-		m.phot, m.nik ,ac.cdt,ac.cont as comtcont, ac.acno,a.abno
-		FROM memb as m, avi as a, avi_comt as ac, busk as bb
-		WHERE a.abno = ac.abno and ac.mno = m.mno AND bb.bno = a.bno AND
+		select * from (SELECT m.flag,a.titl, a.stm, a.cdt
+		as avicdt, bb.phot as
+		buskprofile,bb.name as
+		buskteamname,bb.genre,bb.city,a.cont, a.lcnt,
+		m.phot, m.nik
+		,ac.cdt,ac.cont as comtcont, ac.acno,a.abno
+		FROM memb as m, avi as a,
+		avi_comt as ac, busk as bb
+		WHERE a.abno = ac.abno and ac.mno = m.mno
+		AND bb.bno = a.bno AND
 		a.abno=#{no} AND m.flag=1) as t3
 		) as tab
-		order by cdt desc
+		order by
+		cdt desc
 	</select>
-
+	
+	<!-- 피드동영상 모달 댓글없을때 -->
+	<select id="findByFeedAviNoNC" resultMap="aviMap" parameterType="int">
+		select a.titl, a.cont, a.lcnt, a.stm, a.bno, b.phot, b.name, b.genre, b.city
+		from avi a, busk b
+		where
+		a.bno=b.bno
+		and abno=#{no}
+	</select>
+	
 	<!-- 동영상상세조회 -->
 	<select id="findByAviNo" resultMap="aviMap" parameterType="int">
 		SELECT a.titl, a.stm, b.name, b.genre, b.city, a.cont, a.lcnt
@@ -107,12 +132,6 @@
 		ORDER BY cdt desc<!-- 여기 수정해야함 -->
 	</select>
 
-	<insert id="insert" parameterType="avi" useGeneratedKeys="true"
-		keyColumn="abno" keyProperty="aviboardno">
-		insert into avi(abno,titl,cont,cdt,stm,bno)
-		values(#{aviboardno},#{title},#{content},now(),#{url},#{no})<!-- 자동으로 증가하게! -->
-	</insert>
-
 	<!-- 최신영상 조회(메인) -->
 	<select id="findAll" resultMap="aviMap">
 		SELECT a.abno,a.stm,a.titl, b.name
@@ -125,7 +144,8 @@
 	<!-- 인기영상 조회(메인) -->
 	<select id="findbypopul" resultMap="aviMap">
 		SELECT a.abno,a.stm,a.titl, af.lcnt, b.name
-		FROM busk b, avi a, avi_fav af
+		FROM busk b, avi a, avi_fav
+		af
 		WHERE b.bno=a.bno
 		AND a.abno=af.abno
 		LIMIT 9<!-- 여기 수정해야함 -->
@@ -142,6 +162,18 @@
 	ORDER BY a.cdt desc
 	   LIMIT 9
     </select>
+
+	<insert id="insert" parameterType="avi" useGeneratedKeys="true"
+		keyColumn="abno" keyProperty="aviboardno">
+		insert into avi(abno,titl,cont,cdt,stm,bno)
+		values(#{aviboardno},#{title},#{content},now(),#{url},#{no})<!-- 자동으로 증가하게! -->
+	</insert>
+
+	<insert id="uploadAvi" parameterType="map"
+		useGeneratedKeys="true" keyColumn="abno" keyProperty="aviboardno">
+		insert into avi(titl,cont,lcnt,cdt,stm,bno)
+		values(#{title},#{content},0,now(),#{urlid},#{buskerno});
+	</insert>
 
 </mapper>
 

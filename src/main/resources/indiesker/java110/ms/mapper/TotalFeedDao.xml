@@ -13,31 +13,71 @@
         <result column="phot"  property="teamPhoto"/>
     </resultMap>
 
-    <select id="findTotalFeed" resultMap="findTotalFeedMap" parameterType="map">
+    <select id="findTotalFeed" resultMap="findTotalFeedMap" parameterType="string">
 select b.name, b.genre, b.phot, b.city, b.lcnt, m.cdt
 from busk b join memb m on b.bno = m.mno
-ORDER by b.lcnt DESC
+  <choose>
+    <when test="value != null and value.equals('lcnt')">
+      order by b.lcnt desc
+    </when>
+    <when test="value != null and value.equals('cdt')">
+      order by m.cdt desc, b.lcnt desc
+    </when>
+    <otherwise>
+      order by b.lcnt desc
+    </otherwise>
+  </choose>
     </select>
     
-    <select id="findByCity" resultMap="findTotalFeedMap" parameterType="String">
-select name, genre, phot, city, lcnt
-from busk
-where city=#{city}
-ORDER by lcnt DESC
+    <select id="findByCity" resultMap="findTotalFeedMap" parameterType="map">
+select b.name, b.genre, b.phot, b.city, b.lcnt, m.cdt
+from busk b join memb m on b.bno = m.mno
+where city like #{keyword}
+<choose>
+    <when test="sortType != null and sortType.equals('lcnt')">
+      order by b.lcnt desc
+    </when>
+    <when test="sortType != null and sortType.equals('cdt')">
+      order by m.cdt desc, b.lcnt desc
+    </when>
+    <otherwise>
+      order by b.lcnt desc
+    </otherwise>
+  </choose>
     </select>
     
-    <select id="findByTeamname" resultMap="findTotalFeedMap" parameterType="String">
-select name, genre, phot, city, lcnt
-from busk
-where name=#{teamname}
-ORDER by lcnt DESC
+    <select id="findByTeamname" resultMap="findTotalFeedMap" parameterType="map">
+select b.name, b.genre, b.phot, b.city, b.lcnt, m.cdt
+from busk b join memb m on b.bno = m.mno
+where b.name like #{keyword}
+<choose>
+    <when test="sortType != null and sortType.equals('lcnt')">
+      order by b.lcnt desc
+    </when>
+    <when test="sortType != null and sortType.equals('cdt')">
+      order by m.cdt desc, b.lcnt desc
+    </when>
+    <otherwise>
+      order by b.lcnt desc
+    </otherwise>
+  </choose>
     </select>
     
-    <select id="findByGenre" resultMap="findTotalFeedMap" parameterType="String">
-select name, genre, phot, city, lcnt
-from busk
-where genre=#{teamgenre}
-ORDER by lcnt DESC
+    <select id="findByGenre" resultMap="findTotalFeedMap" parameterType="map">
+select b.name, b.genre, b.phot, b.city, b.lcnt, m.cdt
+from busk b join memb m on b.bno = m.mno
+where b.genre like #{keyword}
+<choose>
+    <when test="sortType != null and sortType.equals('lcnt')">
+      order by b.lcnt desc
+    </when>
+    <when test="sortType != null and sortType.equals('cdt')">
+      order by m.cdt desc, b.lcnt desc
+    </when>
+    <otherwise>
+      order by b.lcnt desc
+    </otherwise>
+  </choose>
     </select>
 </mapper>
 
