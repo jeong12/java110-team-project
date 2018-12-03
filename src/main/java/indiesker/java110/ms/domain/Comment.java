@@ -1,7 +1,6 @@
 package indiesker.java110.ms.domain;
 
 import java.sql.Date;
-import java.util.List;
 
 //  사진,동영상,홍보 댓글
 public class Comment {

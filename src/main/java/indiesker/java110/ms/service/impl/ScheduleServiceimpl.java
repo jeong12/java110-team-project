@@ -295,4 +295,13 @@ public class ScheduleServiceimpl implements ScheduleService {
       params.put("date", date);
     return scheduleDao.searchSchedule(params);
     }
+    
+    @Override
+    public List<Schedule> findoverdue(int no, int pageNo, int pageSize) {
+      Map<String,Object> params = new HashMap<>();
+      params.put("no", no);
+      params.put("pageNo", pageNo);
+      params.put("pageSize", pageSize);
+    return scheduleDao.findoverdue(params);
+    }
 }

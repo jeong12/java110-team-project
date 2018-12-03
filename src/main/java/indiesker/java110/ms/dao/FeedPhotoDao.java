@@ -8,6 +8,7 @@ public interface FeedPhotoDao {
 /*  List<FeedPhoto> findByFeedPhoto();
   FeedPhoto findPhotoFile(int no);*/
   List<FeedPhoto> findRecentPhot(Map<String,Object> params);
+  List<FeedPhoto> findRecentPhot2(int no);
   FeedPhoto findByImage(int no);
   FeedPhoto findfeedphotobyPbno(int no);
   int feedPhotoUpload(Map<String,Object> params);

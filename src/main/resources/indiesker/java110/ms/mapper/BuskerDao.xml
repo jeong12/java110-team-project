@@ -29,7 +29,6 @@
 		<result column="lcnt" property="likecount" />
     </resultMap>
 
-
 	<select id="findAll" resultMap="buskerMap" parameterType="map">
 		select
 		m.mno,
@@ -46,15 +45,18 @@
 	</select>
 
 
-	<select id="findByNo" resultMap="buskerFeedMap" parameterType="int"> 
-	select 
-	   name, 
-	   genre, 
-		city, 
+	<select id="findByNo" resultMap="buskerFeedMap"
+		parameterType="int">
+		select
+		bno,
+		name,
+		genre,
+		city,
 		intro,
 		phot
-	from busk 
-	where bno=#{value}
+		from busk
+		where
+		bno=#{value}
 	</select>
 
     <insert id="insert" parameterType="busker">

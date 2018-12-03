@@ -11,6 +11,8 @@
 		<result column="lcnt" property="lcnt" />
 		<result column="cdt" property="cdt" />
 		<result column="phot" property="firphot" />
+		<result column="bno" property="bno" />
+		<result column="count" property="photocount" />
 	</resultMap>
 	<!-- 최신사진 조회(개인피드) -->
 	<select id="findRecentPhot" resultMap="feedPhotoMap"
@@ -26,7 +28,19 @@
 		ORDER BY p.cdt DESC
 		limit #{rowNo}, #{size}
 	</select>
-
+	
+	   <select id="findRecentPhot2" resultMap="feedPhotoMap"
+        parameterType="int">
+        SELECT p.pbno, fp.phot
+        FROM busk b, phot p,(SELECT *
+        FROM
+        feed_phot
+        GROUP BY pbno ) as fp
+        WHERE b.bno = p.bno
+        AND p.pbno = fp.pbno
+        AND b.bno=#{no}
+        ORDER BY p.cdt DESC
+    </select>
 
 	<resultMap type="FeedPhoto" id="feedphotomodal">
 		<id column="pbno" property="pbno" />
@@ -105,26 +119,28 @@
 		) as tab
 		order by cdt desc
 	</select>
-	   <resultMap type="FeedPhoto" id="feedphotomodal2">
-        <id column="pbno" property="pbno" />
-        <result column="teamphot" property="teamPhoto" />
-        <result column="name" property="teamname" />
-        <result column="genre" property="teamgenre" />
-        <result column="city" property="city" />
-        <result column="cont" property="feedcont" />
-        <result column="lcnt" property="lcnt" />
-        <collection property="feedphotoFiles"
-            ofType="FeedPhotoFile">
-            <id column="fpno" property="fpno" />
-            <result column="phot" property="filename" />
-        </collection>
-    </resultMap>
+	<resultMap type="FeedPhoto" id="feedphotomodal2">
+		<id column="pbno" property="pbno" />
+		<result column="teamphot" property="teamPhoto" />
+		<result column="name" property="teamname" />
+		<result column="genre" property="teamgenre" />
+		<result column="city" property="city" />
+		<result column="cont" property="feedcont" />
+		<result column="lcnt" property="lcnt" />
+		<collection property="feedphotoFiles"
+			ofType="FeedPhotoFile">
+			<id column="fpno" property="fpno" />
+			<result column="phot" property="filename" />
+		</collection>
+	</resultMap>
 	<!-- 피드사진모달 댓글 없을때 -->
 	<select id="findfeedphotobyPbnoNC" resultMap="feedphotomodal2"
 		parameterType="int">
-		select p.cont, p.lcnt, fp.phot,fp.fpno,b.phot as teamphot,b.name,b.city,b.genre
+		select p.cont, p.lcnt, fp.phot,fp.fpno,b.phot as
+		teamphot,b.name,b.city,b.genre
 		from phot p, feed_phot fp,busk b
-		where p.pbno=fp.pbno
+		where
+		p.pbno=fp.pbno
 		and p.bno=b.bno
 		and p.pbno=#{no}
 	</select>

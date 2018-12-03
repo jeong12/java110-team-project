@@ -85,12 +85,10 @@ table {
     margin-left:auto;
     margin-right:auto;
     display: block; 
-    border-radius: 1rem;
 }
 .placeImg {
     width:167px;
     height:167px;
-    border-radius: 2rem;
 } 
 .caption {
     position:absolute;
@@ -103,7 +101,6 @@ table {
     text-align:center;
     color:#fff !important;
     z-index:2;
-    border-radius: 1rem;
 }
 .caption h4{
   line-height: 0.5em;
@@ -339,11 +336,11 @@ table {
               <div class="caption" style="display: none;">
                 <h4>무대가 마음에 드시나요?</h4>
                 <p>마음에 드신다면 신청하세요!</p>
-                <a href=""><i
+                <a href="/app/applystages/page?no="><i
                   class="fas fa-angle-right"
                 ></i></a>
               </div>
-              <img class="placeMainImg" alt="test"><br>
+              <img class="placeMainImg" alt="test">
             </div>
             <div class="placMainSub">
               <img class="placeImg" alt="test" onclick="placeImg();">
@@ -663,6 +660,7 @@ table {
   </div>
   <!-- custom -->
   <script src="../js/headerfixing.js"></script>
+  
   <script src="../js/todayTime.js"></script>
   <script>
   <!--동영상 첫 슬라이드 활성화-->

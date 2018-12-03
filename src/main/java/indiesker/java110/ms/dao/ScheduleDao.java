@@ -46,5 +46,6 @@ public interface ScheduleDao {
   int checkeditperschedule(Map<String, Object> params);
   int checkeditreqschedule(Map<String, Object> params); 
   List<Schedule> searchSchedule(Map<String,Object> params);
+  List<Schedule> findoverdue(Map<String,Object> params);
   
 }

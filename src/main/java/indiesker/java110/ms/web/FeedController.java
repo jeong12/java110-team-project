@@ -11,6 +11,7 @@ import java.util.UUID;
 import javax.servlet.ServletContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,47 +25,66 @@ import indiesker.java110.ms.domain.Schedule;
 import indiesker.java110.ms.service.AviService;
 import indiesker.java110.ms.service.BuskerService;
 import indiesker.java110.ms.service.FeedPhotoService;
+import indiesker.java110.ms.service.MemberService;
 import indiesker.java110.ms.service.ScheduleService;
 
 @Controller
 @RequestMapping("/buskerfeed")
 public class FeedController {
 
-  int buskno=5;//임의값
   AviService aviService;
   ScheduleService sheduleService;
   FeedPhotoService feedPhotoService;
   BuskerService buskerService;
+  MemberService memberService;
   ServletContext sc;
 
-
   public FeedController(AviService aviService, ScheduleService sheduleService,
-      FeedPhotoService feedPhotoService, BuskerService buskerService, ServletContext sc) {
+      FeedPhotoService feedPhotoService, BuskerService buskerService, MemberService memberService,
+      ServletContext sc) {
+    super();
     this.aviService = aviService;
     this.sheduleService = sheduleService;
     this.feedPhotoService = feedPhotoService;
     this.buskerService = buskerService;
+    this.memberService = memberService;
     this.sc = sc;
   }
 
-  @RequestMapping("enter")
+  
+  @GetMapping("enter")
   public void list(
-      /*int buskno,*/
-      @RequestParam(defaultValue="1") int pageNo,
+      int no,
+      @RequestParam(defaultValue="0") int pageNo,
       @RequestParam(defaultValue="9") int pageSize,
       Model model) {
-    if (pageNo < 1)
-      pageNo = 1;
-
-    if (pageSize < 9 || pageSize > 10)
-      pageSize = 9;
-
-    List<Schedule> fplist = sheduleService.findFeedPerSchedule(buskno);//스케줄 now()이후 날짜부터 출력!
-    List<Schedule> fflist = sheduleService.findFeedFixSchedule(buskno);
+    
+    // 버스커말고 다른 회원이 접근할때!
+/*    boolean checkbusk = memberService.isBusker(no);
+    System.out.println(checkbusk);
+    
+    if(checkbusk == false) {
+      goback();
+      
+    }*/
+    
+    /*int photocount = feedPhotoService.recentPhotList2(no);*/
+    
+/*    // 페이징처리
+    Criteria criteria = new Criteria();
+    criteria.setPage(pageNo);
+    criteria.setPerPageNum(pageSize);
+    Page page = new Page();
+    page.setCriteria(criteria);
+    page.setTotalCount(photocount);*/
+   
+    
+    List<Schedule> fplist = sheduleService.findFeedPerSchedule(no);//스케줄 now()이후 날짜부터 출력!
+    List<Schedule> fflist = sheduleService.findFeedFixSchedule(no);
     fplist.addAll(fflist);
-    Busker busker = buskerService.get(buskno);
-    List<Avi> alist = aviService.recentList(buskno);
-    List<FeedPhoto> plist = feedPhotoService.recentPhotList(buskno,pageNo, pageSize);
+    Busker busker = buskerService.get(no);
+    List<Avi> alist = aviService.recentList(no);
+    List<FeedPhoto> plist = feedPhotoService.recentPhotList(no,pageNo,pageSize);
 
     //영상 주소에 관한것
     for (Avi avi : alist) {
@@ -98,6 +118,7 @@ public class FeedController {
       ps.setNedt(formatedt.format(ps.getEdt()));
     }
 
+    /*model.addAttribute("page",page);*/
     model.addAttribute("schelist",fplist);
     model.addAttribute("busk",busker);
     model.addAttribute("recentlist",alist);
@@ -151,11 +172,11 @@ public class FeedController {
   }
 
   @PostMapping("addphoto")
-  public String addphoto(@RequestParam String content, @RequestParam MultipartFile file1,
+  public String addphoto(@RequestParam String bno,@RequestParam String content, @RequestParam MultipartFile file1,
       @RequestParam MultipartFile file2, @RequestParam MultipartFile file3
       ) throws IllegalStateException, IOException {
-
-
+    int bno2=Integer.parseInt(bno);
+    
     List<String> files = new ArrayList<>();
 
     if (file1.getSize() > 0) {
@@ -174,17 +195,48 @@ public class FeedController {
       file3.transferTo(new File(sc.getRealPath("/upload/" + filename)));
       files.add(filename);
     }
-    feedPhotoService.feedPhotoAndFileUpload(buskno, content, files);
-    return "redirect:enter";
+    feedPhotoService.feedPhotoAndFileUpload(bno2, content, files);
+    return "redirect:enter?no="+bno2;
   }
 
   @PostMapping("addavi")
-  public String addphoto(String title, String content, String url) {
+  public String addavi(@RequestParam String bno, String title, String content, String url) {
+    int bno2=Integer.parseInt(bno);
     String urlid = url.substring(32,43);
 
-    aviService.uploadAvi(buskno, title, content, urlid);
+    aviService.uploadAvi(bno2, title, content, urlid);
 
-    return "redirect:enter";
+    return "redirect:enter?no="+bno2;
   }
+  
+  @RequestMapping("insertavicomt")
+  public void insertcomt(int abno, int no, String cont) {
+    System.out.println(abno+"//"+no+"//"+cont);
+    
+    aviService.insertComment(abno, no, cont);
+    
+  }
+  
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

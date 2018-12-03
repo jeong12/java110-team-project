@@ -18,6 +18,7 @@ public class Member implements Serializable {
   protected String genre0;
   protected String genre1;
   protected String genre2;
+  protected int membflag;
   
   
   
@@ -100,8 +101,12 @@ public class Member implements Serializable {
         + ", nickname=" + nickname + ", photo=" + photo + ", genre=" + genre+", yn=" + yn
         + ", memo=" + memo + "]";
   }
-  
- 
-  
+  public int getMembflag() {
+    return membflag;
+  }
+  public void setMembflag(int membflag) {
+    this.membflag = membflag;
+  }
+
 }
 
