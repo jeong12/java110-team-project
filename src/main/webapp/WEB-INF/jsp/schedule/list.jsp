@@ -30,7 +30,6 @@ margin-bottom:15px;
     <div class='row'>
     <div class='col-lg-12'>
     <div class='search col-lg-10'>
-    <button type="button" class="btn btn-outline-secondary" a onclick="window.location.reload()">목록</button><br>
     <form action="search">
     <select name="type">
     <option value="date" selected>기간</option>

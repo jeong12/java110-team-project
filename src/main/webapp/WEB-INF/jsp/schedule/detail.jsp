@@ -16,18 +16,18 @@
 margin-top: 15px;
 margin-bottom:15px; 
 }
-
-.find{
-border-radius:15px; 
-}
-
 .info{
 float:right;
+}
+.bphoto{
+width: 20rem;
+height: 15rem;
 }
 .teaminfo{
 border: 1px solid silver;
 }
 .teaminfo td:first-child{
+padding-right: 10px;
 width:30%;
 }
 .teaminfo td{
@@ -50,7 +50,6 @@ padding-bottom: 10px;
     <div class='row'>
     <div class='col-lg-12'>
     <div class='search col-lg-8'>
-    <button type="button" class="btn btn-outline-secondary" a onclick="window.location.reload()">목록</button>
     <select>
     <option>기간</option>
     <option>팀명</option>
@@ -83,7 +82,7 @@ padding-bottom: 10px;
     <div class='col-lg-4 float-right'>
     <table class='teaminfo'>
     <tbody>
-    <tr><td colspan="2"><img src='/upload/${busker.teamPhoto}' alt='버스커사진'></td></tr>
+    <tr><td colspan="2"><img class='bphoto' src='/upload/${busker.teamPhoto}' alt='버스커사진'></td></tr>
     <tr><td>팀명</td><td>${busker.teamname}</td></tr>
     <tr><td>주요 장르</td><td>${busker.teamgenre}</td></tr>
     <tr><td>팀 소개</td><td>${busker.teamInfo}</td></tr>

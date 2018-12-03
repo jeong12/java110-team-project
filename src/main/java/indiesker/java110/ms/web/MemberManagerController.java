@@ -102,6 +102,7 @@ public class MemberManagerController {
   @RequestMapping(value="supListDetail")
   public Supporter supListDetail(String nik) {
     Supporter sno = memberManagerService.supListDetail(nik);
+    System.out.println(sno);
     return sno;
   }
  /////////////////////////////////////////////////////////////// 

@@ -127,7 +127,7 @@ public class SupporterScheduleController {
       }
     }
 
-
+    System.out.println(list);
     return list;
   }
 
