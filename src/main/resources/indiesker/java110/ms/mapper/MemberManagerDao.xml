@@ -143,7 +143,7 @@ and m.id = #{id}
 
 <select id="detailSupporter" resultType="Supporter" parameterType="String">
 SELECT m.id,m.email,m.nik,m.memo,s.name,s.det_addr,s.genre,s.capa,s.tel,s.etc
-FROM memb as m ,sup as s  
+FROM memb as m ,sup as s 
 WHERE m.mno = s.sno
 and m.id = #{id}
 </select>
@@ -252,9 +252,10 @@ where nik = #{nik}
 </select>
 
 <select id="supListDetail" resultMap="SupporterMap" parameterType="String">
-SELECT m.id,m.email,m.nik,s.name,s.det_addr,s.genre,s.capa,s.tel,s.etc
-FROM memb as m, sup as s
+SELECT m.id,m.email,m.nik,s.name,s.det_addr,s.genre,s.capa,s.tel,s.etc,sp.phot,sp.spno,s.sno
+FROM memb as m, sup as s, stag_phot as sp
 where m.mno = s.sno and
+s.sno = sp.sno and
 m.nik = #{nik}
 </select>
 

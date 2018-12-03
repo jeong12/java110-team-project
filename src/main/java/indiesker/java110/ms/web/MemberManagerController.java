@@ -89,6 +89,7 @@ public class MemberManagerController {
     Member mno = memberManagerService.memListDetail(nik);
     return mno;
     
+    
   }
   
   @ResponseBody
