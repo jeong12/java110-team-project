@@ -5,6 +5,10 @@
 <html>
 <head>
 <meta charset='utf-8' />
+    <link href="/css/fullcalendar.min.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css"  href="/css/jquery.datetimepicker.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 <style>
 #calendar {
 	max-width: 600px;
@@ -171,21 +175,20 @@ body{background-color: snow;}
 </style>
 
 </head>
-<jsp:include page="../header.jsp"></jsp:include>
+
 <body>
 	<div id="titl">
 		<img id="logo" src="/img/playButton.PNG" alt="플레이로고">
 		<h2>무대관리</h2>
 	</div>
 	
-	
 	<div class="container">
 		<div class="row">
 			<div class='col-lg-12'>
-			  <div class='cal col-lg-6 col-sm-4'>
+			  <div class='cal col-lg-6'>
 				<div id='calendar'></div>
 				</div>
-				<div class='check col-lg-4 col-sm-2'>
+				<div class='check col-lg-4'>
                   <button class='typeadd' onclick="add()">등록</button>
                   <button class='typeremove' onclick="removes()">삭제</button>
 				 <div class="panel text-center price-panel panel-green">
@@ -353,7 +356,6 @@ body{background-color: snow;}
 		</div>
 		</div>
 
-	</div>
 
 	<!-- 상세보기 모달 -->
 	<div class="modal fade" id="detailModal">
@@ -380,32 +382,20 @@ body{background-color: snow;}
 			</div>
 		</div>
 	</div>
+	
 
-
-    <!-- 달력 -->
-    <script
-        src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-    <link href="/css/fullcalendar.min.css" rel="stylesheet">
-    <script src="/js/fullcalendar.min.js" type="text/javascript"></script>
-    <script
-        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+      <!-- 달력 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    
     <!-- 달력기간조회 -->
-    <link rel="stylesheet" type="text/css"
-        href="/../css/jquery.datetimepicker.css">
+    <script src="/js/fullcalendar.min.js"></script>
     <script src="/js/time/jquery.datetimepicker.full.min.js"></script>
-
-    <!-- 모달 -->
-    <link rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-
+    
     <!-- function -->
-    <script src="/js/myss.js" type="text/javascript"></script>
+    <script src="/js/myss.js"></script>
+    
 
 </body>
-<jsp:include page="../footer.jsp"></jsp:include>
+
 </html>
