@@ -41,4 +41,5 @@ public interface ScheduleService {
     int checkeditperschedule(String sdt, String edt, String nsdt, String nedt, int no);
     int checkeditreqschedule(String sdt, String edt, String nsdt, String nedt, int no);
     List<Schedule> searchScehdule(String type, String keyword, String date);
+    List<Schedule> findoverdue(int no, int pageNo, int pageSize);
 }

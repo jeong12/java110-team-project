@@ -13,11 +13,13 @@ $(function() {
 					$(this).css('background-color', 'gray');
 				} else {
 					$(this).css('background-color', 'gray');
-				}
+				}	
 				_prevObj = $(this);
-				$("#selectday h2").html(date.format());
-				$('#showtype h4').empty();
-				$('.insertDate tbody').empty();
+				$('.panel-heading h4').empty();
+				$('.panel-body h2').html(date.format());
+				$('.list-group').empty();
+				$('.panel-footer').empty();
+				$('.dates').css('height','');
 			}
 		}
 	})
@@ -39,14 +41,15 @@ $('ul.tabs li').click(function(){
 
 //등록가능한 무대일정 출력 & 체크할 수 있게.
 function add(){
-	var td = $('#showDate').text();
+	var td = $('.panel-body h2').text();
 	if(td==null || td==''){
 		alert("날짜를 먼저 선택해주세요");
 		return;
 	}
 
-	$('#showtype h4').empty();
-	$('#showtype h4').append('무대등록하기');
+	$('.panel-heading h4').empty();
+	$('.panel-heading h4').append('무대 등록');
+	$('.dates').css('height','192px');
 
 	$.ajax({ 
 		type : "POST", 
@@ -54,33 +57,16 @@ function add(){
 		dataType: 'json',
 		data : {"date" : td},
 		success : function(data){
-			$('.insertDate tbody').empty();
-			if(data.length<=10){
+			$('.list-group').empty();
+			$(".panel-footer").empty();
 			$.each(data,function(index,item){
-				$(".insertDate tbody").append(
-						'<tr>'+
-						'<td><div class="less10">'+'<input type="checkbox" name="insertdate" value="'+item+'">'+item+'</div></td>'+
-				'</tr>');
+				$(".list-group").append(
+				  '<li class="list-group-item"><input type="checkbox" name="insertdate" value="'+item+'">'+item+'</li>');
 			});
-			$(".insertDate tbody").append(
-					'<tr>'+
-					'<td>' + '<button onclick="addDate()">등록하기</button>'+'</td>'+
-					'</tr>');
-			}else{
-				console.log("10 이상");
-				$.each(data,function(index,item){
-					if(index % 2 == 0){
-				$(".insertDate tbody").append(
-						'<tr>'+
-						'<td>'+'<input type="checkbox" name="insertdate" value="'+item+'">'+item+'</td>');
-					}else{
-					$(".insertDate tbody").append(
-							'<td>'+'<input type="checkbox" name="insertdate" value="'+item+'">'+item+'</td></tr>');
-				}
-				});
-			}
+			$(".panel-footer").append(
+					'<button class="btn btn-lg btn-block btn-success" onclick="addDate()">등록하기</button>'
+					);
 		},
-		
 			error : function(request, status, error) {
 				alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
 			}});
@@ -88,14 +74,15 @@ function add(){
 
 
 //삭제가능한 무대일정 출력&체크할 수 있게
-function remove(){
-	var td = $('#showDate').text();
+function removes(){
+	var td = $('.panel-body h2').text();
 	if(td==null || td==''){
 		alert("날짜를 먼저 선택해주세요");
 		return;
 	}
-	$('#showtype h4').empty();
-	$('#showtype h4').append('무대 삭제하기');
+	$('.panel-heading h4').empty();
+	$('.panel-heading h4').append('무대 삭제');
+	$('.dates').css('height','192px');
 
 	$.ajax({ 
 		type : "POST", 
@@ -103,24 +90,19 @@ function remove(){
 		dataType: 'json',
 		data : {"date" : td},
 		success : function(data){
-			$('.insertDate tbody').empty();
+			$('.list-group').empty();
+			$(".panel-footer").empty();
 			if(data.length == 0){
-				$(".insertDate tbody").append(
-						'<tr>'+
-						'<td>'+'해당 일자에 등록된 무대 일정이 없습니다.'+'</td>'+
-				'</tr>');      
+				$(".list-group").append(
+				'<li class="list-group-item">해당 일자에 등록된 일정이 없습니다.</li>');      
 			}else{
 				$.each(data,function(index,item){
-					$(".insertDate tbody").append(
-							'<tr>'+
-							'<td>'+'<input type="checkbox" name="stagedate" value="'+item.sno+'">'+item.nsdt+'~'+item.nedt+'</td>'+
-					'</tr>');
+				$(".list-group").append(
+					'<li class="list-group-item"><input type="checkbox" name="stagedate" value="'+item.sno+'">'+item.nsdt+'~'+item.nedt+'</li>');
 				});
-				$(".insertDate tbody").append(
-						'<tr>'+
-						'<td>' + '<button onclick="removeDate()">삭제하기</button>'+'</td>'+
-						'</tr>'
-				)
+				$(".panel-footer").append(
+				'<button class="btn btn-lg btn-block btn-success" onclick="removeDate()">삭제하기</button>'
+				);
 			}
 		},
 		error : function(request, status, error) {
@@ -132,7 +114,7 @@ function remove(){
 
 //체크한 일정 삭제하기
 function removeDate(){
-	var td = $('#showDate').text();
+	var td = $('.panel-body h2').text();
 	var chkbox = document.getElementsByName("stagedate");
 	var chkCnt=0;
 	var chks = new Array();
@@ -167,7 +149,7 @@ function removeDate(){
 }
 
 function addDate(){
-	var td = $('#showDate').text();
+	var td = $('.panel-body h2').text();
 	var chkbox = document.getElementsByName("insertdate");
 	var chkCnt=0;
 	var addchk = new Array();

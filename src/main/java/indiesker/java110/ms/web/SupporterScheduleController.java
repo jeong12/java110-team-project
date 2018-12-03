@@ -1,5 +1,6 @@
 package indiesker.java110.ms.web;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,10 +33,10 @@ public class SupporterScheduleController {
 
 
   @GetMapping("main")
-  public void main(
+  public void main (
       @RequestParam(defaultValue="1")int pageNo, 
       @RequestParam(defaultValue="3")int pageSize, 
-      Model model) {
+      Model model) throws ParseException {
 
     int sno =2;
     if (pageNo < 1)
@@ -46,33 +47,53 @@ public class SupporterScheduleController {
     int flag=1;
     List<Schedule> list = scheduleService.mysslist(sno, pageNo, pageSize);
     List<Schedule> flist = scheduleService.findSuggestsbyflag(sno, flag, pageNo, pageSize);
+    List<Schedule> tlist = scheduleService.findoverdue(sno, pageNo, pageSize);
     flag = 2;
     List<Schedule> slist = scheduleService.findSuggestsbyflag(sno, flag, pageNo, pageSize);
-    
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     SimpleDateFormat hformat = new SimpleDateFormat("HH:mm");
     SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
+    
+    String t = dformat.format(new Date());
+    Date today = new SimpleDateFormat("yyyy-MM-dd").parse(t);
+
     for (Schedule s : list) {
       s.setNsdt(format.format(s.getSdt()));
       s.setNedt(hformat.format(s.getEdt()));
       s.setNcdt(dformat.format(s.getCdt()));
+      if(today.compareTo(new SimpleDateFormat("yyyy-MM-dd").parse(s.getNsdt()))>=0) {
+        if(s.getFlag() == '1')  s.setFlag('3');
+      }
     }   
+
     for (Schedule s : flist) {
       s.setNsdt(format.format(s.getSdt()));
       s.setNedt(hformat.format(s.getEdt()));
       s.setNcdt(dformat.format(s.getCdt()));
+      if(today.compareTo(new SimpleDateFormat("yyyy-MM-dd").parse(s.getNsdt()))>=0) {
+        if(s.getFlag() == '1')  s.setFlag('3');
+      }
     } 
     for (Schedule s : slist) {
       s.setNsdt(format.format(s.getSdt()));
       s.setNedt(hformat.format(s.getEdt()));
       s.setNcdt(dformat.format(s.getCdt()));
     } 
+    for (Schedule s : tlist) {
+      s.setNsdt(format.format(s.getSdt()));
+      s.setNedt(hformat.format(s.getEdt()));
+      s.setNcdt(dformat.format(s.getCdt()));
+      s.setFlag('3');
+    } 
+    
     model.addAttribute("list", list);
     model.addAttribute("flist", flist);
     model.addAttribute("slist",slist);
+    model.addAttribute("tlist", tlist);
   }
 
 
+  // 삭제 가능한 시간
   @ResponseBody
   @RequestMapping("showDate")
   public List<Schedule> findunableSchedule(String date,Model model){
@@ -88,6 +109,7 @@ public class SupporterScheduleController {
   }
 
 
+  // 신청 가능한 시간
   @ResponseBody
   @RequestMapping("showPossibleDate")
   public List<String> findableSchedule(String date,Model model){
@@ -117,8 +139,6 @@ public class SupporterScheduleController {
     }    
 
     // 데이터 값을 삭제
-
-
     for(int i=0;i<list.size();i++) {
       for(Schedule ps : slist) {
         if(list.get(i).substring(0,5).equals(ps.getNsdt())) {
@@ -126,8 +146,6 @@ public class SupporterScheduleController {
         }
       }
     }
-
-    System.out.println(list);
     return list;
   }
 
@@ -173,27 +191,30 @@ public class SupporterScheduleController {
   public Schedule showDetail(String brno, Model model)throws Exception{
     int no = Integer.parseInt(brno);
     Schedule slist = scheduleService.showDatail(no);
-      SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-      SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
-      SimpleDateFormat hformat = new SimpleDateFormat("HH:mm");
-      List<ScheduleTime> stlist = new ArrayList<>();
+
+     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+     SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
+     SimpleDateFormat hformat = new SimpleDateFormat("HH:mm");
+     List<ScheduleTime> stlist = new ArrayList<>();
       
-      Date td = new Date();
-      
+      String t = dformat.format(new Date());
+      Date today = new SimpleDateFormat("yyyy-MM-dd").parse(t);
+
       for(int i=0;i<slist.getScheduletime().size();i++) {
         ScheduleTime st = new ScheduleTime();
         st.setSnsdt(format.format(slist.getScheduletime().get(i).getSsdt()));
         st.setSnedt(hformat.format(slist.getScheduletime().get(i).getSedt()));
         st.setSssno(slist.getScheduletime().get(i).getSssno());
         Date std = dformat.parse(dformat.format(slist.getScheduletime().get(i).getSsdt()));
-        if(std.getTime()-td.getTime()<0) {
-          st.setFlag(3);
+        if(today.compareTo(new SimpleDateFormat("yyyy-MM-dd").parse(st.getSnedt()))>=0) {
+          if(slist.getFlag() == '1')  st.setFlag('3');
         }else {
           st.setFlag((slist.getScheduletime().get(i).getFlag()));
         }
         stlist.add(st);
       }
       slist.setScheduletime(stlist);
+      System.out.println(slist);
     return slist;  
   }
 

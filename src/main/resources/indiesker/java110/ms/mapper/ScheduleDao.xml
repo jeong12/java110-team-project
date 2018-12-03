@@ -695,6 +695,16 @@ GROUP BY BS.brno
         </choose>
     ORDER BY sdt    
     </select>
+    
+    <select id="findoverdue" parameterType="map"  resultMap="ShowReqsToSupporterMap">
+    select b.name, b.genre, min(ss.sdt)as sdt, max(ss.edt)as edt, br.cnt,
+        bs.flag, br.cdt, br.brno
+        from busk_stag as bs, stag_sche as ss, busk as b, busk_req as br
+        where bs.ssno = ss.ssno and bs.brno=br.brno and br.bno=b.bno and ss.sno=#{no}
+        and flag=1 AND ss.sdt &lt; now()
+        GROUP BY br.brno
+        order by ss.sdt desc
+    </select>
 
 
 </mapper>
