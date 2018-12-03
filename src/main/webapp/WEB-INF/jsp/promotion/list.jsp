@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <title>버스커홍보</title>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <link rel="stylesheet" href="/css/button.css"/> 
+    <link rel="stylesheet" href="/css/common.css"/> 
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script>
@@ -81,15 +81,12 @@
         padding-left:0.8rem;
         margin:0.1rem 0 0.1rem 0;
     }
-    .btn-list{
-        left: 6rem;
+    .btns-outline-dark{
+        position:relative;
+        left: 22rem;
     }
-    .btn-enroll, .btn-enroll:hover, .btn-enroll:after,
-     .btn-enroll:visited, .btn-enroll:active, .btn-enroll:link{
-        top:0;
-        left:-2rem;
-        color:#fff;
-        text-decoration: none;
+    .btn-enroll{
+        left:28.5rem;
     }
     </style>
 </head>
@@ -100,7 +97,7 @@
     <div id="titl">
         <img id="logo" src="../../img/playButton.PNG" alt="플레이로고">
         <h3>버스킹 홍보</h3>
-        <a href="javascript:void(0)" class="btns btn-dark btn-enroll">홍보하기</a>
+        <button class="btns btns-outline-dark btn-enroll">홍보등록</button>
     </div>
         <div class="row mb">
             <div class="col-xs-8 col-xs-offset-2">
@@ -142,8 +139,8 @@
                                     <li class="promotion">날짜 : ${pro.sdt} ~ ${pro.edt}</li>
                                     <li class="promotion">인원 : ${pro.cnt}</li>
                                     <li class="promotion">내용 : ${pro.etc}</li>
-                                    <li class="promotion"><a href="#" class="btns btn-dark btn-list">피드가기</a>
-                                    <a href="#" class="btns btn-dark btn-list">상세보기</a></li>
+                                    <li class="promotion"><button class="btns btns-outline-dark">피드가기</button>
+                                    <button class="btns btns-outline-dark">상세보기</button></li>
                                 </ul>
                             </td>
                         </tr>
@@ -172,8 +169,8 @@
                                     <li class="promotion">날짜 : ${pro.sdt} ~ ${pro.edt}</li>
                                     <li class="promotion">인원 : ${pro.cnt}</li>
                                     <li class="promotion">내용 : ${pro.etc}</li>
-                                    <li class="promotion"><a href="#" class="btns btn-dark">피드가기</a>
-                                    <a href="#" class="btns btn-dark">상세보기</a></li>
+                                    <li class="promotion"><button class="btns btns-outline-dark">피드가기</button>
+                                    <button class="btns btns-outline-dark">상세보기</button></li>
                                 </ul>
                             </td>
                         </tr>
@@ -201,8 +198,8 @@
                                     <li class="promotion">날짜 : ${pro.sdt} ~ ${pro.edt}</li>
                                     <li class="promotion">인원 : ${pro.cnt}</li>
                                     <li class="promotion">내용 : ${pro.etc}</li>
-                                    <li class="promotion"><a href="#" class="btns btn-dark">피드가기</a>
-                                    <a href="#" class="btns btn-dark">상세보기</a></li>
+                                    <li class="promotion"><button class="btns btns-outline-dark">피드가기</button>
+                                    <button class="btns btns-outline-dark">상세보기</button></li>
                                 </ul>
                             </td>
                         </tr>
