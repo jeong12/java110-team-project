@@ -336,7 +336,7 @@ table {
               <div class="caption" style="display: none;">
                 <h4>무대가 마음에 드시나요?</h4>
                 <p>마음에 드신다면 신청하세요!</p>
-                <a href="/app/applystages/main"><i
+                <a href="/app/applystages/page?no="><i
                   class="fas fa-angle-right"
                 ></i></a>
               </div>
