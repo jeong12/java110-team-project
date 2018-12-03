@@ -92,7 +92,6 @@
         color:#fff;
         text-decoration: none;
     }
-    .btn-enroll
     </style>
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
