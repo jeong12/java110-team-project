@@ -135,6 +135,7 @@ input[type=checkbox]:checked+label{
 }
 </style>
 </head>
+<jsp:include page="../../header.jsp"></jsp:include>
 <body>
 
 	<!--     <div id="titl">
@@ -200,4 +201,5 @@ input[type=checkbox]:checked+label{
 	</div>
 </div>
 </body>
+<jsp:include page="../../footer.jsp"></jsp:include>
 </html>

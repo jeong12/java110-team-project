@@ -55,8 +55,10 @@ margin-right: 3%;
 table{text-align: center;}
 tr th{text-align: center;}
 .dbtn{margin: 3%;}
-body{background-color: snow;}
 
+body{
+background-color: snow;
+}
 .big-lead {
        font-size: 40px;
      }
@@ -171,11 +173,16 @@ body{background-color: snow;}
   transition:800ms ease all;
 }
 
+.suggests{
+font-family: "Open Sans", Helvetica, sans-serif;
+font-size: 0.7rem;
+}
+
 
 </style>
 
 </head>
-
+<jsp:include page="../header.jsp"></jsp:include>
 <body>
 	<div id="titl">
 		<img id="logo" src="/img/playButton.PNG" alt="플레이로고">
@@ -185,7 +192,7 @@ body{background-color: snow;}
 	<div class="container">
 		<div class="row">
 			<div class='col-lg-12'>
-			  <div class='cal col-lg-6'>
+			  <div class='cal col-lg-8'>
 				<div id='calendar'></div>
 				</div>
 				<div class='check col-lg-4'>
@@ -397,5 +404,5 @@ body{background-color: snow;}
     
 
 </body>
-
+<jsp:include page="../footer.jsp"></jsp:include>
 </html>
