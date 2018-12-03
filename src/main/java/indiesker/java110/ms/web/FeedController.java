@@ -201,6 +201,7 @@ public class FeedController {
 
   @PostMapping("addavi")
   public String addavi(@RequestParam String bno, String title, String content, String url) {
+    
     int bno2=Integer.parseInt(bno);
     String urlid = url.substring(32,43);
 
