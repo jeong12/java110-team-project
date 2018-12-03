@@ -8,6 +8,20 @@
 
 <!-- 지도 -->
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c63782df6473def89780e1d964f9d83a&libraries=services"></script>
+<!-- 달력 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<link href="/css/fullcalendar.min.css" rel="stylesheet">
+<script src="/js/fullcalendar.min.js" type="text/javascript"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+
+<!-- 달력기간조회 -->
+<link rel="stylesheet" type="text/css" href="/../css/jquery.datetimepicker.css">
+<script src="/js/time/jquery.datetimepicker.full.min.js"></script>
+
+<!-- 모달 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 
 <style>
 #calendar {
@@ -15,89 +29,142 @@
     margin: 0 auto;
     float: left;
 }
-
-#calendar, #selectday{
-    display: inline-block;
-}
-
-#selectday{
-float:right;
-position    : relative;
-}
-
+#name{margin-bottom: 20%;}
+#calendar, #selectday{display: inline-block;}
+#selectday{float:right;position: relative;}
 #logo {
     margin: 10px;
     float: left;
-    width: 50px;
+    width: 50px;                          
     height: 50px;
 }
-
-#titl h2 {
-    margin: 10px;
-    display:inline-block;
-}
-
-#name{
-    text-align: center;
-    margin: 50px;
-}
-#info{
-clear: both;
-}
-#info table tbody td{
-padding : 10px;
-}
-#photo{
-margin: 30px;
-}
+#titl h2 {margin: 10px;display:inline-block;}
+#name{text-align: center;margin: 50px; margin-bottom: 8%;}
+#info{clear: both;}
+#info table tbody td{padding : 10px;}
+#photo{margin: 30px; text-align: center;}
 img{
-width: 25%; height:10%;
+width: 29%; height:10%;
 margin: auto;
 }
-
-ul li{
-list-style: none;
-}
-</style>
-
+ul li{list-style: none;}
+h4{margin:0; }
+.Atable{width: 60%; margin-left: 20%; border: 1px solid silver;border-radius: 17px; margin-top: 5%; 
+padding-bottom: 5%;}
+.maptable1{width: 50%; float: left;} 
+.Ttable{ margin-bottom: 34%;}
+.Mtable{width: 100%; margin-bottom: 112%;}   
+#calendar{width: 50%; float: left; margin-top: 9%;}  
+#selectday{width: 50%; margin-top: 9%;}   
+.btable{width: 100%; height: 40%; margin-top: 75%;}   
+#photo{float: left; width: 100%; margin-bottom: 7%; margin:auto; margin-top: 3%;}
+#map{clear: both; margin-left: 15%; margin-top: 5%}
+.img{margin-right: 1%;}
+.slideimg{width: 35rem; height: 20rem; float: right;}
+.ff{width:35rem; height: 20rem;}
+.maptable{padding-left: 8%; padding-right: 8%;}
+.calenderSelectBox{text-align: center; margin-left: 10%;}
+.applydates {margin-left: 25%; width: 48%;}     
+.applydates tbody{border:1px solid silver; border-radius: 3%;}
+.tbody tr td{border-right: 1px solid silver; border-radius: 3%;}
+.abtn{margin: 1%;}
+</style>                       
+                     
 </head>
 <body>
     <div id="titl">
         <img id="logo" src="/img/playButton.PNG" alt="플레이로고">
         <h2>무대관리</h2>
     </div>
-    <div id="name">
+    
+<div class="Atable">
+    <div class="Ttable"><!--  -->
+    <!-- 타이틀 -->
+         <div id="name">
         <h2>${list.name}</h2>
     </div>
+    <!-- 타이틀끝 -->
+    <div class="maptable">
+    
+    <!-- 장소내용  -->
+    <div class="maptable1" id='info'>
+    <table>
+    <tbody>
+    <tr><td><h4>상호명/장소명</h4></td><td>${list.name}</td></tr>
+    <tr><td><h4>상세주소</h4></td><td>${list.baseaddr} ${list.detailaddr}</td></tr> 
+    <tr><td><h4>수용가능인원</h4></td><td>${list.capa}</td></tr> 
+    <tr><td><h4>희망 장르</h4></td><td>${list.sgnere}</td></tr> 
+    <tr><td><h4>연락처</h4></td><td>${list.tel}</td></tr> 
+    <tr><td><h4>장소 위치</h4></td><td>${list.message}</td></tr>    
+    </tbody>
+    </table>
+    
+     
+    </div>
+    <!-- 장소내용 -->
+    <!-- 장소사진 -->               
+    <div class="slideimg" id="carousel-bounding-box" >
+                                <div class="carousel slide" id="myCarousel">
+                                    <!-- Carousel items -->
+                                    <div class="carousel-inner" >
+                                    
+                                    <c:forEach items="${lists}" var="s">
+                                        <div class="item">
+                                        <img class="ff" src="/upload/${s.photo}"></div>
+                                    </c:forEach>
+                               
+                                    </div><!-- Carousel nav -->
+                                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                                        <span class="glyphicon glyphicon-chevron-left"></span>                                       
+                                    </a>
+                                    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                                        <span class="glyphicon glyphicon-chevron-right"></span>                                       
+                                    </a>                                
+                                    </div>
+                            </div>  
+    <!-- 장소사진끝 -->
+    </div>
+     </div>
+     
+     
+     
+     
+     <div class="Mtable">  <!--  -->
+     <!-- 사진 -->
     <div id="photo"> 
     <c:forEach items="${lists}" var="s">
-    <img alt="이미지" src="/upload/${s.photo}">
+    <img class="img" alt="이미지" src="/upload/${s.photo}">
     </c:forEach>
     </div>
-                                        
+    <!-- 사진끝 -->
+<div class="calenderSelectBox">
+    <!-- 캘린더 -->                               
     <div id='calendar'></div>
+    <!-- 캘린더끝 -->
+    
+    <!-- 신청 -->
     <div id='selectday'>
         <table class='applydates'>
             <thead>
                 <tr><td colspan="4" id='showDate'><h2></h2></td></tr>
-            </thead>
-            <tbody>
+                
+            </thead>                        
+            <tbody class="tbody">
             </tbody>
         </table>
     </div>
-    <div id='info'>
-    <table>
-    <tbody>
-    <tr><td>상호명/장소명</td><td>${list.name}</td></tr>
-    <tr><td>상세주소</td><td>${list.baseaddr} ${list.detailaddr}</td></tr> 
-    <tr><td>수용가능인원</td><td>${list.capa}</td></tr> 
-    <tr><td>희망 장르</td><td>${list.sgnere}</td></tr> 
-    <tr><td>연락처</td><td>${list.tel}</td></tr> 
-    <tr><td>장소 위치</td><td>${list.message}</td></tr>    
-    </tbody>
-    </table>
+</div>
+    <!-- 신청끝 -->
     </div>
-    <div id="map" style="width:500px;height:400px;"></div>
+
+    <div class="btable"> <!--  -->
+   
+       <!-- 지도 -->
+     <div id="map" style="width:800px;height:450px;"></div>
+    <!-- 지도끝 --> 
+    
+    
+    
     
     
     <!-- 신청하기 모달 -->    
@@ -127,6 +194,8 @@ list-style: none;
       <button type="button" onclick="applyStage()" id='applybtn'>신청하기</button>
       </div>      
       </div>
+    
+</div>
       <!-- Footer -->
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
@@ -134,24 +203,12 @@ list-style: none;
     </div>
   </div>
 </div>
-
         
-<!-- 달력 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-<link href="/css/fullcalendar.min.css" rel="stylesheet">
-<script src="/js/fullcalendar.min.js" type="text/javascript"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
-
-<!-- 달력기간조회 -->
-<link rel="stylesheet" type="text/css" href="/../css/jquery.datetimepicker.css">
-<script src="/js/time/jquery.datetimepicker.full.min.js"></script>
-
-<!-- 모달 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-
+</div>
 <script>
+$(".item:first").removeClass("item").addClass("active item");
+
+
 document.getElementById("cont").focus();
 var _prevObj = null;
 $(function() {  
@@ -187,14 +244,14 @@ $(function() {
        $.each(data,function(index,item){
                	$(".applydates tbody").append(
                	 '<tr>'+
-                 '<td>'+'<input type="checkbox" name="applydate"'+ 
+                 '<td><input type="checkbox" name="applydate"'+ 
                  'value="'+item.sno+'_'+item.nsdt+'~'+item.nedt+'">'+item.nsdt+'~'+item.nedt+
-                 '</td>'+'</tr>');
+                 '</td></tr>');
                	});
        
                 $(".applydates tbody").append(
                   '<tr><td>' + 
-                  '<button type="button" class="abtn btn-default" data-target="#addcontModal"'+ 
+                  '<button type="button" class="abtn btn-primary btn-xs" data-target="#addcontModal"'+ 
                   'onclick="addcont()">신청하기</button><br/></td></tr>');
                 }},
                 error : function(request, status, error) {
