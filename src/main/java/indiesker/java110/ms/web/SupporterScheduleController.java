@@ -205,9 +205,11 @@ public class SupporterScheduleController {
         st.setSnsdt(format.format(slist.getScheduletime().get(i).getSsdt()));
         st.setSnedt(hformat.format(slist.getScheduletime().get(i).getSedt()));
         st.setSssno(slist.getScheduletime().get(i).getSssno());
-        Date std = dformat.parse(dformat.format(slist.getScheduletime().get(i).getSsdt()));
-        if(today.compareTo(new SimpleDateFormat("yyyy-MM-dd").parse(st.getSnedt()))>=0) {
-          if(slist.getFlag() == '1')  st.setFlag('3');
+        if(slist.getFlag()==1) {
+          if(today.compareTo(new SimpleDateFormat("yyyy-MM-dd").parse(st.getSnedt()))>=0)
+            st.setFlag('3');
+          else 
+            st.setFlag(slist.getScheduletime().get(i).getFlag());
         }else {
           st.setFlag((slist.getScheduletime().get(i).getFlag()));
         }

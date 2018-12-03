@@ -182,7 +182,6 @@ font-size: 0.7rem;
 </style>
 
 </head>
-<jsp:include page="../header.jsp"></jsp:include>
 <body>
 	<div id="titl">
 		<img id="logo" src="/img/playButton.PNG" alt="플레이로고">
@@ -404,5 +403,4 @@ font-size: 0.7rem;
     
 
 </body>
-<jsp:include page="../footer.jsp"></jsp:include>
 </html>
