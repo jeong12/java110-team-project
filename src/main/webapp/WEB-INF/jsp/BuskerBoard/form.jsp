@@ -16,9 +16,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
-    body{background-color: snow; margin-top: 10%;}
+    body{background-color: snow;}
     table{border-collapse: separate;border-spacing: 10px 20px; margin : 0 auto;}  
-    .container{border:1px solid silver; width:60%; height:47rem; margin: 0 auto; border-radius: 10px; background-color: white;
+    .container{border:1px solid silver; height:47rem; margin: 0 auto; border-radius: 10px; background-color: white;
     margin-top: 7%; margin-bottom: 4%}
     .form-horizontal{ margin: auto;}
     .All{width:100%;  margin-top: 6%;}
@@ -122,8 +122,14 @@
 </div> -->
 </div>
 
+
 </form>
 </div>
+<button type="button" class="btn btn-outline-primary">Primary</button>
+<button type="button" class="btn btn-outline-primary">Primary</button>
+<button type="button" class="btn btn-outline-primary">Primary</button>
+<button type="button" class="btn btn-outline-primary">Primary</button>
+
 </body>
 
 <script>
