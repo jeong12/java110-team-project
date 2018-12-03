@@ -41,9 +41,9 @@
 }
 
 
-p{
+/* p{
     width: 400px;
-}
+} */
 .fc-day-number.fc-sat.fc-past { color:#0000FF; }     /* 토요일 */
 .fc-day-number.fc-sun.fc-past { color:#FF0000; }    /* 일요일 */
 
@@ -669,7 +669,7 @@ input, textarea, button { margin-top:0px }
 body {
     background: #ecf1f5;
     font:14px "Open Sans", sans-serif; 
-    text-align:center;
+    /* text-align:center; */
 }
 
 .tile{
