@@ -57,7 +57,7 @@ var editmapContainer = document.getElementById('editmap'),
 editmapOption = { 
     center: new daum.maps.LatLng(33.450701, 136.570667), // 지도의 중심좌표이나 별로 상관없음 
     level: 3 // 지도의 확대 레벨
-}; // 지도를 표시할 div
+};  // 지도를 표시할 div
 
 //지도를 미리 생성
 var editmap = new daum.maps.Map(editmapContainer, editmapOption);  
@@ -388,12 +388,16 @@ $(document).on('click','.detailinfobtn',function(){
         data: { "fakeflag" : f},
         success : function(data) {
                 /* 요청스케줄, 개인스케줄 모달 태크에 기존 값을 초기화 */
-                $(".reqname").empty();
-                $(".reqgenre").empty();
-                $(".reqtime").empty();
-                $(".reqtel").empty();
-                $(".reqaddr").empty();
-                $(".reqetc").empty();
+        	 	$("#reqname").empty();
+             	$("#reqgenre").empty();
+             	$("#reqtel").empty();
+             	$("#reqsdt").empty();
+             	$("#reqedt").empty();
+             	$("#reqaddr").empty();
+             	$("#reqetc").empty();
+             	$("#supimg1").empty();
+             	$("#supimg2").empty();
+             	$("#supimg3").empty();
                 $(".pershopname").empty();
                 $(".pergenre").empty();
                 $(".percnt").empty();
@@ -425,16 +429,34 @@ $(document).on('click','.detailinfobtn',function(){
                     // 기존 생성된 marker의 위치를 수정해주는 매서드
                     marker3.setPosition(new daum.maps.LatLng(LatLon.getLat(),LatLon.getLng()));
                 }else{ // supporter객체가 있다면 요청스케줄 모달에 데이터 처리
-                    $(".reqname").append('<p>'+data.supporter.name+'</p>');
-                    $(".reqgenre").append('<p>'+data.supporter.sgnere+'</p>');
-                    $(".reqtime").append('<p>'+data.supporter.tel+'</p>');
-                    $(".reqtel").append('<p>'+data.nsdt+'~'+data.nedt+'</p>');
-                    $(".reqaddr").append('<p>'+data.supporter.baseaddr+'</p>');
-                    $(".reqetc").append('<p>'+data.supporter.message+'</p>');
+                	console.log(data);
+                    $("#reqname").append(data.supporter.name);
+                    $("#reqgenre").append(data.supporter.sgnere);
+                    $("#reqtel").append(data.supporter.tel);
+                    $("#reqsdt").append(data.nsdt);
+                    $("#reqedt").append(data.nedt);
+                    $("#reqcnt").append(data.cnt);
+                    $("#reqaddr").append(data.supporter.baseaddr);
+                    $("#reqetc").append(data.supporter.message);
+                    
+                    $.each(data.stagephotos,function(index,item){
+                    	if(index==0){
+                    		$("#supimg1").append('<img class="img-responsive" src="/upload/'+item.photo+'"alt="웃긴사진6.JPG"  style="height:100%;">')
+                    	}else if(index==1){
+                    		$("#supimg2").append('<img class="img-responsive" src="/upload/'+item.photo+'"alt="웃긴사진6.JPG"  style="height:100%;">')
+                    	}else{
+                    		$("#supimg3").append('<img class="img-responsive" src="/upload/'+item.photo+'"alt="웃긴사진6.JPG"  style="height:100%;">')
+                    	}
+                    });
+                    
+                    
+                    
+                    
                     //위와 같음, 다만 map2객체에 설정, map2=요청스케줄 모달페이지 맵, map3=개인스케줄 도달페이지 맵  
+                    mapContainer2.style.display = "block";
                     var LatLon2 = new daum.maps.LatLng(data.supporter.x, data.supporter.y);
                     map2.setCenter(LatLon2);
-                    marker2.setPosition(new daum.maps.LatLng(LatLon.getLat(),LatLon.getLng()));
+                    marker2.setPosition(new daum.maps.LatLng(LatLon2.getLat(),LatLon2.getLng()));
                 }
                 
             }
@@ -448,105 +470,6 @@ $(document).on('click','.detailinfobtn',function(){
     });
 });
     
-/* 필터로 해당단계에 해당하는 스케줄 뿌려주기! (1=진행중,2=완료,else=개인스케줄)  */    
-$('.flagsearch button').click(function(){
-	var f = $(this).val();
-    $.ajax({ 
-        type : "POST", //보내는 타입을 Post방식으로 할지,  GET방식으로 할지 결정
-        url : "clikeFlag", // /내 프로젝트명/XML파일의namespace/내가불러올XML의Query이름.do
-        //header :'Content-Type: application/json',
-        dataType: 'json',
-        data : { flag : f }, //파라미터 넘겨줄 부분? : 이게 할말이 많은데 원래 GET방식으로 하라했다가 
-                               //다시 POST방식으로 하게됬는데 파라미터를 넘겨줄 값이 없어서 다시 GET으로 바꾸면서 주석 
-        //contentType : "application/x-www-form-urlencoded; charset=utf-8",  // 기본값이라고 하니까 건들이지 않았고 
-        success : function(data) {
-                $(".flagdata tbody").empty();
-                
-        if(data ==false){
-            $(".flagdata tbody").append('해당일의 스케줄이 존재하지않습니다.');
-        }else{
-            $.each(data,function(index,item){
-            	
-            	if(item.flag==1){ // 진행중(flag=1)일 경우 flag1()에 해당하는 목록을 뿌려줌
-            		var naddr=item.addr.substring(item.addr.indexOf(" ")+1,item.addr.length);
-                    var startindex=item.addr.indexOf(" ")+1;
-                    var endindex=naddr.indexOf(" ")+startindex;
-                    flag1(endindex,item);
-                  
-	                
-            	}else if(item.flag==2){ // 진행중(flag=2)일 경우 flag2()에 해당하는 목록을 뿌려줌
-            		var naddr=item.addr.substring(item.addr.indexOf(" ")+1,item.addr.length);
-                    var startindex=item.addr.indexOf(" ")+1;
-                    var endindex=naddr.indexOf(" ")+startindex;
-                    flag2(endindex,item);
-            		
-            	}else{// flag가 없을 경우 개인스케줄 이므로 flag()로 뿌려줌 
-            		var naddr=item.addr.substring(item.addr.indexOf(" ")+1,item.addr.length);
-            		var startindex=item.addr.indexOf(" ")+1;
-            		var endindex=naddr.indexOf(" ")+startindex;
-            		flag(endindex,item);
-            	}
-            });
-        }
-
-        },
-        error : function(request, status, error) {
-            alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
-        }
-        
-        
-    });
-});
-
-
-/*                  필터 뽑아주기 (진행중, 완료, 개인스케줄)                                               */
-// 진행중 필터 목록 출력
-function flag1(endindex,item){
-	$(".flagdata tbody").append(
-            '<tr>'+
-            '<td>'+item.shopname+'</td>'+
-            '<td>'+item.addr.substring(0,endindex)+'</td>'+
-            '<td>'+item.nsdt+'~'+item.nedt+'</td>'+
-            '<td>'+item.cnt+'명</td>'+
-            '<td>'+'진행중'+'</td>'+
-            '<td>'+item.ncdt+'</td>'+
-            "<td><button data-toggle='modal' data-target='#detailreqModal' "+ 
-            "class='detailinfobtn' value=a"+item.sno+">상세보기</button></td>"+
-            "<td><button class='removebtn' value=a"+item.sno+">삭제</button></td>"+ 
-            'value=a'+item.sno+"'>"+'상세보기</button></td>'+
-            '</tr>');
-} 
-//완료 필터 목록 출력
-function flag2(endindex,item){
-	$(".flagdata tbody").append(
-            '<tr>'+
-            '<td>'+item.shopname+'</td>'+
-            '<td>'+item.addr.substring(0,endindex)+'</td>'+
-            '<td>'+item.nsdt+'~'+item.nedt+'</td>'+
-            '<td>'+item.cnt+'명</td>'+
-            '<td>'+'완료'+'</td>'+
-            '<td>'+item.ncdt+'</td>'+
-            "<td><button data-toggle='modal' data-target='#detailreqModal' "+ 
-            "class='detailinfobtn' value=a"+item.sno+">상세보기</button></td>"+
-            "<td><button class='removebtn' value=a"+item.sno+">삭제</button></td>"+
-            '</tr>');
-}
-//개인스케줄 필터 목록 출력 
-function flag(endindex,item){
-	$(".flagdata tbody").append(
-            '<tr>'+
-            '<td>'+item.shopname+'</td>'+
-            '<td>'+item.addr.substring(0,endindex)+'</td>'+
-            '<td>'+item.nsdt+'~'+item.nedt+'</td>'+
-            '<td>'+item.cnt+'명</td>'+
-            '<td>'+'개인스케줄'+'</td>'+
-            '<td>'+item.ncdt+'</td>'+
-            "<td><button data-toggle='modal' data-target='#detailperModal' "+ 
-            "class='detailinfobtn' value=b"+item.sno+">상세보기</button></td>"+
-            "<td><button class='removebtn' value=b"+item.sno+">삭제</button></td>"+
-            '</tr>');
-	
-}
 
 $('.removebtn').click(function(){
 	    var f = $(this).val(); 
@@ -567,7 +490,6 @@ $('.removebtn').click(function(){
     });
 });
 	
-
 
 $('#regendtimepicker').focusout(function(){
 	
@@ -655,14 +577,9 @@ $('#editendtimepicker').focusout(function(){
      	}
      },
      error : function(request, status, error) {
-    	 	/*swal({
-    		  title: 'Error!',
-    		  text: '시작날짜를 설정해주세요.',
-    		  type: 'error',
-    		  confirmButtonText: 'Cool'
-    		});*/
+    	 	
              alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
-     };
+     }
  });
  
 });

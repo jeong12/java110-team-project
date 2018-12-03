@@ -14,7 +14,7 @@
 <script
 	src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 <script>
-	$(document).ready(function(e) {
+/* 	$(document).ready(function(e) {
 		$('.search-panel .dropdown-menu').find('a').click(function(e) {
 			e.preventDefault();
 			var param = $(this).attr("href").replace("#", "");
@@ -22,7 +22,7 @@
 			$('.search-panel span#search_concept').text(concept);
 			$('.input-group #search_param').val(param);
 		});
-	});
+	}); 드롭다운 메뉴에 필요한 거였는데 이제 무필요 일듯*/
 
 	$(window).on('load', function() {
 		load('.js-load', '12');
@@ -126,7 +126,7 @@ ul li {
 						</select>
 					</div>
 					<input type="text" class="form-control" name="city"
-						placeholder="시,도,군" onkeydown="pushenter()"> <span
+						placeholder="정보를 입력해주세요" onkeydown="pushenter()"> <span
 						class="input-group-btn">
 						<button class="btn btn-default" id="selectsearchbtn"
 							onclick="PageMove()">
@@ -279,6 +279,7 @@ ul li {
 						}
 
 						location.href = url;
+						PageMove();
 					});
 		});
 

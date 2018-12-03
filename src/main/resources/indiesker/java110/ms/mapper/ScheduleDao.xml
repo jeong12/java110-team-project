@@ -63,6 +63,10 @@
             <result column="x" property="x" />
             <result column="y" property="y" />
         </association>
+        <collection property="stagephotos" ofType="StagePhoto">
+	        <id column="spno"      property="spno"/>
+	        <result column="phot"  property="photo"/>
+        </collection>
     </resultMap>
 
     <resultMap type="Schedule" id="UnableStageScheduleMap">
@@ -235,25 +239,43 @@
  </select>
  
  <select id="findbybrno" resultMap="reqStageScheduleMap" parameterType="int">
-     SELECT BS.brno,
-            BR.cdt,
-            S.name,
-            S.x,
-            S.y,
-            S.genre, 
-            S.tel, 
-            S.bas_addr, 
-            S.det_addr,
-            S.etc,
-            S.sno, 
-            MAX(SC.edt) as edt ,
-            MIN(SC.sdt)as sdt
-      FROM busk_req BR, busk_stag BS, stag_sche SC, sup S
-     WHERE BR.brno=BS.brno
-       AND BS.ssno=SC.ssno
-       AND SC.sno=S.sno
-       AND BS.brno=#{value}
-      GROUP By BS.brno
+     SELECT 
+            SCH.brno,
+            SCH.cdt,
+            SCH.name,
+            SCH.x,
+            SCH.y,
+            SCH.genre, 
+            SCH.tel, 
+            SCH.bas_addr, 
+            SCH.det_addr,
+            SCH.etc,
+            SCH.sno, 
+            SCH.edt ,
+            SCH.sdt,
+            SP.spno,
+            SP.phot
+       FROM 
+		    (SELECT BS.brno,
+		            BR.cdt,
+		            S.name,
+		            S.x,
+		            S.y,
+		            S.genre, 
+		            S.tel, 
+		            S.bas_addr, 
+		            S.det_addr,
+		            S.etc,
+		            S.sno, 
+		            MAX(SC.edt) as edt ,
+		            MIN(SC.sdt)as sdt
+		        FROM busk_req BR, busk_stag BS, stag_sche SC, sup S
+		       WHERE BR.brno=BS.brno
+		         AND BS.ssno=SC.ssno
+		         AND SC.sno=S.sno
+		         AND BS.brno=#{value}
+		    GROUP BY BS.brno) SCH, stag_phot SP 
+       WHERE SCH.sno=SP.sno
   </select>
   
 	

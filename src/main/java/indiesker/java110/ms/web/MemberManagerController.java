@@ -87,6 +87,10 @@ public class MemberManagerController {
   @RequestMapping(value="memberListDetail")
   public Member memberListDetail(String nik) {
     Member mno = memberManagerService.memListDetail(nik);
+ if(mno.getMemo() == null) {
+   mno.setMemo("메모없음");
+ }    
+    System.out.println(mno.getMemo());
     return mno;
     
     
@@ -96,6 +100,11 @@ public class MemberManagerController {
   @RequestMapping(value="buskListDetail")
   public Busker buskerListDetail(String nik) {
     Busker bno = memberManagerService.buskListDetail(nik);
+    
+    if(bno.getMemo() == null) {
+      bno.setMemo("메모없음");
+    }
+    
     return bno;
   }
   
@@ -103,7 +112,10 @@ public class MemberManagerController {
   @RequestMapping(value="supListDetail")
   public Supporter supListDetail(String nik) {
     Supporter sno = memberManagerService.supListDetail(nik);
-    System.out.println(sno);
+
+    if(sno.getMemo() == null) {
+      sno.setMemo("메모없음");
+    }
     return sno;
   }
  /////////////////////////////////////////////////////////////// 

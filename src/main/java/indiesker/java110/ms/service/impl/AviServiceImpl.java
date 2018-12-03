@@ -72,7 +72,15 @@ public class AviServiceImpl implements AviService {
       aviDao.uploadAvi(params);
     }
 
-    
+    @Override
+    public void insertComment(int abno, int no, String cont) {
+      Map<String,Object> params = new HashMap<>();
+      params.put("cont", cont);
+      params.put("mno", no);
+      params.put("abno", abno);
+      
+      aviDao.insertcomt(params);
+    }
    
 }
 

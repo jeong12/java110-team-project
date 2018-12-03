@@ -23,9 +23,16 @@ public class Schedule {
   protected Supporter supporter;
   protected List<ScheduleTime> scheduletime;
   protected String date;
+  protected List<StagePhoto> stagephotos;
   
   
 
+  public List<StagePhoto> getStagephotos() {
+    return stagephotos;
+  }
+  public void setStagephotos(List<StagePhoto> stagephotos) {
+    this.stagephotos = stagephotos;
+  }
   public List<ScheduleTime> getScheduletime() {
     return scheduletime;
   }

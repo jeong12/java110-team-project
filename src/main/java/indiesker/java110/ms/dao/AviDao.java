@@ -15,4 +15,5 @@ public interface AviDao {
   List<Avi> findByFolAvi(int no);
   void uploadAvi(Map<String, Object> param);
   Avi findByFeedAviNoNC(int no);
+  void insertcomt(Map<String,Object> params);
 }

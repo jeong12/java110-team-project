@@ -11,24 +11,42 @@
     </resultMap>
 
 <select id="findAll" resultMap="StageMap" parameterType="map">
-SELECT s.name, sp.phot
-FROM sup as s, stag_phot as sp, stag_sche as ss
-WHERE s.sno=sp.sno and s.sno = ss.ssno and ss.ssno is not null
-limit #{rowNo}, #{size} 
+select S.sno, S.name, SP.phot, SUBSTR(SC.sdt,1,10) 
+  from sup S, stag_sche SC, stag_phot SP
+ where S.sno = SC.sno 
+   and S.sno = SP.sno
+   and SUBSTR(SC.sdt,1,10) between #{startDate} and #{endDate}
+  GROUP BY S.sno; 
     </select>
   
-<select id="findByName" resultMap="StageMap" parameterType="string">
-SELECT s.name, sp.phot
-FROM sup as s, stag_phot as sp, stag_sche as ss
-WHERE s.sno=sp.sno and s.sno = ss.ssno and ss.ssno is not null 
-and s.name = #{name} 
+<select id="findByName" resultMap="StageMap" parameterType="map">
+select S.sno, S.name, SP.phot, SUBSTR(SC.sdt,1,10) 
+  from sup S, stag_sche SC, stag_phot SP
+ where S.name like #{keyword}
+   and S.sno = SC.sno 
+   and S.sno = SP.sno
+   and SUBSTR(SC.sdt,1,10) between #{startDate} and #{endDate}
+  GROUP BY S.sno; 
     </select>  
     
-<select id="findByLocal" resultMap="StageMap" parameterType="string">
-SELECT s.name, sp.phot
-FROM sup as s, stag_phot as sp, stag_sche as ss
-WHERE s.sno=sp.sno and s.sno = ss.ssno and ss.ssno is not null 
-and s.bas_addr like CONCAT('%',#{name},'%')
+<select id="findByLocal" resultMap="StageMap" parameterType="map">
+select S.sno, S.name, SP.phot, SUBSTR(SC.sdt,1,10) 
+  from sup S, stag_sche SC, stag_phot SP
+ where S.bas_addr like #{keyword}
+   and S.sno = SC.sno 
+   and S.sno = SP.sno
+   and SUBSTR(SC.sdt,1,10) between #{startDate} and #{endDate}
+  GROUP BY S.sno;  
+    </select>  
+    
+<select id="findByGenre" resultMap="StageMap" parameterType="map">
+select S.sno, S.name, SP.phot, SUBSTR(SC.sdt,1,10) 
+  from sup S, stag_sche SC, stag_phot SP
+ where S.genre like #{keyword}
+   and S.sno = SC.sno 
+   and S.sno = SP.sno
+   and SUBSTR(SC.sdt,1,10) between #{startDate} and #{endDate}
+  GROUP BY S.sno; 
     </select>  
     
 </mapper>

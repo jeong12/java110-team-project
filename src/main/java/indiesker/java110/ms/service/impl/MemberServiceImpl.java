@@ -95,6 +95,17 @@ public class MemberServiceImpl implements MemberService {
   public void modiMem(Member member) {
     memberDao.updateMemb(member);
   }
+  
+  @Override
+  public boolean isBusker(int no) {
+    int flag = (memberDao.buskCheck(no)).getMembflag();
+    
+    if(flag == 2) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
 }
 
