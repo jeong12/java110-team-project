@@ -7,8 +7,12 @@
 
     <resultMap type="Supporter" id="SupporterMap">
         <id column="sno"        property="no"/>
+        <result column="id"     property="id"/>
+        <result column="email"  property="email"/>
+        <result column="nik"    property="nickname"/>
         <result column="name"   property="name"/>
         <result column="capa"  property="capa"/>
+        <result column="bas_addr" property="baseaddr"/>
         <result column="det_addr"    property="detailaddr"/>
         <result column="tel"   property="tel"/>
         <result column="etc"   property="message"/>
@@ -139,7 +143,7 @@ and m.id = #{id}
 
 <select id="detailSupporter" resultType="Supporter" parameterType="String">
 SELECT m.id,m.email,m.nik,m.memo,s.name,s.det_addr,s.genre,s.capa,s.tel,s.etc
-FROM memb as m ,sup as s  
+FROM memb as m ,sup as s 
 WHERE m.mno = s.sno
 and m.id = #{id}
 </select>
@@ -246,10 +250,12 @@ SELECT id,email,nik,phot,memo,genre0,genre1,genre2,mno
 FROM memb
 where nik = #{nik}
 </select>
-<select id="supListDetail" parameterType="String">
-SELECT m.id,m.email,m.nik,s.name,s.det_addr,s.genre,s.capa,s.tel,s.etc
-FROM memb as m, sup as s
-where m.mno = s.sno
+
+<select id="supListDetail" resultMap="SupporterMap" parameterType="String">
+SELECT m.id,m.email,m.nik,s.name,s.det_addr,s.genre,s.capa,s.tel,s.etc,sp.phot,sp.spno,s.sno
+FROM memb as m, sup as s, stag_phot as sp
+where m.mno = s.sno and
+s.sno = sp.sno and
 m.nik = #{nik}
 </select>
 

@@ -42,10 +42,12 @@ public class ScheduleController {
       s.setNedt(hformat.format(s.getEdt()));
     }
     model.addAttribute("list",list);
+    System.out.println(list);
   }
   
   @RequestMapping("detail")
   public void detail(Model model, int no) {
+    System.out.println(no);
     List<Schedule> list = scheduleService.showScedule();
     SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd");
     SimpleDateFormat hformat = new SimpleDateFormat("HH:mm");
@@ -58,6 +60,7 @@ public class ScheduleController {
     model.addAttribute("list",list);
     Busker b = buskerService.findInfo(no);
     model.addAttribute("busker",b);
+    System.out.println(b);
   }
   
   @RequestMapping("search")

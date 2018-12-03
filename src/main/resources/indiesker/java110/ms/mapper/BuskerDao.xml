@@ -109,6 +109,8 @@
         where per in('Y','y')
           and bno = #{no}; 
     </select>
+
+    
 </mapper>
 
 

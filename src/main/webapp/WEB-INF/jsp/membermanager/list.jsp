@@ -21,6 +21,7 @@
 
 <style>
     .mc{margin-left:52%;}
+    .carousel{margin-left:52%;}
     .container{width: 80%; margin-left: 10%;}
     .pagination{margin-right: 39%;}    
     td{text-align: center;}
@@ -34,7 +35,7 @@
     .tab{display: none}
     .hide-bullets {list-style:none;}
     #img{margin:0auto;}
-    #mttl,.bttl{margin-left:45%;}
+    #mttl,.bttl,.stitle{margin-left:45%;}
  }
 margin-left: -40px;
 margin-top:20px;
@@ -513,37 +514,32 @@ margin-top:20px;
                             <div class="col-sm-4" id="carousel-bounding-box" >
                                 <div class="carousel slide" id="myCarousel">
                                     <!-- Carousel items -->
-                                    <div class="carousel-inner" >
+                                    <div class="dddd carousel-inner" >
+                                        <div class="active item"   data-slide-number="0">
+                                        <img id="ff" src="img/%EB%B2%84%EC%8A%A4%ED%82%B9%201.jpg"></div>
+
+                                        <div class="item"  data-slide-number="1">
+                                        <img id="ff"  src="img/%EB%B2%84%EC%8A%A4%ED%82%B9%202.jpg"></div>
+
+                                        <div class="item" data-slide-number="2">
+                                        <img id="ff" src="img/%EB%B2%84%EC%8A%A4%ED%82%B9%203.jpg"></div>
+
+                               
                                     </div><!-- Carousel nav -->
-                                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                                    <a class="left carousel-control" href=".carousel" role="button" data-slide="prev">
                                         <span class="glyphicon glyphicon-chevron-left"></span>                                       
                                     </a>
-                                    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                                    <a class="right carousel-control" href=".carousel" role="button" data-slide="next">
                                         <span class="glyphicon glyphicon-chevron-right"></span>                                       
                                     </a>                                
                                     </div>
                             </div>        
+
+                          
                         </div>
                     </div>
                 </div><!--/Slider-->
-
-                <div class="aab row hidden-xs" id="slider-thumbs">
-                        <!-- Bottom switcher of slider -->
-                        <ul class="aac hide-bullets">
-                            <li class="mli">
-                                <a class="carousel-selector-0"></a>
-                            </li>
-
-                            <li class="mli">
-                                <a class="carousel-selector-1"></a>
-                            </li>
-
-                            <li class="mli">
-                                <a class="carousel-selector-2"></a>
-                            </li>
-
-                        </ul>                 
-                </div>
+            
         </div>
 </div>
      <div class="mtb">
@@ -655,8 +651,14 @@ $(document).on("click",'.supDetail',function(){
             $(".scapa").empty();
             $(".stel").empty();            
             $(".smemo").empty();
-            $(".carousel-inner").empty();
+            $(".dddd").empty();
            
+            $.each(data.stagephotos,function(index,item){
+                $(".dddd").append("<div class='item'><img bbbmimg data-slide-number="+index+" src='/upload/"+item.photo+"'></div>")
+                /* fefefweafefxczbvxcvwfp */
+            });
+            $(".item:eq(2)").removeClass("item").addClass("item active");
+            
             $(".stitle").append(data.name);            
             $(".sid").append('<p>'+data.id+'</p>');
             $(".semail").append('<p>'+data.email+'</p>');            
@@ -667,10 +669,7 @@ $(document).on("click",'.supDetail',function(){
             $(".scapa").append('<p>'+data.capa+'</p>');
             $(".stel").append('<p>'+data.tel+'</p>');            
             $(".smemo").append('<p>'+data.message+'</p>');
-            $.each(data.stagephotos,function(index,item){
-                $(".carousel-inner").append("<div class='item' data-slide-number='"+index+"'><img id='ff' src="+item.photo+"></div>")
-            });
-            $(".item:first").removeClass("item").addClass("active item");
+           
         }});
         });
 

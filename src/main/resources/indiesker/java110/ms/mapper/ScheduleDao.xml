@@ -155,12 +155,11 @@
     </resultMap>
     
     <resultMap type="Schedule" id="ScheduleMap">
-        <id column="brno" property="sno" />
+        <id column="bno" property="sno" />
         <result column="addr" property="addr" />
         <result column="sdt" property="sdt" />
         <result column="edt" property="edt" />
         <association property="busker" javaType="busker">
-            <result column="bno" property="no"/>
             <result column="name" property="teamname" />
             <result column="genre" property="teamgenre"/>
         </association>
