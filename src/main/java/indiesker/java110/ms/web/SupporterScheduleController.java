@@ -191,33 +191,34 @@ public class SupporterScheduleController {
   public Schedule showDetail(String brno, Model model)throws Exception{
     int no = Integer.parseInt(brno);
     Schedule slist = scheduleService.showDatail(no);
-
      SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
      SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
      SimpleDateFormat hformat = new SimpleDateFormat("HH:mm");
      List<ScheduleTime> stlist = new ArrayList<>();
-      
-      String t = dformat.format(new Date());
-      Date today = new SimpleDateFormat("yyyy-MM-dd").parse(t);
+     System.out.println(slist);
+     
+      Date today = dformat.parse(dformat.format(new Date()));
 
       for(int i=0;i<slist.getScheduletime().size();i++) {
         ScheduleTime st = new ScheduleTime();
         st.setSnsdt(format.format(slist.getScheduletime().get(i).getSsdt()));
         st.setSnedt(hformat.format(slist.getScheduletime().get(i).getSedt()));
         st.setSssno(slist.getScheduletime().get(i).getSssno());
-        if(slist.getFlag()==1) {
-          if(today.compareTo(new SimpleDateFormat("yyyy-MM-dd").parse(st.getSnedt()))>=0)
-            st.setFlag('3');
-          else 
-            st.setFlag(slist.getScheduletime().get(i).getFlag());
-        }else {
-          st.setFlag((slist.getScheduletime().get(i).getFlag()));
+        st.setFlag(slist.getFlag());
+if(true) {
+        System.out.println(slist.getFlag());
+          if(today.compareTo(dformat.parse(slist.getScheduletime().get(i).getSnsdt()))<=0) {
+            System.out.println(dformat.parse(slist.getScheduletime().get(i).getSnsdt()));
+            slist.setFlag('3');
+          }
+          System.out.println("if");
+          
         }
         stlist.add(st);
       }
       slist.setScheduletime(stlist);
       System.out.println(slist);
-    return slist;  
+      return slist;  
   }
 
 

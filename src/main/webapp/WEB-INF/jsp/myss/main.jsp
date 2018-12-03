@@ -180,7 +180,7 @@ font-size: 0.7rem;
 
 
 </style>
-
+<jsp:include page="../header.jsp"></jsp:include>
 </head>
 <body>
 	<div id="titl">
@@ -222,6 +222,7 @@ font-size: 0.7rem;
 						<li class='tab-link' data-tab='tab2'><button class='btn btn-success'>신청</button></li>
 						<li class='tab-link' data-tab='tab3'><button class='btn btn-warning'>완료</button></li>
 						<li class='tab-link' data-tab='tab4'><button class='btn btn-danger'>기한만료</button></li>
+						<li><button type="button" class="btn btn-outline-primary">test</button></li>
 					</ul>
 
 
@@ -403,4 +404,5 @@ font-size: 0.7rem;
     
 
 </body>
+<jsp:include page="../footer.jsp"></jsp:include>
 </html>
