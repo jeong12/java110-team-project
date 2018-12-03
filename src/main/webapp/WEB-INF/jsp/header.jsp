@@ -123,7 +123,7 @@ a:focus, a:hover {
 <div class="top-bar">
         <div class="container_c">
           <div class="d-flex_c align-items-center_c">
-            <div class="col-md-5 d-md-block_c">
+            <div class="col-md-5_c d-md-block_c">
             <a href="/app/main" style="text-decoration: none;">
             <img src="/img/logos.JPG" alt="logos">
             <img src="/img/Indiesker.JPG" alt="indie"></a>
@@ -177,7 +177,7 @@ a:focus, a:hover {
         <p id ="underline"></p>
         <div class="container_c">
             <div class="row_c">
-               <div class="col-md-12">
+               <div class="col-md-12_c">
                    <div class="d-flex_c">
                       <div class="flex-md-fill_c "><a href="/app/schedule/list">버스커 일정</a></div>
                         <div class="flex-md-fill_c"><a href="#">버스커 위치</a></div>
