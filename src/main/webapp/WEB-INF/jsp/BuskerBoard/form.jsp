@@ -14,6 +14,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
     body{background-color: snow; margin-top: 10%;}
     table{border-collapse: separate;border-spacing: 10px 20px; margin : 0 auto;}  
@@ -44,128 +45,64 @@
 
 <div class="container">
 
-                         
-<!-- text -->
-<form action='add' method='post' enctype="multipart/form-data"  class="form-horizontal">
+<form action='add' method='post' enctype="multipart/form-data" id="add" class="form-horizontal">
 <div class="All">
-<!-- Form Name -->
 <div class="left">
-
-<!-- Text input-->
 <div class="form-group">
   <label class="leftlabel" for="textinput">제목</label>  
-  <div class="">
   <input id="textinput" name="titl" type="text" placeholder="제목을 입력하시오" class="form-control input-md">
-  </div>
 </div>
-
-<!-- Text input-->
 <div class="form-group">
   <label class="leftlabel" for="textinput">장르</label>  
-  <div class="">
   <input id="textinput" name="genre" type="text" placeholder="장르를 입력하시오" class="form-control input-md">
-  </div>               
 </div>
-
-<!-- Text input-->
 <div class="form-group">
   <label class="leftlabel" for="textinput">도시</label>  
-  <div class="">
   <input id="textinput" name="city" type="text" placeholder="도시를 입력하시오" class="form-control input-md">
-  </div>
 </div>     
-
-<!-- Text input-->
 <div class="form-group">
   <label class="leftlabel" for="textinput">인원</label>  
-  <div class="">
-  <input id="textinputmember" name="cnt" type="number" min="1" max="10" placeholder="인원" class="member form-control input-md">
-  </div>
+  <input id="textinputmember" name="cnt" type="number" min="1"  placeholder="인원" class="member form-control input-md">
 </div>
-
-<!-- Text input-->
 <div class="form-group">
   <label class="leftlabel" for="textinput">날짜</label>  
-  <div class="">
   <input id="textinput2" name="sdt" type="date" placeholder="시작일을 입력하시오" class="form-control input-md">
   <label id="labelb">~</label>
   <input id="textinput3" name="edt" type="date" placeholder="종료일을 입력하시오" class="form-control input-md">
-  </div>
 </div>
-
-
-<!-- Text input-->
 <div class="form-group">
   <label class="leftlabel" for="textinput">연락처1</label>  
-  <div class="">
   <input id="textinput" name="tel1" type="tel" placeholder="연락처를 입력하시오" class="form-control input-md">
-  </div>
 </div>
-
-<!-- Text input-->
 <div class="form-group">
   <label class="leftlabel" for="textinput">연락처2</label>  
-  <div class="">
   <input id="textinput" name="tel2" type="tel" placeholder="연락처를 입력하시오" class="form-control input-md">
-  </div>
 </div>
-
-
-
-
 </div>
-<!--  -->
-
 <div class="right">
-
 <div class="imguppend">
 <img id="upload1" name="" alt="" src="">
 </div>
-
-<!-- File Button --> 
 <div class="form-group">
   <label class=" control-label" for="filebutton">사진</label>
-  <div class="">
     <input id="filebutton" name="file1" class="input-file" type="file" onchange="readURL1(this)">
-  </div>
 </div>
-
-<!-- File Button --> 
 <div class="form-group">
   <label class="" for="">버스커 번호</label>
-  <div class="">
     <input id="filebutton" name="bno" class="input-file" type="text" onchange="readURL1(this)">
-  </div>
 </div>
-
-
 </div>
-
-
 </div>
-
-
 <div class="bbtn">
-
-<!-- Text input-->
 <div class="form-group">
   <label class="blabel" for="textarea">홍보내용</label>  
-  <div class="">
    <textarea class="form-control" id="textarea" name="etc">입력좀</textarea>
-  </div>
 </div>
-
-
-
-
 </div>
 <div class="xybtn">
-<!-- Button -->
 <div>
-    <button class="lbtn btn btn-primary">확인</button>
+    <button type="button" onclick="hihihi()" id="send" class="lbtn btn btn-primary">확인</button>
 </div>   
-
-<!-- Button -->
 <!-- <div>
  
     <button type="button"  class="rbtn btn btn-primary">뒤로가기</button>
@@ -174,73 +111,42 @@
 </div>
 
 </form>
-<!-- text end -->
-
-<!--  insert 
-<form action='add' method='post' enctype="multipart/form-data">
-<table id="table">
-<tbody>
-<tr>
-    <th>제목</th>
-    <td><input type='text' name='titl'></td>
-</tr>
-<tr>
-    <th>장르</th>
-    <td><input type='text' name='genre'></td>
-</tr>
-<tr>
-    <th>도시</th>
-    <td><input type="text" name='city'></td>
-</tr>
-<tr>
-    <th>인원</th>
-    <td><input type='number' name='cnt'></td>
-</tr>
-<tr>
-    <th>시작일</th>
-    <td><input type='text' name='sdt'></td>
-</tr>
-<tr>
-    <th>종료일</th>
-    <td><input type='text' name='edt'></td>
-    </tr>
-<tr>
-<tr>
-    <th>연락처1</th>
-    <td><input type='text' name='tel1'></td>
-    </tr>
-<tr>
-<tr>
-    <th>연락처</th>
-    <td><input type='text' name='tel2'></td>
-    </tr>
-<tr>
-<tr>
-    <th>홍보내용</th>
-    <td><input type='text' name='etc'></td>
-    </tr>
-<tr>
-<tr>
-    <th>사진</th>
-    <td><input type='text' name='phot'></td>
-    </tr>
-<tr>
-<tr>
-    <th>버스커번호</th>
-    <td><input type='text' name='bno'></td>
-    </tr>
-<tr>
-    <th></th>
-    <td><button>버스커 홍보올리기</button></td>
-</tr>
-</tbody>
-</table>
-insert끝
-</form> -->
 </div>
 </body>
 
 <script>
+
+function hihihi(){
+	var titl = $("input[name='titl']").val();
+	var gnere = $("input[name='genre']").val();
+	var city = $("input[name='city']").val();
+	var cnt = $("input[name='cnt']").val();
+	var sdt = $("input[name='sdt']").val();
+	var edt = $("input[name='edt']").val();
+	var tel1 = $("input[name='tel1']").val();
+	var file1 = $("input[name='file1']").val();
+	    if(titl == ''){
+	    	swal("잠깐!","제목을 입력하세요.","error");}
+	    else if(gnere == ''){
+	    	swal("잠깐!","장르를 입력하세요.","error");}
+	    else if(city == ''){
+	    	swal("잠깐!","도시를 입력하세요.","error");}
+	    else if(cnt == ''){       
+	    	swal("잠깐!","인원을 입력하세요.","error");}
+	    else if(sdt == ''){
+	    	swal("잠깐!","시작일을 입력하세요.","error");}
+	    else if(edt == ''){
+	    	swal("잠깐!","끝일을 입력하세요.","error");}
+	    else if(tel1 == ''){
+	    	swal("잠깐!","전화번호를 입력하세요.","error");}
+	    else if(file1 == ''){
+	    	swal("잠깐!","사진을 추가해주세요.","error");}
+	    else{
+	    	$('#add').submit();
+	    }
+		   
+}       
+
 function readURL1(input) {
     var chkImg = document.getElementById('filebutton').value
     chkImg=chkImg.slice(chkImg.indexOf(".")+1).toLowerCase();

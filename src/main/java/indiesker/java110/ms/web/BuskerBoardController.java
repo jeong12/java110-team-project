@@ -1,5 +1,7 @@
 package indiesker.java110.ms.web;
 
+import java.io.File;
+import java.util.UUID;
 import javax.servlet.ServletContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +37,15 @@ public class BuskerBoardController {
             BuskerBoard buskerBoard,
             MultipartFile file1) throws Exception {
         System.out.println(buskerBoard);
+        
+        
+        
+        if (file1.getSize() > 0) {
+          String filename = UUID.randomUUID().toString();
+          file1.transferTo(new File(sc.getRealPath("/upload/" + filename)));
+          buskerBoard.setPhot(filename);
+        }
+        
         
         buskerBoardService.add(buskerBoard);
         
