@@ -10,15 +10,13 @@
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet"
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-<!-- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css"> -->
 <link rel="stylesheet" type="text/css"
     href="/../css/jquery.datetimepicker.css">
     
 <!-- 모달내부 css -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha256-3dkvEK0WLHRJ7/Csr0BZjAWxERc5WH7bdeUya2aXxdU= sha512-+L4yy6FRcDGbXJ9mPG8MT/3UCDzwR9gPeyFNMCtInsol++5m3bk2bXWKdZjvybmohrAsn3Ua5x8gfLnbE1YkOg=="><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==">
+<!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha256-3dkvEK0WLHRJ7/Csr0BZjAWxERc5WH7bdeUya2aXxdU= sha512-+L4yy6FRcDGbXJ9mPG8MT/3UCDzwR9gPeyFNMCtInsol++5m3bk2bXWKdZjvybmohrAsn3Ua5x8gfLnbE1YkOg=="><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw=="> -->
 
 <link href="/css/fullcalendar.min.css" rel="stylesheet">
-
 <style>
 #calendar {
 	max-width: 900px;
@@ -90,7 +88,7 @@ display:inherit;
 
 </head>
 <body>
-    <%-- <jsp:include page="../header.jsp"></jsp:include> --%> 
+    <jsp:include page="../header.jsp"></jsp:include> 
 
 
 	<div id="titl">
@@ -100,11 +98,11 @@ display:inherit;
 
 
 	<div class="container">
-		<div class="col-sm-6">
+		<div class="col-sm-6" style="float:left; width:60%;">
 			<div id='calendar'></div>
 		</div>
 
-		<div class="col-lg-6" style="float: left;"><!-- 이거하면된다고?  -->
+		<div class="col-lg-6" style="float:right; width:30%"><!-- 이거하면된다고?  -->
 			<div class="agenda" style="float: left;">
 				<div class="table-responsive">
 					<div id='selectday'>
@@ -175,7 +173,7 @@ display:inherit;
 						<th>상세보기</th>
 					</tr>
 				</thead>
-				<tbody id='schedulelist'>
+				<tbody id='schedulelist' onload="pasing();">
 					<c:forEach items="${list}" var="list">
 						<tr>
 							<td>${list.shopname}</td>
@@ -664,186 +662,257 @@ input, textarea, button { margin-top:0px }
                 </div>
             </div>
     </div>
+ 
+<style>
+
+* { margin: 0px; padding: 0px; }
+body {
+    background: #ecf1f5;
+    font:14px "Open Sans", sans-serif; 
+    text-align:center;
+}
+
+.tile{
+    width: 100%;
+    background:#fff;
+    border-radius:5px;
+    box-shadow:0px 2px 3px -1px rgba(151, 171, 187, 0.7);
+    float:left;
+    transform-style: preserve-3d;
+    margin: 10px 5px;
+
+}
+
+.header{
+    border-bottom:1px solid #ebeff2;
+    padding:19px 0;
+    text-align:center;
+    color:#59687f;
+    font-size:600;
+    font-size:19px; 
+    position:relative;
+}
+
+.banner-img {
+    padding: 5px 5px 0;
+}
+
+.banner-img div {
+    width: 48%;
+    border-radius: 5px;
+    height: 200px;
+    margin: 1%;
     
-	<!-- <div id="EditScheduleModal2" class="modal fade" role="dialog">
-		<div class="modal-dialog">
+}
 
-			모달 내부 설정
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">개인스케줄 수정</h4>
-				</div>
-				<div class="modal-body">
-					<form action='editperschedule' method='post'
-						enctype="multipart/form-data">
-						<table>
-							<tbody>
-								<tr>
-									<th>장소명</th>
-									<td><input type='text' name='shopname' id='shopname'></td>
-								</tr>
-								<tr>
-									<th>스케줄일정</th>
-									<td><input type="text" name='nsdt' id='editstarttimepicker'
-										autocomplete="off">~<input type="text" name='nedt'
-										id='editendtimepicker' autocomplete="off">
-										<p id='editdatecheck'></p>
-										</td>
-								</tr>
-								<tr>
-									<th>인원</th>
-									<td><input type="text" name='cnt' id='cnt'>명</td>
-								</tr>
-								<tr>
-									<th>주소검색</th>
-									<td><input type="text" id="edit_addr" name="addr"
-										placeholder="주소" size='55'><br> <input type="button"
-										onclick="search_edit_addr()" value="주소 검색"><br>
-										<div id="map"
-											style="width: 400px; height: 400px; margin-top: 10px; display: none"></div>
-									</td>
-								</tr>
-								<tr>
-									<td>
-									<input type="text" id="edit_x" name="x" style="display: none">  
-									<input type="text" id="edit_y" name="y" style="display: none"> test!!
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-default" value="" id="editno">수정</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div> -->
+.dates{
+    border:1px solid #ebeff2;
+    border-radius:5px;
+    padding:20px 0px;
+    margin:10px 20px;
+    font-size:16px;
+    color:#5aadef;
+    font-weight:600;    
+    overflow:auto;
+}
+.dates div{
+    float:left;
+    width:48%;
+    text-align:center;
+    position:relative;
+}
+.dates strong,
+.stats strong{
+    display:block;
+    color:#adb8c2;
+    font-size:11px;
+    font-weight:700;
+}
+.dates span{
+    width:1px;
+    height:40px;
+    position:absolute;
+    right:0;
+    top:0;  
+    background:#ebeff2;
+}
+.stats{
+    border-top:1px solid #ebeff2;
+    background:#f7f8fa;
+    overflow:auto;
+    padding:15px 0;
+    font-size:16px;
+    color:#59687f;
+    font-weight:900;
+    border-radius: 0 0 5px 5px;
+}
+.stats div{
+    border-right:1px solid #ebeff2;
+    width: 100%;
+    float:left;
+    text-align:center
+}
 
+.stats div:nth-of-type(3){border:none;}
+
+div.footer {
+    text-align: right;
+    position: relative;
+    margin: 20px 5px;
+}
+
+div.footer a.Cbtn{
+    padding: 10px 25px;
+    background-color: #DADADA;
+    color: #666;
+    margin: 10px 2px;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+div.footer a.Cbtn-primary{
+    background-color: #5AADF2;
+    color: #FFF;
+}
+
+div.footer a.Cbtn-primary:hover{
+    background-color: #7dbef5;
+}
+
+div.footer a.Cbtn-danger{
+    background-color: #fc5a5a;
+    color: #FFF;
+}
+
+div.footer a.Cbtn-danger:hover{
+    background-color: #fd7676;
+}
+
+.dates p{
+   width: auto;
+}
+
+</style>
 	<!-- 상세조회 모달 css  -->
-    <style>
-    .form-group{
-        border: 1px dotted red;
-    }
-    </style>
+    
 	<!-- 성사된스케줄 모달  -->
 	<div id="detailreqModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 
 			<!-- 모달 내부 설정 -->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">개인스케줄 상세보기</h4>
-                </div>
-                <div class="modal-body">
-                
-                    <div class="row" style="width:auto">
-                    <div class="col-md-12">
-                    <fieldset>
-                    
-                    <!-- 장소 입력 input -->
-                    <div class="form-group">
-                      <label class="col-md-4 control-label" for="shopname">지도</label>  
-                      <div class="col-md-5">
-                     <div class="input-group">
-                           <div id="map2" style="width: 250px; height: 250px;"></div>
-                          </div>
-                      </div>
-                    </div>
-                    
-                    <!-- 인원 입력 input -->
-                    <div class="form-group">
-                      <label class="col-md-4 control-label" for="cnt">인원</label>  
-                      <div class="col-md-5">
-                      <div class="input-group">
-                           <div class="input-group-addon">
-                          <i class="fa fa-male" style="font-size: 20px;"></i>
+            <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-4 col-sm-6 col-xs-12" style="margin: auto">
+                <div class="tile">
+                    <div class="wrapper">
+                        <div class="header">요청스케줄 상세보기</div><!--test  -->
+
+                        <div class="banner-img">
+                            <div id="map2" style="float:left;"></div>
                             
-                           </div>
-                          <div class="reqname"></div>
-                          <input id="cnt" name="cnt" type="text" class="form-control input-md">
-                    
-                          </div>
+                             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="float:right;">
+
+  
+
+							  <!-- Wrapper for slides -->
+							  <div class="carousel-inner" style="width:100%; height:100%;">
+							    <div class="item active" id="supimg1" style="width:100%; height:100%;">
+							    </div>
+							    <div class="item" id="supimg2" style="width:100%; height:100%;">
+							    </div>
+							     <div class="item" id="supimg3" style="width:100%; height:100%;">
+							    </div>
+							  </div>
+							
+							  <!-- Controls -->
+							  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+							    <span class="glyphicon glyphicon-chevron-left"></span>
+							  </a>
+							  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+							    <span class="glyphicon glyphicon-chevron-right"></span>
+							  </a>
+							</div>
+							
+									
+							<!-- <img src="/upload/파일명" alt="Image 1" style="float: left">
+                            <img src="http://via.placeholder.com/640x360" alt="Image 1" style="float: right"> -->
+                        </div>
+                        <div class="banner-img" style="float: right;">
+                            
+                        </div>
+
+                        <div class="dates">
+                            <div class="start">
+                                <strong>시작시간</strong> 
+                                <p id='reqsdt'></p>
+                                <span></span>
+                            </div>
+                            <div class="ends">
+                                <strong>종료시간</strong> 
+                                <p id='reqedt'></p>
+                            </div>
+                        </div>
+
+                        <div class="stats">
+
+                            <div>
+                                <strong><label>장소명</label></strong>
+                                <span id='reqname'></span> 
+                            </div>
+                        </div>
+
+                        <div class="stats">
+                            <div>
+                                <strong><label>희망장르/퍼포먼스</label></strong>
+                                <span id='reqgenre'></span> 
+                            </div>
+                        </div>
                         
-                      </div>
+                        <div class="stats">
+                            <div>
+                                <strong><label>연락처</label></strong>
+                                <span id='reqtel'></span> 
+                            </div>
+                        </div>
+
+                        <div class="stats">
+
+                            <div>
+                                <strong><label>공연인원</label></strong>
+                                <span id='reqcnt'></span> 
+                            </div>
+
+                        </div>
+                        
+                        <div class="stats">
+
+                            <div>
+                                <strong><label>상세주소</label></strong>
+                                <span id='reqaddr'></span> 
+                            </div>
+
+                        </div>
+                        
+                        <div class="stats">
+
+                            <div>
+                                <strong><label>상세주소</label></strong>
+                                <span id='reqetc'></span> 
+                            </div>
+
+                        </div>
+
+                        <div class="footer">
+                            <a href="#" class="Cbtn Cbtn-primary">View</a>
+                            <a href="#" class="Cbtn Cbtn-danger">Delete</a>
+                        </div>
                     </div>
-                    
-                    <!-- 공연일시 input -->
-                    <div class="form-group">
-                      <label class="col-md-4 control-label col-xs-12" for="editstarttimepicker">공연시간</label>  
-                      <div class="col-md-4  col-xs-4">
-                         <div class="input-group">
-                              <div class="input-group-addon">
-                                 <i class="fa fa-clock-o"></i>
-                               </div>
-                              <div class="reqtime"></div>
-                          </div>
-                      </div>
-                    </div>
-                    
-                    <!-- 공연시간 발류 채크 -->
-                    
-                    
-                    <div class="form-group">
-                      <label class="col-md-4 control-label col-xs-12" for="edit_addr">주소</label>  
-                      <div class="col-md-5  col-xs-4">
-                         <div class="input-group">
-                              <div class="input-group-addon">
-                                 <i class="fa fa-street-view"></i>
-                               </div>
-                              <div class="reqgenre"></div>
-                          </div>
-                      </div>
-                    
-                    </div>
-                    
-                    <!-- 공연일시 input -->
-                    <div class="form-group">
-                      <label class="col-md-4 control-label col-xs-12" for="editstarttimepicker">공연시간</label>  
-                      <div class="col-md-4  col-xs-4">
-                         <div class="input-group">
-                              <div class="input-group-addon">
-                                 <i class="fa fa-clock-o"></i>
-                               </div>
-                              <div class="reqaddr"></div>
-                          </div>
-                      </div>
-                    </div>
-                    
-                     <!-- 공연일시 input -->
-                    <div class="form-group">
-                      <label class="col-md-4 control-label col-xs-12" for="editstarttimepicker">공연시간</label>  
-                      <div class="col-md-4  col-xs-4">
-                         <div class="input-group">
-                              <div class="input-group-addon">
-                                 <i class="fa fa-clock-o"></i>
-                               </div>
-                              <div class="reqetc"></div>
-                          </div>
-                      </div>
-                    </div>
-                    
-                  
-                    
-                    <div class="form-group" style='float:right; margin-right: 10px;'>
-                      <label class="col-md-4 control-label" ></label>  
-                      <div class="col-md-4">
-                      <button class="btn btn-default" value="" id="editno" type="button">수정</button>
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <!-- <button class="btn btn-success" id="addbtn">등록하기</button> -->
-                      <!-- <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-remove-sign"></span> Clear</a> -->
-                      </div>
-                    </div>
-                    </fieldset>
-                    
-                    </div>
-                    
-                    </div>
-                    </div>
-                </div>
+                </div> 
+            </div>            
+        </div>
+    </div>
             </div>
     </div>
 	
@@ -1051,7 +1120,7 @@ input, textarea, button { margin-top:0px }
 	    </div>
 	</div>
 
-    <%-- <jsp:include page="../footer.jsp"></jsp:include> --%>
+    <jsp:include page="../footer.jsp"></jsp:include>
 <!-- 달력 -->
 <script
     src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -1072,11 +1141,6 @@ input, textarea, button { margin-top:0px }
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=15e2302756c9e7098ec0d79f7b4d53f4&libraries=services"></script>
 
-<script src="/js/mybs.js" type="text/javascript"></script>
+<!-- 내가만든 script -->
+<script src="/js/mybs.ver1.js" type="text/javascript"></script>
 
-
-
-    
-
-</body>
-</html>
