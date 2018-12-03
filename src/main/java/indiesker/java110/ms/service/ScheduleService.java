@@ -40,4 +40,5 @@ public interface ScheduleService {
     List<Schedule> mybslistbyflag(int flag, int no, int pageNo, int pageSize);
     int checkeditperschedule(String sdt, String edt, String nsdt, String nedt, int no);
     int checkeditreqschedule(String sdt, String edt, String nsdt, String nedt, int no);
+    List<Schedule> searchScehdule(String type, String keyword, String date);
 }

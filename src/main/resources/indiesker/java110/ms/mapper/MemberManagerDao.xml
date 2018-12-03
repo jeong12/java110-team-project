@@ -260,6 +260,9 @@ where m.mno = b.bno
 and m.nik = #{nik}
 </select>    
 
+<select id="getMemo" parameterType="string" resultType="String">
+select memo from memb where nik=#{nik}
+</select>
 
 
  </mapper>

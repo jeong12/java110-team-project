@@ -183,13 +183,6 @@ public List<MemberManager> dateSelect(String flag, String text,String ncdt1,Stri
     return memberManagerDao.gradleSupUpdate(params);
  }
  
- 
- /////////////////////////////////////////////////////////
- 
-
-
-
-
 
 @Override
 public List<GradleMember> gradleSelect(char flag, String email, String nik, int pageNo,
@@ -205,15 +198,10 @@ public List<String> memListDetailByGenre(String nik) {
 }
 
 
-
-
-
-
-
-
-
-
-
+@Override
+public String getMemo(String nik) {
+  return memberManagerDao.getMemo(nik);
+}
 
 
 
