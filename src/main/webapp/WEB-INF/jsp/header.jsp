@@ -179,7 +179,7 @@ a:focus, a:hover {
             <div class="row_c">
                <div class="col-md-12">
                    <div class="d-flex_c">
-                      <div class="flex-md-fill_c "><a href="/app/schedule/main">버스커 일정</a></div>
+                      <div class="flex-md-fill_c "><a href="/app/schedule/list">버스커 일정</a></div>
                         <div class="flex-md-fill_c"><a href="#">버스커 위치</a></div>
                         <div class="flex-md-fill_c "><a href="/app/buskerlist/list">버스커 목록</a></div>
                         <div class="flex-md-fill_c "><a href="/app/stage/list">공연장 현황</a></div>
