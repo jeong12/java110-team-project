@@ -19,20 +19,20 @@
 
     <select id="findAll" resultMap="buskPromotionMap" parameterType="map">
 select titl, b.name, bo.genre, bo.city, sdt, edt, cnt, etc, bo.phot, cdt
-from busk_board bo join busk b on bo.bbno = b.bno
+from busk_board bo join busk b on bo.bno = b.bno
 ORDER by bo.cdt DESC
     </select>
     
     <select id="findByCity" resultMap="buskPromotionMap" parameterType="String">
 select titl, b.name, bo.genre, bo.city, sdt, edt, cnt, etc, bo.phot, cdt
-from busk_board bo join busk b on bo.bbno = b.bno
+from busk_board bo join busk b on bo.bno = b.bno
 where bo.city=#{city}
 ORDER by bo.cdt DESC
     </select>
     
     <select id="findByTeamname" resultMap="buskPromotionMap" parameterType="String">
 select titl, b.name, bo.genre, bo.city, sdt, edt, cnt, etc, bo.phot, cdt
-from busk_board bo join busk b on bo.bbno = b.bno
+from busk_board bo join busk b on bo.bno = b.bno
 where b.name=#{teamname}
 ORDER by bo.cdt DESC
     </select>
