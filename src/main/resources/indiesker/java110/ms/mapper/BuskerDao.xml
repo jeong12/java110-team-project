@@ -18,13 +18,14 @@
 		<result column="intro" property="teamInfo" />
 	</resultMap>
 
-	<resultMap type="Busker" id="buskerFeedMap"> 
-		<result column="name" property="teamname"/> 
-		<result column="genre" property="teamgenre"/>
-		<result column="city" property="city"/>
-		<result column="intro" property="teamInfo"/>
-		<result column="phot" property="teamPhoto"/>
-    </resultMap>
+	<resultMap type="Busker" id="buskerFeedMap">
+		<id column="bno" property="bno" />
+		<result column="name" property="teamname" />
+		<result column="genre" property="teamgenre" />
+		<result column="city" property="city" />
+		<result column="intro" property="teamInfo" />
+		<result column="phot" property="teamPhoto" />
+	</resultMap>
 
 
 	<select id="findAll" resultMap="buskerMap" parameterType="map">
@@ -43,35 +44,45 @@
 	</select>
 
 
-	<select id="findByNo" resultMap="buskerFeedMap" parameterType="int"> 
-	select 
-	   name, 
-	   genre, 
-		city, 
+	<select id="findByNo" resultMap="buskerFeedMap"
+		parameterType="int">
+		select
+		bno,
+		name,
+		genre,
+		city,
 		intro,
 		phot
-	from busk 
-	where bno=#{value}
+		from busk
+		where
+		bno=#{value}
 	</select>
 
-    <insert id="insert" parameterType="busker">
-        insert into busk(bno,name,genre,city,tel,inst,strm,intro,phot,avi1,avi2,per)
-        values(#{no},#{teamname},#{teamgenre},#{city},#{tel},#{instrument},#{streamingUrl},#{teamInfo},#{teamPhoto}
-        ,#{avi1},#{avi2},'n')
-    </insert>
-    
-     <select id="findByBusker" parameterType="int" resultType="int">
-    select mno as no
-      from memb m INNER JOIN busk b 
-     where mno=#{no} and mno=bno and per in('Y','y')
-     </select>
-     
-    <update id="updateBusk" parameterType="busker">
-    UPDATE busk
-       SET name = #{teamname}, genre = #{teamgenre}, phot = #{teamPhoto}, city = #{city},
-           tel = #{tel}, inst = #{instrument}, intro = #{teamInfo}
-     WHERE bno = #{no}
-    </update>
+	<insert id="insert" parameterType="busker">
+		insert into
+		busk(bno,name,genre,city,tel,inst,strm,intro,phot,avi1,avi2,per)
+		values(#{no},#{teamname},#{teamgenre},#{city},#{tel},#{instrument},#{streamingUrl},#{teamInfo},#{teamPhoto}
+		,#{avi1},#{avi2},'n')
+	</insert>
+
+	<select id="findByBusker" parameterType="int" resultType="int">
+		select
+		mno as no
+		from memb m INNER JOIN busk b
+		where mno=#{no} and mno=bno and
+		per in('Y','y')
+	</select>
+
+	<update id="updateBusk" parameterType="busker">
+		UPDATE busk
+		SET name =
+		#{teamname}, genre = #{teamgenre}, phot = #{teamPhoto}, city =
+		#{city},
+		tel = #{tel}, inst = #{instrument}, intro = #{teamInfo}
+		WHERE
+		bno = #{no}
+	</update>
+
 </mapper>
 
 

@@ -23,8 +23,9 @@ public class FeedPhotoServiceImpl implements FeedPhotoService {
   public List<FeedPhoto> recentPhotList(int buskNo, int pageNo, int pageSize) {
     HashMap<String, Object> params = new HashMap<>();
     params.put("no", buskNo);
-    params.put("rowNo", (pageNo - 1) * pageSize);
+    params.put("rowNo", pageNo);
     params.put("size", pageSize);
+    
     
     return feedphotoDao.findRecentPhot(params);
   }
@@ -42,10 +43,6 @@ public class FeedPhotoServiceImpl implements FeedPhotoService {
     feedphotoDao.feedPhotoUpload(params);
     int pbno = (int)params.get("pbno");
     
-    for (String string : files) {
-      System.out.println(string);
-    }
-    
     Map<String, Object> params2 = new HashMap<>();
     params2.put("photsrc", files);
     params2.put("pbno", pbno);
@@ -56,6 +53,13 @@ public class FeedPhotoServiceImpl implements FeedPhotoService {
   @Override
   public FeedPhoto getfeedphotobyPbnoNoComt(int no) {
     return feedphotoDao.findfeedphotobyPbnoNC(no);
+  }
+
+  @Override
+  public int recentPhotList2(int buskNo) {
+    List<FeedPhoto> list = feedphotoDao.findRecentPhot2(buskNo);
+    
+    return list.size();
   }
   
   

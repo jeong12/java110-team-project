@@ -12,4 +12,5 @@ public interface MemberDao {
   Member findByIdNick(Map<String,Object> params);
   int findNoById(String id);
   void updateMemb(Member member);
+  Member buskCheck(int no);
 }

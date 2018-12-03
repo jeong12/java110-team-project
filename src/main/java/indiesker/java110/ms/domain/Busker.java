@@ -20,7 +20,7 @@ public class Busker extends Member{
   protected String tel;
   protected String message;
   
-  
+
   public int getBno() {
     return bno;
   }

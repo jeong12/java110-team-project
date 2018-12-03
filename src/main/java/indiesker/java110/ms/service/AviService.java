@@ -14,4 +14,5 @@ public interface AviService {
   List<Avi> getFolAvi(int no);
   void uploadAvi(int bno, String title, String content, String url);
   Avi getfeedavibyAbnoNoComt(int no);
+  void insertComment(int abno, int no, String cont);
 }

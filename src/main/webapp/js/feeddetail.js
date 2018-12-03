@@ -104,8 +104,20 @@ $('.col-md-4.avi button').on('click', function() {
             $(".likecount").empty();
             $(".list-unstyled.comt").empty();
             $(".aviteamimgtb").empty();
-            console.log(data.comtcount);
+            $(".comtinsert").empty();
+            
             if(data.length != 0){
+                $(".comtinsert").append(
+                        "<form action='insertavicomt'>"+
+                        "<div style='display: none'>"+
+                            "<textarea name='abno' id='abno'>"+abno+"</textarea>"+
+                            "<textarea name='no' id='no'>4</textarea>"+
+                        "</div>"+
+                        "<textarea rows='3' placeholder='댓글을 입력하세요!' style='resize:none; width:100%'"+
+                        "name='cont' id='cont'></textarea>"+
+                        "<button style='float:right' >입력</button>"+
+                    "</form>"
+                );
                 $(".feedavi").append(
                         "<iframe src='https://www.youtube.com/embed/"+data.urlid+"?ecver=2'"+
                         "width='500' height='280px' frameborder='0'"+ 
