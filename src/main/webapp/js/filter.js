@@ -47,7 +47,7 @@ $().ready(function(){
 
 
 
-    if(document.getElementsByClassName('fol_avi') != null){
+    if(document.getElementsByClassName('fol_avi').length > 0){
         aviFilter(logout); //메인 동영상 필터
     }
 });

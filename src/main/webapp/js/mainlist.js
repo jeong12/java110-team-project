@@ -379,6 +379,10 @@ function OpenImg(){
             data: {"no":no}, 
             success : function(data) {
                 //console.log(data);
+                
+                var $consup = $('.hotPlace').find('a');
+                $consup.attr('href','applystages/page?sno='+no);
+                
                 var subimg = document.getElementsByClassName('placeImg');
                 $.each(data,function(index,item){
                     if(index == 0){
