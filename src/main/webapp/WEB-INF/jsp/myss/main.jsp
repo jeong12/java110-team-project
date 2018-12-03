@@ -90,20 +90,11 @@ body{background-color: snow;}
 				</div>
 				<div class='col-lg-6'>
 				<div id='selectday'>
-					<table class='insertDate'>
-						<thead>
-							<tr>
-								<td colspan="4" id='showDate'><h2></h2></td>
-							</tr>
-							<tr>
-								<td id="showtype"><h4></h4></td>
-								<td><button onclick="add()">등록</button></td>
-								<td><button onclick="remove()">삭제</button></td>
-							</tr>
-						</thead>
-						<tbody>
-						</tbody>
-					</table>
+				<div class='col-lg-6' id='showDate'><h2></h2></div>
+				<div class='col-lg-4' id='showtype'><h4></h4></div>
+				<div class='col-lg-2'><button onclick="add()">등록</button><button onclick="remove()">삭제</button></div>
+                <div class='right col-lg-3 float="left"'></div>
+                <div class='left col-lg-3 float="right"'></div>
 				</div>
 				</div>
 				</div>

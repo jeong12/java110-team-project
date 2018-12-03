@@ -34,10 +34,9 @@ public class ApplyStagesController {
   }
 
 
-  @GetMapping("main")
-  public void main(Model model) {
-    int no = 2;
-    Supporter supporter = supporterService.findInfo(no);
+  @GetMapping("page")
+  public void main(Model model, int sno) {
+    Supporter supporter = supporterService.findInfo(sno);
     List<StagePhoto> arr = new ArrayList<>();
     
     for(int i=0;i<3;i++) {

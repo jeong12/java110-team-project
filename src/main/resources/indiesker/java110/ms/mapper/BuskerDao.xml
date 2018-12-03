@@ -18,12 +18,15 @@
 		<result column="intro" property="teamInfo" />
 	</resultMap>
 
-	<resultMap type="Busker" id="buskerFeedMap"> 
+	<resultMap type="Busker" id="buskerFeedMap">
+	    <id column="bno" property="no" /> 
 		<result column="name" property="teamname"/> 
 		<result column="genre" property="teamgenre"/>
 		<result column="city" property="city"/>
 		<result column="intro" property="teamInfo"/>
 		<result column="phot" property="teamPhoto"/>
+		<result column="intro" property="teamInfo" />
+		<result column="lcnt" property="likecount" />
     </resultMap>
 
 
@@ -72,6 +75,42 @@
            tel = #{tel}, inst = #{instrument}, intro = #{teamInfo}
      WHERE bno = #{no}
     </update>
+    
+   	<select id="findBukserInfo" resultMap="buskerFeedMap" parameterType="int"> 
+    select bno, name, genre, intro, phot
+    from busk 
+    where bno=#{value}
+    </select>  
+    
+    <!-- Best Buskers -->
+    <select id="findByBest" resultMap="buskerFeedMap" parameterType="map">
+		select
+		name,
+		genre,
+		city,
+		phot,
+		bno
+		from busk
+		where per in('Y','y')
+		<if test="city != null">
+		and city LIKE CONCAT('%',#{city},'%') 
+		</if> 
+		order by lcnt desc
+		limit 20;
+    </select>
+    
+    <select id="findByBestDetail" resultMap="buskerFeedMap" parameterType="int">
+    select
+        name,
+        genre,
+        phot,
+        lcnt
+        from busk
+        where per in('Y','y')
+          and bno = #{no}; 
+    </select>
+
+    
 </mapper>
 
 
