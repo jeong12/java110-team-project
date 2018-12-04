@@ -43,6 +43,7 @@
     .close{margin-right: 15px;}
     #ttl{margin-left: 21px;}
     .mtb label{float:left;}
+    .carousel
 </style>
 
 
@@ -171,65 +172,43 @@
         <h3 id="ttl">용찬하우스</h3>
       </div>
       
-      <div id="mmain">
-        <div id="mmain">
-                <!-- Slider -->
-                <div class="row">
-                    <div class="col-xs-12" id="slider" id="main">
-                        <!-- Top part of the slider -->
-                        <div class="row">
-                            <div class="col-sm-4" id="carousel-bounding-box" >
-                                <div class="carousel slide" id="myCarousel">
-                                    <!-- Carousel items -->
-                                    <div class="ttttt carousel-inner" >
-                                        <div data-slide-number="0">
-                                        <img id="ff" src=""></div>
-
-                                        <div  data-slide-number="1">
-                                        
-                                        <img id="ff"  src=""></div>
-
-                                        <div data-slide-number="2">
-                                        <img id="ff" src=""></div>
-
-                               
-                                    </div><!-- Carousel nav -->
-                                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                                        <span class="glyphicon glyphicon-chevron-left"></span>                                       
-                                    </a>
-                                    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                                        <span class="glyphicon glyphicon-chevron-right"></span>                                       
-                                    </a>                                
-                                    </div>
-                            </div>        
-
-                          
+      <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="carousel-example-generic" class="bbbbs carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target=".carousel slide abc" data-slide-to="0" class="active"></li>
+                    <li data-target=".carousel slide abc" data-slide-to="1"></li>
+                    <li data-target=".carousel slide abc" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <img src="http://i.imgur.com/2PBLK.jpg" alt="First slide">
+                        <div class="carousel-caption">
                         </div>
                     </div>
-                </div><!--/Slider-->
-                <div class="aab row hidden-xs" id="slider-thumbs">
-                        <!-- Bottom switcher of slider -->
-                        <div class="aac">
-                       
-                         
-                       
-                     <!--        <li class="mli">
-                                <a class="thumbnail" id="carousel-selector-0"><img id="ig" src=""></a>
-                            </li>
-
-                            <li class="mli">
-                                <a class="thumbnail" id="carousel-selector-1"><img id="ig" src=""></a>
-                            </li>
-
-                            <li class="mli">
-                                <a class="thumbnail" id="carousel-selector-2"><img id="ig" src=""></a>
-                            </li> -->
-                   
-                          
-                        </div>             
+                    <div class="item">
+                        <img src="http://i.imgur.com/2PBLK.jpg" alt="Second slide">
+                        <div class="carousel-caption">
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="http://i.imgur.com/2PBLK.jpg" alt="Third slide">
+                        <div class="carousel-caption">
+                        </div>
+                    </div>
                 </div>
+                <a class="left carousel-control" href=".bbbbs" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span></a><a class="right carousel-control"
+                        href=".bbbbs" data-slide="next"><span class="glyphicon glyphicon-chevron-right">
+                        </span></a>
+            </div>
         </div>
+    </div>
 </div>
+<div id="push">
+</div>
+
 <div class="maaa">
 <div class="mtb">
         <label>장소명 :</label><div class="sname"></div>

@@ -15,14 +15,18 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link rel="stylesheet" href="../../css/common.css">
 </head>
 <title>관리자</title>
 </head>
 
 <style>
+#mytable{background-color: white;}
+ body{background-color: snow;}
     .mc{margin-left:52%;}
     .carousel{margin-left:52%;}
-    .container{width: 80%; margin-left: 10%;}
+    .container{width: 80%; margin: auto;}
     .pagination{margin-right: 39%;}    
     td{text-align: center;}
     th{text-align: center;}
@@ -31,7 +35,7 @@
     #selt{height: 25px; margin-right: 2px;}
     #input{height: 25px;}
     #bun{float: left;}
-    #ccc{float: right;}
+    #ccc{float: right; margin-top: 2%;}
     .tab{display: none}
     .hide-bullets {list-style:none;}
     #img{margin:0auto;}
@@ -59,25 +63,101 @@ margin-top:20px;
   
     #ttl{margin-left: 21px;}
     .mtb label{float: left}
+     #logo{width: 40px; height:40px; float: left; margin-top: -4px;}
+    #titl{margin-top: 2%; margin-left: 11%;}
+    #titleh2{float: left; margin-top: 0;}
+    .buskDetail,.memberDetail,.supDetail,.btt2,.btt{width: 4rem; height: 1.8rem; font-size: 0.8rem;padding: 0;}
+    
+    
+    
+    /* Tabs css */
+.list-group-horizontal .list-group-item {
+    display: inline-block;
+    cursor:pointer;
+}
+.list-group-horizontal .list-group-item {
+    margin-bottom: 0;
+    margin-left:-4px;
+    margin-right: 0;
+}
+.list-group-horizontal .list-group-item:first-child {
+    border-top-right-radius:0;
+    border-bottom-left-radius:4px;
+}
+.list-group-horizontal .list-group-item:last-child {
+    border-top-right-radius:4px;
+    border-bottom-left-radius:0;
+}
+    ul{
+    padding-left: 0px;
+}
+    
+.tab{
+display: none;
+}
+
+.tab.active.current{
+display:inherit;
+
+}  
+.list-group-item.active.current {
+    background-color:#3F51D1;
+}  
+#bun{
+width: 40%;
+margin-left: -2rem;
+}  
+
+.tototo{
+display: c
+}  
+    
 </style>
 
-
-
+<jsp:include page="../header.jsp"></jsp:include>
+  <div id="titl">
+        <img id="logo" src="/img/playButton.PNG" alt="플레이로고">
+        <h3 id="titleh2">회원 관리</h3>
+    </div>
 
 
 <body>
 
 <div class="container">
-    <div class="row">       
+    <div class="row" id="topbutton">       
         <div class="col-md-12">
-        <h2>관리자 페이지</h2>
           <div class="slt">
         <div id="bun">
-       <button class="bt btn-default btn-sm" onclick="openCity('bt1')">전체</button>
-       <button class="bt btn-primary btn-sm" onclick="openCity('bt2')">일반</button>
-       <button class="bt btn-sussess btn-sm"  onclick="openCity('bt3')">버스커</button>
-       <button class="bt btn-warning btn-sm"  onclick="openCity('bt4')">제공자</button>
-       <button class="bt btn-danger btn-sm"  onclick="openCity('bt5')">정지</button>
+        <!--  -->
+        
+        
+ <div class="container">
+    <div class="row" style="padding-top:10px;">
+        
+        <div class="text-left" style='display:inline-block;'>
+            <div class="list-group list-group-horizontal">
+               <ul class='tabs'>
+                    <li class="list-group-item active current" data-tab='bt1'>전체보기</li>
+                    <li class="list-group-item" data-tab='bt2'>일반 </li>
+                    <li class="list-group-item" data-tab='bt3'>버스커</li>
+                    <li class="list-group-item" data-tab='bt4'>제공자</li>
+                    <li class="list-group-item" data-tab='bt5'>정지</li>
+                </ul>
+               
+            </div>
+        </div>
+    </div>
+</div>  
+        
+        
+        
+        
+        <!--  -->
+       <!-- <button class="btn bts btns btns-outline-primary" onclick="openCity('bt1')">전체</button>
+       <button class="btn bts btns btns-outline-secondary" onclick="openCity('bt2')">일반</button>
+       <button class="btn bts btns btns-outline-success"  onclick="openCity('bt3')">버스커</button>
+       <button class="btn bts btns btns-outline-warning"  onclick="openCity('bt4')">제공자</button>
+       <button class="btn bts btns btns-outline-danger"  onclick="openCity('bt5')">정지</button> -->
         </div>
        <div id="ccc">      
             <input type="date" class="date1" id="start">  ~  <input type="date" class="date2" id="end">
@@ -94,83 +174,79 @@ margin-top:20px;
         <div class="table-responsive">
               
 <!--  tab1 --> 
- <div class="tab" id="bt1" style="display: contents"> 
+ <div class="tab active current" id="bt1" style="display: contents"> 
               <table id="mytable" class="table table-bordred table-striped">         
                   <thead>                   
-	                   <tr><th>아이디</th>
-	                   <th>닉네임</th>
-	                   <th>이메일</th>
-	                   <th>등급</th>
-	                   <th>가입일</th>
-	                   <th>메모</th>
-	                   <th>메모수정</th>
-	                   <th>상세보기</th>
-	                   <th>정지</th></tr>
+	                   <tr><th class="col-md-1">아이디</th>
+	                   <th class="col-md-1">닉네임</th>
+	                   <th class="col-md-2">이메일</th>
+	                   <th class="col-md-1">등급</th>
+	                   <th class="col-md-2">가입일</th>
+	                   <th class="col-md-2">메모</th>
+	                   <th class="col-md-1">메모수정</th>
+	                   <th class="col-md-1">상세보기</th>
+	                   <th class="col-md-1">정지</th></tr>
                    </thead>
     <tbody id="testappend">
           <c:forEach  items="${list}" var="m">
           <c:if test= "${m.flag eq '1'.charAt(0)}">
           
-             <tr class="tt.col-xs-6">
+             <tr class="tt">
 				    <td>${m.id}</td>
 				    <td class=niks>${m.nik}</td>
 				    <td>${m.email}</td>
 				    <td>회원</td>
 				    <td>${m.cdt}</td>
 				    <td id="memow">${m.memo}</td>
-				    <td><button class="btt btn-primary btn-xs"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
-				    <td><div class="detailbtn"><button class="memberDetail btn-primary btn-xs"  data-toggle="modal" data-target="#memberDetail" value="${m.nik}">상세보기</button></div></td>
-				    <td><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></td>
+				    <td><button class="btt btns btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
+				    <td><div  class="detailbtn"><button name="detailAll" class="memberDetail btns btns-outline-secondary"  data-toggle="modal" data-target="#memberDetail" value="${m.nik}">상세보기</button></div></td>
+				    <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></td>
              </tr>
-             
-             
              </c:if>  
                    <c:if test= "${m.flag eq '2'.charAt(0)}">
           
-             <tr class="tt.col-xs-6">
+             <tr class="tt">
                     <td>${m.id}</td>
                     <td class=niks>${m.nik}</td>
                     <td>${m.email}</td>
                     <td>버스커</td>
                     <td>${m.cdt}</td>
                     <td id="memow">${m.memo}</td>
-                    <td><button class="btt btn-primary btn-xs"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
-                    <td><div class="detailbtn"><button class="buskDetail btn-primary btn-xs"  data-toggle="modal" data-target=".modelbusk" value="${m.nik}">상세보기</button></div></td>
-                    <td><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></td>
+                    <td><button class="btt btn btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
+                    <td><div id="detailAll" class="detailbtn"><button name="detailAll" class="buskDetail btns btns-outline-secondary"  data-toggle="modal" data-target=".modelbusk" value="${m.nik}">상세보기</button></div></td>
+                    <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></td>
              </tr>
-             
              
              </c:if>  
                    <c:if test= "${m.flag eq '3'.charAt(0)}">
           
-             <tr class="tt.col-xs-6">
-                    <td>${m.id}</td>
-                    <td class=niks>${m.nik}</td>
-                    <td>${m.email}</td>
-                    <td>제공자</td>
-                    <td>${m.cdt}</td>
-                    <td id="memow">${m.memo}</td>
-                    <td><button class="btt btn-primary btn-xs"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
-                    <td><div class="detailbtn"><button class="supDetail btn-primary btn-xs"  data-toggle="modal" data-target="#supDetail" value="${m.nik}">상세보기</button></div></td>
-                    <td><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></td>
+             <tr class="tt">
+                    <td class="col-md-1">${m.id}</td>
+                    <td class="col-md-1">${m.nik}</td>
+                    <td class="col-md-2">${m.email}</td>
+                    <td class="col-md-1">제공자</td>
+                    <td class="col-md-2">${m.cdt}</td>
+                    <td id="memow" class="col-md-2">${m.memo}</td>
+                    <td class="col-md-1"><button class="btt btn btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
+                    <td class="col-md-1"><div id="detailAll" class="detailbtn"><button id="detailAll" class="supDetail btns btns-outline-secondary"  data-toggle="modal" data-target="#supDetail" value="${m.nik}">상세보기</button></div></td>
+                    <td class="col-md-1"><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></td>
              </tr>
              
-             
+             <!-- fefweafweafweaf -->
              </c:if>  
                    <c:if test= "${m.flag eq '4'.charAt(0)}">
           
-             <tr class="tt.col-xs-6">
+             <tr class="tt">
                     <td>${m.id}</td>
                     <td class=niks>${m.nik}</td>
                     <td>${m.email}</td>
                     <td>${m.flag}</td>
                     <td>${m.cdt}</td>
                     <td id="memow">${m.memo}</td>
-                    <td><button class="btt btn-primary btn-xs"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
-                    <td><div class="detailbtn"><button class="btt2 btn-primary btn-xs"  data-toggle="modal" data-target="#model-id" value="${m.nik}">상세보기</button></div></td>
-                    <td><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></td>
+                    <td><button class="btt btn btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
+                    <td><div id="detailAll" class="detailbtn"><button id="detailAll" class="btt2 btns btns-outline-secondary"  data-toggle="modal" data-target="#model-id" value="${m.nik}">상세보기</button></div></td>
+                    <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></td>
              </tr>
-             
              
              </c:if>  
             </c:forEach>
@@ -193,30 +269,30 @@ margin-top:20px;
      <div class="tab"  id="bt2"> 
               <table id="mytable" class="table table-bordred table-striped">         
                   <thead>                   
-	                   <tr><th>아이디</th>
-	                   <th>닉네임</th>
-	                   <th>이메일</th>
-	                   <th>등급</th>
-	                   <th>가입일</th>
-	                   <th>메모</th>
-	                   <th>메모수정</th>
-	                   <th>상세보기</th>
-	                   <th>정지</th></tr>
+	                   <tr><th class="col-md-1">아이디</th>
+	                   <th class="col-md-1">닉네임</th>
+	                   <th class="col-md-2">이메일</th>
+	                   <th class="col-md-1">등급</th>
+	                   <th class="col-md-2">가입일</th>
+	                   <th class="col-md-2">메모</th>
+	                   <th class="col-md-1">메모수정</th>
+	                   <th class="col-md-1">상세보기</th>
+	                   <th class="col-md-1">정지</th></tr>
                    </thead>
               
     <tbody id="testappend1">
          <c:forEach  items="${list}" var="m">
           
-                    <tr class="tt.col-xs-6">
+                    <tr class="tt">
 						    <td>${m.id}</td>
 						    <td>${m.nik}</td>
 						    <td>${m.email}</td>
 						    <td>회원</td>
 						    <td>${m.cdt}</td>
 						    <td>${m.memo}</td>
-                    <td><button class="btt btn-primary btn-xs"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
-                    <td><div class="detailbtn"><button class="memberDetail btn-primary btn-xs"  data-toggle="modal" data-target="#memberDetail" value="${m.nik}">상세보기</button></div></td>
-                    <td><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon"></span>정지</button></td>
+                    <td><button class="btt btns btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
+                    <td><div class="detailbtn"><button id="detailAll" class="memberDetail btns btns-outline-secondary"  data-toggle="modal" data-target="#memberDetail" value="${m.nik}">상세보기</button></div></td>
+                    <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon"></span>정지</button></td>
              </tr>
               
             
@@ -240,29 +316,29 @@ margin-top:20px;
      <div class="tab"  id="bt3"> 
               <table id="mytable" class="table table-bordred table-striped">         
                       <thead>                   
-		                   <tr><th>아이디</th>
-		                   <th>닉네임</th>
-		                   <th>이메일</th>
-		                   <th>등급</th>
-		                   <th>가입일</th>
-		                   <th>메모</th>
-		                   <th>메모수정</th>
-		                   <th>상세보기</th>
-		                   <th>정지</th></tr>
+		                   <tr><th class="col-md-1">아이디</th>
+		                   <th class="col-md-1">닉네임</th>
+		                   <th class="col-md-2">이메일</th>
+		                   <th class="col-md-1">등급</th>
+		                   <th class="col-md-2">가입일</th>
+		                   <th class="col-md-2">메모</th>
+		                   <th class="col-md-1">메모수정</th>
+		                   <th class="col-md-1">상세보기</th>
+		                   <th class="col-md-1">정지</th></tr>
                       </thead>
     <tbody id="testappend2">
         <c:forEach  items="${list}" var="m">
              <c:if test= "${m.flag eq '2'.charAt(0)}"> 
-                  <tr class="tt.col-xs-6">
+                  <tr class="tt">
 					    <td>${m.id}</td>
 					    <td>${m.nik}</td>
 					    <td>${m.email}</td>
 					    <td>버스커</td>
 					    <td>${m.cdt}</td>
 					    <td>${m.memo}</td>
-                    <td><button class="btt btn-primary btn-xs"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
-                    <td><div class="detailbtn"><button class="buskDetail btn-primary btn-xs"  data-toggle="modal" data-target=".modelbusk" value="${m.nik}">상세보기</button></div></td>
-                    <td><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></td>
+                    <td><button class="btt btns btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
+                    <td><div class="detailbtn"><button id="detailAll" class="buskDetail btns btns-outline-secondary"  data-toggle="modal" data-target=".modelbusk" value="${m.nik}">상세보기</button></div></td>
+                    <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></td>
              </tr>
               </c:if>
         </c:forEach>
@@ -284,29 +360,29 @@ margin-top:20px;
         <div class="tab"  id="bt4"> 
               <table id="mytable" class="table table-bordred table-striped">         
                   <thead>                   
-	                   <tr><th>아이디</th>
-	                   <th>닉네임</th>
-	                   <th>이메일</th>
-	                   <th>등급</th>
-	                   <th>가입일</th>
-	                   <th>메모</th>
-	                   <th>메모수정</th>
-	                   <th>상세보기</th>
-	                   <th>정지</th></tr>
+	                   <tr><th class="col-md-1">아이디</th>
+	                   <th class="col-md-1">닉네임</th>
+	                   <th class="col-md-2">이메일</th>
+	                   <th class="col-md-1">등급</th>
+	                   <th class="col-md-2">가입일</th>
+	                   <th class="col-md-2">메모</th>
+	                   <th class="col-md-1">메모수정</th>
+	                   <th class="col-md-1">상세보기</th>
+	                   <th class="col-md-1">정지</th></tr>
                    </thead>
         <tbody id="testappend3">
           <c:forEach  items="${list}" var="m">
           <c:if test= "${m.flag eq '3'.charAt(0)}"> 
-             <tr class="tt.col-xs-6">
+             <tr class="tt">
 				    <td>${m.id}</td>
 				    <td>${m.nik}</td>
 				    <td>${m.email}</td>
 				    <td>제공자</td>
 				    <td>${m.cdt}</td>
 				    <td>${m.memo}</td>
-                    <td><button class="btt btn-primary btn-xs"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
-                    <td><div class="detailbtn"><button class="supDetail btn-primary btn-xs"  data-toggle="modal" data-target="#supDetail" value="${m.nik}">상세보기</button></div></td>
-                    <td><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></td>
+                    <td><button class="btt btns btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
+                    <td><div class="detailbtn"><button id="detailAll" class="supDetail btns btns-outline-secondary"  data-toggle="modal" data-target="#supDetail" value="${m.nik}">상세보기</button></div></td>
+                    <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></td>
              </tr>
             </c:if>
           </c:forEach>
@@ -328,30 +404,30 @@ margin-top:20px;
        <div class="tab"  id="bt5"> 
               <table id="mytable" class="table table-bordred table-striped">         
                   <thead>                   
-                      <tr><th>아이디</th>
-                      <th>닉네임</th>
-                      <th>이메일</th>
-                      <th>등급</th>
-                      <th>가입일</th>
-                      <th>메모</th>
-                      <th>메모수정</th>
-                      <th>상세보기</th>
-                      <th>정지</th></tr>
+                      <tr><th class="col-md-1">아이디</th>
+                      <th class="col-md-1">닉네임</th>
+                      <th class="col-md-2">이메일</th>
+                      <th class="col-md-1">등급</th>
+                      <th class="col-md-2">가입일</th>
+                      <th class="col-md-2">메모</th>
+                      <th class="col-md-1">메모수정</th>
+                      <th class="col-md-1">상세보기</th>
+                      <th class="col-md-1">정지</th></tr>
                    </thead>
     <tbody id="testappend4">
          <c:forEach  items="${list}" var="m">
              <c:if test= "${m.flag eq '4'.charAt(0)}"> 
                 
-                <tr class="tt.col-xs-6">
+                <tr class="tt">
 				    <td>${m.id}</td>
 				    <td>${m.nik}</td>
 				    <td>${m.email}</td>
 				    <td>정지</td>
 				    <td>${m.cdt}</td>
 				    <td>${m.memo}</td>
-                    <td><button class="btt btn-primary btn-xs"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
-                    <td><div class="detailbtn"><button class="memberDetail btn-primary btn-xs"  data-toggle="modal" data-target="#memberDetail" value="${m.nik}">상세보기</button></div></td>
-                    <td><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></td>
+                    <td><button class="btt btns btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
+                    <td><div class="detailbtn"><button id="detailAll" class="memberDetail btns btns-outline-secondary"  data-toggle="modal" data-target="#memberDetail" value="${m.nik}">상세보기</button></div></td>
+                    <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></td>
              </tr>
              </c:if>
         </c:forEach>
@@ -371,8 +447,7 @@ margin-top:20px;
 </div>
 </div>
 </div>
-</div>
-     
+</div>     
 <!-- memo 모달 -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -391,7 +466,7 @@ margin-top:20px;
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-        <button type="button" class="gg btn btn-primary" >변경</button>
+        <button type="button" onclick=ssss() class="gg btn btn-primary" >변경</button>
       </div>
     </div>
   </div>
@@ -564,6 +639,38 @@ margin-top:20px;
 <!-- 서포터모달 끝 -->
 <script>
 
+function ssss(){
+	
+        swal({position: 'top-end',
+        		  type: 'success',
+        		  title: '변경하였습니다',
+        		  showConfirmButton: false})
+}
+/* feweafwefw */
+//메모 업데이트 해주는 function
+$('.gg').click(function(){
+     var texta = $(".texta").val();
+     var nik = $(".nikval").attr("value");
+        console.log(texta);
+     var values = {nik : nik,
+                  memo : texta}
+    
+     $.ajax({
+         type : "POST",
+            url : "update",
+            dateType : "json",
+            data :values, 
+           
+            success : function(data){
+                setTimeout("reset()", 1000);
+
+            }, error : function(request, status, error) {
+                alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+            }           
+    });
+});
+
+
 $(document).on("click",'.memberDetail',function(){
 	var m = $(this).val();
 	alert(m);
@@ -701,27 +808,11 @@ $(document).on("click",'.btt',function(){
    });	
 });
 	
-//메모 업데이트 해주는 function
-$('.gg').click(function(){
-     var texta = $(".texta").val();
-     var nik = $(".nikval").attr("value");
-        console.log(texta);
-     var values = {nik : nik,
-    		      memo : texta}
-    
-     $.ajax({
-    	 type : "POST",
-    	    url : "update",
-    	    dateType : "json",
-    	    data :values, 
-    	   
-    	    success : function(data){
-    	    	window.location.href=window.location.href;
-    	    }, error : function(request, status, error) {
-                alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
-            }           
-    });
-});
+
+
+function reset(){
+	window.location.href=window.location.href;
+}
 
 function check(){
 var data1= $('.date1').val();
@@ -825,7 +916,17 @@ $('#myCarousel').on('slid.bs.carousel', function (e) {
         $('#carousel-text').html($('#slide-content-'+id).html());
 });
    
-
+$('.tabs li').click(function(){
+    console.log('test');
+    var tab_id = $(this).attr('data-tab');
+    $('.tabs li').removeClass('active current');
+    $('.tab').css('display','none');
+     
+    $(this).addClass('active current');
+    $("#"+tab_id).css('display','contents');
+    
+});
 </script>
 </body>
+<jsp:include page="../footer.jsp"></jsp:include>
 </html>
