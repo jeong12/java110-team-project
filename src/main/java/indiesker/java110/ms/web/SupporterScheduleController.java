@@ -6,12 +6,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import indiesker.java110.ms.domain.Paging;
 import indiesker.java110.ms.domain.Schedule;
 import indiesker.java110.ms.domain.ScheduleTime;
 import indiesker.java110.ms.domain.Supporter;
@@ -21,9 +23,8 @@ import indiesker.java110.ms.service.ScheduleService;
 @RequestMapping("/myss")
 public class SupporterScheduleController {
 
-  ScheduleService scheduleService;
-  ServletContext sc;
-
+  @Autowired ScheduleService scheduleService;
+  @Autowired ServletContext sc;
 
   public SupporterScheduleController(ScheduleService scheduleService,
       ServletContext sc) {
@@ -33,71 +34,91 @@ public class SupporterScheduleController {
 
 
   @GetMapping("main")
-  public void main (
-      @RequestParam(defaultValue="1")int pageNo, 
-      @RequestParam(defaultValue="3")int pageSize, 
-      Model model) throws ParseException {
-
-    int sno =2;
-    if (pageNo < 1)
-      pageNo = 1;
-    if (pageSize < 3 || pageSize > 10)
-      pageSize = 9;
+  public void main (Model model,HttpSession session) throws ParseException {
     
+/*    Member member = (Member)session.getAttribute("loginUser");
+    int sno = member.getNo();*/
+    
+    int sno = 2;
     int flag=1;
-    List<Schedule> list = scheduleService.mysslist(sno, pageNo, pageSize);
-    List<Schedule> flist = scheduleService.findSuggestsbyflag(sno, flag, pageNo, pageSize);
-    List<Schedule> tlist = scheduleService.findoverdue(sno, pageNo, pageSize);
-    flag = 2;
-    List<Schedule> slist = scheduleService.findSuggestsbyflag(sno, flag, pageNo, pageSize);
+    Paging paging1 = new Paging();
+    Paging paging2 = new Paging();
+    Paging paging3 = new Paging();
+    Paging paging4 = new Paging();
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     SimpleDateFormat hformat = new SimpleDateFormat("HH:mm");
     SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat cformat = new SimpleDateFormat("yyyyMMdd");
     
-    String t = dformat.format(new Date());
-    Date today = new SimpleDateFormat("yyyy-MM-dd").parse(t);
+    int today = Integer.parseInt(cformat.format(new Date()));
+    paging1.setPageSize(10);
+    paging2.setPageSize(10);
+    paging3.setPageSize(10);
+    paging4.setPageSize(10);
 
+    // 전체
+    paging1.setTotalCount(scheduleService.totFindreqschedule(sno));
+    List<Schedule> list = scheduleService.mysslist(sno,paging1);
     for (Schedule s : list) {
       s.setNsdt(format.format(s.getSdt()));
       s.setNedt(hformat.format(s.getEdt()));
       s.setNcdt(dformat.format(s.getCdt()));
-      if(today.compareTo(new SimpleDateFormat("yyyy-MM-dd").parse(s.getNsdt()))>=0) {
-        if(s.getFlag() == '1')  s.setFlag('3');
+      if(today >=Integer.parseInt(cformat.format(s.getSdt())) ) {
+        if(s.getFlag() == '1') s.setFlag('3');
       }
-    }   
-
+    } 
+    model.addAttribute("list", list);
+    model.addAttribute("listpaging",paging1);
+    
+    // 신청중
+    paging2.setTotalCount(scheduleService.totfindSuggestsbyflag(sno, flag));
+    List<Schedule> flist = scheduleService.findSuggestsbyflag(sno, flag, paging2);
     for (Schedule s : flist) {
       s.setNsdt(format.format(s.getSdt()));
       s.setNedt(hformat.format(s.getEdt()));
       s.setNcdt(dformat.format(s.getCdt()));
-      if(today.compareTo(new SimpleDateFormat("yyyy-MM-dd").parse(s.getNsdt()))>=0) {
-        if(s.getFlag() == '1')  s.setFlag('3');
+      if(today >=Integer.parseInt(cformat.format(s.getSdt())) ) {
+        if(s.getFlag() == '1') s.setFlag('3');
       }
-    } 
-    for (Schedule s : slist) {
-      s.setNsdt(format.format(s.getSdt()));
-      s.setNedt(hformat.format(s.getEdt()));
-      s.setNcdt(dformat.format(s.getCdt()));
-    } 
+    }
+    model.addAttribute("flist", flist);
+    model.addAttribute("flistpaging", paging2);
+    
+    // 기한 만료
+    paging3.setTotalCount(scheduleService.totfindoverdue(sno));
+    List<Schedule> tlist = scheduleService.findoverdue(sno, paging3);
     for (Schedule s : tlist) {
       s.setNsdt(format.format(s.getSdt()));
       s.setNedt(hformat.format(s.getEdt()));
       s.setNcdt(dformat.format(s.getCdt()));
       s.setFlag('3');
     } 
-    
-    model.addAttribute("list", list);
-    model.addAttribute("flist", flist);
-    model.addAttribute("slist",slist);
     model.addAttribute("tlist", tlist);
+    model.addAttribute("tlistpaging",paging3);
+    
+    
+    // 완료
+    flag = 2;
+    paging4.setTotalCount(scheduleService.totfindSuggestsbyflag(sno, flag));
+    List<Schedule> slist = scheduleService.findSuggestsbyflag(sno, flag, paging4);
+    for (Schedule s : slist) {
+      s.setNsdt(format.format(s.getSdt()));
+      s.setNedt(hformat.format(s.getEdt()));
+      s.setNcdt(dformat.format(s.getCdt()));
+    } 
+    model.addAttribute("slist",slist);
+    model.addAttribute("slistpaging",paging4);
   }
 
 
   // 삭제 가능한 시간
   @ResponseBody
   @RequestMapping("showDate")
-  public List<Schedule> findunableSchedule(String date,Model model){
+  public List<Schedule> findunableSchedule(String date,Model model, HttpSession session){
 
+    /*    Member member = (Member)session.getAttribute("loginUser");
+    int no = member.getNo();*/
+    
     int no = 2;
     List<Schedule> slist = scheduleService.findunableSchedule(date, no);
     SimpleDateFormat format = new SimpleDateFormat("HH:mm");
@@ -112,11 +133,13 @@ public class SupporterScheduleController {
   // 신청 가능한 시간
   @ResponseBody
   @RequestMapping("showPossibleDate")
-  public List<String> findableSchedule(String date,Model model){
+  public List<String> findableSchedule(String date,Model model, HttpSession session){
 
+    /*    Member member = (Member)session.getAttribute("loginUser");
+    int no = member.getNo();*/
+    
     int no = 2;
     List<String> list = new ArrayList<>();
-    List<Schedule> rlist = new ArrayList<>();
     List<Schedule> slist = scheduleService.findunableSchedule(date, no);
 
     // String 으로 포맷 바꿔줌
@@ -154,7 +177,7 @@ public class SupporterScheduleController {
   @ResponseBody
   @RequestMapping("removeDate")
   public int removeStageDate(String[] stagedate, Model model){
-    int no = 2;
+    
     ArrayList<String> arr = new ArrayList<>();
 
     for(int i=0;i<stagedate.length;i++) {
@@ -168,9 +191,13 @@ public class SupporterScheduleController {
 
   @ResponseBody
   @RequestMapping("insertDate")
-  public int insertStageDate(String[] insertDate, String day, Model model){
+  public int insertStageDate(String[] insertDate, String day, Model model, HttpSession session){
     int size = insertDate.length;
     List<Schedule> rlist = new ArrayList<>();
+    
+    /*    Member member = (Member)session.getAttribute("loginUser");
+    int sno = member.getNo();*/
+    
     int no=2;
 
     for(int i=0;i<size;i++) {
@@ -192,12 +219,12 @@ public class SupporterScheduleController {
     int no = Integer.parseInt(brno);
     Schedule slist = scheduleService.showDatail(no);
      SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-     SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
      SimpleDateFormat hformat = new SimpleDateFormat("HH:mm");
+     SimpleDateFormat cformat = new SimpleDateFormat("yyyyMMdd");
      List<ScheduleTime> stlist = new ArrayList<>();
-     System.out.println(slist);
      
-      Date today = dformat.parse(dformat.format(new Date()));
+     int today = Integer.parseInt(cformat.format(new Date()));
+     
 
       for(int i=0;i<slist.getScheduletime().size();i++) {
         ScheduleTime st = new ScheduleTime();
@@ -205,19 +232,14 @@ public class SupporterScheduleController {
         st.setSnedt(hformat.format(slist.getScheduletime().get(i).getSedt()));
         st.setSssno(slist.getScheduletime().get(i).getSssno());
         st.setFlag(slist.getFlag());
-if(true) {
-        System.out.println(slist.getFlag());
-          if(today.compareTo(dformat.parse(slist.getScheduletime().get(i).getSnsdt()))<=0) {
-            System.out.println(dformat.parse(slist.getScheduletime().get(i).getSnsdt()));
+        if(slist.getFlag() == '1') {
+          if(today>=Integer.parseInt(cformat.format(slist.getScheduletime().get(i).getSsdt()))) {
             slist.setFlag('3');
           }
-          System.out.println("if");
-          
         }
         stlist.add(st);
       }
       slist.setScheduletime(stlist);
-      System.out.println(slist);
       return slist;  
   }
 
@@ -252,6 +274,65 @@ if(true) {
     return "redirect:main";
   }
 
+  
+  //paging 처리
+  @ResponseBody
+  @RequestMapping("page")
+  public List<Schedule> paging(String type,String pageNo, Paging paging, HttpSession session){
+    
+    /*    Member member = (Member)session.getAttribute("loginUser");
+    int sno = member.getNo();*/
+    int sno = 2;
+    paging.setPageNo(Integer.parseInt(pageNo));
+    paging.setPageSize(10);
+    
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    SimpleDateFormat hformat = new SimpleDateFormat("HH:mm");
+    SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat cformat = new SimpleDateFormat("yyyyMMdd");
+    
+    int today = Integer.parseInt(cformat.format(new Date()));
+
+    if(type.equals("list")) {
+      paging.setTotalCount(scheduleService.totFindreqschedule(sno));
+      List<Schedule> list = scheduleService.mysslist(sno,paging);
+      for (Schedule s : list) {
+        s.setNsdt(format.format(s.getSdt()));
+        s.setNedt(hformat.format(s.getEdt()));
+        s.setNcdt(dformat.format(s.getCdt()));
+        if(today >=Integer.parseInt(cformat.format(s.getSdt())) ) {
+          if(s.getFlag() == '1') s.setFlag('3');
+        }
+      }   
+      return list;
+    }else if(type.equals("flist")) {
+      int flag = 1;
+      paging.setTotalCount(scheduleService.totfindSuggestsbyflag(sno, flag));
+      List<Schedule> flist = scheduleService.findSuggestsbyflag(sno, flag, paging);
+      return flist;
+    }else if(type.equals("slist")) {
+      int flag = 2;
+      paging.setTotalCount(scheduleService.totfindSuggestsbyflag(sno, flag));
+      List<Schedule> slist = scheduleService.findSuggestsbyflag(sno, flag, paging);
+      for (Schedule s : slist) {
+        s.setNsdt(format.format(s.getSdt()));
+        s.setNedt(hformat.format(s.getEdt()));
+        s.setNcdt(dformat.format(s.getCdt()));
+      }
+      return slist;
+    }else if(type.equals("tlist")) {
+      paging.setTotalCount(scheduleService.totfindoverdue(sno));
+      List<Schedule> tlist = scheduleService.findoverdue(sno, paging);
+      for (Schedule s : tlist) {
+        s.setNsdt(format.format(s.getSdt()));
+        s.setNedt(hformat.format(s.getEdt()));
+        s.setNcdt(dformat.format(s.getCdt()));
+        s.setFlag('3');
+      }
+      return tlist;
+    }
+    return null;
+  }
 
 
 

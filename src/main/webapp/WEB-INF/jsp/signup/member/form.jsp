@@ -5,11 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Indisker : 일반 회원 가입</title>
-<script src="/js/signupMember.js" type="text/javascript"></script>
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
+<link href="/../css/common.css" rel="stylesheet">
 <style>
 th {
 	text-align: right;
@@ -123,7 +120,7 @@ input[type=checkbox]:checked+label{
 	padding-top: 20px;
 }
 
-.signupbtn:disabled {
+/* .signupbtn:disabled {
 	cursor: not-allowed;
 	background-color: #aaaaaa;
 	border-radius: 12px;
@@ -132,7 +129,7 @@ input[type=checkbox]:checked+label{
 .signupbtn {
 	background-color: #1FBC02;
 	border-radius: 12px;
-}
+} */
 </style>
 </head>
 <jsp:include page="../../header.jsp"></jsp:include>
@@ -189,17 +186,23 @@ input[type=checkbox]:checked+label{
 			  <input type="checkbox" name="genre" onclick="ChkCount(this)" value="rap" id="rap"> 
 			  <label for="rap" class='chklabel'>랩</label>
 			     <p>팬으로 가입하셔도, 이후 메인화면의 <br> '버스커되기' '제공자되기'로 변경 가능합니다.</p>
-					<button class="signupbtn" disabled="disabled" onclick="sendMsg()"
+					<button class="btns btns-outline-secondary" onclick="sendMsg()"
 						name="type" value="fan">팬으로 가입</button>
-					<button class="signupbtn" disabled="disabled" onclick="sendMsg()"
+					<button class="btns btns-outline-secondary" onclick="sendMsg()"
 						name="type" value="busker">버스커로 가입</button>
-					<button class="signupbtn" disabled="disabled" onclick="sendMsg()"
+					<button class="btns btns-outline-secondary" onclick="sendMsg()"
 						name="type" value="supporter">무대 제공자로 가입</button>
 				</form>
 			</div>
 		</div>
 	</div>
 </div>
+
+<script src="/js/signupMember.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
 </body>
 <jsp:include page="../../footer.jsp"></jsp:include>
 </html>

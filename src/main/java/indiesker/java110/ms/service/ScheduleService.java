@@ -2,6 +2,7 @@ package indiesker.java110.ms.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import indiesker.java110.ms.domain.Paging;
 import indiesker.java110.ms.domain.Schedule;
 
 public interface ScheduleService {
@@ -11,11 +12,11 @@ public interface ScheduleService {
     List<Schedule> findbydate(String no, String date);
     List<Schedule> findbyflag(String flag, int pageNo, int pageSize);
     void addStageSchedule(Schedule schedule);
-    List<Schedule> mysslist(int no, int pageNo, int PageSize);
+    List<Schedule> mysslist(int no, Paging paging);
     Schedule myperdetail(int no);
     Schedule myreqdetail(int no);
     List<Schedule> chkStageDate(int no, String date);
-    List<Schedule> findSuggestsbyflag(int no, int flag, int pageNo, int pageSize);
+    List<Schedule> findSuggestsbyflag(int no, int flag, Paging paging);
     List<Schedule> findunableSchedule(String date, int no);
     int removeStageDates(ArrayList<String> arr);
     int insertStageDates(List<Schedule> rlist);
@@ -41,5 +42,8 @@ public interface ScheduleService {
     int checkeditperschedule(String sdt, String edt, String nsdt, String nedt, int no);
     int checkeditreqschedule(String sdt, String edt, String nsdt, String nedt, int no);
     List<Schedule> searchScehdule(String type, String keyword, String date);
-    List<Schedule> findoverdue(int no, int pageNo, int pageSize);
+    List<Schedule> findoverdue(int no, Paging paging);
+    int totFindreqschedule(int no);
+    int totfindSuggestsbyflag(int no, int flag);
+    int totfindoverdue(int no);
 }

@@ -532,6 +532,8 @@ $('#editbtn').click(function(){
 	var starttime = fulltime.substring(0,16);
 	var endtime = fulltime.substring(fulltime.length-5,fulltime.length);
 	
+	console.log(fulltime);
+	
 	$('#EditScheduleModal #shopname').val($('#detailperModal .pershopname').text());
 	$('#EditScheduleModal #editstarttimepicker').val(starttime);
 	$('#EditScheduleModal #editendtimepicker').val(endtime);

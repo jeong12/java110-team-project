@@ -40,10 +40,6 @@
 	margin-left: 30%
 }
 
-
-p{
-    width: 400px;
-}
 .fc-day-number.fc-sat.fc-past { color:#0000FF; }     /* 토요일 */
 .fc-day-number.fc-sun.fc-past { color:#FF0000; }    /* 일요일 */
 

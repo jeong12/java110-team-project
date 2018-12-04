@@ -42,10 +42,11 @@ public interface ScheduleDao {
   List<Schedule> findMyAllSchedulebyflag(Map<String,Object> params);
   int ApplyStagesinBuskstag(Map<String,Object> params);
   int totFindreqschedule(int no);
-  int totfindSuggestsbyflag(int no);
+  int totfindSuggestsbyflag(Map<String, Object> params);
   int checkeditperschedule(Map<String, Object> params);
   int checkeditreqschedule(Map<String, Object> params); 
   List<Schedule> searchSchedule(Map<String,Object> params);
   List<Schedule> findoverdue(Map<String,Object> params);
+  int totfindoverdue(int no);
   
 }
