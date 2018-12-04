@@ -60,7 +60,7 @@ public class FollowerController {
 	
 	
 	@ResponseBody
-	@PostMapping(value="clickDetail")
+	@PostMapping(value="followerdetail")
 	public Follower clickDetail(int bno) {
 		System.out.println(bno);
 		Follower findDetail = followerService.findDetail(bno);

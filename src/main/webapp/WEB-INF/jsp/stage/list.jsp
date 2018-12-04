@@ -7,15 +7,18 @@
 <head>
 <meta charset="UTF-8">
 <title>무대 목록</title>
+<link rel="stylesheet" href="/css/common.css"/>
 <link
     href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"
     rel="stylesheet" id="bootstrap-css">
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
 <script
     src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+
+
+
 <script>
     $(window).on('load', function() {
         load('.js-load', '12');
@@ -36,8 +39,52 @@
         }
         $(girls_list + ":lt(" + girls_total_cnt + ")").addClass("active");
     }
+    
+  //장르별로 표시
+/*     $(document).ready(function(){
+
+        $(".filter-button").click(function(){
+            var value = $(this).attr('data-filter');
+            
+            if(value == "all")
+            {
+                //$('.filter').removeClass('hidden');
+                $('.filter').show('1000');
+            }
+            else
+            {
+//                $('.filter[filter-item="'+value+'"]').removeClass('hidden');
+//                $(".filter").not('.filter[filter-item="'+value+'"]').addClass('hidden');
+                $(".filter").not('.'+value).hide('3000');
+                $('.filter').filter('.'+value).show('3000');
+                
+            }
+        });
+        
+        if ($(".filter-button").removeClass("active")) {
+    $(this).removeClass("active");
+    }
+    $(this).addClass("active");
+
+    });  */
 </script>
 <style>
+#genrediv{
+margin-top: 80px;
+}
+.filter-button{
+margin: 5px;
+}
+
+
+.teamnametr{
+text-align: center;
+}
+
+#js-btn-wrap{
+margin-bottom : 300px;
+}
+
 .teamPhotoImg {
     width: 250px;
     height: 250px;
@@ -55,7 +102,7 @@
     margin: 10px;
 }
 
-h2 {
+#titl2 {
     margin-top: -50px;
     margin-left: 70px;
 }
@@ -67,12 +114,6 @@ body {
 #td3 {
     text-align: right;
     vertical-align: bottom;
-}
-
-ul li {
-    list-style-type: none;
-    line-height: 30px;
-    width: 80%;
 }
 
 .td2 {
@@ -106,10 +147,11 @@ ul li {
 }
 </style>
 </head>
+<jsp:include page="../header.jsp"></jsp:include>
 <body>
     <div id="titl">
         <img id="logo" src="../../img/playButton.PNG" alt="플레이로고">
-        <h2>무대 목록</h2>
+        <h2 id=titl2>무대 목록</h2>
     </div>
     <div class="container">
         <div class="row">
@@ -126,29 +168,42 @@ ul li {
                 <div class="input-group">
                     <div class="input-group-btn search-panel">
                         <select id="selectsearch" class="btn btn-default dropdown-toggle">
-                            <option value="city">도시</option>
+                            <option value="city">지역</option>
                             <option value="teamname" selected="selected">팀명</option>
-                            <option value="genre">장르</option>
+                            <!-- <option value="genre">장르</option> -->
                         </select>
                     </div>
                     <input type="text" class="form-control" name="city"
                         placeholder="정보를 입력해주세요" onkeydown="pushenter()"> <span
                         class="input-group-btn">
-                        <button class="btn btn-default" id="selectsearchbtn"
-                            onclick="PageMove()">
+                        <button class="btn btn-default" id="selectsearchbtn" onclick="PageMove()">
                             <span class="glyphicon glyphicon-search"></span>
                         </button> <input type="hidden" name="searchType"
                         value="<%=request.getParameter("searchType") != null ? request.getParameter("searchType") : ""%>" />
                         <input type="hidden" name="keyword"
                         value="<%=request.getParameter("keyword") != null ? request.getParameter("keyword") : ""%>" />
-                        <!-- <button class="btn btn-default" id="selectsearchbtn" onclick="button1_click();"><span class="glyphicon glyphicon-search"></span></button> -->
                     </span>
 
                 </div>
 
                 <!-- </form>  -->
             </div>
+            
         </div>
+            <!--         
+            <div id="genrediv" align="center">
+            <button class="btn btn-default filter-button" data-filter="all">All</button>
+            <button class="btn btn-default filter-button" data-filter="ballad">발라드</button>
+            <button class="btn btn-default filter-button" data-filter="dance">댄스</button>
+            <button class="btn btn-default filter-button" data-filter="trot">트로트</button>
+            <button class="btn btn-default filter-button" data-filter="folk">포크</button>
+            <button class="btn btn-default filter-button" data-filter="rock">락</button>
+            <button class="btn btn-default filter-button" data-filter="jazz">재즈</button>
+            <button class="btn btn-default filter-button" data-filter="country">컨츄리</button>
+            <button class="btn btn-default filter-button" data-filter="rnb">알앤비</button>
+            <button class="btn btn-default filter-button" data-filter="rap">랩</button>
+            </div>
+            -->
     </div>
 
     <div class="container">
@@ -158,49 +213,21 @@ ul li {
                     <div class="table table-list-search">
 
                         <c:forEach items="${list}" var="list">
-                            <div
-                                class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${tf.teamgenre}">
-                                <button class="js-load">
+                            <div class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${list.genre}">
+                                <a href="/app/applystages/page?sno=${list.sno}" class="js-load">
                                     <table>
                                         <tr>
                                             <td><img src="../../img/${list.photoName}.png"
                                                 class="teamPhotoImg"></td>
                                         </tr>
-                                        <tr>
+                                        <tr class="teamnametr">
                                             <td>${list.name}</td>
                                         </tr>
                                     </table>
-                                </button>
+                                </a>
                             </div>
                         </c:forEach>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="main">
-                    <div class="table table-list-search">
-                        <c:forEach items="${city}" var="city">
-                            <div
-                                class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${tf.teamgenre}">
-                                <button class="js-load">
-                                    <table>
-                                        <tr>
-                                            <td><img src="../../img/${city.photoName}.png"
-                                                class="teamPhotoImg"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>${city.name}</td>
-                                        </tr>
-                                    </table>
-                                </button>
-                            </div>
-                        </c:forEach>
                     </div>
                 </div>
             </div>
@@ -213,19 +240,18 @@ ul li {
                 <div class="main">
                     <div class="table table-list-search">
                         <c:forEach items="${name}" var="name">
-                            <div
-                                class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${tf.teamgenre}">
-                                <button class="js-load">
+                            <div class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${name.genre}">
+                                <a href="/app/applystages/page?sno=${name.sno}" class="js-load">
                                     <table>
                                         <tr>
                                             <td><img src="../../img/${name.photoName}.png"
                                                 class="teamPhotoImg"></td>
                                         </tr>
-                                        <tr>
+                                        <tr class="teamnametr">
                                             <td>${name.name}</td>
                                         </tr>
                                     </table>
-                                </button>
+                                </a>
                             </div>
                         </c:forEach>
                     </div>
@@ -240,19 +266,18 @@ ul li {
                 <div class="main">
                     <div class="table table-list-search">
                         <c:forEach items="${local}" var="local">
-                            <div
-                                class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${tf.teamgenre}">
-                                <button class="js-load">
+                            <div class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${local.genre}">
+                                <a href="/app/applystages/page?sno=${local.sno}" class="js-load">
                                     <table>
                                         <tr>
                                             <td><img src="../../img/${local.photoName}.png"
                                                 class="teamPhotoImg"></td>
                                         </tr>
-                                        <tr>
+                                        <tr class="teamnametr">
                                             <td>${local.name}</td>
                                         </tr>
                                     </table>
-                                </button>
+                                </a>
                             </div>
                         </c:forEach>
                     </div>
@@ -267,19 +292,17 @@ ul li {
                 <div class="main">
                     <div class="table table-list-search">
                         <c:forEach items="${genre}" var="genre">
-                            <div
-                                class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${tf.teamgenre}">
-                                <button class="js-load">
+                            <div class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${genre.genre}">
+                                <a href="/app/applystages/page?sno=${genre.sno}" class="js-load">
                                     <table>
                                         <tr>
-                                            <td><img src="../../img/${genre.photoName}.png"
-                                                class="teamPhotoImg"></td>
+                                            <td><img src="../../img/${genre.photoName}.png" class="teamPhotoImg"></td>
                                         </tr>
-                                        <tr>
+                                        <tr class="teamnametr">
                                             <td>${genre.name}</td>
                                         </tr>
                                     </table>
-                                </button>
+                                </a>
                             </div>
                         </c:forEach>
                     </div>
@@ -292,10 +315,22 @@ ul li {
         <a href="javascript:;" class="more-button">더보기</a>
     </div>
 
-
+    <script src="//code.jquery.com/ui/1.8.18/jquery-ui.js"></script>    
     <script>
+    //jequery-ui안에서 msie 프로퍼티를 불러오기 위한 jQery.browser 가 없어서 따로 만들어놓음 
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+    
+    
     //날짜 선택
-    $.datepicker.setDefaults({
+     $.datepicker.setDefaults({
       dateFormat: 'yy-mm',
       prevText: '이전 달',
       nextText: '다음 달',
@@ -306,7 +341,7 @@ ul li {
       dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
       showMonthAfterYear: true,
       yearSuffix: '년'
-    });
+    }); 
 
     var rangeDate = 365; // set limit day
     var setSdate, setEdate;
@@ -338,7 +373,7 @@ ul li {
             console.log(setEdate)
         }
     });
-    $('.selectsearchbtn').on('click', function(e){
+     $('.selectsearchbtn').on('click', function(e){
         if($('input#from').val() == ''){
             alert('시작일을 선택해주세요.');
             $('input#from').focus();
@@ -347,7 +382,7 @@ ul li {
             alert('종료일을 선택해주세요.');
             $('input#to').focus();
             return false;
-        }
+        } 
 
         var t1 = $('input#from').val().split("-");
         var t2 = $('input#to').val().split("-");
@@ -396,5 +431,5 @@ ul li {
         }
     </script>
 </body>
-
+<jsp:include page="../footer.jsp"></jsp:include>
 </html>

@@ -4,12 +4,21 @@ import java.sql.Date;
 
 public class StageList {
 
+  
+  protected int sno;
   protected String photoName;
   protected String name;
   protected Date startDate;
   protected Date endDate;
   protected String local;
   protected String genre;
+  
+  public int getSno() {
+	return sno;
+}
+  public void setSno(int sno) {
+	this.sno = sno;
+}
   public String getPhotoName() {
     return photoName;
   }

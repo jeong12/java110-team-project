@@ -5,6 +5,7 @@
 <mapper namespace="indiesker.java110.ms.dao.TotalFeedDao">
 
     <resultMap type="Busker" id="findTotalFeedMap">
+        <id column="bno"  property="bno"/>
         <result column="name"  property="teamname"/>
         <result column="genre"  property="teamgenre"/>
         <result column="city"  property="city"/>
@@ -14,7 +15,7 @@
     </resultMap>
 
     <select id="findTotalFeed" resultMap="findTotalFeedMap" parameterType="string">
-select b.name, b.genre, b.phot, b.city, b.lcnt, m.cdt
+select b.bno, b.name, b.genre, b.phot, b.city, b.lcnt, m.cdt
 from busk b join memb m on b.bno = m.mno
   <choose>
     <when test="value != null and value.equals('lcnt')">
@@ -30,7 +31,7 @@ from busk b join memb m on b.bno = m.mno
     </select>
     
     <select id="findByCity" resultMap="findTotalFeedMap" parameterType="map">
-select b.name, b.genre, b.phot, b.city, b.lcnt, m.cdt
+select b.bno, b.name, b.genre, b.phot, b.city, b.lcnt, m.cdt
 from busk b join memb m on b.bno = m.mno
 where city like #{keyword}
 <choose>
@@ -47,7 +48,7 @@ where city like #{keyword}
     </select>
     
     <select id="findByTeamname" resultMap="findTotalFeedMap" parameterType="map">
-select b.name, b.genre, b.phot, b.city, b.lcnt, m.cdt
+select b.bno, b.name, b.genre, b.phot, b.city, b.lcnt, m.cdt
 from busk b join memb m on b.bno = m.mno
 where b.name like #{keyword}
 <choose>
@@ -64,7 +65,7 @@ where b.name like #{keyword}
     </select>
     
     <select id="findByGenre" resultMap="findTotalFeedMap" parameterType="map">
-select b.name, b.genre, b.phot, b.city, b.lcnt, m.cdt
+select b.bno, b.name, b.genre, b.phot, b.city, b.lcnt, m.cdt
 from busk b join memb m on b.bno = m.mno
 where b.genre like #{keyword}
 <choose>
