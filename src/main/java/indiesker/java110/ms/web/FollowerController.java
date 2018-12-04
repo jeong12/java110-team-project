@@ -35,7 +35,8 @@ public class FollowerController {
 			
 			@RequestParam(defaultValue="1") int pageNo,
             @RequestParam(defaultValue="9") int pageSize,
-			Model model) {
+			Model model,
+			int no) {
 	
         if (pageNo < 1)
             pageNo = 1;
@@ -43,7 +44,7 @@ public class FollowerController {
         if (pageSize < 1 || pageSize > 9)
             pageSize = 9;
 		
-	int no = 6;//일단 6번 회원입력
+	//int no = 6;//일단 6번 회원입력
 	
 	List<Follower> followerList = followerService.findList(no,pageNo, pageSize);
 	model.addAttribute("followerList", followerList);

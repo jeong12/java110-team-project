@@ -74,6 +74,10 @@
 	}); 
 </script>
 <style>
+#bodybody{
+min-height: 700px;
+}
+
 .teamnametr{
 text-align: center;
 }
@@ -83,8 +87,8 @@ margin-top: 20px;
 }
 
 #js-btn-wrap{
-
-margin-bottom : 300px;
+margin-top: 50px;
+margin-bottom : 150px;
 }
 
 .teamPhotoImg {
@@ -108,10 +112,6 @@ margin-bottom : 300px;
 	margin-top: -50px;
 	margin-left: 70px;
 	margin-bottom: 30px;
-}
-
-body {
-	margin-top: 20px;
 }
 
 #td3 {
@@ -147,6 +147,7 @@ body {
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
 <body>
+<div id=bodybody>
 	<div id="titl">
 		<img id="logo" src="../../img/playButton.PNG" alt="플레이로고">
 		<h2 id="titl2">전체 피드 보기</h2>
@@ -216,6 +217,7 @@ body {
 			
 		</div>
 	</div>
+
 
 	<div class="container">
 		<div class="row">
@@ -299,7 +301,7 @@ body {
 			</div>
 		</div>
 	</div>
-
+</div>
 	<div id="js-btn-wrap" class="btn-wrap">
 		<a href="javascript:;" class="more-button">더보기</a>
 	</div>

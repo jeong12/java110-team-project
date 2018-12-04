@@ -29,13 +29,17 @@
     margin: 10px;
 }
 
+#bodybody{
+    min-height: 700px;
+}
+
 /*페이지네이션*/
 .OutOfpagination {
     text-align: center;
 }
 
 .pagination {
-    margin-bottom: 300px;
+    margin-bottom: 150px;
     display: inline-block;
     color: #01DF01;
     text-decoration: none;
@@ -135,60 +139,56 @@ text-align: center;
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
 <body>
+<div id="bodybody">
     <div id="titl">
         <h2><img id="logo" src="../../img/playButton.PNG" alt="플레이로고">Follow 리스트</h2>
     </div>
 
-<div class="bigdiv">
-<div class="container">
+    <div class="container">
         <div class="row">
-
-        <div id="followPagenation">
-            <c:forEach items="${followerList}" var="bno">
-            <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter ${bno.teamgenre}">
-	                <a href="#wrapfollowerdetail" value="${bno.bno}" class="followerbtn">
-		                <table class="innertable">
-		                    <tr><td><img src="../../img/${bno.teamPhoto}" class="teamPhotoImg"></td></tr> 
-		                    <%-- <tr><td>${bno.teamPhoto}</td></tr> --%>
-		                    <tr><td>${bno.teamname}</td></tr>
-		                </table>
-	                </a> 
+            <div id="followPagenation">
+                <c:forEach items="${followerList}" var="bno">
+                    <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter ${bno.teamgenre}">
+	                   <a href="#wrapfollowerdetail" value="${bno.bno}" class="followerbtn">
+		                   <table class="innertable">
+		                       <tr><td><img src="../../img/${bno.teamPhoto}" class="teamPhotoImg"></td></tr> 
+		                       <tr><td>${bno.teamname}</td></tr>
+		                   </table>
+	                   </a>
+                    </div>
+                </c:forEach>
             </div>
-            </c:forEach>
         </div>
-        </div>
-    
-    
-<!-- 페이지네이션 -->
-
- 
-<div class="toolbar-bottom">
-  <div class="toolbar mt-lg">
-    <div class="sorter">
-    <div class="OutOfpagination">
-      <ul class="pagination">
-               <c:forEach var="i"  begin="${pageMove.startPageNo}" end="${pageMove.endPageNo}" step="1">
-                        <li><a href="javascript:PageMove(${i})" style="color: #000000;">${i}</a></li>
-              </c:forEach> 
-      </ul>
-      </div>
     </div>
-  </div>
 </div>
-</div>
+<!-- 페이지네이션 -->
+    <div class="toolbar-bottom">
+        <div class="toolbar mt-lg">
+            <div class="sorter">
+                <div class="OutOfpagination">
+                    <ul class="pagination">
+                        <c:forEach var="i"  begin="${pageMove.startPageNo}" end="${pageMove.endPageNo}" step="1">
+                            <li><a href="javascript:PageMove(${i})" style="color: #000000;">${i}</a></li>
+                        </c:forEach> 
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 <!--우측 자세히 보기-->
- <div id="wrapfollowerdetail" class="wrapfollowerdetail">
-    <div>
-        <table id="followerdetail">
-            <tbody>
+    <div id="wrapfollowerdetail" class="wrapfollowerdetail">
+        <div>
+            <table id="followerdetail">
+                <tbody>
                              <a href="#close">닫기</a> 
                             
-            </tbody>
-        </table>
-    </div>
- </div>       
-</div>
+                </tbody>
+            </table>
+        </div>
+    </div>       
+
 <script>
 //페이징
 

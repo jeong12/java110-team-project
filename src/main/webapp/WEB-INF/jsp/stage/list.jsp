@@ -69,6 +69,15 @@
     });  */
 </script>
 <style>
+body{
+margin: 0px;
+padding: 0px;
+}
+
+#bodybody{
+    min-height: 700px;
+}
+
 #genrediv{
 margin-top: 80px;
 }
@@ -100,15 +109,6 @@ margin-bottom : 300px;
     width: 50px;
     height: 50px;
     margin: 10px;
-}
-
-#titl2 {
-    margin-top: -50px;
-    margin-left: 70px;
-}
-
-body {
-    margin-top: 20px;
 }
 
 #td3 {
@@ -149,9 +149,10 @@ body {
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
 <body>
+<div id="bodybody">
     <div id="titl">
-        <img id="logo" src="../../img/playButton.PNG" alt="플레이로고">
-        <h2 id=titl2>무대 목록</h2>
+        <h2><img id="logo" src="../../img/playButton.PNG" alt="플레이로고">무대 목록</h2>
+        
     </div>
     <div class="container">
         <div class="row">
@@ -310,7 +311,7 @@ body {
             </div>
         </div>
     </div>
-
+</div>
     <div id="js-btn-wrap" class="btn-wrap">
         <a href="javascript:;" class="more-button">더보기</a>
     </div>
