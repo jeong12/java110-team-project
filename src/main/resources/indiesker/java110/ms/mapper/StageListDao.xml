@@ -6,8 +6,10 @@
 <mapper namespace="indiesker.java110.ms.dao.StageListDao">
 
     <resultMap type="StageList" id="StageMap">
+        <id column="sno"  property="sno"/>
         <result column="name"  property="name"/>
         <result column="phot"  property="photoName"/>
+        <result column="genre"  property="genre"/>
     </resultMap>
 
 <select id="findAll" resultMap="StageMap" parameterType="map">

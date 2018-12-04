@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>전체 피드 보기</title>
+<link rel="stylesheet" href="/css/common.css"/> 
 <link
 	href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
@@ -43,8 +44,53 @@
 		}
 		$(girls_list + ":lt(" + girls_total_cnt + ")").addClass("active");
 	}
+	
+	//장르별로 표시
+	$(document).ready(function(){
+
+	    $(".filter-button").click(function(){
+	        var value = $(this).attr('data-filter');
+	        
+	        if(value == "all")
+	        {
+	            //$('.filter').removeClass('hidden');
+	            $('.filter').show('1000');
+	        }
+	        else
+	        {
+//	            $('.filter[filter-item="'+value+'"]').removeClass('hidden');
+//	            $(".filter").not('.filter[filter-item="'+value+'"]').addClass('hidden');
+	            $(".filter").not('.'+value).hide('3000');
+	            $('.filter').filter('.'+value).show('3000');
+	            
+	        }
+	    });
+	    
+	    if ($(".filter-button").removeClass("active")) {
+	$(this).removeClass("active");
+	}
+	$(this).addClass("active");
+
+	}); 
 </script>
 <style>
+#bodybody{
+min-height: 700px;
+}
+
+.teamnametr{
+text-align: center;
+}
+
+.container {
+margin-top: 20px;
+}
+
+#js-btn-wrap{
+margin-top: 50px;
+margin-bottom : 150px;
+}
+
 .teamPhotoImg {
 	width: 250px;
 	height: 250px;
@@ -62,24 +108,15 @@
 	margin: 10px;
 }
 
-h2 {
+#titl2 {
 	margin-top: -50px;
 	margin-left: 70px;
-}
-
-body {
-	margin-top: 20px;
+	margin-bottom: 30px;
 }
 
 #td3 {
 	text-align: right;
 	vertical-align: bottom;
-}
-
-ul li {
-	list-style-type: none;
-	line-height: 30px;
-	width: 80%;
 }
 
 .td2 {
@@ -108,10 +145,12 @@ ul li {
 }
 </style>
 </head>
+<jsp:include page="../header.jsp"></jsp:include>
 <body>
+<div id=bodybody>
 	<div id="titl">
 		<img id="logo" src="../../img/playButton.PNG" alt="플레이로고">
-		<h2>전체 피드 보기</h2>
+		<h2 id="titl2">전체 피드 보기</h2>
 	</div>
 	<div class="container">
 		<div class="row">
@@ -122,7 +161,7 @@ ul li {
 						<select id="selectsearch" class="btn btn-default dropdown-toggle">
 							<option value="city">도시</option>
 							<option value="teamname" selected="selected">팀명</option>
-							<option value="genre">장르</option>
+							<!-- <option value="genre">장르</option> -->
 						</select>
 					</div>
 					<input type="text" class="form-control" name="city"
@@ -162,8 +201,23 @@ ul li {
 					<label for="cdt">최신순</label>
 				</div>
 			</div>
+			
+			<div align="center">
+            <button class="btn btn-default filter-button" data-filter="all">All</button>
+            <button class="btn btn-default filter-button" data-filter="ballad">발라드</button>
+            <button class="btn btn-default filter-button" data-filter="dance">댄스</button>
+            <button class="btn btn-default filter-button" data-filter="trot">트로트</button>
+            <button class="btn btn-default filter-button" data-filter="folk">포크</button>
+            <button class="btn btn-default filter-button" data-filter="rock">락</button>
+            <button class="btn btn-default filter-button" data-filter="jazz">재즈</button>
+            <button class="btn btn-default filter-button" data-filter="country">컨츄리</button>
+            <button class="btn btn-default filter-button" data-filter="rnb">알앤비</button>
+            <button class="btn btn-default filter-button" data-filter="rap">랩</button>
+            </div>
+			
 		</div>
 	</div>
+
 
 	<div class="container">
 		<div class="row">
@@ -174,17 +228,17 @@ ul li {
 						<c:forEach items="${totalFeed}" var="tf">
 							<div
 								class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${tf.teamgenre}">
-								<button class="js-load">
+								<a href="/app/buskerfeed/enter?bno=${tf.bno}" class="js-load">
 									<table>
 										<tr>
 											<td><img src="../../img/${tf.teamPhoto}.png"
 												class="teamPhotoImg"></td>
 										</tr>
-										<tr>
+										<tr class="teamnametr">
 											<td>${tf.teamname}</td>
 										</tr>
 									</table>
-								</button>
+								</a>
 							</div>
 						</c:forEach>
 
@@ -202,17 +256,17 @@ ul li {
 						<c:forEach items="${city}" var="tf">
 							<div
 								class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${tf.teamgenre}">
-								<button class="js-load">
+								<a href="/app/buskerfeed/enter?bno=${tf.bno}" class="js-load">
 									<table>
 										<tr>
 											<td><img src="../../img/${tf.teamPhoto}.png"
 												class="teamPhotoImg"></td>
 										</tr>
-										<tr>
+										<tr class="teamnametr">
 											<td>${tf.teamname}</td>
 										</tr>
 									</table>
-								</button>
+								</a>
 							</div>
 						</c:forEach>
 					</div>
@@ -229,17 +283,17 @@ ul li {
 						<c:forEach items="${teamname}" var="tf">
 							<div
 								class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${tf.teamgenre}">
-								<button class="js-load">
+								<a href="/app/buskerfeed/enter?bno=${tf.bno}" class="js-load">
 									<table>
 										<tr>
 											<td><img src="../../img/${tf.teamPhoto}.png"
 												class="teamPhotoImg"></td>
 										</tr>
-										<tr>
+										<tr class="teamnametr">
 											<td>${tf.teamname}</td>
 										</tr>
 									</table>
-								</button>
+								</a>
 							</div>
 						</c:forEach>
 					</div>
@@ -247,7 +301,7 @@ ul li {
 			</div>
 		</div>
 	</div>
-
+</div>
 	<div id="js-btn-wrap" class="btn-wrap">
 		<a href="javascript:;" class="more-button">더보기</a>
 	</div>
@@ -299,5 +353,5 @@ ul li {
 		}
 	</script>
 </body>
-
+<jsp:include page="../footer.jsp"></jsp:include>
 </html>

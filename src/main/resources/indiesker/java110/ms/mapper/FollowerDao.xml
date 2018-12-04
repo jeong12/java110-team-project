@@ -39,7 +39,7 @@
 
 <!-- 즐겨찾기 우측 자세히 보기 -->
 <select id="findDetail" resultMap="followerMap" parameterType="int">
-    SELECT name, genre, city, intro, phot 
+    SELECT bno, name, genre, city, intro, phot 
     FROM busk 
     where bno=#{bno}
 </select>

@@ -68,7 +68,7 @@ body .container {
 </style>
 <body>
 
-  <%-- <jsp:include page="../header.jsp"></jsp:include> --%>
+  <jsp:include page="../header.jsp"></jsp:include>
   <div class="feedpage" style="margin: 0 300px 0 300px;">
     <div class="container"
       style="width: 750px; padding: 0 20px 20px 20px;">
@@ -578,7 +578,7 @@ h2 {
              })
              */
         </script>
-  <%-- <jsp:include page="../footer.jsp"></jsp:include> --%>
+  <jsp:include page="../footer.jsp"></jsp:include>
 </body>
 </html>
 

@@ -76,6 +76,7 @@
 } */
     </style>
 </head>
+<jsp:include page="../header.jsp"></jsp:include>
 <body>
           
           <h1 id="titlefind"><i class="fas fa-arrow-alt-circle-right"></i>아이디 비밀번호 찾기</h1>
@@ -128,5 +129,5 @@
                   
            </div>
 </body>
-
+<jsp:include page="../footer.jsp"></jsp:include>
 </html>

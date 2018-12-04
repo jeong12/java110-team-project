@@ -5,10 +5,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>FollowList</title>
+<link rel="stylesheet" href="/css/common.css"/>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 <!--     <link
     href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     rel="stylesheet" id="bootstrap-css">
@@ -27,12 +29,17 @@
     margin: 10px;
 }
 
+#bodybody{
+    min-height: 700px;
+}
+
 /*페이지네이션*/
 .OutOfpagination {
     text-align: center;
 }
 
 .pagination {
+    margin-bottom: 150px;
     display: inline-block;
     color: #01DF01;
     text-decoration: none;
@@ -66,32 +73,6 @@
     height: 45px;
     border-bottom: 1px solid #5e5e5e;
 }
-.filter-button
-{
-    font-size: 18px;
-    border: 1px solid #42B32F;
-    border-radius: 5px;
-    text-align: center;
-    color: #42B32F;
-    margin-bottom: 30px;
-
-}
-.filter-button:hover
-{
-    font-size: 18px;
-    border: 1px solid #42B32F;
-    border-radius: 5px;
-    text-align: center;
-    color: #ffffff;
-    background-color: #42B32F;
-
-}
-.btn-default:active .filter-button:active
-{
-    text-decoration: none;
-    background-color: #42B32F;
-    color: white;
-}
 
 .port-image
 {
@@ -104,14 +85,37 @@
 }
 
 /*오른쪽 자세히*/
+.wrapfollowerdetail:target {
+    opacity:1;
+    pointer-events: auto;
+}
+
 .wrapfollowerdetail{
-transform:translate(-35%, 15%);
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    opacity:0;
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+    pointer-events: none;
 }
-#followerdetail{
-width : 300px;
-text-align: center;
-border: 1px black;
+
+.wrapfollowerdetail > div {
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    width: 50%;
+    height: 50%;
+    padding: 8px;
+    border: 16px solid white;
+    background-color: white;
+    overflow: auto; 
 }
+
 .leftside{
 width: 100px;
 text-align: left;
@@ -132,104 +136,59 @@ display: flex;
 text-align: center;
 }
 </style>
-<script>
-//장르별로 표시
-$(document).ready(function(){
-
-    $(".filter-button").click(function(){
-        var value = $(this).attr('data-filter');
-        
-        if(value == "all")
-        {
-            //$('.filter').removeClass('hidden');
-            $('.filter').show('1000');
-        }
-        else
-        {
-//            $('.filter[filter-item="'+value+'"]').removeClass('hidden');
-//            $(".filter").not('.filter[filter-item="'+value+'"]').addClass('hidden');
-            $(".filter").not('.'+value).hide('3000');
-            $('.filter').filter('.'+value).show('3000');
-            
-        }
-    });
-    
-    if ($(".filter-button").removeClass("active")) {
-$(this).removeClass("active");
-}
-$(this).addClass("active");
-
-});    
-
-</script>
 </head>
+<jsp:include page="../header.jsp"></jsp:include>
 <body>
+<div id="bodybody">
     <div id="titl">
         <h2><img id="logo" src="../../img/playButton.PNG" alt="플레이로고">Follow 리스트</h2>
     </div>
 
-<div class="bigdiv">
-<div class="container">
+    <div class="container">
         <div class="row">
-        <div class="gallery col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h1 class="gallery-title">Follower</h1>
-        </div>
-
-        <div align="center">
-            <button class="btn btn-default filter-button" data-filter="all">All</button>
-            <button class="btn btn-default filter-button" data-filter="ballad">발라드</button>
-            <button class="btn btn-default filter-button" data-filter="dance">댄스</button>
-            <button class="btn btn-default filter-button" data-filter="trot">트로트</button>
-            <button class="btn btn-default filter-button" data-filter="folk">포크</button>
-            <button class="btn btn-default filter-button" data-filter="rock">락</button>
-            <button class="btn btn-default filter-button" data-filter="jazz">재즈</button>
-            <button class="btn btn-default filter-button" data-filter="country">컨츄리</button>
-            <button class="btn btn-default filter-button" data-filter="rnb">알앤비</button>
-            <button class="btn btn-default filter-button" data-filter="rap">랩</button>
-        </div>
-        <div id="followPagenation">
-            <c:forEach items="${followerList}" var="bno">
-            <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter ${bno.teamgenre}">
-	                <button class="followerbtn" value="${bno.bno}">
-		                <table class="innertable">
-		                    <tr><td><img src="../../img/${bno.teamPhoto}" class="teamPhotoImg"></td></tr> 
-		                    <%-- <tr><td>${bno.teamPhoto}</td></tr> --%>
-		                    <tr><td>${bno.teamname}</td></tr>
-		                </table>
-	                </button>
+            <div id="followPagenation">
+                <c:forEach items="${followerList}" var="bno">
+                    <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter ${bno.teamgenre}">
+	                   <a href="#wrapfollowerdetail" value="${bno.bno}" class="followerbtn">
+		                   <table class="innertable">
+		                       <tr><td><img src="../../img/${bno.teamPhoto}" class="teamPhotoImg"></td></tr> 
+		                       <tr><td>${bno.teamname}</td></tr>
+		                   </table>
+	                   </a>
+                    </div>
+                </c:forEach>
             </div>
-            </c:forEach>
         </div>
-        </div>
-    
-    
-<!-- 페이지네이션 -->
-
- 
-<div class="toolbar-bottom">
-  <div class="toolbar mt-lg">
-    <div class="sorter">
-    <div class="OutOfpagination">
-      <ul class="pagination">
-               <c:forEach var="i"  begin="${pageMove.startPageNo}" end="${pageMove.endPageNo}" step="1">
-                        <li><a href="javascript:PageMove(${i})" style="color: #000000;">${i}</a></li>
-              </c:forEach> 
-      </ul>
-      </div>
     </div>
-  </div>
 </div>
-</div>
- <div class="wrapfollowerdetail">
-        <table id='followerdetail'><!--우측 자세히 보기-->
+<!-- 페이지네이션 -->
+    <div class="toolbar-bottom">
+        <div class="toolbar mt-lg">
+            <div class="sorter">
+                <div class="OutOfpagination">
+                    <ul class="pagination">
+                        <c:forEach var="i"  begin="${pageMove.startPageNo}" end="${pageMove.endPageNo}" step="1">
+                            <li><a href="javascript:PageMove(${i})" style="color: #000000;">${i}</a></li>
+                        </c:forEach> 
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            <tbody>
-            
-            </tbody>
-        </table>
- </div>       
-</div>
-    
+
+<!--우측 자세히 보기-->
+    <div id="wrapfollowerdetail" class="wrapfollowerdetail">
+        <div>
+            <table id="followerdetail">
+                <tbody>
+                             <a href="#close">닫기</a> 
+                            
+                </tbody>
+            </table>
+        </div>
+    </div>       
+
 <script>
 //페이징
 
@@ -243,36 +202,35 @@ function PageMove(i){
 //자세히 보기
 $('.followerbtn').click(function(){
     
-    var bno = $(this).val();
+    var bno = $(this).attr('value');
     console.log(bno);
     
     $.ajax({ 
         type : "POST", //보내는 타입을 Post방식으로 할지,  GET방식으로 할지 결정
-        url : "clickDetail", // /내 프로젝트명/XML파일의namespace/내가불러올XML의Query이름.do
+        url : "followerdetail", // /내 프로젝트명/XML파일의namespace/내가불러올XML의Query이름.do
         //header :'Content-Type: application/json',
         dataType: 'json',
         data : { bno : bno }, //파라미터 넘겨줄 부분? : 이게 할말이 많은데 원래 GET방식으로 하라했다가 
-                               //다시 POST방식으로 하게됬는데 파라미터를 넘겨줄 값이 없어서 다시 GET으로 바꾸면서 주석 
         //contentType : "application/x-www-form-urlencoded; charset=utf-8",  // 기본값이라고 하니까 건들이지 않았고 
         success : function(data) {
-           $("#followerdetail tbody ").empty();
+           $("#followerdetail tbody").empty();
                 
-           $("#followerdetail tbody ").append(
-        	  '<tr><td colspan="2"><img src="../../img/'+data.teamPhoto+'" id="detailphoto"></td></tr>'
+           $("#followerdetail tbody").append(
+              '<tr><td colspan="2"><img src="../../img/'+data.teamPhoto+'" id="detailphoto"></td></tr>'
           	  +'<tr><td class="leftside">팀    명 : </td><td>'+data.teamname+'</td></tr>'
               +'<tr><td class="leftside">주요장르 : </td><td>'+data.teamgenre+'</td></tr>'
               +'<tr><td class="leftside">활동도시 : </td><td>'+data.city+'</td></tr>'
               +'<tr><td class="leftside">소 개 말 : </td><td>'+data.teamInfo+'</td></tr>'
-              +'<tr><td class="leftside"><button value='+data.bno+'>피드가기</button></td></tr>');
+              +'<tr><td class="leftside"><a href="/app/buskerfeed/enter?bno='+data.bno+'"> '+data.bno+'피드가기</a></td></tr>');
         },
         error : function(request, status, error) {
             alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
         }
     });
-    
-})
+});  
 
 </script>
     
 </body>
+<jsp:include page="../footer.jsp"></jsp:include>
 </html>
