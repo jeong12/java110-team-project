@@ -271,9 +271,11 @@ public class BuskerPerScheduleController {
       System.out.println(detailschedule.getShopname());
     }
 
-    detailschedule.setNsdt(format.format(detailschedule.getSdt()));
-    detailschedule.setNedt(format.format(detailschedule.getEdt()));
-    detailschedule.setNcdt(format.format(detailschedule.getCdt()));
+    detailschedule.setNsdt(format.format(detailschedule.getSdt()).replaceAll("-", "/"));
+    detailschedule.setNedt(format.format(detailschedule.getEdt()).replaceAll("-", "/"));
+    detailschedule.setNcdt(format.format(detailschedule.getCdt()).replaceAll("-", "/"));
+    System.out.println(detailschedule.getNsdt());
+    System.out.println(detailschedule.getNedt());
     return detailschedule;
 
   }
