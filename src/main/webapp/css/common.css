@@ -18,6 +18,10 @@ img{
     font-family: "Noto Sans KR","Open Sans", Helvetica, sans-serif;
 }
 
+body{
+	background-color: snow;
+}
+
 a {
     text-decoration: none;
 }

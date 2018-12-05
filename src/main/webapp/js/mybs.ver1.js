@@ -398,14 +398,15 @@ $(document).on('click','.detailinfobtn',function(){
              	$("#supimg1").empty();
              	$("#supimg2").empty();
              	$("#supimg3").empty();
-                $(".pershopname").empty();
-                $(".pergenre").empty();
-                $(".percnt").empty();
-                $(".pertime").empty();
-                $(".peraddr").empty();
-                $(".peretc").empty();
-                $(".perx").empty();
-                $(".pery").empty();
+                $("#pershopname").empty();
+                $("#pergenre").empty();
+                $("#percnt").empty();
+                $("#persdt").empty();
+                $("#peredt").empty();
+                $("#peraddr").empty();
+                $("#peretc").empty();
+                $("#perx").empty();
+                $("#pery").empty();
             
             if(data ==false){
                 /* 이거왜했지? 테스트인듯.. */
@@ -413,13 +414,14 @@ $(document).on('click','.detailinfobtn',function(){
             }else{
                 /* 컨트롤러에서 a,b값에 따라 요청스케줄, 개인스케줄중 한가지를 리턴해줌 */
                 if(data.supporter==null){// 개인스케줄의 경우 supporter 객체를 받지 않음, 고로 개인스케줄 모달에 데이터 처리
-                    $(".pershopname").append('<p>'+data.shopname+'</p>');
-                    $(".pergenre").append('<p>'+'장르를만들자'+'</p>');
-                    $(".percnt").append('<p>'+data.cnt+'</p>');
-                    $(".pertime").append('<p>'+data.nsdt+'~'+data.nedt+'</p>');
-                    $(".peraddr").append('<p>'+data.addr+'</p>');
-                    $(".perx").append('<p>'+data.x+'</p>');
-                    $(".pery").append('<p>'+data.y+'</p>');
+                    $("#pershopname").append(data.shopname);
+                    $("#pergenre").append('장르를만들자');
+                    $("#percnt").append(data.cnt);
+                    $("#persdt").append(data.nsdt);
+                    $("#peredt").append(data.nedt);
+                    $("#peraddr").append(data.addr);
+                    $("#perx").append(data.x);
+                    $("#pery").append(data.y);
                     $("#editno").val(no);
                     // 다음지도 api
                     // x,y값을 받아 다음지도의 LatLng 생성 <= 좌표만들어주는 객체인듯
@@ -427,7 +429,7 @@ $(document).on('click','.detailinfobtn',function(){
                     // 기존 생성된 map의 중심을 데이터상의 x,y로 맞춰줌
                     map3.setCenter(LatLon3);
                     // 기존 생성된 marker의 위치를 수정해주는 매서드
-                    marker3.setPosition(new daum.maps.LatLng(LatLon.getLat(),LatLon.getLng()));
+                    marker3.setPosition(new daum.maps.LatLng(LatLon3.getLat(),LatLon3.getLng()));
                 }else{ // supporter객체가 있다면 요청스케줄 모달에 데이터 처리
                 	console.log(data);
                     $("#reqname").append(data.supporter.name);
@@ -531,6 +533,8 @@ $('#editbtn').click(function(){
 	var fulltime = $('#detailperModal .pertime').text();
 	var starttime = fulltime.substring(0,16);
 	var endtime = fulltime.substring(fulltime.length-5,fulltime.length);
+	
+	console.log(fulltime);
 	
 	$('#EditScheduleModal #shopname').val($('#detailperModal .pershopname').text());
 	$('#EditScheduleModal #editstarttimepicker').val(starttime);

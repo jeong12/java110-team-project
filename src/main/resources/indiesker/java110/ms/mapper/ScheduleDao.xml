@@ -448,7 +448,8 @@ GROUP BY BS.brno
 		from busk_stag as bs, stag_sche as ss, busk as b, busk_req as br
 		where bs.ssno = ss.ssno and bs.brno=br.brno and br.bno=b.bno and ss.sno=#{no}
 		GROUP BY br.brno
-		order by ss.sdt desc;
+		order by ss.sdt desc
+		Limit #{paging.startRowNo},#{paging.pageSize}
 	</select>
 
 	<!-- 무대제공자 스케줄조회: 무대신청,완료된 목록을 보여주는 쿼리(플래그로) -->
@@ -458,9 +459,15 @@ GROUP BY BS.brno
 		bs.flag, br.cdt, br.brno
 		from busk_stag as bs, stag_sche as ss, busk as b, busk_req as br
 		where bs.ssno = ss.ssno and bs.brno=br.brno and br.bno=b.bno and ss.sno=#{no}
-		and flag=#{flag}
+		<choose>
+		<when test='flag == 1'>
+		and flag=#{flag} and ss.sdt &gt; CURDATE() + INTERVAL 1 DAY
+		</when>
+		</choose>
+        and flag=#{flag}
 		GROUP BY br.brno
-		order by ss.sdt desc;
+		order by ss.sdt desc
+		Limit #{paging.startRowNo},#{paging.pageSize}
 	</select>
 
 	<!-- 무대제공자 스케쥴조회: 해당 날짜에 사용불가능한 목록을 뽑아주는 쿼리 -->
@@ -643,12 +650,17 @@ GROUP BY BS.brno
 
     <select id="totfindSuggestsbyflag" parameterType="map" resultType="Integer">
     select count(*)
-    FROM (SELECT b.name, b.genre, min(ss.sdt) as sdt, max(ss.edt)as edt, br.cnt,
-          bs.flag, br.cdt, br.brno
-          from busk_stag as bs, stag_sche as ss, busk as b, busk_req as br
-          where bs.ssno = ss.ssno and bs.brno=br.brno and br.bno=b.bno and ss.sno=#{no}
-          and flag=#{flag}
-          GROUP BY br.brno)as b
+    FROM (select b.name, b.genre, min(ss.sdt)as sdt, max(ss.edt)as edt, br.cnt,
+        bs.flag, br.cdt, br.brno
+        from busk_stag as bs, stag_sche as ss, busk as b, busk_req as br
+        where bs.ssno = ss.ssno and bs.brno=br.brno and br.bno=b.bno and ss.sno=#{no}
+        <choose>
+        <when test='flag == 1'>
+        and flag=#{flag} and ss.sdt &gt; CURDATE() + INTERVAL 1 DAY
+        </when>
+        </choose>
+        and flag=#{flag}
+        GROUP BY br.brno)as b
     </select>
 
 <select id="checkeditreqschedule" parameterType="map" resultType="int">
@@ -723,9 +735,20 @@ GROUP BY BS.brno
         bs.flag, br.cdt, br.brno
         from busk_stag as bs, stag_sche as ss, busk as b, busk_req as br
         where bs.ssno = ss.ssno and bs.brno=br.brno and br.bno=b.bno and ss.sno=#{no}
-        and flag=1 AND ss.sdt &lt; now()
+        and flag=1 AND ss.sdt &lt; CURDATE() + INTERVAL 1 DAY
         GROUP BY br.brno
         order by ss.sdt desc
+        Limit #{paging.startRowNo},#{paging.pageSize}
+    </select>
+    
+       <select id="totfindoverdue" parameterType="int"  resultType="Integer">
+    select count(*) 
+    from (select b.name, b.genre, min(ss.sdt)as sdt, max(ss.edt)as edt, br.cnt,
+          bs.flag, br.cdt, br.brno
+          from busk_stag as bs, stag_sche as ss, busk as b, busk_req as br
+          where bs.ssno = ss.ssno and bs.brno=br.brno and br.bno=b.bno and ss.sno=#{no}
+          and flag=1 AND ss.sdt &lt; CURDATE() + INTERVAL 1 DAY
+          GROUP BY br.brno) as b
     </select>
 
 

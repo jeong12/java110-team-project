@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import indiesker.java110.ms.dao.ScheduleDao;
+import indiesker.java110.ms.domain.Paging;
 import indiesker.java110.ms.domain.Schedule;
 import indiesker.java110.ms.service.ScheduleService;
 
@@ -71,11 +72,10 @@ public class ScheduleServiceimpl implements ScheduleService {
     }
 
     @Override
-    public List<Schedule> mysslist(int no, int pageNo, int pageSize) {
+    public List<Schedule> mysslist(int no, Paging paging) {
       HashMap<String,Object> params = new HashMap<>();
       params.put("no", no);
-      params.put("rowNo", (pageNo - 1) * pageSize);
-      params.put("size", pageSize);      
+      params.put("paging", paging);
       return scheduleDao.findreqschedule(params);
     }
 
@@ -99,12 +99,11 @@ public class ScheduleServiceimpl implements ScheduleService {
     }
 
     @Override
-    public List<Schedule> findSuggestsbyflag(int no, int flag,int pageNo, int pageSize) {
+    public List<Schedule> findSuggestsbyflag(int no, int flag, Paging paging) {
       HashMap<String,Object> params = new HashMap<>();
       params.put("no", no);
       params.put("flag", flag);
-      params.put("rowNo", (pageNo - 1) * pageSize);
-      params.put("size", pageSize); 
+      params.put("paging", paging);
       return scheduleDao.findSuggestsbyflag(params);
     }
 
@@ -276,7 +275,6 @@ public class ScheduleServiceimpl implements ScheduleService {
 
     @Override
     public int checkeditreqschedule(String sdt, String edt, String nsdt, String nedt, int no) {
-      // TODO Auto-generated method stub
       Map<String, Object> params=new HashMap<>();
       params.put("sdt", sdt);
       params.put("edt", edt);
@@ -297,11 +295,28 @@ public class ScheduleServiceimpl implements ScheduleService {
     }
     
     @Override
-    public List<Schedule> findoverdue(int no, int pageNo, int pageSize) {
+    public List<Schedule> findoverdue(int no, Paging paging) {
       Map<String,Object> params = new HashMap<>();
       params.put("no", no);
-      params.put("pageNo", pageNo);
-      params.put("pageSize", pageSize);
+      params.put("paging", paging);
     return scheduleDao.findoverdue(params);
+    }
+    
+    @Override
+    public int totFindreqschedule(int no) {
+    return scheduleDao.totFindreqschedule(no);
+    }
+    
+    @Override
+    public int totfindSuggestsbyflag(int no, int flag) {
+      Map<String,Object> params = new HashMap<>();
+      params.put("no", no);
+      params.put("flag", flag);
+      return scheduleDao.totfindSuggestsbyflag(params);
+    }
+    
+    @Override
+    public int totfindoverdue(int no) {
+    return scheduleDao.totfindoverdue(no);
     }
 }

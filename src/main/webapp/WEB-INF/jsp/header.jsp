@@ -118,7 +118,6 @@ a:focus, a:hover {
 </style>
 </head>
 <body>
-
 <div id=headerfix>
 <div class="top-bar">
         <div class="container_c">

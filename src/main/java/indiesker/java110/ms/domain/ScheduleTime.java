@@ -10,7 +10,7 @@ public class ScheduleTime {
   protected String snsdt;
   protected String snedt;
   protected String sncdt;
-  protected int flag;
+  protected char flag;
   
   public int getSssno() {
     return sssno;
@@ -58,7 +58,7 @@ public class ScheduleTime {
   public int getFlag() {
     return flag;
   }
-  public void setFlag(int flag) {
+  public void setFlag(char flag) {
     this.flag = flag;
   }
   @Override

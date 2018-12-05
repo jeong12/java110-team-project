@@ -40,10 +40,9 @@
 	margin-left: 30%
 }
 
-
-p{
+/* p{
     width: 400px;
-}
+} */
 .fc-day-number.fc-sat.fc-past { color:#0000FF; }     /* 토요일 */
 .fc-day-number.fc-sun.fc-past { color:#FF0000; }    /* 일요일 */
 
@@ -669,7 +668,7 @@ input, textarea, button { margin-top:0px }
 body {
     background: #ecf1f5;
     font:14px "Open Sans", sans-serif; 
-    text-align:center;
+    /* text-align:center; */
 }
 
 .tile{
@@ -1022,9 +1021,95 @@ div.footer a.Cbtn-danger:hover{
             </div>
         </div>
     </div> -->
+    <!-- 성사된스케줄 모달  -->
+    <div id="detailperModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
 
+            <!-- 모달 내부 설정 -->
+            <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-4 col-sm-6 col-xs-12" style="margin: auto">
+                <div class="tile">
+                    <div class="wrapper">
+                        <div class="header">요청스케줄 상세보기</div><!--test  -->
+
+                        <div class="banner-img">
+                            <div id="map3"></div>
+                        </div>
+                        <div class="banner-img" style="float: right;">
+                            
+                        </div>
+
+                        <div class="dates">
+                            <div class="start">
+                                <strong>시작시간</strong> 
+                                <p id='persdt'></p>
+                                <span></span>
+                            </div>
+                            <div class="ends">
+                                <strong>종료시간</strong> 
+                                <p id='peredt'></p>
+                            </div>
+                        </div>
+
+                        <div class="stats">
+
+                            <div>
+                                <strong><label>장소명</label></strong>
+                                <span id='pershopname'></span> 
+                            </div>
+                        </div>
+
+                        <div class="stats">
+                            <div>
+                                <strong><label>희망장르/퍼포먼스</label></strong>
+                                <span id='pergenre'></span> 
+                            </div>
+                        </div>
+
+                        <div class="stats">
+
+                            <div>
+                                <strong><label>공연인원</label></strong>
+                                <span id='percnt'></span> 
+                            </div>
+
+                        </div>
+                        
+                        <div class="stats">
+
+                            <div>
+                                <strong><label>상세주소</label></strong>
+                                <span id='peraddr'></span> 
+                            </div>
+
+                        </div>
+                        
+                        <div class="stats">
+
+                            <div>
+                                <div class="perx" style="display: none"></div>
+                                <div class="pery" style="display: none"></div> 
+                            </div>
+
+                        </div>
+
+                        <div class="footer">
+                            <button data-toggle="modal" data-target="#EditScheduleModal" class="btn btn-default"
+                            id="editbtn">수정</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div> 
+            </div>            
+        </div>
+    </div>
+            </div>
+    </div>
+    
+    
 	<!-- 개인스케줄모달  -->
-	<div class="modal fade" id="detailperModal" role="dialog">
+	<div class="modal fade" id="detailperModal2" role="dialog">
 		<div class="modal-dialog" >
 
 			<div class="modal-content">
