@@ -205,7 +205,8 @@ function chk(e){
 						"<tr><td>메시지</td><td>"+data.busker.message+"</td></tr>" 					
 				);
 				if(data.flag == 1){
-					$('.abtn').append('<tr><td><button type="button" class="brno" value="'+data.sno+'">신청하기</button></td></tr>');
+					$('.abtn').append('<tr><td><button type="button" name="consent" class="brno" value="'+data.sno+'">승낙/button></td>
+									'<td><button type="button" name="refuse" class="brno" value="'+data.sno+'">거절</button></td></tr>');
 					$.each(data.scheduletime,function(index,item){
 						$('.dates').append(
 								'<tr>'+
@@ -270,9 +271,6 @@ $('.abtn').click(function(){
 
 
 function goPage(e,list) {
-
-console.log(list);
-	
 $.ajax({ 
 		type : "GET", 
 		url : "page", 
