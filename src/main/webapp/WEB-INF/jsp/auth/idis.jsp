@@ -8,6 +8,27 @@
 <title>아이디찾기</title>
 
 <style>
+#bodybody{
+min-height: 900px;
+}
+
+#titl {
+    margin: 10px;
+    padding: 10px;
+}
+
+#logo {
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+}
+
+#titl2 {
+    margin-top: -50px;
+    margin-left: 70px;
+    margin-bottom: 30px;
+}
+
 .findidcontent {
     position:static;
     margin-left: 30%;
@@ -27,17 +48,18 @@
 }
     </style>
 </head>
+<jsp:include page="../header.jsp"></jsp:include>
 <body>
-          
-          <h1 id="titlefind"><i class="fas fa-arrow-alt-circle-right"></i>아이디 비밀번호 찾기</h1>
+<div id=bodybody>
+    <div id="titl">
+        <img id="logo" src="../../img/playButton.PNG" alt="플레이로고">
+        <h2 id="titl2">아이디 찾기</h2>
+    </div>
           
           <div class="findidcontent">
                <h2>입력하신 이메일과 일치하는 아이디는 "${member.id}"입니다.</h2>
-
-
-
            </div>
-           
+</div> 
 </body>
-
+<jsp:include page="../footer.jsp"></jsp:include>
 </html>
