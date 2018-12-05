@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset='utf-8' />
-
+<link href="/../css/common.css" rel="stylesheet">
 <style>
 
 #logo {
@@ -20,6 +20,7 @@ margin-bottom:15px;
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<jsp:include page="../header.jsp"></jsp:include>
 </head>
 <body>
 	<div id="titl">
@@ -67,4 +68,5 @@ margin-bottom:15px;
 	</div>
 	</div>
 </body>
+<jsp:include page="../footer.jsp"></jsp:include>
 </html>
