@@ -58,7 +58,6 @@ public class FeedController {
       @RequestParam(defaultValue="0") int pageNo,
       @RequestParam(defaultValue="9") int pageSize,
       Model model) {
-    
     // 버스커말고 다른 회원이 접근할때!
 /*    boolean checkbusk = memberService.isBusker(no);
     System.out.println(checkbusk);
@@ -201,7 +200,7 @@ public class FeedController {
 
   @PostMapping("addavi")
   public String addavi(@RequestParam String bno, String title, String content, String url) {
-    
+    System.out.println(bno);
     int bno2=Integer.parseInt(bno);
     String urlid = url.substring(32,43);
 
