@@ -34,7 +34,6 @@
         border: 1px solid silver; !importatnt;
         width: 500px; padding: 10px; padding-bottom: 30px;
     }
- 
     .btb{margin: auto; margin:26px auto 20px; 
     background-color:red;
         border: 1px solid silver;
@@ -43,9 +42,8 @@
     .close{margin-right: 15px;}
     #ttl{margin-left: 21px;}
     .mtb label{float:left;}
-    .carousel
+    #supm{width: 50rem; margin-left: 3%;}
 </style>
-
 
 <body>
        <button class="bt1 btn-default btn-sm"  onclick="openCity('bt1')">전체</button>
@@ -172,30 +170,24 @@
         <h3 id="ttl">용찬하우스</h3>
       </div>
       
-      <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div id="carousel-example-generic" class="bbbbs carousel slide" data-ride="carousel">
+      <div class="container" id="supm">
+    <div class="row" id="supm">
+        <div class="col-md-12"  id="supm">
+            <div id="carousel-example-generic" class="bbbbs carousel slide" data-ride="carousel" id="supm">
                 <ol class="carousel-indicators">
-                    <li data-target=".carousel slide abc" data-slide-to="0" class="active"></li>
-                    <li data-target=".carousel slide abc" data-slide-to="1"></li>
-                    <li data-target=".carousel slide abc" data-slide-to="2"></li>
+                    <li data-target=".bbbbs" data-slide-to="0" class="active"></li>
+                    <li data-target=".bbbbs" data-slide-to="1"></li>
+                    <li data-target=".bbbbs" data-slide-to="2"></li>
                 </ol>
-                <div class="carousel-inner">
+                <div class="ttttt carousel-inner">
                     <div class="item active">
-                        <img src="http://i.imgur.com/2PBLK.jpg" alt="First slide">
-                        <div class="carousel-caption">
-                        </div>
+                        <img src="" alt="First slide">
                     </div>
                     <div class="item">
-                        <img src="http://i.imgur.com/2PBLK.jpg" alt="Second slide">
-                        <div class="carousel-caption">
-                        </div>
+                        <img src="" alt="Second slide">
                     </div>
                     <div class="item">
-                        <img src="http://i.imgur.com/2PBLK.jpg" alt="Third slide">
-                        <div class="carousel-caption">
-                        </div>
+                        <img src="" alt="Third slide">
                     </div>
                 </div>
                 <a class="left carousel-control" href=".bbbbs" data-slide="prev">
@@ -382,17 +374,14 @@ $('.dtailSupbutton').click(function(){
 			 $(".stel").empty();
 			 $(".smessage").empty();
 			 $(".ttttt").empty();
-			 $(".aac").empty();
 			console.log(data);
 			console.log(data.det_addr);
 			console.log(data.etc);
 			console.log(data.capa);
 	         $.each(data.stagephotos,function(index,item){
-	        	 $(".ttttt").append("<div class='item' data-slide-number='"+index+"'><img id='ff' src="+item.photo+"></div>")
+	        	 $(".ttttt").append("<div class='item'><img src='/upload/"+item.photo+"' alt='First slide'></div>")
+            
 	         });
-	          $.each(data.stagephotos,function(index,item){
-         	 $(".aac").append("<button value="+item.photo+" class='mli'><img id='ig'class='photoimg' src="+item.photo+"></button>")
-	         }); 
 	         $(".mli").click(function(){
 	             var src = $(this).val();
 	             $(".ttttt").empty();

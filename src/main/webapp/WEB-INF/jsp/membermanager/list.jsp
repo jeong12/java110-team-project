@@ -65,7 +65,7 @@ margin-top:20px;
     .mtb label{float: left}
      #logo{width: 40px; height:40px; float: left; margin-top: -4px;}
     #titl{margin-top: 2%; margin-left: 11%;}
-    #titleh2{float: left; margin-top: 0;}
+    #titleh2{float: left; margin-top: 0; margin-left: 1%;}
     .buskDetail,.memberDetail,.supDetail,.btt2,.btt{width: 4rem; height: 1.8rem; font-size: 0.8rem;padding: 0;}
     
     
@@ -282,7 +282,7 @@ display: c
               
     <tbody id="testappend1">
          <c:forEach  items="${list}" var="m">
-          
+           <c:if test= "${m.flag eq '1'.charAt(0)}"> 
                     <tr class="tt">
 						    <td>${m.id}</td>
 						    <td>${m.nik}</td>
@@ -294,8 +294,7 @@ display: c
                     <td><div class="detailbtn"><button id="detailAll" class="memberDetail btns btns-outline-secondary"  data-toggle="modal" data-target="#memberDetail" value="${m.nik}">상세보기</button></div></td>
                     <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon"></span>정지</button></td>
              </tr>
-              
-            
+            </c:if>
          </c:forEach> 
     </tbody>
 </table>
@@ -917,7 +916,6 @@ $('#myCarousel').on('slid.bs.carousel', function (e) {
 });
    
 $('.tabs li').click(function(){
-    console.log('test');
     var tab_id = $(this).attr('data-tab');
     $('.tabs li').removeClass('active current');
     $('.tab').css('display','none');
