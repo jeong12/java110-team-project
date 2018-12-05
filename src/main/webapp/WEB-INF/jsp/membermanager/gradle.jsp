@@ -18,13 +18,12 @@
 </head>
 
 <style>
-
+#ri{margin-right: 12%;}
 .tab{display: none;}
 .hide-bullets {list-style:none;margin-left:-40px;margin-top:20px;}
+#ff{width: 50rem;height: 40rem;}
+.ff{width: 50rem;height: 40rem;}
     #mmain{margin-left:8%; margin-top: 15px;}
-    #myCarousel{width: 400px;}
-    #myCarousel2{width: 400px;}
-    #ff{width: 400px;height: 200px;}
     #ig{width: 129px;height: 60px;}            
     .mli{padding:0px; float: left;}
     .aac{ margin-top: 0px; margin-left:3%;}
@@ -35,14 +34,13 @@
         width: 500px; padding: 10px; padding-bottom: 30px;
     }
     .btb{margin: auto; margin:26px auto 20px; 
-    background-color:red;
         border: 1px solid silver;
         width: 500px; padding: 10px; padding-bottom: 30px;
     }
     .close{margin-right: 15px;}
     #ttl{margin-left: 21px;}
     .mtb label{float:left;}
-    #supm{width: 50rem; margin-left: 3%;}
+    #supm{width: 50rem; margin-left: 2%;}
 </style>
 
 <body>
@@ -239,22 +237,20 @@
         <div id="mmain">
              
                 <div class="row">
-                    <div class="col-xs-12" id="slider" id="main">
-                     
+                    <div class="" id="slider" id="main">
                         <div class="row">
-                            <div class="col-sm-4" id="carousel-bounding-box" >
+                            <div class="" id="carousel-bounding-box" >
                                 <div class="carousel slide" id="myCarousel2">
                           
                                     <div class="carousel-inner" >
                                         <div class="active item"   data-slide-number="0">
                                         <div class="iframe1">
-                                        <iframe id="ff" src="https://www.youtube.com/embed/fiGSDywrX1Y" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        <iframe  src="https://www.youtube.com/embed/fiGSDywrX1Y" width="500" height="300" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                        </div>
                                         </div>
-
                                         <div class="item"  data-slide-number="1">
                                         <div class="iframe2">
-                                        <iframe id="ff" src="https://www.youtube.com/embed/OYNcPTat5pY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        <iframe class="ff" id="ff" src="https://www.youtube.com/embed/OYNcPTat5pY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                         </div>
                                         </div>
                                
@@ -262,7 +258,7 @@
                                     <a class="left carousel-control" href="#myCarousel2" role="button" data-slide="prev">
                                         <span class="glyphicon glyphicon-chevron-left"></span>                                       
                                     </a>
-                                    <a class="right carousel-control" href="#myCarousel2" role="button" data-slide="next">
+                                    <a class="right carousel-control" id="ri" href="#myCarousel2" role="button" data-slide="next">
                                         <span class="glyphicon glyphicon-chevron-right"></span>                                       
                                     </a>                                
                                     </div>
@@ -415,10 +411,8 @@ $('.dtailbuskbutton').click(function(){
              $(".bintro").empty();
              $(".iframe1").empty();  
              $(".iframe2").empty();
-           
-             
-              $(".iframe1").append("<iframe id='ff' src='"+data.avi1+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
-               $(".iframe2").append("<iframe id='ff' src='"+data.avi2+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
+              $(".iframe1").append("<iframe class='ff'  src='"+data.avi1+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
+               $(".iframe2").append("<iframe class='ff' src='"+data.avi2+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
                     $(".bname").append('<p>'+data.teamname+'</p>');
                     $(".bcity").append('<p>'+data.city+'</p>');
                     $(".bgenre").append('<p>'+data.teamgenre+'</p>');

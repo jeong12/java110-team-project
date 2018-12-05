@@ -36,8 +36,7 @@
     #input{height: 25px;}
     #bun{float: left;}
     #ccc{float: right; margin-top: 2%;}
-    .tab{display: none}
-    .hide-bullets {list-style:none;}
+/*     .hide-bullets {list-style:none;} */
     #img{margin:0auto;}
     #mttl,.bttl,.stitle{margin-left:45%;}
  }
@@ -91,38 +90,28 @@ margin-top:20px;
     ul{
     padding-left: 0px;
 }
-    
-.tab{
-display: none;
-}
 
-.tab.active.current{
-display:inherit;
-
-}  
-.list-group-item.active.current {
-    background-color:#3F51D1;
-}  
 #bun{
 width: 40%;
 margin-left: -2rem;
 }  
 
-.tototo{
+/* .tototo{
 display: c
-}  
-    
+}   */
+
+.pages{
+text-align: center;
+padding-left: 28%;
+}
 </style>
 
 <jsp:include page="../header.jsp"></jsp:include>
   <div id="titl">
-        <img id="logo" src="/img/playButton.PNG" alt="플레이로고">
+        <img id="logo" src="../../img/tum.png" alt="플레이로고">
         <h3 id="titleh2">회원 관리</h3>
     </div>
-
-
 <body>
-
 <div class="container">
     <div class="row" id="topbutton">       
         <div class="col-md-12">
@@ -137,28 +126,21 @@ display: c
         <div class="text-left" style='display:inline-block;'>
             <div class="list-group list-group-horizontal">
                <ul class='tabs'>
-                    <li class="list-group-item active current" data-tab='bt1'>전체보기</li>
-                    <li class="list-group-item" data-tab='bt2'>일반 </li>
-                    <li class="list-group-item" data-tab='bt3'>버스커</li>
-                    <li class="list-group-item" data-tab='bt4'>제공자</li>
-                    <li class="list-group-item" data-tab='bt5'>정지</li>
+                    <li class="list-group-item" onclick="showList()">전체보기</li>
+                    <li class="list-group-item" onclick="showMemb()">일반 </li>
+                    <li class="list-group-item" onclick="showBusk()">버스커</li>
+                    <li class="list-group-item" onclick="showSup()">제공자</li>
+                    <li class="list-group-item" onclick="showStop()">정지</li>
                 </ul>
                
             </div>
         </div>
     </div>
 </div>  
-        
-        
-        
-        
-        <!--  -->
-       <!-- <button class="btn bts btns btns-outline-primary" onclick="openCity('bt1')">전체</button>
-       <button class="btn bts btns btns-outline-secondary" onclick="openCity('bt2')">일반</button>
-       <button class="btn bts btns btns-outline-success"  onclick="openCity('bt3')">버스커</button>
-       <button class="btn bts btns btns-outline-warning"  onclick="openCity('bt4')">제공자</button>
-       <button class="btn bts btns btns-outline-danger"  onclick="openCity('bt5')">정지</button> -->
-        </div>
+
+  </div>
+
+<!-- 검색 옵션 -->
        <div id="ccc">      
             <input type="date" class="date1" id="start">  ~  <input type="date" class="date2" id="end">
             <select name="st" class="flag" id="selt">
@@ -171,11 +153,12 @@ display: c
         <button type="button" onclick="check()">클릭</button>
         </div>    
        </div>
+
         <div class="table-responsive">
               
-<!--  tab1 --> 
- <div class="tab active current" id="bt1" style="display: contents"> 
-              <table id="mytable" class="table table-bordred table-striped">         
+         <div class="tab12" id="bt1"> 
+         <!--sdfjkl;sdfajkl;sdfajkl;  -->
+              <table id="mytable" class="table32 table-bordred table-striped">  
                   <thead>                   
 	                   <tr><th class="col-md-1">아이디</th>
 	                   <th class="col-md-1">닉네임</th>
@@ -190,7 +173,6 @@ display: c
     <tbody id="testappend">
           <c:forEach  items="${list}" var="m">
           <c:if test= "${m.flag eq '1'.charAt(0)}">
-          
              <tr class="tt">
 				    <td>${m.id}</td>
 				    <td class=niks>${m.nik}</td>
@@ -232,7 +214,6 @@ display: c
                     <td class="col-md-1"><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></td>
              </tr>
              
-             <!-- fefweafweafweaf -->
              </c:if>  
                    <c:if test= "${m.flag eq '4'.charAt(0)}">
           
@@ -252,201 +233,37 @@ display: c
             </c:forEach>
     </tbody>
 </table>
-			<div class="clearfix"></div>
-					<ul class="pagination pull-right">
-						  <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-						  <li class="active"><a href="#">1</a></li>
-						  <li><a href="#">2</a></li>
-						  <li><a href="#">3</a></li>
-						  <li><a href="#">4</a></li>
-						  <li><a href="#">5</a></li>
-						  <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-					</ul>
-			 </div>            
-                 
+
+                    <nav aria-label="Page navigation example" class='pages'>
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item prev">
+                                    <a class="page-link" href="javascript:goPage(${paging.prevPageNo})">Previous</a></li>
+                                <c:forEach var="i" begin="${paging.startPageNo}" end="${paging.endPageNo}" step="1">
+                                 <c:choose>
+                                 <c:when test="${i eq paging.pageNo}">
+                                    <li class="page-item active">
+                                    <a href="javascript:goPage(${i})" class="choice">${i}</a></li>
+                                 </c:when>  
+                                 <c:otherwise>
+                                  <li class="page-item">
+                                  <a href="javascript:goPage(${i})">${i}</a></li>
+                                </c:otherwise>
+                                </c:choose>
+                                </c:forEach>
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:goPage(${paging.nextPageNo})">Next</a></li>
+                            </ul>
+                        </nav>
+                        <form action="list" class="pageForm">
+                        <input type="hidden" class="pageNO" name="pageNo">
+                        </form>
                                        
-<!--  tab2  -->   
-     <div class="tab"  id="bt2"> 
-              <table id="mytable" class="table table-bordred table-striped">         
-                  <thead>                   
-	                   <tr><th class="col-md-1">아이디</th>
-	                   <th class="col-md-1">닉네임</th>
-	                   <th class="col-md-2">이메일</th>
-	                   <th class="col-md-1">등급</th>
-	                   <th class="col-md-2">가입일</th>
-	                   <th class="col-md-2">메모</th>
-	                   <th class="col-md-1">메모수정</th>
-	                   <th class="col-md-1">상세보기</th>
-	                   <th class="col-md-1">정지</th></tr>
-                   </thead>
-              
-    <tbody id="testappend1">
-         <c:forEach  items="${list}" var="m">
-           <c:if test= "${m.flag eq '1'.charAt(0)}"> 
-                    <tr class="tt">
-						    <td>${m.id}</td>
-						    <td>${m.nik}</td>
-						    <td>${m.email}</td>
-						    <td>회원</td>
-						    <td>${m.cdt}</td>
-						    <td>${m.memo}</td>
-                    <td><button class="btt btns btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
-                    <td><div class="detailbtn"><button id="detailAll" class="memberDetail btns btns-outline-secondary"  data-toggle="modal" data-target="#memberDetail" value="${m.nik}">상세보기</button></div></td>
-                    <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon"></span>정지</button></td>
-             </tr>
-            </c:if>
-         </c:forEach> 
-    </tbody>
-</table>
-		<div class="clearfix"></div>
-				<ul class="pagination pull-right">
-					  <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-					  <li class="active"><a href="#">1</a></li>
-					  <li><a href="#">2</a></li>
-					  <li><a href="#">3</a></li>
-					  <li><a href="#">4</a></li>
-					  <li><a href="#">5</a></li>
-					  <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-				</ul>
-		 </div>  
-                                            
-                                                                        
- <!--     tab3   -->
-     <div class="tab"  id="bt3"> 
-              <table id="mytable" class="table table-bordred table-striped">         
-                      <thead>                   
-		                   <tr><th class="col-md-1">아이디</th>
-		                   <th class="col-md-1">닉네임</th>
-		                   <th class="col-md-2">이메일</th>
-		                   <th class="col-md-1">등급</th>
-		                   <th class="col-md-2">가입일</th>
-		                   <th class="col-md-2">메모</th>
-		                   <th class="col-md-1">메모수정</th>
-		                   <th class="col-md-1">상세보기</th>
-		                   <th class="col-md-1">정지</th></tr>
-                      </thead>
-    <tbody id="testappend2">
-        <c:forEach  items="${list}" var="m">
-             <c:if test= "${m.flag eq '2'.charAt(0)}"> 
-                  <tr class="tt">
-					    <td>${m.id}</td>
-					    <td>${m.nik}</td>
-					    <td>${m.email}</td>
-					    <td>버스커</td>
-					    <td>${m.cdt}</td>
-					    <td>${m.memo}</td>
-                    <td><button class="btt btns btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
-                    <td><div class="detailbtn"><button id="detailAll" class="buskDetail btns btns-outline-secondary"  data-toggle="modal" data-target=".modelbusk" value="${m.nik}">상세보기</button></div></td>
-                    <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></td>
-             </tr>
-              </c:if>
-        </c:forEach>
-    </tbody>
-</table>
-<div class="clearfix"></div>
-			<ul class="pagination pull-right">
-				  <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-				  <li class="active"><a href="#">1</a></li>
-				  <li><a href="#">2</a></li>
-				  <li><a href="#">3</a></li>
-				  <li><a href="#">4</a></li>
-				  <li><a href="#">5</a></li>
-				  <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-			</ul>
-      </div>  
-                                                                                                              
-<!--  tab4 -->                                                             
-        <div class="tab"  id="bt4"> 
-              <table id="mytable" class="table table-bordred table-striped">         
-                  <thead>                   
-	                   <tr><th class="col-md-1">아이디</th>
-	                   <th class="col-md-1">닉네임</th>
-	                   <th class="col-md-2">이메일</th>
-	                   <th class="col-md-1">등급</th>
-	                   <th class="col-md-2">가입일</th>
-	                   <th class="col-md-2">메모</th>
-	                   <th class="col-md-1">메모수정</th>
-	                   <th class="col-md-1">상세보기</th>
-	                   <th class="col-md-1">정지</th></tr>
-                   </thead>
-        <tbody id="testappend3">
-          <c:forEach  items="${list}" var="m">
-          <c:if test= "${m.flag eq '3'.charAt(0)}"> 
-             <tr class="tt">
-				    <td>${m.id}</td>
-				    <td>${m.nik}</td>
-				    <td>${m.email}</td>
-				    <td>제공자</td>
-				    <td>${m.cdt}</td>
-				    <td>${m.memo}</td>
-                    <td><button class="btt btns btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
-                    <td><div class="detailbtn"><button id="detailAll" class="supDetail btns btns-outline-secondary"  data-toggle="modal" data-target="#supDetail" value="${m.nik}">상세보기</button></div></td>
-                    <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></td>
-             </tr>
-            </c:if>
-          </c:forEach>
-        </tbody>
-</table>
-		<div class="clearfix"></div>
-		      <ul class="pagination pull-right">
-				  <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-				  <li class="active"><a href="#">1</a></li>
-				  <li><a href="#">2</a></li>
-				  <li><a href="#">3</a></li>
-				  <li><a href="#">4</a></li>
-				  <li><a href="#">5</a></li>
-				  <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-		      </ul>
-		</div>                        
-                         
-<!-- tab5 -->
-       <div class="tab"  id="bt5"> 
-              <table id="mytable" class="table table-bordred table-striped">         
-                  <thead>                   
-                      <tr><th class="col-md-1">아이디</th>
-                      <th class="col-md-1">닉네임</th>
-                      <th class="col-md-2">이메일</th>
-                      <th class="col-md-1">등급</th>
-                      <th class="col-md-2">가입일</th>
-                      <th class="col-md-2">메모</th>
-                      <th class="col-md-1">메모수정</th>
-                      <th class="col-md-1">상세보기</th>
-                      <th class="col-md-1">정지</th></tr>
-                   </thead>
-    <tbody id="testappend4">
-         <c:forEach  items="${list}" var="m">
-             <c:if test= "${m.flag eq '4'.charAt(0)}"> 
-                
-                <tr class="tt">
-				    <td>${m.id}</td>
-				    <td>${m.nik}</td>
-				    <td>${m.email}</td>
-				    <td>정지</td>
-				    <td>${m.cdt}</td>
-				    <td>${m.memo}</td>
-                    <td><button class="btt btns btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
-                    <td><div class="detailbtn"><button id="detailAll" class="memberDetail btns btns-outline-secondary"  data-toggle="modal" data-target="#memberDetail" value="${m.nik}">상세보기</button></div></td>
-                    <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></td>
-             </tr>
-             </c:if>
-        </c:forEach>
-</tbody>
-</table>
-		<div class="clearfix"></div>
-			<ul class="pagination pull-right">
-				  <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-				  <li class="active"><a href="#">1</a></li>
-				  <li><a href="#">2</a></li>
-				  <li><a href="#">3</a></li>
-				  <li><a href="#">4</a></li>
-				  <li><a href="#">5</a></li>
-				  <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-			</ul>
-		</div>                              
+      
 </div>
 </div>
 </div>
-</div>     
+</div>
+     
 <!-- memo 모달 -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -635,6 +452,7 @@ display: c
   </div>
   </div>
 </div>
+</div>
 <!-- 서포터모달 끝 -->
 <script>
 
@@ -779,14 +597,6 @@ $(document).on("click",'.supDetail',function(){
         }});
         });
 
-function openCity(cityName) {
-var i;
-var x = document.getElementsByClassName("tab");
-for (i = 0; i < x.length; i++) {
-x[i].style.display = "none"; 
-}
-document.getElementById(cityName).style.display = "contents"; 
-}
 
 // 메모 값 가져오는 function
 $(document).on("click",'.btt',function(){
@@ -915,15 +725,255 @@ $('#myCarousel').on('slid.bs.carousel', function (e) {
         $('#carousel-text').html($('#slide-content-'+id).html());
 });
    
-$('.tabs li').click(function(){
-    var tab_id = $(this).attr('data-tab');
-    $('.tabs li').removeClass('active current');
-    $('.tab').css('display','none');
-     
-    $(this).addClass('active current');
-    $("#"+tab_id).css('display','contents');
-    
-});
+
+function goPage(e){
+	$('.pageNO').val(e);
+	$('.pageForm').submit();
+}
+
+
+function showList(){
+   var flag=1;
+	$.ajax({
+	        type : "POST",
+	        url : "showList",
+	        data : {"flag":flag},
+	        success : function(data){
+	        	$('#testappend').empty();
+	        	$('.pages').empty();
+	        	  $.each(data.list,function(index,item){
+	        	if(item.flag == 1){
+	            	$('#testappend').append(
+	               '<tr><td>'+item.id+'</td>'+
+                   '<td class=niks>'+data.list.nik+'</td>'+
+	               '<td>'+item.email+'</td><td>회원</td>'+
+                   '<td>'+item.cdt+'</td>'+
+                   '<td id="memow">'+item.memo+'</td>'+
+                   '<td><button class="btt btns btns-outline-info"'+  
+                   'data-toggle="modal" data-target="#exampleModal"'+
+                   'value="'+item.nik+'">메모수정</button></td>'+
+                   '<td><div class="detailbtn"><button name="detailAll"'+
+                   'class="memberDetail btns btns-outline-secondary"'+  
+                   'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
+                   +'</button></div></td><td><button class="btn btns-outline-danger"'
+                   +'data-title="Delete" data-toggle="modal" data-target="#delete">'
+                   +'<span class="glyphicon"></span>정지</button></td></tr>'
+	            	);
+	            }else if(data.list.flag ==2){
+	            	$('#testappend').append(
+	                 '<tr><td>'+item.id+'</td>'+
+	                   '<td class=niks>'+item.nik+'</td>'+
+	                   '<td>'+item.email+'</td><td>버스커</td>'+
+	                   '<td>'+item.cdt+'</td>'+
+	                   '<td id="memow">'+item.memo+'</td>'+
+	                   '<td><button class="btt btns btns-outline-info"'+  
+	                   'data-toggle="modal" data-target="#exampleModal"'+
+	                   'value="'+item.nik+'">메모수정</button></td>'+
+	                   '<td><div class="detailbtn"><button name="detailAll"'+
+	                   'class="memberDetail btns btns-outline-secondary"'+  
+	                   'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
+	                   +'</button></div></td><td><button class="btn btns-outline-danger"'
+	                   +'data-title="Delete" data-toggle="modal" data-target="#delete">'
+	                   +'<span class="glyphicon"></span>정지</button></td></tr>'
+	                    );
+	            	
+	            }else if(data.list.flag ==3){
+	            	$('#testappend').append(
+	                 '<tr><td>'+item.id+'</td>'+
+	                   '<td class=niks>'+item.nik+'</td>'+
+	                   '<td>'+item.email+'</td><td>제공자</td>'+
+	                   '<td>'+item.cdt+'</td>'+
+	                   '<td id="memow">'+item.memo+'</td>'+
+	                   '<td><button class="btt btns btns-outline-info"'+  
+	                   'data-toggle="modal" data-target="#exampleModal"'+
+	                   'value="'+item.nik+'">메모수정</button></td>'+
+	                   '<td><div class="detailbtn"><button name="detailAll"'+
+	                   'class="memberDetail btns btns-outline-secondary"'+  
+	                   'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
+	                   +'</button></div></td><td><button class="btn btns-outline-danger"'
+	                   +'data-title="Delete" data-toggle="modal" data-target="#delete">'
+	                   +'<span class="glyphicon"></span>정지</button></td></tr>'
+	                    );
+	            	
+	            }else if(data.list.flag == 4){
+	            	$('#testappend').append(
+	                 '<tr><td>'+item.id+'</td>'+
+	                 '<td class=niks>'+item.nik+'</td>'+
+	                 '<td>'+item.email+'</td><td>정지 회원</td>'+
+	                 '<td>'+item.cdt+'</td>'+
+	                 '<td id="memow">'+item.memo+'</td>'+
+	                 '<td><button class="btt btns btns-outline-info"'+  
+	                 'data-toggle="modal" data-target="#exampleModal"'+
+	                 'value="'+item.nik+'">메모수정</button></td>'+
+	                 '<td><div class="detailbtn"><button name="detailAll"'+
+	                 'class="memberDetail btns btns-outline-secondary"'+  
+	                 'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
+	                 +'</button></div></td><td><button class="btn btns-outline-danger"'
+	                 +'data-title="Delete" data-toggle="modal" data-target="#delete">'
+	                 +'<span class="glyphicon"></span>정지</button></td></tr>'
+	                    );
+	            }});
+	        /*  $('.prev').append(
+	            '<ul class="pagination justify-content-center">'+ 
+	            '<li class="page-item">'+
+	            '<a class="page-link" href="javascript:goPage('+data.paging.prevPageNo+')">Previous</a></li>');
+	            for(var i = data.paging.startPageNo; i<=data.paging.endPageNo); i++){
+	        	 if(i == data.paging.pageNo){
+	        		 ('.numbers').append(' <li class="page-item active">'+
+	        		 '<a href="javascript:goPage('+i+')" class="choice">'+i+'</a></li>');
+	        	 }else{
+	        		 ('.numbers').append('<li class="page-item">'+
+                     '<a href="javascript:goPage('+i+')">'+i+'</a></li>');
+	        	 }
+	         }
+	         $('.next').append(    
+	         '<li class="page-item">'+
+             '<a class="page-link" href="javascript:goPage('+data.paging.nextPageNo+')">Next</a>'+
+             '</li></ul></nav>'+
+             '<form action="list" class="pageForm"><input type="hidden" class="pageNO" name="pageNo">'+
+             '</form>'); */
+	        },
+	         error : function(request, status, error) {
+	         }
+	        
+	    });
+}
+
+
+function showMemb(){
+    var flag=1;
+    $.ajax({
+            type : "POST",
+            url : "showMemb",
+            data : {"flag":flag},
+            success : function(data){
+                $('#testappend').empty();
+                $('.pages').empty();
+                $.each(data.list,function(index,item){
+                $('#testappend').append(
+                   '<tr><td>'+item.id+'</td>'+
+                   '<td class=niks>'+item.nik+'</td>'+
+                   '<td>'+item.email+'</td><td>회원</td>'+
+                   '<td>'+item.cdt+'</td>'+
+                   '<td id="memow">'+item.memo+'</td>'+
+                   '<td><button class="btt btns btns-outline-info"'+  
+                   'data-toggle="modal" data-target="#exampleModal"'+
+                   'value="'+item.nik+'">메모수정</button></td>'+
+                   '<td><div class="detailbtn"><button name="detailAll"'+
+                   'class="memberDetail btns btns-outline-secondary"'+  
+                   'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
+                   +'</button></div></td><td><button class="btn btns-outline-danger"'
+                   +'data-title="Delete" data-toggle="modal" data-target="#delete">'
+                   +'<span class="glyphicon"></span>정지</button></td></tr>'
+                    );});
+            },
+             error : function(request, status, error) {
+             }
+            
+        });
+};
+
+
+function showBusk(){
+    var flag=2;
+    $.ajax({
+            type : "POST",
+            url : "showBusk",
+            data : {"flag":flag},
+            success : function(data){
+                $('#testappend').empty();
+                $('.pages').empty();
+                $.each(data.list,function(index,item){
+                    $('#testappend').append(
+                       '<tr><td>'+item.id+'</td>'+
+                       '<td class=niks>'+item.nik+'</td>'+
+                       '<td>'+item.email+'</td><td>버스커</td>'+
+                       '<td>'+item.cdt+'</td>'+
+                       '<td id="memow">'+item.memo+'</td>'+
+                       '<td><button class="btt btns btns-outline-info"'+  
+                       'data-toggle="modal" data-target="#exampleModal"'+
+                       'value="'+item.nik+'">메모수정</button></td>'+
+                       '<td><div class="detailbtn"><button name="detailAll"'+
+                       'class="memberDetail btns btns-outline-secondary"'+  
+                       'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
+                       +'</button></div></td><td><button class="btn btns-outline-danger"'
+                       +'data-title="Delete" data-toggle="modal" data-target="#delete">'
+                       +'<span class="glyphicon"></span>정지</button></td></tr>'
+                        );});
+            },
+             error : function(request, status, error) {
+             }
+            
+        });
+};
+
+function showSup(){
+    var flag=3;
+    $.ajax({
+            type : "POST",
+            url : "showSup",
+            data : {"flag":flag},
+            success : function(data){
+                $('#testappend').empty();
+                $('.pages').empty();
+                $.each(data.list,function(index,item){
+                    $('#testappend').append(
+                       '<tr><td>'+item.id+'</td>'+
+                       '<td class=niks>'+item.nik+'</td>'+
+                       '<td>'+item.email+'</td><td>제공자</td>'+
+                       '<td>'+item.cdt+'</td>'+
+                       '<td id="memow">'+item.memo+'</td>'+
+                       '<td><button class="btt btns btns-outline-info"'+  
+                       'data-toggle="modal" data-target="#exampleModal"'+
+                       'value="'+item.nik+'">메모수정</button></td>'+
+                       '<td><div class="detailbtn"><button name="detailAll"'+
+                       'class="memberDetail btns btns-outline-secondary"'+  
+                       'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
+                       +'</button></div></td><td><button class="btn btns-outline-danger"'
+                       +'data-title="Delete" data-toggle="modal" data-target="#delete">'
+                       +'<span class="glyphicon"></span>정지</button></td></tr>'
+                        );});
+            },
+             error : function(request, status, error) {
+             }
+            
+        });
+};
+
+function showStop(){
+    var flag=4;
+    $.ajax({
+            type : "POST",
+            url : "showStop",
+            data : {"flag":flag},
+            success : function(data){
+                $('#testappend').empty();
+                $('.pages').empty();
+                $.each(data.list,function(index,item){
+                    $('#testappend').append(
+                       '<tr><td>'+item.id+'</td>'+
+                       '<td class=niks>'+item.nik+'</td>'+
+                       '<td>'+item.email+'</td><td>정지회원</td>'+
+                       '<td>'+item.cdt+'</td>'+
+                       '<td id="memow">'+item.memo+'</td>'+
+                       '<td><button class="btt btns btns-outline-info"'+  
+                       'data-toggle="modal" data-target="#exampleModal"'+
+                       'value="'+item.nik+'">메모수정</button></td>'+
+                       '<td><div class="detailbtn"><button name="detailAll"'+
+                       'class="memberDetail btns btns-outline-secondary"'+  
+                       'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
+                       +'</button></div></td><td><button class="btn btns-outline-danger"'
+                       +'data-title="Delete" data-toggle="modal" data-target="#delete">'
+                       +'<span class="glyphicon"></span>정지</button></td></tr>'
+                        );});
+            },
+             error : function(request, status, error) {
+             }
+            
+        });
+};
+
+
 </script>
 </body>
 <jsp:include page="../footer.jsp"></jsp:include>
