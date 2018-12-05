@@ -2,6 +2,7 @@
   pageEncoding="UTF-8" trimDirectiveWhitespaces="true"
 %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,11 +46,14 @@ table {
 
 .contents-menu {
     color: #iefix !important; letter-spacing: 0.1em; font-size: 1.25rem;
-    font-weight: 600; margin-left: -20px;
+    font-weight: 600; margin-left: -26px;
 }
-
+.contents-a{
+    color:#505a63;
+}
 .contents-a:hover {
     text-decoration-line: none;
+    color:#111111;
 }
 
 .contents-sub {
@@ -145,6 +149,14 @@ table {
     border-right: 1px solid #ccc;
     width: 33%;
     } 
+    .title, .like{ 
+    padding-left: .2rem; 
+    width: 97%;
+    }
+    .teamname{
+    font-size: 100%;
+    font-weight: 900;
+    }
     
     
 
@@ -364,40 +376,40 @@ table {
         <div class="col-md-12">
           <ul class="list-inline nav justify-content-center">
             <li class="list-inline-item mr-2"><a
-              href="#" class="contents-a"
-            > <i class="far fa-calendar-alt fa-5x"></i> <br> <span
+              href="#" class="contents-a" 
+            > <i class="far fa-calendar-alt fa-4x"></i> <br> <span
                 class="contents-menu"
               >버스킹 일정</span></a> <br>
               <div class="contents-sub col-md-10">원하는 날짜의 버스킹 정보를
                 한눈에!</div></li>
 
             <li class="list-inline-item mx-2"><a
-              href="#" class="contents-a"
-            > <i class="fas fa-map-marked-alt fa-5x"></i><br> <span
+              href="#" class="contents-a" 
+            > <i class="fas fa-map-marked-alt fa-4x"></i><br> <span
                 class="contents-menu"
               >버스킹 위치</span></a><br>
               <div class="contents-sub col-md-10">한눈에 버스킹 위치와 정보를
                 제공</div></li>
 
             <li class="list-inline-item ml-2" ><a
-              href="#" class="contents-a"
-            > <i class="fas fa-clipboard-list fa-5x"></i><br> <span
+              href="#" class="contents-a" 
+            > <i class="fas fa-clipboard-list fa-4x"></i><br> <span
                 class="contents-menu"
               >버스킹 목록</span></a><br>
               <div class="contents-sub col-md-10">버스커 피드와 정보를
                 제공합니다.</div></li>
 
             <li class="list-inline-item ml-2 mr-2" ><a
-              href="javascript:void(0)" class="contents-a" id="blueMenuB"
-            > <i class="fas fa-microphone fa-5x"></i><br> <span
+              href="javascript:void(0)" class="contents-a" id="blueMenuB" 
+            > <i class="fas fa-microphone fa-4x"></i><br> <span
                 class="contents-menu"
               >버스커 신청</span></a><br>
               <div class="contents-sub col-md-10">도전은 인생을 흥미롭게
                 합니다.</div></li>
 
             <li class="list-inline-item ml-2"><a
-              href="javascript:void(0)" class="contents-a" id="blueMenuS"
-            > <i class="fas fa-user-plus fa-5x"></i><br> <span
+              href="javascript:void(0)" class="contents-a" id="blueMenuS" 
+            > <i class="fas fa-user-plus fa-4x"></i><br> <span
                 class="contents-menu"
               >제공자 신청</span></a><br>
               <div class="contents-sub col-md-10">공연,행사를 계획하고
@@ -431,11 +443,17 @@ table {
                   style="width: 250px;"
                 >
                 </a>
-                <div class="text-center small">팀명 :
-                  ${avi.teamname}</div>
-                <div class="text-center small">제목 : ${avi.title}</div>
-                <div class="text-center small">좋아요 수:
-                  ${avi.likeAvi}</div>
+                <c:set var ="title" value = "${avi.title}"/>
+                <c:choose>
+                <c:when test="${fn:length(title) > 23}">
+                <div class="small title">${fn:substring(title,0,23)}...</div>
+                </c:when>
+                <c:otherwise>
+                <div class="small title">${avi.title}</div>
+                </c:otherwise>
+                </c:choose>
+                <div class="small like"><span class="small teamname">${avi.teamname} &nbsp &nbsp
+                </span>좋아요 수:${avi.likeAvi}</div>
               </div>
             </c:forEach>
           </div>
@@ -452,11 +470,17 @@ table {
                   style="width: 250px;"
                 >
                 </a>
-                <div class="text-center small">팀명 :
-                  ${avi.teamname}</div>
-                <div class="text-center small">제목 : ${avi.title}</div>
-                <div class="text-center small">좋아요 수:
-                  ${avi.likeAvi}</div>
+                <c:set var ="title" value = "${avi.title}"/>
+                <c:choose>
+                <c:when test="${fn:length(title) > 23}">
+                <div class="small title">${fn:substring(title,0,23)}...</div>
+                </c:when>
+                <c:otherwise>
+                <div class="small title">${avi.title}</div>
+                </c:otherwise>
+                </c:choose>
+                <div class="small like"><span class="small teamname">${avi.teamname} &nbsp &nbsp
+                </span>좋아요 수:${avi.likeAvi}</div>
               </div>
             </c:forEach>
           </div>
@@ -473,11 +497,17 @@ table {
                   style="width: 250px;"
                 >
                 </a>
-                <div class="text-center small">팀명 :
-                  ${avi.teamname}</div>
-                <div class="text-center small">제목 : ${avi.title}</div>
-                <div class="text-center small">좋아요 수:
-                  ${avi.likeAvi}</div>
+                <c:set var ="title" value = "${avi.title}"/>
+                <c:choose>
+                <c:when test="${fn:length(title) > 23}">
+                <div class="small title">${fn:substring(title,0,23)}...</div>
+                </c:when>
+                <c:otherwise>
+                <div class="small title">${avi.title}</div>
+                </c:otherwise>
+                </c:choose>
+                <div class="small like"><span class="small teamname">${avi.teamname} &nbsp &nbsp
+                </span>좋아요 수:${avi.likeAvi}</div>
               </div>
             </c:forEach>
           </div>
@@ -517,9 +547,17 @@ table {
                     style="width: 250px;"
                   >
                   </a>
-                  <div class="text-center small">팀명 :
-                    ${avi.teamname}</div>
-                  <div class="text-center small">제목 : ${avi.title}</div>
+                  <c:set var ="title" value = "${avi.title}"/>
+                <c:choose>
+                <c:when test="${fn:length(title) > 23}">
+                <div class="small title">${fn:substring(title,0,23)}...</div>
+                </c:when>
+                <c:otherwise>
+                <div class="small title">${avi.title}</div>
+                </c:otherwise>
+                </c:choose>
+                <div class="small like"><span class="small teamname">${avi.teamname} &nbsp &nbsp
+                </span>좋아요 수:${avi.likeAvi}</div>
                 </div>
               </c:forEach>
             </div>
@@ -535,9 +573,17 @@ table {
                     style="width: 250px;"
                   >
                   </a>
-                  <div class="text-center small">팀명 :
-                    ${avi.teamname}</div>
-                  <div class="text-center small">제목 : ${avi.title}</div>
+             <c:set var ="title" value = "${avi.title}"/>
+                <c:choose>
+                <c:when test="${fn:length(title) > 23}">
+                <div class="small title">${fn:substring(title,0,23)}...</div>
+                </c:when>
+                <c:otherwise>
+                <div class="small title">${avi.title}</div>
+                </c:otherwise>
+                </c:choose>
+                <div class="small like"><span class="small teamname">${avi.teamname} &nbsp &nbsp
+                </span>좋아요 수:${avi.likeAvi}</div>
                 </div>
               </c:forEach>
             </div>
@@ -553,9 +599,17 @@ table {
                     style="width: 250px;"
                   >
                   </a>
-                  <div class="text-center small">팀명 :
-                    ${avi.teamname}</div>
-                  <div class="text-center small">제목 : ${avi.title}</div>
+               <c:set var ="title" value = "${avi.title}"/>
+                <c:choose>
+                <c:when test="${fn:length(title) > 23}">
+                <div class="small title">${fn:substring(title,0,23)}...</div>
+                </c:when>
+                <c:otherwise>
+                <div class="small title">${avi.title}</div>
+                </c:otherwise>
+                </c:choose>
+                <div class="small like"><span class="small teamname">${avi.teamname} &nbsp &nbsp
+                </span>좋아요 수:${avi.likeAvi}</div>
                 </div>
               </c:forEach>
             </div>
@@ -596,9 +650,17 @@ table {
                     style="width: 250px;"
                   >
                   </a>
-                  <div class="text-center small">팀명 :
-                    ${avi.teamname}</div>
-                  <div class="text-center small">제목 : ${avi.title}</div>
+                <c:set var ="title" value = "${avi.title}"/>
+                <c:choose>
+                <c:when test="${fn:length(title) > 23}">
+                <div class="small title">${fn:substring(title,0,23)}...</div>
+                </c:when>
+                <c:otherwise>
+                <div class="small title">${avi.title}</div>
+                </c:otherwise>
+                </c:choose>
+                <div class="small like"><span class="small teamname">${avi.teamname} &nbsp &nbsp
+                </span>좋아요 수:${avi.likeAvi}</div>
                 </div>
               </c:forEach>
             </div>
@@ -615,9 +677,17 @@ table {
                     style="width: 250px;"
                   >
                   </a>
-                  <div class="text-center small">팀명 :
-                    ${avi.teamname}</div>
-                  <div class="text-center small">제목 : ${avi.title}</div>
+                <c:set var ="title" value = "${avi.title}"/>
+                <c:choose>
+                <c:when test="${fn:length(title) > 23}">
+                <div class="small title">${fn:substring(title,0,23)}...</div>
+                </c:when>
+                <c:otherwise>
+                <div class="small title">${avi.title}</div>
+                </c:otherwise>
+                </c:choose>
+                <div class="small like"><span class="small teamname">${avi.teamname} &nbsp &nbsp
+                </span>좋아요 수:${avi.likeAvi}</div>
                 </div>
               </c:forEach>
             </div>
@@ -635,10 +705,17 @@ table {
                     style="width: 250px;"
                   >
                   </a>
-                  <div class="text-center small">팀명 :
-                    ${avi.teamname}</div>
-                  <div class="text-center small">제목 : ${avi.title}</div>
-                </div>
+                  <c:set var ="title" value = "${avi.title}"/>
+                <c:choose>
+                <c:when test="${fn:length(title) > 23}">
+                <div class="small title">${fn:substring(title,0,23)}...</div>
+                </c:when>
+                <c:otherwise>
+                <div class="small title">${avi.title}</div>
+                </c:otherwise>
+                </c:choose>
+                <div class="small like"><span class="small teamname">${avi.teamname} &nbsp &nbsp
+                </span>좋아요 수:${avi.likeAvi}</div>
               </c:forEach>
             </div>
           </div>

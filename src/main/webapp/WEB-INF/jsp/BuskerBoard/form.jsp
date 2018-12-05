@@ -10,6 +10,7 @@
 <title>버스커 리스트</title>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="../../css/common.css">
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- Latest compiled JavaScript -->
@@ -40,9 +41,9 @@
     .xybtn{width: 30%; margin: auto;}             
     .lbtn{float: left;}
     .rbtn{float: right;}
-    #logo{width: 3rem; float: left;}
-    #titl{margin-top: 2%; margin-left: 17%;}
-    #titleh2{float: left;}
+    #logo{width: 40px; height:40px; float: left; margin-top: -4px;}
+    #titl{margin-top: 2%; margin-left: 19%;}
+    #titleh2{float: left; margin-top: 0;}
 </style>
 </head>
 <header>
@@ -113,22 +114,45 @@
 </div>
 <div class="xybtn">
 <div>
-    <button type="button" onclick="hihihi()" id="send" class="lbtn btn btn-primary">확인</button>
+    <button type="button" onclick="hihihi()" id="send" class="btns btns-outline-success btn-sm">확인</button>
 </div>   
-<!-- <div>
- 
-    <button type="button"  class="rbtn btn btn-primary">뒤로가기</button>
- 
-</div> -->
+ <div>
+    <button type="button" class="btns btns-outline-dark">뒤로가기</button>
+</div> 
 </div>
 
-
+<!--  -->
 </form>
 </div>
-<button type="button" class="btn btn-outline-primary">Primary</button>
-<button type="button" class="btn btn-outline-primary">Primary</button>
-<button type="button" class="btn btn-outline-primary">Primary</button>
-<button type="button" class="btn btn-outline-primary">Primary</button>
+<button type="button" class="btns btns-outline-primary">Primary</button>
+<button type="button" class="btns btns-outline-secondary">Secondary</button>
+<button type="button" class="btns btns-outline-success">Success</button>
+<button type="button" class="btns btns-outline-danger">Danger</button>
+<button type="button" class="btns btns-outline-warning">Warning</button>
+<button type="button" class="btns btns-outline-info">Info</button>
+<button type="button" class="btns btns-outline-light">Light</button>
+<button type="button" class="btn btns-outline-dark">Dark</button>
+
+<!--Dark-green-->
+<button type="button" class="btn">Dark-green</button>
+
+<!--Light-green-->
+<button type="button" class="btn btn-light-green">Light-green</button>
+
+<!--Yellow-->
+<button type="button" class="btn btn-yellow">Yellow</button>
+
+<!--Amber-->
+<button type="button" class="btn btn-amber">Amber</button>
+
+<!--Deep-orange-->
+<button type="button" class="btn btn-deep-orange">Deep-orange</button>
+
+<!--Brown-->
+<button type="button" class="btn btn-brown">Brown</button>
+
+<!--Blue-grey-->
+<button type="button" class="btn btn-blue-grey">Blue-grey</button>
 
 </body>
 
