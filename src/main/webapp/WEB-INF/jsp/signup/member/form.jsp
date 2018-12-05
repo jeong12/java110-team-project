@@ -18,14 +18,14 @@ margin-right: 0.5rem;
 }
 
 #titl{
-margin-top: 3%;
+margin-top: 5%;
 margin-bottom: 3%;
+/* margin-left: 11%; */
 }
 
 #titl h3{
 float: left; 
-margin-top: 4px;
-margin-left 2.4 rem;
+margin-top: -5px;
 }
 
 body{
@@ -34,13 +34,13 @@ background-color: snow;
 
 .container {
     background-color: white;
-    margin-left: 15rem;
-    margin-right: 15rem;
 }
 
 .join_form {
 	border: 1px solid silver;
 	border-radius: 10px;
+	margin: 0px auto;
+	margin-bottom: 10%;
 }
 
 label {
@@ -77,10 +77,9 @@ input:focus {
 	border-bottom-color: #3CC !important;
 }
 
-input:hover {
+ input:hover {
 	border-bottom-color: #3CC;
-}
-
+} 
 input:invalid {
 	box-shadow: none;
 }
@@ -117,8 +116,7 @@ input[type=checkbox]:checked+label{
 }
 
 #upload {
-	width: 100%;
-	height: 100%;
+	width: 64%;
 	padding-left: 25%;
 }
 
@@ -126,16 +124,22 @@ input[type=checkbox]:checked+label{
 	padding-top: 20px;
 }
 
-/* .signupbtn:disabled {
+.signupbtn:disabled {
 	cursor: not-allowed;
 	background-color: #aaaaaa;
 	border-radius: 12px;
 }
 
 .signupbtn {
-	background-color: #1FBC02;
+	background-color: #3F51D1;
 	border-radius: 12px;
-} */
+}
+p{
+margin-top: 2rem;
+margin-bottom: 1rem;
+}
+.cbtn{
+text-align: center;}
 </style>
 </head>
 <jsp:include page="../../header.jsp"></jsp:include>
@@ -143,13 +147,13 @@ input[type=checkbox]:checked+label{
 
 <div class="title container">
 <div class="row">
-    <div id="titl" class='col-lg-12'>
+    <div id="titl" class='col-lg-8'>
         <img id="logo" src="/img/playButton.PNG" alt="플레이로고">
-        <h3>무대관리</h3>
+        <h3>회원가입</h3>
     </div>
     </div>
     </div>
-	<div class=container>
+	<div class= container>
 		<div class="row">
 		<div class='col-lg-12'>
 		  <div class="join_form col-lg-8">
@@ -175,7 +179,7 @@ input[type=checkbox]:checked+label{
 			  <span	 id="nickMsg"></span> <label for='input_img'>사진</label><br> 
 			  <img id="upload" src="/img/anonymous.png" alt="기본이미지"><br>
 			  <input type='file' name='file1' id='input_img' onchange="readURL(this);" /> 
-			  <label>선호하는 장르</label><br> 
+			  <br><label>선호하는 장르</label><br> 
 			  <label>필수적으로 3개를 골라주세요</label><br> 
 			  <input type="checkbox" name="genre" onclick="ChkCount(this)" value="ballad" id="ballad"> 
 			  <label for="ballad" class='chklabel'>발라드</label> 
@@ -196,12 +200,14 @@ input[type=checkbox]:checked+label{
 			  <input type="checkbox" name="genre" onclick="ChkCount(this)" value="rap" id="rap"> 
 			  <label for="rap" class='chklabel'>랩</label>
 			     <p>팬으로 가입하셔도, 이후 메인화면의 <br> '버스커되기' '제공자되기'로 변경 가능합니다.</p>
-					<button class="btns btns-outline-secondary" onclick="sendMsg()"
+					<div class="cbtn">
+					<button class="signupbtn btns btns-outline-secondary" onclick="sendMsg()"
 						name="type" value="fan">팬으로 가입</button>
-					<button class="btns btns-outline-secondary" onclick="sendMsg()"
-						name="type" value="busker">버스커로 가입</button>
-					<button class="btns btns-outline-secondary" onclick="sendMsg()"
-						name="type" value="supporter">무대 제공자로 가입</button>
+					<button class="signupbtn btns btns-outline-light" onclick="sendMsg()"
+						name="type" value="busker" disabled="disabled">버스커로 가입</button>
+					<button class="signupbtn btns btns btns-outline-light" onclick="sendMsg()"
+						name="type" value="supporter" disabled="disabled">무대 제공자로 가입</button>
+					</div>
 				</form>
 			</div>
 		</div>
