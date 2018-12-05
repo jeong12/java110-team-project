@@ -8,28 +8,34 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
 <link href="/../css/common.css" rel="stylesheet">
 <style>
-th {
-	text-align: right;
+
+#logo{
+width: 40px; 
+height:40px; 
+float: left; 
+margin-top: -4px;
+margin-right: 0.5rem;
 }
 
-#titl {
-	margin: 10px;
-	padding: 10px;
+#titl{
+margin-top: 3%;
+margin-bottom: 3%;
 }
 
-#logo {
-	width: 50px;
-	height: 50px;
-	margin: 10px;
+#titl h3{
+float: left; 
+margin-top: 4px;
+margin-left 2.4 rem;
 }
 
-h2 {
-	margin-top: -50px;
-	margin-left: 70px;
+body{
+background-color: snow;
 }
 
 .container {
-	padding: 10%;
+    background-color: white;
+    margin-left: 15rem;
+    margin-right: 15rem;
 }
 
 .join_form {
@@ -135,10 +141,14 @@ input[type=checkbox]:checked+label{
 <jsp:include page="../../header.jsp"></jsp:include>
 <body>
 
-	<!--     <div id="titl">
+<div class="title container">
+<div class="row">
+    <div id="titl" class='col-lg-12'>
         <img id="logo" src="/img/playButton.PNG" alt="플레이로고">
-        <h2>회원가입</h2>
-    </div> -->
+        <h3>무대관리</h3>
+    </div>
+    </div>
+    </div>
 	<div class=container>
 		<div class="row">
 		<div class='col-lg-12'>
