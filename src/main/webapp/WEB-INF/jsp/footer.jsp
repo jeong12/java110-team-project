@@ -19,17 +19,7 @@
 ></script> -->
 
 <style>
-/*기본색*/
-:root {
-    -main-color: #000000;
-    -accent-color: #BF6A7A;
-    -dark-color: #2B5566;
-    -text-bright-color: #fff;
-    -icon-color: #fff;
-    -icon-bk-color: lightslategray;
-    -gray-color: #ddd;
-    -middle-width: 800px;
-}
+
 /* 기본 설정: 폰트 크기 */
 @media ( max-width :599px) {
     :root {

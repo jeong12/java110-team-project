@@ -7,222 +7,323 @@
 <head>
     <meta charset="UTF-8">
     <title>회원정보수정</title>
+    <link rel="stylesheet" href="/css/common.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <style>
-        th {
-            text-align: right;
-        }
+body {
+    margin: 0;
+    background-color: #f5f5f5;
+}
 
-        #titl {
-            margin: 10px;
-            padding: 10px;
-        }
+.container {
+    width: 800px;
+    padding-right: 3rem;
+    padding-left: 3rem;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 1rem;
+}
 
-        #logo {
-            width: 50px;
-            height: 50px;
-            margin: 10px;
-        }
+#titl {
+    margin: 0 auto; padding: 10px; position:relative; left:1.8rem; width: 40%;
+}
 
-        h2 {
-            margin-top: -50px;
-            margin-left: 70px;
-        }
+#logo {
+    width: 40px; height: 40px; margin: 10px;
+}
 
-        #container {
-            padding: 50px;
-        }
+h4 {
+    display: inline-block; min-width: 8rem; margin:0.8rem 0;
+}
 
-        #upload {
-            width: 150px;
-            height: 300px;
-        }
-        .imgfile {
-            float: right;
-        }
-    </style>
+.h3 {
+    display: inline-block; position: relative; top: .2rem;
+}
+ input[type="password"],input[type="email"]{
+    border:0;
+    border-bottom: 1px double black;
+    background-color: #f5f5f5;
+ } 
+ input[type="password"]:focus, input[type="email"]:focus{
+    outline:none;
+ }
+.guide{
+    font-size: 0.75rem;
+    padding-left: 8.1rem;
+}
 
-    <script>
-        var chkPwd = 0;
-        var chkEmail = 0;
-        var chkGenre = 0;
-        var chkFile = 1;
+#upload {
+    width: 150px; height: 300px;
+}
 
-        function ChkCount(obj) {
-            var chkbox = document.getElementsByName("genre");
-            var chkCnt = 0;
-            for (var i = 0; i < chkbox.length; i++) {
-                if (chkbox[i].checked) {
-                    chkCnt++;
-                }
-            }
-            if (chkCnt == 3) {
-                chkGenre = 1;
-                if (chkPwd == 1 && chkEmail == 1 && chkGenre == 1 && chkFile == 1) {
-                    $(".modi").prop("disabled", false);
-                    $(".modi").css("background-color", "#4CAF50");
-                }
-            } else if (chkCnt > 3) {
-                alert("최대 3개까지만 선택하실 수 있습니다.");
-                chkGenre = 1;
-                obj.checked = false;
-                return false;
-            } else if (chkCnt < 3) {
-                $(".modi").prop("disabled", true);
-            }
-        }
+.imgmodi{
+    margin-top: .8rem;
+    height:150px; width: 150px;
+    border-radius: 3rem;
+}
+.imgfile {
+    position: relative; text-align: center;
+}
 
-        function checkPwd() {
-            var inputed = $('.pass').val();
-            var reinputed = $('#repwd').val();
+#piclabel {
+    min-width: 4rem;
+}
 
-            if (/^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(inputed)) {
-                $('#pwd').css("background-color", "#B0F6AC");
-                $('#pwdMsg').html("사용가능한 비밀번호입니다.")
-            } else {
-                $("#pwd").css("background-color", "#FFCECE");
-                $('#pwdMsg').html("8자 이상 영어,숫자,특수문자를 포함해주세요 ")
-                $(".modi").prop("disabled", true);
-            }
+#label_pic {
+    cursor: pointer;
+}
 
-            if (reinputed == "" && (inputed != reinputed || inputed == reinputed)) {
-                $("#rePassword").html("위와 같은 비밀먼호를 입력해주세요")
-                $(".modi").prop("disabled", true);
-                $(".modi").css("background-color", "#aaaaaa");
-                $("#repwd").css("background-color", "#FFCECE");
-            } else if (inputed == reinputed) {
-                $("#repwd").css("background-color", "#B0F6AC");
-                $("#rePassword").html("비밀번호가 일치합니다.")
-                chkPwd = 1;
-                if ( chkPwd == 1 && chkEmail == 1 && chkGenre == 1 && chkFile == 1) {
-                    $(".modi").prop("disabled", false);
-                    $(".modi").css("background-color", "#4CAF50");
-                }
-            } else if (inputed != reinputed) {
-                $("#rePassword").html("비밀번호가 일치하지않습니다.")
-                chkPwd = 0;
-                $(".modi").prop("disabled", true);
-                $(".modi").css("background-color", "#aaaaaa");
-                $("#repwd").css("background-color", "#FFCECE");
+#input_img {
+    opacity: 0;
+}
 
-            }
-        }
+#id, #nick{
+    font-weight: 300;
+    font-size: 1rem;
+}
 
-        function checkEmail() {
-            var inserted = $('#checkemail').val();
-            $.ajax({
-                data: {
-                    email: inserted
-                },
-                url: "checkEmail",
-                success: function(data) {
-                    if (inserted == "" && data == '0') {
-                        $(".modi").prop("disabled", true);
-                        $(".modi").css("background-color", "#aaaaaa");
-                        $("#checkemail").css("background-color", "#FFCECE");
-                        $("#emailMsg").html("이메일을 입력해주세요.")
-                        chkEmail = 0;
-                    } else if (data == '0') {
-                        $("#checkemail").css("background-color", "#B0F6AC");
-                        $("#emailMsg").html("사용 가능한 이메일입니다.")
-                        chkEmail = 1;
-                        if (chkPwd == 1 && chkEmail == 1 && chkGenre == 1 && chkFile == 1) {
-                            $(".modi").prop("disabled", false);
-                            $(".modi").css("background-color", "#4CAF50");
+.textgenre{
+    font-size: 1rem;
+}
+
+.check{
+    width: 43%;
+    display: inline-block;
+}
+input[type=checkbox] {
+    display: none;
+}
+
+.chklabel {
+    margin: 2% 1%;
+    padding: 0px !important;
+    width: 65px;
+    height: 20px;
+    text-align: center;
+    border: 1px solid silver;
+    border-radius: 25px;
+    background-color: rgba(52, 58, 64, 0.5);
+    color: white;
+}
+
+input[type=checkbox]+label {
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+    padding-left: 25px;
+    margin-right: 15px;
+    font-size: 13px;
+    margin: 2% 1%;
+}
+
+input[type=checkbox]:checked+label{
+    background-color:rgb(52, 58, 64);
+}
+.modi{
+    margin: 0.5rem 0;
+    position: relative;
+    left: 13.5rem;
+}
+</style>
+
+<script>
+    var chkPwd = 0;
+    var chkPwdl = 0;
+    var chkEmail = 0;
+    var chkGenre = 0;
+    var chkFile = 1;
+
+    function ChkCount(obj) {
+        var chkbox = document.getElementsByName("genre");
+                    var chkCnt = 0;
+                    for (var i = 0; i < chkbox.length; i++) {
+                        if (chkbox[i].checked) {
+                            chkCnt++;
                         }
-                    } else if (data >= '1') {
+                    }
+                    if (chkCnt == 3) {
+                        chkGenre = 1;
+                        if (chkPwd == 1 && chkEmail == 1 && chkPwdl ==1 &&
+                                chkGenre == 1 && chkFile == 1) {
+                            $(".modi").prop("disabled", false);
+                        }
+                    } else if (chkCnt > 3) {
+                        swal(' ',"최대 3개까지만 선택하실 수 있습니다.",'error');
+                        chkGenre = 1;
+                        obj.checked = false;
+                        return false;
+                    } else if (chkCnt < 3) {
                         $(".modi").prop("disabled", true);
-                        $("#emailMsg").html("이미 존재하는 이메일입니다.")
-                        $(".modi").css("background-color", "#aaaaaa");
-                        $("#checkemail").css("background-color", "#FFCECE");
-                        chkEmail = 0;
                     }
                 }
-            });
-        }
 
-        function readURL(input) {
+                function checkPwd() {
+                    var inputed = $('.pass').val();
+                    var reinputed = $('#repwd').val();
 
-            var chkImg = document.getElementById('input_img').value
-            chkImg = chkImg.slice(chkImg.indexOf(".") + 1).toLowerCase();
-            if (chkImg != "jpg" && chkImg != "jpeg" && chkImg != "gif" && chkImg != "png" && chkImg != "bmp") {
-                chkFile = 0;
-                $(".modi").prop("disabled", true);
-                alert("이미지 파일만 올려주세요");
-                $('#upload').attr('src', "/img/anonymous.png");
-            } else if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    $('#upload').attr('src', e.target.result);
-                    $('#photo-image').attr('src', e.target.result);
+                    if (/^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/
+                            .test(inputed)) {
+                        $('#pwdMsg').html("사용가능한 비밀번호입니다.");
+                        chkPwdl = 1;
+                    } else {
+                        $('span .fa-lock').hide(); 
+                        $('span .fa-lock-open').show();
+                        $('#pwdMsg').html("8자 이상 영어,숫자,특수문자를 포함해주세요 ");
+                        $(".modi").prop("disabled", true);
+                    }
+
+                    if (reinputed == ""
+                            && (inputed != reinputed || inputed == reinputed)) {
+                        $('span .fa-lock').hide(); 
+                        $('span .fa-lock-open').show();
+                        $("#rePassword").html("위와 같은 비밀먼호를 입력해주세요");
+                        $(".modi").prop("disabled", true);
+                    } else if (inputed == reinputed) {
+                        $('span .fa-lock').show(); 
+                        $('span .fa-lock-open').hide();
+                        $("#rePassword").html("비밀번호가 일치합니다.")
+                        chkPwd = 1;
+                        if (chkPwd == 1 && chkEmail == 1 && chkPwdl ==1 &&
+                                chkGenre == 1 && chkFile == 1) {
+                            $(".modi").prop("disabled", false);
+                        }
+                    } else if (inputed != reinputed) {
+                        $('span .fa-lock').hide(); 
+                        $('span .fa-lock-open').show();
+                        $("#rePassword").html("비밀번호가 일치하지않습니다.")
+                        chkPwd = 0;
+                        $(".modi").prop("disabled", true);
+                    }
                 }
-                reader.readAsDataURL(input.files[0]);
-                chkFile = 1;
-                if (chkPwd == 1 && chkEmail == 1 && chkGenre == 1 && chkFile == 1) {
-                    $(".modi").prop("disabled", false);
-                    $(".modi").css("background-color", "#4CAF50");
+
+                function checkEmail() {
+                    var inserted = $('#checkemail').val();
+                    $.ajax({
+                        data : {
+                            email : inserted
+                        },
+                        url : "checkEmail",
+                        success : function(data) {
+                            if(!(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/
+                                    .test(inserted))){
+                                $(".modi").prop("disabled", true);
+                                $("#emailMsg").html("적합하지 않은 이메일 형식입니다.")
+                                chkEmail = 0;
+                            } else if (inserted == "" && data == '0') {
+                                $(".modi").prop("disabled", true);
+                                $("#emailMsg").html("이메일을 입력해주세요.")
+                                chkEmail = 0;
+                            } else if (data == '0') {
+                                $("#emailMsg").html("사용 가능한 이메일입니다.")
+                                chkEmail = 1;
+                                if (chkPwd == 1 && chkEmail == 1 && chkPwdl ==1 &&
+                                        chkGenre == 1 && chkFile == 1) {
+                                    $(".modi").prop("disabled", false);
+                                }
+                            } else if (data >= '1') {
+                                $(".modi").prop("disabled", true);
+                                $("#emailMsg").html("이미 존재하는 이메일입니다.")
+                                chkEmail = 0;
+                            }
+                        }
+                    });
                 }
-            }
-        }
-    
-</script>
+
+                function readURL(input) {
+
+                    var chkImg = document.getElementById('input_img').value
+                    chkImg = chkImg.slice(chkImg.indexOf(".") + 1)
+                            .toLowerCase();
+                    if (chkImg != "jpg" && chkImg != "jpeg"
+                            && chkImg != "gif" && chkImg != "png"
+                            && chkImg != "bmp") {
+                        chkFile = 0;
+                        $(".modi").prop("disabled", true);
+                        swal(" ","이미지 파일만 올려주세요","error");
+                        $('#upload').attr('src', "/img/anonymous.png");
+                    } else if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            $('#upload').attr('src', e.target.result);
+                            $('#photo-image').attr('src', e.target.result);
+                        }
+                        reader.readAsDataURL(input.files[0]);
+                        chkFile = 1;
+                        if (chkPwd == 1 && chkEmail == 1 && chkPwdl ==1 &&
+                                chkGenre == 1 && chkFile == 1) {
+                            $(".modi").prop("disabled", false);
+                        }
+                    }
+                }
+            </script>
 </head>
+<jsp:include page="../../header.jsp"></jsp:include>
 <body>
 
     <div id="titl">
         <img id="logo" src="/img/playButton.PNG" alt="플레이로고">
-        <h2>회원 정보 수정</h2>
-    </div>
-    <div id=container>
-        <form action='edit' method='post' enctype="multipart/form-data">
-            <h3>아이디</h3>
-            <div id="id">${id}</div>
-            <h3>비밀번호</h3>
-            <input type="password" placeholder="8자 이상 영어, 숫자, 특수문자 포함"
-                name="password" required class="pass" id="pwd" oninput="checkPwd()"
-                size=30><br> <span id="pwdMsg"></span>
-            <h3>비밀번호 확인</h3>
-            <input type="password" placeholder="위와 같은 비밀번호를 써주세요"
-                name="psd-repeat" required class="pass" id="repwd"
-                oninput="checkPwd()" size=30> <br> <span
-                id="rePassword"></span>
+        <h3 class="h3">회원 정보 수정</h3>
+    </div> 
+    <div class="container">
+        <form action='edit' method='post' enctype="multipart/form-data" style="padding-left: 20px;">
             <div class="imgfile">
-            <h3>사진</h3>
+            <label for="input_img" id="label_pic">
             <c:choose>
                 <c:when test="${not empty photo}">
-                    <td><img id='photo-image' src='/upload/${photo}' alt="원본이미지" style="height:200px; width: 200px;"></td>
+                    <img id='photo-image' class="imgmodi" src='/upload/${photo}' alt="원본이미지" ><br>
                 </c:when>
             <c:otherwise>
-                <img id="upload" src="/img/anonymous.png" alt="기본이미지" style="height:200px; width: 200px;"><br>
+                <img id="upload" class="imgmodi" src="/img/anonymous.png" alt="기본이미지"><br>
             </c:otherwise>
-            </c:choose>
-            <input type='file' name='file1' id='input_img' onchange="readURL(this);"/>
+            </c:choose></label>
+            <input type='file' name='file1' id='input_img' onchange="readURL(this);" style="display:none;"/>
             </div>
-            <h3>이메일</h3>
-            <input type="email" name="email" required class="email"
-                oninput="checkEmail()" id="checkemail" size=30> <br> <span
-                id="emailMsg"></span>
-            <h3>닉네임</h3>
-            <div id="nick">${nick}</div>
-            <h3>선호하는 장르</h3>
-            <h5>3개를 필수적으로 골라주세요.</h5>
-            <input type="checkbox" name="genre" onclick="ChkCount(this)"
-                value="ballad"><label for="ballad">발라드</label> <input
-                type="checkbox" name="genre" onclick="ChkCount(this)" value="dance"><label
-                for="dance">댄스</label> <input type="checkbox" name="genre"
-                onclick="ChkCount(this)" value="trot"><label for="trot">트로트</label>
-            <input type="checkbox" name="genre" onclick="ChkCount(this)"
-                value="folk"><label for="folk">포크</label> <input
-                type="checkbox" name="genre" onclick="ChkCount(this)" value="rock"><label
-                for="rock">락</label> <input type="checkbox" name="genre"
-                onclick="ChkCount(this)" value="jazz"><label for="jazz">재즈</label>
-            <input type="checkbox" name="genre" onclick="ChkCount(this)"
-                value="country"><label for="country">컨츄리</label> <input
-                type="checkbox" name="genre" onclick="ChkCount(this)" value="rnb"><label
-                for="rnb">알앤비</label> <input type="checkbox" name="genre"
-                onclick="ChkCount(this)" value="rap"><label for="rap">랩</label><br><br>
-            <button class="modi" disabled="disabled" type="submit">수정완료</button>
+            <h4>아이디</h4>
+            <span id="id">${id}</span><br>
+            <h4>비밀번호</h4>
+            <input type="password" placeholder="8자 이상 영어, 숫자, 특수문자 포함"
+                name="password" required class="pass" id="pwd" oninput="checkPwd()"
+                size=30>
+                <span><i class="fas fa-lock-open" style="display: none;"></i>
+                <i class="fas fa-lock" style="display: none;"></i></span><br>
+                 <div id="pwdMsg" class="guide"></div>
+            <h4>비밀번호 확인</h4>
+            <input type="password" placeholder="위와 같은 비밀번호를 써주세요"
+                name="psd-repeat" required class="pass" id="repwd"
+                oninput="checkPwd()" size=30> <br> <div
+                id="rePassword" class="guide"></div>
+            <h4>이메일</h4>
+            <input type="email" placeholder="ex)xxx@naver.com" name="email" required class="email"
+                oninput="checkEmail()" id="checkemail" size=30> <br> <div
+                id="emailMsg" class="guide"></div>
+            <h4>닉네임</h4>
+            <span id="nick">${nick}</span><br>
+            <h4>선호하는 장르</h4>
+            <!-- <span class ="textgenre">3개를 필수적으로 골라주세요.</span> -->
+            <div class="check"> 
+            <input type="checkbox" name="genre" onclick="ChkCount(this)" value="ballad" id="ballad"> 
+              <label for="ballad" class='chklabel'>발라드</label> 
+              <input type="checkbox" name="genre" onclick="ChkCount(this)" value="dance" id="dance">
+              <label for="dance" class='chklabel'>댄스</label> 
+              <input type="checkbox" name="genre" onclick="ChkCount(this)" value="trot" id="trot"> 
+              <label for="trot" class='chklabel'>트로트</label> 
+              <input type="checkbox" name="genre" onclick="ChkCount(this)" value="folk" id="folk"> 
+              <label for="folk" class='chklabel'>포크</label> 
+              <input type="checkbox" name="genre" onclick="ChkCount(this)" value="rock" id="rock">
+              <label for="rock" class='chklabel'>락</label> 
+              <input type="checkbox" name="genre" onclick="ChkCount(this)" value="jazz" id="jazz"> 
+              <label for="jazz" class='chklabel'>재즈</label> 
+              <input type="checkbox" name="genre" onclick="ChkCount(this)" value="country" id="country"> 
+              <label for="country" class='chklabel'>컨츄리</label> 
+              <input type="checkbox" name="genre" onclick="ChkCount(this)" value="rnb" id="rnb">
+              <label for="rnb" class='chklabel'>알앤비</label> 
+              <input type="checkbox" name="genre" onclick="ChkCount(this)" value="rap" id="rap"> 
+              <label for="rap" class='chklabel'>랩</label>
+              </div><br>
+            <button class="modi btns btns-outline-dark" disabled="disabled" type="submit">수정완료</button>
         </form>
     </div>
 </body>
+<jsp:include page="../../footer.jsp"></jsp:include>
 </html>

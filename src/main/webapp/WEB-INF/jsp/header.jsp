@@ -93,7 +93,7 @@ a:focus, a:hover {
 }
 
 .tab {
-    position: absolute; left:21rem; top:2.6rem; max-height: 0;
+    position: absolute; left:16rem; top:2.6rem; max-height: 0;
     transition: max-height 0.1s ease; overflow: hidden; z-index:1000;
 }
 
@@ -128,7 +128,7 @@ a:focus, a:hover {
             <img src="/img/logos.JPG" alt="logos">
             <img src="/img/Indiesker.JPG" alt="indie"></a>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-7_c">
               <div class="d-flex_c justify-content-md-end_c justify-content-between_c">
                 <div class="login">
                 <a href="/app/auth/form" class="login-btn">
@@ -149,7 +149,7 @@ a:focus, a:hover {
                       <div class="icon-bar">
                           <a href="#"><i class="fas fa-bookmark"></i>
                           <span class="d-md-inline-block_c">Follow 리스트</span></a>
-                          <a href="#"><i class="fas fa-info-circle"></i>
+                          <a href="javascript:void(0)" class="myinfo"><i class="fas fa-info-circle"></i>
                           <span class=" d-md-inline-block_c">내 정보수정</span></a>
                           <!--버스커일 경우-->
                           <div id="busk_icon" style="display:none">
