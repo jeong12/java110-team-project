@@ -106,13 +106,6 @@ public class SignupController{
   @RequestMapping("busker/addavi")
   public void addavi(Busker b,  @RequestParam MultipartFile file1, HttpSession session) throws Exception {
     
-    if(bsuknsup.get("id") == null) {
-      System.out.println("일반회원이 가입함!");
-      Member member = (Member)session.getAttribute("loginUser");
-      String id = member.getId();
-      bsuknsup.put("id", id);
-    }
-    
     String filename=null;
     if (file1.getSize() > 0) {
       filename = UUID.randomUUID().toString();
@@ -161,13 +154,6 @@ public class SignupController{
   @RequestMapping("supporter/add")
   public void add(Supporter s, StagePhoto sp, Model model, @RequestParam MultipartFile file1, 
       @RequestParam MultipartFile file2, @RequestParam MultipartFile file3, HttpSession session) throws Exception {
-    
-    if(bsuknsup.get("id") == null) {
-      System.out.println("일반회원이 가입함!");
-      Member member = (Member)session.getAttribute("loginUser");
-      String id = member.getId();
-      bsuknsup.put("id", id);
-    }
     
     String id= (String) bsuknsup.get("id");
     int no = memberService.findNoById(id);
