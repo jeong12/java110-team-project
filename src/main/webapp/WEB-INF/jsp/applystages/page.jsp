@@ -50,8 +50,9 @@ padding-bottom: 5%;}
 .applydates tbody{border:1px solid silver; border-radius: 3%;}
 .tbody tr td{border-right: 1px solid silver; border-radius: 3%;}
 .abtn{margin: 1%;}
-.slideimg{float: right; width: 30%; height: auto;}
-.ty{width: 100%; height: auto;}
+.slideimg{float: right;}
+#tyy{width: 20rem;height: 15rem;}
+.ty{width: 100%; height: 100%;}
 </style>                  
 <jsp:include page="../header.jsp" />
 </head>
@@ -112,8 +113,8 @@ padding-bottom: 5%;}
 									<div class="carousel-inner">
 
 										<c:forEach items="${lists}" var="s">
-											<div class="item">
-												<img class="ty" src="/upload/${s.photo}">
+											<div class="item" id="tyy">
+												<img style="height: 100%" src="/upload/${s.photo}">
 											</div>
 										</c:forEach>
 
