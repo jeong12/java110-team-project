@@ -86,7 +86,6 @@ public class ScheduleServiceimpl implements ScheduleService {
 
     @Override
     public Schedule myreqdetail(int no) {
-      System.out.println(no);
       return scheduleDao.findbybrno(no);
     }
     
@@ -128,14 +127,12 @@ public class ScheduleServiceimpl implements ScheduleService {
     
     @Override
     public int deleteReqSchedule(int no) {
-      System.out.println(no);
       scheduleDao.buskstagdelete(no);
       return scheduleDao.buskreqdelete(no);
     }
 
     @Override
     public int deletePerSchedule(int no) {
-      System.out.println(no);
       return scheduleDao.perscheduledelete(no);
     }
       
@@ -221,7 +218,6 @@ public class ScheduleServiceimpl implements ScheduleService {
     @Override
     public int editperschedule(Schedule schedule) {
       int no =scheduleDao.editperschedule(schedule);
-      System.out.println("test insert반환값 : " +no);
       return 1;
       
     }

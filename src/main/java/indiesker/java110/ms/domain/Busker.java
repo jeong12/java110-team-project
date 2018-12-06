@@ -21,11 +21,20 @@ public class Busker extends Member{
   protected String message;
   
 
+
+  
+  
   public int getBno() {
     return bno;
   }
   public void setBno(int bno) {
     this.bno = bno;
+  }
+  public Date getCdt() {
+    return cdt;
+  }
+  public void setCdt(Date cdt) {
+    this.cdt = cdt;
   }
   public String getTeamname() {
     return teamname;
@@ -108,12 +117,13 @@ public class Busker extends Member{
   }
   @Override
   public String toString() {
-    return "Busker [teamname=" + teamname + ", teamgenre=" + teamgenre + ", city=" + city
-        + ", instrument=" + instrument + ", streamingUrl=" + streamingUrl + ", teamInfo=" + teamInfo
-        + ", teamPhoto=" + teamPhoto + ", avi1=" + avi1 + ", avi2=" + avi2 + ", permission="
-        + permission + ", likecount=" + likecount + ", tel=" + tel + ", message=" + message + "]";
+    return "Busker [bno=" + bno + ", teamname=" + teamname + ", teamgenre=" + teamgenre + ", city="
+        + city + ", instrument=" + instrument + ", streamingUrl=" + streamingUrl + ", teamInfo="
+        + teamInfo + ", teamPhoto=" + teamPhoto + ", avi1=" + avi1 + ", avi2=" + avi2
+        + ", permission=" + permission + ", cdt=" + cdt + ", likecount=" + likecount + ", tel="
+        + tel + ", message=" + message + "]";
   }
-  
+
 
   
   

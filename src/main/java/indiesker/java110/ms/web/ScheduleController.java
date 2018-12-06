@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import indiesker.java110.ms.domain.Busker;
 import indiesker.java110.ms.domain.Paging;
 import indiesker.java110.ms.domain.Schedule;
@@ -37,7 +38,6 @@ public class ScheduleController {
    paging.setTotalCount(scheduleService.totSchedule());
    
    List<Schedule> list = scheduleService.showScedule(paging);
-   System.out.println(list);
    SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd");
    SimpleDateFormat hformat = new SimpleDateFormat("HH:mm");
     
@@ -50,6 +50,16 @@ public class ScheduleController {
     model.addAttribute("paging", paging);
     
   }
+  
+  @ResponseBody
+  @RequestMapping("detail")
+  public Busker detail(int bno) {
+    Busker b = buskerService.findInfo(bno);
+ System.out.println(b);
+    return b;
+  }
+  
+  
   
   @RequestMapping("search")
   public void search(@RequestParam String type, @RequestParam String keyword, String date, Model model) {
@@ -65,5 +75,8 @@ public class ScheduleController {
   model.addAttribute("list",list);
   
   }
+  
+  
+  
   
 }
