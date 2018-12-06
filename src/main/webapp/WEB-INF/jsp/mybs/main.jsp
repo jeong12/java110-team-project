@@ -15,11 +15,10 @@
 <link rel="stylesheet" type="text/css"
     href="/../css/common.css">
     
-<!-- 모달내부 css -->
-<!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha256-3dkvEK0WLHRJ7/Csr0BZjAWxERc5WH7bdeUya2aXxdU= sha512-+L4yy6FRcDGbXJ9mPG8MT/3UCDzwR9gPeyFNMCtInsol++5m3bk2bXWKdZjvybmohrAsn3Ua5x8gfLnbE1YkOg=="><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw=="> -->
 
 <link href="/css/fullcalendar.min.css" rel="stylesheet">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha256-3dkvEK0WLHRJ7/Csr0BZjAWxERc5WH7bdeUya2aXxdU= sha512-+L4yy6FRcDGbXJ9mPG8MT/3UCDzwR9gPeyFNMCtInsol++5m3bk2bXWKdZjvybmohrAsn3Ua5x8gfLnbE1YkOg==" crossorigin="anonymous">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
 #calendar {
 	max-width: 900px;
@@ -43,16 +42,9 @@
 	margin-left: 30%
 }
 
-<<<<<<< HEAD
-/* p{
-    width: 400px;
-} */
-=======
-
 .detailinfobtn,.removebtn{
     font-size: 20%;
 }
->>>>>>> refs/heads/181203NEW
 .fc-day-number.fc-sat.fc-past { color:#0000FF; }     /* 토요일 */
 .fc-day-number.fc-sun.fc-past { color:#FF0000; }    /* 일요일 */
 
@@ -112,8 +104,6 @@ display:inherit;
 		<img id="logo" src="/img/playButton.PNG" alt="플레이로고">
 		<h2>버스킹 일정</h2>
 	</div>
-	<!-- <div id="reqmap" style="width:400px;height:400px;margin-top:10px;display:block"></div>
-    <div id="map" style="width:400px;height:400px;margin-top:10px;display:block"></div>  -->
 
 
 	<div class="container">
@@ -169,13 +159,6 @@ display:inherit;
     </div>
 </div>	
 
-<!-- <div class="container">
-	<div class="flagsearch">
-			<button value="1">진행중</button>
-			<button value="2">완료</button>
-			<button value="3">개인스케줄</button>
-		</div>
-</div> -->
 
 <div class="container" style="width=70%">
     <div class="row" style="width=100%">
@@ -445,7 +428,7 @@ input, textarea, button { margin-top:0px }
 				    <!-- <div class="container"> -->
 					<div class="row" style="width:auto">
 					<div class="col-md-12">
-					<form action='add' method='post' enctype="multipart/form-data" class="form-horizontal" >
+					<form action='add' method='post' enctype="multipart/form-data" class="form-horizontal" id='scheduleaddform' >
 					<fieldset>
 					
 					<!-- 장소 입력 input -->
@@ -457,7 +440,7 @@ input, textarea, button { margin-top:0px }
 					        <i class="fa fa-user">
 					        </i>
 					       </div>
-					       <input id="shopname" name="shopname" type="text" placeholder="장소/상호명" class="form-control input-md">
+					       <input id="shopname" name="shopname" type="text" placeholder="장소/상호명" autocomplete="off" class="form-control input-md" onkeydown='moveFocus("cnt")'>
 					      </div>
 					  </div>
 					</div>
@@ -470,7 +453,7 @@ input, textarea, button { margin-top:0px }
 					       <div class="input-group-addon" style="width: 18%;">
 					      <i class="fa fa-male"></i>
 					       </div>
-					      <input id="cnt" name="cnt" type="text" placeholder="공연인원수" class="form-control input-md">
+					      <input id="cnt" name="cnt" type="number" autocomplete="off" placeholder="공연인원수" class="form-control input-md" onkeydown='moveFocus("regstarttimepicker")'>
 					
 					      </div>
 					  </div>
@@ -514,14 +497,14 @@ input, textarea, button { margin-top:0px }
 					          <div class="input-group-addon">
 					             <i class="fa fa-street-view"></i>
 					           </div>
-					          <input id="addr" name="addr" type="text" placeholder="주소" class="form-control input-md ">
+					          <input id="addr" name="addr" type="text" placeholder="주소" class="form-control input-md" autocomplete="off">
 					      </div>
 					  </div>
 					
 					
 					  <div>
 					    <div class="input-group">
-					            <input type='button' class="btn btn-default" onclick="search_addr()" value='주소검색'>
+					            <input type='button' class="btn btn-default" onclick="search_addr()" value='주소검색' autocomplete="off">
 					      </div>
 					  </div>
 					
@@ -538,8 +521,7 @@ input, textarea, button { margin-top:0px }
 					<div class="form-group" style='float:right; margin-right: 10px;'>
 					  <label class="col-md-4 control-label" ></label>  
 					  <div class="col-md-4">
-					  <button class="btn btn-success" id="addbtn">등록하기</button>
-					  <!-- <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-remove-sign"></span> Clear</a> -->
+					  <input type='button' class="btn btn-success" id="addbtn" onclick="add()" value='등록하기'>
 					  </div>
 					</div>
 					</fieldset>
@@ -589,11 +571,11 @@ input, textarea, button { margin-top:0px }
                       <label class="col-md-4 control-label" for="cnt">인원</label>  
                       <div class="col-md-5">
                       <div class="input-group">
-                           <div class="input-group-addon">
-                          <i class="fa fa-male" style="width: 18%;"></i>
+                           <div class="input-group-addon" style="width: 18%;">
+                          <i class="fa fa-male"></i>
                             
                            </div>
-                          <input id="edit_cnt" name="cnt" type="text" class="form-control input-md">
+                          <input id="edit_cnt" name="cnt" type="number" class="form-control input-md">
                     
                           </div>
                         

@@ -1,4 +1,10 @@
-	
+function moveFocus(next){
+	if(event.keyCode==13){
+		document.getElementById(next).focus();
+	}
+}
+
+
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 mapOption = {
 	    center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
@@ -220,7 +226,7 @@ $(function() {
                 }
                 },
                 error : function(request, status, error) {
-                    alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+                	swal("오류","달력데이터 오류","error");
                 }
             });
           }  
@@ -247,7 +253,8 @@ var minimum = function(jsDate){
 var minitime;
 
 $('#regstarttimepicker').change(function(){
-	
+	console.log("select이벤트발생!");//ㅅㄷㅅㄷㅅㄴtest
+	$('#regendtimepicker').focus();
 	jsDate = moment($(this).val(), 'DD-MM-YYYY HH:mm');
 	var faketime=$(this).val();
 	console.log(faketime);
@@ -279,7 +286,7 @@ var minimum = function(jsDate){
 var minitime;
 
 $('#editstarttimepicker').change(function(){
-    
+	
     jsDate = moment($(this).val(), 'DD-MM-YYYY HH:mm');
     var faketime=$(this).val();
     minitime=(parseInt(faketime.substring(10,13))+1) +':00';
@@ -417,7 +424,7 @@ $(document).on('click','.detailinfobtn',function(){
 
         },
         error : function(request, status, error) {
-            alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+        	swal("오류","상세정보조회 오류","error");
         }
         
         
@@ -426,50 +433,76 @@ $(document).on('click','.detailinfobtn',function(){
     
 
 $('.removebtn').click(function(){
-	    var f = $(this).val(); 
-	    console.log(f);
-	    
-    $.ajax({ 
-        type : "POST", //보내는 타입을 Post방식으로 할지,  GET방식으로 할지 결정
-        url : "deleteschedule", 
-        dataType: 'json',
-        data : { fakeflag : f }, //파라미터 넘겨줄 부분? : 이게 할말이 많은데 원래 GET방식으로 하라했다가 
-        success : function(data) { // delete, update문 같은 경우에는 기본적으로 int값을 반환함.
-            alert("성공적으로 삭제 되었습니다.");
-            window.location="/app/mybs/main" // 절대 경로이기 때문에 시작경로를 / 로 설정해줘야함
-        },
-        error : function(request, status, error) {
-            alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
-        }
-    });
+	
+	var f = $(this).val();
+	swal({
+	      title: "스케줄삭제?",
+	      text: "삭제하시겠습니까??",
+	      type: "warning",
+	      buttons:{
+	    	  cancel : "취소",
+	    	  catch: {
+	    	      text: "확인",
+	    	      value: "ok",
+	    	    }
+	      }
+	}).then((value)=>{
+		
+		if(value=='ok'){
+			$.ajax({ 
+		        type : "POST", //보내는 타입을 Post방식으로 할지,  GET방식으로 할지 결정
+		        url : "deleteschedule", 
+		        dataType: 'json',
+		        data : { fakeflag : f }, //파라미터 넘겨줄 부분? : 이게 할말이 많은데 원래 GET방식으로 하라했다가 
+		        success : function(data) { // delete, update문 같은 경우에는 기본적으로 int값을 반환함.
+		        	swal({
+		        		  title: "삭제",
+		        		  text: "해당스케줄이 삭제되었습니다.",
+		        		  icon: "success",
+		        		  button: "확인",
+		        		}).then((value)=>{
+		        			window.location="/app/mybs/main";
+		        		});
+		        },
+		        error : function(request, status, error) {
+		            console.log("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+		        }
+		    });
+		}else{
+			
+		}
+		
+	})
+	 
 });
 
-$('#regstarttimepicker').oninput(function(){
-	
-	$('#regendtimepicker').focus();
-});
+
+//swal 테스트
+function onClickConfirm() {
+	swal("Write something here:", {
+		  content: "input",
+		})
+		.then((value) => {
+		  swal(`value1의 얼랏.`);
+		})
+}
+
 
 $('#regendtimepicker').focusout(function(){
 	
 	
 	var presdt=$('#regstarttimepicker').val().substring(11,13);
 	var preedt=$('#regendtimepicker').val().substring(0,2);
-	console.log('====');
-	console.log(presdt);
 	console.log(preedt);
 	if(presdt>preedt){
-		alert('시작시간 다시설정해랑');
+		swal("오류","공연시간을 확인해주세요","error");
 	}
-	
-/*	if($('regstarttimepicker').val()==null||presdt>=$('#regendtimepicker').val()){
-		alert("시작시간을 확인해주세연");
-	}*/
 		
-       var f = {
+    var f = {
         		"sdt": $('#regstarttimepicker').val(),
         		"edt": $('#regendtimepicker').val(),
         		"no": 5
-        }
+    }
        
     $.ajax({ 
         type : "POST", //보내는 타입을 Post방식으로 할지,  GET방식으로 할지 결정
@@ -480,15 +513,13 @@ $('#regendtimepicker').focusout(function(){
         	if(data==0){
         		$('#datecheck').html('등록 가능한 일정입니다.').css('color','green');
         		$("#appbtn").prop("disabled", false);
-        		console.log(data+"중복값이없어 바꾼다");	
         	}else{
         		$("#appbtn").prop("disabled", true);
-        		console.log(data+"중복일정이있어 못바꾸게한다");
         		$('#datecheck').html('중복된 일정이 존재합니다.').css('color','red');
         	} 
         },
         error : function(request, status, error) {
-            alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+        	swal("잠깐!","입력시간을 확인하세요.","error");
         }
         
     });
@@ -501,16 +532,16 @@ var oldedt ;
 
 $('#editbtn').click(function(){
 	//$('#detailperModal').modal('hide');
+	var cnt = $('#detailperModal #percnt').text().substring(0,$('#detailperModal #percnt').text().length-1);
 	var peredt=$('#detailperModal #peredt').text().substring(11,16);
 	console.log($('#detailperModal #pershopname').text());
 	$('#edit_shopname').val($('#detailperModal #pershopname').text());
 	$('#editstarttimepicker').val($('#detailperModal #persdt').text());
 	$('#editendtimepicker').val(peredt);
-	$('#edit_cnt').val($('#detailperModal #percnt').text());
+	$('#edit_cnt').val(cnt);
 	$('#edit_addr').val($('#detailperModal #peraddr').text());
 	$('#edit_x').val($('#detailperModal #perx').text());
 	$('#edit_y').val($('#detailperModal #pery').text());
-	
 	oldsdt = $('#editstarttimepicker').val();
 	oldedt = $('#editendtimepicker').val();
 	
@@ -602,8 +633,7 @@ $('#editendtimepicker').focusout(function(){
      	}
      },
      error : function(request, status, error) {
-    	 	
-             alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+    	 swal("오류","공연시간 설정을 확인해주세요.","error");
      }
  });
  
@@ -611,6 +641,8 @@ $('#editendtimepicker').focusout(function(){
 
 
 $('#editno').click(function(){
+	
+	
 	var schedule= { "sno":$(this).val(),
 			        "shopname": $('#edit_shopname').val() ,
 			        "nsdt": $('#editstarttimepicker').val(),
@@ -620,6 +652,8 @@ $('#editno').click(function(){
 			        "x"   : $('#edit_x').val(),
 			        "y"   : $('#edit_y').val() 
 			      }
+	
+	console.log(schedule);
 	$.ajax({ 
         type : "POST", //보내는 타입을 Post방식으로 할지,  GET방식으로 할지 결정
         url : "editperschedule", 
@@ -629,7 +663,7 @@ $('#editno').click(function(){
         	 window.location = '/app/mybs/main';            
         },
         error : function(request, status, error) {
-            alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+        	swal("오류","개인스케줄 수정 오류","error");
         }
     });
 });
@@ -647,13 +681,28 @@ $('.tabs li').click(function(){
 });
 
 
+function add(){
+	var shopname=$('#shopname').val();
+	var cnt=$('#cnt').val();
+	var addr=$('#addr').val();
+	var time1=$('#regstarttimepicker').val();
+	var time2=$('#regendtimepicker').val();
+	
+	if(shopname==''){
+		swal("잠깐!","상호명을 입력하세요.","error");
+	}else if(cnt==''){
+		swal("잠깐!","인원을 입력하세요.","error");
+	}else if(time1==''||time2==''){
+		swal("잠깐!","시간을 입력하세요.","error");
+	}else if(addr==''){
+		swal("잠깐!","주소를 입력하세요.","error");
+	}else{
+		$('#scheduleaddform').submit();
+	}
+}
 
-/*$('.modal').on('hidden.bs.modal', function (e) {
-    console.log('modal close');
-  $(this).find('form')[0].reset();
-  $(this).find('p').empty();
-});  
-*/
+
+
 
 /*페이징 처리*/
 function pasing(){
