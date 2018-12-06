@@ -266,6 +266,17 @@ tr th {
 .pages{
 text-align: center;
 }
+
+.modalimg{width:24rem; margin-left:7%; }
+.abcdmang{border: 1px solid silver; width: 83%; border-radius: 8px; margin: auto;}
+.abcdleft{width: 50%; float: left; text-align: center;}
+.abcdright{width: 50%; float: right; text-align: center;}
+.apd1{text-align: center;}
+.pd{float:right; width:100%; margin-right:8.5%;}
+.pdb{float:right; background-color:#3F51D1; height:1.5rem;}
+.bbutton{text-align:center;}
+.brno,.rbrno{margin-rigth:3%; margin-left:3%;}
+
 </style>
 <jsp:include page="../header.jsp"></jsp:include>
 </head>
@@ -548,18 +559,17 @@ text-align: center;
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<!-- header -->
-				<div class="modal-header">
+				<div class="qwer modal-header">
 					<!-- 닫기(x) 버튼 -->
 					<button type="button" class="close" data-dismiss="modal">×</button>
 					<!-- header title -->
-					<h4 class="modal-title">신청내역 상세보기</h4>
 				</div>
 				<!-- body -->
 				<div class="modal-body">
 					<div class="info"></div>
-					<div class="dates"></div>
+					<div class="dates2"></div>
 					<div class="abtn"></div>
-					</table>
+					<div class='bbtn'></div>
 				</div>
 				<!-- Footer -->
 				<div class="modal-footer">
@@ -588,7 +598,7 @@ text-align: center;
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 	<!-- function -->
-	<script src="/js/myss.js"></script>
+	<script src="/js/myss.ver2.js"></script>
 </body>
 <jsp:include page="../footer.jsp"></jsp:include>
 </html>

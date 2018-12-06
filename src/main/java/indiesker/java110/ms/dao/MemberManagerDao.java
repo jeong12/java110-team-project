@@ -10,7 +10,7 @@ import indiesker.java110.ms.domain.Supporter;
 
 public interface MemberManagerDao {
   //////////////////////////list
-  List<MemberManager> findAll(Map<String,Object> params); 
+  List<MemberManager> findAll(Map<String, Object> params); 
   List<MemberManager> findselect(Map<String,Object> params); 
   List<MemberManager> searchSelect(Map<String,Object> params);
   
@@ -18,6 +18,8 @@ public interface MemberManagerDao {
   List<String> memListDetailByGenre(String nik);
   Supporter supListDetail(String nik);
   Busker buskListDetail(String nik);
+  
+  List<MemberManager>  memberAjax(Map<String,Object> params);
   
   ///////////////////////////list
   //////////////////////////////gradle
@@ -34,6 +36,8 @@ public interface MemberManagerDao {
   int gradleSupUpdate(Map<String,Object> params);
   ////////////////////////////////gradle끝
   String getMemo(String nik);
+  int totlist();
+  int totlistFlag(int flag);
   
   
   

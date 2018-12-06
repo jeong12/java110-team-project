@@ -119,12 +119,18 @@ select {
 }
 </style>
 </head>
+<jsp:include page="../../header.jsp"></jsp:include>
 <body>
 
-	<div class="titl">
-		<img id="logo" src="/img/playButton.PNG" alt="플레이로고">
-		<h2>무대 제공자 되기</h2>
-	</div>
+    <div class="title container">
+<div class="row">
+    <div id="titl" class='col-lg-8'>
+        <img id="logo" src="/img/playButton.PNG" alt="플레이로고">
+        <h3>무대제공자 되기</h3>
+    </div>
+    </div>
+    </div>
+    
 	<div class=container>
 	 <div class="row">
         <div class='col-lg-12'>
@@ -250,4 +256,5 @@ function searchAddr(){
 	</script>
 
 </body>
+<jsp:include page="../../footer.jsp"></jsp:include>
 </html>

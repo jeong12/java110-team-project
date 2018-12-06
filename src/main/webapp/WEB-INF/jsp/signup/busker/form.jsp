@@ -11,34 +11,45 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<link href="/../css/common.css" rel="stylesheet">
 <style>
 th {
     text-align: right;
 }
 
-.titl {
-    margin: 5% 5% 0% 5%;
+#logo{
+width: 40px; 
+height:40px; 
+float: left; 
+margin-top: -4px;
+margin-right: 0.5rem;
 }
 
-#logo {
-    width: 50px;
-    height: 50px;
-    margin: 10px;
+#titl{
+margin-top: 5%;
+margin-bottom: 3%;
+/* margin-left: 11%; */
 }
 
-h2 {
-    margin-top: -50px;
-    margin-left: 70px;
+#titl h3{
+float: left; 
+margin-top: 1px;
+font-size: 24px;
+}
+
+body{
+background-color: snow;
 }
 
 .container {
-    padding: 5% 10% 10% 10%;
+    background-color: white;
 }
 
 .join_form {
     border: 1px solid silver;
     border-radius: 10px;
-    padding-bottom: 15%;
+    margin: 0px auto;
+    margin-bottom: 10%;
 }
 
 label {
@@ -83,27 +94,28 @@ input:invalid {
 }
 
 #upload {
-    width: 100%;
-    height: 100%;
+    width: 64%;
     padding-left: 25%;
 }
-
 #input_img {
     padding-top: 20px;
 }
 
 .signupbtn:disabled {
-    float: right;
     cursor: not-allowed;
-    background-color: #aaaaaa;
+    background-color: #3F51D1;
     border-radius: 12px;
 }
 
 .signupbtn {
-    float: right;
-    background-color: #1FBC02;
+    background-color: #3F51D1;
     border-radius: 12px;
-}
+    margin-right: 2%;
+    margin-left: 79%;
+    height: 2rem;
+    padding-top: 0;
+    padding-bottom: 0;
+    }
 
 select {
     width: 80%;
@@ -117,12 +129,18 @@ select {
 
 </style>
 </head>
+<jsp:include page="../../header.jsp"></jsp:include>
 <body>
 
-    <div class='titl'>
-        <img id="logo" src="/img/playButton.PNG" alt="플레이로고">
-         <h2><b>버스커 되기</b>  >>  동영상 올리기   >>  신청완료 </h2>
+<div class="title container">
+<div class="row">
+    <div id="titl" class='col-lg-8'>
+        <img id="logo" src="../../../img/tum.png" alt="플레이로고">
+        <h3><b>버스커 되기</b>>> 동영상 올리기 >> 신청완료</h3>
     </div>
+    </div>
+    </div>
+    
     <div class=container>
         <div class="row">
         <div class='col-lg-12'>
@@ -159,11 +177,12 @@ select {
             <img id="upload" src="/img/anonymous.png" alt="기본이미지"><br>
             <input type='file' name='file1' id='input_img'
                 onchange="readURL(this);" />
-            <br><br><button class="signupbtn" disabled="disabled">다음으로</button>
+            <br><br><button class="signupbtn btns btns btns-outline-light" disabled="disabled">다음으로</button>
         </form>
         </div>
         </div>
     </div>
     </div>
 </body>
+<jsp:include page="../../footer.jsp"></jsp:include>
 </html>

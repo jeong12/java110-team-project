@@ -33,7 +33,7 @@ public interface ScheduleService {
     int checkperschedule(String sdt, String edt, int no);
     int checkreqschedule(String sdt, String edt, int no);
     int editperschedule(Schedule schedule);
-    List<Schedule> showScedule();
+    List<Schedule> showScedule(Paging paging);
     List<Integer> showSsnos(int no);
     List<Schedule> findPossibleStages(int no, String date);
     int ApplyStages(int no, String cont, String count, ArrayList<Integer>ssno);
@@ -46,4 +46,6 @@ public interface ScheduleService {
     int totFindreqschedule(int no);
     int totfindSuggestsbyflag(int no, int flag);
     int totfindoverdue(int no);
+    int refuseAll(int no);
+    int totSchedule();
 }

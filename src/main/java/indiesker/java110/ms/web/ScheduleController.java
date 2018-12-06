@@ -8,7 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import indiesker.java110.ms.domain.Busker;
+import indiesker.java110.ms.domain.Paging;
 import indiesker.java110.ms.domain.Schedule;
 import indiesker.java110.ms.service.BuskerService;
 import indiesker.java110.ms.service.ScheduleService;
@@ -31,10 +33,13 @@ public class ScheduleController {
   }
 
   @GetMapping("list")
-  public void main(Model model) {
-    List<Schedule> list = scheduleService.showScedule();
-    SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd");
-    SimpleDateFormat hformat = new SimpleDateFormat("HH:mm");
+  public void main(Paging paging, Model model, String pageNo) {
+   paging.setPageSize(13);
+   paging.setTotalCount(scheduleService.totSchedule());
+   
+   List<Schedule> list = scheduleService.showScedule(paging);
+   SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd");
+   SimpleDateFormat hformat = new SimpleDateFormat("HH:mm");
     
     for (Schedule s : list) {
       s.setNcdt(format.format(s.getSdt()));
@@ -42,26 +47,19 @@ public class ScheduleController {
       s.setNedt(hformat.format(s.getEdt()));
     }
     model.addAttribute("list",list);
-    System.out.println(list);
+    model.addAttribute("paging", paging);
+    
   }
   
+  @ResponseBody
   @RequestMapping("detail")
-  public void detail(Model model, int no) {
-    System.out.println(no);
-    List<Schedule> list = scheduleService.showScedule();
-    SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd");
-    SimpleDateFormat hformat = new SimpleDateFormat("HH:mm");
-    
-    for (Schedule s : list) {
-      s.setNcdt(format.format(s.getSdt()));
-      s.setNsdt(hformat.format(s.getSdt()));
-      s.setNedt(hformat.format(s.getEdt()));
-    }
-    model.addAttribute("list",list);
-    Busker b = buskerService.findInfo(no);
-    model.addAttribute("busker",b);
-    System.out.println(b);
+  public Busker detail(int bno) {
+    Busker b = buskerService.findInfo(bno);
+ System.out.println(b);
+    return b;
   }
+  
+  
   
   @RequestMapping("search")
   public void search(@RequestParam String type, @RequestParam String keyword, String date, Model model) {
@@ -77,5 +75,8 @@ public class ScheduleController {
   model.addAttribute("list",list);
   
   }
+  
+  
+  
   
 }

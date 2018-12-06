@@ -86,7 +86,6 @@ public class ScheduleServiceimpl implements ScheduleService {
 
     @Override
     public Schedule myreqdetail(int no) {
-      System.out.println(no);
       return scheduleDao.findbybrno(no);
     }
     
@@ -128,14 +127,12 @@ public class ScheduleServiceimpl implements ScheduleService {
     
     @Override
     public int deleteReqSchedule(int no) {
-      System.out.println(no);
       scheduleDao.buskstagdelete(no);
       return scheduleDao.buskreqdelete(no);
     }
 
     @Override
     public int deletePerSchedule(int no) {
-      System.out.println(no);
       return scheduleDao.perscheduledelete(no);
     }
       
@@ -188,8 +185,10 @@ public class ScheduleServiceimpl implements ScheduleService {
     }
     
       @Override
-    public List<Schedule> showScedule() {
-    return scheduleDao.showScedule();
+    public List<Schedule> showScedule(Paging paging) {
+     Map<String,Object> params = new HashMap<>();
+     params.put("paging", paging);
+    return scheduleDao.showScedule(params);
     }
     
     @Override
@@ -219,7 +218,6 @@ public class ScheduleServiceimpl implements ScheduleService {
     @Override
     public int editperschedule(Schedule schedule) {
       int no =scheduleDao.editperschedule(schedule);
-      System.out.println("test insert반환값 : " +no);
       return 1;
       
     }
@@ -318,5 +316,14 @@ public class ScheduleServiceimpl implements ScheduleService {
     @Override
     public int totfindoverdue(int no) {
     return scheduleDao.totfindoverdue(no);
+    }
+    
+    @Override
+    public int refuseAll(int no) {
+      scheduleDao.refuseAllinBusk(no);
+      return scheduleDao.refuseAllinReq(no);
+    }
+    public int totSchedule() {
+    return scheduleDao.totSchedule();
     }
 }

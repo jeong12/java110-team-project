@@ -11,11 +11,7 @@ public class MemberManager {
   protected Date cdt;
   protected String ncdt;
   protected String text;
-  
-
-  
-
-
+  protected String type;
 
   public String getNcdt() {
     return ncdt;
@@ -65,12 +61,16 @@ public class MemberManager {
   public void setCdt(Date cdt) {
     this.cdt = cdt;
   }
+  public String getType() {
+    return type;
+  }
+  public void setType(String type) {
+    this.type = type;
+  }
   @Override
   public String toString() {
     return "MemberManager [id=" + id + ", nik=" + nik + ", email=" + email + ", flag=" + flag
-        + ", memo=" + memo + ", cdt=" + cdt + ", text=" + text + "]";
+        + ", memo=" + memo + ", cdt=" + cdt + ", ncdt=" + ncdt + ", text=" + text + ", type=" + type
+        + "]";
   }
-  
-  
-  
 }

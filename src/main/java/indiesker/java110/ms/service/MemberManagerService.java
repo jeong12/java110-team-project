@@ -5,10 +5,11 @@ import indiesker.java110.ms.domain.Busker;
 import indiesker.java110.ms.domain.GradleMember;
 import indiesker.java110.ms.domain.Member;
 import indiesker.java110.ms.domain.MemberManager;
+import indiesker.java110.ms.domain.Paging;
 import indiesker.java110.ms.domain.Supporter;
 
 public interface MemberManagerService {
-  List<MemberManager> listAll(int pageNo, int pageSize);
+  List<MemberManager> listAll(Paging paging);
   List<MemberManager> listSelect (char flag,int pageNo, int pageSize);
   List<MemberManager> dateSelect (String flag, String text,String cdt1,String cdt2,int pageNo, int pageSize);
   int update(String memo,String nik);
@@ -17,6 +18,7 @@ public interface MemberManagerService {
   Supporter supListDetail(String nik);
   Busker buskListDetail(String nik);
   List<String> memListDetailByGenre(String nik);
+  List<MemberManager>  memberAjax(int flag, Paging paging);
   
   List<GradleMember> gradleBusker (int pageNo, int pageSize);
   List<GradleMember> gradleSupporter (int pageNo, int pageSize);
@@ -31,5 +33,7 @@ public interface MemberManagerService {
   
   List<GradleMember> gradleSelect(char flag,String email, String nik, int pageNo, int pageSize);
   String getMemo(String nik);
+  int totlist();
+  int totlistFlag(int flag);
   
 }
