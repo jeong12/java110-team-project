@@ -12,14 +12,12 @@ p{
 img{
     vertical-align: middle;
 }
-* {
-    -moz-box-sizing: border-box; -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    font-family: "Noto Sans KR","Open Sans", Helvetica, sans-serif;
-}
 
 body{
 	background-color: snow;
+	-moz-box-sizing: border-box; -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: "Noto Sans KR","Open Sans", Helvetica, sans-serif;
 }
 
 a {

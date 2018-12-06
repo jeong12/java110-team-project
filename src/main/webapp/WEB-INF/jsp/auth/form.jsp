@@ -7,14 +7,20 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
 <title>로그인</title>
-<jsp:include page="../header.jsp"></jsp:include>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel='stylesheet' href='/css/common.css'>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <style>
-
+*{
+    font-family: "Font Awesome 5 Free", "Noto Sans KR","Open Sans", Helvetica, sans-serif !important;
+}
+fieldset{
+    padding-top:10px;
+}
 html, body{
     height:100%;
 }
@@ -27,31 +33,59 @@ html, body{
     position: relative;
     top: 120px;
 }
+h5{
+    font-size: 16px;
+}
+label{
+    cursor: default !important; /* 수정하자 */
+    margin-left: .3rem;
+}
+.id-form{
+    margin: 10px 0;
+}
+#checkbox, #idpassfind{
+    display:inline-block;
+}
+#idpassfind{
+    float: right;
+}
+#idpassfind a{
+    color: black;
+    font-weight: bold;
+}
+#panel-heading{
+    background-color: #8080806b;
+}
+input[type="password"]::placeholder, input[type="text"]::placeholder{
+    font-weight: 900;
+}
 </style>
+<jsp:include page="../header.jsp"></jsp:include>
 </head>
 <body>
 <div class="container" id="container-height">
     <div class="row" id="login-height">
         <div class="col-md-4 col-md-offset-4">
             <div class="panel panel-default">
-                <div class="panel-heading">
+                <div class="panel-heading" id="panel-heading">
                     <h3 class="panel-title">Indiesker</h3>
                 </div>
                 <div class="panel-body">
                     <form accept-charset="UTF-8" role="form" action="login" method="post">
                     <fieldset>
                         <div class="form-group">
-                            <input class="form-control" placeholder="ID" name="id" type="text" value='${cookie.id.value}'>
+                            <input class="form-control" placeholder="&#xf007 ID" name="id" type="text" value='${cookie.id.value}'>
                         </div>
                         <div class="form-group">
-                            <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                            <input class="form-control" placeholder="&#xf023 Password" name="password" type="password" value="">
                         </div>
-                        <div class="checkbox">
-                            <label>
-                                <input name="save" type="checkbox"> 아이디 저장
-                            </label>
+                        <div class="id-form">
+                        <div id="checkbox">
+                            <input name="save" type="checkbox"><label>아이디 저장</label>
+                            </div> 
+                            <div id="idpassfind"><a href="findid">아이디/비밀번호 찾기</a></div>
                         </div>
-                        <input class="btn btn-lg btn-success btn-block" type="submit" value="로그인">
+                        <input class="btns btn-lg btns-outline-secondary btn-block" type="submit" value="Sign In">
                     </fieldset>
                     </form>
                       <hr/>

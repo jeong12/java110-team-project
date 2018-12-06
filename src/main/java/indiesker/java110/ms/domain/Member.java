@@ -1,6 +1,7 @@
 package indiesker.java110.ms.domain;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.List;
 
 public class Member implements Serializable {
@@ -19,9 +20,14 @@ public class Member implements Serializable {
   protected String genre1;
   protected String genre2;
   protected int membflag;
+  protected Date cdt;
   
-  
-  
+  public Date getCdt() {
+    return cdt;
+  }
+  public void setCdt(Date cdt) {
+    this.cdt = cdt;
+  }
   public String getGenre0() {
     return genre0;
   }

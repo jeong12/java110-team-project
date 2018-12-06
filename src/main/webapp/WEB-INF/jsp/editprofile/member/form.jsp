@@ -11,6 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <style>
+    
 body {
     margin: 0;
     background-color: #f5f5f5;
@@ -23,10 +24,14 @@ body {
     margin-right: auto;
     margin-left: auto;
     margin-bottom: 1rem;
+    border-radius: 8px/7px;
+    background-color: #ebebeb; 
+    box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
+    border: solid 1px #cbc9c9;
 }
 
 #titl {
-    margin: 0 auto; padding: 10px; position:relative; left:1.8rem; width: 40%;
+    margin: 0 auto; padding: 10px 0; width: 800px;
 }
 
 #logo {
@@ -43,7 +48,7 @@ h4 {
  input[type="password"],input[type="email"]{
     border:0;
     border-bottom: 1px double black;
-    background-color: #f5f5f5;
+    background-color: #ebebeb;
  } 
  input[type="password"]:focus, input[type="email"]:focus{
     outline:none;
@@ -51,10 +56,6 @@ h4 {
 .guide{
     font-size: 0.75rem;
     padding-left: 8.1rem;
-}
-
-#upload {
-    width: 150px; height: 300px;
 }
 
 .imgmodi{
@@ -121,7 +122,7 @@ input[type=checkbox]:checked+label{
     background-color:rgb(52, 58, 64);
 }
 .modi{
-    margin: 0.5rem 0;
+    margin: 0.5rem 0 1rem;
     position: relative;
     left: 13.5rem;
 }
@@ -164,12 +165,12 @@ input[type=checkbox]:checked+label{
 
                     if (/^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/
                             .test(inputed)) {
-                        $('#pwdMsg').html("사용가능한 비밀번호입니다.");
+                        $('#pwdMsg').html("사용가능한 비밀번호입니다.").css('color','black');
                         chkPwdl = 1;
                     } else {
                         $('span .fa-lock').hide(); 
                         $('span .fa-lock-open').show();
-                        $('#pwdMsg').html("8자 이상 영어,숫자,특수문자를 포함해주세요 ");
+                        $('#pwdMsg').html("8자 이상 영어,숫자,특수문자를 포함해주세요 ").css('color','red');
                         $(".modi").prop("disabled", true);
                     }
 
@@ -177,12 +178,12 @@ input[type=checkbox]:checked+label{
                             && (inputed != reinputed || inputed == reinputed)) {
                         $('span .fa-lock').hide(); 
                         $('span .fa-lock-open').show();
-                        $("#rePassword").html("위와 같은 비밀먼호를 입력해주세요");
+                        $("#rePassword").html("위와 같은 비밀먼호를 입력해주세요").css('color','red');
                         $(".modi").prop("disabled", true);
                     } else if (inputed == reinputed) {
                         $('span .fa-lock').show(); 
                         $('span .fa-lock-open').hide();
-                        $("#rePassword").html("비밀번호가 일치합니다.")
+                        $("#rePassword").html("비밀번호가 일치합니다.").css('color','black');
                         chkPwd = 1;
                         if (chkPwd == 1 && chkEmail == 1 && chkPwdl ==1 &&
                                 chkGenre == 1 && chkFile == 1) {
@@ -191,7 +192,7 @@ input[type=checkbox]:checked+label{
                     } else if (inputed != reinputed) {
                         $('span .fa-lock').hide(); 
                         $('span .fa-lock-open').show();
-                        $("#rePassword").html("비밀번호가 일치하지않습니다.")
+                        $("#rePassword").html("비밀번호가 일치하지않습니다.").css('color','red');
                         chkPwd = 0;
                         $(".modi").prop("disabled", true);
                     }
@@ -208,14 +209,14 @@ input[type=checkbox]:checked+label{
                             if(!(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/
                                     .test(inserted))){
                                 $(".modi").prop("disabled", true);
-                                $("#emailMsg").html("적합하지 않은 이메일 형식입니다.")
+                                $("#emailMsg").html("적합하지 않은 이메일 형식입니다.").css('color','red');
                                 chkEmail = 0;
                             } else if (inserted == "" && data == '0') {
                                 $(".modi").prop("disabled", true);
-                                $("#emailMsg").html("이메일을 입력해주세요.")
+                                $("#emailMsg").html("이메일을 입력해주세요.").css('color','black');
                                 chkEmail = 0;
                             } else if (data == '0') {
-                                $("#emailMsg").html("사용 가능한 이메일입니다.")
+                                $("#emailMsg").html("사용 가능한 이메일입니다.").css('color','black');
                                 chkEmail = 1;
                                 if (chkPwd == 1 && chkEmail == 1 && chkPwdl ==1 &&
                                         chkGenre == 1 && chkFile == 1) {
@@ -223,7 +224,7 @@ input[type=checkbox]:checked+label{
                                 }
                             } else if (data >= '1') {
                                 $(".modi").prop("disabled", true);
-                                $("#emailMsg").html("이미 존재하는 이메일입니다.")
+                                $("#emailMsg").html("이미 존재하는 이메일입니다.").css('color','red');
                                 chkEmail = 0;
                             }
                         }
@@ -274,7 +275,7 @@ input[type=checkbox]:checked+label{
                     <img id='photo-image' class="imgmodi" src='/upload/${photo}' alt="원본이미지" ><br>
                 </c:when>
             <c:otherwise>
-                <img id="upload" class="imgmodi" src="/img/anonymous.png" alt="기본이미지"><br>
+                <img class="imgmodi" src="/img/anonymous.png" alt="기본이미지"><br>
             </c:otherwise>
             </c:choose></label>
             <input type='file' name='file1' id='input_img' onchange="readURL(this);" style="display:none;"/>

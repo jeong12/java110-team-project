@@ -72,5 +72,11 @@
         where mno=#{no}
     </select>
     
+    <select id="findMemByNo" parameterType="int" resultMap="buskCheckMap">
+        select id, email, nik as nickname, phot as photo, genre0, genre1, genre2, cdt
+        from memb
+        where mno=#{no}
+    </select>
+    
 </mapper>
 

@@ -96,7 +96,11 @@ public class SignupController{
 
 
   @RequestMapping("busker/form")
-  public void buskerform() {
+  public void buskerform(HttpSession session) {
+    if(session.getAttribute("loginUser") != null) {
+      Member m = (Member)session.getAttribute("loginUser"); 
+      bsuknsup.put("id", m.getId());
+    }
   }
 
   @RequestMapping("busker/addavi")
@@ -139,7 +143,11 @@ public class SignupController{
   
   
   @RequestMapping("supporter/form")
-  public void supporterform() {
+  public void supporterform(HttpSession session) {
+    if(session.getAttribute("loginUser") != null) {
+      Member m = (Member)session.getAttribute("loginUser"); 
+      bsuknsup.put("id", m.getId());
+    }
   }
   
   
