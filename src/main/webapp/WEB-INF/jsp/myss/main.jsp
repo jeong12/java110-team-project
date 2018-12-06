@@ -581,17 +581,12 @@ text-align: center;
 
 
 	<!-- 달력 -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 	<script src="/js/fullcalendar.min.js" type="text/javascript"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 	<!-- 달력기간조회 -->
-
 	<script src="/js/time/jquery.datetimepicker.full.min.js"></script>
 
 <!-- sweet alert -->
@@ -600,5 +595,5 @@ text-align: center;
 	<!-- function -->
 	<script src="/js/myss.ver2.js"></script>
 </body>
-<jsp:include page="../footer.jsp"></jsp:include>
+<jsp:include page="../footer.jsp"/>
 </html>
