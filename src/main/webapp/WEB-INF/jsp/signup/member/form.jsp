@@ -26,6 +26,7 @@ margin-bottom: 3%;
 #titl h3{
 float: left; 
 margin-top: -5px;
+font-size: 24px;
 }
 
 body{
@@ -96,7 +97,7 @@ input[type=checkbox] {
 	text-align: center;
 	border: 1px solid silver;
 	border-radius: 25px;
-	background-color: #A78AE9;
+	background-color: rgba(52, 58, 64, 0.5);
 	color: white;
 }
 
@@ -111,7 +112,7 @@ input[type=checkbox]+label {
 }
 
 input[type=checkbox]:checked+label{
-    background-color:#4D14D1;
+    background-color:rgb(52, 58, 64);
 ;
 }
 
@@ -126,14 +127,19 @@ input[type=checkbox]:checked+label{
 
 .signupbtn:disabled {
 	cursor: not-allowed;
-	background-color: #aaaaaa;
+	background-color: #3F51D1;
 	border-radius: 12px;
 }
 
 .signupbtn {
 	background-color: #3F51D1;
 	border-radius: 12px;
-}
+	margin-right: 2%;
+    margin-left: 2%;
+    height: 2rem;
+    padding-top: 0;
+    padding-bottom: 0;
+    }
 p{
 margin-top: 2rem;
 margin-bottom: 1rem;
@@ -148,7 +154,7 @@ text-align: center;}
 <div class="title container">
 <div class="row">
     <div id="titl" class='col-lg-8'>
-        <img id="logo" src="/img/playButton.PNG" alt="플레이로고">
+        <img id="logo" src="../../../img/tum.png" alt="플레이로고">
         <h3>회원가입</h3>
     </div>
     </div>
@@ -201,9 +207,9 @@ text-align: center;}
 			  <label for="rap" class='chklabel'>랩</label>
 			     <p>팬으로 가입하셔도, 이후 메인화면의 <br> '버스커되기' '제공자되기'로 변경 가능합니다.</p>
 					<div class="cbtn">
-					<button class="signupbtn btns btns-outline-secondary" onclick="sendMsg()"
-						name="type" value="fan">팬으로 가입</button>
-					<button class="signupbtn btns btns-outline-light" onclick="sendMsg()"
+					<button class="signupbtn btns btns btns-outline-light" onclick="sendMsg()"
+						name="type" value="fan" disabled="disabled">팬으로 가입</button>
+					<button class="signupbtn btns btns-outline-light"  onclick="sendMsg()"
 						name="type" value="busker" disabled="disabled">버스커로 가입</button>
 					<button class="signupbtn btns btns btns-outline-light" onclick="sendMsg()"
 						name="type" value="supporter" disabled="disabled">무대 제공자로 가입</button>

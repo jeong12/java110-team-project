@@ -503,7 +503,7 @@ GROUP BY BS.brno
 
 	<!-- 무대제공자 스케쥴조회: 상세보기에 출력할 팀 정보 -->
 	<select id="showDatail" parameterType="int" resultMap="showDetailMap">
-		SELECT b.name, b.genre, b.tel, b.lcnt, b.bno, br.cont, br.brno, ss.sdt,
+		SELECT b.name, b.genre, b.tel, b.lcnt, b.bno, br.cont, br.brno, ss.sdt,b.phot,
 		ss.edt, bs.flag, ss.ssno
 		from busk as b, busk_req as br, busk_stag as bs, stag_sche as ss
 		where b.bno=br.bno and br.brno = bs.brno and bs.ssno = ss.ssno and
@@ -751,7 +751,15 @@ GROUP BY BS.brno
           GROUP BY br.brno) as b
     </select>
 
+<delete id="refuseAllinReq" parameterType="int">
+delete from busk_req
+where brno = #{no}
+</delete>
 
+<delete id="refuseAllinBusk" parameterType="int">
+delete from busk_stag
+where brno = #{no}
+</delete>
 </mapper>
 
 

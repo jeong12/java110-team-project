@@ -46,4 +46,5 @@ public interface ScheduleService {
     int totFindreqschedule(int no);
     int totfindSuggestsbyflag(int no, int flag);
     int totfindoverdue(int no);
+    int refuseAll(int no);
 }

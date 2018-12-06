@@ -319,4 +319,10 @@ public class ScheduleServiceimpl implements ScheduleService {
     public int totfindoverdue(int no) {
     return scheduleDao.totfindoverdue(no);
     }
+    
+    @Override
+    public int refuseAll(int no) {
+      scheduleDao.refuseAllinBusk(no);
+      return scheduleDao.refuseAllinReq(no);
+    }
 }

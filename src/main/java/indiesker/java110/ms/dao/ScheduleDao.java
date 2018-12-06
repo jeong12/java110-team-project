@@ -48,5 +48,7 @@ public interface ScheduleDao {
   List<Schedule> searchSchedule(Map<String,Object> params);
   List<Schedule> findoverdue(Map<String,Object> params);
   int totfindoverdue(int no);
+  int refuseAllinReq(int no);
+  int refuseAllinBusk(int no);
   
 }

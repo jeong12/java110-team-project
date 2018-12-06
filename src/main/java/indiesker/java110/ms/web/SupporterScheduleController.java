@@ -39,7 +39,7 @@ public class SupporterScheduleController {
 /*    Member member = (Member)session.getAttribute("loginUser");
     int sno = member.getNo();*/
     
-    int sno = 2;
+    int sno = 99;
     int flag=1;
     Paging paging1 = new Paging();
     Paging paging2 = new Paging();
@@ -198,7 +198,7 @@ public class SupporterScheduleController {
     /*    Member member = (Member)session.getAttribute("loginUser");
     int sno = member.getNo();*/
     
-    int no=2;
+    int no=99;
 
     for(int i=0;i<size;i++) {
       Schedule sche = new Schedule();
@@ -240,10 +240,11 @@ public class SupporterScheduleController {
         stlist.add(st);
       }
       slist.setScheduletime(stlist);
+      System.out.println(slist);
       return slist;  
   }
 
-
+  @ResponseBody
   @RequestMapping("consent")
   public String applyReqs(String[] reqdates, String brno){
 
@@ -269,8 +270,16 @@ public class SupporterScheduleController {
           td.add(todelete.get(i));
         }
     }
-
     scheduleService.refuseapply(td);
+    return "redirect:main";
+  }
+  
+  
+  @ResponseBody
+  @RequestMapping("refuse")
+  public String refusereqs(String brno){
+    System.out.println(brno);
+    scheduleService.refuseAll(Integer.parseInt(brno));
     return "redirect:main";
   }
 
@@ -282,7 +291,7 @@ public class SupporterScheduleController {
     
     /*    Member member = (Member)session.getAttribute("loginUser");
     int sno = member.getNo();*/
-    int sno = 2;
+    int sno = 99;
     paging.setPageNo(Integer.parseInt(pageNo));
     paging.setPageSize(10);
     
