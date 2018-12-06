@@ -2,6 +2,7 @@ package indiesker.java110.ms.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import indiesker.java110.ms.dao.MemberManagerDao;
@@ -9,6 +10,7 @@ import indiesker.java110.ms.domain.Busker;
 import indiesker.java110.ms.domain.GradleMember;
 import indiesker.java110.ms.domain.Member;
 import indiesker.java110.ms.domain.MemberManager;
+import indiesker.java110.ms.domain.Paging;
 import indiesker.java110.ms.domain.Supporter;
 import indiesker.java110.ms.service.MemberManagerService;
 
@@ -19,11 +21,9 @@ public class MemberManagerServiceImpl implements MemberManagerService{
   
   
   @Override
-  public List<MemberManager> listAll(int pageNo, int pageSize) {
-      HashMap<String,Object> params = new HashMap<>();
-      params.put("rowNo", (pageNo - 1) * pageSize);
-      params.put("size", pageSize);
-      
+  public List<MemberManager> listAll(Paging paging) {
+     Map<String,Object> params = new HashMap<>();
+     params.put("paging", paging);        
       return memberManagerDao.findAll(params);
   }
 
@@ -91,6 +91,14 @@ public List<MemberManager> dateSelect(String flag, String text,String ncdt1,Stri
  @Override
  public Busker buskListDetail(String nik) {
    return memberManagerDao.buskListDetail(nik);
+ }
+ 
+ @Override
+ public  List<MemberManager>  memberAjax(int flag, Paging paging) {
+   HashMap<String,Object> params = new HashMap<>();
+   params.put("flag", flag);
+   params.put("paging",paging);
+   return memberManagerDao.memberAjax(params);
  }
 
  
@@ -202,6 +210,17 @@ public List<String> memListDetailByGenre(String nik) {
 public String getMemo(String nik) {
   return memberManagerDao.getMemo(nik);
 }
+
+@Override
+public int totlist() {
+  return memberManagerDao.totlist();
+}
+
+@Override
+public int totlistFlag(int flag) {
+  return 0;
+}
+
 
 
 

@@ -62,8 +62,7 @@
 <select id="findAll" resultType="MemberManager" parameterType="map">
 SELECT m.id,m.nik,m.email,m.flag,m.cdt,m.memo
 FROM memb as m
-
-
+Limit #{paging.startRowNo},#{paging.pageSize}
 </select>
 
 <!-- 선택 -->
@@ -270,5 +269,23 @@ and m.nik = #{nik}
 select memo from memb where nik=#{nik}
 </select>
 
+<select id="totlist" resultType="Integer">
+SELECT count(*)
+FROM memb
+</select>
+
+<select id="memberAjax" parameterType="map" resultType="MemberManager">
+SELECT m.id, m.nik,m.email,m.cdt,m.memo,m.flag
+FROM memb as m
+where flag = #{flag}
+Limit #{paging.startRowNo},#{paging.pageSize}
+</select>
+
+<select id="totlistFlag" parameterType="int" resultType="Integer">
+select count(*) from
+(SELECT m.id, m.nik,m.email,m.cdt,m.memo,m.flag
+FROM memb as m
+where flag =  #{flag}) as b
+</select>
 
  </mapper>

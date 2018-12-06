@@ -3,7 +3,9 @@ package indiesker.java110.ms.web;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import indiesker.java110.ms.domain.Busker;
 import indiesker.java110.ms.domain.GradleMember;
 import indiesker.java110.ms.domain.Member;
 import indiesker.java110.ms.domain.MemberManager;
+import indiesker.java110.ms.domain.Paging;
 import indiesker.java110.ms.domain.Supporter;
 import indiesker.java110.ms.service.MemberManagerService;
 
@@ -31,15 +34,12 @@ public class MemberManagerController {
   }
   
   @GetMapping("list")
-  public void list(
-          @RequestParam(defaultValue="1") int pageNo,
-          @RequestParam(defaultValue="15") int pageSize,
-          Model model) {
-      if (pageNo < 1)
-          pageNo = 1;
-      if (pageSize < 3 || pageSize > 10)
-          pageSize = 3;
-      List<MemberManager> list = memberManagerService.listAll(pageNo, pageSize);
+  public void list(Paging paging,Model model,String pageNo) {
+    
+     paging.setTotalCount(memberManagerService.totlist());
+     paging.setPageSize(15);
+     List<MemberManager> list = memberManagerService.listAll(paging);
+      model.addAttribute("paging",paging);
       model.addAttribute("list", list);
   }
   
@@ -290,8 +290,83 @@ public class MemberManagerController {
     return rno;
   }*/
   
-
+  @ResponseBody
+  @RequestMapping(value="showList")
+  public Map<String,Object>showList(String flag, String pageNo, Paging paging) throws ParseException {
+    System.out.println(pageNo);
+    paging.setTotalCount(memberManagerService.totlist());
+    paging.setPageSize(15);
+    if(pageNo != null) {
+      paging.setPageNo(Integer.parseInt(pageNo));
+    }
+      List<MemberManager> list = memberManagerService.listAll(paging);
+       paging.setTotalCount(memberManagerService.totlist());
+       Map<String,Object> map = new HashMap<>(); 
+       map.put("list", list);
+       map.put("paging", paging);
+       System.out.println(list);
+       System.out.println(list.size());
+       return map;
+  }
   
+  @ResponseBody
+  @RequestMapping(value="showMemb")
+  public Map<String,Object> showMemb(String flag) throws ParseException {
+    Paging paging = new Paging();
+    paging.setPageSize(15);
+    
+    List<MemberManager>  list = memberManagerService.memberAjax(Integer.parseInt(flag),paging);
+    paging.setTotalCount(memberManagerService.totlistFlag(Integer.parseInt(flag)));
+    Map<String,Object> map = new HashMap<>(); 
+    map.put("list", list);
+    map.put("paging", paging);
+    System.out.println(list);
+    return map;
+  }
   
+  @ResponseBody
+  @RequestMapping(value="showBusk")
+  public Map<String,Object> showBusk(int flag) throws ParseException {
+    flag = 2;
+    Paging paging = new Paging();
+    paging.setPageSize(15);
+    
+    List<MemberManager>  list = memberManagerService.memberAjax(flag,paging);
+    paging.setTotalCount(memberManagerService.totlistFlag(flag));
+    Map<String,Object> map = new HashMap<>(); 
+    map.put("list", list);
+    map.put("paging", paging);
+    System.out.println(list);
+    return map;
+  }
   
+  @ResponseBody
+  @RequestMapping(value="showSup")
+  public Map<String,Object> showSup(int flag) throws ParseException {
+    flag = 3;
+    Paging paging = new Paging();
+    paging.setPageSize(15);
+    
+    List<MemberManager>  list = memberManagerService.memberAjax(flag,paging);
+    paging.setTotalCount(memberManagerService.totlistFlag(flag));
+    Map<String,Object> map = new HashMap<>(); 
+    map.put("list", list);
+    map.put("paging", paging);
+    return map;
+  }
+  
+  @ResponseBody
+  @RequestMapping(value="showStop")
+  public Map<String,Object> showStop(int flag) throws ParseException {
+    flag = 4;
+    Paging paging = new Paging();
+    paging.setPageSize(15);
+    
+    List<MemberManager>  list = memberManagerService.memberAjax(flag,paging);
+    paging.setTotalCount(memberManagerService.totlistFlag(flag));
+    Map<String,Object> map = new HashMap<>(); 
+    map.put("list", list);
+    map.put("paging", paging);
+    return map;
+  }
 }

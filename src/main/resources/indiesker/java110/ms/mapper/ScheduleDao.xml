@@ -158,21 +158,23 @@
         </association>
     </resultMap>
     
+    
     <resultMap type="Schedule" id="ScheduleMap">
-        <id column="bno" property="sno" />
-        <result column="addr" property="addr" />
-        <result column="sdt" property="sdt" />
-        <result column="edt" property="edt" />
+         <id column="sno" property="sno" />
+         <result column="addr" property="addr"/>
+         <result column="sdt" property="sdt"/>
+         <result column="edt" property="edt"/>
         <association property="busker" javaType="busker">
+            <id column="bno"   property="bno"/>
             <result column="name" property="teamname" />
             <result column="genre" property="teamgenre"/>
         </association>
-        <association property="supporter" javaType="supporter">
+<!--         <association property="supporter" javaType="supporter">
             <result column="x" property="x" />
             <result column="y" property="y" />
         </association>
-    </resultMap>
- 
+ -->    </resultMap>
+    
  <!-- 스케줄조회 : 확정 버스커 스케줄 출력하는 쿼리  -->
  <select id="findbydate" resultMap="buskerscheduleMap" parameterType="map">
     SELECT 
@@ -553,7 +555,7 @@ GROUP BY BS.brno
     
 	
     <!-- 전체일정 출력 -->
-    <select id="showScedule" resultMap="ScheduleMap">
+    <select id="showScedule" resultMap="ScheduleMap" parameterType="map">
     (select b.name, ps.addr, ps.sdt,ps.edt, b.bno
      from per_sche as ps, busk as b
      where ps.bno = b.bno AND ps.sdt>=curdate())
@@ -563,9 +565,10 @@ GROUP BY BS.brno
     (select b.name, concat(s.bas_addr,' ',s.det_addr)as addr, ss.sdt,ss.edt, b.bno
     from busk_stag as bs, busk as b, sup as s, stag_sche as ss, busk_req as br
     where bs.ssno=ss.ssno and bs.brno=br.brno and ss.sno=s.sno and br.bno=b.bno AND ss.sdt>=curdate() 
-    AND bs.flag='2')
-    
-    ORDER BY sdt    
+    AND bs.flag='2'
+    GROUP BY br.brno
+    )
+    ORDER BY sdt  
     </select>
 	
 	<select id="showSsnos" parameterType="int" resultType="int">
@@ -727,6 +730,7 @@ GROUP BY BS.brno
         ss.sdt like concat(#{date},'%'))
         </when>
         </choose>
+    GROUP BY br.brno
     ORDER BY sdt    
     </select>
     
@@ -760,6 +764,23 @@ where brno = #{no}
 delete from busk_stag
 where brno = #{no}
 </delete>
+    <select id="totSchedule" resultType="Integer">
+    select count(*)
+    from
+    ((select b.name, ps.addr, ps.sdt,ps.edt, b.bno
+     from per_sche as ps, busk as b
+     where ps.bno = b.bno AND ps.sdt>=curdate())
+
+    UNION ALL
+
+    (select b.name, concat(s.bas_addr,' ',s.det_addr)as addr, ss.sdt,ss.edt, b.bno
+    from busk_stag as bs, busk as b, sup as s, stag_sche as ss, busk_req as br
+    where bs.ssno=ss.ssno and bs.brno=br.brno and ss.sno=s.sno and br.bno=b.bno AND ss.sdt>=curdate() 
+    AND bs.flag='2'
+    GROUP BY br.brno
+    )) as b
+    </select>
+
 </mapper>
 
 

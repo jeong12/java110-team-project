@@ -89,8 +89,8 @@ public class Paging {
       if (pageNo < 1) setPageNo(1);
       
       
-      int startPage = ((pageNo - 1) / 10) * 10 + 1;
-      int endPage = startPage + 10 - 1;
+      int startPage = ((pageNo - 1) / 5) * 5 + 1;
+      int endPage = startPage + 5 - 1;
       
       if (endPage > finalPage) {
           endPage = finalPage;

@@ -3,6 +3,7 @@ package indiesker.java110.ms.dao;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import indiesker.java110.ms.domain.Paging;
 import indiesker.java110.ms.domain.Schedule;
 
 public interface ScheduleDao {
@@ -35,7 +36,7 @@ public interface ScheduleDao {
   int checkperschedule(Map<String, Object> params);
   int checkreqschedule(Map<String, Object> params);
   int editperschedule(Schedule schedule);
-  List<Schedule> showScedule();
+  List<Schedule> showScedule(Map<String,Object> params);
   List<Integer> showSsnos(int no);
   List<Schedule> findPossibleStages(Map<String,Object> params);
   int ApplyStagesinBuskreq(Map<String,Object> params);
@@ -50,5 +51,6 @@ public interface ScheduleDao {
   int totfindoverdue(int no);
   int refuseAllinReq(int no);
   int refuseAllinBusk(int no);
+  int totSchedule();
   
 }

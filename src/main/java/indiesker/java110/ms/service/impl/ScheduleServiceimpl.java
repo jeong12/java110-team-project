@@ -188,8 +188,10 @@ public class ScheduleServiceimpl implements ScheduleService {
     }
     
       @Override
-    public List<Schedule> showScedule() {
-    return scheduleDao.showScedule();
+    public List<Schedule> showScedule(Paging paging) {
+     Map<String,Object> params = new HashMap<>();
+     params.put("paging", paging);
+    return scheduleDao.showScedule(params);
     }
     
     @Override
@@ -324,5 +326,8 @@ public class ScheduleServiceimpl implements ScheduleService {
     public int refuseAll(int no) {
       scheduleDao.refuseAllinBusk(no);
       return scheduleDao.refuseAllinReq(no);
+    }
+    public int totSchedule() {
+    return scheduleDao.totSchedule();
     }
 }

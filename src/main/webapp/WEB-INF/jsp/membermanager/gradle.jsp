@@ -18,13 +18,12 @@
 </head>
 
 <style>
-
+#ri{margin-right: 12%;}
 .tab{display: none;}
 .hide-bullets {list-style:none;margin-left:-40px;margin-top:20px;}
+#ff{width: 50rem;height: 40rem;}
+.ff{width: 50rem;height: 40rem;}
     #mmain{margin-left:8%; margin-top: 15px;}
-    #myCarousel{width: 400px;}
-    #myCarousel2{width: 400px;}
-    #ff{width: 400px;height: 200px;}
     #ig{width: 129px;height: 60px;}            
     .mli{padding:0px; float: left;}
     .aac{ margin-top: 0px; margin-left:3%;}
@@ -34,18 +33,15 @@
         border: 1px solid silver; !importatnt;
         width: 500px; padding: 10px; padding-bottom: 30px;
     }
- 
     .btb{margin: auto; margin:26px auto 20px; 
-    background-color:red;
         border: 1px solid silver;
         width: 500px; padding: 10px; padding-bottom: 30px;
     }
     .close{margin-right: 15px;}
     #ttl{margin-left: 21px;}
     .mtb label{float:left;}
-    .carousel
+    #supm{width: 50rem; margin-left: 2%;}
 </style>
-
 
 <body>
        <button class="bt1 btn-default btn-sm"  onclick="openCity('bt1')">전체</button>
@@ -172,30 +168,24 @@
         <h3 id="ttl">용찬하우스</h3>
       </div>
       
-      <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div id="carousel-example-generic" class="bbbbs carousel slide" data-ride="carousel">
+      <div class="container" id="supm">
+    <div class="row" id="supm">
+        <div class="col-md-12"  id="supm">
+            <div id="carousel-example-generic" class="bbbbs carousel slide" data-ride="carousel" id="supm">
                 <ol class="carousel-indicators">
-                    <li data-target=".carousel slide abc" data-slide-to="0" class="active"></li>
-                    <li data-target=".carousel slide abc" data-slide-to="1"></li>
-                    <li data-target=".carousel slide abc" data-slide-to="2"></li>
+                    <li data-target=".bbbbs" data-slide-to="0" class="active"></li>
+                    <li data-target=".bbbbs" data-slide-to="1"></li>
+                    <li data-target=".bbbbs" data-slide-to="2"></li>
                 </ol>
-                <div class="carousel-inner">
+                <div class="ttttt carousel-inner">
                     <div class="item active">
-                        <img src="http://i.imgur.com/2PBLK.jpg" alt="First slide">
-                        <div class="carousel-caption">
-                        </div>
+                        <img src="" alt="First slide">
                     </div>
                     <div class="item">
-                        <img src="http://i.imgur.com/2PBLK.jpg" alt="Second slide">
-                        <div class="carousel-caption">
-                        </div>
+                        <img src="" alt="Second slide">
                     </div>
                     <div class="item">
-                        <img src="http://i.imgur.com/2PBLK.jpg" alt="Third slide">
-                        <div class="carousel-caption">
-                        </div>
+                        <img src="" alt="Third slide">
                     </div>
                 </div>
                 <a class="left carousel-control" href=".bbbbs" data-slide="prev">
@@ -247,22 +237,20 @@
         <div id="mmain">
              
                 <div class="row">
-                    <div class="col-xs-12" id="slider" id="main">
-                     
+                    <div class="" id="slider" id="main">
                         <div class="row">
-                            <div class="col-sm-4" id="carousel-bounding-box" >
+                            <div class="" id="carousel-bounding-box" >
                                 <div class="carousel slide" id="myCarousel2">
                           
                                     <div class="carousel-inner" >
                                         <div class="active item"   data-slide-number="0">
                                         <div class="iframe1">
-                                        <iframe id="ff" src="https://www.youtube.com/embed/fiGSDywrX1Y" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        <iframe  src="https://www.youtube.com/embed/fiGSDywrX1Y" width="500" height="300" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                        </div>
                                         </div>
-
                                         <div class="item"  data-slide-number="1">
                                         <div class="iframe2">
-                                        <iframe id="ff" src="https://www.youtube.com/embed/OYNcPTat5pY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        <iframe class="ff" id="ff" src="https://www.youtube.com/embed/OYNcPTat5pY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                         </div>
                                         </div>
                                
@@ -270,7 +258,7 @@
                                     <a class="left carousel-control" href="#myCarousel2" role="button" data-slide="prev">
                                         <span class="glyphicon glyphicon-chevron-left"></span>                                       
                                     </a>
-                                    <a class="right carousel-control" href="#myCarousel2" role="button" data-slide="next">
+                                    <a class="right carousel-control" id="ri" href="#myCarousel2" role="button" data-slide="next">
                                         <span class="glyphicon glyphicon-chevron-right"></span>                                       
                                     </a>                                
                                     </div>
@@ -382,17 +370,14 @@ $('.dtailSupbutton').click(function(){
 			 $(".stel").empty();
 			 $(".smessage").empty();
 			 $(".ttttt").empty();
-			 $(".aac").empty();
 			console.log(data);
 			console.log(data.det_addr);
 			console.log(data.etc);
 			console.log(data.capa);
 	         $.each(data.stagephotos,function(index,item){
-	        	 $(".ttttt").append("<div class='item' data-slide-number='"+index+"'><img id='ff' src="+item.photo+"></div>")
+	        	 $(".ttttt").append("<div class='item'><img src='/upload/"+item.photo+"' alt='First slide'></div>")
+            
 	         });
-	          $.each(data.stagephotos,function(index,item){
-         	 $(".aac").append("<button value="+item.photo+" class='mli'><img id='ig'class='photoimg' src="+item.photo+"></button>")
-	         }); 
 	         $(".mli").click(function(){
 	             var src = $(this).val();
 	             $(".ttttt").empty();
@@ -426,10 +411,8 @@ $('.dtailbuskbutton').click(function(){
              $(".bintro").empty();
              $(".iframe1").empty();  
              $(".iframe2").empty();
-           
-             
-              $(".iframe1").append("<iframe id='ff' src='"+data.avi1+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
-               $(".iframe2").append("<iframe id='ff' src='"+data.avi2+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
+              $(".iframe1").append("<iframe class='ff'  src='"+data.avi1+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
+               $(".iframe2").append("<iframe class='ff' src='"+data.avi2+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
                     $(".bname").append('<p>'+data.teamname+'</p>');
                     $(".bcity").append('<p>'+data.city+'</p>');
                     $(".bgenre").append('<p>'+data.teamgenre+'</p>');
