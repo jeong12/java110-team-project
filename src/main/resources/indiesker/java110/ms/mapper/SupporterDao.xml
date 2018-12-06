@@ -68,8 +68,8 @@
     </select>
     
     <select id="findAll" parameterType="int" resultType="supporter">
-          select sno, name, bas_addr, postno, det_addr, genre, capa, tel, per, etc
-          from sup
+         select sno, name, bas_addr as baseaddr, postno, det_addr as detailaddr, genre as sgnere, capa, tel, per, etc as message
+         from sup
          where sno = #{no}
     </select>
     

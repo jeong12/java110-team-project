@@ -36,6 +36,21 @@ public class EditProController{
     this.sc=sc;
   }
 
+  @GetMapping("prosel")
+  public void MyProfile(HttpSession session, Model model) {
+    
+    Member mem = (Member)session.getAttribute("loginUser");
+    
+    model.addAttribute("mem",memberService.getMember(mem.getNo()));
+    
+    if(buskerService.get(mem.getNo()) != null) {
+      model.addAttribute("bus",buskerService.get(mem.getNo()));
+    } else if(supporterService.get(mem.getNo()) != null) {
+      System.out.println(supporterService.findInfo(mem.getNo()));
+      model.addAttribute("sup",supporterService.findInfo(mem.getNo()));
+    }
+  }
+  
   @GetMapping("member/form")
   public void edit(HttpSession session,Model model) {
 

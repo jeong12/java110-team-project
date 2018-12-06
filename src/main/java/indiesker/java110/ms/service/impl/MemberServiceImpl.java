@@ -107,6 +107,11 @@ public class MemberServiceImpl implements MemberService {
     }
   }
 
+  @Override
+  public Member getMember(int no) {
+    return memberDao.findMemByNo(no);
+  }
+
 }
 
 

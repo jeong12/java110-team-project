@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -94,7 +95,11 @@ public class SignupController{
 
 
   @RequestMapping("busker/form")
-  public void buskerform() {
+  public void buskerform(HttpSession session) {
+    if(session.getAttribute("loginUser") != null) {
+      Member m = (Member)session.getAttribute("loginUser"); 
+      bsuknsup.put("id", m.getId());
+    }
   }
 
   @RequestMapping("busker/addavi")
@@ -130,7 +135,11 @@ public class SignupController{
   
   
   @RequestMapping("supporter/form")
-  public void supporterform() {
+  public void supporterform(HttpSession session) {
+    if(session.getAttribute("loginUser") != null) {
+      Member m = (Member)session.getAttribute("loginUser"); 
+      bsuknsup.put("id", m.getId());
+    }
   }
   
   

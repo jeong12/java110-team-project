@@ -13,4 +13,5 @@ public interface MemberDao {
   int findNoById(String id);
   void updateMemb(Member member);
   Member buskCheck(int no);
+  Member findMemByNo(int no);
 }

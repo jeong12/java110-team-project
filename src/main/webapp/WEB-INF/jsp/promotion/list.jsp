@@ -38,7 +38,7 @@
     .container{ 
         width:1000px;
     }
-   #titl{ margin: 10px; padding: 10px;}
+   #titl{ margin: 0 auto; padding: 10px; width:1000px;}
    #logo {width: 40px; height: 40px; margin: 10px;}
    h3{display:inline-block; position: relative; top:.5rem;}
    #td2 .more-button{
@@ -93,12 +93,12 @@
 <jsp:include page="../header.jsp"></jsp:include>
 <body>
 <div id="pos"></div>
-    <div class="container">
     <div id="titl">
         <img id="logo" src="../../img/playButton.PNG" alt="플레이로고">
         <h3>버스킹 홍보</h3>
         <button class="btns btns-outline-dark btn-enroll">홍보등록</button>
     </div>
+    <div class="container">
         <div class="row mb">
             <div class="col-xs-8 col-xs-offset-2">
                 <!-- <form method="post" class="form-inline"> -->

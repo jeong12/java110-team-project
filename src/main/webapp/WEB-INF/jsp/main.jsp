@@ -83,6 +83,7 @@ table {
 #mainList tr{
     cursor: pointer;
 }
+
 .placeMainImg, .BusMainImg{
     width:300px;
     height: 200px;
@@ -90,6 +91,9 @@ table {
     margin-left:auto;
     margin-right:auto;
     display: block; 
+}
+.placMainSub{
+    margin-top: 1rem;
 }
 .placeImg {
     width:167px;
