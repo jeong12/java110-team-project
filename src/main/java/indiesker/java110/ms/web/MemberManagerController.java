@@ -90,7 +90,6 @@ public class MemberManagerController {
  if(mno.getMemo() == null) {
    mno.setMemo("메모없음");
  }    
-    System.out.println(mno.getMemo());
     return mno;
     
     
@@ -124,7 +123,6 @@ public class MemberManagerController {
   public int update(String memo,String nik, Model medel) {
   
   int rno = memberManagerService.update(memo, nik);
-    System.out.println(rno);
   return rno;
 }
   
@@ -194,7 +192,6 @@ public class MemberManagerController {
       List<GradleMember> list =memberManagerService.gradleAjaxBuskerSelect(sflag, text, pageNo, pageSize);
 
       for (GradleMember gradleMember : list) {
-        System.out.println(gradleMember.getEmail());
       }
       
       return list; 
@@ -223,7 +220,6 @@ public class MemberManagerController {
   @RequestMapping(value="supdetail")
   public Supporter supDetail(int no, Model model) {
     Supporter s  = memberManagerService.supGet(no);
-    System.out.println(s);
     return s;
   } 
   
@@ -239,7 +235,6 @@ public class MemberManagerController {
   public int gradleBuskUpdate(int no, Model medel) {
   
   int bno = memberManagerService.gradleBuskUpdate(no);
-    System.out.println(bno);
   return bno;
 }
   
@@ -248,7 +243,6 @@ public class MemberManagerController {
   public int gradleSupUpdate(int no, Model medel) {
   
   int sno = memberManagerService.gradleSupUpdate(no);
-    System.out.println(sno);
   return sno;
 }
   
@@ -293,62 +287,75 @@ public class MemberManagerController {
   @ResponseBody
   @RequestMapping(value="showList")
   public Map<String,Object>showList(String flag, String pageNo, Paging paging) throws ParseException {
-    System.out.println(pageNo);
     paging.setTotalCount(memberManagerService.totlist());
     paging.setPageSize(15);
     if(pageNo != null) {
       paging.setPageNo(Integer.parseInt(pageNo));
     }
       List<MemberManager> list = memberManagerService.listAll(paging);
-       paging.setTotalCount(memberManagerService.totlist());
-       Map<String,Object> map = new HashMap<>(); 
+
+      for (MemberManager mm : list) {
+        if(mm.getFlag() == '1') {
+          mm.setType("회원");
+        }else if(mm.getFlag() == '2') {
+          mm.setType("버스커");
+        }else if(mm.getFlag() == '3') {
+          mm.setType("제공자");
+        }else if(mm.getFlag() == '4') {
+          mm.setType("정지회원");
+        }
+      }      
+      Map<String,Object> map = new HashMap<>(); 
        map.put("list", list);
        map.put("paging", paging);
-       System.out.println(list);
-       System.out.println(list.size());
        return map;
   }
   
+  
+  
   @ResponseBody
   @RequestMapping(value="showMemb")
-  public Map<String,Object> showMemb(String flag) throws ParseException {
+  public Map<String,Object> showMemb(String flag, String pageNo) throws ParseException {
     Paging paging = new Paging();
     paging.setPageSize(15);
-    
-    List<MemberManager>  list = memberManagerService.memberAjax(Integer.parseInt(flag),paging);
+    if(paging.getStartPageNo() == 0) {
+        paging.setStartPageNo(1);
+    }
+    if(pageNo != null)      paging.setPageNo(Integer.parseInt(pageNo));
     paging.setTotalCount(memberManagerService.totlistFlag(Integer.parseInt(flag)));
+    List<MemberManager>  list = memberManagerService.memberAjax(Integer.parseInt(flag),paging);
     Map<String,Object> map = new HashMap<>(); 
     map.put("list", list);
     map.put("paging", paging);
-    System.out.println(list);
     return map;
   }
   
   @ResponseBody
   @RequestMapping(value="showBusk")
-  public Map<String,Object> showBusk(int flag) throws ParseException {
-    flag = 2;
+  public Map<String,Object> showBusk(int flag,String pageNo) throws ParseException {
     Paging paging = new Paging();
+    if(pageNo != null) paging.setPageNo(Integer.parseInt(pageNo));
+    flag = 2;
     paging.setPageSize(15);
+    paging.setTotalCount(memberManagerService.totlistFlag(flag));
     
     List<MemberManager>  list = memberManagerService.memberAjax(flag,paging);
-    paging.setTotalCount(memberManagerService.totlistFlag(flag));
     Map<String,Object> map = new HashMap<>(); 
     map.put("list", list);
     map.put("paging", paging);
-    System.out.println(list);
     return map;
   }
   
   @ResponseBody
   @RequestMapping(value="showSup")
-  public Map<String,Object> showSup(int flag) throws ParseException {
-    flag = 3;
+  public Map<String,Object> showSup(int flag,String pageNo) throws ParseException {
     Paging paging = new Paging();
+    flag = 3;
+    if(pageNo != null) paging.setPageNo(Integer.parseInt(pageNo));
     paging.setPageSize(15);
+    paging.setTotalCount(memberManagerService.totlistFlag(flag));
     
     List<MemberManager>  list = memberManagerService.memberAjax(flag,paging);
-    paging.setTotalCount(memberManagerService.totlistFlag(flag));
     Map<String,Object> map = new HashMap<>(); 
     map.put("list", list);
     map.put("paging", paging);
@@ -357,13 +364,14 @@ public class MemberManagerController {
   
   @ResponseBody
   @RequestMapping(value="showStop")
-  public Map<String,Object> showStop(int flag) throws ParseException {
+  public Map<String,Object> showStop(int flag,String pageNo, Paging paging) throws ParseException {
     flag = 4;
-    Paging paging = new Paging();
+    if(pageNo != null) paging.setPageNo(Integer.parseInt(pageNo));
+    
     paging.setPageSize(15);
+    paging.setTotalCount(memberManagerService.totlistFlag(flag));
     
     List<MemberManager>  list = memberManagerService.memberAjax(flag,paging);
-    paging.setTotalCount(memberManagerService.totlistFlag(flag));
     Map<String,Object> map = new HashMap<>(); 
     map.put("list", list);
     map.put("paging", paging);

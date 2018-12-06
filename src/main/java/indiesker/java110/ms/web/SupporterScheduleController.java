@@ -39,7 +39,7 @@ public class SupporterScheduleController {
 /*    Member member = (Member)session.getAttribute("loginUser");
     int sno = member.getNo();*/
     
-    int sno = 99;
+    int sno = 2;
     int flag=1;
     Paging paging1 = new Paging();
     Paging paging2 = new Paging();
@@ -291,7 +291,7 @@ public class SupporterScheduleController {
     
     /*    Member member = (Member)session.getAttribute("loginUser");
     int sno = member.getNo();*/
-    int sno = 99;
+    int sno = 2;
     paging.setPageNo(Integer.parseInt(pageNo));
     paging.setPageSize(10);
     

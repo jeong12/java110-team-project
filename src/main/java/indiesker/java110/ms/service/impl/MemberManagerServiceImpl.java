@@ -218,7 +218,7 @@ public int totlist() {
 
 @Override
 public int totlistFlag(int flag) {
-  return 0;
+  return memberManagerDao.totlistFlag(flag);
 }
 
 
