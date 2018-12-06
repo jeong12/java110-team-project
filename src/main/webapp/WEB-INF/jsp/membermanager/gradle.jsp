@@ -42,7 +42,6 @@
     .mtb label{float:left;}
     #supm{width: 50rem; margin-left: 2%;}
 </style>
-
 <body>
        <button class="bt1 btn-default btn-sm"  onclick="openCity('bt1')">전체</button>
        <button class="bt2 btn-primary btn-sm" value="2" onclick="openCity('bt2')">버스커</button>
