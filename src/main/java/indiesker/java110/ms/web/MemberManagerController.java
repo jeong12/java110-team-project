@@ -292,28 +292,31 @@ public class MemberManagerController {
   
   @ResponseBody
   @RequestMapping(value="showList")
-  public Map<String,Object>  showList(int flag) throws ParseException {
-    
-    Paging paging = new Paging();
+  public Map<String,Object>showList(String flag, String pageNo, Paging paging) throws ParseException {
+    System.out.println(pageNo);
+    paging.setTotalCount(memberManagerService.totlist());
     paging.setPageSize(15);
-    
+    if(pageNo != null) {
+      paging.setPageNo(Integer.parseInt(pageNo));
+    }
       List<MemberManager> list = memberManagerService.listAll(paging);
        paging.setTotalCount(memberManagerService.totlist());
        Map<String,Object> map = new HashMap<>(); 
        map.put("list", list);
        map.put("paging", paging);
+       System.out.println(list);
+       System.out.println(list.size());
        return map;
   }
   
   @ResponseBody
   @RequestMapping(value="showMemb")
-  public Map<String,Object> showMemb(int flag) throws ParseException {
-    flag=1;
+  public Map<String,Object> showMemb(String flag) throws ParseException {
     Paging paging = new Paging();
     paging.setPageSize(15);
     
-    List<MemberManager>  list = memberManagerService.memberAjax(flag,paging);
-    paging.setTotalCount(memberManagerService.totlistFlag(flag));
+    List<MemberManager>  list = memberManagerService.memberAjax(Integer.parseInt(flag),paging);
+    paging.setTotalCount(memberManagerService.totlistFlag(Integer.parseInt(flag)));
     Map<String,Object> map = new HashMap<>(); 
     map.put("list", list);
     map.put("paging", paging);

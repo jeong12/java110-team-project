@@ -257,6 +257,18 @@ padding-left: 28%;
                         <form action="list" class="pageForm">
                         <input type="hidden" class="pageNO" name="pageNo">
                         </form>
+                         <form action="showList" class="AllpageForm">
+                        <input type="hidden" class="AllpageNO" name="pageNo">
+                        </form>
+                         <form action="showMemb" class="MembpageForm">
+                        <input type="hidden" class="MembpageNO" name="pageNo">
+                        </form>
+                         <form action="showBusk" class="BuskpageForm">
+                        <input type="hidden" class="BuskpageNO" name="pageNo">
+                        </form>
+                         <form action="showSup" class="SuppageForm">
+                        <input type="hidden" class="SuppageNO" name="pageNo">
+                        </form>
                                        
       
 </div>
@@ -732,6 +744,111 @@ function goPage(e){
 }
 
 
+function goPageAll(e){
+	$.ajax({
+        type : "POST",
+        url : "showList",
+        data : {"pageNo":e, "flag":1},
+        success : function(data){
+            $('#testappend').empty();
+            $('.pages').empty();
+              $.each(data.list,function(index,item){
+            if(item.flag == 1){
+                $('#testappend').append(
+               '<tr><td>'+item.id+'</td>'+
+               '<td class=niks>'+data.list.nik+'</td>'+
+               '<td>'+item.email+'</td><td>회원</td>'+
+               '<td>'+item.cdt+'</td>'+
+               '<td id="memow">'+item.memo+'</td>'+
+               '<td><button class="btt btns btns-outline-info"'+  
+               'data-toggle="modal" data-target="#exampleModal"'+
+               'value="'+item.nik+'">메모수정</button></td>'+
+               '<td><div class="detailbtn"><button name="detailAll"'+
+               'class="memberDetail btns btns-outline-secondary"'+  
+               'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
+               +'</button></div></td><td><button class="btn btns-outline-danger"'
+               +'data-title="Delete" data-toggle="modal" data-target="#delete">'
+               +'<span class="glyphicon"></span>정지</button></td></tr>'
+                );
+            }else if(data.list.flag ==2){
+                $('#testappend').append(
+                 '<tr><td>'+item.id+'</td>'+
+                   '<td class=niks>'+item.nik+'</td>'+
+                   '<td>'+item.email+'</td><td>버스커</td>'+
+                   '<td>'+item.cdt+'</td>'+
+                   '<td id="memow">'+item.memo+'</td>'+
+                   '<td><button class="btt btns btns-outline-info"'+  
+                   'data-toggle="modal" data-target="#exampleModal"'+
+                   'value="'+item.nik+'">메모수정</button></td>'+
+                   '<td><div class="detailbtn"><button name="detailAll"'+
+                   'class="memberDetail btns btns-outline-secondary"'+  
+                   'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
+                   +'</button></div></td><td><button class="btn btns-outline-danger"'
+                   +'data-title="Delete" data-toggle="modal" data-target="#delete">'
+                   +'<span class="glyphicon"></span>정지</button></td></tr>'
+                    );
+                
+            }else if(data.list.flag ==3){
+                $('#testappend').append(
+                 '<tr><td>'+item.id+'</td>'+
+                   '<td class=niks>'+item.nik+'</td>'+
+                   '<td>'+item.email+'</td><td>제공자</td>'+
+                   '<td>'+item.cdt+'</td>'+
+                   '<td id="memow">'+item.memo+'</td>'+
+                   '<td><button class="btt btns btns-outline-info"'+  
+                   'data-toggle="modal" data-target="#exampleModal"'+
+                   'value="'+item.nik+'">메모수정</button></td>'+
+                   '<td><div class="detailbtn"><button name="detailAll"'+
+                   'class="memberDetail btns btns-outline-secondary"'+  
+                   'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
+                   +'</button></div></td><td><button class="btn btns-outline-danger"'
+                   +'data-title="Delete" data-toggle="modal" data-target="#delete">'
+                   +'<span class="glyphicon"></span>정지</button></td></tr>'
+                    );
+                
+            }else if(data.list.flag == 4){
+                $('#testappend').append(
+                 '<tr><td>'+item.id+'</td>'+
+                 '<td class=niks>'+item.nik+'</td>'+
+                 '<td>'+item.email+'</td><td>정지 회원</td>'+
+                 '<td>'+item.cdt+'</td>'+
+                 '<td id="memow">'+item.memo+'</td>'+
+                 '<td><button class="btt btns btns-outline-info"'+  
+                 'data-toggle="modal" data-target="#exampleModal"'+
+                 'value="'+item.nik+'">메모수정</button></td>'+
+                 '<td><div class="detailbtn"><button name="detailAll"'+
+                 'class="memberDetail btns btns-outline-secondary"'+  
+                 'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
+                 +'</button></div></td><td><button class="btn btns-outline-danger"'
+                 +'data-title="Delete" data-toggle="modal" data-target="#delete">'
+                 +'<span class="glyphicon"></span>정지</button></td></tr>'
+                    );
+            }});
+        $('.pages').append(' <ul class="pagination justify-content-center">'+
+                '<li class="page-item prev">'+
+                '<a class="page-link" href="javascript:goPageAll('+data.paging.prevPageNo+
+                        ')">Previous</a></li>');
+           for(var i = data.paging.startPageNo;i<=data.paging.endPageNo;i++){
+               if(i == data.paging.pageNo){
+                   $('.pagination.justify-content-center').append('<li class="page-item active">'+
+                   '<a href="javascript:goPageAll('+i+')" class="choice">'+i+'</a></li>');
+               }else{
+                   $('.pagination.justify-content-center').append('<li class="page-item">'+
+                   '<a href="javascript:goPageAll('+i+')">'+i+'</a></li>');
+               }
+           } 
+        $('.pagination.justify-content-center').append('<li class="page-item">'+
+                '<a class="page-link" href="javascript:goPageAll('+data.paging.nextPageNo+')">Next</a></li>'+
+                '</ul></nav>');
+        },
+         error : function(request, status, error) {
+         }
+        
+    });
+
+}
+
+
 function showList(){
    var flag=1;
 	$.ajax({
@@ -813,25 +930,22 @@ function showList(){
 	                 +'<span class="glyphicon"></span>정지</button></td></tr>'
 	                    );
 	            }});
-	        /*  $('.prev').append(
-	            '<ul class="pagination justify-content-center">'+ 
-	            '<li class="page-item">'+
-	            '<a class="page-link" href="javascript:goPage('+data.paging.prevPageNo+')">Previous</a></li>');
-	            for(var i = data.paging.startPageNo; i<=data.paging.endPageNo); i++){
-	        	 if(i == data.paging.pageNo){
-	        		 ('.numbers').append(' <li class="page-item active">'+
-	        		 '<a href="javascript:goPage('+i+')" class="choice">'+i+'</a></li>');
-	        	 }else{
-	        		 ('.numbers').append('<li class="page-item">'+
-                     '<a href="javascript:goPage('+i+')">'+i+'</a></li>');
-	        	 }
-	         }
-	         $('.next').append(    
-	         '<li class="page-item">'+
-             '<a class="page-link" href="javascript:goPage('+data.paging.nextPageNo+')">Next</a>'+
-             '</li></ul></nav>'+
-             '<form action="list" class="pageForm"><input type="hidden" class="pageNO" name="pageNo">'+
-             '</form>'); */
+	        $('.pages').append(' <ul class="pagination justify-content-center">'+
+                    '<li class="page-item prev">'+
+                    '<a class="page-link" href="javascript:goPageAll('+data.paging.prevPageNo+
+                    		')">Previous</a></li>');
+               for(var i = data.paging.startPageNo;i<=data.paging.endPageNo;i++){
+            	   if(i == data.paging.pageNo){
+            		   $('.pagination.justify-content-center').append('<li class="page-item active">'+
+                       '<a href="javascript:goPageAll('+i+')" class="choice">'+i+'</a></li>');
+            	   }else{
+            		   $('.pagination.justify-content-center').append('<li class="page-item">'+
+                       '<a href="javascript:goPageAll('+i+')">'+i+'</a></li>');
+            	   }
+               } 
+	        $('.pagination.justify-content-center').append('<li class="page-item">'+
+                    '<a class="page-link" href="javascript:goPageAll('+data.paging.nextPageNo+')">Next</a></li>'+
+                    '</ul></nav>');
 	        },
 	         error : function(request, status, error) {
 	         }
@@ -841,6 +955,7 @@ function showList(){
 
 
 function showMemb(){
+	console.log("::");
     var flag=1;
     $.ajax({
             type : "POST",
