@@ -8,4 +8,5 @@ public interface BuskerBoardDetailService {
   
   BuskerBoardDetail get(int bbno);
   List<Comment> comtList(int bbno, int pageNo, int pageSize);
+  int insertComments(int no, int bbno, String comments);
 }

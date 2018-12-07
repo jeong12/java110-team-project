@@ -29,4 +29,13 @@ public List<Comment> comtList(int bbno, int pageNo, int pageSize) {
   return buskerBoardDetailDao.comtList(params);
 }
 
+@Override
+public int insertComments(int no, int bbno, String comments) {
+  HashMap<String,Object> params = new HashMap<>();
+  params.put("no", no);
+  params.put("bbno", bbno);
+  params.put("comments", comments);
+  return buskerBoardDetailDao.insertComments(params);
+}
+
 }

@@ -17,7 +17,7 @@
 
 <select id="findbbno" resultType="BuskerBoardDetail" parameterType="int">
  SELECT bb.bbno
- ,bb.titl,b.name,bb.genre,bb.city,bb.sdt,bb.edt,bb.cnt,bb.etc,bb.flag,bb.phot
+ ,bb.titl,b.name,bb.genre,bb.city,bb.sdt,bb.edt,bb.cnt,bb.etc,bb.flag,bb.phot, b.bno
 FROM busk_board bb, busk b 
 WHERE bb.bno = b.bno
   AND bb.bbno=#{no}

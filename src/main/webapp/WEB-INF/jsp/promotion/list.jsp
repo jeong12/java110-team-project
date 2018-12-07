@@ -100,6 +100,7 @@
     <div id="titl">
         <img id="logo" src="../../img/playButton.PNG" alt="플레이로고">
         <h3>버스킹 홍보</h3>
+        
             <c:choose>
              <c:when test="${sessionScope.type == 2}">
               <a href='form' button class="btns btns-outline-dark btn-enroll" id='enroll'>홍보등록</a>

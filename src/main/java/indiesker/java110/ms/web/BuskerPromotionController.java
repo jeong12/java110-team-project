@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import indiesker.java110.ms.domain.BuskerBoard;
 import indiesker.java110.ms.domain.BuskerBoardDetail;
@@ -106,8 +107,16 @@ public class BuskerPromotionController {
     BuskerBoardDetail bd= buskerBoardDetailService.get(bbno);
     List<Comment> commentList = buskerBoardDetailService.comtList(bbno,pageNo, pageSize);
     model.addAttribute("buskerBoardDetail", bd);
+    System.out.println(bd.getBno());
     model.addAttribute("comment", commentList);
   }
   
+  @ResponseBody
+  @RequestMapping("comments")
+  public void commentsinput(int bbno, String comment, HttpSession session) {
+    int no = (int)session.getAttribute("loginUser");
+    System.out.println(bbno);
+    System.out.println(comment);
+  }
 
 }

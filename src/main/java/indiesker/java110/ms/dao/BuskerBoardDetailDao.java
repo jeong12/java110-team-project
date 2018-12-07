@@ -8,4 +8,5 @@ import indiesker.java110.ms.domain.Comment;
 public interface BuskerBoardDetailDao {
   BuskerBoardDetail findbbno(int bbno);
   List<Comment> comtList(Map<String,Object> params);
+  int insertComments(Map<String,Object> params);
 }

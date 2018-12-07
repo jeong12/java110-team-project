@@ -19,6 +19,8 @@
         <result column="phot"  property="phot"/>
     </resultMap>
 
+
+
     <select id="findAll" resultMap="buskPromotionMap" parameterType="map">
 select titl, b.name, bo.genre, bo.city, sdt, edt, cnt, etc, bo.phot, cdt, b.bno, bo.bbno
 from busk_board bo join busk b on bo.bno = b.bno

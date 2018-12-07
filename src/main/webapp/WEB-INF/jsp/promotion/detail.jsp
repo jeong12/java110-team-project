@@ -60,7 +60,7 @@ margin-left 2.4 rem;
     #bp{width: 98%;}
     #te{margin-top: 50px;}
     .t-top{border: border; border-top: 1px solid silver}
-    
+    textarea{resize: none;  rows=5;}
 </style>
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
@@ -94,18 +94,19 @@ margin-left 2.4 rem;
                 <tr><th>날짜:</th><td>${buskerBoardDetail.sdt}</td>~<td>${buskerBoardDetail.edt}</td></tr><br>
                 <tr><th>인원:</th><td>${buskerBoardDetail.cnt}</td></tr><br>
                 <tr><th>내용:</th><td class="mm">${buskerBoardDetail.etc}</td></tr><br>
-                <tr><th>플래그:</th><td>${buskerBoardDetail.flag}</td></tr><br>
+                <tr><th>${buskerBoardDetail.bno}</th></tr>
             </div>
           </div>
       </div>
-      <button id="btn" name="singlebutton" class="btn btn-primary btn-xs">버스커 피드</button>
+      <a href='../buskerfeed/enter?no=${buskerBoardDetail.bno}'><button class="btns btns-outline-dark">피드가기</button></a>
+     <!--  <button id="btn" name="singlebutton" class="btn btn-primary btn-xs" >버스커 피드</button> -->
    
     </div>
         </div>
      <div>
      <div class="c-t">
 
- <input type="text" id="text">
+ <textarea id="text" class='comments'></textarea>
  
          <button id="btn2" name="singlebutton" class="btn btn-primary">클릭</button>
  
@@ -134,7 +135,26 @@ margin-left 2.4 rem;
          </div>
        </c:forEach>
         </div>  
-    </div>   
+    </div>
+    <script type="text/javascript">
+    $('#btn2').click(function(){
+    	$('.comments').val();
+    	
+    	 $.ajax({
+             type : "POST",
+                url : "comments",
+                dateType : "json",
+                data :{"comment":$('.comments').val(), "bbno":${buskerBoardDetail.bbno}},
+                success : function(data){
+                   alert('입력 성공!')
+                }, error : function(request, status, error) {
+                    alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+                }           
+        });
+    	
+    	
+    });
+    </script>   
 </body>
 <jsp:include page="../footer.jsp"></jsp:include>
 </html>
