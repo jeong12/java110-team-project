@@ -51,6 +51,7 @@ public class SupporterScheduleController {
     SimpleDateFormat cformat = new SimpleDateFormat("yyyyMMdd");
     
     int today = Integer.parseInt(cformat.format(new Date()));
+    
     paging1.setPageSize(10);
     paging2.setPageSize(10);
     paging3.setPageSize(10);
