@@ -197,6 +197,7 @@ padding: 0;
 margin: 5px;
 width : 250px;
 height: 250px;
+border-radius: 10px;
 }
 
 .bigdiv{
@@ -223,7 +224,7 @@ margin-top: 50px;
             <div id="followPagenation">
                 <c:forEach items="${followerList}" var="bno">
                     <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter ${bno.teamgenre}">
-	                   <a href="#wrapfollowerdetail" value="${bno.bno}" style="text-decoration: none; color: #555;" class="followerbtn">
+	                   <a href="#wrapfollowerdetail" value="${bno.bno}" style="text-decoration: none; color: #555; " class="followerbtn">
 		                   <table class="innertable">
 		                       <tr><td><img src="/upload/${bno.teamPhoto}" class="teamPhotoImg"></td></tr> 
 		                       <tr><td>${bno.teamname}</td></tr>

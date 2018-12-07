@@ -98,6 +98,7 @@ margin-bottom : 300px;
     width: 250px;
     height: 250px;
     margin: 5px;
+    border-radius: 10px;
 }
 
 #titl {
@@ -145,6 +146,23 @@ margin-bottom : 300px;
     margin-bottom: 50px;
 }
 
+#selectsearch{
+height: 35px;
+width: 70px;
+padding: 0;
+text-align: center;
+}
+#selectsearchbtn{
+height: 35px;
+width: 35px;
+padding: 0;
+text-align: center;
+}
+#selectsearchinput{
+height: 35px;
+padding: 0;
+}
+
 /* 날짜 */
 #startdateenddate{
     margin-left: 18%;
@@ -178,7 +196,7 @@ margin-bottom : 300px;
                         </select>
                     </div>
                     <input type="text" class="form-control" name="city"
-                        placeholder="정보를 입력해주세요" onkeydown="pushenter()"> <span
+                        placeholder="정보를 입력해주세요" onkeydown="pushenter()" id="selectsearchinput" > <span
                         class="input-group-btn">
                         <button class="btn btn-default" id="selectsearchbtn" onclick="PageMove()">
                             <span class="glyphicon glyphicon-search"></span>

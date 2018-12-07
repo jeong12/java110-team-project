@@ -94,6 +94,7 @@ margin-bottom : 150px;
 	width: 250px;
 	height: 250px;
 	margin: 5px;
+	border-radius: 10px;
 }
 
 #titl {
@@ -142,6 +143,24 @@ margin-bottom : 150px;
 .btn-wrap {
 	text-align: center;
 }
+
+#selectsearch{
+height: 35px;
+width: 70px;
+padding: 0;
+text-align: center;
+}
+#selectsearchbtn{
+height: 35px;
+width: 35px;
+padding: 0;
+text-align: center;
+}
+#selectsearchinput{
+height: 35px;
+padding: 0;
+}
+
 </style>
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
@@ -168,7 +187,7 @@ margin-bottom : 150px;
 						</select>
 					</div>
 					<input type="text" class="form-control" name="city"
-						placeholder="정보를 입력해주세요" onkeydown="pushenter()"> <span
+						placeholder=" 정보를 입력해주세요" onkeydown="pushenter()" id="selectsearchinput"> <span
 						class="input-group-btn">
 						<button class="btn btn-default" id="selectsearchbtn"
 							onclick="PageMove()">
@@ -230,7 +249,7 @@ margin-bottom : 150px;
 
 						<c:forEach items="${totalFeed}" var="tf">
 							<div class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${tf.teamgenre}">
-								<a href="/app/buskerfeed/enter?no=${tf.bno}" style="text-decoration: none; color: #555;" class="js-load">
+								<a href="/app/buskerfeed/enter?no=${tf.bno}" style="text-decoration: none; color: #555; " class="js-load">
 									<table>
 										<tr>
 											<td><img src="/upload/${tf.teamPhoto}"
