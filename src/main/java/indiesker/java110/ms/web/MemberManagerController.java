@@ -38,8 +38,15 @@ public class MemberManagerController {
     
      paging.setTotalCount(memberManagerService.totlist());
      paging.setPageSize(15);
+     
      List<MemberManager> list = memberManagerService.listAll(paging);
-      model.addAttribute("paging",paging);
+     
+     SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
+     for (MemberManager mm : list) {
+      mm.setNcdt(dformat.format(mm.getCdt()));
+    }
+     
+     model.addAttribute("paging",paging);
       model.addAttribute("list", list);
   }
   
@@ -292,16 +299,22 @@ public class MemberManagerController {
     if(pageNo != null) {
       paging.setPageNo(Integer.parseInt(pageNo));
     }
-      List<MemberManager> list = memberManagerService.listAll(paging);
+      
+    List<MemberManager> list = memberManagerService.listAll(paging);
+    SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
 
-      for (MemberManager mm : list) {
+    for (MemberManager mm : list) {
         if(mm.getFlag() == '1') {
+          mm.setNcdt(dformat.format(mm.getCdt()));
           mm.setType("회원");
         }else if(mm.getFlag() == '2') {
+          mm.setNcdt(dformat.format(mm.getCdt()));
           mm.setType("버스커");
         }else if(mm.getFlag() == '3') {
+          mm.setNcdt(dformat.format(mm.getCdt()));
           mm.setType("제공자");
         }else if(mm.getFlag() == '4') {
+          mm.setNcdt(dformat.format(mm.getCdt()));
           mm.setType("정지회원");
         }
       }      
@@ -323,10 +336,18 @@ public class MemberManagerController {
     }
     if(pageNo != null)      paging.setPageNo(Integer.parseInt(pageNo));
     paging.setTotalCount(memberManagerService.totlistFlag(Integer.parseInt(flag)));
+    
     List<MemberManager>  list = memberManagerService.memberAjax(Integer.parseInt(flag),paging);
+    SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
+    for (MemberManager mm : list) {
+      mm.setNcdt(dformat.format(mm.getCdt()));
+      System.out.println(mm.getFlag());
+    }    
+    
     Map<String,Object> map = new HashMap<>(); 
     map.put("list", list);
     map.put("paging", paging);
+    
     return map;
   }
   
@@ -340,9 +361,16 @@ public class MemberManagerController {
     paging.setTotalCount(memberManagerService.totlistFlag(flag));
     
     List<MemberManager>  list = memberManagerService.memberAjax(flag,paging);
+    
+    SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
+    for (MemberManager mm : list) {
+      mm.setNcdt(dformat.format(mm.getCdt()));
+    }  
+    
     Map<String,Object> map = new HashMap<>(); 
     map.put("list", list);
     map.put("paging", paging);
+    
     return map;
   }
   
@@ -356,6 +384,12 @@ public class MemberManagerController {
     paging.setTotalCount(memberManagerService.totlistFlag(flag));
     
     List<MemberManager>  list = memberManagerService.memberAjax(flag,paging);
+    
+    SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
+    for (MemberManager mm : list) {
+      mm.setNcdt(dformat.format(mm.getCdt()));
+    }  
+    
     Map<String,Object> map = new HashMap<>(); 
     map.put("list", list);
     map.put("paging", paging);
@@ -372,6 +406,12 @@ public class MemberManagerController {
     paging.setTotalCount(memberManagerService.totlistFlag(flag));
     
     List<MemberManager>  list = memberManagerService.memberAjax(flag,paging);
+    
+    SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
+    for (MemberManager mm : list) {
+      mm.setNcdt(dformat.format(mm.getCdt()));
+    }  
+    
     Map<String,Object> map = new HashMap<>(); 
     map.put("list", list);
     map.put("paging", paging);
