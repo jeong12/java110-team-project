@@ -75,6 +75,12 @@ public class GradleMember {
   public void setEmail(String email) {
     this.email = email;
   }
+  @Override
+  public String toString() {
+    return "GradleMember [id=" + id + ", nik=" + nik + ", name=" + name + ", genre=" + genre
+        + ", email=" + email + ", flag=" + flag + ", sflag=" + sflag + ", gradle=" + gradle
+        + ", sno=" + sno + ", bno=" + bno + "]";
+  }
  
   
   
