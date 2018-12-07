@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import indiesker.java110.ms.dao.SupporterDao;
 import indiesker.java110.ms.domain.StagePhoto;
 import indiesker.java110.ms.domain.Supporter;
@@ -14,6 +16,9 @@ import indiesker.java110.ms.service.SupporterService;
 public class SupporterServiceImpl implements SupporterService {
 
     @Autowired SupporterDao supporterDao;
+    @Transactional(transactionManager="transactionManager",   
+        propagation=Propagation.REQUIRED,
+        rollbackFor=Exception.class)
 
     @Override
     public int checkName(String name) {
@@ -32,7 +37,8 @@ public class SupporterServiceImpl implements SupporterService {
       }
       
       supporterDao.insert(s);
-      return supporterDao.insertfile(list);
+      supporterDao.insertfile(list);
+      return supporterDao.updateFlag(s.getNo());
     }
 
     @Override

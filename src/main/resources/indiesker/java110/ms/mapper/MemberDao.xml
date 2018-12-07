@@ -78,5 +78,12 @@
         where mno=#{no}
     </select>
     
+    <!-- 버스커 타입 -->
+     <select id="getType" parameterType="int" resultType="Integer">
+        select flag
+        from memb
+        where mno=#{no}
+    </select>
+    
 </mapper>
 

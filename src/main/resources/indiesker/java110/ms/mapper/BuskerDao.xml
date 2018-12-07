@@ -117,6 +117,12 @@
           and bno = #{no}; 
     </select>
 
+
+<update id="updateflag" parameterType="int">
+UPDATE `memb` 
+SET `flag`=2 
+WHERE mno=#{no}
+</update>
     
 </mapper>
 

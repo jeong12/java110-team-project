@@ -7,13 +7,32 @@
 <html>
 <head>
 <meta charset='UTF-8'>
-<title>버스커 리스트</title>
+<title>버스커 홍보 상세보기</title>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css"/>
-<link rel='stylesheet' href='/css/common.css'> <!-- 웹 브라우저 입장에서의 경로 -->
+<link rel='stylesheet' href='../css/common.css'> <!-- 웹 브라우저 입장에서의 경로 -->
 <style>
+#logo{
+width: 40px; 
+height:40px; 
+float: left; 
+margin-top: -4px;
+margin-right: 0.5rem;
+
+}
+
+#titl{
+margin-top: 3%;
+margin-bottom: 3%;
+}
+
+#titl h3{
+float: left; 
+margin-top: 4px;
+margin-left 2.4 rem;
+}
    .media{width: 100%;height: 330px;}
     #phot{width: 320px; height: 240px;} 
     .mm{width: 800px; height:60px;}    
@@ -44,7 +63,19 @@
     
 </style>
 </head>
+<jsp:include page="../header.jsp"></jsp:include>
 <body>
+
+<div class="container">
+<div class="row">
+    <div id="titl" class='col-lg-12'>
+        <img id="logo" src="../../img/playButton.png" alt="플레이로고">
+        <h3>무대관리</h3>
+    </div>
+    </div>
+    </div>
+
+
      <div class="box">
 
 <div class="container">
@@ -105,6 +136,7 @@
         </div>  
     </div>   
 </body>
+<jsp:include page="../footer.jsp"></jsp:include>
 </html>
     
     

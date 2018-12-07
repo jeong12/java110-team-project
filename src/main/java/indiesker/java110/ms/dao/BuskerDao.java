@@ -17,4 +17,5 @@ public interface BuskerDao {
 //  int delete(int no);
 //  Busker findByEmailPassword(Map<String,Object> params);
   Busker findBukserInfo(int no);
+  int updateflag(int no);
 }

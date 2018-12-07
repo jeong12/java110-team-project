@@ -163,12 +163,12 @@ input::-webkit-input-placeholder{text-align: center;}
 	 <form action='add' method='post' enctype="multipart/form-data" class='form-group'>
 	   <div class="insert">
 	   <label for="url1">url1</label>
-	   <input type="text" placeholder="youtube url를 적어주세요"  name=url1 id="url1">
+	   <input type="text" placeholder="youtube url를 적어주세요"  name=url1 id="url1" autocomplete="off">
 	   <button type="button" class='insertbtn btns btns btns-outline-light' id="btn1" onclick="btn1_click()">추가</button><br>
 	   </div>
 	   <div class="insert">
 	   <label for="url2">url2</label>
-	   <input type="text" placeholder="youtube url를 적어주세요" name=url2 id="url2">
+	   <input type="text" placeholder="youtube url를 적어주세요" name=url2 id="url2" autocomplete="off">
 	   <button type="button" class='insertbtn btns btns btns-outline-light' onclick="btn2_click()" id="btn2">추가</button><br>
 	   </div>
 	   <button class= 'signupbtn btns btns btns-outline-light' disabled="disabled">가입하기</button>

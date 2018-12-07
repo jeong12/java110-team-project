@@ -88,7 +88,11 @@
     .btn-enroll{
         left:28.5rem;
     }
-    </style>
+ a:link { color: black; text-decoration: none;}
+ a:visited { color: black; text-decoration: none;}
+.promotion a:hover { color: white ; text-decoration: none ; } 
+.promotion a:focus { color: white ; text-decoration: none ; }
+</style>
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
 <body>
@@ -96,7 +100,13 @@
     <div id="titl">
         <img id="logo" src="../../img/playButton.PNG" alt="플레이로고">
         <h3>버스킹 홍보</h3>
-        <button class="btns btns-outline-dark btn-enroll">홍보등록</button>
+            <c:choose>
+             <c:when test="${sessionScope.type == 2}">
+              <a href='form' button class="btns btns-outline-dark btn-enroll" id='enroll'>홍보등록</a>
+             </c:when>
+             <c:otherwise></c:otherwise>
+            </c:choose>
+        
     </div>
     <div class="container">
         <div class="row mb">
@@ -139,8 +149,8 @@
                                     <li class="promotion">날짜 : ${pro.sdt} ~ ${pro.edt}</li>
                                     <li class="promotion">인원 : ${pro.cnt}</li>
                                     <li class="promotion">내용 : ${pro.etc}</li>
-                                    <li class="promotion"><button class="btns btns-outline-dark">피드가기</button>
-                                    <button class="btns btns-outline-dark">상세보기</button></li>
+                                    <li class="promotion"><a href='../buskerfeed/enter?no=${pro.bno}' class="btns btns-outline-dark">피드가기</a>
+                                    <a href='detail?bbno=${pro.bbno}' button class="btns btns-outline-dark">상세보기</a></li>
                                 </ul>
                             </td>
                         </tr>
@@ -233,7 +243,7 @@
         }
     }
 
-
+    
 </script>
   
 </body>
