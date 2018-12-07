@@ -14,6 +14,7 @@
 <link href="/css/fullcalendar.min.css" rel="stylesheet">
 <link href="/../css/common.css" rel="stylesheet">
 <style>
+body{background-color: snow;}
 #calendar {
     max-width: 600px;
     margin: 0 auto;
@@ -35,13 +36,13 @@ margin: auto;
 ul li{list-style: none;}
 .Atable{
 width: 60%; margin-left: 20%; border: 1px solid silver; border-radius: 17px; margin-top: 2%; 
-padding-bottom: 5%;}
+padding-bottom: 5%; background-color: white;}
 .maptable1{width: 50%; float: left;} 
-.Ttable{ margin-bottom: 34%;}
-.Mtable{width: 100%; margin-bottom: 112%;}   
+.Ttable{ margin-bottom: 34%; }
+.Mtable{width: 100%; margin-bottom: 112%; display: inline;} 
 #calendar{width: 50%; float: left; margin-top: 9%;}  
 #selectday{width: 50%; margin-top: 9%;}   
-.btable{width: 100%; height: 40%; margin-top: 75%;}   
+.btable{width: 100%; height: 40%; margin-top: 115%;}   
 #photo{float: left; width: 100%; margin-bottom: 7%; margin:auto; margin-top: 3%;}
 #map{clear: both; margin-left: 15%; margin-top: 5%}
 .maptable{padding-left: 8%; padding-right: 8%;}
@@ -50,9 +51,11 @@ padding-bottom: 5%;}
 .applydates tbody{border:1px solid silver; border-radius: 3%;}
 .tbody tr td{border-right: 1px solid silver; border-radius: 3%;}
 .abtn{margin: 1%;}
-.slideimg{float: right;}
-#tyy{width: 20rem;height: 15rem;}
+.slideimg{float: right; margin-top: 2%;}
+#tyy{width: 20rem;height: 17rem;}
 .ty{width: 100%; height: 100%;}
+#photo{height: 12rem; text-align: center;}
+.img{margin-left: 0.5%;margin-right: 0.5%;}
 </style>                  
 <jsp:include page="../header.jsp" />
 </head>
@@ -75,7 +78,7 @@ padding-bottom: 5%;}
 							<!-- 장소내용  -->
 							<div class="maptable1" id='info'>
 								<table>
-									<tbody>
+									<tbody class="tobtbody">
 										<tr>
 											<td><h4>상호명/장소명</h4></td>
 											<td>${list.name}</td>
@@ -141,7 +144,7 @@ padding-bottom: 5%;}
 						<!-- 사진 -->
 						<div id="photo">
 							<c:forEach items="${lists}" var="s">
-								<img class="img" alt="이미지" src="/upload/${s.photo}">
+								<img class="img" style="height: 100%" alt="이미지" src="/upload/${s.photo}">
 							</c:forEach>
 						</div>
 						<!-- 사진끝 -->
@@ -224,8 +227,9 @@ padding-bottom: 5%;}
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c63782df6473def89780e1d964f9d83a&libraries=services"></script>
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=15e2302756c9e7098ec0d79f7b4d53f4&libraries=services"></script>
 	<script type="text/javascript">
+$(".tobtbody tr td:nth-child(even)").css("width","73%");
 var _prevObj = null;
 $(function() {  
   $('#calendar').fullCalendar({      

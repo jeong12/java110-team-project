@@ -162,6 +162,8 @@ public class MemberManagerController {
           pageSize = 3;
       
       List<GradleMember> list =memberManagerService.gradleAjaxBusker(pageNo, pageSize);
+System.out.println(list);
+
 
       return list; 
   }
