@@ -11,6 +11,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../../css/common.css">
 <style>
 #logo {
 	width: 50px;
@@ -23,14 +24,15 @@
 .fter{clear: both;}
 .thead-dark tr th{background-color: #212529; color: white;}
 .detailleft{float: left; width: 50%;}
-.detailright{float: right; width: 50%;}
+.detailright{float: right; width: 50%; margin-top: -1%;}
 img{width: 16rem;}
 .serchin{height: 1.5rem;}
 .search{display: inline;}
 #titl{margin-top: 2%; margin-bottom: 2%;}
 #logo{float: left;}
-#haha{margin-top: 0.8%; margin-left: 5.5%;}
-
+#haha{margin-top: 1.2%; margin-left: 5.5%;}
+.search{float: right;}
+#m{margin-bottom: 1%;}
 /* .thead-dark tr th{background-color:#212529; } */
 </style>
 <jsp:include page="../header.jsp"></jsp:include>
@@ -44,13 +46,15 @@ img{width: 16rem;}
 		<div class='tableleft'>
 				<div class='search'>
 					<form action="search">
-						<select name="type">
-							<option class="serchin" value="date" selected>기간</option>
-							<option class="serchin" value="team">팀명</option>
-							<option class="serchin" value="city">도시</option>
-						</select> <input type="date" name="date"> <input type="text"
+						<select class="serchin" name="type">
+							<option value="date" selected>기간</option>
+							<option value="team">팀명</option>
+							<option value="city">도시</option>
+						</select> 
+						<input class="serchin" type="date" name="date">
+						 <input class="serchin" type="text"
 							name="keyword">
-						<button type="submit">검색하기</button>
+						<button id="m" class="btn btns-outline-m" type="submit">검색하기</button>
 					</form>
 				</div>
 				<div class=''>
