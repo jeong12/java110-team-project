@@ -142,10 +142,10 @@ padding-left: 28%;
      </div>
      
 
-        <div class="table-responsive">
+        <div class="table table-responsive">
               
          <div class="tab12" id="bt1"> 
-              <table id="mytable" class="table table-bordred table-striped">  
+              <table id="mytable" class="table table-bordred table-striped"> 
                   <thead>                   
                        <tr><th class="col-md-1">아이디</th>
                        <th class="col-md-1">닉네임</th>
