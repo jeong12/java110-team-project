@@ -12,11 +12,13 @@
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 <link rel="stylesheet" type="text/css"
     href="/../css/jquery.datetimepicker.css">
+<link rel="stylesheet" type="text/css"
+    href="/../css/common.css">
     
-<!-- 모달내부 css -->
-<!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha256-3dkvEK0WLHRJ7/Csr0BZjAWxERc5WH7bdeUya2aXxdU= sha512-+L4yy6FRcDGbXJ9mPG8MT/3UCDzwR9gPeyFNMCtInsol++5m3bk2bXWKdZjvybmohrAsn3Ua5x8gfLnbE1YkOg=="><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw=="> -->
 
 <link href="/css/fullcalendar.min.css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha256-3dkvEK0WLHRJ7/Csr0BZjAWxERc5WH7bdeUya2aXxdU= sha512-+L4yy6FRcDGbXJ9mPG8MT/3UCDzwR9gPeyFNMCtInsol++5m3bk2bXWKdZjvybmohrAsn3Ua5x8gfLnbE1YkOg==" crossorigin="anonymous">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
 #calendar {
 	max-width: 900px;
@@ -40,9 +42,9 @@
 	margin-left: 30%
 }
 
-/* p{
-    width: 400px;
-} */
+.detailinfobtn,.removebtn{
+    font-size: 20%;
+}
 .fc-day-number.fc-sat.fc-past { color:#0000FF; }     /* 토요일 */
 .fc-day-number.fc-sun.fc-past { color:#FF0000; }    /* 일요일 */
 
@@ -77,22 +79,31 @@ display: none;
 
 .span12.current{
 display:inherit;
-}
+} 
 
-#map{
+#map,#reqmap,#permap{
     margin-top: 10px;
     border: 3px solid gray;
 }
+
+#map img {
+  max-width: none;
+  height: auto;
+  border: 0;
+  -ms-interpolation-mode: bicubic;
+}
+#titl{margin-top: 2%; margin-bottom: 2%;}
+#logo{float: left;}
+#haha{margin-top: 0.8%; margin-left: 5.5%;}
+
 </style>
 
 </head>
 <body>
     <jsp:include page="../header.jsp"></jsp:include> 
-
-
-	<div id="titl">
+	<div id="titl" class="container">
 		<img id="logo" src="/img/playButton.PNG" alt="플레이로고">
-		<h2>버스킹 일정</h2>
+		<h2 id="haha">버스킹 일정</h2>
 	</div>
 
 
@@ -130,7 +141,7 @@ display:inherit;
         
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left" style='display:inline-block;'>
                 <div id="addschedule">
-                   <button type="button" class="btn btn-info btn-lg" data-toggle="modal"
+                   <button style="margin-top: -4%;" type="button" class="btns btns-outline-primary" data-toggle="modal"
                        data-target="#myModal">스케줄등록하기</button>
                </div>
             <div class="list-group list-group-horizontal">
@@ -149,13 +160,6 @@ display:inherit;
     </div>
 </div>	
 
-<!-- <div class="container">
-	<div class="flagsearch">
-			<button value="1">진행중</button>
-			<button value="2">완료</button>
-			<button value="3">개인스케줄</button>
-		</div>
-</div> -->
 
 <div class="container" style="width=70%">
     <div class="row" style="width=100%">
@@ -169,10 +173,9 @@ display:inherit;
 						<th>신청인원</th>
 						<th>진행상태</th>
 						<th>작성일</th>
-						<th>상세보기</th>
 					</tr>
 				</thead>
-				<tbody id='schedulelist' onload="pasing();">
+				<tbody id='schedulelist'>
 					<c:forEach items="${list}" var="list">
 						<tr>
 							<td>${list.shopname}</td>
@@ -191,24 +194,24 @@ display:inherit;
 			                              <span class="label label-info">개인스케줄</span>                                 
 			                        </c:otherwise>
 								</c:choose></td>
-							<td>${list.cdt}</td>
+							<td>${list.ncdt}</td>
 							<c:choose>
-								<c:when test="${list.supporter eq null }">
+								<c:when test="${list.flag eq '3'.charAt(0)}">
 									<td>
 										<button data-toggle="modal" data-target="#detailperModal"
-											class="detailinfobtn" value="b${list.sno}">상세보기</button>
+											class="btns btns-outline-secondary detailinfobtn" value="b${list.sno}">상세보기</button>
 									</td>
 									<td>
-										<button class='removebtn' value="b${list.sno}">삭제</button>
+										<button class='btns btns-outline-danger removebtn' value="b${list.sno}">삭제</button>
 									</td>
 								</c:when>
 								<c:otherwise>
 									<td>
 										<button data-toggle="modal" data-target="#detailreqModal"
-											class="detailinfobtn" value="a${list.sno}">상세보기</button>
+											class="btns btns-outline-secondary detailinfobtn" value="a${list.sno}">상세보기</button>
 									</td>
 									<td>
-										<button class='removebtn' value="a${list.sno}">삭제</button>
+										<button class='btns btns-outline-danger removebtn' value="a${list.sno}">삭제</button>
 									</td>
 								</c:otherwise>
 							</c:choose>
@@ -216,6 +219,27 @@ display:inherit;
 					</c:forEach>
 				</tbody>
 		   </table>
+		   <nav aria-label="Page navigation example" class='pages' style="text-align: center;">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:goPage(${listpaging.prevPageNo},'list')">Previous</a></li>
+                                    
+                                <c:forEach var="i" begin="${listpaging.startPageNo}" end="${listpaging.endPageNo}" step="1">
+                                 <c:choose>
+                                 <c:when test="${i eq listpaging.pageNo}">
+                                    <li class="page-item active">
+                                    <a href="javascript:goPage(${i},'list')" class="choice">${i}</a></li>
+                                 </c:when>
+                                 <c:otherwise>
+                                  <li class="page-item">
+                                  <a href="javascript:goPage(${i},'list')">${i}</a></li>
+                                </c:otherwise>
+                                </c:choose>
+                                </c:forEach>
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:goPage(${listpaging.nextPageNo},'list')">Next</a></li>
+                            </ul>
+                  </nav>
         </div>
         
         <div class="span12" id='tab2'>
@@ -231,7 +255,7 @@ display:inherit;
                         <th>상세보기</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id='ingschedulelist'>
                     <c:forEach items="${inglist}" var="inglist">
                         <tr>
                             <td>${inglist.shopname}</td>
@@ -241,18 +265,39 @@ display:inherit;
                             <td>
                                 <span class="label label-warning">진행중</span>                                    
                             </td>
-                            <td>${inglist.cdt}</td>
+                            <td>${inglist.ncdt}</td>
                             <td>
                                 <button data-toggle="modal" data-target="#detailreqModal"
-                                            class="detailinfobtn" value="a${inglist.sno}">상세보기</button>
+                                            class="btns btns-outline-secondary detailinfobtn" value="a${inglist.sno}">상세보기</button>
                             </td>
                             <td>
-                                <button class='removebtn' value="a${inglist.sno}">삭제</button>
+                                <button class='btns btns-outline-danger removebtn' value="a${inglist.sno}">삭제</button>
                             </td>
                         </tr>
                     </c:forEach>
                 </tbody>
            </table>
+            <nav aria-label="Page navigation example" class='pages'>
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:goPage(${inglistpaging.prevPageNo},'inglist')">Previous</a></li>
+                                    
+                                <c:forEach var="i" begin="${inglistpaging.startPageNo}" end="${inglistpaging.endPageNo}" step="1">
+                                 <c:choose>
+                                 <c:when test="${i eq inglistpaging.pageNo}">
+                                    <li class="page-item">
+                                    <a href="javascript:goPage(${i},'inglist')" class="choice">${i}</a></li>
+                                 </c:when>
+                                 <c:otherwise>
+                                  <li class="page-item">
+                                  <a href="javascript:goPage(${i},'inglist')">${i}</a></li>
+                                </c:otherwise>
+                                </c:choose>
+                                </c:forEach>
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:goPage(${inglistpaging.nextPageNo},'inglist')">Next</a></li>
+                            </ul>
+                        </nav>
         </div>
         
         <div class="span12" id='tab3'>
@@ -268,7 +313,7 @@ display:inherit;
                         <th>상세보기</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="edschedulelist">
                     <c:forEach items="${edlist}" var="edlist">
                         <tr>
                             <td>${edlist.shopname}</td>
@@ -278,18 +323,39 @@ display:inherit;
                             <td>
                                 <span class="label label-success">완료</span>                                    
                             </td>
-                            <td>${edlist.cdt}</td>
+                            <td>${edlist.ncdt}</td>
                             <td>
                                 <button data-toggle="modal" data-target="#detailreqModal"
-                                            class="detailinfobtn" value="a${edlist.sno}">상세보기</button>
+                                            class="btns btns-outline-secondary detailinfobtn" value="a${edlist.sno}">상세보기</button>
                             </td>
                             <td>
-                                <button class='removebtn' value="a${edlist.sno}">삭제</button>
+                                <button class='btns btns-outline-danger removebtn' value="a${edlist.sno}">삭제</button>
                             </td>
                         </tr>
                     </c:forEach>
                 </tbody>
            </table>
+           <nav aria-label="Page navigation example" class='pages'>
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:goPage(${edlistpaging.prevPageNo},'edlist')">Previous</a></li>
+                                    
+                                <c:forEach var="i" begin="${edlistpaging.startPageNo}" end="${edlistpaging.endPageNo}" step="1">
+                                 <c:choose>
+                                 <c:when test="${i eq edlistpaging.pageNo}">
+                                    <li class="page-item">
+                                    <a href="javascript:goPage(${i},'edlist')" class="choice">${i}</a></li>
+                                 </c:when>
+                                 <c:otherwise>
+                                  <li class="page-item">
+                                  <a href="javascript:goPage(${i},'edlist')">${i}</a></li>
+                                </c:otherwise>
+                                </c:choose>
+                                </c:forEach>
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:goPage(${edlistpaging.nextPageNo},'edlist')">Next</a></li>
+                            </ul>
+                        </nav>
         </div>
         
         
@@ -306,7 +372,7 @@ display:inherit;
                         <th>상세보기</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id='pschedulelist'>
                     <c:forEach items="${plist}" var="plist">
                         <tr>
                             <td>${plist.shopname}</td>
@@ -315,18 +381,39 @@ display:inherit;
                             <td>${plist.cnt}명</td>
                             <td>
                                 <span class="label label-info">개인스케줄</span>                                 
-                            <td>${plist.cdt}</td>
+                            <td>${plist.ncdt}</td>
                             <td>
                                 <button data-toggle="modal" data-target="#detailperModal"
-                                            class="detailinfobtn" value="b${plist.sno}">상세보기</button>
+                                            class="btns btns-outline-secondary detailinfobtn" value="b${plist.sno}">상세보기</button>
                             </td>
                             <td>
-                                <button class='removebtn' value="b${plist.sno}">삭제</button>
+                                <button class='btns btns-outline-danger removebtn' value="b${plist.sno}">삭제</button>
                             </td>
                         </tr>
                     </c:forEach>
                 </tbody>
            </table>
+           <nav aria-label="Page navigation example" class='pages'>
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:goPage(${plistpaging.prevPageNo},'plist')">Previous</a></li>
+                                    
+                                <c:forEach var="i" begin="${plistpaging.startPageNo}" end="${plistpaging.endPageNo}" step="1">
+                                 <c:choose>
+                                 <c:when test="${i eq plistpaging.pageNo}">
+                                    <li class="page-item">
+                                    <a href="javascript:goPage(${i},'plist')" class="choice">${i}</a></li>
+                                 </c:when>
+                                 <c:otherwise>
+                                  <li class="page-item">
+                                  <a href="javascript:goPage(${i},'plist')">${i}</a></li>
+                                </c:otherwise>
+                                </c:choose>
+                                </c:forEach>
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:goPage(${plistpaging.nextPageNo},'plist')">Next</a></li>
+                            </ul>
+                        </nav>
         </div>
     </div>
 </div>		
@@ -426,7 +513,7 @@ input, textarea, button { margin-top:0px }
 				    <!-- <div class="container"> -->
 					<div class="row" style="width:auto">
 					<div class="col-md-12">
-					<form action='add' method='post' enctype="multipart/form-data" class="form-horizontal" >
+					<form action='add' method='post' enctype="multipart/form-data" class="form-horizontal" id='scheduleaddform' >
 					<fieldset>
 					
 					<!-- 장소 입력 input -->
@@ -438,7 +525,7 @@ input, textarea, button { margin-top:0px }
 					        <i class="fa fa-user">
 					        </i>
 					       </div>
-					       <input id="shopname" name="shopname" type="text" placeholder="장소/상호명" class="form-control input-md">
+					       <input id="shopname" name="shopname" type="text" placeholder="장소/상호명" autocomplete="off" class="form-control input-md" onkeydown='moveFocus("cnt")'>
 					      </div>
 					  </div>
 					</div>
@@ -448,14 +535,12 @@ input, textarea, button { margin-top:0px }
 					  <label class="col-md-4 control-label" for="cnt">인원</label>  
 					  <div class="col-md-5">
 					  <div class="input-group">
-					       <div class="input-group-addon">
-					      <i class="fa fa-male" style="font-size: 20px;"></i>
-					        
+					       <div class="input-group-addon" style="width: 18%;">
+					      <i class="fa fa-male"></i>
 					       </div>
-					      <input id="cnt" name="cnt" type="text" placeholder="공연인원수" class="form-control input-md">
+					      <input id="cnt" name="cnt" type="number" autocomplete="off" placeholder="공연인원수" class="form-control input-md" onkeydown='moveFocus("regstarttimepicker")'>
 					
 					      </div>
-					    
 					  </div>
 					</div>
 					
@@ -485,7 +570,7 @@ input, textarea, button { margin-top:0px }
 					<!-- 공연시간 발류 채크 -->
 					<div class="form-group">
 					  <label class="col-md-4 control-label" for="check"></label>  
-					  <div class="col-md-2  col-xs-4">
+					  <div class="col-md-5  col-xs-4">
 					      <p id="datecheck"></p>  
 					  </div>  
 					</div>
@@ -497,14 +582,14 @@ input, textarea, button { margin-top:0px }
 					          <div class="input-group-addon">
 					             <i class="fa fa-street-view"></i>
 					           </div>
-					          <input id="addr" name="addr" type="text" placeholder="주소" class="form-control input-md ">
+					          <input id="addr" name="addr" type="text" placeholder="주소" class="form-control input-md" autocomplete="off">
 					      </div>
 					  </div>
 					
 					
 					  <div>
 					    <div class="input-group">
-					            <input type='button' class="btn btn-default" onclick="search_addr()" value='주소검색'>
+					            <input type='button' class="btn btn-default" onclick="search_addr()" value='주소검색' autocomplete="off">
 					      </div>
 					  </div>
 					
@@ -513,7 +598,7 @@ input, textarea, button { margin-top:0px }
 					
 					<!-- 지도 -->
                     <div class="form-group">
-                      <div id="map" style="width:400px;height:400px;margin-top:10px;display:none; margin:0 auto;"></div>
+                       <div id="map" style="width:400px;height:400px;margin-top:10px;display:none;margin:0 auto;"></div>
                         <input type="text" id="x" name="x" style="display:none"> 
                         <input type="text" id="y" name="y" style="display:none">
                     </div>
@@ -521,8 +606,7 @@ input, textarea, button { margin-top:0px }
 					<div class="form-group" style='float:right; margin-right: 10px;'>
 					  <label class="col-md-4 control-label" ></label>  
 					  <div class="col-md-4">
-					  <button class="btn btn-success" id="addbtn">등록하기</button>
-					  <!-- <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-remove-sign"></span> Clear</a> -->
+					  <input type='button' class="btn btn-success" id="addbtn" onclick="add()" value='등록하기'>
 					  </div>
 					</div>
 					</fieldset>
@@ -536,7 +620,7 @@ input, textarea, button { margin-top:0px }
 			</div>
 	</div>
     
-    <!-- 스케줄 등록모달 -->
+    <!-- 개인스케줄 수정모달 -->
     <div id="EditScheduleModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
@@ -562,7 +646,7 @@ input, textarea, button { margin-top:0px }
                             <i class="fa fa-user">
                             </i>
                            </div>
-                           <input id="shopname" name="shopname" type="text" class="form-control input-md">
+                           <input id="edit_shopname" name="shopname" type="text" class="form-control input-md">
                           </div>
                       </div>
                     </div>
@@ -572,11 +656,11 @@ input, textarea, button { margin-top:0px }
                       <label class="col-md-4 control-label" for="cnt">인원</label>  
                       <div class="col-md-5">
                       <div class="input-group">
-                           <div class="input-group-addon">
-                          <i class="fa fa-male" style="font-size: 20px;"></i>
+                           <div class="input-group-addon" style="width: 18%;">
+                          <i class="fa fa-male"></i>
                             
                            </div>
-                          <input id="cnt" name="cnt" type="text" class="form-control input-md">
+                          <input id="edit_cnt" name="cnt" type="number" class="form-control input-md">
                     
                           </div>
                         
@@ -609,8 +693,8 @@ input, textarea, button { margin-top:0px }
                     <!-- 공연시간 발류 채크 -->
                     <div class="form-group">
                       <label class="col-md-4 control-label" for="check"></label>  
-                      <div class="col-md-2  col-xs-4">
-                          <p class="editdatecheck"></p>  
+                      <div class="col-md-5  col-xs-4">
+                          <p id="editdatecheck"></p>  
                       </div>  
                     </div>
                     
@@ -645,10 +729,8 @@ input, textarea, button { margin-top:0px }
                     <div class="form-group" style='float:right; margin-right: 10px;'>
                       <label class="col-md-4 control-label" ></label>  
                       <div class="col-md-4">
-                      <button class="btn btn-default" value="" id="editno" type="button">수정</button>
+                      <button class="btn btn-default" value="" id="editno" type="button" data-dismiss="modal">수정</button>
                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <!-- <button class="btn btn-success" id="addbtn">등록하기</button> -->
-                      <!-- <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-remove-sign"></span> Clear</a> -->
                       </div>
                     </div>
                     </fieldset>
@@ -666,9 +748,8 @@ input, textarea, button { margin-top:0px }
 
 * { margin: 0px; padding: 0px; }
 body {
-    background: #ecf1f5;
+    
     font:14px "Open Sans", sans-serif; 
-    /* text-align:center; */
 }
 
 .tile{
@@ -696,7 +777,7 @@ body {
     padding: 5px 5px 0;
 }
 
-.banner-img div {
+.banner-img #carousel-example-generic {
     width: 48%;
     border-radius: 5px;
     height: 200px;
@@ -793,6 +874,7 @@ div.footer a.Cbtn-danger:hover{
    width: auto;
 }
 
+
 </style>
 	<!-- 상세조회 모달 css  -->
     
@@ -809,7 +891,7 @@ div.footer a.Cbtn-danger:hover{
                         <div class="header">요청스케줄 상세보기</div><!--test  -->
 
                         <div class="banner-img">
-                            <div id="map2" style="float:left;"></div>
+                            <div id="reqmap" style="width:48%;height:10rem;margin-top:10px; float:left;"></div> 
                             
                              <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="float:right;">
 
@@ -835,14 +917,12 @@ div.footer a.Cbtn-danger:hover{
 							</div>
 							
 									
-							<!-- <img src="/upload/파일명" alt="Image 1" style="float: left">
-                            <img src="http://via.placeholder.com/640x360" alt="Image 1" style="float: right"> -->
                         </div>
                         <div class="banner-img" style="float: right;">
                             
                         </div>
 
-                        <div class="dates">
+                        <div class="dates" style="width:93%">
                             <div class="start">
                                 <strong>시작시간</strong> 
                                 <p id='reqsdt'></p>
@@ -904,8 +984,7 @@ div.footer a.Cbtn-danger:hover{
                         </div>
 
                         <div class="footer">
-                            <a href="#" class="Cbtn Cbtn-primary">View</a>
-                            <a href="#" class="Cbtn Cbtn-danger">Delete</a>
+                            <button type="button" class="btns btns-outline-dark" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div> 
@@ -915,112 +994,6 @@ div.footer a.Cbtn-danger:hover{
             </div>
     </div>
 	
-	
-	<!-- 성사된스케줄 모달  -->
-    <!-- <div id="detailreqModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            모달 내부 설정
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">요청스케줄</h4>
-                </div>
-                <div class="ct container">
-                    <div class="eb row">
-                        <div class="span5">
-                            <div class="artist-title col-md-10 ">
-                                <span>요청스캐줄 상세조회</span>
-                            </div>
-
-                            <div class="mimg center-block artist-collage col-md-14">
-
-                                <div class="center-block" id="emg1">
-                                    <img src="http://i.ytimg.com/i/MXDyVR2tclKWhbqNforSyA/mq1.jpg"
-                                        alt="artist-image" width="150" height="150"
-                                        class="center-block" />
-                                </div>
-                                <div id="map2" style="width: 250px; height: 250px;"></div>
-
-
-                            </div>
-                            <div class="listing-tab col-md-12">
-
-
-                                Tab panes
-                                <div class="container2">
-
-                                    -Form starting--
-                                    <div class="">
-                                        - For ShopName--
-                                        <div class="box col-sm-12">
-                                            <div class="eb row">
-                                                <div class="col-xs-5">
-                                                    <label class="shopname">장소명 :</label>
-                                                </div>
-                                                <div class="reqname"></div>
-                                            </div>
-                                        </div>
-                                        - For Genre--
-                                        <div class="col-sm-12">
-                                            <div class="row">
-                                                <div class="col-xs-9">
-                                                    <label class="genre">희망장르/퍼포먼스 :</label>
-                                                </div>
-                                                <div class="reqgenre"></div>
-                                            </div>
-                                        </div>
-                                        ---For 공연시간--
-                                        <div class="col-sm-12">
-                                            <div class="row">
-                                                <div class="col-xs-6">
-                                                    <label class="time">공연시간 :</label>
-                                                </div>
-                                                <div class="reqtime"></div>
-                                            </div>
-                                        </div>
-                                        ---For Tel--
-                                        <div class="col-sm-12">
-                                            <div class="row">
-                                                <div class="col-xs-6">
-                                                    <label class="tel">연락처 :</label>
-                                                </div>
-                                                <div class="reqtel"></div>
-                                            </div>
-                                        </div>
-                                        ---For Address--
-                                        <div class="col-sm-12">
-                                            <div class="row">
-                                                <div class="col-xs-6">
-                                                    <label class="addr">상세주소 :</label>
-                                                </div>
-                                                <div class="reqaddr"></div>
-                                            </div>
-                                        </div>
-
-                                        ---For etc--
-                                        <div class="text col-sm-12">
-                                            <div class="row">
-                                                <div class="text2 col-xs-3">
-                                                    <label class="etc" id="hect">메세지 :</label>
-                                                </div>
-                                                <div class="reqetc"></div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div> -->
     <!-- 성사된스케줄 모달  -->
     <div id="detailperModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -1034,13 +1007,13 @@ div.footer a.Cbtn-danger:hover{
                         <div class="header">요청스케줄 상세보기</div><!--test  -->
 
                         <div class="banner-img">
-                            <div id="map3"></div>
+                            <div id="permap" style="width:97%;height:10rem;margin-top:10px;margin: auto;"></div>
                         </div>
                         <div class="banner-img" style="float: right;">
                             
                         </div>
 
-                        <div class="dates">
+                        <div class="dates" style="width:95%; margin-left: 2.5%; ">
                             <div class="start">
                                 <strong>시작시간</strong> 
                                 <p id='persdt'></p>
@@ -1082,22 +1055,15 @@ div.footer a.Cbtn-danger:hover{
                                 <strong><label>상세주소</label></strong>
                                 <span id='peraddr'></span> 
                             </div>
-
-                        </div>
-                        
-                        <div class="stats">
-
-                            <div>
-                                <div class="perx" style="display: none"></div>
-                                <div class="pery" style="display: none"></div> 
-                            </div>
+                            <div id="perx" style="display: none"></div>
+                                <div id="pery" style="display: none"></div>
 
                         </div>
 
                         <div class="footer">
-                            <button data-toggle="modal" data-target="#EditScheduleModal" class="btn btn-default"
-                            id="editbtn">수정</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button data-toggle="modal" data-target="#EditScheduleModal" class="btns btns-outline-success"
+                            id="editbtn" data-dismiss="modal">수정</button>
+                            <button type="button" class="btns btns-outline-danger" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div> 
@@ -1109,102 +1075,6 @@ div.footer a.Cbtn-danger:hover{
     
     
 	<!-- 개인스케줄모달  -->
-	<div class="modal fade" id="detailperModal2" role="dialog">
-		<div class="modal-dialog" >
-
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">개인스케줄</h4>
-				</div>
-				<div class="ct container">
-					<div class="eb row">
-						<div class="span5">
-							<div class="artist-title col-md-10 ">
-								<span>개인스캐줄 상세조회</span>
-							</div>
-
-							<div class="cc center-block artist-collage col-md-4">
-								<div id="map3" style="position: relative; width: 250px; height: 250px; margin-left:-30px"; ></div>
-							</div>
-							<div class="listing-tab col-md-12">
-
-
-								<!--  Tab panes-->
-								<div class="container-fluide">
-								    <div class='boxborder'> 
-									<!--Form starting-->
-									<div class="row">
-										<!-- For ShopName-->
-										<div class="box col-sm-12">
-											<div class="row">
-												<div class="col-xs-5">
-													<label class="shopname">장소명 :</label>
-												</div>
-												<div class="pershopname"></div>
-												
-											</div>
-										</div>
-										<!-- For Genre-->
-										<div class="col-sm-12">
-											<div class="row">
-												<div class="col-xs-9">
-													<label class="genre">희망장르/퍼포먼스 :</label>
-												</div>
-												<div class="pergenre"></div>
-											</div>
-										</div>
-										<!--   For Cnt-->
-										<div class="col-sm-12">
-											<div class="row">
-												<div class="col-xs-6">
-													<label class="cnt">공연인원 :</label>
-												</div>
-												<div class="percnt"></div>
-											</div>
-										</div>
-									<!---For Time-->
-										<div class="col-sm-12">
-											<div class="row">
-												<div class="col-xs-6">
-													<label class="time">공연시간 :</label>
-												</div>
-												<div class="pertime"></div>
-											</div>
-										</div>
-										<!--For Address-->
-										<div class="col-sm-12">
-											<div class="row">
-												<div class="col-xs-6">
-													<label class="addr">상세주소 :</label>
-												</div>
-												<div class="peraddr"></div>
-											</div>
-										</div>
-										<!--For x,y-->
-										<div class="col-sm-12">
-											<div class="row">
-												<div class="perx" style="display: none"></div>
-												<div class="pery" style="display: none"></div>
-											</div>
-										</div>
-									</div>
-								</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button data-toggle="modal" data-target="#EditScheduleModal" class="btn btn-default"
-							id="editbtn">수정</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-
-			</div>
-	    </div>
-	</div>
-
     <jsp:include page="../footer.jsp"></jsp:include>
 <!-- 달력 -->
 <script
@@ -1227,5 +1097,5 @@ div.footer a.Cbtn-danger:hover{
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=15e2302756c9e7098ec0d79f7b4d53f4&libraries=services"></script>
 
 <!-- 내가만든 script -->
-<script src="/js/mybs.ver1.js" type="text/javascript"></script>
+<script src="/js/mybs.js" type="text/javascript"></script>
 

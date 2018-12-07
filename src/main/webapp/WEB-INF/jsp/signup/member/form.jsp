@@ -8,33 +8,40 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
 <link href="/../css/common.css" rel="stylesheet">
 <style>
-th {
-	text-align: right;
+
+#logo{
+width: 40px; 
+height:40px; 
+float: left; 
+margin-top: -4px;
+margin-right: 0.5rem;
 }
 
-#titl {
-	margin: 10px;
-	padding: 10px;
+#titl{
+margin-top: 5%;
+margin-bottom: 3%;
+/* margin-left: 11%; */
 }
 
-#logo {
-	width: 50px;
-	height: 50px;
-	margin: 10px;
+#titl h3{
+float: left; 
+margin-top: -5px;
+font-size: 24px;
 }
 
-h2 {
-	margin-top: -50px;
-	margin-left: 70px;
+body{
+background-color: snow;
 }
 
 .container {
-	padding: 10%;
+    background-color: white;
 }
 
 .join_form {
 	border: 1px solid silver;
 	border-radius: 10px;
+	margin: 0px auto;
+	margin-bottom: 10%;
 }
 
 label {
@@ -71,10 +78,9 @@ input:focus {
 	border-bottom-color: #3CC !important;
 }
 
-input:hover {
+ input:hover {
 	border-bottom-color: #3CC;
-}
-
+} 
 input:invalid {
 	box-shadow: none;
 }
@@ -91,7 +97,7 @@ input[type=checkbox] {
 	text-align: center;
 	border: 1px solid silver;
 	border-radius: 25px;
-	background-color: #A78AE9;
+	background-color: rgba(52, 58, 64, 0.5);
 	color: white;
 }
 
@@ -106,13 +112,12 @@ input[type=checkbox]+label {
 }
 
 input[type=checkbox]:checked+label{
-    background-color:#4D14D1;
+    background-color:rgb(52, 58, 64);
 ;
 }
 
 #upload {
-	width: 100%;
-	height: 100%;
+	width: 64%;
 	padding-left: 25%;
 }
 
@@ -120,26 +125,41 @@ input[type=checkbox]:checked+label{
 	padding-top: 20px;
 }
 
-/* .signupbtn:disabled {
+.signupbtn:disabled {
 	cursor: not-allowed;
-	background-color: #aaaaaa;
+	background-color: #3F51D1;
 	border-radius: 12px;
 }
 
 .signupbtn {
-	background-color: #1FBC02;
+	background-color: #3F51D1;
 	border-radius: 12px;
-} */
+	margin-right: 2%;
+    margin-left: 2%;
+    height: 2rem;
+    padding-top: 0;
+    padding-bottom: 0;
+    }
+p{
+margin-top: 2rem;
+margin-bottom: 1rem;
+}
+.cbtn{
+text-align: center;}
 </style>
 </head>
 <jsp:include page="../../header.jsp"></jsp:include>
 <body>
 
-	<!--     <div id="titl">
-        <img id="logo" src="/img/playButton.PNG" alt="플레이로고">
-        <h2>회원가입</h2>
-    </div> -->
-	<div class=container>
+<div class="title container">
+<div class="row">
+    <div id="titl" class='col-lg-8'>
+        <img id="logo" src="../../../img/tum.png" alt="플레이로고">
+        <h3>회원가입</h3>
+    </div>
+    </div>
+    </div>
+	<div class= container>
 		<div class="row">
 		<div class='col-lg-12'>
 		  <div class="join_form col-lg-8">
@@ -165,7 +185,7 @@ input[type=checkbox]:checked+label{
 			  <span	 id="nickMsg"></span> <label for='input_img'>사진</label><br> 
 			  <img id="upload" src="/img/anonymous.png" alt="기본이미지"><br>
 			  <input type='file' name='file1' id='input_img' onchange="readURL(this);" /> 
-			  <label>선호하는 장르</label><br> 
+			  <br><label>선호하는 장르</label><br> 
 			  <label>필수적으로 3개를 골라주세요</label><br> 
 			  <input type="checkbox" name="genre" onclick="ChkCount(this)" value="ballad" id="ballad"> 
 			  <label for="ballad" class='chklabel'>발라드</label> 
@@ -186,12 +206,14 @@ input[type=checkbox]:checked+label{
 			  <input type="checkbox" name="genre" onclick="ChkCount(this)" value="rap" id="rap"> 
 			  <label for="rap" class='chklabel'>랩</label>
 			     <p>팬으로 가입하셔도, 이후 메인화면의 <br> '버스커되기' '제공자되기'로 변경 가능합니다.</p>
-					<button class="btns btns-outline-secondary" onclick="sendMsg()"
-						name="type" value="fan">팬으로 가입</button>
-					<button class="btns btns-outline-secondary" onclick="sendMsg()"
-						name="type" value="busker">버스커로 가입</button>
-					<button class="btns btns-outline-secondary" onclick="sendMsg()"
-						name="type" value="supporter">무대 제공자로 가입</button>
+					<div class="cbtn">
+					<button class="signupbtn btns btns btns-outline-light" onclick="sendMsg()"
+						name="type" value="fan" disabled="disabled">팬으로 가입</button>
+					<button class="signupbtn btns btns-outline-light"  onclick="sendMsg()"
+						name="type" value="busker" disabled="disabled">버스커로 가입</button>
+					<button class="signupbtn btns btns btns-outline-light" onclick="sendMsg()"
+						name="type" value="supporter" disabled="disabled">무대 제공자로 가입</button>
+					</div>
 				</form>
 			</div>
 		</div>

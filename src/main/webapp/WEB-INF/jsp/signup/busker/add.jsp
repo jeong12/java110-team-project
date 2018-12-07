@@ -7,29 +7,38 @@
 <title>Indisker : 버스커 회원가입</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link href="/../css/common.css" rel="stylesheet">
 <style>
 th {
 	text-align: right;
 }
 
-#titl {
-	margin: 10px;
-	padding: 10px;
+#logo{
+width: 40px; 
+height:40px; 
+float: left; 
+margin-top: -4px;
+margin-right: 0.5rem;
 }
 
-#logo {
-	width: 50px;
-	height: 50px;
-	margin: 10px;
+#titl{
+margin-top: 5%;
+margin-bottom: 3%;
+/* margin-left: 11%; */
 }
 
-h2 {
-	margin-top: -50px;
-	margin-left: 70px;
+#titl h3{
+float: left; 
+margin-top: 1px;
+font-size: 24px;
 }
 
-#container {
-	padding: 50px;
+body{
+background-color: snow;
+}
+
+.container {
+    background-color: white;
 }
 
 #upload {
@@ -38,14 +47,19 @@ h2 {
 }
 </style>
 </head>
+<jsp:include page="../../header.jsp"></jsp:include>
 <body>
-
-	<div id="titl">
-		<img id="logo" src="/img/playButton.PNG" alt="플레이로고">
-		<h2>
-			버스커 되기 >> 동영상 올리기 >> <b>신청완료</b>
-		</h2>
-	</div>
+	
+	<div class="title container">
+<div class="row">
+    <div id="titl" class='col-lg-8'>
+        <img id="logo" src="../../../img/tum.png" alt="플레이로고">
+        <h3>버스커 되기 >> 동영상 올리기 >> <b>신청완료</b></h3>
+    </div>
+    </div>
+    </div>
+	
+	
 	<div id=container>
 		<h4>버스커 신청을 해주셔서 감사합니다.</h4>
 		<h4>다시 로그인 하시면, 버스커로 활동 가능하십니다.</h4>
@@ -53,4 +67,5 @@ h2 {
 	</div>
 	<button type="button">홈으로 </button>
 </body>
+<jsp:include page="../../footer.jsp"></jsp:include>
 </html>

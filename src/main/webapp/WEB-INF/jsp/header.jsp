@@ -137,7 +137,7 @@ a:focus, a:hover {
                 <i class="fas fa-user" style="margin-right:0.5rem;"></i><span class="d-md-inline-block_c">Sign Up</span>
                 </a></div>
                 <div class="prof" style="display:none;">
-                <a href="#" class="pro-btn">
+                <a href="/app/editprofile/prosel" class="pro-btn">
                 <img alt="profile" src="/img/anonymous.png" id="pro_img">
                 <span class="d-md-inline-block_c">${sessionScope.loginUser.nickname}</span>
                 </a>
@@ -146,9 +146,10 @@ a:focus, a:hover {
                 <span class="accordion"><i class="fas fa-chevron-circle-down fa-2x"></i></span>
                   <div class="tab">
                       <div class="icon-bar">
-                          <a href="#"><i class="fas fa-bookmark"></i>
+                          <a href="/app/follower/followList?no=${sessionScope.loginUser.no}"><i class="fas fa-bookmark"></i>
                           <span class="d-md-inline-block_c">Follow 리스트</span></a>
-                          <a href="javascript:void(0)" class="myinfo"><i class="fas fa-info-circle"></i>
+                          <!-- 일반회원일 경우 -->
+                          <a href="/app/editprofile/member/form" class="myinfo" id="edit_icon"><i class="fas fa-info-circle"></i>
                           <span class=" d-md-inline-block_c">내 정보수정</span></a>
                           <!--버스커일 경우-->
                           <div id="busk_icon" style="display:none">
@@ -180,7 +181,7 @@ a:focus, a:hover {
                    <div class="d-flex_c">
                       <div class="flex-md-fill_c "><a href="/app/schedule/list">버스커 일정</a></div>
                         <div class="flex-md-fill_c"><a href="#">버스커 위치</a></div>
-                        <div class="flex-md-fill_c "><a href="/app/buskerlist/list">버스커 목록</a></div>
+                        <div class="flex-md-fill_c "><a href="/app/totalfeed/nonmembers">버스커 목록</a></div>
                         <div class="flex-md-fill_c "><a href="/app/stage/list">공연장 현황</a></div>
                         <div class="flex-md-fill_c "><a href="/app/promotion/list">버스킹 홍보</a></div>
                    </div>

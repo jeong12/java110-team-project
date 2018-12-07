@@ -19,7 +19,7 @@
 	</resultMap>
 
 	<resultMap type="Busker" id="buskerFeedMap">
-	    <id column="bno" property="no" /> 
+	    <id column="bno" property="bno" /> 
 		<result column="name" property="teamname"/> 
 		<result column="genre" property="teamgenre"/>
 		<result column="city" property="city"/>
@@ -27,6 +27,8 @@
 		<result column="phot" property="teamPhoto"/>
 		<result column="intro" property="teamInfo" />
 		<result column="lcnt" property="likecount" />
+		<result column="inst" property="instrument" />
+		<result column="tel" property="tel" />
     </resultMap>
 
 	<select id="findAll" resultMap="buskerMap" parameterType="map">
@@ -53,7 +55,9 @@
 		genre,
 		city,
 		intro,
-		phot
+		phot,
+		inst,
+		tel
 		from busk
 		where
 		bno=#{value}
@@ -87,6 +91,7 @@
     <!-- Best Buskers -->
     <select id="findByBest" resultMap="buskerFeedMap" parameterType="map">
 		select
+		bno as no,
 		name,
 		genre,
 		city,

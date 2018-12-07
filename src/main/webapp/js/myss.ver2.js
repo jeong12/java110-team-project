@@ -37,7 +37,6 @@ $('.tabs li').click(function(){
 });
 
 
-
 //등록가능한 무대일정 출력 & 체크할 수 있게.
 function add(){
 	var td = $('.panel-body h2').text();
@@ -183,41 +182,43 @@ function addDate(){
 
 function chk(e){
 	var brno = e.value;
-	console.log(brno);
 	$.ajax({ 
 		type : "GET", 
 		url : "showInfo", 
 		data : {"brno" : brno},
 		success : function(data){
 			$('.info').empty();
-			$(".dates").empty();
+			$(".dates2").empty();
 			$('.abtn').empty();
+			$('.qwer h4').empty();
 			if(data.length != 0){
+				$(".qwer").append("<h4>"+data.busker.teamname+"남의 신청내역</h4>");
 				$(".info").append(
-						"<h3>"+data.busker.teamname+"</h3>"+
-						"<img src='/upload/"+data.busker.teamPhoto+"' alt='버스커 이미지'>"+
-						"<button value="+data.busker.no+">"+"피드링크연결필요"+"</button>"+
-						"<table>"+
-						"<tr><td>팀명</td><td>"+data.busker.teamname+"</td></tr>"+
-						"<tr><td>장르</td><td>"+data.busker.teamgenre+"</td></tr>"+
-						"<tr><td>연락처</td><td>"+data.busker.tel+"</td></tr>"+
-						"<tr><td>좋아요</td><td>"+data.busker.likecount+"</td></tr>"+
-						"<tr><td>메시지</td><td>"+data.busker.message+"</td></tr>" 					
+						"<img class='modalimg' src='/upload/"+data.busker.teamPhoto+"' alt='버스커 이미지'>"+
+						"<div class='pd'>"+"<button class='pdb btns btns-outline-light' value="+data.busker.no+">"+"피드가기"+"</button>"+"</div>"+
+						"<div class='modaltable'>"+
+						"<div class='abcdmang'>"+
+						"<div class='abcdleft'>팀명</div>"+"<div class='abcdright'>"+data.busker.teamname+"</div>"+
+						"<div class='abcdleft'>장르</div>"+"<div class='abcdright'>"+data.busker.teamgenre+"</div>"+
+						"<div class='abcdleft'>연락처</div>"+"<div class='abcdright'>"+data.busker.tel+"</div>"+
+						"<div class='abcdleft'>좋아요</div>"+"<div class='abcdright'>"+data.busker.likecount+"</div>"+
+						"<div class='abcdleft'>메시지</div>"+"<div class='abcdright'>"+data.busker.message+"</div></div>"			
 				);
 				if(data.flag == 1){
-					$('.abtn').append('<tr><td><button type="button" class="brno" value="'+data.sno+'">신청하기</button></td></tr>');
+					$('.abtn').append(
+							'<div class="bbutton"><button type="button" class="brno" value="'+data.sno+'">승낙</button>'+
+							'<button type="button" class="rbrno" value="'+data.sno+'">거절</button></div>');
 					$.each(data.scheduletime,function(index,item){
-						$('.dates').append(
-								'<tr>'+
-								'<td>'+
+						$('.dates2').append(
+								'<div class="apd1">'+
 								'<input type="checkbox" name="reqdates" value="'+item.sssno+'">'+
-								item.snsdt+'~'+item.snedt+'</td>'+'</tr>');
+								item.snsdt+'~'+item.snedt+'</div>');
 					});
 				}else if(data.flag == 2 || data.flag == 3){
 					$.each(data.scheduletime,function(index,item){
-						$('.dates').append(
-								'<tr>'+'<td>'+item.snsdt+'~'+item.snedt+'</td>');
-					})};				
+						$('.dates2').append(
+								'<div class="apd1">'+item.snsdt+'~'+item.snedt+'</div>');
+					})};	
 			}else
 				swal("에러!","해당 데이터가 없습니다.","error");
 		},
@@ -228,7 +229,7 @@ function chk(e){
 };
 
 
-$('.abtn').click(function(){
+$(document).on("click",'.brno',function(){
 	var brno = $('.brno').val();
 	var chkbox = document.getElementsByName("reqdates");
 	var chkCnt=0;
@@ -241,6 +242,7 @@ $('.abtn').click(function(){
 			chkCnt++;
 		}
 	}
+	console.log(chkCnt);
 	if(chkCnt == 0){
 		swal("에러!","승낙하실 일정을 선택해주세요.","error");
 	}
@@ -268,11 +270,35 @@ $('.abtn').click(function(){
 });
 
 
+$(document).on("click",'.rbrno',function(){
+	var rbrno = $('.rbrno').val();
+
+	if(confirm("일정을 전부 거절하시겠습니까?") == true){
+		$.ajax({ 
+			type : "GET", 
+			url : "refuse", 
+			traditional : true,
+			data : {"brno":rbrno},
+			success : function(data){
+				if(data != null){
+					swal("성공!","해당 요청이 거절되었습니다.","success");
+					window.location.href=window.location.href;
+				}else
+					swal("에러!","해당 데이터가 없습니다.","error");
+			},
+			error : function(request, status, error) {
+				swal("에러!","에러가 발생했습니다. 관리자에게 문의하시기 바랍니다.","error");
+			}
+		});
+	}else{
+		return false;
+	}
+});
+
+
+
 
 function goPage(e,list) {
-
-console.log(list);
-	
 $.ajax({ 
 		type : "GET", 
 		url : "page", 

@@ -13,4 +13,5 @@ public interface MemberService {
     int findNoById(String id);
     void modiMem(Member member);
     boolean isBusker(int no);
+    Member getMember(int no);
 }

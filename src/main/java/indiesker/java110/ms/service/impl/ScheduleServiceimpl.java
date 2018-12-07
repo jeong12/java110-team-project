@@ -30,21 +30,22 @@ public class ScheduleServiceimpl implements ScheduleService {
     }
     
     @Override
-    public List<Schedule> myperlist(int pageNo, int pageSize) {
-        HashMap<String,Object> params = new HashMap<>();
-        params.put("rowNo", (pageNo - 1) * pageSize);
-        params.put("size", pageSize);
-        
+    public List<Schedule> myperlist(int bno, int pageNo, int pageSize) {
+      HashMap<String,Object> params = new HashMap<>();
+      params.put("bno", bno);
+      params.put("rowNo", (pageNo - 1) * pageSize);
+      params.put("size", pageSize);
+      
         return scheduleDao.findperschedule(params);
     }
 
     @Override
-    public List<Schedule> mybslist(int pageNo, int pageSize) {
+    public List<Schedule> mybslist(int bno, int pageNo, int pageSize) {
       HashMap<String,Object> params = new HashMap<>();
+      params.put("bno", bno);
       params.put("rowNo", (pageNo - 1) * pageSize);
       params.put("size", pageSize);
-      params.put("no", 5);
-      return scheduleDao.findMyAllSchedule(params);
+      return scheduleDao.findMyReqSchedule(params);
     }
     
     
@@ -86,7 +87,6 @@ public class ScheduleServiceimpl implements ScheduleService {
 
     @Override
     public Schedule myreqdetail(int no) {
-      System.out.println(no);
       return scheduleDao.findbybrno(no);
     }
     
@@ -128,14 +128,12 @@ public class ScheduleServiceimpl implements ScheduleService {
     
     @Override
     public int deleteReqSchedule(int no) {
-      System.out.println(no);
       scheduleDao.buskstagdelete(no);
       return scheduleDao.buskreqdelete(no);
     }
 
     @Override
     public int deletePerSchedule(int no) {
-      System.out.println(no);
       return scheduleDao.perscheduledelete(no);
     }
       
@@ -188,8 +186,10 @@ public class ScheduleServiceimpl implements ScheduleService {
     }
     
       @Override
-    public List<Schedule> showScedule() {
-    return scheduleDao.showScedule();
+    public List<Schedule> showScedule(Paging paging) {
+     Map<String,Object> params = new HashMap<>();
+     params.put("paging", paging);
+    return scheduleDao.showScedule(params);
     }
     
     @Override
@@ -219,7 +219,6 @@ public class ScheduleServiceimpl implements ScheduleService {
     @Override
     public int editperschedule(Schedule schedule) {
       int no =scheduleDao.editperschedule(schedule);
-      System.out.println("test insert반환값 : " +no);
       return 1;
       
     }
@@ -245,12 +244,12 @@ public class ScheduleServiceimpl implements ScheduleService {
       return scheduleDao.ApplyStagesinBuskstag(params);
     }
 
-    public List<Schedule> mybslistbyflag(int flag, int no, int pageNo, int pageSize) {
+    public List<Schedule> mybslistbyflag(int flag, int bno, int pageNo, int pageSize) {
       Map<String,Object> params = new HashMap<>();
       params.put("flag", flag);
-      params.put("no", no);
+      params.put("bno", bno);
       params.put("rowNo", (pageNo - 1) * pageSize);
-      params.put("size", pageSize); 
+      params.put("size", pageSize);
       return scheduleDao.findMyAllSchedulebyflag(params);
     }
     
@@ -318,5 +317,47 @@ public class ScheduleServiceimpl implements ScheduleService {
     @Override
     public int totfindoverdue(int no) {
     return scheduleDao.totfindoverdue(no);
+    }
+    
+    @Override
+    public int refuseAll(int no) {
+      scheduleDao.refuseAllinBusk(no);
+      return scheduleDao.refuseAllinReq(no);
+    }
+    public int totSchedule() {
+    return scheduleDao.totSchedule();
+    }
+
+    @Override
+    public int buskperscheduleCnt(int bno) {
+      return scheduleDao.findperschedulecnt(bno);
+    }
+
+    @Override
+    public int buskreqscheduleCnt(int bno) {
+      return scheduleDao.findMyReqSchedulecnt(bno);
+    }
+
+    @Override
+    public int buskbyflagscheduleCnt(int flag, int bno) {
+      Map<String,Object> params = new HashMap<>();
+      params.put("bno", bno);
+      params.put("flag", flag);
+      return scheduleDao.findMyAllSchedulebyflagcnt(params);
+    }
+
+    @Override
+    public List<Schedule> findMyAllSchedule(int bno, int pageNo, int pageSize) {
+      Map<String,Object> params = new HashMap<>();
+      params.put("bno", bno);
+      params.put("rowNo", (pageNo - 1) * pageSize);
+      params.put("size", pageSize);
+      return scheduleDao.findMyAllSchedule(params);
+    }
+
+    @Override
+    public int findMyAllScheduleCnt(int bno) {
+      System.out.println(bno);
+      return scheduleDao.findMyAllSchedulecnt(bno);
     }
 }

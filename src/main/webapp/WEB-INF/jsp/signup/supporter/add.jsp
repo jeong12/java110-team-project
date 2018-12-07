@@ -38,12 +38,19 @@ h2 {
 }
 </style>
 </head>
+<jsp:include page="../../header.jsp"></jsp:include>
 <body>
 
-	<div id="titl">
-		<img id="logo" src="/img/playButton.PNG" alt="플레이로고">
-		<h2>신청 완료</h2>
-	</div>
+    <div class="title container">
+<div class="row">
+    <div id="titl" class='col-lg-8'>
+        <img id="logo" src="/img/playButton.PNG" alt="플레이로고">
+        <h3>신청 완료</h3>
+    </div>
+    </div>
+    </div>
+    
+	
 	<div id=container>
 		<h4>무대 제공자 신청을 해주셔서 감사합니다.</h4>
 		<h4>다시 로그인 하시면, 무대제공자로 활동 가능하십니다.</h4>
@@ -52,4 +59,5 @@ h2 {
 	<button type="button">홈으로 </button>
 
 </body>
+<jsp:include page="../../footer.jsp"></jsp:include>
 </html>

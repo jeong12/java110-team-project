@@ -1,11 +1,13 @@
 package indiesker.java110.ms.web;
 
 import java.io.File;
+import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -94,11 +96,16 @@ public class SignupController{
 
 
   @RequestMapping("busker/form")
-  public void buskerform() {
+  public void buskerform(HttpSession session) {
+    if(session.getAttribute("loginUser") != null) {
+      Member m = (Member)session.getAttribute("loginUser"); 
+      bsuknsup.put("id", m.getId());
+    }
   }
 
   @RequestMapping("busker/addavi")
-  public void addavi(Busker b,  @RequestParam MultipartFile file1) throws Exception {
+  public void addavi(Busker b,  @RequestParam MultipartFile file1, HttpSession session) throws Exception {
+    
     String filename=null;
     if (file1.getSize() > 0) {
       filename = UUID.randomUUID().toString();
@@ -124,13 +131,16 @@ public class SignupController{
     
     buskers.setTeamPhoto(fileName);
     buskers.setNo(no);
-    System.out.println(buskers);
     buskerService.add(buskers);
   }
   
   
   @RequestMapping("supporter/form")
-  public void supporterform() {
+  public void supporterform(HttpSession session) {
+    if(session.getAttribute("loginUser") != null) {
+      Member m = (Member)session.getAttribute("loginUser"); 
+      bsuknsup.put("id", m.getId());
+    }
   }
   
   
@@ -143,7 +153,8 @@ public class SignupController{
   
   @RequestMapping("supporter/add")
   public void add(Supporter s, StagePhoto sp, Model model, @RequestParam MultipartFile file1, 
-      @RequestParam MultipartFile file2, @RequestParam MultipartFile file3) throws Exception {
+      @RequestParam MultipartFile file2, @RequestParam MultipartFile file3, HttpSession session) throws Exception {
+    
     String id= (String) bsuknsup.get("id");
     int no = memberService.findNoById(id);
     s.setNo(no);
@@ -173,6 +184,15 @@ public class SignupController{
     
     supporterService.insert(s);  
 
+  }
+  
+  @RequestMapping("busker/test")
+  public void test() {
+  }
+  
+  @RequestMapping("busker/test2")
+  public String test2() {
+    return "Redirect:../../../footer";
   }
 
 }

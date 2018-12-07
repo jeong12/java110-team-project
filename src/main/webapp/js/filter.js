@@ -17,7 +17,10 @@ $().ready(function(){
 
         var busk_icon = document.getElementById('busk_icon');
         var sup_icon = document.getElementById('sup_icon');
-
+        var edit_icon = document.getElementById('edit_icon');
+        
+        edit_icon.style.display = 'block';
+        
         // 프로필 이미지, accordian & iconbar 필터부분
         if(m_imgPath.length > 0 && b_imgPath.length == 0){
             $('#pro_img').attr('src', 'http://localhost:8080/upload/'+m_imgPath);
@@ -25,10 +28,12 @@ $().ready(function(){
             busk_icon.style.display = 'none';
             sup_icon.style.display = 'none';
             // 추후에 제공자 수정해야함 지금은 none 고정
-            if(sup.length > 0){
-                busk_icon.style.display = 'none';
-                sup_icon.style.display = 'block';
-            }
+        }
+        
+        if(sup.length > 0){
+            busk_icon.style.display = 'none';
+            sup_icon.style.display = 'block';
+            edit_icon.style.display = 'none';
         }
 
         if (b_imgPath.length > 0){
@@ -36,6 +41,7 @@ $().ready(function(){
 
             busk_icon.style.display = 'block';
             sup_icon.style.display = 'none';
+            edit_icon.style.display = 'none';
             // 추후에 제공자 수정해야함 지금은 none 고정
         }
 
@@ -45,7 +51,7 @@ $().ready(function(){
         profile_img[0].style.display = 'none';
     }
 
-    $('.myinfo').on('click',function(){
+/*    $('.myinfo').on('click',function(){
 
         if(id.length > 0){
 
@@ -57,7 +63,7 @@ $().ready(function(){
             }
             location.href = '/app/editprofile/member/form';
         }
-    });
+    });*/ 
 
     if(document.getElementsByClassName('fol_avi').length > 0){
         aviFilter(logout); //메인 동영상 필터

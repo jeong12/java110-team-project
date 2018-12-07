@@ -36,8 +36,7 @@
     #input{height: 25px;}
     #bun{float: left;}
     #ccc{float: right; margin-top: 2%;}
-    .tab{display: none}
-    .hide-bullets {list-style:none;}
+/*     .hide-bullets {list-style:none;} */
     #img{margin:0auto;}
     #mttl,.bttl,.stitle{margin-left:45%;}
  }
@@ -63,22 +62,22 @@ margin-top:20px;
   
     #ttl{margin-left: 21px;}
     .mtb label{float: left}
-     #logo{width: 40px; height:40px; float: left; margin-top: -4px;}
-    #titl{margin-top: 2%; margin-left: 11%;}
-    #titleh2{float: left; margin-top: 0;}
+    #titl{margin-top: 3.5%; margin-bottom: 2%;}
+    #logo{float: left; width: 40px; height: 40px;}
+    #haha{margin-top: 0.7%; margin-left: 4%;}
     .buskDetail,.memberDetail,.supDetail,.btt2,.btt{width: 4rem; height: 1.8rem; font-size: 0.8rem;padding: 0;}
-    
-    
     
     /* Tabs css */
 .list-group-horizontal .list-group-item {
     display: inline-block;
     cursor:pointer;
+    
 }
 .list-group-horizontal .list-group-item {
     margin-bottom: 0;
     margin-left:-4px;
     margin-right: 0;
+   
 }
 .list-group-horizontal .list-group-item:first-child {
     border-top-right-radius:0;
@@ -91,74 +90,44 @@ margin-top:20px;
     ul{
     padding-left: 0px;
 }
-    
-.tab{
-display: none;
-}
-
-.tab.active.current{
-display:inherit;
-
-}  
-.list-group-item.active.current {
-    background-color:#3F51D1;
-}  
 #bun{
 width: 40%;
 margin-left: -2rem;
 }  
-
-.tototo{
-display: c
-}  
+.pages{
+text-align: center;
+padding-left: 28%;
+}
+.list-group-item.active{
+    background-color:red;
     
+}
+.container{width: 70%;}
+.text-left{margin-top: 1%; margin-bottom: -1%;}
 </style>
 
 <jsp:include page="../header.jsp"></jsp:include>
-  <div id="titl">
-        <img id="logo" src="/img/playButton.PNG" alt="플레이로고">
-        <h3 id="titleh2">회원 관리</h3>
+<div id="titl" class="container">
+        <img id="logo" src="../../img/playButton.png" alt="플레이로고">
+        <h3 id="haha">버스킹 일정</h3>
     </div>
-
-
 <body>
-
 <div class="container">
-    <div class="row" id="topbutton">       
-        <div class="col-md-12">
-          <div class="slt">
-        <div id="bun">
-        <!--  -->
-        
-        
- <div class="container">
-    <div class="row" style="padding-top:10px;">
-        
+
+    <div id="topbutton">       
         <div class="text-left" style='display:inline-block;'>
             <div class="list-group list-group-horizontal">
                <ul class='tabs'>
-                    <li class="list-group-item active current" data-tab='bt1'>전체보기</li>
-                    <li class="list-group-item" data-tab='bt2'>일반 </li>
-                    <li class="list-group-item" data-tab='bt3'>버스커</li>
-                    <li class="list-group-item" data-tab='bt4'>제공자</li>
-                    <li class="list-group-item" data-tab='bt5'>정지</li>
+                    <li class="list-group-item active" onclick="showList()">전체보기</li>
+                    <li class="list-group-item" onclick="showMemb()">일반 </li>
+                    <li class="list-group-item" onclick="showBusk()">버스커</li>
+                    <li class="list-group-item" onclick="showSup()">제공자</li>
+                    <li class="list-group-item" onclick="showStop()">정지</li>
                 </ul>
                
             </div>
         </div>
-    </div>
-</div>  
-        
-        
-        
-        
-        <!--  -->
-       <!-- <button class="btn bts btns btns-outline-primary" onclick="openCity('bt1')">전체</button>
-       <button class="btn bts btns btns-outline-secondary" onclick="openCity('bt2')">일반</button>
-       <button class="btn bts btns btns-outline-success"  onclick="openCity('bt3')">버스커</button>
-       <button class="btn bts btns btns-outline-warning"  onclick="openCity('bt4')">제공자</button>
-       <button class="btn bts btns btns-outline-danger"  onclick="openCity('bt5')">정지</button> -->
-        </div>
+<!-- 검색 옵션 -->
        <div id="ccc">      
             <input type="date" class="date1" id="start">  ~  <input type="date" class="date2" id="end">
             <select name="st" class="flag" id="selt">
@@ -170,37 +139,37 @@ display: c
         <input type="text" id="input" class="text">
         <button type="button" onclick="check()">클릭</button>
         </div>    
-       </div>
+     </div>
+     
+
         <div class="table-responsive">
               
-<!--  tab1 --> 
- <div class="tab active current" id="bt1" style="display: contents"> 
-              <table id="mytable" class="table table-bordred table-striped">         
+         <div class="tab12" id="bt1"> 
+              <table id="mytable" class="table table-bordred table-striped">  
                   <thead>                   
-	                   <tr><th class="col-md-1">아이디</th>
-	                   <th class="col-md-1">닉네임</th>
-	                   <th class="col-md-2">이메일</th>
-	                   <th class="col-md-1">등급</th>
-	                   <th class="col-md-2">가입일</th>
-	                   <th class="col-md-2">메모</th>
-	                   <th class="col-md-1">메모수정</th>
-	                   <th class="col-md-1">상세보기</th>
-	                   <th class="col-md-1">정지</th></tr>
+                       <tr><th class="col-md-1">아이디</th>
+                       <th class="col-md-1">닉네임</th>
+                       <th class="col-md-2">이메일</th>
+                       <th class="col-md-1">등급</th>
+                       <th class="col-md-2">가입일</th>
+                       <th class="col-md-2">메모</th>
+                       <th class="col-md-1">메모수정</th>
+                       <th class="col-md-1">상세보기</th>
+                       <th class="col-md-1">정지</th></tr>
                    </thead>
     <tbody id="testappend">
           <c:forEach  items="${list}" var="m">
           <c:if test= "${m.flag eq '1'.charAt(0)}">
-          
              <tr class="tt">
-				    <td>${m.id}</td>
-				    <td class=niks>${m.nik}</td>
-				    <td>${m.email}</td>
-				    <td>회원</td>
-				    <td>${m.cdt}</td>
-				    <td id="memow">${m.memo}</td>
-				    <td><button class="btt btns btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
-				    <td><div  class="detailbtn"><button name="detailAll" class="memberDetail btns btns-outline-secondary"  data-toggle="modal" data-target="#memberDetail" value="${m.nik}">상세보기</button></div></td>
-				    <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></td>
+                    <td>${m.id}</td>
+                    <td class=niks>${m.nik}</td>
+                    <td>${m.email}</td>
+                    <td>회원</td>
+                    <td>${m.ncdt}</td>
+                    <td id="memow">${m.memo}</td>
+                    <td><button class="btt btns btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
+                    <td><div  class="detailbtn"><button name="detailAll" class="memberDetail btns btns-outline-secondary"  data-toggle="modal" data-target="#memberDetail" value="${m.nik}">상세보기</button></div></td>
+                    <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></td>
              </tr>
              </c:if>  
                    <c:if test= "${m.flag eq '2'.charAt(0)}">
@@ -210,7 +179,7 @@ display: c
                     <td class=niks>${m.nik}</td>
                     <td>${m.email}</td>
                     <td>버스커</td>
-                    <td>${m.cdt}</td>
+                    <td>${m.ncdt}</td>
                     <td id="memow">${m.memo}</td>
                     <td><button class="btt btn btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
                     <td><div id="detailAll" class="detailbtn"><button name="detailAll" class="buskDetail btns btns-outline-secondary"  data-toggle="modal" data-target=".modelbusk" value="${m.nik}">상세보기</button></div></td>
@@ -225,14 +194,13 @@ display: c
                     <td class="col-md-1">${m.nik}</td>
                     <td class="col-md-2">${m.email}</td>
                     <td class="col-md-1">제공자</td>
-                    <td class="col-md-2">${m.cdt}</td>
+                    <td class="col-md-2">${m.ncdt}</td>
                     <td id="memow" class="col-md-2">${m.memo}</td>
                     <td class="col-md-1"><button class="btt btn btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
                     <td class="col-md-1"><div id="detailAll" class="detailbtn"><button id="detailAll" class="supDetail btns btns-outline-secondary"  data-toggle="modal" data-target="#supDetail" value="${m.nik}">상세보기</button></div></td>
                     <td class="col-md-1"><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></td>
              </tr>
              
-             <!-- fefweafweafweaf -->
              </c:if>  
                    <c:if test= "${m.flag eq '4'.charAt(0)}">
           
@@ -241,7 +209,7 @@ display: c
                     <td class=niks>${m.nik}</td>
                     <td>${m.email}</td>
                     <td>${m.flag}</td>
-                    <td>${m.cdt}</td>
+                    <td>${m.ncdt}</td>
                     <td id="memow">${m.memo}</td>
                     <td><button class="btt btn btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
                     <td><div id="detailAll" class="detailbtn"><button id="detailAll" class="btt2 btns btns-outline-secondary"  data-toggle="modal" data-target="#model-id" value="${m.nik}">상세보기</button></div></td>
@@ -252,202 +220,49 @@ display: c
             </c:forEach>
     </tbody>
 </table>
-			<div class="clearfix"></div>
-					<ul class="pagination pull-right">
-						  <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-						  <li class="active"><a href="#">1</a></li>
-						  <li><a href="#">2</a></li>
-						  <li><a href="#">3</a></li>
-						  <li><a href="#">4</a></li>
-						  <li><a href="#">5</a></li>
-						  <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-					</ul>
-			 </div>            
-                 
+
+                    <nav aria-label="Page navigation example" class='pages'>
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item prev">
+                                    <a class="page-link" href="javascript:goPage(${paging.prevPageNo})">Previous</a></li>
+                                <c:forEach var="i" begin="${paging.startPageNo}" end="${paging.endPageNo}" step="1">
+                                 <c:choose>
+                                 <c:when test="${i eq paging.pageNo}">
+                                    <li class="page-item active">
+                                    <a href="javascript:goPage(${i})" class="choice">${i}</a></li>
+                                 </c:when>  
+                                 <c:otherwise>
+                                  <li class="page-item">
+                                  <a href="javascript:goPage(${i})">${i}</a></li>
+                                </c:otherwise>
+                                </c:choose>
+                                </c:forEach>
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:goPage(${paging.nextPageNo})">Next</a></li>
+                            </ul>
+                        </nav>
+                        <form action="list" class="pageForm">
+                        <input type="hidden" class="pageNO" name="pageNo">
+                        </form>
+                         <form action="showList" class="AllpageForm">
+                        <input type="hidden" class="AllpageNO" name="pageNo">
+                        </form>
+                         <form action="showMemb" class="MembpageForm">
+                        <input type="hidden" class="MembpageNO" name="pageNo">
+                        </form>
+                         <form action="showBusk" class="BuskpageForm">
+                        <input type="hidden" class="BuskpageNO" name="pageNo">
+                        </form>
+                         <form action="showSup" class="SuppageForm">
+                        <input type="hidden" class="SuppageNO" name="pageNo">
+                        </form>
                                        
-<!--  tab2  -->   
-     <div class="tab"  id="bt2"> 
-              <table id="mytable" class="table table-bordred table-striped">         
-                  <thead>                   
-	                   <tr><th class="col-md-1">아이디</th>
-	                   <th class="col-md-1">닉네임</th>
-	                   <th class="col-md-2">이메일</th>
-	                   <th class="col-md-1">등급</th>
-	                   <th class="col-md-2">가입일</th>
-	                   <th class="col-md-2">메모</th>
-	                   <th class="col-md-1">메모수정</th>
-	                   <th class="col-md-1">상세보기</th>
-	                   <th class="col-md-1">정지</th></tr>
-                   </thead>
-              
-    <tbody id="testappend1">
-         <c:forEach  items="${list}" var="m">
-          
-                    <tr class="tt">
-						    <td>${m.id}</td>
-						    <td>${m.nik}</td>
-						    <td>${m.email}</td>
-						    <td>회원</td>
-						    <td>${m.cdt}</td>
-						    <td>${m.memo}</td>
-                    <td><button class="btt btns btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
-                    <td><div class="detailbtn"><button id="detailAll" class="memberDetail btns btns-outline-secondary"  data-toggle="modal" data-target="#memberDetail" value="${m.nik}">상세보기</button></div></td>
-                    <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon"></span>정지</button></td>
-             </tr>
-              
-            
-         </c:forEach> 
-    </tbody>
-</table>
-		<div class="clearfix"></div>
-				<ul class="pagination pull-right">
-					  <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-					  <li class="active"><a href="#">1</a></li>
-					  <li><a href="#">2</a></li>
-					  <li><a href="#">3</a></li>
-					  <li><a href="#">4</a></li>
-					  <li><a href="#">5</a></li>
-					  <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-				</ul>
-		 </div>  
-                                            
-                                                                        
- <!--     tab3   -->
-     <div class="tab"  id="bt3"> 
-              <table id="mytable" class="table table-bordred table-striped">         
-                      <thead>                   
-		                   <tr><th class="col-md-1">아이디</th>
-		                   <th class="col-md-1">닉네임</th>
-		                   <th class="col-md-2">이메일</th>
-		                   <th class="col-md-1">등급</th>
-		                   <th class="col-md-2">가입일</th>
-		                   <th class="col-md-2">메모</th>
-		                   <th class="col-md-1">메모수정</th>
-		                   <th class="col-md-1">상세보기</th>
-		                   <th class="col-md-1">정지</th></tr>
-                      </thead>
-    <tbody id="testappend2">
-        <c:forEach  items="${list}" var="m">
-             <c:if test= "${m.flag eq '2'.charAt(0)}"> 
-                  <tr class="tt">
-					    <td>${m.id}</td>
-					    <td>${m.nik}</td>
-					    <td>${m.email}</td>
-					    <td>버스커</td>
-					    <td>${m.cdt}</td>
-					    <td>${m.memo}</td>
-                    <td><button class="btt btns btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
-                    <td><div class="detailbtn"><button id="detailAll" class="buskDetail btns btns-outline-secondary"  data-toggle="modal" data-target=".modelbusk" value="${m.nik}">상세보기</button></div></td>
-                    <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></td>
-             </tr>
-              </c:if>
-        </c:forEach>
-    </tbody>
-</table>
-<div class="clearfix"></div>
-			<ul class="pagination pull-right">
-				  <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-				  <li class="active"><a href="#">1</a></li>
-				  <li><a href="#">2</a></li>
-				  <li><a href="#">3</a></li>
-				  <li><a href="#">4</a></li>
-				  <li><a href="#">5</a></li>
-				  <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-			</ul>
-      </div>  
-                                                                                                              
-<!--  tab4 -->                                                             
-        <div class="tab"  id="bt4"> 
-              <table id="mytable" class="table table-bordred table-striped">         
-                  <thead>                   
-	                   <tr><th class="col-md-1">아이디</th>
-	                   <th class="col-md-1">닉네임</th>
-	                   <th class="col-md-2">이메일</th>
-	                   <th class="col-md-1">등급</th>
-	                   <th class="col-md-2">가입일</th>
-	                   <th class="col-md-2">메모</th>
-	                   <th class="col-md-1">메모수정</th>
-	                   <th class="col-md-1">상세보기</th>
-	                   <th class="col-md-1">정지</th></tr>
-                   </thead>
-        <tbody id="testappend3">
-          <c:forEach  items="${list}" var="m">
-          <c:if test= "${m.flag eq '3'.charAt(0)}"> 
-             <tr class="tt">
-				    <td>${m.id}</td>
-				    <td>${m.nik}</td>
-				    <td>${m.email}</td>
-				    <td>제공자</td>
-				    <td>${m.cdt}</td>
-				    <td>${m.memo}</td>
-                    <td><button class="btt btns btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
-                    <td><div class="detailbtn"><button id="detailAll" class="supDetail btns btns-outline-secondary"  data-toggle="modal" data-target="#supDetail" value="${m.nik}">상세보기</button></div></td>
-                    <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></td>
-             </tr>
-            </c:if>
-          </c:forEach>
-        </tbody>
-</table>
-		<div class="clearfix"></div>
-		      <ul class="pagination pull-right">
-				  <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-				  <li class="active"><a href="#">1</a></li>
-				  <li><a href="#">2</a></li>
-				  <li><a href="#">3</a></li>
-				  <li><a href="#">4</a></li>
-				  <li><a href="#">5</a></li>
-				  <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-		      </ul>
-		</div>                        
-                         
-<!-- tab5 -->
-       <div class="tab"  id="bt5"> 
-              <table id="mytable" class="table table-bordred table-striped">         
-                  <thead>                   
-                      <tr><th class="col-md-1">아이디</th>
-                      <th class="col-md-1">닉네임</th>
-                      <th class="col-md-2">이메일</th>
-                      <th class="col-md-1">등급</th>
-                      <th class="col-md-2">가입일</th>
-                      <th class="col-md-2">메모</th>
-                      <th class="col-md-1">메모수정</th>
-                      <th class="col-md-1">상세보기</th>
-                      <th class="col-md-1">정지</th></tr>
-                   </thead>
-    <tbody id="testappend4">
-         <c:forEach  items="${list}" var="m">
-             <c:if test= "${m.flag eq '4'.charAt(0)}"> 
-                
-                <tr class="tt">
-				    <td>${m.id}</td>
-				    <td>${m.nik}</td>
-				    <td>${m.email}</td>
-				    <td>정지</td>
-				    <td>${m.cdt}</td>
-				    <td>${m.memo}</td>
-                    <td><button class="btt btns btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
-                    <td><div class="detailbtn"><button id="detailAll" class="memberDetail btns btns-outline-secondary"  data-toggle="modal" data-target="#memberDetail" value="${m.nik}">상세보기</button></div></td>
-                    <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></td>
-             </tr>
-             </c:if>
-        </c:forEach>
-</tbody>
-</table>
-		<div class="clearfix"></div>
-			<ul class="pagination pull-right">
-				  <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-				  <li class="active"><a href="#">1</a></li>
-				  <li><a href="#">2</a></li>
-				  <li><a href="#">3</a></li>
-				  <li><a href="#">4</a></li>
-				  <li><a href="#">5</a></li>
-				  <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-			</ul>
-		</div>                              
+      
 </div>
 </div>
 </div>
-</div>     
+
+     
 <!-- memo 모달 -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -640,18 +455,17 @@ display: c
 <script>
 
 function ssss(){
-	
+    
         swal({position: 'top-end',
-        		  type: 'success',
-        		  title: '변경하였습니다',
-        		  showConfirmButton: false})
+                  type: 'success',
+                  title: '변경하였습니다',
+                  showConfirmButton: false})
 }
 /* feweafwefw */
 //메모 업데이트 해주는 function
 $('.gg').click(function(){
      var texta = $(".texta").val();
      var nik = $(".nikval").attr("value");
-        console.log(texta);
      var values = {nik : nik,
                   memo : texta}
     
@@ -672,16 +486,16 @@ $('.gg').click(function(){
 
 
 $(document).on("click",'.memberDetail',function(){
-	var m = $(this).val();
-	alert(m);
-	
-	$.ajax({
-		type : "POST",
+    var m = $(this).val();
+    alert(m);
+    
+    $.ajax({
+        type : "POST",
         url : "memberListDetail",
         dataType : 'json',
         data : {"nik":m},
         success : function(data){
-        	$("#mttl").empty();
+            $("#mttl").empty();
             $(".mid").empty();
             $(".meamil").empty();
             $(".mnik").empty();
@@ -697,36 +511,36 @@ $(document).on("click",'.memberDetail',function(){
             $(".mgenre").append('<p>'+data.genre0+','+data.genre1+','+data.genre2+'</p>')
             $(".mmemo").append('<p>'+data.memo+'</p>')
         }
-	})
-	
+    })
+    
 })
 
 $(document).on("click",'.buskDetail',function(){
     var b = $(this).val();
     alert(b);
-	
+    
     $.ajax({
-    	type : "POST",
-    	url : "buskListDetail",
-    	dataType : 'json',
-    	data : {"nik":b},
-    	success : function(data){
-    		$(".bttl").empty();
-    		$(".bid").empty();
-    		$(".bemail").empty();
-    		$(".bnik").empty();
-    		$(".bteam").empty();
-    		$(".bgenre").empty();
-    		$(".bcity").empty();
-    		$(".btel").empty();
-    		$(".binst").empty();
-    		$(".bmemo").empty();
-    		$(".bmimg").empty();
-    		
-    	    $(".bmimg").append("<img class='bbbmimg' src='/upload/"+data.teamPhoto+"'>")
-    		$(".bttl").append('<h3>'+data.teamname+'</h3>')
-    		$(".bid").append('<p>'+data.id+'</p>')
-    	    $(".bemail").append('<p>'+data.email+'</p>')
+        type : "POST",
+        url : "buskListDetail",
+        dataType : 'json',
+        data : {"nik":b},
+        success : function(data){
+            $(".bttl").empty();
+            $(".bid").empty();
+            $(".bemail").empty();
+            $(".bnik").empty();
+            $(".bteam").empty();
+            $(".bgenre").empty();
+            $(".bcity").empty();
+            $(".btel").empty();
+            $(".binst").empty();
+            $(".bmemo").empty();
+            $(".bmimg").empty();
+            
+            $(".bmimg").append("<img class='bbbmimg' src='/upload/"+data.teamPhoto+"'>")
+            $(".bttl").append('<h3>'+data.teamname+'</h3>')
+            $(".bid").append('<p>'+data.id+'</p>')
+            $(".bemail").append('<p>'+data.email+'</p>')
             $(".bnik").append('<p>'+data.nickname+'</p>')
             $(".bteam").append('<p>'+data.teamname+'</p>')
             $(".bgenre").append('<p>'+data.teamgenre+'</p>')
@@ -734,14 +548,13 @@ $(document).on("click",'.buskDetail',function(){
             $(".btel").append('<p>'+data.tel+'</p>')
             $(".binst").append('<p>'+data.instrument+'</p>')
             $(".bmemo").append("<p>"+data.teamInfo+"</p>")
-    	}
+        }
     })
     
 });
 
 $(document).on("click",'.supDetail',function(){
     var s = $(this).val();
-    console.log(s);
     $.ajax({
         type : "POST",
         url : "supListDetail",
@@ -780,24 +593,15 @@ $(document).on("click",'.supDetail',function(){
         }});
         });
 
-function openCity(cityName) {
-var i;
-var x = document.getElementsByClassName("tab");
-for (i = 0; i < x.length; i++) {
-x[i].style.display = "none"; 
-}
-document.getElementById(cityName).style.display = "contents"; 
-}
 
 // 메모 값 가져오는 function
 $(document).on("click",'.btt',function(){
-	var nik =$(this).val();
+    var nik =$(this).val();
     $.ajax({
         type : "POST",
            url : "getMemo",
            data :{"nik":nik},
            success : function(data){
-               console.log(data);
            $(".cl").empty();
            $('#message-text').empty();
            $('.cl').append("<h1 class='nikval' value="+nik+">"+nik+"님의 메모수정:</h1>"); 
@@ -805,13 +609,13 @@ $(document).on("click",'.btt',function(){
            }, error : function(request, status, error) {
                alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
            }           
-   });	
+   });  
 });
-	
+    
 
 
 function reset(){
-	window.location.href=window.location.href;
+    window.location.href=window.location.href;
 }
 
 function check(){
@@ -852,8 +656,8 @@ $.ajax({
                     +'<td><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon"></span>정지</button></p></td></tr>'        
                            );
             }else if(item.flag == 2){
-            	$("#testappend, #testappend2").append('<tr><td>'+item.id+'</td>'
-            	 +'<td>'+item.nik+'</td>'
+                $("#testappend, #testappend2").append('<tr><td>'+item.id+'</td>'
+                 +'<td>'+item.nik+'</td>'
                  +'<td>'+item.email+'</td>'
                  +'<td>'+'버스커'+'</td>'
                  +'<td>'+item.ncdt+'</td>'
@@ -863,8 +667,8 @@ $.ajax({
                  +'<td><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon"></span>정지</button></p></td></tr>'        
          );
             }else if(item.flag==3){
-            	$("#testappend, #testappend3").append('<tr><td>'+item.id+'</td>'
-            	+'<td>'+item.nik+'</td>'
+                $("#testappend, #testappend3").append('<tr><td>'+item.id+'</td>'
+                +'<td>'+item.nik+'</td>'
                 +'<td>'+item.email+'</td>'
                 +'<td>'+'제공자'+'</td>'
                 +'<td>'+item.ncdt+'</td>'
@@ -916,16 +720,519 @@ $('#myCarousel').on('slid.bs.carousel', function (e) {
         $('#carousel-text').html($('#slide-content-'+id).html());
 });
    
-$('.tabs li').click(function(){
-    console.log('test');
-    var tab_id = $(this).attr('data-tab');
-    $('.tabs li').removeClass('active current');
-    $('.tab').css('display','none');
-     
-    $(this).addClass('active current');
-    $("#"+tab_id).css('display','contents');
-    
-});
+
+function goPage(e){
+    $('.pageNO').val(e);
+    $('.pageForm').submit();
+}
+
+
+function goPageAll(e){
+    $.ajax({
+        type : "POST",
+        url : "showList",
+        data : {"pageNo":e, "flag":1},
+        success : function(data){
+            $('#testappend').empty();
+            $('.pages').empty();
+              $.each(data.list,function(index,item){
+                $('#testappend').append(
+               '<tr><td>'+item.id+'</td>'+
+               '<td class=niks>'+item.nik+'</td>'+
+               '<td>'+item.email+'</td><td>'+item.type+'</td>'+
+               '<td>'+item.ncdt+'</td>'+
+               '<td id="memow">'+item.memo+'</td>'+
+               '<td><button class="btt btns btns-outline-info"'+  
+               'data-toggle="modal" data-target="#exampleModal"'+
+               'value="'+item.nik+'">메모수정</button></td>'+
+               '<td><div class="detailbtn"><button name="detailAll"'+
+               'class="memberDetail btns btns-outline-secondary"'+  
+               'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
+               +'</button></div></td><td><button class="btn btns-outline-danger"'
+               +'data-title="Delete" data-toggle="modal" data-target="#delete">'
+               +'<span class="glyphicon"></span>정지</button></td></tr>'
+                )});
+        $('.pages').append(' <ul class="pagination justify-content-center">'+
+                '<li class="page-item prev">'+
+                '<a class="page-link" href="javascript:goPageAll('+data.paging.prevPageNo+
+                        ')">Previous</a></li>');
+           for(var i = data.paging.startPageNo;i<=data.paging.endPageNo;i++){
+               if(i == data.paging.pageNo){
+                   $('.pagination.justify-content-center').append('<li class="page-item active">'+
+                   '<a href="javascript:goPageAll('+i+')" class="choice">'+i+'</a></li>');
+               }else{
+                   $('.pagination.justify-content-center').append('<li class="page-item">'+
+                   '<a href="javascript:goPageAll('+i+')">'+i+'</a></li>');
+               }
+           } 
+        $('.pagination.justify-content-center').append('<li class="page-item">'+
+                '<a class="page-link" href="javascript:goPageAll('+data.paging.nextPageNo+')">Next</a></li>'+
+                '</ul></nav>');
+        },
+         error : function(request, status, error) {
+         }
+        
+    });
+
+}
+
+
+function goPageMemb(e){
+    $.ajax({
+        type : "POST",
+        url : "showMemb",
+        data : {"pageNo":e, "flag":1},
+        success : function(data){
+             $('#testappend').empty();
+             $('.pages').empty();
+             $.each(data.list,function(index,item){
+             $('#testappend').append(
+                '<tr><td>'+item.id+'</td>'+
+                '<td class=niks>'+item.nik+'</td>'+
+                '<td>'+item.email+'</td><td>회원</td>'+
+                '<td>'+item.ncdt+'</td>'+
+                '<td id="memow">'+item.memo+'</td>'+
+                '<td><button class="btt btns btns-outline-info"'+  
+                'data-toggle="modal" data-target="#exampleModal"'+
+                'value="'+item.nik+'">메모수정</button></td>'+
+                '<td><div class="detailbtn"><button name="detailAll"'+
+                'class="memberDetail btns btns-outline-secondary"'+  
+                'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
+                +'</button></div></td><td><button class="btn btns-outline-danger"'
+                +'data-title="Delete" data-toggle="modal" data-target="#delete">'
+                +'<span class="glyphicon"></span>정지</button></td></tr>'
+                 );});
+             $('.pages').append(' <ul class="pagination justify-content-center">'+
+                     '<li class="page-item prev">'+
+                     '<a class="page-link" href="javascript:goPageMemb('+data.paging.prevPageNo+
+                             ')">Previous</a></li>');
+                for(var i = data.paging.startPageNo;i<=data.paging.endPageNo;i++){
+                    if(i == data.paging.pageNo){
+                        $('.pagination.justify-content-center').append('<li class="page-item active">'+
+                        '<a href="javascript:goPageMemb('+i+')" class="choice">'+i+'</a></li>');
+                    }else{
+                        $('.pagination.justify-content-center').append('<li class="page-item">'+
+                        '<a href="javascript:goPageMemb('+i+')">'+i+'</a></li>');
+                    }
+                } 
+             $('.pagination.justify-content-center').append('<li class="page-item">'+
+                     '<a class="page-link" href="javascript:goPageMemb('+data.paging.nextPageNo+')">Next</a></li>'+
+                     '</ul></nav>');
+         },
+          error : function(request, status, error) {
+          }
+        
+    });
+
+}
+
+function goPageBusk(e){
+    $.ajax({
+        type : "POST",
+        url : "showBusk",
+        data : {"pageNo":e, "flag":1},
+        success : function(data){
+            $('#testappend').empty();
+            $('.pages').empty();
+              $.each(data.list,function(index,item){
+                  $('#testappend').append(
+                          '<tr><td>'+item.id+'</td>'+
+                          '<td class=niks>'+item.nik+'</td>'+
+                          '<td>'+item.email+'</td><td>버스커</td>'+
+                          '<td>'+item.ncdt+'</td>'+
+                          '<td id="memow">'+item.memo+'</td>'+
+                          '<td><button class="btt btns btns-outline-info"'+  
+                          'data-toggle="modal" data-target="#exampleModal"'+
+                          'value="'+item.nik+'">메모수정</button></td>'+
+                          '<td><div class="detailbtn"><button name="detailAll"'+
+                          'class="memberDetail btns btns-outline-secondary"'+  
+                          'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
+                          +'</button></div></td><td><button class="btn btns-outline-danger"'
+                          +'data-title="Delete" data-toggle="modal" data-target="#delete">'
+                          +'<span class="glyphicon"></span>정지</button></td></tr>'
+                           );});
+                   $('.pages').append(' <ul class="pagination justify-content-center">'+
+                           '<li class="page-item prev">'+
+                           '<a class="page-link" href="javascript:goPageBusk('+data.paging.prevPageNo+
+                                   ')">Previous</a></li>');
+                      for(var i = data.paging.startPageNo;i<=data.paging.endPageNo;i++){
+                          if(i == data.paging.pageNo){
+                              $('.pagination.justify-content-center').append('<li class="page-item active">'+
+                              '<a href="javascript:goPageBusk('+i+')" class="choice">'+i+'</a></li>');
+                          }else{
+                              $('.pagination.justify-content-center').append('<li class="page-item">'+
+                              '<a href="javascript:goPageBusk('+i+')">'+i+'</a></li>');
+                          }
+                      } 
+                   $('.pagination.justify-content-center').append('<li class="page-item">'+
+                           '<a class="page-link" href="javascript:goPageBusk('+data.paging.nextPageNo+')">Next</a></li>'+
+                           '</ul></nav>');
+        },
+         error : function(request, status, error) {
+         }
+        
+    });
+
+}
+
+
+function goPageSup(e){
+    $.ajax({
+        type : "POST",
+        url : "showSup",
+        data : {"pageNo":e, "flag":1},
+        success : function(data){
+            $('#testappend').empty();
+            $('.pages').empty();
+              $.each(data.list,function(index,item){
+                  $('#testappend').append(
+                          '<tr><td>'+item.id+'</td>'+
+                          '<td class=niks>'+item.nik+'</td>'+
+                          '<td>'+item.email+'</td><td>제공자</td>'+
+                          '<td>'+item.ncdt+'</td>'+
+                          '<td id="memow">'+item.memo+'</td>'+
+                          '<td><button class="btt btns btns-outline-info"'+  
+                          'data-toggle="modal" data-target="#exampleModal"'+
+                          'value="'+item.nik+'">메모수정</button></td>'+
+                          '<td><div class="detailbtn"><button name="detailAll"'+
+                          'class="memberDetail btns btns-outline-secondary"'+  
+                          'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
+                          +'</button></div></td><td><button class="btn btns-outline-danger"'
+                          +'data-title="Delete" data-toggle="modal" data-target="#delete">'
+                          +'<span class="glyphicon"></span>정지</button></td></tr>'
+                           );});
+                   $('.pages').append(' <ul class="pagination justify-content-center">'+
+                           '<li class="page-item prev">'+
+                           '<a class="page-link" href="javascript:goPageSup('+data.paging.prevPageNo+
+                                   ')">Previous</a></li>');
+                      for(var i = data.paging.startPageNo;i<=data.paging.endPageNo;i++){
+                          if(i == data.paging.pageNo){
+                              $('.pagination.justify-content-center').append('<li class="page-item active">'+
+                              '<a href="javascript:goPageSup('+i+')" class="choice">'+i+'</a></li>');
+                          }else{
+                              $('.pagination.justify-content-center').append('<li class="page-item">'+
+                              '<a href="javascript:goPageSup('+i+')">'+i+'</a></li>');
+                          }
+                      } 
+                   $('.pagination.justify-content-center').append('<li class="page-item">'+
+                           '<a class="page-link" href="javascript:goPageSup('+data.paging.nextPageNo+')">Next</a></li>'+
+                           '</ul></nav>');
+               },
+                error : function(request, status, error) {
+                }
+        
+    });
+
+}
+
+
+function goPageStop(e){
+    $.ajax({
+        type : "POST",
+        url : "showStop",
+        data : {"pageNo":e, "flag":1},
+        success : function(data){
+            $('#testappend').empty();
+            $('.pages').empty();
+            $.each(data.list,function(index,item){
+                $('#testappend').append(
+                   '<tr><td>'+item.id+'</td>'+
+                   '<td class=niks>'+item.nik+'</td>'+
+                   '<td>'+item.email+'</td><td>정지회원</td>'+
+                   '<td>'+item.ncdt+'</td>'+
+                   '<td id="memow">'+item.memo+'</td>'+
+                   '<td><button class="btt btns btns-outline-info"'+  
+                   'data-toggle="modal" data-target="#exampleModal"'+
+                   'value="'+item.nik+'">메모수정</button></td>'+
+                   '<td><div class="detailbtn"><button name="detailAll"'+
+                   'class="memberDetail btns btns-outline-secondary"'+  
+                   'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
+                   +'</button></div></td><td><button class="btn btns-outline-danger"'
+                   +'data-title="Delete" data-toggle="modal" data-target="#delete">'
+                   +'<span class="glyphicon"></span>정지</button></td></tr>'
+                    );});
+            $('.pages').append(' <ul class="pagination justify-content-center">'+
+                    '<li class="page-item prev">'+
+                    '<a class="page-link" href="javascript:goPageStop('+data.paging.prevPageNo+
+                            ')">Previous</a></li>');
+               for(var i = data.paging.startPageNo;i<=data.paging.endPageNo;i++){
+                   if(i == data.paging.pageNo){
+                       $('.pagination.justify-content-center').append('<li class="page-item active">'+
+                       '<a href="javascript:goPageStop('+i+')" class="choice">'+i+'</a></li>');
+                   }else{
+                       $('.pagination.justify-content-center').append('<li class="page-item">'+
+                       '<a href="javascript:goPageStop('+i+')">'+i+'</a></li>');
+                   }
+               } 
+            $('.pagination.justify-content-center').append('<li class="page-item">'+
+                    '<a class="page-link" href="javascript:goPageStop('+data.paging.nextPageNo+')">Next</a></li>'+
+                    '</ul></nav>');
+        },
+         error : function(request, status, error) {
+         }
+        
+    });
+
+}
+
+function showList(){
+    $('.tabs li').eq(0).removeClass('list-group-item').addClass('list-group-item active');
+    $('.tabs li:not(:eq(0))').removeClass('list-group-item active').addClass('list-group-item');
+   var flag=1;
+    $.ajax({
+            type : "POST",
+            url : "showList",
+            data : {"flag":flag},
+            success : function(data){
+                $('#testappend').empty();
+                $('.pages').empty();
+                  $.each(data.list,function(index,item){
+                    $('#testappend').append(
+                   '<tr><td>'+item.id+'</td>'+
+                   '<td class=niks>'+item.nik+'</td>'+
+                   '<td>'+item.email+'</td><td>'+item.type+'</td>'+
+                   '<td>'+item.ncdt+'</td>'+
+                   '<td id="memow">'+item.memo+'</td>'+
+                   '<td><button class="btt btns btns-outline-info"'+  
+                   'data-toggle="modal" data-target="#exampleModal"'+
+                   'value="'+item.nik+'">메모수정</button></td>'+
+                   '<td><div class="detailbtn"><button name="detailAll"'+
+                   'class="memberDetail btns btns-outline-secondary"'+  
+                   'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
+                   +'</button></div></td><td><button class="btn btns-outline-danger"'
+                   +'data-title="Delete" data-toggle="modal" data-target="#delete">'
+                   +'<span class="glyphicon"></span>정지</button></td></tr>'
+                    )});
+            $('.pages').append(' <ul class="pagination justify-content-center">'+
+                    '<li class="page-item prev">'+
+                    '<a class="page-link" href="javascript:goPageAll('+data.paging.prevPageNo+
+                            ')">Previous</a></li>');
+               for(var i = data.paging.startPageNo;i<=data.paging.endPageNo;i++){
+                   if(i == data.paging.pageNo){
+                       $('.pagination.justify-content-center').append('<li class="page-item active">'+
+                       '<a href="javascript:goPageAll('+i+')" class="choice">'+i+'</a></li>');
+                   }else{
+                       $('.pagination.justify-content-center').append('<li class="page-item">'+
+                       '<a href="javascript:goPageAll('+i+')">'+i+'</a></li>');
+                   }
+               } 
+            $('.pagination.justify-content-center').append('<li class="page-item">'+
+                    '<a class="page-link" href="javascript:goPageAll('+data.paging.nextPageNo+')">Next</a></li>'+
+                    '</ul></nav>');
+            },
+             error : function(request, status, error) {
+             }
+            
+        });
+}
+
+
+function showMemb(){
+    $('.tabs li').eq(1).removeClass('list-group-item').addClass('list-group-item active');
+    $('.tabs li:not(:eq(1))').removeClass('list-group-item active').addClass('list-group-item');
+    var flag=1;
+    $.ajax({
+            type : "POST",
+            url : "showMemb",
+            data : {"flag":flag},
+            success : function(data){
+                $('#testappend').empty();
+                $('.pages').empty();
+                $.each(data.list,function(index,item){
+                $('#testappend').append(
+                        '<tr><td>'+item.id+'</td>'+
+                   '<td class=niks>'+item.nik+'</td>'+
+                   '<td>'+item.email+'</td><td>회원</td>'+
+                   '<td>'+item.ncdt+'</td>'+
+                   '<td id="memow">'+item.memo+'</td>'+
+                   '<td><button class="btt btns btns-outline-info"'+  
+                   'data-toggle="modal" data-target="#exampleModal"'+
+                   'value="'+item.nik+'">메모수정</button></td>'+
+                   '<td><div class="detailbtn"><button name="detailAll"'+
+                   'class="memberDetail btns btns-outline-secondary"'+  
+                   'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
+                   +'</button></div></td><td><button class="btn btns-outline-danger"'
+                   +'data-title="Delete" data-toggle="modal" data-target="#delete">'
+                   +'<span class="glyphicon"></span>정지</button></td></tr>'
+                    );});
+                $('.pages').append('<ul class="pagination justify-content-center">'+
+                        '<li class="page-item prev">'+
+                        '<a class="page-link" href="javascript:goPageAll('+data.paging.prevPageNo+
+                                ')">Previous</a></li>');
+                   for(var i = data.paging.startPageNo;i<=data.paging.endPageNo;i++){
+                       if(i == data.paging.pageNo){
+                           $('.pagination.justify-content-center').append('<li class="page-item active">'+
+                           '<a href="javascript:goPageAll('+i+')" class="choice">'+i+'</a></li>');
+                       }else{
+                           $('.pagination.justify-content-center').append('<li class="page-item">'+
+                           '<a href="javascript:goPageAll('+i+')">'+i+'</a></li>');
+                       }
+                   } 
+                $('.pagination.justify-content-center').append('<li class="page-item">'+
+                        '<a class="page-link" href="javascript:goPageAll('+data.paging.nextPageNo+')">Next</a></li>'+
+                        '</ul></nav>');
+            },
+             error : function(request, status, error) {
+             }
+            
+        });
+};
+
+
+function showBusk(){
+       $('.tabs li').eq(2).removeClass('list-group-item').addClass('list-group-item active');
+        $('.tabs li:not(:eq(2))').removeClass('list-group-item active').addClass('list-group-item');
+    var flag=2;
+    $.ajax({
+            type : "POST",
+            url : "showBusk",
+            data : {"flag":flag},
+            success : function(data){
+                $('#testappend').empty();
+                $('.pages').empty();
+                $.each(data.list,function(index,item){
+                    $('#testappend').append(
+                       '<tr><td>'+item.id+'</td>'+
+                       '<td class=niks>'+item.nik+'</td>'+
+                       '<td>'+item.email+'</td><td>버스커</td>'+
+                       '<td>'+item.ncdt+'</td>'+
+                       '<td id="memow">'+item.memo+'</td>'+
+                       '<td><button class="btt btns btns-outline-info"'+  
+                       'data-toggle="modal" data-target="#exampleModal"'+
+                       'value="'+item.nik+'">메모수정</button></td>'+
+                       '<td><div class="detailbtn"><button name="detailAll"'+
+                       'class="memberDetail btns btns-outline-secondary"'+  
+                       'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
+                       +'</button></div></td><td><button class="btn btns-outline-danger"'
+                       +'data-title="Delete" data-toggle="modal" data-target="#delete">'
+                       +'<span class="glyphicon"></span>정지</button></td></tr>'
+                        );});
+                $('.pages').append(' <ul class="pagination justify-content-center">'+
+                        '<li class="page-item prev">'+
+                        '<a class="page-link" href="javascript:goPageBusk('+data.paging.prevPageNo+
+                                ')">Previous</a></li>');
+                   for(var i = data.paging.startPageNo;i<=data.paging.endPageNo;i++){
+                       if(i == data.paging.pageNo){
+                           $('.pagination.justify-content-center').append('<li class="page-item active">'+
+                           '<a href="javascript:goPageBusk('+i+')" class="choice">'+i+'</a></li>');
+                       }else{
+                           $('.pagination.justify-content-center').append('<li class="page-item">'+
+                           '<a href="javascript:goPageBusk('+i+')">'+i+'</a></li>');
+                       }
+                   } 
+                $('.pagination.justify-content-center').append('<li class="page-item">'+
+                        '<a class="page-link" href="javascript:goPageBusk('+data.paging.nextPageNo+')">Next</a></li>'+
+                        '</ul></nav>');
+            },
+             error : function(request, status, error) {
+             }
+            
+        });
+};
+
+function showSup(){
+       $('.tabs li').eq(3).removeClass('list-group-item').addClass('list-group-item active');
+        $('.tabs li:not(:eq(3))').removeClass('list-group-item active').addClass('list-group-item');
+    var flag=3;
+    $.ajax({
+            type : "POST",
+            url : "showSup",
+            data : {"flag":flag},
+            success : function(data){
+                $('#testappend').empty();
+                $('.pages').empty();
+                $.each(data.list,function(index,item){
+                    $('#testappend').append(
+                       '<tr><td>'+item.id+'</td>'+
+                       '<td class=niks>'+item.nik+'</td>'+
+                       '<td>'+item.email+'</td><td>제공자</td>'+
+                       '<td>'+item.ncdt+'</td>'+
+                       '<td id="memow">'+item.memo+'</td>'+
+                       '<td><button class="btt btns btns-outline-info"'+  
+                       'data-toggle="modal" data-target="#exampleModal"'+
+                       'value="'+item.nik+'">메모수정</button></td>'+
+                       '<td><div class="detailbtn"><button name="detailAll"'+
+                       'class="memberDetail btns btns-outline-secondary"'+  
+                       'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
+                       +'</button></div></td><td><button class="btn btns-outline-danger"'
+                       +'data-title="Delete" data-toggle="modal" data-target="#delete">'
+                       +'<span class="glyphicon"></span>정지</button></td></tr>'
+                        );});
+                $('.pages').append(' <ul class="pagination justify-content-center">'+
+                        '<li class="page-item prev">'+
+                        '<a class="page-link" href="javascript:goPageSup('+data.paging.prevPageNo+
+                                ')">Previous</a></li>');
+                   for(var i = data.paging.startPageNo;i<=data.paging.endPageNo;i++){
+                       if(i == data.paging.pageNo){
+                           $('.pagination.justify-content-center').append('<li class="page-item active">'+
+                           '<a href="javascript:goPageSup('+i+')" class="choice">'+i+'</a></li>');
+                       }else{
+                           $('.pagination.justify-content-center').append('<li class="page-item">'+
+                           '<a href="javascript:goPageSup('+i+')">'+i+'</a></li>');
+                       }
+                   } 
+                $('.pagination.justify-content-center').append('<li class="page-item">'+
+                        '<a class="page-link" href="javascript:goPageSup('+data.paging.nextPageNo+')">Next</a></li>'+
+                        '</ul></nav>');
+            },
+             error : function(request, status, error) {
+             }
+            
+        });
+};
+
+function showStop(){
+       $('.tabs li').eq(4).removeClass('list-group-item').addClass('list-group-item active');
+        $('.tabs li:not(:eq(4))').removeClass('list-group-item active').addClass('list-group-item');
+    var flag=4;
+    $.ajax({
+            type : "POST",
+            url : "showStop",
+            data : {"flag":flag},
+            success : function(data){
+                $('#testappend').empty();
+                $('.pages').empty();
+                $.each(data.list,function(index,item){
+                    $('#testappend').append(
+                       '<tr><td>'+item.id+'</td>'+
+                       '<td class=niks>'+item.nik+'</td>'+
+                       '<td>'+item.email+'</td><td>정지회원</td>'+
+                       '<td>'+item.ncdt+'</td>'+
+                       '<td id="memow">'+item.memo+'</td>'+
+                       '<td><button class="btt btns btns-outline-info"'+  
+                       'data-toggle="modal" data-target="#exampleModal"'+
+                       'value="'+item.nik+'">메모수정</button></td>'+
+                       '<td><div class="detailbtn"><button name="detailAll"'+
+                       'class="memberDetail btns btns-outline-secondary"'+  
+                       'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
+                       +'</button></div></td><td><button class="btn btns-outline-danger"'
+                       +'data-title="Delete" data-toggle="modal" data-target="#delete">'
+                       +'<span class="glyphicon"></span>정지</button></td></tr>'
+                        );});
+                $('.pages').append(' <ul class="pagination justify-content-center">'+
+                        '<li class="page-item prev">'+
+                        '<a class="page-link" href="javascript:goPageStop('+data.paging.prevPageNo+
+                                ')">Previous</a></li>');
+                   for(var i = data.paging.startPageNo;i<=data.paging.endPageNo;i++){
+                       if(i == data.paging.pageNo){
+                           $('.pagination.justify-content-center').append('<li class="page-item active">'+
+                           '<a href="javascript:goPageStop('+i+')" class="choice">'+i+'</a></li>');
+                       }else{
+                           $('.pagination.justify-content-center').append('<li class="page-item">'+
+                           '<a href="javascript:goPageStop('+i+')">'+i+'</a></li>');
+                       }
+                   } 
+                $('.pagination.justify-content-center').append('<li class="page-item">'+
+                        '<a class="page-link" href="javascript:goPageStop('+data.paging.nextPageNo+')">Next</a></li>'+
+                        '</ul></nav>');
+            },
+             error : function(request, status, error) {
+             }
+            
+        });
+};
+
+
 </script>
 </body>
 <jsp:include page="../footer.jsp"></jsp:include>

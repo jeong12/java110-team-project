@@ -15,12 +15,15 @@
 <!-- Latest compiled JavaScript -->
 <script
   src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../../css/common.css">
 </head>
 <style>
-body .container {
-  border: 1px dotted red;
+body, container.title{
+    background-color: floralwhite;
 }
-
+container{
+    background-color: white;
+}
 #titl {
   width: 700px;
   margin: 10px;
@@ -28,26 +31,31 @@ body .container {
 }
 
 #logo {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   margin: 10px;
 }
 
-#titl h2 {
-  margin-top: -50px;
+#titl h3 {
   margin-left: 70px;
+  margin-top: -6.5%;
 }
 
 .imgschecon {
   float: left;
-  width: 300px;
-  margin-right: 30px;
+  width: 40%;
+  padding: 10px;
   border: 1px dotted red;
+}
+
+.imgschecon table {
+  border-collapse: separate;
+  border-spacing: 0 10px;
 }
 
 .aviphotcont {
   float: right;
-  width: 50%;
+  width: 60%;
   border: 1px dotted red;
 }
 
@@ -65,155 +73,210 @@ body .container {
   border: 0;
   padding: 0;
 }
+
+.twPc-button {
+  margin: 0 -10px;
+  margin-top: -8%;
+  width: 100%;
+}
+
+.twPc-bg {
+  background-image: url("../../img/feedheader.png");
+  background-position: 0 50%;
+  background-size: 100% auto;
+  border-bottom: 1px solid #e1e8ed;
+  border-radius: 4px 4px 0 0;
+  height: 300px;
+  width: 100%;
+  background-position: 0 50%;
+}
+
+.twPc-block {
+  display: block !important;
+}
+
+.twPc-avatarLink {
+  background-color: #fff;
+  border-radius: 6px;
+  display: inline-block !important;
+  float: left;
+  margin: -30px 5px 0 70px;
+  max-width: 100%;
+  padding: 1px;
+  vertical-align: 30px;
+  margin-top: -12%;
+}
+
+.twPc-avatarImg {
+  border: 2px solid #fff;
+  border-radius: 7px;
+  box-sizing: border-box;
+  color: #fff;
+  height: 300px;
+  width: 300px;
+}
+
+.teaminfo1 {
+  height: 60px;
+  margin-left:430px;
+}
+
+.teaminfo1 h2 {
+  margin-right: 70px;
+  color: white;
+}
+.teaminfo1 h4 {
+  margin-right: 70px;
+  color: white;
+}
+
+.infotextarea {
+  background-color: white;
+  font-size: 20px;
+  border: none;
+  width: 50%;
+  resize: none;
+  margin: 13px 0 0 190px;
+  max-height: 165px;
+}
+.glyphicon-play-circle{
+    color:white;
+    font-size: 60px;
+    opacity: 0.6;
+    position: absolute;
+    right: 39%;
+    top: 31%;
+    text-shadow: 0 1px 3px rgba(0,0,0,.5);
+    transition:all 500ms ease-in-out;
+}
 </style>
 <body>
-
   <jsp:include page="../header.jsp"></jsp:include>
-  <div class="feedpage" style="margin: 0 300px 0 300px;">
-    <div class="container"
-      style="width: 750px; padding: 0 20px 20px 20px;">
-      <div id="titl">
-        <img id="logo" src="../../img/playButton.PNG" alt="플레이로고">
-        <h2>버스커피드: ${busk.bno }</h2>
-        <h1>${sessionScope.no }</h1>
+  
+  <div class="container title">
+    <div id="titl">
+      <img id="logo" src="../../img/tum.png" alt="플레이로고">
+      <h3>버스커피드: ${busk.bno }</h3>
+      <h1>${sessionScope.no }</h1>
+    </div>
+  </div>
+  <div class="container" style="background-color: white;">
+    <a class="twPc-bg twPc-block"></a>
+    <div style="height: 250px; border: 1px dotted green">
+      <!-- 임시 높이 -->
+      <div class="twPc-button">
+       <table class="teaminfo1">
+          <tr>
+            <td><h4>팀명</h4><h2>${busk.teamname }</h2></td>
+<%--             <td><h4>장르</h4><h2>${busk.teamgenre }</h2></td>
+            <td><h4>주활동지</h4><h2>${busk.city }</h2></td> --%>
+          </tr>
+        </table>
       </div>
-      <div class="buskerinfo"
-        style="height: 300px; margin-bottom: 30px;">
-        <div class="imgschecon" style="height: 300px;">
-          <c:choose>
-            <c:when test="${not empty busk.teamPhoto }">
-              <img style="width: 100%; height: 100%"
-                src="/upload/${busk.teamPhoto }" alt="aa">
+      <c:choose>
+        <c:when test="${not empty busk.teamPhoto }">
+          <a title="team" href="https://www.naver.com//"
+            class="twPc-avatarLink"> <img alt="에러"
+            src="http://img.enews24.cjenm.skcdn.com/News/Contents/20170731/92145538.jpg" class="twPc-avatarImg">
+          </a>
+        </c:when>
+        <c:otherwise>
+          <a title="team" class="twPc-avatarLink"> <img alt="에러"
+            src="/img/phot1.png" class="twPc-avatarImg">
+          </a>
+        </c:otherwise>
+      </c:choose>
+      <div class="twPc-divUser" style="height: 200px;">
+            <p>장르 발라드</p>
+        <textarea class="infotextarea"
+          style="width: 60%; resize: none; margin: 20px 0 0 50px;"
+          rows="7" readonly="readonly" disabled placeholder="반가워요~">${busk.teamInfo }</textarea>
+      </div>
+
+    </div>
+    <!-- 여기까지 버스커 저옵~~~~~~~~ -->
+
+    <div class="feedcontent" style="width: 100%">
+      <div class="imgschecon">
+      
+          <%-- <c:choose>
+            <c:when test="${empty schelist }">
+              <tr>
+                <td>스케줄이 없습니다!</td>
+              </tr>
             </c:when>
             <c:otherwise>
-              <img style="width: 100%; height: 100%"
-                src='/img/phot1.png'>
-            </c:otherwise>
-          </c:choose>
-        </div>
-        <div class="aviphotcont">
-          <table>
-            <tbody>
-              <tr>
-                <th><h4>팀명</h4></th>
-                <td>
-                  <h4>${busk.teamname }</h4>
-                </td>
-              </tr>
-              <tr>
-                <th><h4>주요장르</h4></th>
-                <td>
-                  <h4>${busk.teamgenre }</h4>
-                </td>
-              </tr>
-              <tr>
-                <th><h4>주활동지역</h4></th>
-                <td>
-                  <h4>${busk.city }</h4>
-                </td>
-              </tr>
-              <tr>
-                <th><h4>인원</h4></th>
-                <td>
-                  <h4>(인원) 어케할까연?</h4>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <table>
-            <tr>
-              <th><h4>소개말</h4></th>
-            </tr>
-            <tr>
-              <td style="padding: 5px;"><textarea
-                  style="width: 340px; resize: none" rows="5"
-                  readonly="readonly" disabled placeholder="반가워요~">${busk.teamInfo }</textarea></td>
-            </tr>
-          </table>
-        </div>
-      </div>
-      <div class="feedcontent" style="width: 100%">
-        <div class="imgschecon" style="min-height: 300px;">
-          <table>
-            <c:choose>
-              <c:when test="${empty schelist }">
+              <c:forEach items="${schelist}" var="sche">
                 <tr>
-                  <td>스케줄이 없습니다!</td>
+                  <td colspan="3"><h2>${sche.date }</h2></td>
                 </tr>
+                <tr>
+                  <td>${sche.nsdt }~${sche.nedt }</td>
+                  <td id="shopname">
+                    <h4>${sche.shopname }</h4>
+                  </td>
+                  <td>${sche.addr }</td>
+                </tr>
+              </c:forEach>
+            </c:otherwise>
+          </c:choose> --%>
+      </div>
+      <div class="aviphotcont" style="min-height: 300px;">
+        <div style="padding-left: 170px;">
+          <button id="aviupload" data-target="#aviUploadModal"
+            data-toggle="modal">영상올리기</button>
+          <button id="photoupload" data-target="#photoUploadModal"
+            data-toggle="modal">사진올리기</button>
+        </div>
+        <!-- 영상썸네일 -->
+        <div class=avi
+          style="border: 1px dotted red; margin: 3px; height: 200px;">
+            <!-- class="row" -->
+            <c:choose>
+              <c:when test="${empty recentlist }">
+                <p>영상이 없습니다!</p>
               </c:when>
               <c:otherwise>
-                <c:forEach items="${schelist}" var="sche">
-                  <tr>
-                    <td id="date">
-                      <h3>${sche.date }</h3>${sche.nsdt }~${sche.nedt }</td>
-                    <td id="shopname">
-                      <h4>${sche.shopname }</h4>
-                    </td>
-                    <td>${sche.addr }</td>
-                  </tr>
+                <c:forEach items="${recentlist}" var="m" begin="0"
+                  end="2">
+                  <div class="col-md-4 avi">
+                    <button data-target="#avimodal" data-toggle="modal"
+                      value="${m.aviboardno }">
+                      <img src="${m.thumbnail }"
+                        style="width: 200px; height: auto;">
+                    <span class="glyphicon glyphicon-play-circle"></span>
+                    </button>
+                    제목:
+                  </div>
+                </c:forEach>
+                <p
+                  style="text-align: right; margin: 5px 0; padding-right: 10px;">
+                  <a href="http://www.naver.com">동영상더보기</a>
+                </p>
+              </c:otherwise>
+            </c:choose>
+
+        </div>
+        <!-- 사진 게시물 -->
+        <div class="photo" style="border: 1px dotted red; margin: 3px;">
+          <div class="row">
+            <c:choose>
+              <c:when test="${empty recentplist }">
+                <p style="padding-left: 15px;">사진이 없습니다!</p>
+              </c:when>
+              <c:otherwise>
+                <c:forEach items="${recentplist}" var="t">
+                  <div class="col-md-4 photo">
+                    <button data-target="#photomodal"
+                      data-toggle="modal" value="${t.pbno }">
+                      <img src="../../upload/${t.firphot }"
+                        style="width: 200px; height: 150px;">
+                    </button>
+                    <div id="pageno"></div>
+                  </div>
                 </c:forEach>
               </c:otherwise>
             </c:choose>
-          </table>
-        </div>
-        <div class="aviphotcont" style="min-height: 300px;">
-          <div style="padding-left: 170px;">
-            <button id="aviupload" data-target="#aviUploadModal"
-              data-toggle="modal">영상올리기</button>
-            <button id="photoupload" data-target="#photoUploadModal"
-              data-toggle="modal">사진올리기</button>
-          </div>
-          <!-- 영상썸네일 -->
-          <div class=avi
-            style="border: 1px dotted red; margin: 3px; height: 140px;">
-            <div style="height: 100px;">
-              <!-- class="row" -->
-              <c:choose>
-                <c:when test="${empty recentlist }">
-                  <p>영상이 없습니다!</p>
-                </c:when>
-                <c:otherwise>
-                  <c:forEach items="${recentlist}" var="m" begin="0"
-                    end="2">
-                    <div class="col-md-4 avi">
-                      <button data-target="#avimodal"
-                        data-toggle="modal" value="${m.aviboardno }">
-                        <img src="${m.thumbnail }"
-                          style="width: 110px; height: auto;">
-                      </button>
-                    </div>
-                  </c:forEach>
-                  <p
-                    style="text-align: right; margin: 5px 0; padding-right: 10px;">
-                    <a href="http://www.naver.com">동영상더보기</a>
-                  </p>
-                </c:otherwise>
-              </c:choose>
-            </div>
-
-          </div>
-          <!-- 사진 게시물 -->
-          <div class="photo"
-            style="border: 1px dotted red; margin: 3px;">
-            <div class="row">
-              <c:choose>
-                <c:when test="${empty recentplist }">
-                  <p style="padding-left:15px;">사진이 없습니다!</p>
-                </c:when>
-                <c:otherwise>
-                  <c:forEach items="${recentplist}" var="t">
-                    <div class="col-md-4 photo">
-                      <button data-target="#photomodal"
-                        data-toggle="modal" value="${t.pbno }">
-                        <img src="../../upload/${t.firphot }"
-                          style="width: 110px; height: 100px;">
-                      </button>
-                      <div id="pageno"></div>
-                    </div>
-                  </c:forEach>
-                </c:otherwise>
-              </c:choose>
-            </div>
           </div>
         </div>
       </div>
@@ -285,22 +348,23 @@ h2 {
 
                 </table>
               </div>
-              <div class="contents" style="overflow:auto;">
-                <div class="content" style="height: 80%;" ></div>
+              <div class="contents" style="overflow: auto;">
+                <div class="content" style="height: 80%;"></div>
                 <div class="likecount" style="text-align: right;">
 
                 </div>
               </div>
             </div>
-            <div class="comment" >
-                <div class="comtinsert" style="border:1px dotted blue; height:100px;">
-<!-- 영상댓글 -->       
-                </div>
-                 <div style="overflow:auto; height:370px;">
-                 <ul class="list-unstyled comt">
+            <div class="comment">
+              <div class="comtinsert"
+                style="border: 1px dotted blue; height: 100px;">
+                <!-- 영상댓글 -->
+              </div>
+              <div style="overflow: auto; height: 370px;">
+                <ul class="list-unstyled comt">
 
-                  </ul>
-                  </div>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -407,14 +471,14 @@ h2 {
 
                 </table>
               </div>
-              <div class="contents" style="overflow:auto;">
+              <div class="contents" style="overflow: auto;">
                 <div class="content" style="height: 80%"></div>
                 <div class="likecount" style="text-align: right;">
 
                 </div>
               </div>
             </div>
-            <div class="comment" style="overflow:auto;">
+            <div class="comment" style="overflow: auto;">
 
               <ul class="list-unstyled comtphoto">
               </ul>
@@ -475,13 +539,16 @@ h2 {
                           alt="기본이미지"></td>
                       </tr>
                       <tr>
-                        <td><input style="width: 150px;"
+                        <td><label for="input_img1">파일업로드</label> <input
+                          style="height: 0; width: 150px; opacity: 0;"
                           type='file' name='file1' id='input_img1'
                           onchange="readURL1(this);" /></td>
-                        <td><input style="width: 150px;"
+                        <td><label for="input_img2">파일업로드</label> <input
+                          style="height: 0; width: 150px; opacity: 0;"
                           type='file' name='file2' id='input_img2'
                           onchange="readURL2(this);" /></td>
-                        <td><input style="width: 150px;"
+                        <td><label for="input_img3">파일업로드</label> <input
+                          style="height: 0; width: 150px; opacity: 0;"
                           type='file' name='file3' id='input_img3'
                           onchange="readURL3(this);" /></td>
                       </tr>
@@ -518,11 +585,11 @@ h2 {
         </div>
         <div class="modal-body aviup">
           <div class="modalcontainer" style="border: 1px dotted red;">
-          <!-- upload 폼 -->
+            <!-- upload 폼 -->
             <form action='addavi' method='post'
               enctype="multipart/form-data">
               <div style="display: none">
-                <textarea name="bno" id="bno">${busk.bno }</textarea>
+                <textarea name="bno" id="bno"></textarea>
               </div>
               <div style="border: 1px dotted orange; padding: 10px;">
                 <div>
@@ -559,12 +626,20 @@ h2 {
                 </div>
               </div>
             </form>
-            
+
           </div>
         </div>
       </div>
     </div>
   </div>
+  <button type="button" class="btns btns-outline-primary">Primary</button>
+  <button type="button" class="btns btns-outline-secondary">Secondary</button>
+  <button type="button" class="btns btns-outline-success">Success</button>
+  <button type="button" class="btns btns-outline-danger">Danger</button>
+  <button type="button" class="btns btns-outline-warning">Warning</button>
+  <button type="button" class="btns btns-outline-info">Info</button>
+  <button type="button" class="btns btns-outline-light">Light</button>
+  <button type="button" class="btns btns-outline-dark">Dark</button>
   <!-- ===================================================================== -->
 
 

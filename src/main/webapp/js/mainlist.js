@@ -417,7 +417,6 @@ function OpenDetail(){
             dataType: 'json',
             data: {"no":no}, 
             success : function(data) {
-                console.log(data);
                 $('table.custab').empty();
                 $.each(data,function(index,item){
                     $('.BusMainImg').attr('src' ,'/upload/'+item.teamPhoto);

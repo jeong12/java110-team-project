@@ -1,9 +1,14 @@
+function moveFocus(next){
+	if(event.keyCode==13){
+		document.getElementById(next).focus();
+	}
+}
 
-	
+
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 mapOption = {
-    center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
-    level: 5 // 지도의 확대 레벨
+	    center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+	    level: 5 // 지도의 확대 레벨
 };
 
 //지도를 미리 생성
@@ -14,148 +19,10 @@ var geocoder = new daum.maps.services.Geocoder();
 var marker = new daum.maps.Marker({
 position: new daum.maps.LatLng(37.537187, 127.005476),
 map: map
-
 });
+
 marker.setDraggable(true); // 마커를 움직일수 있게 설정 false일경우 고정!
 map.relayout(); //뭐지이거 ?
-
-
-/* 요청스케줄 상세보기에 출력해줄 맵을 생성 */
-var mapContainer2 = document.getElementById('map2'), // 지도를 표시할 div 
- mapOption2 = { 
-     center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표이나 별로 상관없음 
-     level: 3 // 지도의 확대 레벨
- };
-
-var map2 = new daum.maps.Map(mapContainer2, mapOption2); // 지도를 생성합니다
-
-// 마커생성
-var marker2 = new daum.maps.Marker({
-	position: map2.getCenter() // 마커 디폴트 값이나 별로 상관없음 
-});
-
-marker2.setMap(map2); // 맵에 생성한 마커를 셋팅!
-
-/* 개인스케줄 상세보기에 출력해줄 맵을 생성 */
-var mapContainer3 = document.getElementById('map3'), // 지도를 표시할 div 
- mapOption3 = { 
-     center: new daum.maps.LatLng(33.450701, 136.570667), // 지도의 중심좌표이나 별로 상관없음 
-     level: 3 // 지도의 확대 레벨
- };
-
-var map3 = new daum.maps.Map(mapContainer3, mapOption3); // 지도를 생성합니다
-
-var marker3 = new daum.maps.Marker({
-    position: map3.getCenter() // 마커 디폴트 값이나 별로 상관없음 
-});
-
-marker3.setMap(map3); // 맵에 생성한 마커를 셋팅!
-
-
-
-var editmapContainer = document.getElementById('editmap'),
-editmapOption = { 
-    center: new daum.maps.LatLng(33.450701, 136.570667), // 지도의 중심좌표이나 별로 상관없음 
-    level: 3 // 지도의 확대 레벨
-};  // 지도를 표시할 div
-
-//지도를 미리 생성
-var editmap = new daum.maps.Map(editmapContainer, editmapOption);  
-//주소-좌표 변환 객체를 생성
-var geocoder = new daum.maps.services.Geocoder();
-//마커를 미리 생성
-var editmarker = new daum.maps.Marker({
-position: new daum.maps.LatLng(37.537187, 127.005476),
-map: editmap
-
-});
-editmarker.setDraggable(true); // 마커를 움직일수 있게 설정 false일경우 고정!
-editmap.relayout(); //뭐지이거 ?
-
-// 개인스케줄조회
-function search_edit_addr() {
-	new daum.Postcode({
-	    oncomplete: function(data) {
-	        // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-	        // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-	        var fullAddr = data.address; // 최종 주소 변수
-	        var extraAddr = ''; // 조합형 주소 변수
-
-	        // 기본 주소가 도로명 타입일때 조합한다.
-	        if(data.addressType === 'R'){
-	            //법정동명이 있을 경우 추가한다.
-	            if(data.bname !== ''){
-	                extraAddr += data.bname;
-	            }
-	            // 건물명이 있을 경우 추가한다.
-	            if(data.buildingName !== ''){
-	                extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-	            }
-	            // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
-	            fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
-	        }
-
-	        // 주소 정보를 해당 필드에 넣는다.
-	        document.getElementById("edit_addr").value = fullAddr;
-	        // 주소로 상세 정보를 검색
-	        geocoder.addressSearch(data.address, function(results, status) {
-	            // 정상적으로 검색이 완료됐으면
-	            if (status === daum.maps.services.Status.OK) {
-
-	                var editresult = results[0]; //첫번째 결과의 값을 활용
-
-	                // 해당 주소에 대한 좌표를 받아서
-	                var editcoords = new daum.maps.LatLng(result.y, result.x);
-	                // 지도를 보여준다.
-	                editmapContainer.style.display = "block";
-	                editmap.relayout();
-	                // 지도 중심을 변경한다.
-	                editmap.setCenter(editcoords);
-	                // 마커를 결과값으로 받은 위치로 옮긴다.
-	                editmarker.setPosition(editcoords)
-	                var editgps = editmarker.getPosition();
-	                var editx = editgps.getLat();
-	                var edity = editgps.getLng();
-	                
-	                // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
-	                document.getElementById("edit_x").value = editx;
-	                document.getElementById("edit_y").value = edity;
-	                
-	            }
-	        });
-	        
-	        daum.maps.event.addListener(map, 'click', function(mouseEvent) {
-	            searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
-	                if (status === daum.maps.services.Status.OK) {
-	                    var detailAddr = !!result[0].road_address ? result[0].road_address.address_name :'';
-	                    detailAddr += result[0].address.address_name;
-	                    
-	                    
-	                    // 마커를 클릭한 위치에 표시합니다 
-	                    editmarker.setPosition(mouseEvent.latLng);
-	                    editmarker.setMap(map);            
-	                                
-	                    var editgps = marker.getPosition();
-	                    var editx = gps.getLat();
-	                    var edity = gps.getLng();
-	                    
-	                    // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
-	                    document.getElementById("edit_addr").value = detailAddr;
-	                    document.getElementById("edit_x").value = editx;
-	                    document.getElementById("edit_y").value = edity;
-	                }   
-	            });
-	        });
-	       
-	        
-	        function searchDetailAddrFromCoords(editcoords, callback) {
-	            // 좌표로 법정동 상세 주소 정보를 요청합니다
-	            geocoder.coord2Address(editcoords.getLng(), editcoords.getLat(), callback);
-	        }
-
-	    }
-	}).open();
-	}
 
 
 function search_addr() {
@@ -197,7 +64,7 @@ new daum.Postcode({
                 // 지도 중심을 변경한다.
                 map.setCenter(coords);
                 // 마커를 결과값으로 받은 위치로 옮긴다.
-                marker.setPosition(coords)
+                marker.setPosition(coords);
                 var gps = marker.getPosition();
                 var x = gps.getLat();
                 var y = gps.getLng();
@@ -240,6 +107,71 @@ new daum.Postcode({
 
     }
 }).open();
+}
+
+
+
+
+
+
+//개인스케줄조회
+function search_edit_addr() {
+	new daum.Postcode({
+	    oncomplete: function(data) {
+	        // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+	        // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+	        var fullAddr = data.address; // 최종 주소 변수
+	        var extraAddr = ''; // 조합형 주소 변수
+
+	        // 기본 주소가 도로명 타입일때 조합한다.
+	        if(data.addressType === 'R'){
+	            //법정동명이 있을 경우 추가한다.
+	            if(data.bname !== ''){
+	                extraAddr += data.bname;
+	            }
+	            // 건물명이 있을 경우 추가한다.
+	            if(data.buildingName !== ''){
+	                extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+	            }
+	            // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+	            fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+	        }
+
+	        // 주소 정보를 해당 필드에 넣는다.
+	        document.getElementById("edit_addr").value = fullAddr;
+	        // 주소로 상세 정보를 검색
+	        geocoder.addressSearch(data.address, function(results, status) {
+	            // 정상적으로 검색이 완료됐으면
+	            if (status === daum.maps.services.Status.OK) {
+
+	                var result = results[0]; //첫번째 결과의 값을 활용
+
+	                // 해당 주소에 대한 좌표를 받아서
+	                var coords = new daum.maps.LatLng(result.y, result.x);
+	                // 지도를 보여준다.
+	                editmap.relayout();
+	                // 지도 중심을 변경한다.
+	                editmap.setCenter(coords);
+	                // 마커를 결과값으로 받은 위치로 옮긴다.
+	                editmarker.setPosition(coords);
+	                var gps = marker.getPosition();
+	                var x = gps.getLat();
+	                var y = gps.getLng();
+	                
+	                // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+	                document.getElementById("edit_x").value = x;
+	                document.getElementById("edit_y").value = y;
+	                
+	            }
+	        });
+	        
+	        function searchDetailAddrFromCoords(coords, callback) {
+	            // 좌표로 법정동 상세 주소 정보를 요청합니다
+	            geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+	        }
+
+	    }
+	}).open();
 }
 
 
@@ -292,23 +224,15 @@ $(function() {
                                 '</td><td class="agenda-time">'+item.shopname+'</td><td class="agenda-events">'+item.supporter.baseaddr+'</td></tr>');
                     });
                 }
-
                 },
                 error : function(request, status, error) {
-                    alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+                	swal("오류","달력데이터 오류","error");
                 }
             });
-            
-            
-            
-            
-              
           }  
   })
   
 });
-
-
 
 
 
@@ -329,7 +253,8 @@ var minimum = function(jsDate){
 var minitime;
 
 $('#regstarttimepicker').change(function(){
-	
+	console.log("select이벤트발생!");//ㅅㄷㅅㄷㅅㄴtest
+	$('#regendtimepicker').focus();
 	jsDate = moment($(this).val(), 'DD-MM-YYYY HH:mm');
 	var faketime=$(this).val();
 	console.log(faketime);
@@ -361,7 +286,7 @@ var minimum = function(jsDate){
 var minitime;
 
 $('#editstarttimepicker').change(function(){
-    
+	
     jsDate = moment($(this).val(), 'DD-MM-YYYY HH:mm');
     var faketime=$(this).val();
     minitime=(parseInt(faketime.substring(10,13))+1) +':00';
@@ -374,6 +299,14 @@ $('#editendtimepicker').datetimepicker({
       onChangeDateTime:minimum,
       onShow:minimum
 });
+
+
+
+
+
+
+
+
 
 /* 상세정보 조회 ajax처리 */
 $(document).on('click','.detailinfobtn',function(){
@@ -416,20 +349,33 @@ $(document).on('click','.detailinfobtn',function(){
                 if(data.supporter==null){// 개인스케줄의 경우 supporter 객체를 받지 않음, 고로 개인스케줄 모달에 데이터 처리
                     $("#pershopname").append(data.shopname);
                     $("#pergenre").append('장르를만들자');
-                    $("#percnt").append(data.cnt);
+                    $("#percnt").append(data.cnt+'명');
                     $("#persdt").append(data.nsdt);
                     $("#peredt").append(data.nedt);
                     $("#peraddr").append(data.addr);
                     $("#perx").append(data.x);
                     $("#pery").append(data.y);
                     $("#editno").val(no);
-                    // 다음지도 api
-                    // x,y값을 받아 다음지도의 LatLng 생성 <= 좌표만들어주는 객체인듯
-                    var LatLon3 = new daum.maps.LatLng(data.x, data.y);
-                    // 기존 생성된 map의 중심을 데이터상의 x,y로 맞춰줌
-                    map3.setCenter(LatLon3);
-                    // 기존 생성된 marker의 위치를 수정해주는 매서드
-                    marker3.setPosition(new daum.maps.LatLng(LatLon3.getLat(),LatLon3.getLng()));
+                    
+                    $('#detailperModal').on('shown.bs.modal', function (e) {
+                    	//요청페이지 map을 만들자 
+                    		var permapContainer = document.getElementById('permap'), // 지도를 표시할 div
+                    		permapOption = {
+                    			center: new daum.maps.LatLng(data.x, data.y), // 지도의 중심좌표
+                    			level: 5 // 지도의 확대 레벨
+                    		};
+                    		
+                    	//지도를 미리 생성
+                    		var permap = new daum.maps.Map(permapContainer, permapOption);
+                    	//주소-좌표 변환 객체를 생성
+                    		var pergeocoder = new daum.maps.services.Geocoder();
+                    	//마커를 미리 생성
+                    		var permarker = new daum.maps.Marker({
+                    			position: new daum.maps.LatLng(data.x, data.y),
+                    			map: permap
+                    		});
+                    		permap.relayout(); //뭐지이거 ?
+                    });
                 }else{ // supporter객체가 있다면 요청스케줄 모달에 데이터 처리
                 	console.log(data);
                     $("#reqname").append(data.supporter.name);
@@ -437,7 +383,7 @@ $(document).on('click','.detailinfobtn',function(){
                     $("#reqtel").append(data.supporter.tel);
                     $("#reqsdt").append(data.nsdt);
                     $("#reqedt").append(data.nedt);
-                    $("#reqcnt").append(data.cnt);
+                    $("#reqcnt").append(data.cnt+'명');
                     $("#reqaddr").append(data.supporter.baseaddr);
                     $("#reqetc").append(data.supporter.message);
                     
@@ -451,55 +397,112 @@ $(document).on('click','.detailinfobtn',function(){
                     	}
                     });
                     
+                    $('#detailreqModal').on('shown.bs.modal', function (e) {
+                    	//요청페이지 map을 만들자 
+                    	var reqmapContainer = document.getElementById('reqmap'), // 지도를 표시할 div
+                    		reqmapOption = {
+                    				center: new daum.maps.LatLng(data.supporter.x, data.supporter.y), // 지도의 중심좌표
+                    				level: 5 // 지도의 확대 레벨
+                    	};
+                    	//지도를 미리 생성
+                    	var reqmap = new daum.maps.Map(reqmapContainer, reqmapOption);
+                    	//주소-좌표 변환 객체를 생성
+                    	var reqgeocoder = new daum.maps.services.Geocoder();
+                    	//마커를 미리 생성
+                    	var reqmarker = new daum.maps.Marker({
+                    		position: new daum.maps.LatLng(data.supporter.x, data.supporter.y),
+                    		map: reqmap
+                    	});
+                    	reqmap.relayout(); //뭐지이거 ?
+                    	
+                    	
+                    });	
                     
-                    
-                    
-                    //위와 같음, 다만 map2객체에 설정, map2=요청스케줄 모달페이지 맵, map3=개인스케줄 도달페이지 맵  
-                    mapContainer2.style.display = "block";
-                    var LatLon2 = new daum.maps.LatLng(data.supporter.x, data.supporter.y);
-                    map2.setCenter(LatLon2);
-                    marker2.setPosition(new daum.maps.LatLng(LatLon2.getLat(),LatLon2.getLng()));
                 }
                 
             }
 
         },
         error : function(request, status, error) {
-            alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+        	swal("오류","상세정보조회 오류","error");
         }
         
         
     });
 });
     
-
-$('.removebtn').click(function(){
-	    var f = $(this).val(); 
-	    console.log(f);
-	    
-    $.ajax({ 
-        type : "POST", //보내는 타입을 Post방식으로 할지,  GET방식으로 할지 결정
-        url : "deleteschedule", 
-        dataType: 'json',
-        data : { fakeflag : f }, //파라미터 넘겨줄 부분? : 이게 할말이 많은데 원래 GET방식으로 하라했다가 
-        success : function(data) { // delete, update문 같은 경우에는 기본적으로 int값을 반환함.
-            alert("성공적으로 삭제 되었습니다.");
-            window.location="/app/mybs/main" // 절대 경로이기 때문에 시작경로를 / 로 설정해줘야함
-        },
-        error : function(request, status, error) {
-            alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
-        }
-    });
-});
+$(document).on('click','.removebtn',function(){
 	
+	var f = $(this).val();
+	swal({
+	      title: "스케줄삭제?",
+	      text: "삭제하시겠습니까??",
+	      type: "warning",
+	      buttons:{
+	    	  cancel : "취소",
+	    	  catch: {
+	    	      text: "확인",
+	    	      value: "ok",
+	    	    }
+	      }
+	}).then((value)=>{
+		
+		if(value=='ok'){
+			$.ajax({ 
+		        type : "POST", //보내는 타입을 Post방식으로 할지,  GET방식으로 할지 결정
+		        url : "deleteschedule", 
+		        dataType: 'json',
+		        data : { fakeflag : f }, //파라미터 넘겨줄 부분? : 이게 할말이 많은데 원래 GET방식으로 하라했다가 
+		        success : function(data) { // delete, update문 같은 경우에는 기본적으로 int값을 반환함.
+		        	swal({
+		        		  title: "삭제",
+		        		  text: "해당스케줄이 삭제되었습니다.",
+		        		  icon: "success",
+		        		  button: "확인",
+		        		}).then((value)=>{
+		        			window.location="/app/mybs/main";
+		        		});
+		        },
+		        error : function(request, status, error) {
+		            console.log("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+		        }
+		    });
+		}else{
+			
+		}
+		
+	})
+	 
+});
+
+
+//swal 테스트
+function onClickConfirm() {
+	swal("Write something here:", {
+		  content: "input",
+		})
+		.then((value) => {
+		  swal(`value1의 얼랏.`);
+		})
+}
+
 
 $('#regendtimepicker').focusout(function(){
 	
-       var f = {
+	
+	var presdt=$('#regstarttimepicker').val().substring(11,13);
+	var preedt=$('#regendtimepicker').val().substring(0,2);
+	console.log(preedt);
+	if(presdt>preedt){
+		swal("오류","공연시간을 확인해주세요","error");
+		return;
+	}
+		
+    var f = {
         		"sdt": $('#regstarttimepicker').val(),
         		"edt": $('#regendtimepicker').val(),
         		"no": 5
-        }
+    }
        
     $.ajax({ 
         type : "POST", //보내는 타입을 Post방식으로 할지,  GET방식으로 할지 결정
@@ -510,42 +513,91 @@ $('#regendtimepicker').focusout(function(){
         	if(data==0){
         		$('#datecheck').html('등록 가능한 일정입니다.').css('color','green');
         		$("#appbtn").prop("disabled", false);
-        		console.log(data+"중복값이없어 바꾼다");	
         	}else{
         		$("#appbtn").prop("disabled", true);
-        		console.log(data+"중복일정이있어 못바꾸게한다");
         		$('#datecheck').html('중복된 일정이 존재합니다.').css('color','red');
         	} 
         },
         error : function(request, status, error) {
-            alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+        	swal("잠깐!","입력시간을 확인하세요.","error");
         }
         
     });
     
 });
+
+	
 var oldsdt ;
 var oldedt ;
 
 $('#editbtn').click(function(){
+	//$('#detail`Modal').modal('hide');
+	var cnt = $('#detailperModal #percnt').text().substring(0,$('#detailperModal #percnt').text().length-1);
+	var peredt=$('#detailperModal #peredt').text().substring(11,16);
+	console.log($('#detailperModal #pershopname').text());
+	$('#edit_shopname').val($('#detailperModal #pershopname').text());
+	$('#editstarttimepicker').val($('#detailperModal #persdt').text());
+	$('#editendtimepicker').val(peredt);
+	$('#edit_cnt').val(cnt);
+	$('#edit_addr').val($('#detailperModal #peraddr').text());
+	$('#edit_x').val($('#detailperModal #perx').text());
+	$('#edit_y').val($('#detailperModal #pery').text());
+	oldsdt = $('#editstarttimepicker').val();
+	oldedt = $('#editendtimepicker').val();
 	
-	$('#detailperModal').modal('hide');
-	var fulltime = $('#detailperModal .pertime').text();
-	var starttime = fulltime.substring(0,16);
-	var endtime = fulltime.substring(fulltime.length-5,fulltime.length);
+	$('#EditScheduleModal').on('shown.bs.modal', function (e) {
+    	
+		var editmapContainer = document.getElementById('editmap'), // 지도를 표시할 div
+		editmapOption = {
+			    center: new daum.maps.LatLng($('#detailperModal #perx').text(), $('#detailperModal #pery').text()), // 지도의 중심좌표
+			    level: 5 // 지도의 확대 레벨
+		};
+
+		//지도를 미리 생성
+		var editmap = new daum.maps.Map(editmapContainer, editmapOption);
+		//주소-좌표 변환 객체를 생성
+		var editgeocoder = new daum.maps.services.Geocoder();
+		
+		//마커를 미리 생성
+		var editmarker = new daum.maps.Marker({
+		position: new daum.maps.LatLng($('#detailperModal #perx').text(), $('#detailperModal #pery').text()),
+		map: editmap
+		});
+
+		//editmarker.setDraggable(true); 
+		editmap.relayout(); //뭐지이거 ?
+		
+		
+		daum.maps.event.addListener(editmap, 'click', function(mouseEvent) {
+			searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
+		        if (status === daum.maps.services.Status.OK) {
+		        	var detailAddr = !!result[0].road_address ? result[0].road_address.address_name :'';
+                    detailAddr += result[0].address.address_name;
+
+		         // 마커를 클릭한 위치에 표시합니다 
+	                editmarker.setPosition(mouseEvent.latLng);
+	                //editmarker.setMap(editmap);            
+	                            
+	                var gps = editmarker.getPosition();
+	                var x = gps.getLat();
+	                var y = gps.getLng();
+	                
+	                // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+	                document.getElementById("edit_addr").value = detailAddr;
+	                document.getElementById("edit_x").value = x;
+	                document.getElementById("edit_y").value = y;
+		        }   
+		    });      
+	    });
+		
+		
+		function searchDetailAddrFromCoords(coords, callback) {
+		    // 좌표로 법정동 상세 주소 정보를 요청합니다
+			editgeocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+		}
+		
+    });	
 	
-	console.log(fulltime);
-	
-	$('#EditScheduleModal #shopname').val($('#detailperModal .pershopname').text());
-	$('#EditScheduleModal #editstarttimepicker').val(starttime);
-	$('#EditScheduleModal #editendtimepicker').val(endtime);
-	$('#EditScheduleModal #cnt').val($('#detailperModal .percnt').text());
-	$('#EditScheduleModal #edit_addr').val($('#detailperModal .peraddr').text());
-	$('#EditScheduleModal #edit_x').val($('#detailperModal .perx').text());
-	$('#EditScheduleModal #edit_y').val($('#detailperModal .pery').text());
-	
-	oldsdt = $('#EditScheduleModal #editstarttimepicker').val();
-	oldedt = $('#EditScheduleModal #editendtimepicker').val();
 });
 
 //edit스케줄 수정
@@ -581,8 +633,7 @@ $('#editendtimepicker').focusout(function(){
      	}
      },
      error : function(request, status, error) {
-    	 	
-             alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+    	 swal("오류","공연시간 설정을 확인해주세요.","error");
      }
  });
  
@@ -590,15 +641,19 @@ $('#editendtimepicker').focusout(function(){
 
 
 $('#editno').click(function(){
+	
+	
 	var schedule= { "sno":$(this).val(),
-			        "shopname": $('#EditScheduleModal #shopname').val() ,
-			        "nsdt": $('#EditScheduleModal #editstarttimepicker').val(),
-			        "nedt": $('#EditScheduleModal #editendtimepicker').val(),
-			        "addr": $('#EditScheduleModal #edit_addr').val(),
-			        "cnt" : $('#EditScheduleModal #cnt').val(),
-			        "x"   : $('#EditScheduleModal #edit_x').val(),
-			        "y"   : $('#EditScheduleModal #edit_y').val() 
+			        "shopname": $('#edit_shopname').val() ,
+			        "nsdt": $('#editstarttimepicker').val(),
+			        "nedt": $('#editendtimepicker').val(),
+			        "addr": $('#edit_addr').val(),
+			        "cnt" : $('#edit_cnt').val(),
+			        "x"   : $('#edit_x').val(),
+			        "y"   : $('#edit_y').val() 
 			      }
+	
+	console.log(schedule);
 	$.ajax({ 
         type : "POST", //보내는 타입을 Post방식으로 할지,  GET방식으로 할지 결정
         url : "editperschedule", 
@@ -608,7 +663,7 @@ $('#editno').click(function(){
         	 window.location = '/app/mybs/main';            
         },
         error : function(request, status, error) {
-            alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+        	swal("오류","개인스케줄 수정 오류","error");
         }
     });
 });
@@ -625,13 +680,33 @@ $('.tabs li').click(function(){
     
 });
 
+$('.pages li').click(function(){
+    $('.pages li').siblings().removeClass('active');
+    $(this).addClass('active');
+});
 
 
-$('.modal').on('hidden.bs.modal', function (e) {
-    console.log('modal close');
-  $(this).find('form')[0].reset();
-  $(this).find('p').empty();
-});  
+function add(){
+	var shopname=$('#shopname').val();
+	var cnt=$('#cnt').val();
+	var addr=$('#addr').val();
+	var time1=$('#regstarttimepicker').val();
+	var time2=$('#regendtimepicker').val();
+	
+	if(shopname==''){
+		swal("잠깐!","상호명을 입력하세요.","error");
+	}else if(cnt==''){
+		swal("잠깐!","인원을 입력하세요.","error");
+	}else if(time1==''||time2==''){
+		swal("잠깐!","시간을 입력하세요.","error");
+	}else if(addr==''){
+		swal("잠깐!","주소를 입력하세요.","error");
+	}else{
+		$('#scheduleaddform').submit();
+	}
+}
+
+
 
 
 /*페이징 처리*/
@@ -762,3 +837,110 @@ function pasing(){
     });
 }
 
+function goPage(e,listtype) {
+	console.log(e);
+	console.log(listtype);
+	$.ajax({ 
+			type : "GET", 
+			url : "page", 
+			traditional : true,
+			data : {"pageNo" : e, "type":listtype},
+			success : function(data){
+				if(listtype == 'list'){
+					$("#schedulelist").empty();
+					$.each(data,function(index,item){
+						if(item.flag == '1'.charAt(0)){
+							$("#schedulelist").append(
+								'<tr><td>'+item.shopname+'</td>'+
+								'<td>'+item.addr+'</td>'+
+								'<td>'+item.nsdt+'~'+item.nedt+'</td>'+
+								'<td>'+item.cnt+'명'+'</td>'+
+								'<td><span class="label label-warning">진행중</span></td>'+
+								'<td>'+item.ncdt+'</td>'+
+								'<td><button data-toggle="modal" data-target="#detailreqModal"'+
+								'class="btns btns-outline-secondary detailinfobtn" value="a'+item.sno+'">상세보기</button>'+
+								'<td><button class="btns btns-outline-danger removebtn" value="a'+item.sno+'">삭제</button></td>'
+								);
+						}else if(item.flag == '2'.charAt(0)){
+							$("#schedulelist").append(
+									'<tr><td>'+item.shopname+'</td>'+
+									'<td>'+item.addr+'</td>'+
+									'<td>'+item.nsdt+'~'+item.nedt+'</td>'+
+									'<td>'+item.cnt+'명'+'</td>'+
+									'<td><span class="label label-success">완료</span></td>'+
+									'<td>'+item.ncdt+'</td>'+
+									'<td><button data-toggle="modal" data-target="#detailreqModal"'+
+									'class="btns btns-outline-secondary detailinfobtn" value="a'+item.sno+'">상세보기</button>'+
+									'<td><button class="btns btns-outline-danger removebtn" value="a'+item.sno+'">삭제</button></td>'
+									);
+						}else if(item.flag == '3'.charAt(0)){
+							$("#schedulelist").append(
+									'<tr><td>'+item.shopname+'</td>'+
+									'<td>'+item.addr+'</td>'+
+									'<td>'+item.nsdt+'~'+item.nedt+'</td>'+
+									'<td>'+item.cnt+'명'+'</td>'+
+									'<td><span class="label label-info">개인스케줄</span></td>'+
+									'<td>'+item.ncdt+'</td>'+
+									'<td><button data-toggle="modal" data-target="#detailreqModal"'+
+									'class="btns btns-outline-secondary detailinfobtn" value="b'+item.sno+'">상세보기</button>'+
+									'<td><button class="btns btns-outline-danger removebtn" value="b'+item.sno+'">삭제</button></td>'
+									);
+						}
+					});
+				}else if(listtype == 'inglist'){
+					$("#ingschedulelist").empty();
+					$.each(data,function(index,item){
+							$("#ingschedulelist").append(
+								'<tr><td>'+item.shopname+'</td>'+
+								'<td>'+item.addr+'</td>'+
+								'<td>'+item.nsdt+'~'+item.nedt+'</td>'+
+								'<td>'+item.cnt+'명'+'</td>'+
+								'<td><span class="label label-warning">진행중</span></td>'+
+								'<td>'+item.ncdt+'</td>'+
+								'<td><button data-toggle="modal" data-target="#detailreqModal"'+
+								'class="btns btns-outline-secondary detailinfobtn" value="a'+item.sno+'">상세보기</button>'+
+								'<td><button class="btns btns-outline-danger removebtn" value="a'+item.sno+'">삭제</button></td>'
+								);
+					});
+				}else if(listtype=='edlist'){
+					$("#edschedulelist").empty();
+					$.each(data,function(index,item){
+							$("#edschedulelist").append(
+								'<tr><td>'+item.shopname+'</td>'+
+								'<td>'+item.addr+'</td>'+
+								'<td>'+item.nsdt+'~'+item.nedt+'</td>'+
+								'<td>'+item.cnt+'명'+'</td>'+
+								'<td><span class="label label-success">완료</span></td>'+
+								'<td>'+item.ncdt+'</td>'+
+								'<td><button data-toggle="modal" data-target="#detailreqModal"'+
+								'class="btns btns-outline-secondary detailinfobtn" value="a'+item.sno+'">상세보기</button>'+
+								'<td><button class="btns btns-outline-danger removebtn" value="a'+item.sno+'">삭제</button></td>'
+								);
+					});
+					
+				}else if(listtype='plist'){
+					$("#pschedulelist").empty();
+					$.each(data,function(index,item){
+							$("#pschedulelist").append(
+								'<tr><td>'+item.shopname+'</td>'+
+								'<td>'+item.addr+'</td>'+
+								'<td>'+item.nsdt+'~'+item.nedt+'</td>'+
+								'<td>'+item.cnt+'명'+'</td>'+
+								'<td><span class="label label-info">완료</span></td>'+
+								'<td>'+item.ncdt+'</td>'+
+								'<td><button data-toggle="modal" data-target="#detailperModal"'+
+								'class="btns btns-outline-secondary detailinfobtn" value="b'+item.sno+'">상세보기</button>'+
+								'<td><button class="btns btns-outline-danger removebtn" value="b'+item.sno+'">삭제</button></td>'
+								);
+					});
+				}else{
+					
+				}
+			},
+			error : function(request, status, error) {
+				swal("에러!","에러가 발생했습니다. 관리자에게 문의하시기 바랍니다.","error");
+			}
+		});
+		
+		
+	}
