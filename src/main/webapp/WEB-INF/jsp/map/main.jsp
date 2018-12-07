@@ -92,11 +92,37 @@ footer{clear: both;}
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
     mapOption = { 
-        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
+        center: new daum.maps.LatLng(37.4693, 127.04), // 지도의 중심좌표
+        level: 7 // 지도의 확대 레벨
     };
 
-var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다.
+
+var markers=[];
+//버튼을 클릭하면 아래 배열의 좌표들이 모두 보이게 지도 범위를 재설정합니다 
+var points =[];
+$(function(){
+	<c:forEach items="${list}" var="data">
+	   addMarker(new daum.maps.LatLng(${data.supporter.x}, ${data.supporter.y}));
+	</c:forEach>
+});
+
+//마커를 생성하고 지도위에 표시하는 함수입니다
+function addMarker(position) {
+    
+    // 마커를 생성합니다
+    var marker = new daum.maps.Marker({
+        position: position
+    });
+
+    // 마커가 지도 위에 표시되도록 설정합니다
+    marker.setMap(map);
+    
+    // 생성된 마커를 배열에 추가합니다
+    markers.push(marker);
+}
+console.log(markers);
+
 
 
 </script>
