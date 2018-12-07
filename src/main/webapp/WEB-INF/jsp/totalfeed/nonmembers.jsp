@@ -8,8 +8,7 @@
 <meta charset="UTF-8">
 <title>전체 피드 보기</title>
 <link rel="stylesheet" href="/css/common.css"/> 
-<link
-	href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script
@@ -98,8 +97,8 @@ margin-bottom : 150px;
 }
 
 #titl {
-	margin: 10px;
-	padding: 10px;
+	margin: 20px 0 40px;
+	padding: 0;
 }
 
 #logo {
@@ -148,10 +147,14 @@ margin-bottom : 150px;
 <jsp:include page="../header.jsp"></jsp:include>
 <body>
 <div id=bodybody>
-	<div id="titl">
-		<img id="logo" src="../../img/playButton.PNG" alt="플레이로고">
-		<h2 id="titl2">전체 피드 보기</h2>
-	</div>
+	<div class="container">
+	
+		<div id="titl">
+	        <h2><img id="logo" src="../../img/playButton.PNG" alt="플레이로고">버스커 전체보기</h2>
+	    </div>
+    
+    </div>
+	
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-8 col-xs-offset-2">
@@ -226,12 +229,11 @@ margin-bottom : 150px;
 					<div class="table table-list-search">
 
 						<c:forEach items="${totalFeed}" var="tf">
-							<div
-								class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${tf.teamgenre}">
-								<a href="/app/buskerfeed/enter?bno=${tf.bno}" class="js-load">
+							<div class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${tf.teamgenre}">
+								<a href="/app/buskerfeed/enter?no=${tf.bno}" style="text-decoration: none; color: #555;" class="js-load">
 									<table>
 										<tr>
-											<td><img src="../../img/${tf.teamPhoto}.png"
+											<td><img src="/upload/${tf.teamPhoto}"
 												class="teamPhotoImg"></td>
 										</tr>
 										<tr class="teamnametr">
@@ -254,12 +256,11 @@ margin-bottom : 150px;
 				<div class="main">
 					<div class="table table-list-search">
 						<c:forEach items="${city}" var="tf">
-							<div
-								class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${tf.teamgenre}">
-								<a href="/app/buskerfeed/enter?bno=${tf.bno}" class="js-load">
+							<div class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${tf.teamgenre}">
+								<a href="/app/buskerfeed/enter?no=${tf.bno}" style="text-decoration: none; color: #555;" class="js-load">
 									<table>
 										<tr>
-											<td><img src="../../img/${tf.teamPhoto}.png"
+											<td><img src="/upload/${tf.teamPhoto}"
 												class="teamPhotoImg"></td>
 										</tr>
 										<tr class="teamnametr">
@@ -281,12 +282,11 @@ margin-bottom : 150px;
 				<div class="main">
 					<div class="table table-list-search">
 						<c:forEach items="${teamname}" var="tf">
-							<div
-								class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${tf.teamgenre}">
-								<a href="/app/buskerfeed/enter?bno=${tf.bno}" class="js-load">
+							<div class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${tf.teamgenre}">
+								<a href="/app/buskerfeed/enter?no=${tf.bno}" style="text-decoration: none; color: #555;" class="js-load">
 									<table>
 										<tr>
-											<td><img src="../../img/${tf.teamPhoto}.png"
+											<td><img src="/upload/${tf.teamPhoto}"
 												class="teamPhotoImg"></td>
 										</tr>
 										<tr class="teamnametr">
@@ -308,13 +308,7 @@ margin-bottom : 150px;
 
 
 	<script>
-		// document.getElementById("selectsearchbtn").onclick = function() {PageMove()};
-		/* 
-		 function likedate(){
-		 var likedate = $(".likedate option:selected").val();
-		 console.log(likedate);
-		 }
-		 */
+
 		$(function() {
 			$("input[name='sortType']").click(
 					function() {

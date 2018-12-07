@@ -32,11 +32,10 @@ public class FollowerController {
 	
 	@GetMapping("followList")
 	public void followList(
-			
+			@RequestParam int no,
 			@RequestParam(defaultValue="1") int pageNo,
             @RequestParam(defaultValue="9") int pageSize,
-			Model model,
-			int no) {
+			Model model) {
 	
         if (pageNo < 1)
             pageNo = 1;
@@ -51,11 +50,43 @@ public class FollowerController {
 	
 	int totalCount = followerService.totalCount(no);
 	int startPageNo = 1;
-	int endPageNo = (totalCount/9)+1;
+	int endPageNo = (totalCount/pageSize)+1;
+	
+		if (endPageNo%pageSize == 0)
+			endPageNo = (totalCount/pageSize);
+	
+	//보이는 시작 페이지
+	int visibleStartPageNo = pageNo - 4;
+	if(visibleStartPageNo < 1)
+		visibleStartPageNo = startPageNo;
+	
+	// 보이는 끝 페이지
+	int visibleEndPageNo = pageNo + 4;;
+	if(visibleEndPageNo >= endPageNo)
+		visibleEndPageNo = endPageNo;
+	
+
+	
 	Map<String, Integer> pageMove = new HashMap<>();
 	pageMove.put("startPageNo",startPageNo);
 	pageMove.put("endPageNo",endPageNo);
+	pageMove.put("visibleStartPageNo",visibleStartPageNo);
+	pageMove.put("visibleEndPageNo",visibleEndPageNo);
 	pageMove.put("pageNo", pageNo);
+	pageMove.put("no", no);
+	
+	//이전 페이지
+	int prePageNo = pageNo-1;
+		if(pageNo<=startPageNo)
+			prePageNo = startPageNo;
+	//다음 페이지
+	int nexPageNo = pageNo+1;
+		if(pageNo>=endPageNo)
+			nexPageNo = endPageNo;
+	
+	pageMove.put("prePageNo", prePageNo);
+	pageMove.put("nexPageNo", nexPageNo);
+	
 	model.addAttribute("pageMove", pageMove);
 	}
 	

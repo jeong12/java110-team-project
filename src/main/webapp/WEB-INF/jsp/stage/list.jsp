@@ -101,7 +101,7 @@ margin-bottom : 300px;
 }
 
 #titl {
-    margin: 10px;
+    margin: 20px 10px 30px 16%;
     padding: 10px;
 }
 
@@ -141,6 +141,10 @@ margin-bottom : 300px;
     text-align: center;
 }
 
+#searchdiv {
+    margin-bottom: 50px;
+}
+
 /* 날짜 */
 #startdateenddate{
     margin-left: 18%;
@@ -152,9 +156,8 @@ margin-bottom : 300px;
 <div id="bodybody">
     <div id="titl">
         <h2><img id="logo" src="../../img/playButton.PNG" alt="플레이로고">무대 목록</h2>
-        
     </div>
-    <div class="container">
+    <div class="container" id="searchdiv">
         <div class="row">
             <!-- 인기순 최신순 -->
             <div id="startdateenddate">
