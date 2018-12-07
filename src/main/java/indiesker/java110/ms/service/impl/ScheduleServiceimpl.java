@@ -360,4 +360,9 @@ public class ScheduleServiceimpl implements ScheduleService {
       System.out.println(bno);
       return scheduleDao.findMyAllSchedulecnt(bno);
     }
+
+    @Override
+    public List<Schedule> findAllSchedule() {
+      return scheduleDao.findAllSchedule();
+    }
 }

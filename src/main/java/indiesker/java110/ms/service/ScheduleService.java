@@ -53,4 +53,5 @@ public interface ScheduleService {
     int buskbyflagscheduleCnt(int flag, int bno);
     List<Schedule> findMyAllSchedule(int bno, int pageNo, int pageSize);
     int findMyAllScheduleCnt(int bno);
+    List<Schedule> findAllSchedule();
 }
