@@ -26,7 +26,6 @@ public class MapController {
   public void main(Model model) {
     List<Schedule> list = scheduleService.findAllSchedule();
     
-    
     model.addAttribute("list", list);
     
     
