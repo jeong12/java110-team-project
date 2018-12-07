@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
   pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,14 +17,22 @@
 <script
   src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="../../css/common.css">
+<link rel="stylesheet"
+  href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+  integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+  crossorigin="anonymous">
 </head>
 <style>
-body, container.title{
-    background-color: floralwhite;
+.container.feed {
+  background-color: white;
+  padding: 0 0 30px 0;
+  border: 1px solid gray;
 }
-container{
-    background-color: white;
+
+body, .container.title {
+  background-color: floralwhite;
 }
+
 #titl {
   width: 700px;
   margin: 10px;
@@ -44,8 +53,7 @@ container{
 .imgschecon {
   float: left;
   width: 40%;
-  padding: 10px;
-  border: 1px dotted red;
+  border: 1px solid gray;
 }
 
 .imgschecon table {
@@ -55,8 +63,7 @@ container{
 
 .aviphotcont {
   float: right;
-  width: 60%;
-  border: 1px dotted red;
+  width: 57%;
 }
 
 .col-md-4 {
@@ -76,7 +83,7 @@ container{
 
 .twPc-button {
   margin: 0 -10px;
-  margin-top: -8%;
+  margin-top: -7%;
   width: 100%;
 }
 
@@ -118,92 +125,186 @@ container{
 
 .teaminfo1 {
   height: 60px;
-  margin-left:430px;
+  margin-left: 430px;
 }
 
-.teaminfo1 h2 {
+.teaminfo1 h1 {
   margin-right: 70px;
   color: white;
 }
-.teaminfo1 h4 {
+
+.teaminfo1 h3 {
   margin-right: 70px;
   color: white;
 }
 
 .infotextarea {
   background-color: white;
-  font-size: 20px;
+  font-size: 18px;
   border: none;
   width: 50%;
   resize: none;
-  margin: 13px 0 0 190px;
+  margin: 35px 0 0 40px;
   max-height: 165px;
 }
-.glyphicon-play-circle{
-    color:white;
-    font-size: 60px;
-    opacity: 0.6;
-    position: absolute;
-    right: 39%;
-    top: 31%;
-    text-shadow: 0 1px 3px rgba(0,0,0,.5);
-    transition:all 500ms ease-in-out;
+
+.glyphicon-play-circle {
+  color: white;
+  font-size: 60px;
+  opacity: 0.6;
+  position: absolute;
+  right: 39%;
+  top: 31%;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .5);
+  transition: all 500ms ease-in-out;
+}
+
+.small.title {
+  font-size: 14px;
+  margin-top: 7px;
+    font-weight: 500;
+}
+
+.posttitle {
+  background-color: black;
+  border-radius: 0.25rem;
+}
+
+.posttitle i {
+  color: white;
+  font-size: 20px;
+  padding: 10px;
+}
+
+.row.feedphoto {
+  margin: 0 20px 0 20px;
+}
+
+.avi, .photo, .imgschecon {
+  background-color: #DDD;
+  border-radius: 0.25rem;
+}
+
+.imgschecon {
+  margin-left: 5px;
+}
+
+.aviphotcont {
+  margin-right: 5px;
+}
+
+.schetable {
+  padding: 10px;
+}
+
+.schetable tr {
+  padding: 10px;
+}
+
+.btn.btns-outline-dark {
+  /*   line-height: 1;
+  width: 35%;
+  font-size: 0.8rem; */
+  margin-right: 15px;
+}
+
+.far.fa-heart, .far.fa-star {
+  font-size: 50px;
+  color: white;
+}
+
+#feedmainphoto {
+  border: 1px solid gray;
+}
+.changesuccess{
+                 color: #28a745;
+         background-color: transparent;
+         background-image: none;
+         border-color: #28a745;
+         border: 1px solid transparent;
+         border-radius: 4px;
+         user-select: none;
+         touch-action: manipulation;
+         cursor: pointer;
+         display: inline-block;
+         padding: 6px 12px;
+         margin-bottom: 0;
+         font-size: 14px;
+         font-weight: 400;
+         line-height: 1.42857143;
+         text-align: center;
+         white-space: nowrap;
+         vertical-align: middle;
 }
 </style>
 <body>
   <jsp:include page="../header.jsp"></jsp:include>
-  
+
   <div class="container title">
     <div id="titl">
-      <img id="logo" src="../../img/tum.png" alt="플레이로고">
+      <img id="logo" src="../img/playbutton.png" alt="플레이로고">
       <h3>버스커피드: ${busk.bno }</h3>
       <h1>${sessionScope.no }</h1>
     </div>
   </div>
-  <div class="container" style="background-color: white;">
+  <div class="container feed" style="background-color: white;">
     <a class="twPc-bg twPc-block"></a>
-    <div style="height: 250px; border: 1px dotted green">
+    <div style="height: 270px; border: 1px dotted white;">
       <!-- 임시 높이 -->
       <div class="twPc-button">
-       <table class="teaminfo1">
+        <table class="teaminfo1">
           <tr>
-            <td><h4>팀명</h4><h2>${busk.teamname }</h2></td>
-<%--             <td><h4>장르</h4><h2>${busk.teamgenre }</h2></td>
-            <td><h4>주활동지</h4><h2>${busk.city }</h2></td> --%>
+            <td><h1 style="margin-right: 330px;">${busk.teamname }</h1></td>
+            <td><i class="far fa-heart" style="margin-right: 30px;">
+                ${busk.likecount }</i></td>
+            <td><i class="far fa-star"></i></td>
+            <!-- 
+               <i class="fas fa-heart"></i> 칠한 하트
+               <i class="fas fa-star"></i>  칠한 별
+             -->
           </tr>
         </table>
       </div>
       <c:choose>
         <c:when test="${not empty busk.teamPhoto }">
-          <a title="team" href="https://www.naver.com//"
+          <!-- 가수 유튜브채널로? -->
+          <a title="team"
+            href="https://www.youtube.com/channel/UCdtV_sB8WUWo-P_q3OwNfcw"
             class="twPc-avatarLink"> <img alt="에러"
-            src="http://img.enews24.cjenm.skcdn.com/News/Contents/20170731/92145538.jpg" class="twPc-avatarImg">
+            src="../../upload/${busk.teamPhoto }" class="twPc-avatarImg">
           </a>
         </c:when>
         <c:otherwise>
           <a title="team" class="twPc-avatarLink"> <img alt="에러"
-            src="/img/phot1.png" class="twPc-avatarImg">
+            src="../../img/phot1.png" class="twPc-avatarImg">
           </a>
         </c:otherwise>
       </c:choose>
       <div class="twPc-divUser" style="height: 200px;">
-            <p>장르 발라드</p>
-        <textarea class="infotextarea"
-          style="width: 60%; resize: none; margin: 20px 0 0 50px;"
-          rows="7" readonly="readonly" disabled placeholder="반가워요~">${busk.teamInfo }</textarea>
+        <textarea class="infotextarea" style="width: 60%; resize: none;"
+          rows="5" disabled placeholder="반가워요~">${busk.teamInfo }</textarea>
+        <!-- 250자 제한 -->
+      </div>
+      <div style="padding-left: 75%;">
+        <button id="aviupload" class="btn btns-outline-dark"
+          data-target="#aviUploadModal" data-toggle="modal">영상올리기</button>
+        <button id="photoupload" class="btn btns-outline-dark"
+          data-target="#photoUploadModal" data-toggle="modal">사진올리기</button>
       </div>
 
     </div>
     <!-- 여기까지 버스커 저옵~~~~~~~~ -->
-
     <div class="feedcontent" style="width: 100%">
-      <div class="imgschecon">
-      
-          <%-- <c:choose>
+      <div class="imgschecon" style="min-height: 200px;">
+        <div class="posttitle">
+          <i class="far fa-calendar-check"> 공연/버스킹 스케줄</i>
+        </div>
+        <table class="schetable">
+          <c:choose>
             <c:when test="${empty schelist }">
-              <tr>
-                <td>스케줄이 없습니다!</td>
-              </tr>
+              <div style="padding-left: 20px;">
+                <h3>스케줄이 없습니다!</h3>
+              </div>
             </c:when>
             <c:otherwise>
               <c:forEach items="${schelist}" var="sche">
@@ -217,62 +318,82 @@ container{
                   </td>
                   <td>${sche.addr }</td>
                 </tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
               </c:forEach>
             </c:otherwise>
-          </c:choose> --%>
+          </c:choose>
+        </table>
       </div>
+
       <div class="aviphotcont" style="min-height: 300px;">
-        <div style="padding-left: 170px;">
-          <button id="aviupload" data-target="#aviUploadModal"
-            data-toggle="modal">영상올리기</button>
-          <button id="photoupload" data-target="#photoUploadModal"
-            data-toggle="modal">사진올리기</button>
-        </div>
         <!-- 영상썸네일 -->
         <div class=avi
-          style="border: 1px dotted red; margin: 3px; height: 200px;">
-            <!-- class="row" -->
-            <c:choose>
-              <c:when test="${empty recentlist }">
-                <p>영상이 없습니다!</p>
-              </c:when>
-              <c:otherwise>
-                <c:forEach items="${recentlist}" var="m" begin="0"
-                  end="2">
-                  <div class="col-md-4 avi">
-                    <button data-target="#avimodal" data-toggle="modal"
-                      value="${m.aviboardno }">
-                      <img src="${m.thumbnail }"
-                        style="width: 200px; height: auto;">
-                    <span class="glyphicon glyphicon-play-circle"></span>
-                    </button>
-                    제목:
-                  </div>
-                </c:forEach>
-                <p
-                  style="text-align: right; margin: 5px 0; padding-right: 10px;">
-                  <a href="http://www.naver.com">동영상더보기</a>
-                </p>
-              </c:otherwise>
-            </c:choose>
+          style="border: 1px solid gray; margin-bottom: 20px; min-height: 200px;">
+          <div class="posttitle">
+            <i class="far fa-play-circle"> 영상게시글</i>
+          </div>
+          <!-- #eee -->
+          <!-- class="row" -->
+          <c:choose>
+            <c:when test="${empty recentlist }">
+              <div style="padding-left: 20px;">
+                <h3>영상이 없습니다!</h3>
+              </div>
+            </c:when>
+            <c:otherwise>
+              <c:forEach items="${recentlist}" var="m" begin="0" end="2">
+                <div class="col-md-4 avi">
+                  <button data-target="#avimodal" data-toggle="modal"
+                    value="${m.aviboardno }">
+                    <img src="${m.thumbnail }"
+                      style="width: 100%; height: auto;"> <span
+                      class="glyphicon glyphicon-play-circle"></span>
+                  </button>
+                  <c:set var="title" value="${m.title}" />
+                  <c:choose>
+                    <c:when test="${fn:length(title) > 21}">
+                      <div class="small title">${fn:substring(title,0,21)}...</div>
+                    </c:when>
+                    <c:otherwise>
+                      <div class="small title">${m.title}</div>
+                    </c:otherwise>
+                  </c:choose>
+                </div>
+              </c:forEach>
+              <p
+                style="text-align: right; margin: 5px 0; padding-right: 10px;">
+                <a href="http://www.naver.com">동영상더보기</a>
+              </p>
+            </c:otherwise>
+          </c:choose>
 
         </div>
         <!-- 사진 게시물 -->
-        <div class="photo" style="border: 1px dotted red; margin: 3px;">
-          <div class="row">
+        <div class="photo"
+          style="border: 1px solid gray; min-height: 200px;">
+          <div class="posttitle">
+            <i class="far fa-image"> 사진게시글</i>
+          </div>
+          <div class="row feedphoto">
             <c:choose>
               <c:when test="${empty recentplist }">
                 <p style="padding-left: 15px;">사진이 없습니다!</p>
               </c:when>
               <c:otherwise>
                 <c:forEach items="${recentplist}" var="t">
-                  <div class="col-md-4 photo">
+                  <div class="col-md-4 photo"
+                    style="margin-bottom: 30px;">
                     <button data-target="#photomodal"
                       data-toggle="modal" value="${t.pbno }">
                       <img src="../../upload/${t.firphot }"
-                        style="width: 200px; height: 150px;">
+                        style="width: 110%; height: 150px;"
+                        id="feedmainphoto">
                     </button>
-                    <div id="pageno"></div>
+                    <div class="small title" style="padding-left: 10px">게시일:
+                      ${t.cdt }</div>
                   </div>
                 </c:forEach>
               </c:otherwise>
@@ -294,11 +415,6 @@ container{
   width: 60%;
 }
 
-.comment {
-  float: right;
-  width: 40%;
-}
-
 .teaminfo td {
   padding: 10px 20px 10px 0;
 }
@@ -310,40 +426,154 @@ container{
   height: 140px;
 }
 
-.list-unstyled {
-  border: 1px solid red;
-  height: 475px
+/* ///////////////////////////////////// */
+h2 {
+  margin: 0;
 }
 
-.list-unstyled li {
-  border: 1px solid black;
-  height: 15%;
+.modal-header {
+  background-color: black;
+  color: white;
+  font-size: 20px;
+  padding: 10px;
+}
+
+.close {
+  color: white;
+  opacity: 1;
+}
+
+.modal-body {
+  background-color: white;
+}
+
+.comment {
+  float: right;
+  width: 40%;
+  border: 1px solid gray;
+  padding: 5px;
+}
+
+#comtcont{
+  border-radius: 0.25rem;
+  background-color: white;
+    -webkit-appearance: textfield;
+  background-color: white;
+  -webkit-rtl-ordering: logical;
+  cursor: text;
+  padding: 1px;
+  border-width: 2px;
+  border-style: inset;
+  border-color: initial;
+  border-image: initial;
+}
+
+.comtinsert {
+  padding: 10px;
+  border-bottom: 1px solid gray;
+  height: 103px;
+}
+
+.comtcont, .comtdate {
+  float: right;
+}
+
+.comtimg, .comtname {
+  float: left;
+}
+
+.comttop {
+  height: 50px;
+}
+
+.comtbottom {
+  height: 25px;
+}
+
+.comtimg {
+  width: 20%;
+  height: 48px;
+  padding: 2px 11px;
+}
+
+.comtcont {
+  width: 80%;
+  height: 48px;
+}
+
+.comtname {
+  width: 20%;
+  text-align: center;
+  font-weight: 1000;
+}
+
+.comtdate {
+  color: #777;
+}
+
+.comtwrap {
+  padding: 10px 10px 0 0;
 }
 
 #teamphoto {
-  width: 30px;
-  height: 30px;
+  border-radius: 20px;
 }
 
-h2 {
-  margin: 0;
+.infocontent {
+  border: 1px solid gray;
+  border-radius: 0.25rem;
+  width: 96%;
+  height: 190px;
+  padding: 10px 10px 0 5px;
+}
+
+.infoimg {
+  float: left;
+  width: 9%;
+  height: 44px;
+  margin: 0 10px 5px 10px;
+}
+
+.infodata {
+  
+}
+
+.top {
+  
+}
+
+.mid {
+  padding: 5px 50px 0 60px;
+}
+
+.bot {
+  text-align: right;
+}
+
+.far.fa-heart.modallike {
+  color: black;
+  font-size: 24px;
+}
+
+#modalgenre, #modalcity {
+  color: #777;
 }
 </style>
 
   <div class="modal fade" id="avimodal" tabindex="-1" role="dialog"
     aria-labelledby="avimodal" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <button type="button" class="close" data-dismiss="modal"
-          aria-label="Close" style="padding-right: 10px;">
-          <span aria-hidden="true">×</span>
-        </button>
-        <div class="avimodal-header"></div>
+      <div class="modal-content avi">
+        <div class="modal-header avi"></div>
         <div class="modal-body">
           <div class="modalcontainer">
             <div class="avicontent">
               <div class="feedavi"></div>
-              <div class="teaminfo">
+
+
+              <div class="infocontent"></div>
+
+              <!-- <div class="teaminfo">
                 <table class="aviteamimgtb">
 
                 </table>
@@ -354,17 +584,16 @@ h2 {
 
                 </div>
               </div>
+ -->
             </div>
             <div class="comment">
-              <div class="comtinsert"
-                style="border: 1px dotted blue; height: 100px;">
-                <!-- 영상댓글 -->
-              </div>
-              <div style="overflow: auto; height: 370px;">
-                <ul class="list-unstyled comt">
+              <div class="comtinsert">
 
-                </ul>
+                <div class='insertcontent'></div>
+
               </div>
+              <div class="comtlist"
+                style="overflow: auto; height: 360px;"></div>
             </div>
           </div>
         </div>
@@ -374,8 +603,8 @@ h2 {
 
   <!-- 사진모달 -->
   <style>
-.modal-body {
-  height: 500px;
+.modal-body.photo {
+  height: 620px;
 }
 
 .photocontent {
@@ -386,6 +615,7 @@ h2 {
 .comment {
   float: right;
   width: 40%;
+  border-radius: 0.25rem;
 }
 
 .teaminfo td {
@@ -397,25 +627,6 @@ h2 {
   margin-right: 20px;
   border: 1px solid red;
   height: 140px;
-}
-
-.list-unstyled {
-  border: 1px solid red;
-  height: 475px
-}
-
-.list-unstyled li {
-  border: 1px solid black;
-  height: 15%;
-}
-
-.list-unstyled.comtphoto {
-  height: 590px;
-}
-
-#teamphoto {
-  width: 30px;
-  height: 30px;
 }
 
 h2 {
@@ -446,14 +657,14 @@ h2 {
     aria-labelledby="enlargeImageModal" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content photo">
-        <div class="modal-header">
-          사진상세조회
+        <div class="modal-header photo">
+          사진 상세 조회
           <button type="button" class="close" data-dismiss="modal"
             aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body photo">
           <div class="modalcontainer">
             <div class="photocontent">
               <div class="feedphoto">
@@ -466,7 +677,11 @@ h2 {
                   </table>
                 </div>
               </div>
-              <div class="teaminfo">
+
+              <div class="infocontent"></div>
+
+
+              <!--               <div class="teaminfo">
                 <table class="phototeamimgtb">
 
                 </table>
@@ -477,12 +692,18 @@ h2 {
 
                 </div>
               </div>
+-->
             </div>
-            <div class="comment" style="overflow: auto;">
+            <div class="comment">
+              <div class="comtinsert">
 
-              <ul class="list-unstyled comtphoto">
-              </ul>
+                <div class='insertcontent'></div>
+
+              </div>
+              <div class="comtlist"
+                style="overflow: auto; height: 484px;"></div>
             </div>
+
           </div>
         </div>
       </div>
@@ -492,11 +713,27 @@ h2 {
   <!-- 사진업로드 모달 -->
   <style>
 .modal-body.photup {
-  height: 450px;
+  height: 410px;
 }
 
 .uploadbtn {
   color: snow;
+}
+
+#upload1, #upload2, #upload3, #uploadavi {
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+}
+#imgtable>td {
+    width:33%;
+    height:164px;
+}
+#imgtable{
+    width: 100%;
+}
+#upload1, #upload2, #upload3{
+height: 164px; width: 265px;
+margin-bottom:10px;
 }
 </style>
   <div class="modal fade" id="photoUploadModal" tabindex="-1"
@@ -510,54 +747,55 @@ h2 {
           </button>
         </div>
         <div class="modal-body photup">
-          <div class="modalcontainer" style="border: 1px dotted red;">
+          <div class="modalcontainer">
             <form action='addphoto' method='post'
               enctype="multipart/form-data">
-              <div style="border: 1px dotted orange; padding: 10px;">
+              <div style="padding: 10px; height: 386px;">
                 <div style="display: none">
                   <textarea name="bno" id="bno">${busk.bno }</textarea>
                 </div>
                 <div>
-                  <textarea style="width: 100%; height: 250px;"
-                    name="content" id="content" placeholder="내용 입력"></textarea>
-                </div>
-                <div>
                   <div style="margin: 20px 0;">
-                    <table>
+                    <table id="imgtable">
                       <tr>
-                        <td><img
-                          style="height: 70px; width: 100px; margin: 0 50px 10px 0;"
+                        <!-- height: 70px; width: 100px;  -->
+                        <td style="padding:0 5px 0 5px;"><img
                           id="upload1" src="/img/default_image.png"
                           alt="기본이미지"></td>
-                        <td><img
-                          style="height: 70px; width: 100px; margin: 0 50px 10px 0;"
+                        <td style="padding:0 5px 0 5px;"><img
                           id="upload2" src="/img/default_image.png"
                           alt="기본이미지"></td>
-                        <td><img
-                          style="height: 70px; width: 100px; margin: 0 50px 10px 0;"
+                        <td style="padding:0 5px 0 5px;"><img
                           id="upload3" src="/img/default_image.png"
                           alt="기본이미지"></td>
                       </tr>
                       <tr>
-                        <td><label for="input_img1">파일업로드</label> <input
+                        <td style="padding:0 0 0 10px;"><label for="input_img1">파일업로드</label> <input
                           style="height: 0; width: 150px; opacity: 0;"
                           type='file' name='file1' id='input_img1'
                           onchange="readURL1(this);" /></td>
-                        <td><label for="input_img2">파일업로드</label> <input
+                        <td style="padding:0 0 0 10px;"><label for="input_img2">파일업로드</label> <input
                           style="height: 0; width: 150px; opacity: 0;"
                           type='file' name='file2' id='input_img2'
                           onchange="readURL2(this);" /></td>
-                        <td><label for="input_img3">파일업로드</label> <input
+                        <td style="padding:0 0 0 10px;"><label for="input_img3">파일업로드</label> <input
                           style="height: 0; width: 150px; opacity: 0;"
                           type='file' name='file3' id='input_img3'
                           onchange="readURL3(this);" /></td>
                       </tr>
                     </table>
+                    <div style="margin-top: 40px; margin-bottom: 5px;">
+                      <textarea
+                        style="width: 100%; resize: none; border-radius: 0.25rem;"
+                        rows="3" name="content" id="content"
+                        placeholder="내용 입력"></textarea>
+                    </div>
                     <button type="button" data-dismiss="modal"
-                      style="float: right; margin-left: 20px;">취소</button>
-                    <button class="uploadbtn"
-                      style="float: right; margin-left: 20px;"
-                      disabled="disabled">등록</button>
+                      style="float: right; margin: 0 10px 0 15px;"
+                      class="btn btns-outline-dark">취소</button>
+                    <button class="btn btns-outline-dark uploadbtn"
+                      style="float: right; margin: 0 10px 0 15px;"
+                      disabled="disabled" id="photoaddbtn">등록</button>
                   </div>
                 </div>
               </div>
@@ -570,7 +808,19 @@ h2 {
   <!-- 영상 업로드 모달 -->
   <style>
 .modal-body.aviup {
-  height: 490px;
+  height: 530px;
+}
+
+#title, #content {
+  -webkit-appearance: textfield;
+  background-color: white;
+  -webkit-rtl-ordering: logical;
+  cursor: text;
+  padding: 1px;
+  border-width: 2px;
+  border-style: inset;
+  border-color: initial;
+  border-image: initial;
 }
 </style>
   <div class="modal fade" id="aviUploadModal" tabindex="-1"
@@ -584,44 +834,51 @@ h2 {
           </button>
         </div>
         <div class="modal-body aviup">
-          <div class="modalcontainer" style="border: 1px dotted red;">
+          <div class="modalcontainer">
             <!-- upload 폼 -->
             <form action='addavi' method='post'
               enctype="multipart/form-data">
               <div style="display: none">
                 <textarea name="bno" id="bno"></textarea>
               </div>
-              <div style="border: 1px dotted orange; padding: 10px;">
+              <div style="padding: 10px; height: 500px;">
                 <div>
                   <textarea id="title" name="title" rows="1"
-                    style="width: 100%;" placeholder="제목 입력"></textarea>
-                </div>
-                <div>
-                  <textarea style="width: 100%; height: 250px;"
-                    name="content" id="content" placeholder="내용 입력"></textarea>
+                    style="width: 100%; resize: none; border-radius: 0.25rem;"
+                    placeholder="제목 입력"></textarea>
                 </div>
                 <div>
                   <div style="margin: 20px 0;">
-                    <table>
+                    <table style="width: 100%">
                       <tr>
                         <td><img
-                          style="height: 70px; width: 100px; margin: 0 50px 10px 0;"
+                          style="height: 250px; width: auto; margin: 0 50px 10px 0;"
                           id="uploadavi" src="/img/default_image.png"
-                          alt="기본이미지"></td>
+                          alt="기본이미지">
                       </tr>
                       <tr>
-                        <td><input
-                          style="width: 600px; margin-right: 20px;"
+                        <td style="width: 60%;"><input
+                          style="border-radius: 0.25rem; width: 98%; margin-right: 10px;"
                           type='text' name='url' id='url'
                           placeholder='URL 입력' /></td>
-                        <td><button type="button" class="urlchk">확인</button></td>
+                        <td><button type="button"
+                            class="btn btns-outline-dark urlchk">확인</button></td>
                       </tr>
                     </table>
-                    <button type="button" data-dismiss="modal"
-                      style="float: right; margin-left: 20px;">취소</button>
-                    <button class="uploadbtn"
-                      style="float: right; margin-left: 20px;"
-                      disabled="disabled">등록</button>
+                    <div style="margin-top: 12px;">
+                      <textarea
+                        style="width: 100%; resize: none; border-radius: 0.25rem;"
+                        rows="3" name="content" id="content"
+                        placeholder="내용 입력"></textarea>
+                    </div>
+                    <div style="padding-top: 25px; height: 60px;">
+                      <button type="button" data-dismiss="modal"
+                        style="float: right; margin: 0 10px 0 15px;"
+                        class="btn btns-outline-dark">취소</button>
+                      <button class="btn btns-outline-dark uploadbtn"
+                        style="float: right; margin: 0 10px 0 15px;"
+                        disabled="disabled" id="aviaddbtn">등록</button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -634,7 +891,7 @@ h2 {
   </div>
   <button type="button" class="btns btns-outline-primary">Primary</button>
   <button type="button" class="btns btns-outline-secondary">Secondary</button>
-  <button type="button" class="btns btns-outline-success">Success</button>
+  <button type="button" class="btn btns-outline-success">Success</button>
   <button type="button" class="btns btns-outline-danger">Danger</button>
   <button type="button" class="btns btns-outline-warning">Warning</button>
   <button type="button" class="btns btns-outline-info">Info</button>
@@ -643,15 +900,11 @@ h2 {
   <!-- ===================================================================== -->
 
 
-  <script src="/js/feeddetail.js" type="text/javascript"></script>
+  <script src="/js/feeddetail3.js" type="text/javascript"></script>
   <script src="/js/feedupload.js" type="text/javascript"></script>
   <script src="/js/feed.js" type="text/javascript"></script>
   <script>
-            /* $(".modal.fade .modal-content:not").on("click",function(){
-             console.log("kkkk");
-             $(".feedavi").find("iframe").remove();
-             })
-             */
+            
         </script>
   <jsp:include page="../footer.jsp"></jsp:include>
 </body>

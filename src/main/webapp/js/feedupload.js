@@ -8,7 +8,7 @@ function readURL1(input) {
     if(chkImg !="jpg" && chkImg !="jpeg" && 
             chkImg !="gif" && chkImg !="png" && chkImg !="bmp"){
         chkFile1=0;
-        $(".uploadbtn").prop("disabled", true);
+        $(".btn.btns-outline-dark.uploadbtn").prop("disabled", true);
         alert("이미지 파일만 올려주세요");
         $('#upload1').attr('src', "/img/default_image.png");}
     else if (input.files && input.files[0]){ 
@@ -19,8 +19,9 @@ function readURL1(input) {
         chkFile1 = 1;
 
         if(chkFile1==1 || chkFile2==1 || chkFile3==1) {
-            $(".uploadbtn").prop("disabled", false);
-            $(".uploadbtn").css("background-color", "#4CAF50");
+            $(".btn.btns-outline-dark.uploadbtn").prop("disabled", false);
+            $(".btn.btns-outline-dark.uploadbtn").removeClass('btns-outline-dark uploadbtn');
+            $("#photoaddbtn").addClass('btns-outline-success');
         }
     }
 };
@@ -34,7 +35,7 @@ function readURL2(input) {
     if(chkImg !="jpg" && chkImg !="jpeg" && 
             chkImg !="gif" && chkImg !="png" && chkImg !="bmp"){
         chkFile2=0;
-        $(".uploadbtn").prop("disabled", true);
+        $(".btn.btns-outline-dark.uploadbtn").prop("disabled", true);
         alert("이미지 파일만 올려주세요");
         $('#upload2').attr('src', "/img/default_image.png");}
     else if (input.files && input.files[0]){ 
@@ -45,8 +46,9 @@ function readURL2(input) {
         chkFile2=1;
 
         if(chkFile1==1 || chkFile2==1 || chkFile3==1) {
-            $(".uploadbtn").prop("disabled", false);
-            $(".uploadbtn").css("background-color", "#4CAF50");
+            $(".btn.btns-outline-dark.uploadbtn").prop("disabled", false);
+            $(".btn.btns-outline-dark.uploadbtn").removeClass('btns-outline-dark uploadbtn');
+            $("#photoaddbtn").addClass('btns-outline-success');
         }
     }
 };
@@ -60,7 +62,7 @@ function readURL3(input) {
     if(chkImg !="jpg" && chkImg !="jpeg" && 
             chkImg !="gif" && chkImg !="png" && chkImg !="bmp"){
         chkFile3=0;
-        $(".uploadbtn").prop("disabled", true);
+        $(".btn.btns-outline-dark.uploadbtn").prop("disabled", true);
         alert("이미지 파일만 올려주세요");
         $('#upload3').attr('src', "/img/default_image.png");}
     else if (input.files && input.files[0]){ 
@@ -70,14 +72,15 @@ function readURL3(input) {
         reader.readAsDataURL(input.files[0]); 
         chkFile3= 1;
         if(chkFile1==1 || chkFile2==1 || chkFile3==1) {
-            $(".uploadbtn").prop("disabled", false);
-            $(".uploadbtn").css("background-color", "#4CAF50");
+            $(".btn.btns-outline-dark.uploadbtn").prop("disabled", false);
+            $(".btn.btns-outline-dark.uploadbtn").removeClass('btns-outline-dark uploadbtn');
+            $("#photoaddbtn").addClass('btns-outline-success');
         }
     }
 };
 
 /* 영상 업로드 처리 */
-$(".urlchk").on('click', function() {
+$(".btn.btns-outline-dark.urlchk").on('click', function() {
     var url=document.getElementById('url').value;
     console.log(url.length);
     var fronturl = url.substring(0,32);
@@ -90,8 +93,9 @@ $(".urlchk").on('click', function() {
     else{
         var thumbnail="https://i.ytimg.com/vi/"+url.substring(32,43)+"/hqdefault.jpg";
          $("#uploadavi").attr("src",thumbnail);
-         $(".uploadbtn").prop("disabled", false);
-         $(".uploadbtn").css("background-color", "#4CAF50");
+         $(".btn.btns-outline-dark.uploadbtn").prop("disabled", false);
+         $(".btn.btns-outline-dark.uploadbtn").removeClass('btns-outline-dark uploadbtn');
+         $("#aviaddbtn").addClass('btns-outline-success');
     }
 });
 
