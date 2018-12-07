@@ -69,22 +69,19 @@ public class FeedController {
     
     /*int photocount = feedPhotoService.recentPhotList2(no);*/
     
-/*    // 페이징처리
-    Criteria criteria = new Criteria();
-    criteria.setPage(pageNo);
-    criteria.setPerPageNum(pageSize);
-    Page page = new Page();
-    page.setCriteria(criteria);
-    page.setTotalCount(photocount);*/
-   
     
     List<Schedule> fplist = sheduleService.findFeedPerSchedule(no);//스케줄 now()이후 날짜부터 출력!
     List<Schedule> fflist = sheduleService.findFeedFixSchedule(no);
-    fplist.addAll(fflist);
     Busker busker = buskerService.get(no);
     List<Avi> alist = aviService.recentList(no);
     List<FeedPhoto> plist = feedPhotoService.recentPhotList(no,pageNo,pageSize);
 
+    for (Schedule sche : fflist) {
+      sche.setAddr(sche.getSupporter().getBaseaddr()+sche.getSupporter().getDetailaddr());
+      sche.setShopname(sche.getSupporter().getName());
+    }
+    
+    fplist.addAll(fflist);
     //영상 주소에 관한것
     for (Avi avi : alist) {
       String urlid = avi.getUrlid();
@@ -116,8 +113,8 @@ public class FeedController {
       ps.setNsdt(formatsdt.format(ps.getSdt()));
       ps.setNedt(formatedt.format(ps.getEdt()));
     }
-
-    /*model.addAttribute("page",page);*/
+    
+    
     model.addAttribute("schelist",fplist);
     model.addAttribute("busk",busker);
     model.addAttribute("recentlist",alist);

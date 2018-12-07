@@ -16,6 +16,7 @@
 		<result column="tel" property="tel" />
 		<result column="inst" property="instrument" />
 		<result column="intro" property="teamInfo" />
+		<result column="lcnt" property="likecount" />
 	</resultMap>
 
 	<resultMap type="Busker" id="buskerFeedMap">
@@ -53,7 +54,8 @@
 		genre,
 		city,
 		intro,
-		phot
+		phot,
+		lcnt
 		from busk
 		where
 		bno=#{value}
