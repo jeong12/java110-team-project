@@ -26,8 +26,7 @@ body{background-color: snow;}
  #ri{margin-right: 12%;}
 .tab{display: none;}
 .hide-bullets {list-style:none;margin-left:-40px;margin-top:20px;}
-#ff{width: 50rem;height: 40rem;}
-.ff{width: 50rem;height: 40rem;}
+
     #mmain{margin-left:8%; margin-top: 15px;}
     #ig{width: 129px;height: 60px;}            
     .mli{padding:0px; float: left;}
@@ -45,7 +44,7 @@ body{background-color: snow;}
     .close{margin-right: 15px;}
     #ttl{margin-left: 21px;}
     .mtb label{float:left;}
-    #supm{width: 50rem; margin-left: 2%;} 
+    #supm{width: 25rem; margin-left: 2%;} 
     table{width: 100%; background-color: white;}
     #ccc{float: right;}
     .dtailSupbutton,.dtailbuskbutton{width: 4rem; height: 1.8rem; padding: 0; font-size: 0.8rem;}
@@ -136,16 +135,17 @@ body{background-color: snow;}
         <h3 id="ttl">용찬하우스</h3>
       </div>
       
-      <div class="container" id="supm">
-    <div class="row" id="supm">
-        <div class="col-md-12"  id="supm">
-            <div id="carousel-example-generic" class="bbbbs carousel slide" data-ride="carousel" id="supm">
+      <div class="container">
+    <div>
+        <div>
+        
+            <div id="carousel-example-generic" class="bbbbs carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
                     <li data-target=".bbbbs" data-slide-to="0" class="active"></li>
                     <li data-target=".bbbbs" data-slide-to="1"></li>
                     <li data-target=".bbbbs" data-slide-to="2"></li>
                 </ol>
-                <div class="ttttt carousel-inner">
+                <div class="carousel-inner">
                     <div class="item active">
                         <img src="" alt="First slide">
                     </div>

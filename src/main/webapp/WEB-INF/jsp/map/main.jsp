@@ -190,8 +190,8 @@ footer{clear: both;}
 .wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
 .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
 .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
-.info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
-.info .close:hover {cursor: pointer;}
+.info .closeOverlay {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+.info .closeOverlay:hover {cursor: pointer;}
 .info .body {position: relative;overflow: hidden;}
 .info .desc {position: relative;margin: 13px 0 0 90px;height: 75px;}
 .desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
@@ -356,9 +356,12 @@ footer{clear: both;}
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=15e2302756c9e7098ec0d79f7b4d53f4"></script>
 
 <script>
+
+$(document).ready(function(){
+	
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
     mapOption = { 
-        center: new daum.maps.LatLng(37.4693, 127.04), // 지도의 중심좌표
+        center: new daum.maps.LatLng(37.4854, 127.034), // 지도의 중심좌표
         level: 7 // 지도의 확대 레벨
     };
 
@@ -367,15 +370,19 @@ var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니�
 var markers=[];
 //버튼을 클릭하면 아래 배열의 좌표들이 모두 보이게 지도 범위를 재설정합니다 
 var points =[];
+var overlays =[];
 
 /* daum.maps.event.addListener(markers, 'click', function() {
     overlay.setMap(map);
 }); */
 
 // 기본 overlay를 숨김
-function closeOverlay(overlay) {
-    overlay.setMap(null);     
-}
+/* function close() {
+	for(var i=0; i<overlays.length ; i++){
+		overlays[i].setMap(null);
+		console.log(i);
+	}
+} */
 
 //클릭시 overlay를 보여주기위한 function
 function makeClickContent(overlay,map,marker){
@@ -384,21 +391,27 @@ function makeClickContent(overlay,map,marker){
     }
 } 
 
-function makeClickContent(overlay){
+function makecloseOverlay(overlay){
     return function(){
            overlay.setMap(null);
     }
-} 
+}
+
+$(document).on('click','.closeOverlay',function (){
+	 var i=$(this).attr('value');
+	 overlays[i].setMap(null);
+});  
 
 
 
 $(function(){
+	var i = 0;
 	<c:forEach items="${list}" var="data">
 		var content = '<div class="wrap">' + 
 	    '    <div class="info">' + 
 	    '        <div class="title">' + 
 	    'test' +
-	    '            <div class="colseOverlay" onclick="closeOverlay()" title="닫기"></div>' + 
+	    '            <div class="closeOverlay" onclick="close()" value='+(i++)+' title="닫기"></div>' + 
 	    '        </div>' + 
 	    '        <div class="body">' + 
 	    '            <div class="img">' +
@@ -423,28 +436,32 @@ $(function(){
 //마커를 생성하고 지도위에 표시하는 함수입니다
 function addMarker(position, content) {
     
-    // 마커를 생성합니다
+    // 마커를 생성, 지도에 추가합니다
     var marker = new daum.maps.Marker({
-        position: position
+    	map : map,
+        position : position
     });
-    
-    // 마커가 지도 위에 표시되도록 설정합니다
-    marker.setMap(map);
     
     // 생성된 마커를 배열에 추가합니다
     markers.push(marker);
     
     var overlay = new daum.maps.CustomOverlay({
         content: content,
-        map: map,
+        /* map: map, */
         position: marker.getPosition()       
     });
-    
-    closeOverlay(overlay);
+    overlays.push(overlay);
+    //closeOverlay(overlay);
     daum.maps.event.addListener(marker, 'click', makeClickContent(overlay,map,marker));
-    daum.maps.event.addListener($('#colseOverlay'), 'click', makecloseOverlay(overlay));
+    /* $(document).on('click','.colseOverlay',makecloseOverlay(overlay)); */
     
 }
+
+
+
+
+
+})
 
 
 </script>
