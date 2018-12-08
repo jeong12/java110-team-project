@@ -1,6 +1,7 @@
 package indiesker.java110.ms.domain;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class BuskerPromotion {
 
@@ -11,12 +12,16 @@ public class BuskerPromotion {
   protected Date sdt;
   protected Date edt;
   protected int cnt;
-  protected Date cdt;
+  protected Timestamp cdt;
   protected String etc;
   protected String phot;
   protected int bno;
   protected int bbno;
-  
+  protected String tel1;
+  protected String tel2;
+  protected String nsdt;
+  protected String nedt;
+  protected String ncdt;
   public String getTitl() {
     return titl;
   }
@@ -59,11 +64,11 @@ public class BuskerPromotion {
   public void setCnt(int cnt) {
     this.cnt = cnt;
   }
-  public Date getCdt() {
-	return cdt;
+  public Timestamp getCdt() {
+    return cdt;
   }
-  public void setCdt(Date cdt) {
-	this.cdt = cdt;
+  public void setCdt(Timestamp cdt) {
+    this.cdt = cdt;
   }
   public String getEtc() {
     return etc;
@@ -89,12 +94,48 @@ public class BuskerPromotion {
   public void setBbno(int bbno) {
     this.bbno = bbno;
   }
-
+  public String getTel1() {
+    return tel1;
+  }
+  public void setTel1(String tel1) {
+    this.tel1 = tel1;
+  }
+  public String getTel2() {
+    return tel2;
+  }
+  public void setTel2(String tel2) {
+    this.tel2 = tel2;
+  }
+  public String getNsdt() {
+    return nsdt;
+  }
+  public void setNsdt(String nsdt) {
+    this.nsdt = nsdt;
+  }
+  public String getNedt() {
+    return nedt;
+  }
+  public void setNedt(String nedt) {
+    this.nedt = nedt;
+  }
+  public String getNcdt() {
+    return ncdt;
+  }
+  public void setNcdt(String ncdt) {
+    this.ncdt = ncdt;
+  }
   @Override
   public String toString() {
     return "BuskerPromotion [titl=" + titl + ", teamname=" + teamname + ", genre=" + genre
         + ", city=" + city + ", sdt=" + sdt + ", edt=" + edt + ", cnt=" + cnt + ", cdt=" + cdt
-        + ", etc=" + etc + ", phot=" + phot + ", bno=" + bno + ", bbno=" + bbno + "]";
+        + ", etc=" + etc + ", phot=" + phot + ", bno=" + bno + ", bbno=" + bbno + ", tel1=" + tel1
+        + ", tel2=" + tel2 + ", nsdt=" + nsdt + ", nedt=" + nedt + ", ncdt=" + ncdt + "]";
   }
+  
+  
+  
+  
+  
+  
   
 }

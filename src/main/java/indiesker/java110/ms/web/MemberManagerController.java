@@ -46,7 +46,7 @@ public class MemberManagerController {
       mm.setNcdt(dformat.format(mm.getCdt()));
     }
      
-     model.addAttribute("paging",paging);
+      model.addAttribute("paging",paging);
       model.addAttribute("list", list);
   }
   
