@@ -47,7 +47,7 @@ $().ready(function(){
                         $('#mainList').append(
                                 '<tr><td scope="row">'+item.busker.teamname+'</td>'+
                                 '<td>'+item.busker.teamgenre+'</td>'+
-                                '<td>'+item.supporter.baseaddr.substring(6,8)+'</td>'+
+                                '<td>'+item.addr+'</td>'+
                                 '<td>'+dateSdt.getHours()+zeroPlus(dateSdt.getMinutes())+
                                 '~'+dateEdt.getHours()+zeroPlus(dateEdt.getMinutes())+'</td></tr>'
                         ).hide();
@@ -84,7 +84,7 @@ $().ready(function(){
                         $('#mainList').append(
                                 '<tr><td scope="row">'+item.busker.teamname+'</td>'+
                                 '<td>'+item.busker.teamgenre+'</td>'+
-                                '<td>'+item.supporter.baseaddr.substring(6,8)+'</td>'+
+                                '<td>'+item.addr+'</td>'+
                                 '<td>'+dateSdt.getHours()+zeroPlus(dateSdt.getMinutes())+
                                 '~'+dateEdt.getHours()+zeroPlus(dateEdt.getMinutes())+'</td></tr>'
                         ).hide();
@@ -113,7 +113,7 @@ $().ready(function(){
                         $('#mainList').append(
                                 '<tr onclick="OpenImg();"><td scope="row">'+item.name+'</td>'+
                                 '<td>'+item.sgnere+'</td>'+
-                                '<td>'+item.baseaddr.substring(6,8)+'</td>'+
+                                '<td>'+item.baseaddr+'</td>'+
                                 '<td class="supno" style="display:none">'+item.no+'</td></tr>'
                         ).hide();
                     });
@@ -142,7 +142,7 @@ $().ready(function(){
                         $('#mainList').append(
                                 '<tr onclick="OpenImg();"><td scope="row">'+item.name+'</td>'+
                                 '<td>'+item.sgnere+'</td>'+
-                                '<td>'+item.baseaddr.substring(6,8)+'</td>'+
+                                '<td>'+item.baseaddr+'</td>'+
                                 '<td class="supno" style="display:none">'+item.no+'</td></tr>'
                         ).hide();
                     });

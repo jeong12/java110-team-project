@@ -162,7 +162,10 @@ a:focus, a:hover {
                           <div id="sup_icon" style="display:none">
                           <a href="#"><i class="fa fa-globe"></i>
                           <span class=" d-md-inline-block_c">내 무대 관리하기</span></a>
-                          </div>  
+                          </div>
+                          <a href="/app/membermanager/list" id="user_manager" style="display:none;">
+                          <i class="fas fa-users"></i>
+                          <span class="d-md-inline-block_c">회원 관리하기</span></a>  
                           <a href="/app/auth/logout" class="logout-btn">
                           <i class="fas fa-sign-out-alt"></i>
                           <span class="d-md-inline-block_c">Sign Out</span></a>

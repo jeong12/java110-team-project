@@ -28,7 +28,7 @@ body {
 }
  
 #titl {
-    margin: 0 auto; padding: 10px 0; width: 800px;
+    margin: 0 auto; padding: 10px 0; width: 940px;
 }
 
 #logo {
@@ -101,8 +101,9 @@ h4 {
     
 .modi{
     margin: 0.5rem 0 1rem;
-    position: relative;
-    left: 13.5rem;
+}
+#modi-center{
+    text-align: center;
 }
 
  input[type="text"],input[type="tel"]{
@@ -195,7 +196,7 @@ function readURL(input) {
 <body>
 
     <div id="titl">
-        <img id="logo" src="/img/playButton.PNG" alt="플레이로고">
+        <img id="logo" src="/img/playButton.png" alt="플레이로고">
          <h3 class="h3">버스커 정보 수정</h3>
     </div>
     <div class=container>
@@ -230,7 +231,9 @@ function readURL(input) {
             <input type="text" name="instrument" size=30> <br>
             <h4>팀소개</h4>
             <textarea name="teamInfo" rows="4" cols="34" class="nonesize" placeholder="100자 이내로 적어주시길 바랍니다."></textarea><br>
+            <div id="modi-center">
             <button class="modi btns btns-outline-dark" disabled="disabled">수정완료</button>
+            </div>
         </form>
     </div>
 </body>

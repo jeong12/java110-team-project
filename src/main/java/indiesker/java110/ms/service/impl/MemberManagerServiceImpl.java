@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import indiesker.java110.ms.dao.MemberManagerDao;
 import indiesker.java110.ms.domain.Busker;
 import indiesker.java110.ms.domain.GradleMember;
@@ -65,6 +66,8 @@ public List<MemberManager> dateSelect(String flag, String text,String ncdt1,Stri
   
   return list;
 }
+
+@Transactional
  @Override
   public int update(String memo, String nik) {
    
@@ -219,6 +222,16 @@ public int totlist() {
 @Override
 public int totlistFlag(int flag) {
   return memberManagerDao.totlistFlag(flag);
+}
+
+@Override
+public void stopMem(String id, int flag) {
+  if( flag < 10 ) {
+    memberManagerDao.upStopMem(id);  
+  }
+  else {
+    memberManagerDao.upUnStopMem(id);
+  }
 }
 
 

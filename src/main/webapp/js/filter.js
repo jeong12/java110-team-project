@@ -18,6 +18,12 @@ $().ready(function(){
         var busk_icon = document.getElementById('busk_icon');
         var sup_icon = document.getElementById('sup_icon');
         var edit_icon = document.getElementById('edit_icon');
+        var user_manager = document.getElementById('user_manager');
+        
+        if(id == 999999){
+            user_manager.style.display = 'block';
+            
+        }
         
         edit_icon.style.display = 'block';
         

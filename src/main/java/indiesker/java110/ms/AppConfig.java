@@ -13,8 +13,10 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import indiesker.java110.ms.service.StatisticsService;
 
 @Configuration
 @PropertySource(
@@ -27,6 +29,7 @@ public class AppConfig {
 
   @Autowired
   Environment env;
+  @Autowired StatisticsService statisticsService;
 
   // 꽂혔는지 확인용 확인되면 지워연
   public AppConfig() {
@@ -73,6 +76,13 @@ public class AppConfig {
     return new DataSourceTransactionManager(dataSource);
 
   }
+  
+  //통계
+  @Scheduled(cron = "0 0 23 * * * ")
+  public void scheduledByWeek() {
+    statisticsService.scheduleService();
+    System.out.println("실행됨 ㅎㅎㅎ");
+  } 
 
   // 주로 테스트용!
   /*public static void main(String[] args) {
