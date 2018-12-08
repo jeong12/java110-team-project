@@ -987,6 +987,7 @@ function showList(){
                 $('#testappend').empty();
                 $('.pages').empty();
                   $.each(data.list,function(index,item){
+                	  console.log(item);
                     $('#testappend').append(
                    '<tr><td>'+item.id+'</td>'+
                    '<td class=niks>'+item.nik+'</td>'+
