@@ -14,17 +14,174 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
  <link rel="stylesheet" href="../../css/common.css">
+   
+   <!--  -->
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2.0/dist/flickity.min.css">
+<script src="https://unpkg.com/flickity@2.0/dist/flickity.pkgd.min.js"></script>
+   <!--  -->
+   
     
     <style>
+    
+    
+    
+    
+    /* 박스 */
+        .All{       width: 19rem;
+    height: 28rem;
+    border: 1px solid black;
+    position: relative;
+    top: -44.6rem;
+    z-index: 1;
+    background-color: white;
+    }
+    .toptable{border-bottom-color: #c6cbce;
+    background-color: #f2f3f5;
+        text-align: center;
+        height: 5rem;
+        padding-top: 1.5rem;
+    }
+    li{list-style: none;}
+    .listbox ul li{
+        width: 33.3333%;
+        border: 1px solid #d8dde0;
+        padding: 5% 0% 4% 0%;
+        text-align: center
+ 
+    }
+    .listbox ul{
+        flex-wrap:wrap;
+        display:flex;
+        width: 100%;
+        padding: 0;
+    }
+    .listbox{
+        
+        
+    }
+    li{padding: 0;}
+    .boxbt{padding: 14px;
+    background-color: #f4f5f9;
+    text-align: center;
+        border: 1px solid #d8dde0;
+    }
+    ul{
+        margin-bottom: 0;
+    }
+    /* 박스끝 */
+    
+    /*  */
+         @import url("https://fonts.googleapis.com/css?family=Hind:400,700");
+html, body {
+
+
+  width: 100%;
+  height: 100%;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+h3 {
+  text-align: center;
+  font-weight: 400;
+  margin-bottom: 0;
+}
+
+.carousel-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #FFFFFF;
+  background-image: linear-gradient(#FFFFFF 50%, #FFFFFF 50%, #F0F3FC 50%);
+  box-shadow: 0px 12px 39px -19px rgba(0, 0, 0, 0.75);
+  overflow: hidden;
+}
+.carousel-wrapper .carousel {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  height: auto;
+}
+.carousel-wrapper .carousel .carousel-cell {
+  padding: 10px;
+  background-color: #FFFFFF;
+  width: 20%;
+  height: auto;
+  min-width: 120px;
+  margin: 0 20px;
+  transition: transform 500ms ease;
+}
+.carousel-wrapper .carousel .carousel-cell .more {
+  display: block;
+  opacity: 0;
+  margin: 5px 0 15px 0;
+  text-align: center;
+  font-size: 10px;
+  color: #CFCFCF;
+  text-decoration: none;
+  transition: opacity 300ms ease;
+}
+.carousel-wrapper .carousel .carousel-cell .more:hover, .carousel-wrapper .carousel .carousel-cell .more:active, .carousel-wrapper .carousel .carousel-cell .more:visited, .carousel-wrapper .carousel .carousel-cell .more:focus {
+  color: #CFCFCF;
+  text-decoration: none;
+}
+.carousel-wrapper .carousel .carousel-cell .line {
+  position: absolute;
+  width: 2px;
+  height: 0;
+  background-color: black;
+  left: 50%;
+  margin: 5px 0 0 -1px;
+  transition: height 300ms ease;
+  display: block;
+}
+.carousel-wrapper .carousel .carousel-cell .price {
+  position: absolute;
+  font-weight: 700;
+  margin: 45px auto 0 auto;
+  left: 50%;
+  transform: translate(-50%);
+  opacity: 0;
+  transition: opacity 300ms ease 300ms;
+}
+.carousel-wrapper .carousel .carousel-cell .price sup {
+  top: 2px;
+  position: absolute;
+}
+.carousel-wrapper .carousel .carousel-cell.is-selected {
+  transform: scale(1.2);
+}
+.carousel-wrapper .carousel .carousel-cell.is-selected .line {
+  height: 35px;
+}
+.carousel-wrapper .carousel .carousel-cell.is-selected .price, .carousel-wrapper .carousel .carousel-cell.is-selected .more {
+  opacity: 1;
+}
+.carousel-wrapper .flickity-page-dots {
+  display: none;
+}
+.carousel-wrapper .flickity-viewport, .carousel-wrapper .flickity-slider {
+  overflow: visible;
+}
+    /*  */
+    
 body {
 	background-color: snow;
 }
-#ALLdiv{background-color: white;}
+#ALLdiv{background-color: white;margin-top: 2.3rem;}
 #titl{margin-top: 2%; margin-bottom: 2%;}
 #logo{float: left; width: 30px; height: 30px;}
 #haha{margin-top: 0.8%; margin-left: 5.5%;}
 footer{clear: both;}
-#map{border: 1px solid red;height: 20rem;}
+#map{height: 20rem; clear: both;}
 #caseldiv{border:1px solid red; height: 20rem;}
 #maptitle{border: 1px solid red; width: 5rem; height: 3rem;}
 
@@ -42,10 +199,27 @@ footer{clear: both;}
 .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
 .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
 .info .link {color: #5085BB;}
-#inputbox{float: right;}
-.topdiv{display: flow-root;}
+#inputbox{float: right; display: flex; width: 17rem;}
+.topdiv{display: inline-flex; width: 100%; display: unset;}
+#boxleft{float: left; display: -webkit-inline-box;}
+#boxleft div{    border: 1px solid silver;
+    border: 1px solid #c6cbce;
+    height: 2.4rem;
+    width: 13rem;
+    text-align: center;
+    padding-top: 2.5%;
+    background-color: #f2f3f5;
+    }
+#leftbox{border-radius: 5px 0 0 0;}
+#rightbox{border-radius: 0 5px 0 0;}
+.form-control{margin: 2% 2%;}
+#sbutton{    
+    font-size: 0.8rem;
+    width: 3rem;
+    height: 2rem;
+        margin: auto;
+    }
     </style>
-    
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
 <div id="titl" class="container">
@@ -55,20 +229,57 @@ footer{clear: both;}
 
 <body>
 
+<div id="out" class="container">
 
-<div class="container" id="ALLdiv">
 <div class="topdiv">
-    <div>하 위</div>
-    <div>하 위</div>
+<div id="boxleft">
+    <div id="leftbox">하 위</div>
+    <div id="rightbox">하 위</div>
+</div>
     
     <div id="inputbox">
-    <input type="text">
-    <button class="btns btns-outline-m">검색</button>
+    <input class="form-control" type="text">
+    <button id="sbutton" class="btns btns-outline-m">검색</button>
     </div>
 </div>
+
+<div id="ALLdiv">
+
 <div id="map"></div>
 <p id="maptitle">오늘의 공연목록</p>
-<div id="caseldiv"></div>
+<div id="caseldiv">
+
+
+
+
+<!--  -->
+<div class="carousel-wrapper">
+  <div class="carousel" data-flickity>
+    <div class="carousel-cell">
+      <h3>Product 1</h3>
+      <a class="more" href="">Explore more</a>
+      <img src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=" />
+    
+    </div>
+    <div class="carousel-cell">
+      <h3>Product 2</h3>
+      <a class="more" href="">Explore more</a>
+      <img src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=" />
+    
+    </div>
+    <div class="carousel-cell">
+      <h3>Product 3</h3>
+      <a class="more" href="">Explore more</a>
+      <img src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=" />
+   
+     
+    </div>
+  </div>
+</div>
+<!--  -->
+
+
+</div>
 
 
 <em>클릭한 위치에 마커가 표시됩니다!</em>
@@ -84,10 +295,40 @@ footer{clear: both;}
 
 
 
+<div class="All">
+    <div class="toptable">안녕하신가</div>
+    <div class="listbox">
+        <ul>
+            <li>서울특별시</li>
+            <li>경기도</li>
+            <li>인천광역시</li>
+            <li>부산광역시</li>
+            <li>대구광역시</li>
+            <li>광주광역시</li>
+            <li>대전광역시</li>
+            <li>광주광역시</li>
+            <li>대전광역시</li>
+            <li>울산광역시</li>
+            <li>세종특별시</li>
+            <li>강원도</li>
+            <li>경상남도</li>
+            <li>경상북도</li>
+            <li>전라남도</li>
+            <li>전라북도</li>
+            <li>충청남도</li>
+            <li>충청북도</li>
+            <li>제주도</li>
+        </ul>
+        
+    </div>
+    <div class="boxbt">
+        <button>취소</button>
+        
+    </div>
+    
+    </div>
 
-
-
-
+</div>
 
 
 
