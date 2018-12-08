@@ -14,4 +14,5 @@ public interface MemberService {
     void modiMem(Member member);
     boolean isBusker(int no);
     Member getMember(int no);
+    int getType(int no);
 }

@@ -18,6 +18,7 @@ public interface SupporterDao {
   Supporter findInfo(int no);
   List<Supporter> findByHot();
   List<Supporter> findByHot(Map<String,Object> city);
+  int updateFlag(int no);
   
 }
 

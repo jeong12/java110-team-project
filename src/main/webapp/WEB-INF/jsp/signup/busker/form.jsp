@@ -148,9 +148,9 @@ select {
         <form action='addavi' method='post' enctype="multipart/form-data" id='join_form'>
             <label for="teamname">팀명</label><br>
             <input type='text' name='teamname' oninput="checkName()" id="teamname"
-                size=30><br> <span id="nameMsg"></span><br>
+                size=30 autocomplete="off"><br> <span id="nameMsg"></span><br>
              <label for="genre">장르</label><br>
-            <select name="teamgenre" onchange="checkGenre()" id="genre" min-width:"100px">
+            <select name="teamgenre" onchange="checkGenre()" id="genre" min-width:"100px" autocomplete="off">
                 <option value="ballad" selected="selected">발라드</option>
                 <option value="dance">댄스</option>
                 <option value="trot">트로트</option>
@@ -163,16 +163,16 @@ select {
             </select><br>
              <label for="city">도시</label><br>
             <input type="text" name="city" id="city" oninput="checkCity()"
-                size=30><br> <span id="cityMsg"></span><br>
+                size=30 autocomplete="off"><br> <span id="cityMsg"></span><br>
              <label for="tel">전화번호</label><br>
-            <input type="tel" name="tel" id="tel" oninput="checkTel()" size=30>
+            <input type="tel" name="tel" id="tel" oninput="checkTel()" size=30 autocomplete="off">
             <br> <span id="telMsg"></span>
              <label for="instrument">악기</label><br>
-            <input type="text" name="instrument" size=30 id="instrument"> <br>
+            <input type="text" name="instrument" size=30 id="instrument" autocomplete="off"> <br>
             <label for="straming">스트리밍 url</label><br>
-            <input type="text" name="streamingUrl" size=30 id="straming"> <br>
+            <input type="text" name="streamingUrl" size=30 id="straming" autocomplete="off"> <br>
             <label for="teamInfo">팀 소개</label><br>
-            <input type="text" name="teamInfo" size=30 id="teamInfo"> <br>
+            <input type="text" name="teamInfo" size=30 id="teamInfo" autocomplete="off"> <br>
             <label for="input_img">사진</label><br>
             <img id="upload" src="/img/anonymous.png" alt="기본이미지"><br>
             <input type='file' name='file1' id='input_img'

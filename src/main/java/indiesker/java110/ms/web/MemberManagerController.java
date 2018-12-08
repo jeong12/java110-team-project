@@ -38,48 +38,57 @@ public class MemberManagerController {
   public void list(Paging paging, Model model, String pageNo) {
 
     paging.setTotalCount(memberManagerService.totlist());
-    paging.setPageSize(15);
-    List<MemberManager> list = memberManagerService.listAll(paging);
-    model.addAttribute("paging", paging);
-    model.addAttribute("list", list);
+     paging.setPageSize(15);
+     
+     List<MemberManager> list = memberManagerService.listAll(paging);
+     
+     SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
+     for (MemberManager mm : list) {
+      mm.setNcdt(dformat.format(mm.getCdt()));
+    }
+     
+     model.addAttribute("paging",paging);
+      model.addAttribute("list", list);
   }
 
   @GetMapping("select")
-  public void listSelect(char flag, @RequestParam(defaultValue = "1") int pageNo,
-      @RequestParam(defaultValue = "10") int pageSize, Model model) {
+  public void listSelect(char flag,
+          @RequestParam(defaultValue="1") int pageNo,
+          @RequestParam(defaultValue="10") int pageSize,
+          Model model) {
 
-    if (pageNo < 1)
-      pageNo = 1;
+      if (pageNo < 1)
+          pageNo = 1;
 
-    if (pageSize < 3 || pageSize > 10)
-      pageSize = 3;
-    List<MemberManager> select = memberManagerService.listSelect(flag, pageNo, pageSize);
-
-    model.addAttribute("select", select);
+      if (pageSize < 3 || pageSize > 10)
+          pageSize = 3;
+      List<MemberManager> select = memberManagerService.listSelect(flag ,pageNo, pageSize);
+      
+      model.addAttribute("select", select);
   }
 
   @ResponseBody
-  @RequestMapping(value = "dateselect")
-  public List<MemberManager> dateSelect(String flag, String text, String cdt1, String cdt2,
-      @RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10") int pageSize,
-      Model model) throws ParseException {
+  @RequestMapping(value="dateselect")
+  public List<MemberManager> dateSelect(String flag, String text,String cdt1, String cdt2,
+          @RequestParam(defaultValue="1") int pageNo,
+          @RequestParam(defaultValue="10") int pageSize,
+          Model model) throws ParseException {
+        
+      if (pageNo < 1)
+          pageNo = 1;
+      if (pageSize < 3 || pageSize > 10)
+          pageSize = 3;
+      
+      List<MemberManager> list =memberManagerService.dateSelect(flag,text,cdt1,cdt2,pageNo, pageSize);
+      DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-    if (pageNo < 1)
-      pageNo = 1;
-    if (pageSize < 3 || pageSize > 10)
-      pageSize = 3;
-
-    List<MemberManager> list =
-        memberManagerService.dateSelect(flag, text, cdt1, cdt2, pageNo, pageSize);
-    DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
-    for (MemberManager m : list) {
-      m.setNcdt(format.format(m.getCdt()));
-      if (m.getMemo() == null) {
-        m.setMemo("메모없음");
+      for(MemberManager m:list) {
+        m.setNcdt(format.format(m.getCdt()));
+        if(m.getMemo()==null) {
+          m.setMemo("메모없음");
+        }
       }
-    }
-    return list;
+      return list; 
   }
 
   @ResponseBody
@@ -283,100 +292,126 @@ public class MemberManagerController {
    */
 
   @ResponseBody
-  @RequestMapping(value = "showList")
-  public Map<String, Object> showList(String flag, String pageNo, Paging paging)
-      throws ParseException {
+  @RequestMapping(value="showList")
+  public Map<String,Object>showList(String flag, String pageNo, Paging paging) throws ParseException {
     paging.setTotalCount(memberManagerService.totlist());
     paging.setPageSize(15);
-    if (pageNo != null) {
+    if(pageNo != null) {
       paging.setPageNo(Integer.parseInt(pageNo));
     }
+      
     List<MemberManager> list = memberManagerService.listAll(paging);
+    SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
 
     for (MemberManager mm : list) {
-      if (mm.getFlag() == '1') {
-        mm.setType("회원");
-      } else if (mm.getFlag() == '2') {
-        mm.setType("버스커");
-      } else if (mm.getFlag() == '3') {
-        mm.setType("제공자");
-      } else if (mm.getFlag() == '4') {
-        mm.setType("정지회원");
-      }
-    }
-    Map<String, Object> map = new HashMap<>();
-    map.put("list", list);
-    map.put("paging", paging);
-    return map;
+        if(mm.getFlag() == '1') {
+          mm.setNcdt(dformat.format(mm.getCdt()));
+          mm.setType("회원");
+        }else if(mm.getFlag() == '2') {
+          mm.setNcdt(dformat.format(mm.getCdt()));
+          mm.setType("버스커");
+        }else if(mm.getFlag() == '3') {
+          mm.setNcdt(dformat.format(mm.getCdt()));
+          mm.setType("제공자");
+        }else if(mm.getFlag() == '4') {
+          mm.setNcdt(dformat.format(mm.getCdt()));
+          mm.setType("정지회원");
+        }
+      }      
+      Map<String,Object> map = new HashMap<>(); 
+       map.put("list", list);
+       map.put("paging", paging);
+       return map;
   }
 
 
 
   @ResponseBody
-  @RequestMapping(value = "showMemb")
-  public Map<String, Object> showMemb(String flag, String pageNo) throws ParseException {
+  @RequestMapping(value="showMemb")
+  public Map<String,Object> showMemb(String flag, String pageNo) throws ParseException {
     Paging paging = new Paging();
     paging.setPageSize(15);
-    if (paging.getStartPageNo() == 0) {
-      paging.setStartPageNo(1);
+    if(paging.getStartPageNo() == 0) {
+        paging.setStartPageNo(1);
     }
-    if (pageNo != null)
-      paging.setPageNo(Integer.parseInt(pageNo));
+    if(pageNo != null)      paging.setPageNo(Integer.parseInt(pageNo));
     paging.setTotalCount(memberManagerService.totlistFlag(Integer.parseInt(flag)));
-    List<MemberManager> list = memberManagerService.memberAjax(Integer.parseInt(flag), paging);
-    Map<String, Object> map = new HashMap<>();
+    
+    List<MemberManager>  list = memberManagerService.memberAjax(Integer.parseInt(flag),paging);
+    SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
+    for (MemberManager mm : list) {
+      mm.setNcdt(dformat.format(mm.getCdt()));
+      System.out.println(mm.getFlag());
+    }    
+    
+    Map<String,Object> map = new HashMap<>(); 
     map.put("list", list);
     map.put("paging", paging);
+    
     return map;
   }
 
   @ResponseBody
-  @RequestMapping(value = "showBusk")
-  public Map<String, Object> showBusk(int flag, String pageNo) throws ParseException {
+  @RequestMapping(value="showBusk")
+  public Map<String,Object> showBusk(int flag,String pageNo) throws ParseException {
     Paging paging = new Paging();
-    if (pageNo != null)
-      paging.setPageNo(Integer.parseInt(pageNo));
+    if(pageNo != null) paging.setPageNo(Integer.parseInt(pageNo));
     flag = 2;
     paging.setPageSize(15);
     paging.setTotalCount(memberManagerService.totlistFlag(flag));
-
-    List<MemberManager> list = memberManagerService.memberAjax(flag, paging);
-    Map<String, Object> map = new HashMap<>();
+    
+    List<MemberManager>  list = memberManagerService.memberAjax(flag,paging);
+    
+    SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
+    for (MemberManager mm : list) {
+      mm.setNcdt(dformat.format(mm.getCdt()));
+    }  
+    
+    Map<String,Object> map = new HashMap<>(); 
     map.put("list", list);
     map.put("paging", paging);
+    
     return map;
   }
 
   @ResponseBody
-  @RequestMapping(value = "showSup")
-  public Map<String, Object> showSup(int flag, String pageNo) throws ParseException {
+  @RequestMapping(value="showSup")
+  public Map<String,Object> showSup(int flag,String pageNo) throws ParseException {
     Paging paging = new Paging();
     flag = 3;
-    if (pageNo != null)
-      paging.setPageNo(Integer.parseInt(pageNo));
+    if(pageNo != null) paging.setPageNo(Integer.parseInt(pageNo));
     paging.setPageSize(15);
     paging.setTotalCount(memberManagerService.totlistFlag(flag));
-
-    List<MemberManager> list = memberManagerService.memberAjax(flag, paging);
-    Map<String, Object> map = new HashMap<>();
+    
+    List<MemberManager>  list = memberManagerService.memberAjax(flag,paging);
+    
+    SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
+    for (MemberManager mm : list) {
+      mm.setNcdt(dformat.format(mm.getCdt()));
+    }  
+    
+    Map<String,Object> map = new HashMap<>(); 
     map.put("list", list);
     map.put("paging", paging);
     return map;
   }
-
   @ResponseBody
-  @RequestMapping(value = "showStop")
-  public Map<String, Object> showStop(int flag, String pageNo, Paging paging)
-      throws ParseException {
+  @RequestMapping(value="showStop")
+  public Map<String,Object> showStop(int flag,String pageNo, Paging paging) throws ParseException {
     flag = 4;
-    if (pageNo != null)
-      paging.setPageNo(Integer.parseInt(pageNo));
-
+    if(pageNo != null) paging.setPageNo(Integer.parseInt(pageNo));
+    
     paging.setPageSize(15);
     paging.setTotalCount(memberManagerService.totlistFlag(flag));
-
-    List<MemberManager> list = memberManagerService.memberAjax(flag, paging);
-    Map<String, Object> map = new HashMap<>();
+    
+    List<MemberManager>  list = memberManagerService.memberAjax(flag,paging);
+    
+    SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
+    for (MemberManager mm : list) {
+      mm.setNcdt(dformat.format(mm.getCdt()));
+    }  
+    
+    Map<String,Object> map = new HashMap<>(); 
     map.put("list", list);
     map.put("paging", paging);
     return map;

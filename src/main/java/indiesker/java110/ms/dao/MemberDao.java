@@ -14,4 +14,5 @@ public interface MemberDao {
   void updateMemb(Member member);
   Member buskCheck(int no);
   Member findMemByNo(int no);
+  int getType(int no);
 }

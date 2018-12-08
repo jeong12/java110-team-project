@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import indiesker.java110.ms.dao.BuskerDao;
 import indiesker.java110.ms.domain.Busker;
@@ -13,6 +14,9 @@ import indiesker.java110.ms.service.BuskerService;
 public class BuskerServiceImpl implements BuskerService {
 
   @Autowired  BuskerDao buskerDao;
+  @Transactional(transactionManager="transactionManager",   
+      propagation=Propagation.REQUIRED,
+      rollbackFor=Exception.class)
 
 //    @Override
 //    public List<BuskerList> list(int pageNo, int pageSize) {
@@ -28,11 +32,10 @@ public class BuskerServiceImpl implements BuskerService {
     return buskerDao.findByNo(no);
   }
 
-  @Transactional
   @Override
   public void add(Busker busker) {
     buskerDao.insert(busker);
-
+    buskerDao.updateflag(busker.getNo());
   }
 
   @Override
@@ -40,7 +43,6 @@ public class BuskerServiceImpl implements BuskerService {
     return buskerDao.findByBusker(no);
   }
 
-  @Transactional
   @Override
   public void modiBusk(Busker busker) {
     buskerDao.updateBusk(busker);

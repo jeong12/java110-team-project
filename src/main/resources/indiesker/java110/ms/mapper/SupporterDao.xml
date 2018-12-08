@@ -96,5 +96,12 @@
           </if>
           order by tcnt desc;
     </select>
+    
+    <update id="updateFlag" parameterType="int">
+    UPDATE `memb` 
+    SET `flag`=3 
+    WHERE mno=#{no}
+</update>
+    
 </mapper>
 

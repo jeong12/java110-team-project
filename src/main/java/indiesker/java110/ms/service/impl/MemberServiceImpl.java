@@ -114,6 +114,12 @@ public class MemberServiceImpl implements MemberService {
     return memberDao.findMemByNo(no);
   }
 
+  @Override
+  public int getType(int no) {
+    int type = memberDao.getType(no);
+    return type;
+  }
+  
 }
 
 

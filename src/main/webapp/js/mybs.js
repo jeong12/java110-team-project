@@ -431,8 +431,7 @@ $(document).on('click','.detailinfobtn',function(){
     });
 });
     
-
-$('.removebtn').click(function(){
+$(document).on('click','.removebtn',function(){
 	
 	var f = $(this).val();
 	swal({
@@ -496,6 +495,7 @@ $('#regendtimepicker').focusout(function(){
 	console.log(preedt);
 	if(presdt>preedt){
 		swal("오류","공연시간을 확인해주세요","error");
+		return;
 	}
 		
     var f = {
@@ -531,7 +531,7 @@ var oldsdt ;
 var oldedt ;
 
 $('#editbtn').click(function(){
-	//$('#detailperModal').modal('hide');
+	//$('#detail`Modal').modal('hide');
 	var cnt = $('#detailperModal #percnt').text().substring(0,$('#detailperModal #percnt').text().length-1);
 	var peredt=$('#detailperModal #peredt').text().substring(11,16);
 	console.log($('#detailperModal #pershopname').text());
@@ -678,6 +678,11 @@ $('.tabs li').click(function(){
     $(this).addClass('active current');
     $("#"+tab_id).addClass('active current');
     
+});
+
+$('.pages li').click(function(){
+    $('.pages li').siblings().removeClass('active');
+    $(this).addClass('active');
 });
 
 
@@ -832,4 +837,110 @@ function pasing(){
     });
 }
 
-
+function goPage(e,listtype) {
+	console.log(e);
+	console.log(listtype);
+	$.ajax({ 
+			type : "GET", 
+			url : "page", 
+			traditional : true,
+			data : {"pageNo" : e, "type":listtype},
+			success : function(data){
+				if(listtype == 'list'){
+					$("#schedulelist").empty();
+					$.each(data,function(index,item){
+						if(item.flag == '1'.charAt(0)){
+							$("#schedulelist").append(
+								'<tr><td>'+item.shopname+'</td>'+
+								'<td>'+item.addr+'</td>'+
+								'<td>'+item.nsdt+'~'+item.nedt+'</td>'+
+								'<td>'+item.cnt+'명'+'</td>'+
+								'<td><span class="label label-warning">진행중</span></td>'+
+								'<td>'+item.ncdt+'</td>'+
+								'<td><button data-toggle="modal" data-target="#detailreqModal"'+
+								'class="btns btns-outline-secondary detailinfobtn" value="a'+item.sno+'">상세보기</button>'+
+								'<td><button class="btns btns-outline-danger removebtn" value="a'+item.sno+'">삭제</button></td>'
+								);
+						}else if(item.flag == '2'.charAt(0)){
+							$("#schedulelist").append(
+									'<tr><td>'+item.shopname+'</td>'+
+									'<td>'+item.addr+'</td>'+
+									'<td>'+item.nsdt+'~'+item.nedt+'</td>'+
+									'<td>'+item.cnt+'명'+'</td>'+
+									'<td><span class="label label-success">완료</span></td>'+
+									'<td>'+item.ncdt+'</td>'+
+									'<td><button data-toggle="modal" data-target="#detailreqModal"'+
+									'class="btns btns-outline-secondary detailinfobtn" value="a'+item.sno+'">상세보기</button>'+
+									'<td><button class="btns btns-outline-danger removebtn" value="a'+item.sno+'">삭제</button></td>'
+									);
+						}else if(item.flag == '3'.charAt(0)){
+							$("#schedulelist").append(
+									'<tr><td>'+item.shopname+'</td>'+
+									'<td>'+item.addr+'</td>'+
+									'<td>'+item.nsdt+'~'+item.nedt+'</td>'+
+									'<td>'+item.cnt+'명'+'</td>'+
+									'<td><span class="label label-info">개인스케줄</span></td>'+
+									'<td>'+item.ncdt+'</td>'+
+									'<td><button data-toggle="modal" data-target="#detailreqModal"'+
+									'class="btns btns-outline-secondary detailinfobtn" value="b'+item.sno+'">상세보기</button>'+
+									'<td><button class="btns btns-outline-danger removebtn" value="b'+item.sno+'">삭제</button></td>'
+									);
+						}
+					});
+				}else if(listtype == 'inglist'){
+					$("#ingschedulelist").empty();
+					$.each(data,function(index,item){
+							$("#ingschedulelist").append(
+								'<tr><td>'+item.shopname+'</td>'+
+								'<td>'+item.addr+'</td>'+
+								'<td>'+item.nsdt+'~'+item.nedt+'</td>'+
+								'<td>'+item.cnt+'명'+'</td>'+
+								'<td><span class="label label-warning">진행중</span></td>'+
+								'<td>'+item.ncdt+'</td>'+
+								'<td><button data-toggle="modal" data-target="#detailreqModal"'+
+								'class="btns btns-outline-secondary detailinfobtn" value="a'+item.sno+'">상세보기</button>'+
+								'<td><button class="btns btns-outline-danger removebtn" value="a'+item.sno+'">삭제</button></td>'
+								);
+					});
+				}else if(listtype=='edlist'){
+					$("#edschedulelist").empty();
+					$.each(data,function(index,item){
+							$("#edschedulelist").append(
+								'<tr><td>'+item.shopname+'</td>'+
+								'<td>'+item.addr+'</td>'+
+								'<td>'+item.nsdt+'~'+item.nedt+'</td>'+
+								'<td>'+item.cnt+'명'+'</td>'+
+								'<td><span class="label label-success">완료</span></td>'+
+								'<td>'+item.ncdt+'</td>'+
+								'<td><button data-toggle="modal" data-target="#detailreqModal"'+
+								'class="btns btns-outline-secondary detailinfobtn" value="a'+item.sno+'">상세보기</button>'+
+								'<td><button class="btns btns-outline-danger removebtn" value="a'+item.sno+'">삭제</button></td>'
+								);
+					});
+					
+				}else if(listtype='plist'){
+					$("#pschedulelist").empty();
+					$.each(data,function(index,item){
+							$("#pschedulelist").append(
+								'<tr><td>'+item.shopname+'</td>'+
+								'<td>'+item.addr+'</td>'+
+								'<td>'+item.nsdt+'~'+item.nedt+'</td>'+
+								'<td>'+item.cnt+'명'+'</td>'+
+								'<td><span class="label label-info">완료</span></td>'+
+								'<td>'+item.ncdt+'</td>'+
+								'<td><button data-toggle="modal" data-target="#detailperModal"'+
+								'class="btns btns-outline-secondary detailinfobtn" value="b'+item.sno+'">상세보기</button>'+
+								'<td><button class="btns btns-outline-danger removebtn" value="b'+item.sno+'">삭제</button></td>'
+								);
+					});
+				}else{
+					
+				}
+			},
+			error : function(request, status, error) {
+				swal("에러!","에러가 발생했습니다. 관리자에게 문의하시기 바랍니다.","error");
+			}
+		});
+		
+		
+	}

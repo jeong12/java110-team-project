@@ -16,7 +16,13 @@ public class BuskerBoard {
   protected String etc;
   protected Date cdt;
   protected String phot;
-  protected String bno;
+  protected int bno;
+  protected String name;
+  protected int bcno;
+  protected String cont;
+  protected int mno;
+  protected int flag;
+  
   
   
   public Date getSdt() {
@@ -50,10 +56,10 @@ public class BuskerBoard {
   public void setCdt(Date cdt) {
     this.cdt = cdt;
   }
-  public String getBno() {
+  public int getBno() {
     return bno;
   }
-  public void setBno(String bno) {
+  public void setBno(int bno) {
     this.bno = bno;
   }
   

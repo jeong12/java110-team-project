@@ -10,12 +10,9 @@
 <title>버스커 리스트</title>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css"/>
-<link rel="stylesheet" href="../../css/common.css">
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link rel="stylesheet" href="../../css/common.css"/>
+<link rel="stylesheet" type="text/css"  href="/../css/jquery.datetimepicker.css">
+
 <style>
     body{background-color: snow;}
     table{border-collapse: separate;border-spacing: 10px 20px; margin : 0 auto;}  
@@ -50,7 +47,7 @@
 <jsp:include page="../header.jsp"></jsp:include>
   </header>  
     <div id="titl">
-        <img id="logo" src="/img/playButton.PNG" alt="플레이로고">
+        <img id="logo" src="../../img/playButton.png" alt="플레이로고">
         <h2 id="titleh2">무대관리</h2>
     </div>
     
@@ -77,11 +74,11 @@
   <label class="leftlabel" for="textinput">인원</label>  
   <input id="textinputmember" name="cnt" type="number" min="1"  placeholder="인원" class="member form-control input-md">
 </div>
-<div class="form-group">
+<div class="form-group" id='datetimepicker1'>
   <label class="leftlabel" for="textinput">날짜</label>  
-  <input id="textinput2" name="sdt" type="date" placeholder="시작일을 입력하시오" class="form-control input-md">
+  <input id="textinput2" name="sdt" type="text" placeholder="시작일을 입력하시오" class="form-control input-md" autocomplete="off">
   <label id="labelb">~</label>
-  <input id="textinput3" name="edt" type="date" placeholder="종료일을 입력하시오" class="form-control input-md">
+  <input id="textinput3" name="edt" type="text" placeholder="종료일을 입력하시오" class="form-control input-md" autocomplete="off">
 </div>
 <div class="form-group">
   <label class="leftlabel" for="textinput">연락처1</label>  
@@ -94,15 +91,11 @@
 </div>
 <div class="right">
 <div class="imguppend">
-<img id="upload1" name="" alt="" src="">
+<img id="upload1" name="" alt="기본이미지" src="/img/anonymous.png">
 </div>
 <div class="form-group">
   <label class=" control-label" for="filebutton">사진</label>
     <input id="filebutton" name="file1" class="input-file" type="file" onchange="readURL1(this)">
-</div>
-<div class="form-group">
-  <label class="" for="">버스커 번호</label>
-    <input id="filebutton" name="bno" class="input-file" type="text" onchange="readURL1(this)">
 </div>
 </div>
 </div>
@@ -156,8 +149,17 @@
 
 </body>
 
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="/js/time/jquery.datetimepicker.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script src="/js/fullcalendar.min.js" type="text/javascript"></script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <script>
-
 function hihihi(){
 	var titl = $("input[name='titl']").val();
 	var gnere = $("input[name='genre']").val();
@@ -213,23 +215,44 @@ function readURL1(input) {
     }
 };
 
+var mini;
+var maxi;
+$(function(){
+$('#textinput2').datetimepicker({
+minDate:0,
+timepicker:false,
+dateformat:'yy-mm-dd',
+});
+
+
+$('#textinput2').change(function () {
+	$('#textinput3').focus();
+	var d = $('#textinput2').val()
+	mini = d.substring(0,10);
+	
+	$('#textinput3').datetimepicker({
+		minDate:mini
+	})
+})
+
+$('#textinput3').datetimepicker({
+	minDate:mini,
+	timepicker:false,
+	dateformat:'yy-mm-dd'
+});
+
+$('#textinput3').change(function () {
+    var da = $('#textinput3').val()
+    var maxi = da.substring(0,10);
+    
+    $('#textinput2').datetimepicker({
+        maxDate:maxi
+    })
+})
+
+
+});
+
 </script>
 <jsp:include page="../footer.jsp"></jsp:include>
 </html>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    

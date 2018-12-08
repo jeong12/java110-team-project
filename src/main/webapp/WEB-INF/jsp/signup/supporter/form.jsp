@@ -8,7 +8,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=15e2302756c9e7098ec0d79f7b4d53f4&libraries=services"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c63782df6473def89780e1d964f9d83a&libraries=services"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/signupSupporter.js" type="text/javascript"></script>
@@ -18,31 +18,47 @@ th {
     text-align: right;
 }
 
-.titl {
-    margin: 5% 5% 0% 5%;
+.title{
+margin-left: 15rem;
+margin-right: 15rem;
 }
 
-#logo {
-    width: 50px;
-    height: 50px;
-    margin: 10px;
+#logo{
+width: 40px; 
+height:40px; 
+float: left; 
+margin-top: -4px;
+margin-right: 0.5rem;
 }
 
-h2 {
-    margin-top: -50px;
-    margin-left: 70px;
+#titl{
+margin-top: 5%;
+margin-bottom: 3%;
+margin-left: 8.3rem;
+}
+
+#titl h3{
+float: left; 
+margin-top: -5px;
+font-size: 24px;
+}
+
+body{
+background-color: snow;
 }
 
 .container {
-    padding: 5% 10% 10% 10%;
+    background-color: white;
+    margin-left: 15rem;
+    margin-right: 15rem;
 }
 
 .join_form {
     border: 1px solid silver;
     border-radius: 10px;
-    padding-bottom: 15%;
+    margin: 0px auto;
+    margin-bottom: 10%;
 }
-
 label {
     margin-bottom: 0px;
     font-family: "Open Sans", Helvetica, sans-serif;
@@ -57,7 +73,7 @@ font-family: "Open Sans", Helvetica, sans-serif;
 
 form {
     margin: 0px auto;
-    padding: 5% 10%;
+    padding: 8% 10%;
 }
 
 input {
@@ -68,7 +84,6 @@ input {
     width: 80%;
     border: none; border-bottom : 2px solid #ebebeb; position : relative;
     width : 80%;
-    margin-bottom: 5%;
 }
 
 input:focus {
@@ -122,10 +137,10 @@ select {
 <jsp:include page="../../header.jsp"></jsp:include>
 <body>
 
-    <div class="title container">
+<div class="title container">
 <div class="row">
-    <div id="titl" class='col-lg-8'>
-        <img id="logo" src="/img/playButton.PNG" alt="플레이로고">
+    <div id="titl" class='col-lg-12'>
+        <img id="logo" src="../../../img/playButton.png" alt="플레이로고">
         <h3>무대제공자 되기</h3>
     </div>
     </div>
@@ -137,7 +152,7 @@ select {
             <div class="join_form col-lg-8">
 		<form action='add' method='post' enctype="multipart/form-data">
 			<label for="name">상호명</label><br>
-			<input type='text' name='name' oninput="checkName()" id="name" size=30><br> 
+			<input type='text' name='name' oninput="checkName()" id="name" size=30 autocomplete="off"><br> 
 			<span id="nameMsg"></span><br>
 			<label for="sgenre">퍼포먼스/장르(희망)</label><br>
 			<select name='sgnere' id='sgnere'>
@@ -152,20 +167,20 @@ select {
 				<option value="rap">랩</option>
 			</select><br>
 			<label for="baseaddr">주소</label><br>
-			<input type="text" id="baseaddr" name="baseaddr" placeholder="주소" size=60>
+			<input type="text" id="baseaddr" name="baseaddr" placeholder="주소" size=60 autocomplete="off">
             <input type="button" onclick="searchAddr()" value="주소 검색">
-			<input type="text" id="detailaddr" name="detailaddr" placeholder="상세주소" size=60 onchange="checkDetailAddr()">
-            <input type="hidden" id="x" name="x">
-            <input type="hidden" id="y" name="y"><br>			
+			<input type="text" id="detailaddr" name="detailaddr" placeholder="상세주소" size=60 onchange="checkDetailAddr()" autocomplete="off">
+            <input type="hidden" id="x" name="x" autocomplete="off">
+            <input type="hidden" id="y" name="y" autocomplete="off"><br>			
 			<span id="daMsg"></span><br>
 			<div id="map" style="width:400px;height:400px;margin-top:10px;display:none"></div>
 			<label for="capa">수용가능인원</label><br>
-			<input type="number" id="capa" name="capa" size=30 onchange="checkCapa()">
+			<input type="number" id="capa" name="capa" size=30 onchange="checkCapa()" autocomplete="off">
 			<span id="capaMsg"></span><br>
 			<label for="tel">연락처</label><br>
-			<input type="tel" id="tel" name="tel" size=30 onchange="checkTel()"> <br>
+			<input type="tel" id="tel" name="tel" size=30 onchange="checkTel()" autocomplete="off"> <br>
 			<label for="message">기타(희망사항)</label><br>
-			<input type="textarea" name="message" id="message" size=30> <br>
+			<input type="textarea" name="message" id="message" size=30 autocomplete="off"> <br>
 			<label>사진</label>
 			<label>해당 공연장 사진을 올려주세요</label><br>
 			<img id="upload1" src="/img/default_image.png" alt="기본이미지">

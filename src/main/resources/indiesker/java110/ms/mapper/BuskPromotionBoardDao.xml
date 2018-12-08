@@ -5,6 +5,8 @@
 <mapper namespace="indiesker.java110.ms.dao.BuskerPromotionDao">
 
     <resultMap type="BuskerPromotion" id="buskPromotionMap">
+        <id column="bbno"      property="bbno"/>
+        <result column="bno"   property="bno"/>
         <result column="titl"  property="titl"/>
         <result column="name"  property="teamname"/>
         <result column="genre"  property="genre"/>
@@ -18,7 +20,7 @@
     </resultMap>
 
     <select id="findAll" resultMap="buskPromotionMap" parameterType="map">
-select titl, b.name, bo.genre, bo.city, sdt, edt, cnt, etc, bo.phot, cdt
+select titl, b.name, bo.genre, bo.city, sdt, edt, cnt, etc, bo.phot, cdt, b.bno, bo.bbno
 from busk_board bo join busk b on bo.bno = b.bno
 ORDER by bo.cdt DESC
     </select>

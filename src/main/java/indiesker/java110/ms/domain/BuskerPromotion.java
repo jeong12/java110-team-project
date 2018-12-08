@@ -14,6 +14,8 @@ public class BuskerPromotion {
   protected Date cdt;
   protected String etc;
   protected String phot;
+  protected int bno;
+  protected int bbno;
   
   public String getTitl() {
     return titl;
@@ -75,6 +77,24 @@ public class BuskerPromotion {
   public void setPhot(String phot) {
     this.phot = phot;
   }
-  
+  public int getBno() {
+    return bno;
+  }
+  public void setBno(int bno) {
+    this.bno = bno;
+  }
+  public int getBbno() {
+    return bbno;
+  }
+  public void setBbno(int bbno) {
+    this.bbno = bbno;
+  }
+
+  @Override
+  public String toString() {
+    return "BuskerPromotion [titl=" + titl + ", teamname=" + teamname + ", genre=" + genre
+        + ", city=" + city + ", sdt=" + sdt + ", edt=" + edt + ", cnt=" + cnt + ", cdt=" + cdt
+        + ", etc=" + etc + ", phot=" + phot + ", bno=" + bno + ", bbno=" + bbno + "]";
+  }
   
 }

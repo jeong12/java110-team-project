@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Propagation;
 import indiesker.java110.ms.dao.SupporterDao;
 import indiesker.java110.ms.domain.Schedule;
 import indiesker.java110.ms.domain.StagePhoto;
@@ -16,6 +17,9 @@ import indiesker.java110.ms.service.SupporterService;
 public class SupporterServiceImpl implements SupporterService {
 
     @Autowired SupporterDao supporterDao;
+    @Transactional(transactionManager="transactionManager",   
+        propagation=Propagation.REQUIRED,
+        rollbackFor=Exception.class)
 
     @Override
     public int checkName(String name) {
@@ -23,7 +27,6 @@ public class SupporterServiceImpl implements SupporterService {
       return supporterDao.checkName(name);
       }
 
-    @Transactional
     @Override
     public int insert(Supporter s) {
       List<StagePhoto> list = new ArrayList<>();
@@ -35,7 +38,8 @@ public class SupporterServiceImpl implements SupporterService {
       }
       
       supporterDao.insert(s);
-      return supporterDao.insertfile(list);
+      supporterDao.insertfile(list);
+      return supporterDao.updateFlag(s.getNo());
     }
 
     @Override
@@ -43,13 +47,11 @@ public class SupporterServiceImpl implements SupporterService {
       return supporterDao.findBySupporter(no);
     }
 
-    @Transactional
     @Override
     public void modiSup(Supporter supporter) {
       supporterDao.updateSup(supporter);
     }
 
-    @Transactional
     @Override
     public void modiSupPho(StagePhoto stagephoto) {
       supporterDao.updateFile(stagephoto);

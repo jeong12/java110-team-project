@@ -154,7 +154,7 @@ text-align: center;}
 <div class="title container">
 <div class="row">
     <div id="titl" class='col-lg-8'>
-        <img id="logo" src="../../../img/tum.png" alt="플레이로고">
+        <img id="logo" src="../../../img/playButton.png" alt="플레이로고">
         <h3>회원가입</h3>
     </div>
     </div>
@@ -165,23 +165,23 @@ text-align: center;}
 		  <div class="join_form col-lg-8">
 			<form action='add' method='post' enctype="multipart/form-data">
 			  <label for="checkid">아이디</label><br> 
-			  <input type='text' name='id' required class="id" oninput="checkId()" id="checkid"><br>
+			  <input type='text' name='id' required class="id" oninput="checkId()" id="checkid" autocomplete="off"><br>
 			  <span id="idMsg"></span><br>
 			  <label for="pwd">비밀번호</label><br> 
 			  <input type="password" placeholder="8자 이상 영어, 숫자, 특수문자 포함" name="password" 
-			         required class="pass" id="pwd" oninput="checkPwd()"><br> 
+			         required class="pass" id="pwd" oninput="checkPwd()" autocomplete="off"><br> 
 			  <span id="pwdMsg"></span><br>
 		      <label for="repwd">비밀번호 확인</label><br> 
 		      <input type="password" placeholder="위와 같은 비밀번호를 써주세요" name="psd-repeat" 
-		             required class="pass" id="repwd" oninput="checkPwd()"><br> 
+		             required class="pass" id="repwd" oninput="checkPwd()" autocomplete="off"><br> 
 		      <span id="rePassword"></span><br>
 		      <label for="checkmail">이메일</label><br>
 			  <input type="email" name="email" required class="email" oninput="checkEmail()" 
-			         id="checkemail"><br> 
+			         id="checkemail" autocomplete="off"><br> 
 			  <span	id="emailMsg"></span><br> 
 			  <label for="checknickname">닉네임</label><br>
 			  <input type="text" name="nickname" required class="id"
-				 	 id="checknickname" oninput="checkNickname()"><br> 
+				 	 id="checknickname" oninput="checkNickname()" autocomplete="off"><br> 
 			  <span	 id="nickMsg"></span> <label for='input_img'>사진</label><br> 
 			  <img id="upload" src="/img/anonymous.png" alt="기본이미지"><br>
 			  <input type='file' name='file1' id='input_img' onchange="readURL(this);" /> 

@@ -62,9 +62,9 @@ margin-top:20px;
   
     #ttl{margin-left: 21px;}
     .mtb label{float: left}
-     #logo{width: 40px; height:40px; float: left; margin-top: -4px;}
-    #titl{margin-top: 2%; margin-left: 11%;}
-    #titleh2{float: left; margin-top: 0; margin-left: 1%;}
+      #titl{margin-top: 3.5%; margin-bottom: 2%;}
+    #logo{float: left; width: 40px; height: 40px;}
+    #haha{margin-top: 0.7%; margin-left: 4%;}
     .buskDetail,.memberDetail,.supDetail,.btt2,.btt{width: 4rem; height: 1.8rem; font-size: 0.8rem;padding: 0;}
     
     
@@ -95,38 +95,30 @@ margin-top:20px;
 width: 40%;
 margin-left: -2rem;
 }  
-
-/* .tototo{
-display: c
-}   */
-
 .pages{
 text-align: center;
 padding-left: 28%;
 }
+.list-group-item.active{
+    background-color:red;
+    
+}
+.container{width: 70%;}
+.text-left{margin-top: 1%; margin-bottom: -1%;}
 </style>
 
 <jsp:include page="../header.jsp"></jsp:include>
-  <div id="titl">
-        <img id="logo" src="../../img/tum.png" alt="플레이로고">
-        <h3 id="titleh2">회원 관리</h3>
+<div id="titl" class="container">
+        <img id="logo" src="../../img/playButton.png" alt="플레이로고">
+        <h3 id="haha">회원관리</h3>
     </div>
 <body>
 <div class="container">
-    <div class="row" id="topbutton">       
-        <div class="col-md-12">
-          <div class="slt">
-        <div id="bun">
-        <!--  -->
-        
-        
- <div class="container">
-    <div class="row" style="padding-top:10px;">
-        
+        <div id="topbutton">       
         <div class="text-left" style='display:inline-block;'>
             <div class="list-group list-group-horizontal">
                <ul class='tabs'>
-                    <li class="list-group-item" onclick="showList()">전체보기</li>
+                    <li class="list-group-item active" onclick="showList()">전체보기</li>
                     <li class="list-group-item" onclick="showMemb()">일반 </li>
                     <li class="list-group-item" onclick="showBusk()">버스커</li>
                     <li class="list-group-item" onclick="showSup()">제공자</li>
@@ -134,11 +126,6 @@ padding-left: 28%;
                 </ul>
             </div>
         </div>
-    </div>
-</div>  
-
-  </div>
-
 <!-- 검색 옵션 -->
        <div id="ccc">      
             <input type="date" class="date1" id="start">  ~  <input type="date" class="date2" id="end">
@@ -153,21 +140,20 @@ padding-left: 28%;
         </div>    
        </div>
 
-        <div class="table-responsive">
+        <div class="table table-responsive">
               
          <div class="tab12" id="bt1"> 
-         <!--sdfjkl;sdfajkl;sdfajkl;  -->
-              <table id="mytable" class="table32 table-bordred table-striped">  
+              <table id="mytable" class="table table-bordred table-striped"> 
                   <thead>                   
-	                   <tr><th class="col-md-1">아이디</th>
-	                   <th class="col-md-1">닉네임</th>
-	                   <th class="col-md-2">이메일</th>
-	                   <th class="col-md-1">등급</th>
-	                   <th class="col-md-2">가입일</th>
-	                   <th class="col-md-2">메모</th>
-	                   <th class="col-md-1">메모수정</th>
-	                   <th class="col-md-1">상세보기</th>
-	                   <th class="col-md-1">정지</th></tr>
+                       <tr><th class="col-md-1">아이디</th>
+                       <th class="col-md-1">닉네임</th>
+                       <th class="col-md-2">이메일</th>
+                       <th class="col-md-1">등급</th>
+                       <th class="col-md-2">가입일</th>
+                       <th class="col-md-2">메모</th>
+                       <th class="col-md-1">메모수정</th>
+                       <th class="col-md-1">상세보기</th>
+                       <th class="col-md-1">정지</th></tr>
                    </thead>
     <tbody id="testappend">
           <c:forEach  items="${list}" var="m">
@@ -177,7 +163,7 @@ padding-left: 28%;
 				    <td class=niks>${m.nik}</td>
 				    <td>${m.email}</td>
 				    <td>회원</td>
-				    <td>${m.cdt}</td>
+				    <td>${m.ncdt}</td>
 				    <td id="memow">${m.memo}</td>
 				    <td><button class="btt btns btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
 				    <td><div  class="detailbtn"><button name="detailAll" class="memberDetail btns btns-outline-secondary"  data-toggle="modal" data-target="#memberDetail" value="${m.nik}">상세보기</button></div></td>
@@ -198,7 +184,7 @@ padding-left: 28%;
                     <td class=niks>${m.nik}</td>
                     <td>${m.email}</td>
                     <td>버스커</td>
-                    <td>${m.cdt}</td>
+                    <td>${m.ncdt}</td>
                     <td id="memow">${m.memo}</td>
                     <td><button class="btt btn btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
                     <td><div id="detailAll" class="detailbtn"><button name="detailAll" class="buskDetail btns btns-outline-secondary"  data-toggle="modal" data-target=".modelbusk" value="${m.nik}">상세보기</button></div></td>
@@ -221,7 +207,7 @@ padding-left: 28%;
                     <td class="col-md-1">${m.nik}</td>
                     <td class="col-md-2">${m.email}</td>
                     <td class="col-md-1">제공자</td>
-                    <td class="col-md-2">${m.cdt}</td>
+                    <td class="col-md-2">${m.ncdt}</td>
                     <td id="memow" class="col-md-2">${m.memo}</td>
                     <td class="col-md-1"><button class="btt btn btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
                     <td class="col-md-1"><div id="detailAll" class="detailbtn"><button id="detailAll" class="supDetail btns btns-outline-secondary"  data-toggle="modal" data-target="#supDetail" value="${m.nik}">상세보기</button></div></td>
@@ -235,7 +221,7 @@ padding-left: 28%;
                     <td class=niks>${m.nik}</td>
                     <td>${m.email}</td>
                     <td>${m.flag}</td>
-                    <td>${m.cdt}</td>
+                    <td>${m.ncdt}</td>
                     <td id="memow">${m.memo}</td>
                     <td><button class="btt btn btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
                     <td><div id="detailAll" class="detailbtn"><button id="detailAll" class="btt2 btns btns-outline-secondary"  data-toggle="modal" data-target="#model-id" value="${m.nik}">상세보기</button></div></td>
@@ -287,7 +273,7 @@ padding-left: 28%;
 </div>
 </div>
 </div>
-</div>
+
      
 <!-- memo 모달 -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -476,7 +462,6 @@ padding-left: 28%;
     </div>
   </div>
   </div>
-</div>
 </div>
 <!-- 서포터모달 끝 -->
 <script>
@@ -843,7 +828,7 @@ function goPageAll(e){
                '<tr><td>'+item.id+'</td>'+
                '<td class=niks>'+item.nik+'</td>'+
                '<td>'+item.email+'</td><td>'+item.type+'</td>'+
-               '<td>'+item.cdt+'</td>'+
+               '<td>'+item.ncdt+'</td>'+
                '<td id="memow">'+item.memo+'</td>'+
                '<td><button class="btt btns btns-outline-info"'+  
                'data-toggle="modal" data-target="#exampleModal"'+
@@ -893,7 +878,7 @@ function goPageMemb(e){
                 '<tr><td>'+item.id+'</td>'+
                 '<td class=niks>'+item.nik+'</td>'+
                 '<td>'+item.email+'</td><td>회원</td>'+
-                '<td>'+item.cdt+'</td>'+
+                '<td>'+item.ncdt+'</td>'+
                 '<td id="memow">'+item.memo+'</td>'+
                 '<td><button class="btt btns btns-outline-info"'+  
                 'data-toggle="modal" data-target="#exampleModal"'+
@@ -942,7 +927,7 @@ function goPageBusk(e){
                           '<tr><td>'+item.id+'</td>'+
                           '<td class=niks>'+item.nik+'</td>'+
                           '<td>'+item.email+'</td><td>버스커</td>'+
-                          '<td>'+item.cdt+'</td>'+
+                          '<td>'+item.ncdt+'</td>'+
                           '<td id="memow">'+item.memo+'</td>'+
                           '<td><button class="btt btns btns-outline-info"'+  
                           'data-toggle="modal" data-target="#exampleModal"'+
@@ -992,7 +977,7 @@ function goPageSup(e){
                           '<tr><td>'+item.id+'</td>'+
                           '<td class=niks>'+item.nik+'</td>'+
                           '<td>'+item.email+'</td><td>제공자</td>'+
-                          '<td>'+item.cdt+'</td>'+
+                          '<td>'+item.ncdt+'</td>'+
                           '<td id="memow">'+item.memo+'</td>'+
                           '<td><button class="btt btns btns-outline-info"'+  
                           'data-toggle="modal" data-target="#exampleModal"'+
@@ -1042,7 +1027,7 @@ function goPageStop(e){
                    '<tr><td>'+item.id+'</td>'+
                    '<td class=niks>'+item.nik+'</td>'+
                    '<td>'+item.email+'</td><td>정지회원</td>'+
-                   '<td>'+item.cdt+'</td>'+
+                   '<td>'+item.ncdt+'</td>'+
                    '<td id="memow">'+item.memo+'</td>'+
                    '<td><button class="btt btns btns-outline-info"'+  
                    'data-toggle="modal" data-target="#exampleModal"'+
@@ -1092,9 +1077,9 @@ function showList(){
 	        	  $.each(data.list,function(index,item){
 	            	$('#testappend').append(
 	               '<tr><td>'+item.id+'</td>'+
-                   '<td class=niks>'+data.list.nik+'</td>'+
+                   '<td class=niks>'+item.nik+'</td>'+
 	               '<td>'+item.email+'</td><td>'+item.type+'</td>'+
-                   '<td>'+item.cdt+'</td>'+
+                   '<td>'+item.ncdt+'</td>'+
                    '<td id="memow">'+item.memo+'</td>'+
                    '<td><button class="btt btns btns-outline-info"'+  
                    'data-toggle="modal" data-target="#exampleModal"'+
@@ -1146,7 +1131,7 @@ function showMemb(){
                 		'<tr><td>'+item.id+'</td>'+
                    '<td class=niks>'+item.nik+'</td>'+
                    '<td>'+item.email+'</td><td>회원</td>'+
-                   '<td>'+item.cdt+'</td>'+
+                   '<td>'+item.ncdt+'</td>'+
                    '<td id="memow">'+item.memo+'</td>'+
                    '<td><button class="btt btns btns-outline-info"'+  
                    'data-toggle="modal" data-target="#exampleModal"'+
@@ -1198,7 +1183,7 @@ function showBusk(){
                        '<tr><td>'+item.id+'</td>'+
                        '<td class=niks>'+item.nik+'</td>'+
                        '<td>'+item.email+'</td><td>버스커</td>'+
-                       '<td>'+item.cdt+'</td>'+
+                       '<td>'+item.ncdt+'</td>'+
                        '<td id="memow">'+item.memo+'</td>'+
                        '<td><button class="btt btns btns-outline-info"'+  
                        'data-toggle="modal" data-target="#exampleModal"'+
@@ -1249,7 +1234,7 @@ function showSup(){
                        '<tr><td>'+item.id+'</td>'+
                        '<td class=niks>'+item.nik+'</td>'+
                        '<td>'+item.email+'</td><td>제공자</td>'+
-                       '<td>'+item.cdt+'</td>'+
+                       '<td>'+item.ncdt+'</td>'+
                        '<td id="memow">'+item.memo+'</td>'+
                        '<td><button class="btt btns btns-outline-info"'+  
                        'data-toggle="modal" data-target="#exampleModal"'+
@@ -1300,7 +1285,7 @@ function showStop(){
                        '<tr><td>'+item.id+'</td>'+
                        '<td class=niks>'+item.nik+'</td>'+
                        '<td>'+item.email+'</td><td>정지회원</td>'+
-                       '<td>'+item.cdt+'</td>'+
+                       '<td>'+item.ncdt+'</td>'+
                        '<td id="memow">'+item.memo+'</td>'+
                        '<td><button class="btt btns btns-outline-info"'+  
                        'data-toggle="modal" data-target="#exampleModal"'+

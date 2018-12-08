@@ -92,17 +92,18 @@ display:inherit;
   border: 0;
   -ms-interpolation-mode: bicubic;
 }
-
+#titl{margin-top: 2%; margin-bottom: 2%;}
+#logo{float: left;}
+#haha{margin-top: 0.8%; margin-left: 5.5%;}
 
 </style>
 
 </head>
 <body>
     <jsp:include page="../header.jsp"></jsp:include> 
-
-	<div id="titl">
+	<div id="titl" class="container">
 		<img id="logo" src="/img/playButton.PNG" alt="플레이로고">
-		<h2>버스킹 일정</h2>
+		<h2 id="haha">버스킹 일정</h2>
 	</div>
 
 
@@ -140,7 +141,7 @@ display:inherit;
         
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left" style='display:inline-block;'>
                 <div id="addschedule">
-                   <button type="button" class="btns btns-outline-primary" data-toggle="modal"
+                   <button style="margin-top: -4%;" type="button" class="btns btns-outline-primary" data-toggle="modal"
                        data-target="#myModal">스케줄등록하기</button>
                </div>
             <div class="list-group list-group-horizontal">
@@ -174,7 +175,7 @@ display:inherit;
 						<th>작성일</th>
 					</tr>
 				</thead>
-				<tbody id='schedulelist' onload="pasing();">
+				<tbody id='schedulelist'>
 					<c:forEach items="${list}" var="list">
 						<tr>
 							<td>${list.shopname}</td>
@@ -193,9 +194,9 @@ display:inherit;
 			                              <span class="label label-info">개인스케줄</span>                                 
 			                        </c:otherwise>
 								</c:choose></td>
-							<td>${list.cdt}</td>
+							<td>${list.ncdt}</td>
 							<c:choose>
-								<c:when test="${list.supporter eq null }">
+								<c:when test="${list.flag eq '3'.charAt(0)}">
 									<td>
 										<button data-toggle="modal" data-target="#detailperModal"
 											class="btns btns-outline-secondary detailinfobtn" value="b${list.sno}">상세보기</button>
@@ -218,6 +219,27 @@ display:inherit;
 					</c:forEach>
 				</tbody>
 		   </table>
+		   <nav aria-label="Page navigation example" class='pages' style="text-align: center;">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:goPage(${listpaging.prevPageNo},'list')">Previous</a></li>
+                                    
+                                <c:forEach var="i" begin="${listpaging.startPageNo}" end="${listpaging.endPageNo}" step="1">
+                                 <c:choose>
+                                 <c:when test="${i eq listpaging.pageNo}">
+                                    <li class="page-item active">
+                                    <a href="javascript:goPage(${i},'list')" class="choice">${i}</a></li>
+                                 </c:when>
+                                 <c:otherwise>
+                                  <li class="page-item">
+                                  <a href="javascript:goPage(${i},'list')">${i}</a></li>
+                                </c:otherwise>
+                                </c:choose>
+                                </c:forEach>
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:goPage(${listpaging.nextPageNo},'list')">Next</a></li>
+                            </ul>
+                  </nav>
         </div>
         
         <div class="span12" id='tab2'>
@@ -233,7 +255,7 @@ display:inherit;
                         <th>상세보기</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id='ingschedulelist'>
                     <c:forEach items="${inglist}" var="inglist">
                         <tr>
                             <td>${inglist.shopname}</td>
@@ -243,7 +265,7 @@ display:inherit;
                             <td>
                                 <span class="label label-warning">진행중</span>                                    
                             </td>
-                            <td>${inglist.cdt}</td>
+                            <td>${inglist.ncdt}</td>
                             <td>
                                 <button data-toggle="modal" data-target="#detailreqModal"
                                             class="btns btns-outline-secondary detailinfobtn" value="a${inglist.sno}">상세보기</button>
@@ -255,6 +277,27 @@ display:inherit;
                     </c:forEach>
                 </tbody>
            </table>
+            <nav aria-label="Page navigation example" class='pages'>
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:goPage(${inglistpaging.prevPageNo},'inglist')">Previous</a></li>
+                                    
+                                <c:forEach var="i" begin="${inglistpaging.startPageNo}" end="${inglistpaging.endPageNo}" step="1">
+                                 <c:choose>
+                                 <c:when test="${i eq inglistpaging.pageNo}">
+                                    <li class="page-item">
+                                    <a href="javascript:goPage(${i},'inglist')" class="choice">${i}</a></li>
+                                 </c:when>
+                                 <c:otherwise>
+                                  <li class="page-item">
+                                  <a href="javascript:goPage(${i},'inglist')">${i}</a></li>
+                                </c:otherwise>
+                                </c:choose>
+                                </c:forEach>
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:goPage(${inglistpaging.nextPageNo},'inglist')">Next</a></li>
+                            </ul>
+                        </nav>
         </div>
         
         <div class="span12" id='tab3'>
@@ -270,7 +313,7 @@ display:inherit;
                         <th>상세보기</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="edschedulelist">
                     <c:forEach items="${edlist}" var="edlist">
                         <tr>
                             <td>${edlist.shopname}</td>
@@ -280,7 +323,7 @@ display:inherit;
                             <td>
                                 <span class="label label-success">완료</span>                                    
                             </td>
-                            <td>${edlist.cdt}</td>
+                            <td>${edlist.ncdt}</td>
                             <td>
                                 <button data-toggle="modal" data-target="#detailreqModal"
                                             class="btns btns-outline-secondary detailinfobtn" value="a${edlist.sno}">상세보기</button>
@@ -292,6 +335,27 @@ display:inherit;
                     </c:forEach>
                 </tbody>
            </table>
+           <nav aria-label="Page navigation example" class='pages'>
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:goPage(${edlistpaging.prevPageNo},'edlist')">Previous</a></li>
+                                    
+                                <c:forEach var="i" begin="${edlistpaging.startPageNo}" end="${edlistpaging.endPageNo}" step="1">
+                                 <c:choose>
+                                 <c:when test="${i eq edlistpaging.pageNo}">
+                                    <li class="page-item">
+                                    <a href="javascript:goPage(${i},'edlist')" class="choice">${i}</a></li>
+                                 </c:when>
+                                 <c:otherwise>
+                                  <li class="page-item">
+                                  <a href="javascript:goPage(${i},'edlist')">${i}</a></li>
+                                </c:otherwise>
+                                </c:choose>
+                                </c:forEach>
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:goPage(${edlistpaging.nextPageNo},'edlist')">Next</a></li>
+                            </ul>
+                        </nav>
         </div>
         
         
@@ -308,7 +372,7 @@ display:inherit;
                         <th>상세보기</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id='pschedulelist'>
                     <c:forEach items="${plist}" var="plist">
                         <tr>
                             <td>${plist.shopname}</td>
@@ -317,7 +381,7 @@ display:inherit;
                             <td>${plist.cnt}명</td>
                             <td>
                                 <span class="label label-info">개인스케줄</span>                                 
-                            <td>${plist.cdt}</td>
+                            <td>${plist.ncdt}</td>
                             <td>
                                 <button data-toggle="modal" data-target="#detailperModal"
                                             class="btns btns-outline-secondary detailinfobtn" value="b${plist.sno}">상세보기</button>
@@ -329,6 +393,27 @@ display:inherit;
                     </c:forEach>
                 </tbody>
            </table>
+           <nav aria-label="Page navigation example" class='pages'>
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:goPage(${plistpaging.prevPageNo},'plist')">Previous</a></li>
+                                    
+                                <c:forEach var="i" begin="${plistpaging.startPageNo}" end="${plistpaging.endPageNo}" step="1">
+                                 <c:choose>
+                                 <c:when test="${i eq plistpaging.pageNo}">
+                                    <li class="page-item">
+                                    <a href="javascript:goPage(${i},'plist')" class="choice">${i}</a></li>
+                                 </c:when>
+                                 <c:otherwise>
+                                  <li class="page-item">
+                                  <a href="javascript:goPage(${i},'plist')">${i}</a></li>
+                                </c:otherwise>
+                                </c:choose>
+                                </c:forEach>
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:goPage(${plistpaging.nextPageNo},'plist')">Next</a></li>
+                            </ul>
+                        </nav>
         </div>
     </div>
 </div>		
@@ -976,9 +1061,9 @@ div.footer a.Cbtn-danger:hover{
                         </div>
 
                         <div class="footer">
-                            <button data-toggle="modal" data-target="#EditScheduleModal" class="btns btns-outline-info"
+                            <button data-toggle="modal" data-target="#EditScheduleModal" class="btns btns-outline-success"
                             id="editbtn" data-dismiss="modal">수정</button>
-                            <button type="button" class="btns btns-outline-dark" data-dismiss="modal">Close</button>
+                            <button type="button" class="btns btns-outline-danger" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div> 
@@ -1013,4 +1098,5 @@ div.footer a.Cbtn-danger:hover{
 
 <!-- 내가만든 script -->
 <script src="/js/mybs.js" type="text/javascript"></script>
-
+</body>
+</html>

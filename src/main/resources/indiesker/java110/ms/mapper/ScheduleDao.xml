@@ -27,7 +27,6 @@
 		<result column="cnt" property="cnt" />
 		<result column="flag" property="flag" />
 		<result column="cdt" property="cdt" />
-		<!-- <result column="x" property="x"/> <result column="y" property="y"/> -->
 		<result column="buskname" property="buskname" />
 		<association property="supporter" javaType="supporter">
 			<id column="sno" property="no" />
@@ -389,11 +388,13 @@ and substr(SS.sdt,1,10)>=substr(now(),1,10)
 GROUP BY BS.brno
 </select>
 
-	<select id="findperschedule" resultMap="perscheduleMap">
+	<select id="findperschedule" resultMap="perscheduleMap" parameterType="map">
 		select PS.psno, PS.shopname, PS.addr, PS.sdt, PS.edt, PS.cnt, PS.cdt, PS.x,
 		PS.y
 		from per_sche PS, busk B
 		where PS.bno = B.bno
+		and B.bno=#{bno}
+		and SUBSTR(PS.sdt,1,10) >= SUBSTR(NOW(),1,10)
 		limit #{rowNo}, #{size}
 	</select>
 
@@ -429,7 +430,7 @@ GROUP BY BS.brno
 	</select>
 
 	<!-- 스케줄조회 : 확정 버스커 스케줄 출력하는 쿼리 -->
-	<select id="findMyAllSchedule" resultMap="buskerscheduleMap"
+	<select id="findMyReqSchedule" resultMap="buskerscheduleMap"
 		parameterType="map">
 		SELECT
 		BR.brno,
@@ -447,8 +448,9 @@ GROUP BY BS.brno
 		AND BR.brno=BS.brno
 		AND BS.ssno=SC.ssno
 		AND SC.sno = S.sno
-		AND BR.bno=#{no}
+		AND BR.bno=#{bno}
 		GROUP BY BS.brno
+		HAVING SUBSTR(sdt,1,10) >= SUBSTR(NOW(),1,10)
 		limit #{rowNo}, #{size}
 	</select>
 
@@ -639,11 +641,12 @@ GROUP BY BS.brno
         AND BR.brno=BS.brno
         AND BS.ssno=SC.ssno
         AND SC.sno = S.sno
-        AND BR.bno=#{no}
+        AND BR.bno=#{bno}
         AND BS.flag=#{flag}
         GROUP BY BS.brno
-        limit #{rowNo}, #{size}
+        HAVING SUBSTR(sdt,1,10) >= SUBSTR(NOW(),1,10)
     </select>
+    
     
    <insert id="ApplyStagesinBuskstag" parameterType="map">
    INSERT INTO `busk_stag`(`ssno`, `brno`, `flag`) values
@@ -791,6 +794,192 @@ where brno = #{no}
     )) as b
     </select>
 
+<select id="findperschedulecnt" parameterType="int" resultType="int">
+        select COUNT(*)
+        from per_sche PS, busk B
+        where PS.bno = B.bno
+        and B.bno=#{value}
+        and SUBSTR(PS.sdt,1,10) >= SUBSTR(NOW(),1,10)
+    </select>
+
+
+<select id="findMyReqSchedulecnt" parameterType="int" resultType="int">
+        SELECT
+                 COUNT(*)
+        FROM busk B, busk_req BR, busk_stag BS,stag_sche SC, sup S
+        WHERE B.bno=BR.bno
+        AND BR.brno=BS.brno
+        AND BS.ssno=SC.ssno
+        AND SC.sno = S.sno
+        AND BR.bno=#{value}
+        GROUP BY BS.brno
+        HAVING SUBSTR(sdt,1,10) >= SUBSTR(NOW(),1,10)
+    </select>
+
+
+<select id="findMyAllSchedulebyflagcnt" 
+        parameterType="map" resultType="int">
+SELECT COUNT(*)
+  FROM (
+        SELECT
+            sdt
+        FROM busk B, busk_req BR, busk_stag BS,stag_sche SC, sup S
+        WHERE B.bno=BR.bno
+        AND BR.brno=BS.brno
+        AND BS.ssno=SC.ssno
+        AND SC.sno = S.sno
+        AND BR.bno=#{bno}
+        AND BS.flag=#{flag}
+        GROUP BY BS.brno
+        HAVING SUBSTR(sdt,1,10) >= SUBSTR(NOW(),1,10)
+        ) S
+    </select>
+    
+<select id="findMyAllSchedule" resultMap="buskerscheduleMap"
+        parameterType="map">
+SELECT 
+		brno, 
+		name, 
+		addr, 
+		sdt,
+		edt, 
+		cnt,
+		flag, 
+		cdt,
+		x,
+		y
+  FROM(
+		  (SELECT 
+		        PS.psno as brno, 
+		        PS.shopname as name, 
+		        PS.addr, 
+		        PS.sdt,
+		        PS.edt, 
+		        PS.cnt,
+		        3 as flag, 
+		        PS.cdt,
+		        PS.x,
+		        PS.y       
+		   FROM per_sche PS, busk B
+		  WHERE PS.bno = B.bno
+		    and B.bno=#{bno}
+		    and SUBSTR(PS.sdt,1,10) >= SUBSTR(NOW(),1,10)
+		   UNION
+		  SELECT
+		        BR.brno,
+		        S.name as name,
+		        S.bas_addr as addr,
+		        MIN(SC.sdt) as sdt,
+		        MAX(SC.edt) as edt,
+		        BR.cnt,
+		        BS.flag,
+		        BR.cdt,
+		        S.x,
+		        S.y
+		    FROM busk B, busk_req BR, busk_stag BS,stag_sche SC, sup S
+		   WHERE B.bno=BR.bno
+		     AND BR.brno=BS.brno
+		     AND BS.ssno=SC.ssno
+		     AND SC.sno = S.sno
+		     AND BR.bno=#{bno}
+		GROUP BY BS.brno
+		  HAVING SUBSTR(sdt,1,10) >= SUBSTR(NOW(),1,10)) ASD
+        )
+    limit #{rowNo}, #{size}
+</select>
+
+<select id="findMyAllSchedulecnt" parameterType="int" resultType="int">
+  SELECT 
+        COUNT(*)
+  FROM(
+          (SELECT 
+                PS.psno as brno, 
+                PS.shopname as name, 
+                PS.addr, 
+                PS.sdt,
+                PS.edt, 
+                PS.cnt,
+                3 as flag, 
+                PS.cdt,
+                PS.x,
+                PS.y       
+           FROM per_sche PS, busk B
+          WHERE PS.bno = B.bno
+            and B.bno=#{bno}
+            and SUBSTR(PS.sdt,1,10) >= SUBSTR(NOW(),1,10)
+           UNION
+          SELECT
+                BR.brno,
+                S.name as name,
+                S.bas_addr as addr,
+                MIN(SC.sdt) as sdt,
+                MAX(SC.edt) as edt,
+                BR.cnt,
+                BS.flag,
+                BR.cdt,
+                S.x,
+                S.y
+            FROM busk B, busk_req BR, busk_stag BS,stag_sche SC, sup S
+           WHERE B.bno=BR.bno
+             AND BR.brno=BS.brno
+             AND BS.ssno=SC.ssno
+             AND SC.sno = S.sno
+             AND BR.bno=#{bno}
+        GROUP BY BS.brno
+          HAVING SUBSTR(sdt,1,10) >= SUBSTR(NOW(),1,10)) ASD
+        )
+</select>  
+    
+<select id="findAllSchedule" resultMap="buskerscheduleMap"
+        parameterType="map">
+SELECT 
+        brno, 
+        name, 
+        addr, 
+        sdt,
+        edt, 
+        cnt,
+        flag, 
+        cdt,
+        x,
+        y
+  FROM(
+          (SELECT 
+                PS.psno as brno, 
+                PS.shopname as name, 
+                PS.addr, 
+                PS.sdt,
+                PS.edt, 
+                PS.cnt,
+                3 as flag, 
+                PS.cdt,
+                PS.x,
+                PS.y       
+           FROM per_sche PS, busk B
+          WHERE PS.bno = B.bno
+            and SUBSTR(PS.sdt,1,10) >= SUBSTR(NOW(),1,10)
+           UNION
+          SELECT
+                BR.brno,
+                S.name as name,
+                S.bas_addr as addr,
+                MIN(SC.sdt) as sdt,
+                MAX(SC.edt) as edt,
+                BR.cnt,
+                BS.flag,
+                BR.cdt,
+                S.x,
+                S.y
+            FROM busk B, busk_req BR, busk_stag BS,stag_sche SC, sup S
+           WHERE B.bno=BR.bno
+             AND BR.brno=BS.brno
+             AND BS.ssno=SC.ssno
+             AND SC.sno = S.sno
+        GROUP BY BS.brno
+          HAVING SUBSTR(sdt,1,10) >= SUBSTR(NOW(),1,10)) ASD
+        )
+</select>
+    
 </mapper>
 
 

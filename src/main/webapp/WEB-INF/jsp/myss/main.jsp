@@ -285,7 +285,7 @@ text-align: center;
 <div class="container">
 <div class="row">
 	<div id="titl" class='col-lg-12'>
-		<img id="logo" src="/img/playButton.PNG" alt="플레이로고">
+		<img id="logo" src="../../img/playButton.png" alt="플레이로고">
 		<h3>무대관리</h3>
 	</div>
 	</div>
@@ -370,9 +370,8 @@ text-align: center;
 					</table>
 						<nav aria-label="Page navigation example" class='pages'>
 							<ul class="pagination justify-content-center">
-								<li class="page-item">
+								<li class="page-item prev">
 								    <a class="page-link" href="javascript:goPage(${listpaging.prevPageNo},'list')">Previous</a></li>
-								    
 								<c:forEach var="i" begin="${listpaging.startPageNo}" end="${listpaging.endPageNo}" step="1">
 								 <c:choose>
 								 <c:when test="${i eq listpaging.pageNo}">

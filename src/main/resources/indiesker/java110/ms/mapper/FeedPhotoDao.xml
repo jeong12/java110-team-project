@@ -17,7 +17,7 @@
 	<!-- 최신사진 조회(개인피드) -->
 	<select id="findRecentPhot" resultMap="feedPhotoMap"
 		parameterType="map">
-		SELECT p.pbno, fp.phot
+		SELECT p.pbno, fp.phot,p.cdt
 		FROM busk b, phot p,(SELECT *
 		FROM
 		feed_phot
