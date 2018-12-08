@@ -712,6 +712,7 @@ function reset(){
 	window.location.href=window.location.href;
 }
 
+// 검색 플래그!
 function check(){
 var data1= $('.date1').val();
 var data2 =$('.date2').val();

@@ -18,7 +18,16 @@
         <result column="cdt"  property="cdt"/>
         <result column="phot"  property="phot"/>
     </resultMap>
-
+    
+    <resultMap type="BuskerPromotionComment" id="comtList">
+        <id column="bcno"        property="bcno"/>
+        <result column="mno"     property="mno"/>
+        <result column="phot"    property="phot"/>
+        <result column="nik"     property="nik"/>
+        <result column="cont"    property="cont"/>
+        <result column="cdt"     property="cdt"/>
+    </resultMap>
+    
     <select id="findAll" resultMap="buskPromotionMap" parameterType="map">
 select titl, b.name, bo.genre, bo.city, sdt, edt, cnt, etc, bo.phot, cdt, b.bno, bo.bbno
 from busk_board bo join busk b on bo.bno = b.bno
@@ -38,6 +47,51 @@ from busk_board bo join busk b on bo.bno = b.bno
 where b.name=#{teamname}
 ORDER by bo.cdt DESC
     </select>
+    
+    
+    <insert id="add" parameterType="BuskerPromotion" useGeneratedKeys="true" keyColumn="bbno" keyProperty="no">
+    insert into busk_board(titl,genre,city,cnt,sdt,edt,tel1,tel2,etc,cdt,phot,bno)
+    values(#{titl},#{genre},#{city},#{cnt},#{sdt},#{edt},#{tel1},#{tel2},#{etc},now(),#{phot},#{bno})
+    </insert>
+    
+    <select id="findbbno" resultMap="buskPromotionMap" parameterType="int">
+        SELECT bb.bbno,bb.titl,b.name,bb.genre,bb.city,bb.sdt,bb.edt,bb.cnt,bb.etc,bb.cdt,
+        bb.phot, b.bno
+        FROM busk_board bb, busk b 
+        WHERE bb.bno = b.bno
+        AND bb.bbno=#{no}
+    </select>
+
+    <select id="comtList" resultMap="comtList" parameterType="Map">
+    SELECT m.phot, m.nik, bc.cdt, bc.cont, m.flag, m.mno, bc.bcno
+    FROM memb as m, board_comt as bc , busk_board as bb
+    WHERE m.mno=bc.mno and bc.bbno = bb.bbno
+    AND bb.bbno=#{no}
+    order by  bc.cdt desc
+    Limit #{paging.startRowNo},#{paging.pageSize}
+    </select>
+    
+    <insert id="insertComments" parameterType="map" useGeneratedKeys="true" keyColumn="bcno">
+    INSERT INTO `board_comt`(`cont`, `bbno`, `mno`, `cdt`) 
+    VALUES (#{comments},#{bbno},#{no},concat(curdate(),' ',curtime()))
+    </insert>
+    
+    <select id="totCommetList" parameterType="int" resultType="Integer">
+    select count(*) from
+    (SELECT m.phot, m.nik,bc.cdt,bc.cont, m.flag
+    FROM memb as m, board_comt as bc , busk_board as bb
+    WHERE m.mno=bc.mno and bc.bbno = bb.bbno
+    AND bb.bbno=#{no}) as b
+    </select>
+    
+    <delete id="deleteComment" parameterType="int">
+    DELETE FROM `board_comt` WHERE bcno = #{bcno}
+    </delete>
+    
+    <select id="findBbno" parameterType="int" resultType="Integer">
+    SELECT bbno FROM `board_comt` WHERE bcno = #{bcno}
+    </select>
+
 </mapper>
 
 
