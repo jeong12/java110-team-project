@@ -177,7 +177,7 @@ padding-left: 28%;
                     </c:choose>
              </tr>
              </c:if>  
-                   <c:if test= "${m.flag == 2 or m.flag == 12}">
+                   <c:if test= "${m.flag == 2}">
           
              <tr class="tt">
                     <td>${m.id}</td>
@@ -211,24 +211,31 @@ padding-left: 28%;
                     <td id="memow" class="col-md-2">${m.memo}</td>
                     <td class="col-md-1"><button class="btt btn btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
                     <td class="col-md-1"><div id="detailAll" class="detailbtn"><button id="detailAll" class="supDetail btns btns-outline-secondary"  data-toggle="modal" data-target="#supDetail" value="${m.nik}">상세보기</button></div></td>
-                    <td class="col-md-1"><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" >정지</button></td>
+                    <c:choose>
+                    <c:when test="${m.flag < 10}">
+                    <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지</button></td>
+                    </c:when>
+                    <c:otherwise>
+                    <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td>
+                    </c:otherwise>
+                    </c:choose>
              </tr>
              
              </c:if>  
-                    <%-- <c:if test= "${m.flag > 10}">
+                    <c:if test= "${m.flag > 10}">
              <tr class="tt">
                     <td>${m.id}</td>
                     <td class=niks>${m.nik}</td>
                     <td>${m.email}</td>
-                    <td>${m.flag}</td>
+                    <td>정지회원</td>
                     <td>${m.ncdt}</td>
                     <td id="memow">${m.memo}</td>
                     <td><button class="btt btn btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
                     <td><div id="detailAll" class="detailbtn"><button id="detailAll" class="btt2 btns btns-outline-secondary"  data-toggle="modal" data-target="#model-id" value="${m.nik}">상세보기</button></div></td>
-                    <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" >정지</button></td>
+                    <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td>
              </tr> 
              
-             </c:if>   --%>
+             </c:if>  
             </c:forEach>
     </tbody>
 </table>
@@ -469,7 +476,6 @@ padding-left: 28%;
 /* 정지 기능 */
 function stop(params){
     var stopORun;
-    
    $('.btn.btns-outline-danger').each(function(index,item){
        if(item.value == params){
            stopORun = item;
@@ -495,7 +501,7 @@ function stop(params){
               
               $.ajax({
                   type : "POST",
-                  url : "showSup",
+                  url : "stopMem",
                   dataType : 'json',
                   data : {"id":vals[0], "flag":vals[1]},
                   success : function(data){
@@ -524,7 +530,7 @@ function stop(params){
                   console.log(vals[1]);
                   $.ajax({
                       type : "POST",
-                      url : "showSup",
+                      url : "stopMem",
                       dataType : 'json',
                       data : {"id":vals[0], "flag":vals[1]},
                       success : function(data){
@@ -732,7 +738,14 @@ $.ajax({
          $("#testappend").empty();
          
          $.each(data,function(index,item){
-            if(item.flag == 1){
+             
+            if(item.flag == 1 || item.flag == 11){
+                var btn;
+                if(item.flag < 10){
+                    btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지</button></td></tr>';                        
+                    } else {
+                    btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td></tr>'     
+                    }
             $("#testappend, #testappend1").append('<tr><td>'+item.id+'</td>'
                     +'<td>'+item.nik+'</td>'
                     +'<td>'+item.email+'</td>'
@@ -741,9 +754,15 @@ $.ajax({
                     +'<td>'+item.memo+'</td>'
                     +'<td><button class="btt btn-primary btn-xs"  data-toggle="modal" data-target="#exampleModal"  value="'+item.nik+'">메모수정</button></td>'
                     +'<td><button class="memberDetail btn-primary btn-xs" data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기</button></td>'
-                    +'<td><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete">정지</button></p></td></tr>'        
+                    + btn
                            );
-            }else if(item.flag == 2){
+            }else if(item.flag == 2 || item.flag == 12){
+                var btn;
+                if(item.flag < 10){
+                    btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지</button></td></tr>';                        
+                    } else {
+                    btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td></tr>'     
+                    }
             	$("#testappend, #testappend2").append('<tr><td>'+item.id+'</td>'
             	 +'<td>'+item.nik+'</td>'
                  +'<td>'+item.email+'</td>'
@@ -752,9 +771,15 @@ $.ajax({
                  +'<td>'+item.memo+'</td>'
                  +'<td><button class="btt btn-primary btn-xs"  data-toggle="modal" data-target="#exampleModal"  value="'+item.nik+'">메모수정</button></td>'
                  +'<td><button class="buskDetail btn-primary btn-xs"  data-toggle="modal" data-target=".modelbusk" value="'+item.nik+'">상세보기</button></td>'
-                 +'<td><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete">정지</button></p></td></tr>'        
+                 + btn        
          );
-            }else if(item.flag==3){
+            }else if(item.flag==3 || item.flag==13){
+                var btn;
+                if(item.flag < 10){
+                    btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지</button></td></tr>';                        
+                    } else {
+                    btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td></tr>'     
+                    }
             	$("#testappend, #testappend3").append('<tr><td>'+item.id+'</td>'
             	+'<td>'+item.nik+'</td>'
                 +'<td>'+item.email+'</td>'
@@ -763,19 +788,8 @@ $.ajax({
                 +'<td>'+item.memo+'</td>'
                 +'<td><button class="btt btn-primary btn-xs"  data-toggle="modal" data-target="#exampleModal"  value="'+item.nik+'">메모수정</button></td>'
                 +'<td><button class="supDetail btn-primary btn-xs"  data-toggle="modal" data-target="#supDetail"value="'+item.nik+'">상세보기</button></td>'
-                +'<td><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete">정지</button></p></td></tr>'        
+                + btn      
                 );
-            }else if(item.flag==4){
-                $("#testappend,#testappend4").append('<tr><td>'+item.id+'</td>'
-                        +'<td>'+item.nik+'</td>'
-                        +'<td>'+item.email+'</td>'
-                        +'<td>'+'정지회원'+'</td>'
-                        +'<td>'+item.ncdt+'</td>'
-                        +'<td>'+item.memo+'</td>'
-                        +'<td><button class="btt btn-primary btn-xs"  data-toggle="modal" data-target="#exampleModal"  value="'+item.nik+'">메모수정</button></td>'
-                        +'<td><button class="memberDetail btn-primary btn-xs" data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기</button></td>'
-                        +'<td><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete">정지</button></p></td></tr>'        
-                               );
             }
         }); 
     },
@@ -824,6 +838,12 @@ function goPageAll(e){
             $('#testappend').empty();
             $('.pages').empty();
               $.each(data.list,function(index,item){
+                  var btn;
+                  if(item.flag < 10){
+                      btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지</button></td></tr>';                        
+                      } else {
+                      btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td></tr>'     
+                      }
                 $('#testappend').append(
                '<tr><td>'+item.id+'</td>'+
                '<td class=niks>'+item.nik+'</td>'+
@@ -836,9 +856,8 @@ function goPageAll(e){
                '<td><div class="detailbtn"><button name="detailAll"'+
                'class="memberDetail btns btns-outline-secondary"'+  
                'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
-               +'</button></div></td><td><button class="btn btns-outline-danger"'
-               +'data-title="Delete" data-toggle="modal" data-target="#delete">'
-               +'정지</button></td></tr>'
+               +'</button></div></td>'
+               + btn
                 )});
         $('.pages').append(' <ul class="pagination justify-content-center">'+
                 '<li class="page-item prev">'+
@@ -874,6 +893,12 @@ function goPageMemb(e){
         	 $('#testappend').empty();
              $('.pages').empty();
              $.each(data.list,function(index,item){
+                 var btn;
+                 if(item.flag < 10){
+                     btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지</button></td></tr>';                        
+                     } else {
+                     btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td></tr>'     
+                     }
              $('#testappend').append(
                 '<tr><td>'+item.id+'</td>'+
                 '<td class=niks>'+item.nik+'</td>'+
@@ -886,9 +911,8 @@ function goPageMemb(e){
                 '<td><div class="detailbtn"><button name="detailAll"'+
                 'class="memberDetail btns btns-outline-secondary"'+  
                 'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
-                +'</button></div></td><td><button class="btn btns-outline-danger"'
-                +'data-title="Delete" data-toggle="modal" data-target="#delete">'
-                +'정지</button></td></tr>'
+                +'</button></div></td>'
+                + btn
                  );});
              $('.pages').append(' <ul class="pagination justify-content-center">'+
                      '<li class="page-item prev">'+
@@ -923,6 +947,12 @@ function goPageBusk(e){
             $('#testappend').empty();
             $('.pages').empty();
               $.each(data.list,function(index,item){
+                  var btn;
+                  if(item.flag < 10){
+                      btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지</button></td></tr>';                        
+                      } else {
+                      btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td></tr>'     
+                      }
             	  $('#testappend').append(
                           '<tr><td>'+item.id+'</td>'+
                           '<td class=niks>'+item.nik+'</td>'+
@@ -935,9 +965,8 @@ function goPageBusk(e){
                           '<td><div class="detailbtn"><button name="detailAll"'+
                           'class="memberDetail btns btns-outline-secondary"'+  
                           'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
-                          +'</button></div></td><td><button class="btn btns-outline-danger"'
-                          +'data-title="Delete" data-toggle="modal" data-target="#delete">'
-                          +'정지</button></td></tr>'
+                          +'</button></div></td>'
+                          +btn
                            );});
                    $('.pages').append(' <ul class="pagination justify-content-center">'+
                            '<li class="page-item prev">'+
@@ -973,6 +1002,12 @@ function goPageSup(e){
             $('#testappend').empty();
             $('.pages').empty();
               $.each(data.list,function(index,item){
+                  var btn;
+                  if(item.flag < 10){
+                      btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지</button></td></tr>';                        
+                      } else {
+                      btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td></tr>'     
+                      }
             	  $('#testappend').append(
                           '<tr><td>'+item.id+'</td>'+
                           '<td class=niks>'+item.nik+'</td>'+
@@ -985,9 +1020,8 @@ function goPageSup(e){
                           '<td><div class="detailbtn"><button name="detailAll"'+
                           'class="memberDetail btns btns-outline-secondary"'+  
                           'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
-                          +'</button></div></td><td><button class="btn btns-outline-danger"'
-                          +'data-title="Delete" data-toggle="modal" data-target="#delete">'
-                          +'정지</button></td></tr>'
+                          +'</button></div></td>'
+                          + btn 
                            );});
                    $('.pages').append(' <ul class="pagination justify-content-center">'+
                            '<li class="page-item prev">'+
@@ -1023,6 +1057,12 @@ function goPageStop(e){
             $('#testappend').empty();
             $('.pages').empty();
             $.each(data.list,function(index,item){
+                var btn;
+                if(item.flag < 10){
+                    btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지</button></td></tr>';                        
+                    } else {
+                    btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td></tr>'     
+                    }
                 $('#testappend').append(
                    '<tr><td>'+item.id+'</td>'+
                    '<td class=niks>'+item.nik+'</td>'+
@@ -1035,9 +1075,8 @@ function goPageStop(e){
                    '<td><div class="detailbtn"><button name="detailAll"'+
                    'class="memberDetail btns btns-outline-secondary"'+  
                    'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
-                   +'</button></div></td><td><button class="btn btns-outline-danger"'
-                   +'data-title="Delete" data-toggle="modal" data-target="#delete">'
-                   +'정지</button></td></tr>'
+                   +'</button></div></td>'
+                   + btn
                     );});
             $('.pages').append(' <ul class="pagination justify-content-center">'+
                     '<li class="page-item prev">'+
@@ -1075,6 +1114,13 @@ function showList(){
 	        	$('#testappend').empty();
 	        	$('.pages').empty();
 	        	  $.each(data.list,function(index,item){
+	        	      console.log(item);
+	        	      var btn;
+	                  if(item.flag < 10){
+	                      btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지</button></td></tr>';                        
+	                      } else {
+	                      btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td></tr>'     
+	                      }
 	            	$('#testappend').append(
 	               '<tr><td>'+item.id+'</td>'+
                    '<td class=niks>'+item.nik+'</td>'+
@@ -1087,9 +1133,8 @@ function showList(){
                    '<td><div class="detailbtn"><button name="detailAll"'+
                    'class="memberDetail btns btns-outline-secondary"'+  
                    'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
-                   +'</button></div></td><td><button class="btn btns-outline-danger"'
-                   +'data-title="Delete" data-toggle="modal" data-target="#delete">'
-                   +'정지</button></td></tr>'
+                   +'</button></div></td>'
+                   + btn 
 	            	)});
 	        $('.pages').append(' <ul class="pagination justify-content-center">'+
                     '<li class="page-item prev">'+
@@ -1127,6 +1172,12 @@ function showMemb(){
             	$('#testappend').empty();
                 $('.pages').empty();
                 $.each(data.list,function(index,item){
+                    var btn;
+                    if(item.flag < 10){
+                        btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지</button></td></tr>';                        
+                        } else {
+                        btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td></tr>'     
+                        }
                 $('#testappend').append(
                 		'<tr><td>'+item.id+'</td>'+
                    '<td class=niks>'+item.nik+'</td>'+
@@ -1139,9 +1190,8 @@ function showMemb(){
                    '<td><div class="detailbtn"><button name="detailAll"'+
                    'class="memberDetail btns btns-outline-secondary"'+  
                    'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
-                   +'</button></div></td><td><button class="btn btns-outline-danger"'
-                   +'data-title="Delete" data-toggle="modal" data-target="#delete">'
-                   +'정지</button></td></tr>'
+                   +'</button></div></td>'
+                   + btn
                     );});
                 $('.pages').append('<ul class="pagination justify-content-center">'+
                         '<li class="page-item prev">'+
@@ -1161,6 +1211,7 @@ function showMemb(){
                         '</ul></nav>');
             },
              error : function(request, status, error) {
+                 console.log(error);
              }
             
         });
@@ -1179,6 +1230,12 @@ function showBusk(){
                 $('#testappend').empty();
                 $('.pages').empty();
                 $.each(data.list,function(index,item){
+                    var btn;
+                    if(item.flag < 10){
+                        btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지</button></td></tr>';                        
+                        } else {
+                        btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td></tr>'     
+                        }
                     $('#testappend').append(
                        '<tr><td>'+item.id+'</td>'+
                        '<td class=niks>'+item.nik+'</td>'+
@@ -1191,9 +1248,8 @@ function showBusk(){
                        '<td><div class="detailbtn"><button name="detailAll"'+
                        'class="memberDetail btns btns-outline-secondary"'+  
                        'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
-                       +'</button></div></td><td><button class="btn btns-outline-danger"'
-                       +'data-title="Delete" data-toggle="modal" data-target="#delete">'
-                       +'정지</button></td></tr>'
+                       +'</button></div></td>'
+                       + btn
                         );});
                 $('.pages').append(' <ul class="pagination justify-content-center">'+
                         '<li class="page-item prev">'+
@@ -1230,6 +1286,12 @@ function showSup(){
                 $('#testappend').empty();
                 $('.pages').empty();
                 $.each(data.list,function(index,item){
+                    var btn;
+                    if(item.flag < 10){
+                        btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지</button></td></tr>';                        
+                        } else {
+                        btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td></tr>'     
+                        }
                     $('#testappend').append(
                        '<tr><td>'+item.id+'</td>'+
                        '<td class=niks>'+item.nik+'</td>'+
@@ -1242,9 +1304,8 @@ function showSup(){
                        '<td><div class="detailbtn"><button name="detailAll"'+
                        'class="memberDetail btns btns-outline-secondary"'+  
                        'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
-                       +'</button></div></td><td><button class="btn btns-outline-danger"'
-                       +'data-title="Delete" data-toggle="modal" data-target="#delete">'
-                       +'정지</button></td></tr>'
+                       +'</button></div></td>'
+                       + btn
                         );});
                 $('.pages').append(' <ul class="pagination justify-content-center">'+
                         '<li class="page-item prev">'+
@@ -1281,6 +1342,12 @@ function showStop(){
                 $('#testappend').empty();
                 $('.pages').empty();
                 $.each(data.list,function(index,item){
+                    var btn;
+                    if(item.flag < 10){
+                        btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지</button></td></tr>';                        
+                        } else {
+                        btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td></tr>'     
+                        }
                     $('#testappend').append(
                        '<tr><td>'+item.id+'</td>'+
                        '<td class=niks>'+item.nik+'</td>'+
@@ -1293,9 +1360,8 @@ function showStop(){
                        '<td><div class="detailbtn"><button name="detailAll"'+
                        'class="memberDetail btns btns-outline-secondary"'+  
                        'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
-                       +'</button></div></td><td><button class="btn btns-outline-danger"'
-                       +'data-title="Delete" data-toggle="modal" data-target="#delete">'
-                       +'정지</button></td></tr>'
+                       +'</button></div></td>'
+                       + btn
                         );});
                 $('.pages').append(' <ul class="pagination justify-content-center">'+
                         '<li class="page-item prev">'+

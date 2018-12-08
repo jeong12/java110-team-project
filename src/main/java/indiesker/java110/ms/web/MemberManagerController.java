@@ -299,26 +299,26 @@ public class MemberManagerController {
     if(pageNo != null) {
       paging.setPageNo(Integer.parseInt(pageNo));
     }
-      
+
     List<MemberManager> list = memberManagerService.listAll(paging);
     SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
 
     for (MemberManager mm : list) {
-        if(mm.getFlag() == '1') {
+        if(mm.getFlag() == 1) {
           mm.setNcdt(dformat.format(mm.getCdt()));
           mm.setType("회원");
-        }else if(mm.getFlag() == '2') {
+        }else if(mm.getFlag() == 2) {
           mm.setNcdt(dformat.format(mm.getCdt()));
           mm.setType("버스커");
-        }else if(mm.getFlag() == '3') {
+        }else if(mm.getFlag() == 3) {
           mm.setNcdt(dformat.format(mm.getCdt()));
           mm.setType("제공자");
-        }else if(mm.getFlag() == '4') {
+        }else {
           mm.setNcdt(dformat.format(mm.getCdt()));
           mm.setType("정지회원");
         }
-      }      
-      Map<String,Object> map = new HashMap<>(); 
+      }
+      Map<String,Object> map = new HashMap<>();
        map.put("list", list);
        map.put("paging", paging);
        return map;
@@ -418,7 +418,7 @@ public class MemberManagerController {
   }
 
   @ResponseBody
-  @PostMapping(value = "showSup")
+  @PostMapping(value = "stopMem")
   public void MemStop(String id, int flag) {
     System.out.println(flag);
     memberManagerService.stopMem(id, flag);
