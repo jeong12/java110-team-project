@@ -23,10 +23,10 @@ body{background-color: snow;}
 #titl{margin-top: 3.5%; margin-bottom: 2%;}
     #logo{float: left; width: 40px; height: 40px;}
     #haha{margin-top: 0.7%; margin-left: 4%;}
- #ri{margin-right: 12%;}
 .tab{display: none;}
 .hide-bullets {list-style:none;margin-left:-40px;margin-top:20px;}
-
+.iframe1{height: 13rem;}
+.iframe2{height: 13rem;}
     #mmain{margin-left:8%; margin-top: 15px;}
     #ig{width: 129px;height: 60px;}            
     .mli{padding:0px; float: left;}
@@ -51,6 +51,11 @@ body{background-color: snow;}
     .gradleSupUpdate,.gradleBuskUpdate{width: 3rem; height:1.8rem; padding: 0; font-size : 0.8rem;}
     #input,#selt,.gradle{height: 25px; font-size: 0.8rem;}
     .slectbtn{width: 3rem; height:1.8rem; padding: 0; font-size : 0.8rem; margin-bottom: 1%;}
+    #myCarousel2{
+        width: 25rem;
+    height: 13rem;
+    }
+    .btb label{float: left;}
 </style>
 <header>
     <jsp:include page="../header.jsp"></jsp:include>
@@ -136,8 +141,6 @@ body{background-color: snow;}
       </div>
       
       <div class="container">
-    <div>
-        <div>
         
             <div id="carousel-example-generic" class="bbbbs carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
@@ -145,7 +148,7 @@ body{background-color: snow;}
                     <li data-target=".bbbbs" data-slide-to="1"></li>
                     <li data-target=".bbbbs" data-slide-to="2"></li>
                 </ol>
-                <div class="carousel-inner">
+                <div class="ttttt carousel-inner">
                     <div class="item active">
                         <img src="" alt="First slide">
                     </div>
@@ -160,8 +163,6 @@ body{background-color: snow;}
                     <span class="glyphicon glyphicon-chevron-left"></span></a><a class="right carousel-control"
                         href=".bbbbs" data-slide="next"><span class="glyphicon glyphicon-chevron-right">
                         </span></a>
-            </div>
-        </div>
     </div>
 </div>
 <div id="push">
@@ -203,12 +204,11 @@ body{background-color: snow;}
       </div>
       
       <div id="mmain">
-        <div id="mmain">
+       
              
-                <div class="row">
                     <div class="" id="slider" id="main">
-                        <div class="row">
-                            <div class="" id="carousel-bounding-box" >
+                      
+                            <div id="carousel-bounding-box" >
                                 <div class="carousel slide" id="myCarousel2">
                           
                                     <div class="carousel-inner" >
@@ -230,12 +230,12 @@ body{background-color: snow;}
                                     <a class="right carousel-control" id="ri" href="#myCarousel2" role="button" data-slide="next">
                                         <span class="glyphicon glyphicon-chevron-right"></span>                                       
                                     </a>                                
-                                    </div>
-                            </div>        
+                                   
+                             
 
                         
                         </div>
-                    </div>
+              
                 </div>
 
                 <div class="aab row hidden-xs" id="slider-thumbs">
@@ -345,14 +345,10 @@ $(document).on('click','.dtailSupbutton',function(){
 			console.log(data.etc);
 			console.log(data.capa);
 	         $.each(data.stagephotos,function(index,item){
+	        	 console.log(item.photo);
 	        	 $(".ttttt").append("<div class='item'><img src='/upload/"+item.photo+"' alt='First slide'></div>")
-            
 	         });
-	         $(".mli").click(function(){
-	             var src = $(this).val();
-	             $(".ttttt").empty();
-	             $(".ttttt").append("<img id='ff'class='photoimg' src="+src+">")
-	         })  
+	   
 	         $(".item:first").removeClass("item").addClass("active item");
 	                                          
 	                $(".sname").append('<p>'+data.name+'</p>');
@@ -382,8 +378,8 @@ $(document).on('click','.dtailbuskbutton',function(){
              $(".bintro").empty();
              $(".iframe1").empty();  
              $(".iframe2").empty();
-              $(".iframe1").append("<iframe class='ff'  src='"+data.avi1+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
-               $(".iframe2").append("<iframe class='ff' src='"+data.avi2+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
+              $(".iframe1").append("<iframe style='width: 100%;height: 100%;' src='"+data.avi1+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
+               $(".iframe2").append("<iframe style='width: 100%;height: 100%;' src='"+data.avi2+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
                     $(".bname").append('<p>'+data.teamname+'</p>');
                     $(".bcity").append('<p>'+data.city+'</p>');
                     $(".bgenre").append('<p>'+data.teamgenre+'</p>');
