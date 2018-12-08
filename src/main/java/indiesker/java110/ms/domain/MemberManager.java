@@ -6,7 +6,7 @@ public class MemberManager {
   protected String id;
   protected String nik;
   protected String email;
-  protected char flag;
+  protected int flag;
   protected String memo;
   protected Date cdt;
   protected String ncdt;
@@ -43,10 +43,10 @@ public class MemberManager {
   public void setEmail(String email) {
     this.email = email;
   }
-  public char getFlag() {
+  public int getFlag() {
     return flag;
   }
-  public void setFlag(char flag) {
+  public void setFlag(int flag) {
     this.flag = flag;
   }
   public String getMemo() {

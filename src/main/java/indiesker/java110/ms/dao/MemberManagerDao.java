@@ -38,7 +38,8 @@ public interface MemberManagerDao {
   String getMemo(String nik);
   int totlist();
   int totlistFlag(int flag);
-  
+  void upStopMem(String id);
+  void upUnStopMem(String id);
   
   
 }

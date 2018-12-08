@@ -158,7 +158,16 @@ public class ScheduleServiceimpl implements ScheduleService {
 
     @Override
     public List<Schedule> findTodaySchedule() {
-      return scheduleDao.findTodaySchedule();
+      List<Schedule> sche = scheduleDao.findTodaySchedule();
+      
+      // 원하는 지역명만 뽑기
+      for(Schedule sc: sche) {
+        String addr[] = sc.getAddr().split(" ");
+        String sub_addr = addr[1].substring(0, addr[1].length()-1);
+        sc.setAddr(sub_addr);
+      }
+      
+      return sche;
     }
 
     @Override
@@ -323,6 +332,7 @@ public class ScheduleServiceimpl implements ScheduleService {
       scheduleDao.refuseAllinBusk(no);
       return scheduleDao.refuseAllinReq(no);
     }
+    
     public int totSchedule() {
     return scheduleDao.totSchedule();
     }

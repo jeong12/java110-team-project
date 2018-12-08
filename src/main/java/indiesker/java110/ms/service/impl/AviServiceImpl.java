@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import indiesker.java110.ms.dao.AviDao;
 import indiesker.java110.ms.dao.BuskerDao;
 import indiesker.java110.ms.domain.Avi;
@@ -16,6 +17,7 @@ public class AviServiceImpl implements AviService {
     @Autowired BuskerDao buskerDao;
     @Autowired AviDao aviDao;
 
+    @Transactional
     @Override
     public void add(Avi avi) {
       aviDao.insert(avi);
@@ -61,6 +63,7 @@ public class AviServiceImpl implements AviService {
       return aviDao.findByFolAvi(no);
     }
     
+    @Transactional
     @Override
     public void uploadAvi(int bno, String title, String content, String url) {
       Map<String,Object> params = new HashMap<>();
@@ -72,6 +75,7 @@ public class AviServiceImpl implements AviService {
       aviDao.uploadAvi(params);
     }
 
+    @Transactional
     @Override
     public void insertComment(int abno, int no, String cont) {
       Map<String,Object> params = new HashMap<>();

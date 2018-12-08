@@ -94,7 +94,7 @@
 <body>
 <div id="pos"></div>
     <div id="titl">
-        <img id="logo" src="../../img/playButton.PNG" alt="플레이로고">
+        <img id="logo" src="../../img/playButton.png" alt="플레이로고">
         <h3>버스킹 홍보</h3>
         <button class="btns btns-outline-dark btn-enroll">홍보등록</button>
     </div>

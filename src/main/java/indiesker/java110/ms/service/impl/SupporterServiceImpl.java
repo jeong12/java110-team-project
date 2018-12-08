@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import indiesker.java110.ms.dao.SupporterDao;
+import indiesker.java110.ms.domain.Schedule;
 import indiesker.java110.ms.domain.StagePhoto;
 import indiesker.java110.ms.domain.Supporter;
 import indiesker.java110.ms.service.SupporterService;
@@ -21,6 +23,7 @@ public class SupporterServiceImpl implements SupporterService {
       return supporterDao.checkName(name);
       }
 
+    @Transactional
     @Override
     public int insert(Supporter s) {
       List<StagePhoto> list = new ArrayList<>();
@@ -40,11 +43,13 @@ public class SupporterServiceImpl implements SupporterService {
       return supporterDao.findBySupporter(no);
     }
 
+    @Transactional
     @Override
     public void modiSup(Supporter supporter) {
       supporterDao.updateSup(supporter);
     }
 
+    @Transactional
     @Override
     public void modiSupPho(StagePhoto stagephoto) {
       supporterDao.updateFile(stagephoto);
@@ -73,7 +78,16 @@ public class SupporterServiceImpl implements SupporterService {
 
     @Override
     public List<Supporter> getHot() {
-      return supporterDao.findByHot();
+      
+      List<Supporter> sup = supporterDao.findByHot();
+      
+      for(Supporter s: sup) {
+        String addr[] = s.getBaseaddr().split(" ");
+        String sub_addr = addr[1].substring(0, addr[1].length()-1);
+        s.setBaseaddr(sub_addr);
+      }
+      
+      return sup;
     }
 
     @Override

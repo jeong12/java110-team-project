@@ -33,7 +33,7 @@
 }
 
 #scheduleform {
-    margin-top: 10px; margin-bottom: 10px;
+    margin-top: 30px; margin-bottom: 10px;
 }
 
 table {
@@ -161,7 +161,9 @@ table {
     font-size: 100%;
     font-weight: 900;
     }
-    
+    #carouselRec{
+    margin-bottom:15px;
+    }
     
 
 /* @media ( min-width : 750px) and ( max-width : 1281px) {

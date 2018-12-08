@@ -285,8 +285,6 @@
 	<select id="findTodaySchedule"
 		resultMap="todayScheduleMap" parameterType="String">	
     SELECT
-        BR.brno,
-        SC.ssno,
         S.bas_addr as addr,
         S.x,
         S.y,
@@ -309,6 +307,18 @@
         AND S.bas_addr LIKE CONCAT('%',#{city},'%')
         </if>
         GROUP BY BS.brno
+        UNION
+          SELECT p.addr, p.x, p.y, p.shopname as name, MiN(sdt) as sdt, MAX(edt) as edt, b.name as teamname, b.genre
+            FROM busk b, per_sche p
+           WHERE p.bno=b.bno
+           <![CDATA[
+             AND CURRENT_DATE <= sdt
+             AND CURRENT_DATE+1 > sdt
+             ]]>
+             <if test="_parameter != null">
+             AND p.addr LIKE CONCAT('%',#{city},'%')
+            </if>
+        GROUP BY psno
 	</select>
 
 <!-- 무대제공자 스케쥴 추가: 해당 번호에 해당하는 무대 일정을 입력하는 쿼리 -->

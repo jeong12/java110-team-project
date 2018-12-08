@@ -132,7 +132,6 @@ padding-left: 28%;
                     <li class="list-group-item" onclick="showSup()">제공자</li>
                     <li class="list-group-item" onclick="showStop()">정지</li>
                 </ul>
-               
             </div>
         </div>
     </div>
@@ -172,7 +171,7 @@ padding-left: 28%;
                    </thead>
     <tbody id="testappend">
           <c:forEach  items="${list}" var="m">
-          <c:if test= "${m.flag eq '1'.charAt(0)}">
+          <c:if test= "${m.flag == 1}">
              <tr class="tt">
 				    <td>${m.id}</td>
 				    <td class=niks>${m.nik}</td>
@@ -182,10 +181,17 @@ padding-left: 28%;
 				    <td id="memow">${m.memo}</td>
 				    <td><button class="btt btns btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
 				    <td><div  class="detailbtn"><button name="detailAll" class="memberDetail btns btns-outline-secondary"  data-toggle="modal" data-target="#memberDetail" value="${m.nik}">상세보기</button></div></td>
-				    <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></td>
+				    <c:choose>
+                    <c:when test="${m.flag < 10}">
+                    <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지</button></td>
+                    </c:when>
+                    <c:otherwise>
+                    <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td>
+                    </c:otherwise>
+                    </c:choose>
              </tr>
              </c:if>  
-                   <c:if test= "${m.flag eq '2'.charAt(0)}">
+                   <c:if test= "${m.flag == 2 or m.flag == 12}">
           
              <tr class="tt">
                     <td>${m.id}</td>
@@ -196,11 +202,19 @@ padding-left: 28%;
                     <td id="memow">${m.memo}</td>
                     <td><button class="btt btn btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
                     <td><div id="detailAll" class="detailbtn"><button name="detailAll" class="buskDetail btns btns-outline-secondary"  data-toggle="modal" data-target=".modelbusk" value="${m.nik}">상세보기</button></div></td>
-                    <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></td>
+                    <c:choose>
+                    <c:when test="${m.flag < 10}">
+                    <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지</button></td>
+                    </c:when>
+                    <c:otherwise>
+                    <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td>
+                    </c:otherwise>
+                    </c:choose>
+                    
              </tr>
              
              </c:if>  
-                   <c:if test= "${m.flag eq '3'.charAt(0)}">
+                   <c:if test= "${m.flag == 3}">
           
              <tr class="tt">
                     <td class="col-md-1">${m.id}</td>
@@ -211,12 +225,11 @@ padding-left: 28%;
                     <td id="memow" class="col-md-2">${m.memo}</td>
                     <td class="col-md-1"><button class="btt btn btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
                     <td class="col-md-1"><div id="detailAll" class="detailbtn"><button id="detailAll" class="supDetail btns btns-outline-secondary"  data-toggle="modal" data-target="#supDetail" value="${m.nik}">상세보기</button></div></td>
-                    <td class="col-md-1"><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></td>
+                    <td class="col-md-1"><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" >정지</button></td>
              </tr>
              
              </c:if>  
-                   <c:if test= "${m.flag eq '4'.charAt(0)}">
-          
+                    <%-- <c:if test= "${m.flag > 10}">
              <tr class="tt">
                     <td>${m.id}</td>
                     <td class=niks>${m.nik}</td>
@@ -226,10 +239,10 @@ padding-left: 28%;
                     <td id="memow">${m.memo}</td>
                     <td><button class="btt btn btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
                     <td><div id="detailAll" class="detailbtn"><button id="detailAll" class="btt2 btns btns-outline-secondary"  data-toggle="modal" data-target="#model-id" value="${m.nik}">상세보기</button></div></td>
-                    <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon"></span>정지</button></td>
-             </tr>
+                    <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" >정지</button></td>
+             </tr> 
              
-             </c:if>  
+             </c:if>   --%>
             </c:forEach>
     </tbody>
 </table>
@@ -468,6 +481,82 @@ padding-left: 28%;
 <!-- 서포터모달 끝 -->
 <script>
 
+/* 정지 기능 */
+function stop(params){
+    var stopORun;
+    
+   $('.btn.btns-outline-danger').each(function(index,item){
+       if(item.value == params){
+           stopORun = item;
+           console.log(stopORun.value);
+       }
+   });
+   
+    var vals = params.split(' ');
+    if(stopORun.innerHTML == '정지'){
+    swal({
+        title: "정말 정지 시키겠습니까?",
+        text: "확인버튼을 누르면 해당 회원은 로그인이 불가능합니다.",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          swal("해당 회원 정지 완료", {
+            icon: "success",
+          });
+          $('button.swal-button.swal-button--confirm').click(function(){
+              
+              $.ajax({
+                  type : "POST",
+                  url : "showSup",
+                  dataType : 'json',
+                  data : {"id":vals[0], "flag":vals[1]},
+                  success : function(data){
+                       
+                  }
+              });
+              stopORun.value = vals[0] + " " + 1 +vals[1];
+              stopORun.innerHTML = '정지해제';
+              
+          });
+        } 
+      });
+    } else{
+        swal({
+            title: "정말 정지해제 시키겠습니까?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+              swal("해당 회원 정지해제 완료", {
+                icon: "success",
+              });
+              $('button.swal-button.swal-button--confirm').click(function(){
+                  console.log(vals[1]);
+                  $.ajax({
+                      type : "POST",
+                      url : "showSup",
+                      dataType : 'json',
+                      data : {"id":vals[0], "flag":vals[1]},
+                      success : function(data){
+                          
+                      }
+                  });
+                  
+                  stopORun.value = vals[0] + " " + vals[1].substr(1);
+                  stopORun.innerHTML = '정지';
+                  
+              });
+            } 
+          });
+        
+    }
+}
+
 function ssss(){
 	
         swal({position: 'top-end',
@@ -667,7 +756,7 @@ $.ajax({
                     +'<td>'+item.memo+'</td>'
                     +'<td><button class="btt btn-primary btn-xs"  data-toggle="modal" data-target="#exampleModal"  value="'+item.nik+'">메모수정</button></td>'
                     +'<td><button class="memberDetail btn-primary btn-xs" data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기</button></td>'
-                    +'<td><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon"></span>정지</button></p></td></tr>'        
+                    +'<td><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete">정지</button></p></td></tr>'        
                            );
             }else if(item.flag == 2){
             	$("#testappend, #testappend2").append('<tr><td>'+item.id+'</td>'
@@ -678,7 +767,7 @@ $.ajax({
                  +'<td>'+item.memo+'</td>'
                  +'<td><button class="btt btn-primary btn-xs"  data-toggle="modal" data-target="#exampleModal"  value="'+item.nik+'">메모수정</button></td>'
                  +'<td><button class="buskDetail btn-primary btn-xs"  data-toggle="modal" data-target=".modelbusk" value="'+item.nik+'">상세보기</button></td>'
-                 +'<td><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon"></span>정지</button></p></td></tr>'        
+                 +'<td><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete">정지</button></p></td></tr>'        
          );
             }else if(item.flag==3){
             	$("#testappend, #testappend3").append('<tr><td>'+item.id+'</td>'
@@ -689,7 +778,7 @@ $.ajax({
                 +'<td>'+item.memo+'</td>'
                 +'<td><button class="btt btn-primary btn-xs"  data-toggle="modal" data-target="#exampleModal"  value="'+item.nik+'">메모수정</button></td>'
                 +'<td><button class="supDetail btn-primary btn-xs"  data-toggle="modal" data-target="#supDetail"value="'+item.nik+'">상세보기</button></td>'
-                +'<td><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon"></span>정지</button></p></td></tr>'        
+                +'<td><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete">정지</button></p></td></tr>'        
                 );
             }else if(item.flag==4){
                 $("#testappend,#testappend4").append('<tr><td>'+item.id+'</td>'
@@ -700,7 +789,7 @@ $.ajax({
                         +'<td>'+item.memo+'</td>'
                         +'<td><button class="btt btn-primary btn-xs"  data-toggle="modal" data-target="#exampleModal"  value="'+item.nik+'">메모수정</button></td>'
                         +'<td><button class="memberDetail btn-primary btn-xs" data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기</button></td>'
-                        +'<td><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon"></span>정지</button></p></td></tr>'        
+                        +'<td><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete">정지</button></p></td></tr>'        
                                );
             }
         }); 
@@ -764,7 +853,7 @@ function goPageAll(e){
                'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
                +'</button></div></td><td><button class="btn btns-outline-danger"'
                +'data-title="Delete" data-toggle="modal" data-target="#delete">'
-               +'<span class="glyphicon"></span>정지</button></td></tr>'
+               +'정지</button></td></tr>'
                 )});
         $('.pages').append(' <ul class="pagination justify-content-center">'+
                 '<li class="page-item prev">'+
@@ -814,7 +903,7 @@ function goPageMemb(e){
                 'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
                 +'</button></div></td><td><button class="btn btns-outline-danger"'
                 +'data-title="Delete" data-toggle="modal" data-target="#delete">'
-                +'<span class="glyphicon"></span>정지</button></td></tr>'
+                +'정지</button></td></tr>'
                  );});
              $('.pages').append(' <ul class="pagination justify-content-center">'+
                      '<li class="page-item prev">'+
@@ -863,7 +952,7 @@ function goPageBusk(e){
                           'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
                           +'</button></div></td><td><button class="btn btns-outline-danger"'
                           +'data-title="Delete" data-toggle="modal" data-target="#delete">'
-                          +'<span class="glyphicon"></span>정지</button></td></tr>'
+                          +'정지</button></td></tr>'
                            );});
                    $('.pages').append(' <ul class="pagination justify-content-center">'+
                            '<li class="page-item prev">'+
@@ -913,7 +1002,7 @@ function goPageSup(e){
                           'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
                           +'</button></div></td><td><button class="btn btns-outline-danger"'
                           +'data-title="Delete" data-toggle="modal" data-target="#delete">'
-                          +'<span class="glyphicon"></span>정지</button></td></tr>'
+                          +'정지</button></td></tr>'
                            );});
                    $('.pages').append(' <ul class="pagination justify-content-center">'+
                            '<li class="page-item prev">'+
@@ -963,7 +1052,7 @@ function goPageStop(e){
                    'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
                    +'</button></div></td><td><button class="btn btns-outline-danger"'
                    +'data-title="Delete" data-toggle="modal" data-target="#delete">'
-                   +'<span class="glyphicon"></span>정지</button></td></tr>'
+                   +'정지</button></td></tr>'
                     );});
             $('.pages').append(' <ul class="pagination justify-content-center">'+
                     '<li class="page-item prev">'+
@@ -1015,7 +1104,7 @@ function showList(){
                    'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
                    +'</button></div></td><td><button class="btn btns-outline-danger"'
                    +'data-title="Delete" data-toggle="modal" data-target="#delete">'
-                   +'<span class="glyphicon"></span>정지</button></td></tr>'
+                   +'정지</button></td></tr>'
 	            	)});
 	        $('.pages').append(' <ul class="pagination justify-content-center">'+
                     '<li class="page-item prev">'+
@@ -1067,7 +1156,7 @@ function showMemb(){
                    'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
                    +'</button></div></td><td><button class="btn btns-outline-danger"'
                    +'data-title="Delete" data-toggle="modal" data-target="#delete">'
-                   +'<span class="glyphicon"></span>정지</button></td></tr>'
+                   +'정지</button></td></tr>'
                     );});
                 $('.pages').append('<ul class="pagination justify-content-center">'+
                         '<li class="page-item prev">'+
@@ -1119,7 +1208,7 @@ function showBusk(){
                        'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
                        +'</button></div></td><td><button class="btn btns-outline-danger"'
                        +'data-title="Delete" data-toggle="modal" data-target="#delete">'
-                       +'<span class="glyphicon"></span>정지</button></td></tr>'
+                       +'정지</button></td></tr>'
                         );});
                 $('.pages').append(' <ul class="pagination justify-content-center">'+
                         '<li class="page-item prev">'+
@@ -1170,7 +1259,7 @@ function showSup(){
                        'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
                        +'</button></div></td><td><button class="btn btns-outline-danger"'
                        +'data-title="Delete" data-toggle="modal" data-target="#delete">'
-                       +'<span class="glyphicon"></span>정지</button></td></tr>'
+                       +'정지</button></td></tr>'
                         );});
                 $('.pages').append(' <ul class="pagination justify-content-center">'+
                         '<li class="page-item prev">'+
@@ -1221,7 +1310,7 @@ function showStop(){
                        'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
                        +'</button></div></td><td><button class="btn btns-outline-danger"'
                        +'data-title="Delete" data-toggle="modal" data-target="#delete">'
-                       +'<span class="glyphicon"></span>정지</button></td></tr>'
+                       +'정지</button></td></tr>'
                         );});
                 $('.pages').append(' <ul class="pagination justify-content-center">'+
                         '<li class="page-item prev">'+
