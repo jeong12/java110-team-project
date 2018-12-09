@@ -20,7 +20,7 @@
 
 .rigth{float: right;}
 .tableleft{float: left; width: 70%;}
-.tablerigth{float: right; width: 30%; padding: 4%;}
+.tablerigth{width: 30%; padding: 4%; position: absolute; right: 0;}
 .fter{clear: both;}
 .thead-dark tr th{background-color: #212529; color: white;}
 .detailleft{float: left; width: 50%;}
@@ -33,6 +33,7 @@ img{width: 16rem;}
 #haha{margin-top: 1.2%; margin-left: 5.5%;}
 .search{float: right;}
 #m{margin-bottom: 1%;}
+nav.pages {text-align: center;}
 /* .thead-dark tr th{background-color:#212529; } */
 </style>
 <jsp:include page="../header.jsp"></jsp:include>
@@ -144,6 +145,40 @@ img{width: 16rem;}
 	            }   
 	    });
 	}
+	
+	
+	var currentPosition = 
+		parseInt($(".tablerigth").css("top")); 
+	   $(window).scroll(function() { 
+		   var position = $(window).scrollTop(); 
+		   $(".tablerigth").stop().animate({"top":position+currentPosition+"px"},1000); });
+/* 	$(function(){
+		var $win = $(window);
+		var top = $(window).scrollTop();
+		
+		var speed = 1000;
+		var easing = 'linear';
+		var $layer = $('.tablerigth');
+		var layerTopOffset = 0;
+		$layer.css('position','absolute');
+		
+		if(top>0)
+			$win.scrollTop(layerTopOffset + top);
+		else
+			$win.scrollTop(0);
+		
+		$(window).scroll(function(){
+			yPosition = $win.scrollTop() - 123;
+			if(yPosition <0)
+				yPosition = 0;
+			
+			$layer.animate({"top:yPosition"},{duration:speed, easing:easing,})
+		})
+		
+	}); */
+	
+	
+	
 	</script>
 	<!-- ki -->
 	
