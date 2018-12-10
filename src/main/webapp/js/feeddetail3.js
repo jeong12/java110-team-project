@@ -27,13 +27,13 @@ $(".col-md-4.photo button").on('click', function() {
                     '<button type="button" onclick="photorevise()" id="photorevise" class="btn btns-outline-warning" style="margin-top: -3%;">수정</button>'+
                     "<button id='photoreviseend' onclick='photoreviseend()' style='display:none;margin-top: -3%;' disabled class='btn btns-outline-warning'>수정완료</button>"+
                     '<button onclick="photoremove()" id="photodelete" class="btn btns-outline-warning" style="margin-top: -3%;">삭제</button>'+
-                    '<h4 style="display:none;" id=photonumber>'+pbno+'</h4>'
+                    '<button style="display:none;" id="photonumber" value="'+pbno+'"></button>'
                     );
             }
             $(".feedphoto1").append("<img src='../../upload/"+data.feedphotoFiles[0].filename+"' alt='첫번쨰사진' class='bigimg'>");
             $.each(data.feedphotoFiles,function(index,item){
                 $(".feedphoto2").append(
-                        "<td><h1 id='photofake"+index+"' value='"+item.filename+"' style='dislay:none;'></h1><button value='"+item.filename+"' ><img src='../../upload/"+item.filename+"' alt='....' class='smallimg'></button></td>"
+                        "<td><button id='photonumber"+index+"' value='"+data.feedphotoFiles[index].fpno+"' style='display:none;'></button><button class='photofakeclass' style='display:none;' id='photofake"+index+"' value='"+item.filename+"'></button><button value='"+item.filename+"' ><img src='../../upload/"+item.filename+"' alt='....' class='smallimg'></button></td>"
                 );
                 
                 console.log("index:"+index);
@@ -303,54 +303,95 @@ function photorevise(){
     $("#photorevise").css("display","none");
     $("#photoreviseend").css("display","");
     
+    $("#revphotcont").removeAttr("disabled");
+    $("#revphotcont").removeAttr("readonly");
+    $("#revphotcont").css("border","1px solid #80808066");
+    
+    
+    var photolength = $(".photofakeclass").length;
+    console.log(photolength);
+    
+    var photono = new Array();
+    var arr = new Array();
+    if(photolength == 3){
+        arr.push($("#photofake0").val());
+        photono.push($("#photonumber0").val());
+        arr.push($("#photofake1").val());
+        photono.push($("#photonumber1").val());
+        arr.push($("#photofake2").val());
+        photono.push($("#photonumber2").val());
+    } else if(photolength == 2){
+        arr.push($("#photofake0").val());
+        photono.push($("#photonumber0").val());
+        arr.push($("#photofake1").val());
+        photono.push($("#photonumber1").val());
+    } else{
+        arr.push($("#photofake0").val());
+        photono.push($("#photonumber0").val());
+    }
+    
+    console.log(arr);
+    console.log(photono);
+    
     $(".feedphoto").empty();
     
-    console.log($("#photofake1").length);
-
-/*    if($("#photofake3").length > 0){//이전에 사진이 3장일때
-        var phot1 = $("#photofake1").val();
-        var phot2 = $("#photofake2").val();
-        var phot3 = $("#photofake3").val();
+    if(photolength == 3){//이전에 사진이 3장일때
+        console.log("사진3장");
         $(".feedphoto").append(
                 '<table id="imgtable">'+
                 '<tr>'+
                   '<td style="padding:0 5px 0 5px;width: 45%;">'+
-                '<img id="revupload1" src="'+phot1+'" alt="기본이미지"></td>'+
+                '<img id="revupload1" src="/upload/'+arr[0]+'" alt="기본이미지"></td>'+
                 '<td style="padding:95px 0 0 10px;"><label for="rev_img1" style="font-size: 20px;">파일업로드</label>'+ 
                 '<input style="height: 0; width: 150px; opacity: 0;" '+
                  '   type="file" name="revfile1" id="rev_img1" onchange="readrevURL1(this);" /></td>'+
                  '</tr>'+
                  '<tr>'+
                   '<td style="padding:0 5px 0 5px;width: 45%;">'+
-                  '<img id="revupload2" src="'+phot2+'" alt="기본이미지"></td>'+
+                  '<img id="revupload2" src="/upload/'+arr[1]+'" alt="기본이미지"></td>'+
                   '<td style="padding:95px 0 0 10px;"><label for="rev_img2" style="font-size: 20px;">파일업로드</label> '+
                   '<input style="height: 0; width: 150px; opacity: 0;"'+
                   '  type="file" name="revfile2" id="rev_img2" onchange="readrevURL2(this);" /></td>'+
                   '</tr>'+
                   '<tr>'+
                   '<td style="padding:0 5px 0 5px;width: 45%;">'+
-                  '<img id="revupload3" src="'+phot3+'" alt="기본이미지"></td>'+
+                  '<img id="revupload3" src="/upload/'+arr[2]+'" alt="기본이미지"></td>'+
                   '<td style="padding:95px 0 0 10px;"><label for="rev_img3" style="font-size: 20px;">파일업로드</label> '+
                   '<input style="height: 0; width: 150px; opacity: 0;" '+
                   '    type="file" name="revfile3" id="rev_img3" onchange="readrevURL3(this);" /></td>'+
                 '</tr>'+
               '</table>'
         );
-    }else if($("#photofake2").length > 0){//이전에 사진이 2장일때
-        var phot1 = $("#photofake1").val();
-        var phot2 = $("#photofake2").val();
+        $(".invisibleform").append(
+                "<form action='updatephoto' method='post' enctype='multipart/form-data'>"+
+                "<input type='file' name='file1' id='revinput_img1' value='"+arr[0]+"'/>"+
+                "<input type='text' name='fpno1' id='fpno1' value='"+photono[0]+"'/>"+
+                    
+                    "<input type='file' name='file2' id='revinput_img2' value='"+arr[1]+"'/>"+
+                    "<input type='text' name='fpno2' id='fpno2' value='"+photono[1]+"'/>"+
+                    
+                        "<input type='file' name='file3' id='revinput_img3' value='"+arr[2]+"'/>"+
+                        "<input type='text' name='fpno3' id='fpno3' value='"+photono[2]+"'/>"+
+                            
+                "<input type='text' name='pbno' id='pbno' value='"+photnumber+"'/>"+
+                "<input type='text' name='cont' id='cont' value='"+contentt+"'/>"+
+                            
+                "</form>"
+        );
+    }else if(photolength == 2){//이전에 사진이 2장일때
+        console.log("사진2장");
         $(".feedphoto").append(
                 '<table id="imgtable">'+
                 '<tr>'+
                   '<td style="padding:0 5px 0 5px;width: 45%;">'+
-                '<img id="revupload1" src="'+phot1+'" alt="기본이미지"></td>'+
+                '<img id="revupload1" src="/upload/'+arr[0]+'" alt="기본이미지"></td>'+
                 '<td style="padding:95px 0 0 10px;"><label for="rev_img1" style="font-size: 20px;">파일업로드</label>'+ 
                 '<input style="height: 0; width: 150px; opacity: 0;" '+
                  '   type="file" name="revfile1" id="rev_img1" onchange="readrevURL1(this);" /></td>'+
                  '</tr>'+
                  '<tr>'+
                   '<td style="padding:0 5px 0 5px;width: 45%;">'+
-                  '<img id="revupload2" src="'+phot2+'" alt="기본이미지"></td>'+
+                  '<img id="revupload2" src="/upload/'+arr[1]+'" alt="기본이미지"></td>'+
                   '<td style="padding:95px 0 0 10px;"><label for="rev_img2" style="font-size: 20px;">파일업로드</label> '+
                   '<input style="height: 0; width: 150px; opacity: 0;"'+
                   '  type="file" name="revfile2" id="rev_img2" onchange="readrevURL2(this);" /></td>'+
@@ -364,13 +405,27 @@ function photorevise(){
                 '</tr>'+
               '</table>'
         );
+        $(".invisibleform").append(
+                "<form action='updatephoto' method='post' enctype='multipart/form-data'>"+
+                "<input type='file' name='file1' id='revinput_img1' value='"+arr[0]+"'/>"+
+                "<input type='text' name='fpno1' id='fpno1' value='"+photono[0]+"'/>"+
+                    
+                    "<input type='file' name='file2' id='revinput_img2' value='"+arr[1]+"'/>"+
+                    "<input type='text' name='fpno2' id='fpno2' value='"+photono[1]+"'/>"+
+                    
+                "<input type='text' name='pbno' id='pbno' value='"+photnumber+"'/>"+
+                "<input type='text' name='cont' id='cont' value='"+contentt+"'/>"+
+                            
+                "</form>"
+        );
+
     }else{
-        var phot1 = $("#photofake1").val();
+        console.log("사진1장");
         $(".feedphoto").append(
                 '<table id="imgtable">'+
                 '<tr>'+
                   '<td style="padding:0 5px 0 5px;width: 45%;">'+
-                '<img id="revupload1" src="'+phot1+'" alt="기본이미지"></td>'+
+                '<img id="revupload1" src="/upload/'+arr[0]+'" alt="기본이미지"></td>'+
                 '<td style="padding:95px 0 0 10px;"><label for="rev_img1" style="font-size: 20px;">파일업로드</label>'+ 
                 '<input style="height: 0; width: 150px; opacity: 0;" '+
                  '   type="file" name="revfile1" id="rev_img1" onchange="readrevURL1(this);" /></td>'+
@@ -391,12 +446,52 @@ function photorevise(){
                 '</tr>'+
               '</table>'
         );
-    }*/
+        $(".invisibleform").append(
+                "<form action='updatephoto' method='post' enctype='multipart/form-data'>"+
+                "<input type='file' name='file1' id='revinput_img1' value='"+arr[0]+"'/>"+
+                "<input type='text' name='fpno1' id='fpno1' value='"+photono[0]+"'/>"+
+                            
+                "<input type='text' name='pbno' id='pbno' value='"+photnumber+"'/>"+
+                "<input type='text' name='cont' id='cont' value='"+contentt+"'/>"+
+                "</form>"
+        );
+
+    }
+    /*
+    var photono = new Array();
+    var arr = new Array();
+    */
+    var photnumber = $("#photonumber").val();
+    var contentt = $("#revphotcont").val();
+    
+    console.log("photnumber:"+photnumber);
+    console.log("contentt:"+contentt);
+    console.log("arr[0]:"+arr[0])
+    console.log("arr[1]:"+arr[1])
+    console.log("arr[2]:"+arr[2])
+    console.log("photono[0]:"+photono[0])
+    console.log("photono[1]:"+photono[1])
+    console.log("photono[2]:"+photono[2])
+    
+    
+    $(".invisibleform").append(
+            "<form action='updatephoto' method='post' enctype='multipart/form-data'>"+
+            "<input type='file' name='file1' id='revinput_img1' value='"+arr[0]+"'/>"+
+            "<input type='text' name='fpno1' id='fpno1' value='"+photono[0]+"'/>"+
+                
+                "<input type='file' name='file2' id='revinput_img2' value='"+arr[1]+"'/>"+
+                "<input type='text' name='fpno2' id='fpno2' value='"+photono[1]+"'/>"+
+                
+                    "<input type='file' name='file3' id='revinput_img3' value='"+arr[2]+"'/>"+
+                    "<input type='text' name='fpno3' id='fpno3' value='"+photono[2]+"'/>"+
+                        
+            "<input type='text' name='pbno' id='pbno' value='"+photnumber+"'/>"+
+            "<input type='text' name='cont' id='cont' value='"+contentt+"'/>"+
+                        
+            "</form>"
+    );
 
 
-    $("#revphotcont").removeAttr("disabled");
-    $("#revphotcont").removeAttr("readonly");
-    $("#revphotcont").css("border","1px solid #80808066");
 }
 function readrevURL1(input) { 
     var chkImg = document.getElementById('rev_img1').value
@@ -422,10 +517,59 @@ function readrevURL1(input) {
         }
     }
 };
+function readrevURL2(input) { 
+    var chkImg = document.getElementById('rev_img2').value
+    chkImg=chkImg.slice(chkImg.indexOf(".")+1).toLowerCase();
+    var chkFile1 = 0;
+    var chkFile2 = 0;
+    var chkFile3 = 0;
+    if(chkImg !="jpg" && chkImg !="jpeg" && 
+            chkImg !="gif" && chkImg !="png" && chkImg !="bmp"){
+        chkFile2=0;
+        alert("이미지 파일만 올려주세요");
+        $('#revupload2').attr('src', "/img/default_image.png");}
+    
+    else if (input.files && input.files[0]){ 
+        var reader = new FileReader(); 
+        reader.onload = function (e) { 
+            $('#revupload2').attr('src', e.target.result); } 
+        reader.readAsDataURL(input.files[0]); 
+        chkFile2=1;
+
+        if(chkFile1==1 || chkFile2==1 || chkFile3==1) {
+            $("#photoreviseend").removeAttr("disabled","false");
+        }
+    }
+};
+function readrevURL3(input) { 
+    var chkImg = document.getElementById('rev_img3').value
+    chkImg=chkImg.slice(chkImg.indexOf(".")+1).toLowerCase();
+    var chkFile1 = 0;
+    var chkFile2 = 0;
+    var chkFile3 = 0;
+    if(chkImg !="jpg" && chkImg !="jpeg" && 
+            chkImg !="gif" && chkImg !="png" && chkImg !="bmp"){
+        chkFile3=0;
+        alert("이미지 파일만 올려주세요");
+        $('#revupload3').attr('src', "/img/default_image.png");}
+    else if (input.files && input.files[0]){ 
+        var reader = new FileReader(); 
+        reader.onload = function (e) { 
+            $('#revupload3').attr('src', e.target.result); } 
+        reader.readAsDataURL(input.files[0]); 
+        chkFile3= 1;
+        if(chkFile1==1 || chkFile2==1 || chkFile3==1) {
+            $("#photoreviseend").removeAttr("disabled","false");
+        }
+    }
+};
 //사진게시글 수정완료버튼 눌렀을때
 function photoreviseend(){
     
-    /*location.href="updateavi?abno="+abno+"&bno="+buskno+"&title="+avititlerev+"&url="+revurl+"&cont="+revavicontent;*/
+    
+    
+    
+    
 }
 
 
