@@ -18,5 +18,6 @@ public interface AviDao {
   void insertcomt(Map<String,Object> params);
   List<Avi> statisticsAviLcnt();
   void statisticsUpdateOfWeek(Map<String,Object> params);
-  
+  void deleteAvi(Map<String,Object> params);
+  void reviseavi(Map<String, Object> params);
 }

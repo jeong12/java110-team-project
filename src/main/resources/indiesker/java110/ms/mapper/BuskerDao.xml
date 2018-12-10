@@ -58,7 +58,7 @@
 		intro,
 		phot,
 		inst,
-		tel
+		tel,
 		lcnt
 		from busk
 		where

@@ -117,7 +117,7 @@ public class BuskerPromotionController {
         bpc.setType("관리자");
       }
     }
-
+    System.out.println(commentList);
     model.addAttribute("list", bd);
     model.addAttribute("comment", commentList);
     model.addAttribute("paging",paging);

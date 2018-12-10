@@ -15,4 +15,6 @@ public interface AviService {
   void uploadAvi(int bno, String title, String content, String url);
   Avi getfeedavibyAbnoNoComt(int no);
   void insertComment(int abno, int no, String cont);
+  void delete(int abno);
+  void reviseAvi(String titl, String cont, String urlid, int no);
 }

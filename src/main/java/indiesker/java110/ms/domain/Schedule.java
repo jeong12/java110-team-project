@@ -24,9 +24,30 @@ public class Schedule {
   protected List<ScheduleTime> scheduletime;
   protected String date;
   protected List<StagePhoto> stagephotos;
+  protected String phot;
+  protected String bno;
+  protected String bname;
   
   
 
+  public String getBname() {
+    return bname;
+  }
+  public void setBname(String bname) {
+    this.bname = bname;
+  }
+  public String getBno() {
+    return bno;
+  }
+  public void setBno(String bno) {
+    this.bno = bno;
+  }
+  public String getPhot() {
+    return phot;
+  }
+  public void setPhot(String phot) {
+    this.phot = phot;
+  }
   public List<StagePhoto> getStagephotos() {
     return stagephotos;
   }

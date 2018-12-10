@@ -53,5 +53,8 @@ public interface ScheduleService {
     int buskbyflagscheduleCnt(int flag, int bno);
     List<Schedule> findMyAllSchedule(int bno, int pageNo, int pageSize);
     int findMyAllScheduleCnt(int bno);
-    List<Schedule> findAllSchedule();
+    List<Schedule> findAllSchedule();//test용
+    List<Schedule> findSearchAllSchedule(String keyword1, String keyword2);//test용
+    List<Schedule> findTodayAllSchedule();
+    List<Schedule> findTodaySearchAllSchedule(String keyword, String keyword2);
 }
