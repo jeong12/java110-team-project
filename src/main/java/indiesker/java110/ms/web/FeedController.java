@@ -126,6 +126,7 @@ public class FeedController {
   @RequestMapping("showavi")
   public Avi getAviNo(
       String abno, Model model) {   
+    System.out.println(abno);
     int abno2 = Integer.parseInt(abno);
     Avi feedavi=aviService.getfeedavibyAbno(abno2);
 
@@ -210,9 +211,34 @@ public class FeedController {
   @RequestMapping("insertavicomt")
   public void insertcomt(int abno, int no, String cont) {
     System.out.println(abno+"//"+no+"//"+cont);
-    
     aviService.insertComment(abno, no, cont);
+  }
+ 
+  @GetMapping("deleteavi")
+  public String deleteavi(int abno,int bno) throws Exception {
+      aviService.delete(abno);
+      return "redirect:enter?no="+bno;
+  }
+
+  @GetMapping("deletephoto")
+  public String deletephoto(int pbno,int bno) throws Exception {
+    feedPhotoService.delete(pbno);
+      return "redirect:enter?no="+bno;
+  }
+  
+  @GetMapping("updateavi")
+  public String updateavi(int abno,int bno,String title,
+      String url, String cont) throws Exception {
     
+    System.out.println(abno);
+    System.out.println(bno);
+    System.out.println(title);
+    System.out.println(url);
+    System.out.println(cont);
+    
+    aviService.reviseAvi(title, cont, url, abno);
+    
+      return "redirect:enter?no="+bno;
   }
   
   @RequestMapping("moreavi")
@@ -220,8 +246,6 @@ public class FeedController {
     
     
   }
-  
-
 }
 
 

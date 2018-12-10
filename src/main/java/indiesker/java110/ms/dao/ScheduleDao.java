@@ -56,6 +56,9 @@ public interface ScheduleDao {
   int findMyAllSchedulebyflagcnt(Map<String,Object> params);
   List<Schedule> findMyAllSchedule(Map<String,Object> params);
   int findMyAllSchedulecnt(int bno);
-  List<Schedule> findAllSchedule();
+  List<Schedule> findAllSchedule();//Test용입니다.
+  List<Schedule> findSearchAllSchedule(Map<String,Object> params);//Test용입니다.
+  List<Schedule> findTodayAllSchedule();
+  List<Schedule> findTodaySearchSchedule(Map<String,Object> params);
   
 }

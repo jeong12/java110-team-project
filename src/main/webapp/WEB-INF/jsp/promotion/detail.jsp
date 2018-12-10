@@ -19,34 +19,72 @@
 #titl{margin-top: 3%; margin-bottom: 3%;}
 #titl h3{float: left; margin-top: 4px; margin-left 2.4 rem;}
 #phot{width: 320px; height: 240px;} 
-.media{width: 100%;height: 330px;}
+.media{height: 56%;}
+
     .mm{width: 800px; height:60px;}    
     .media-body{margin-top: 10px;}
     .titl{position: relative ;text-align: center; margin-bottom: 30px;}
     .pto{width: 40px; height: 40px; border-radius: 100px;position: relative; left: 9px;} 
-    .nik{border: 1px solid silver;width: 60px; height: 20px; border-radius: 100px;
-        text-align: center; background-color: darkgray; color: azure ;margin-bottom: auto;}
-    .t{border-bottom: 1px solid silver; border-bottom: 1px solid silver; padding-top: 3px;
-    padding-bottom: 42px; height: 67px;}
-    .pto,.nik{margin-left: 10px;}
-    .pn{ width: 100px; float: left}
-    .cc{position: relative ; left: 100px; bottom: 50px; margin: -10px; width: 100px;}
-    .text{position: relative; bottom:90px; left: 200px; width: 1000px; height: 60px;margin-top: 20px;}
+    .nik{border: 1px solid silver;    width: 3rem;
+    height: 1.1rem; border-radius: 100px;
+        text-align: center; background-color: darkgray; color: azure ;margin-bottom: auto; margin-top: 4%;
+  }
     .box{width: 65%; margin-left: 17%}
-    .container{margin-left: -15px; width: 101%;}
-    .td{width: 101%}
+    .container{margin-left: -15px; width: 100%; margin-bottom: 62rem;}
+    .td{width: 100%}
     #c-box{border: 1px solid silver; width: 93%; height: 60px; margin-bottom: 20px; 
     margin-top: 10px; border-radius: 6px;}
     #text{border-radius: 5px; width: 92%; height: 70px; margin-bottom: 15px;}
     #btn{margin-left: 90%;margin-bottom: 10px; border-radius: 5px; width: 10%;height:30px;
     margin-left: 91%;}
-    #btn2{width: 7%; height: 70px;}
-    .c-t{width: 101%; margin-bottom: 30px;}
+    #btn2{  
+     width: 7%;
+    height: 3.5rem;
+    margin-left: 1%;
+    }
+    .c-t{width: 100%;  display: flex;}
     #bp{width: 98%;}
     #te{margin-top: 50px;}
     .t-top{border: border; border-top: 1px solid silver}
     textarea{resize: none;  rows=5;}
     .cdtContext{float: right;}
+    #tobbox{
+    border: 1px solid silver;
+    border-radius: 5px;  
+    height: 34%;
+    padding: 1%;
+    background-color: white;
+        }
+    #textbox{margin-top: 15%;}
+    #topbtn{
+        font-size: 0.8rem;
+    width: 5rem;
+    height: 2rem;
+    padding: 0;
+    float: right;
+    clear: both;
+    margin-top: -4%;
+    }
+    #commenttop{border-top: 1px solid silver;}
+    .t{border-bottom: 1px solid silver; display: -webkit-box;}
+    .comments{background-color: white;}
+    .pn{margin: 0.5%; width: 5%;}
+    .cc{width: 6%; text-align: center;}
+    .text{width: 88%; padding-right: 0.3rem;}
+    #cdtr{float: right;}
+    .icon{
+    display: -webkit-inline-box;
+    float: right;
+    clear: both;
+    margin-top: 1%;
+    }
+    .far,.fas{font-size: 1rem;}
+    .cc div{margin-top: 35%;}
+    .t1{margin-left: 28%;}
+    .ft{font-weight: 800; float: left;}
+    .t1 label{float: left;}
+    footer{clear: both;}
+    #mang{display: flex;}
 </style>
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
@@ -59,39 +97,35 @@
         <h3>무대관리</h3>
     </div>
     </div>
-    </div>
 
 
      <div class="box">
 
-<div class="container">
   <div class="td">
-      <div class="media">
           <h1 class="titl">${list.titl}</h1>
+          
+          <div id="tobbox">
         <a class="pull-left" href="#">
-            <img class="media-object" id="phot" src=${list.phot}>
+            <img class="media-object" id="phot" src="${list.phot}">
           </a>
             <div class = 'cdtContext'>
             <p>${list.ncdt}</p>
             </div>
-        <div class="">
-   
           <div class="t1">
-                <tr><th>팀명:</th><td>${list.teamname}<td></tr><br>
-                <tr><th>장르:</th><td>${list.genre}</td></tr><br>
-                <tr><th>공연지역:</th><td>${list.city}</td></tr><br>
-                <tr><th>날짜:</th><td>${list.nsdt}</td>~<td>${list.nedt}</td></tr><br>
-                <tr><th>인원:</th><td>${list.cnt}</td></tr><br>
-                <tr><th>내용:</th><td class="mm">${list.etc}</td></tr><br>
+               <div class="ft">팀명:</div><div>${list.teamname}<div>
+                <div class="ft">장르:</div><div>${list.genre}</div>
+                <div class="ft">공연지역:</div><div>${list.city}</div>
+                <div id="mang">
+                <div class="ft">날짜:</div><div>${list.nsdt}</div>~<div>${list.nedt}</div>
+                </div>
+                <div class="ft">인원:</div><div>${list.cnt}</div>
+                <div class="ft">내용:</div><div>${list.etc}</div>
             </div>
-          </div>
-      </div>
-      <a href='../buskerfeed/enter?no=${list.bno}'><button class="btns btns-outline-dark">피드가기</button></a>
+      <a href='../buskerfeed/enter?no=${list.bno}'><button id="topbtn" class="btns btns btns-outline-m">피드가기</button></a>
      <!--  <button id="btn" name="singlebutton" class="btn btn-primary btn-xs" >버스커 피드</button> -->
-   
+      </div>
     </div>
-        </div>
-     <div>
+     <div id="textbox">
      <div class="c-t">
 
 
@@ -105,43 +139,43 @@
             </c:choose>
 
 
-         <button id="btn2" name="singlebutton" class="btn btn-primary">클릭</button>
- 
+         <button id="btn2" name="singlebutton" class="btns btns-outline-m">입력</button>
 
          </div>
-    <div class="t-top"></div>
+         <div id="commenttop"></div>
+         <!-- 댓글  -->
     <div class='comments'>
     <c:forEach  items="${comment}" var="com">
     <div class="t">
 
     <div class="pn">
-        <a><img src=${com.phot} class="pto"></a>
+        <a><img src="${com.phot}" class="pto"></a>
        <p class="nik">버스커</p>
     </div>
-    
     <div class="cc">
-        <tr>
-            <th>${com.nik}</th><br>
-            <td>${com.ncdt}</td>
-        </tr>
+           <div  class="ft">${com.nik}</div>
     </div>
-
-      <div class="text" style="margin-top: 20px;">
-          <td>${com.cont}</td>
-    </div>   
-
-         </div>
-        
+    
+    
+      <div class="text">
+          <div id="cdtr">${com.ncdt}</div><br>
+          <div id="contm">${com.cont}</div> <!-- m -->
        <c:choose>
              <c:when test="${sessionScope.loginUser.no == com.mno}">
-              <div class="removecomment" onclick="removeComment(${com.bcno})"><i class="fas fa-minus"></i></div>
-              <div class="modifycomment" onclick="modifyComment(${com.bcno})"><i class="far fa-edit"></i></div>
+             <div class="icon">
+                <div class="modifycomment" onclick="modifyComment(${com.bcno})"><i class="far fa-edit"></i></div>
+                <div class="removecomment" onclick="removeComment(${com.bcno})"><i class="fas fa-minus"></i></div>
+              </div>
+              
              </c:when>
              <c:otherwise>
              </c:otherwise>
             </c:choose>
+            </div>
+         </div>
        </c:forEach>
-        </div>  
+        </div> 
+        <!-- 댓글끝 --> 
         <nav aria-label="Page navigation example" class='pages'>
                             <ul class="pagination justify-content-center">
                                 <li class="page-item prev">
@@ -164,8 +198,9 @@
                         </nav>
     </div>
     </div>
-    
-    
+    </div>
+    </div>
+        </div>
     <script type="text/javascript">
     
     // 댓글 입력
@@ -271,7 +306,6 @@ function goPage(e){
 	    window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) { params[key] = value; });
 	    return params;
 	} 
-
 	var bbno = getUrlParams().bbno;
 	
 	$.ajax({
@@ -283,13 +317,27 @@ function goPage(e){
                $('.comments').empty();
                $('.pages').empty();
                $.each(data.list,function(index,item){
-               $('.comments').append('<div class="t"><div class="pn"><a><img src="'+item.phot+'" class="pto"></a><p class="nik">'+
-                       item.type+'</p></div>'+'<div class="cc"><tr><th>'+item.nik+'</th><br><td>'+item.ncdt+'</td></tr></div>'+
-               '<div class="text"><td>'+item.cont+'</td></div></div>'); 
+               /* $('.comments').append( */
+            		   
+            	var content =   '<div class="t">'
+               +'<div class="pn">'
+               +'<a><img src="'+item.phot+'"class="pto"></a>'
+               +'<p class="nik">'+item.type+'</p>'
+               +'</div>'
+               +'<div class="cc">'
+               +'<div class="ft">'+item.nik+'</div>'
+               +'</div>'
+               +'<div class="text">'
+               +'<div id="cdtr">'+item.ncdt+'</div><br>'
+               +'<div id="contm">'+item.cont+'</div>';
                if(item.mno == data.mno){
-                   $('.comments').append('<div class="removecomment" onclick="removeComment(${com.bcno})"><i class="fas fa-minus"></i></div>'+
-                             '<div class="modifycomment" onclick="modifyComment(${com.bcno})"><i class="far fa-edit"></i></div>');
+                   /* $('.comments').append( */
+               content += '<div class="icon">'
+                             +'<div class="modifycomment" onclick="modifyComment(${com.bcno})"><i class="far fa-edit"></i></div>'
+                		   +'<div class="removecomment" onclick="removeComment(${com.bcno})"><i class="fas fa-minus"></i></div></div>';
                }
+               $('.comments').append(content);
+               
                });
                 $('.pages').append(' <ul class="pagination justify-content-center">'+
                         '<li class="page-item prev">'+
@@ -321,7 +369,11 @@ function modifyComment(e){
 }
     </script>   
 </body>
+<div class="footer">
+<footer>
 <jsp:include page="../footer.jsp"></jsp:include>
+</footer>
+</div>
 </html>
     
     

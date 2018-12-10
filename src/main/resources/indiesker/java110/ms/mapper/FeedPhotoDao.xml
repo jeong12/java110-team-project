@@ -18,6 +18,22 @@
 	<select id="findRecentPhot" resultMap="feedPhotoMap"
 		parameterType="map">
 		SELECT p.pbno, fp.phot,p.cdt
+		FROM busk b, phot p,(SELECT
+		*
+		FROM
+		feed_phot
+		GROUP BY pbno ) as fp
+		WHERE b.bno = p.bno
+		AND p.pbno =
+		fp.pbno
+		AND b.bno=#{no}
+		ORDER BY p.cdt DESC
+		limit #{rowNo}, #{size}
+	</select>
+
+	<select id="findRecentPhot2" resultMap="feedPhotoMap"
+		parameterType="int">
+		SELECT p.pbno, fp.phot
 		FROM busk b, phot p,(SELECT *
 		FROM
 		feed_phot
@@ -26,21 +42,7 @@
 		AND p.pbno = fp.pbno
 		AND b.bno=#{no}
 		ORDER BY p.cdt DESC
-		limit #{rowNo}, #{size}
 	</select>
-	
-	   <select id="findRecentPhot2" resultMap="feedPhotoMap"
-        parameterType="int">
-        SELECT p.pbno, fp.phot
-        FROM busk b, phot p,(SELECT *
-        FROM
-        feed_phot
-        GROUP BY pbno ) as fp
-        WHERE b.bno = p.bno
-        AND p.pbno = fp.pbno
-        AND b.bno=#{no}
-        ORDER BY p.cdt DESC
-    </select>
 
 	<resultMap type="FeedPhoto" id="feedphotomodal">
 		<id column="pbno" property="pbno" />
@@ -167,6 +169,19 @@
 			(#{item},#{pbno})
 		</foreach>
 	</insert>
+	<!-- 포토게시글삭제 -->
+	<update id="deletePhoto" parameterType="map">
+		UPDATE phot
+		SET bno=#{randomno}
+		WHERE pbno=#{pbno}
+	</update>
+
+	<!-- 사진수정 -->
+	<update id="revisephoto" parameterType="map">
+		UPDATE avi
+		SET titl=#{titl}, cont=#{cont}, stm=#{urlid}
+		WHERE abno=#{no}
+	</update>
 
 </mapper>
 

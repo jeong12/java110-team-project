@@ -419,7 +419,8 @@ public class MemberManagerController {
     SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
     for (MemberManager mm : list) {
       mm.setNcdt(dformat.format(mm.getCdt()));
-    }  
+    }
+    
     
     Map<String,Object> map = new HashMap<>(); 
     map.put("list", list);

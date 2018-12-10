@@ -46,7 +46,9 @@ public class BuskerPromotionServiceimpl implements BuskerPromotionService {
 	    HashMap<String,Object> params = new HashMap<>();
 	    params.put("no",bbno);
 	    params.put("paging", paging);
-	    return buskerPromotionDao.comtList(params);
+	    List<BuskerPromotionComment> list = buskerPromotionDao.comtList(params);
+	    System.out.println(list);
+	    return list;
 	  }
 
 	  @Override

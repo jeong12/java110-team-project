@@ -176,7 +176,7 @@ body, .container.title {
   padding: 10px;
 }
 
-.row.feedphoto {
+.row.feedphotos {
   margin: 0 20px 0 20px;
 }
 
@@ -238,13 +238,16 @@ body, .container.title {
 }
 </style>
 <body>
+<c:set var="sessionno" value="${sessionScope.loginUser.no }"/>
+<c:set var="buskno" value="${busk.bno}"/>
   <jsp:include page="../header.jsp"></jsp:include>
 
   <div class="container title">
     <div id="titl">
       <img id="logo" src="../img/playbutton.png" alt="플레이로고">
-      <h3>버스커피드: ${busk.bno }</h3>
-      <h1>${sessionScope.no }</h1>
+      <h3>버스커피드: ${busk.bno}</h3>
+      <h1 id="sessionno"><c:out value="${sessionno}"/></h1>
+      <h1 id="buskno"><c:out value="${buskno}"/></h1>
     </div>
   </div>
   <div class="container feed" style="background-color: white;">
@@ -285,13 +288,18 @@ body, .container.title {
           rows="5" disabled placeholder="반가워요~">${busk.teamInfo }</textarea>
         <!-- 250자 제한 -->
       </div>
-      <div style="padding-left: 75%;">
+      
+        <!-- sessionScope.loginUser.no -->     
+       <c:choose>
+      <c:when test="${busk.bno == sessionScope.loginUser.no }">
+       <div style="padding-left: 75%;">
         <button id="aviupload" class="btn btns-outline-dark"
           data-target="#aviUploadModal" data-toggle="modal">영상올리기</button>
         <button id="photoupload" class="btn btns-outline-dark"
           data-target="#photoUploadModal" data-toggle="modal">사진올리기</button>
       </div>
-
+       </c:when>
+        </c:choose>
     </div>
     <!-- 여기까지 버스커 저옵~~~~~~~~ -->
     <div class="feedcontent" style="width: 100%">
@@ -377,7 +385,7 @@ body, .container.title {
           <div class="posttitle">
             <i class="far fa-image"> 사진게시글</i>
           </div>
-          <div class="row feedphoto">
+          <div class="row feedphotos">
             <c:choose>
               <c:when test="${empty recentplist }">
                 <p style="padding-left: 15px;">사진이 없습니다!</p>
@@ -385,7 +393,7 @@ body, .container.title {
               <c:otherwise>
                 <c:forEach items="${recentplist}" var="t">
                   <div class="col-md-4 photo"
-                    style="margin-bottom: 30px;">
+                    style="margin-bottom: 25px;">
                     <button data-target="#photomodal"
                       data-toggle="modal" value="${t.pbno }">
                       <img src="../../upload/${t.firphot }"
@@ -454,7 +462,7 @@ h2 {
   padding: 5px;
 }
 
-#comtcont{
+#acomtcont,#pcomtcont{
   border-radius: 0.25rem;
   background-color: white;
     -webkit-appearance: textfield;
@@ -467,6 +475,10 @@ h2 {
   border-color: initial;
   border-image: initial;
 }
+#acomtcontlist,#pcomtcontlist{
+  border-radius: 0.25rem;
+  background-color: white;
+}
 
 .comtinsert {
   padding: 10px;
@@ -476,6 +488,7 @@ h2 {
 
 .comtcont, .comtdate {
   float: right;
+  
 }
 
 .comtimg, .comtname {
@@ -519,7 +532,14 @@ h2 {
   border-radius: 20px;
 }
 
-.infocontent {
+.pinfocontent {
+  border: 1px solid gray;
+  border-radius: 0.25rem;
+  width: 96%;
+  height: 190px;
+  padding: 10px 10px 0 5px;
+}
+.ainfocontent {
   border: 1px solid gray;
   border-radius: 0.25rem;
   width: 96%;
@@ -532,14 +552,6 @@ h2 {
   width: 9%;
   height: 44px;
   margin: 0 10px 5px 10px;
-}
-
-.infodata {
-  
-}
-
-.top {
-  
 }
 
 .mid {
@@ -558,6 +570,10 @@ h2 {
 #modalgenre, #modalcity {
   color: #777;
 }
+.btn.btns-outline-warning{
+    float:right;
+    margin-right:2%;
+}
 </style>
 
   <div class="modal fade" id="avimodal" tabindex="-1" role="dialog"
@@ -571,28 +587,16 @@ h2 {
               <div class="feedavi"></div>
 
 
-              <div class="infocontent"></div>
+              <div class="ainfocontent"></div>
 
-              <!-- <div class="teaminfo">
-                <table class="aviteamimgtb">
-
-                </table>
-              </div>
-              <div class="contents" style="overflow: auto;">
-                <div class="content" style="height: 80%;"></div>
-                <div class="likecount" style="text-align: right;">
-
-                </div>
-              </div>
- -->
             </div>
             <div class="comment">
               <div class="comtinsert">
 
-                <div class='insertcontent'></div>
+                <div class='ainsertcontent'></div>
 
               </div>
-              <div class="comtlist"
+              <div class="acomtlist"
                 style="overflow: auto; height: 360px;"></div>
             </div>
           </div>
@@ -633,6 +637,11 @@ h2 {
   margin: 0;
 }
 
+.feedphotos button {
+  border: 0;
+  padding: 0;
+  margin: 9px;
+}
 .feedphoto button {
   border: 0;
   padding: 0;
@@ -663,6 +672,9 @@ h2 {
             aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
+          <div id="delrevbtn" style="margin-right:8px;">
+          
+          </div>
         </div>
         <div class="modal-body photo">
           <div class="modalcontainer">
@@ -678,29 +690,16 @@ h2 {
                 </div>
               </div>
 
-              <div class="infocontent"></div>
+              <div class="pinfocontent"></div>
 
-
-              <!--               <div class="teaminfo">
-                <table class="phototeamimgtb">
-
-                </table>
-              </div>
-              <div class="contents" style="overflow: auto;">
-                <div class="content" style="height: 80%"></div>
-                <div class="likecount" style="text-align: right;">
-
-                </div>
-              </div>
--->
             </div>
             <div class="comment">
               <div class="comtinsert">
 
-                <div class='insertcontent'></div>
+                <div class='pinsertcontent'></div>
 
               </div>
-              <div class="comtlist"
+              <div class="pcomtlist"
                 style="overflow: auto; height: 484px;"></div>
             </div>
 
@@ -734,6 +733,12 @@ h2 {
 #upload1, #upload2, #upload3{
 height: 164px; width: 265px;
 margin-bottom:10px;
+}
+#revupload1, #revupload2, #revupload3{
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+height: 128px; width: 200px;
+margin-bottom:8px;
 }
 </style>
   <div class="modal fade" id="photoUploadModal" tabindex="-1"
@@ -889,6 +894,12 @@ margin-bottom:10px;
       </div>
     </div>
   </div>
+ 
+  
+  
+  
+  
+  <!-- =========================================================== -->
   <button type="button" class="btns btns-outline-primary">Primary</button>
   <button type="button" class="btns btns-outline-secondary">Secondary</button>
   <button type="button" class="btn btns-outline-success">Success</button>
@@ -896,7 +907,7 @@ margin-bottom:10px;
   <button type="button" class="btns btns-outline-warning">Warning</button>
   <button type="button" class="btns btns-outline-info">Info</button>
   <button type="button" class="btns btns-outline-light">Light</button>
-  <button type="button" class="btns btns-outline-dark">Dark</button>
+  <button type="button" class="btn btns-outline-dark">Dark</button>
   <!-- ===================================================================== -->
 
 
