@@ -169,7 +169,7 @@ padding: 0;
 	<div class="container">
 	
 		<div id="titl">
-	        <h2><img id="logo" src="../../img/playButton.PNG" alt="플레이로고">버스커 전체보기</h2>
+	        <h2><img id="logo" src="../../img/playButton.PNG" alt="플레이로고">버스커 목록보기</h2>
 	    </div>
     
     </div>

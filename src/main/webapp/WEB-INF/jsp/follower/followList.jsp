@@ -121,10 +121,12 @@ height: 15px;
     left: 25%;
     width: 50%;
     min-width: 700px;
+    max-width: 820px;
     height: 50%;
     padding: 0;
     background-color: white;
     overflow: auto; 
+    border-radius: 5px;
 }
 #followerdetail {/* 테이블 */
     border-collapse: separate;
@@ -308,7 +310,8 @@ $('.followerbtn').click(function(){
               +'<tr><td class="leftside">주요장르 : </td><td class="rightside">'+data.teamgenre+'</td></tr>'
               +'<tr><td class="leftside">활동도시 : </td><td class="rightside">'+data.city+'</td></tr>'
               +'<tr><td id="leftsidebottom">소 개 말 : </td><td id="rightsidebottom">'+data.teamInfo+'</td></tr>'
-              +'<tr><td id="gofeed" colspan="3"><a href="#close" class="more-button">그만 보기</a><a href="/app/buskerfeed/enter?no='+data.bno+'" class="more-button">피드가기</a></td></tr>');
+              +'<tr><td id="gofeed" colspan="3"><a href="#close" class="more-button" style="text-decoration: none;">그만 보기</a>'
+              +'<a href="/app/buskerfeed/enter?no='+data.bno+'" class="more-button" style="text-decoration: none;">피드가기</a></td></tr>');
         },
         error : function(request, status, error) {
             alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
