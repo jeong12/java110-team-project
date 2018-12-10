@@ -21,6 +21,7 @@ import indiesker.java110.ms.domain.Avi;
 import indiesker.java110.ms.domain.Busker;
 import indiesker.java110.ms.domain.Comment;
 import indiesker.java110.ms.domain.FeedPhoto;
+import indiesker.java110.ms.domain.FeedPhotoFile;
 import indiesker.java110.ms.domain.Schedule;
 import indiesker.java110.ms.service.AviService;
 import indiesker.java110.ms.service.BuskerService;
@@ -150,7 +151,7 @@ public class FeedController {
       String pbno, Model model) {   
     int pbno2 = Integer.parseInt(pbno);
     FeedPhoto feedphoto=feedPhotoService.getfeedphotobyPbno(pbno2);
-
+    
     if(feedphoto == null) {
       feedphoto = feedPhotoService.getfeedphotobyPbnoNoComt(pbno2);
       feedphoto.setComtcount(0);
@@ -199,7 +200,7 @@ public class FeedController {
 
   @PostMapping("addavi")
   public String addavi(@RequestParam String bno, String title, String content, String url) {
-    System.out.println(bno);
+    System.out.println("test"+bno);
     int bno2=Integer.parseInt(bno);
     String urlid = url.substring(32,43);
 
@@ -244,7 +245,7 @@ public class FeedController {
   
   
   @RequestMapping("moreavi")
-  public void moreavi(int no,  Model model) {
+  public void moreavi(int no,  Model model){
     Busker busker = buskerService.get(no);
     List<Avi> alist = aviService.recentList(no);
 
@@ -260,6 +261,43 @@ public class FeedController {
     System.out.println(alist);
     
   }
+/*  @PostMapping("updatephoto")
+  public String updatephoto(
+      
+      ) throws Exception {
+    
+    
+    return "redirect:enter?no="+bno;
+  }*/
+/*  @PostMapping("updatephoto")
+  public String updatephoto(@RequestParam String pbno,@RequestParam String content, @RequestParam MultipartFile file1,
+      @RequestParam MultipartFile file2, @RequestParam MultipartFile file3
+      ) throws IllegalStateException, IOException {
+    int bno2=Integer.parseInt(bno);
+    
+    List<String> files = new ArrayList<>();
+
+    if (file1.getSize() > 0) {
+      String filename = UUID.randomUUID().toString();
+      file1.transferTo(new File(sc.getRealPath("/upload/" + filename)));
+      files.add(filename);
+    }
+
+    if (file2.getSize() > 0) {
+      String filename = UUID.randomUUID().toString();
+      file2.transferTo(new File(sc.getRealPath("/upload/" + filename)));
+      files.add(filename);
+    }
+    if (file3.getSize() > 0) {
+      String filename = UUID.randomUUID().toString();
+      file3.transferTo(new File(sc.getRealPath("/upload/" + filename)));
+      files.add(filename);
+    }
+    feedPhotoService.feedPhotoAndFileUpload(bno2, content, files);
+    
+    
+    return "redirect:enter?no="+bno;
+  }*/
 }
 
 
