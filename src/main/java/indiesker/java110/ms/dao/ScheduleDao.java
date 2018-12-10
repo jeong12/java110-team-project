@@ -60,5 +60,5 @@ public interface ScheduleDao {
   List<Schedule> findSearchAllSchedule(Map<String,Object> params);//Test용입니다.
   List<Schedule> findTodayAllSchedule();
   List<Schedule> findTodaySearchSchedule(Map<String,Object> params);
-  
+  int totsearchSchedule(Map<String,Object> params);
 }

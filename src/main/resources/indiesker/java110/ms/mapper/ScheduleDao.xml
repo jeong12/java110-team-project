@@ -762,6 +762,7 @@ GROUP BY BS.brno
         </when>
         </choose>
     ORDER BY sdt    
+    Limit #{paging.startRowNo},#{paging.pageSize}
     </select>
     
     <select id="findoverdue" parameterType="map"  resultMap="ShowReqsToSupporterMap">
@@ -1072,6 +1073,42 @@ SELECT
     OR addr like concat('%',#{keyword2},'%'));
 </select>
     
+     <select id="totsearchSchedule" resultType="Integer" parameterType="map">
+    
+    select count(*) from 
+    ((select b.name, ps.addr, ps.sdt,ps.edt, b.bno
+     from per_sche as ps, busk as b
+     where ps.bno = b.bno AND ps.sdt>=curdate() and
+     <choose>
+        <when test="type.equals('team')">
+        b.name=#{keyword})
+        </when>
+        <when test="type.equals('city')">
+        ps.addr like concat('%',#{keyword},'%'))
+        </when>
+        <when test="type.equals('date')">
+        ps.sdt like concat(#{date},'%'))
+        </when>
+        </choose>
+
+    UNION ALL
+
+    (select b.name, concat(s.bas_addr,' ',s.det_addr)as addr, ss.sdt,ss.edt, b.bno
+    from busk_stag as bs, busk as b, sup as s, stag_sche as ss, busk_req as br
+    where bs.ssno=ss.ssno and bs.brno=br.brno and ss.sno=s.sno and br.bno=b.bno AND ss.sdt>=curdate() 
+    AND bs.flag='2' and 
+         <choose>
+        <when test="type.equals('team')">
+        b.name=#{keyword})) as b
+        </when>
+        <when test="type.equals('city')">
+        s.bas_addr like concat('%',#{keyword},'%')))asb
+        </when>
+        <when test="type.equals('date')">
+        ss.sdt like concat(#{date},'%')))As b
+        </when>
+        </choose>
+    </select>
 </mapper>
 
 

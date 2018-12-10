@@ -52,7 +52,7 @@ margin-bottom:15px;
 	   <th scope="col">장소</th>
 	</tr>
 	</thead>
-	<tbody>
+	<tbody class='content'>
 	<c:forEach items="${list}" var="m">
 	<tr>
 	   <th scope="row">${m.ncdt}</th>
@@ -63,10 +63,71 @@ margin-bottom:15px;
 	</c:forEach>
 	</tbody>
 	</table>
+	<nav aria-label="Page navigation example" class='pages'>
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item prev">
+                                    <a class="page-link" href="javascript:goPage(${paging.prevPageNo})">Previous</a></li>
+                                <c:forEach var="i" begin="${paging.startPageNo}" end="${paging.endPageNo}" step="1">
+                                 <c:choose>
+                                 <c:when test="${i eq paging.pageNo}">
+                                    <li class="page-item active">
+                                    <a href="javascript:goPage(${i})" class="choice">${i}</a></li>
+                                 </c:when>  
+                                 <c:otherwise>
+                                  <li class="page-item">
+                                  <a href="javascript:goPage(${i})">${i}</a></li>
+                                </c:otherwise>
+                                </c:choose>
+                                </c:forEach>
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:goPage(${paging.nextPageNo})">Next</a></li>
+                            </ul>
+                        </nav>
 	</div>
 	</div>
 	</div>
 	</div>
+	<script type="text/javascript">
+	function goPage(e){
+		$.ajax({ 
+	        type : "POST", //보내는 타입을 Post방식으로 할지,  GET방식으로 할지 결정
+	        url : "searchPaging", 
+	        dataType: 'json',
+	        data : {"pageNo":e},
+	        success : function(data) { 
+	        	$('.content').empty();
+	        	$('.pages').empty();
+	        	 $.each(data.list,function(index,item){
+	        	$('.content').append(  
+	        	'<tr><th scope="row">'+item.ncdt+'</th><td>'+item.nsdt+'~'+item.nedt+'</td>'+
+	            '<td onClick="location.href=' +"'detail?no="+item.sn+"'"+'">'+
+	            item.busker.teamname+'</td><td>'+item.addr+'</td></tr>');
+	        });
+	        	 $('.pages').append(' <ul class="pagination justify-content-center">'+
+	                     '<li class="page-item prev">'+
+	                     '<a class="page-link" href="javascript:goPage('+data.paging.prevPageNo+
+	                             ')">Previous</a></li>');
+	                for(var i = data.paging.startPageNo;i<=data.paging.endPageNo;i++){
+	                    if(i == data.paging.pageNo){
+	                        $('.pagination.justify-content-center').append('<li class="page-item active">'+
+	                        '<a href="javascript:goPage('+i+')" class="choice">'+i+'</a></li>');
+	                    }else{
+	                        $('.pagination.justify-content-center').append('<li class="page-item">'+
+	                        '<a href="javascript:goPage('+i+')">'+i+'</a></li>');
+	                    }
+	                } 
+	             $('.pagination.justify-content-center').append('<li class="page-item">'+
+	                     '<a class="page-link" href="javascript:goPage('+data.paging.nextPageNo+')">Next</a></li>'+
+	                     '</ul></nav>');
+	             },
+	              error : function(request, status, error) {
+	              }
+		});
+		
+		
+	}
+	
+	</script>
 </body>
 <jsp:include page="../footer.jsp"></jsp:include>
 </html>
