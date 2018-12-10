@@ -96,7 +96,31 @@ public class FollowerController {
 	public Follower clickDetail(int bno) {
 		System.out.println(bno);
 		Follower findDetail = followerService.findDetail(bno);
-		//System.out.println(findDetail.getTeamname());
+		//System.out.println(findDetail.getTeamgenre());
+		String genre = findDetail.getTeamgenre();
+		if (genre.equals("ballad")) {
+			genre = "발라드";
+		}else if (genre.equals("dance")) {
+			genre = "댄스";
+		}else if (genre.equals("trot")) {
+			genre = "트로트";
+		}else if (genre.equals("folk")) {
+			genre = "포크";
+		}else if (genre.equals("rock")) {
+			genre = "락";
+		}else if (genre.equals("jazz")) {
+			genre = "재즈";
+		}else if (genre.equals("country")) {
+			genre = "컨츄리";
+		}else if (genre.equals("rnb")) {
+			genre = "알앤비";
+		}else if (genre.equals("rap")) {
+			genre = "랩";
+		}else {
+			genre = "장르 미등록";
+		}
+		findDetail.setTeamgenre(genre);
+		
 		return findDetail;
 	}
 	
