@@ -733,13 +733,13 @@ GROUP BY BS.brno
      from per_sche as ps, busk as b
      where ps.bno = b.bno AND ps.sdt>=curdate() and
      <choose>
-        <when test="type == 'team'">
+        <when test="type.equals('team')">
         b.name=#{keyword})
         </when>
-        <when test="type == 'city'">
+        <when test="type.equals('city')">
         ps.addr like concat('%',#{keyword},'%'))
         </when>
-        <when test="type == 'date'">
+        <when test="type.equals('date')">
         ps.sdt like concat(#{date},'%'))
         </when>
         </choose>
@@ -751,17 +751,16 @@ GROUP BY BS.brno
     where bs.ssno=ss.ssno and bs.brno=br.brno and ss.sno=s.sno and br.bno=b.bno AND ss.sdt>=curdate() 
     AND bs.flag='2' and 
          <choose>
-        <when test="type == 'team'">
+        <when test="type.equals('team')">
         b.name=#{keyword})
         </when>
-        <when test="type == 'city'">
+        <when test="type.equals('city')">
         s.bas_addr like concat('%',#{keyword},'%'))
         </when>
-        <when test="type == 'date'">
+        <when test="type.equals('date')">
         ss.sdt like concat(#{date},'%'))
         </when>
         </choose>
-    GROUP BY br.brno
     ORDER BY sdt    
     </select>
     

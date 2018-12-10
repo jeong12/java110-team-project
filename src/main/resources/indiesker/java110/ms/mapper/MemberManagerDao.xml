@@ -284,9 +284,6 @@ where flag =  #{flag}) as b
 where flag >=  #{flag}) as b
 </when>
 </choose>
-=======
-where flag >  #{flag}) as b
->>>>>>> c1657ebabb25dc24f3feaf7d2cc8951f56a44a45
 </select>
 
 <update id="upStopMem" parameterType="string">

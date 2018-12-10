@@ -201,7 +201,6 @@
         WHERE abno=#{no}
 	</update>
 	
-	
 </mapper>
 
 

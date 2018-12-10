@@ -231,6 +231,7 @@ public Integer fingFlag(String flag, String text) {
 @Override
 public int totdateSelect(String flag, String text, String cdt1, String cdt2) {
   Map<String,Object> params = new HashMap<>();
+  System.out.println(flag);
   params.put("flag", flag);
   params.put("cdt1", cdt1);
   params.put("cdt2", cdt2);

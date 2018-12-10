@@ -26,11 +26,8 @@
  body{background-color: snow;}
     .container{width: 80%; margin: auto;}
     .pagination{margin-right: 39%;}    
-    td{text-align: center;}
+    td{text-align: center; vertical-align: middle !important ;}
     th{text-align: center;}
-    #start,#end{width: 140px; height: 25px; border-radius: 1%;}
-    #selt{height: 25px; margin-right: 2px;}
-    #input{height: 25px;}
     #bun{float: left;}
     #ccc{float: right; margin-top: 2%;}
     #mttl,.bttl,.stitle{margin-left:45%;}
@@ -46,7 +43,6 @@ img{    width: 25rem;
         width: 500px;
         padding: 10px;
     }
-  
     #ttl{margin-left: 21px;}
     .mtb label{float: left}
       #titl{margin-top: 3.5%; margin-bottom: 2%;}
@@ -82,9 +78,20 @@ margin-left: -2rem;
 text-align: center;
 padding-left: 28%;
 }
-
+#start,#end{width: 8rem; margin-right: 0.2rem;}
 .container{width: 70%;}
 .text-left{margin-top: 1%; margin-bottom: -1%;}
+#ccc{display: inline-flex;}
+#selt{width: 6rem; margin-right: 0.2rem;}
+#input{width:6rem; margin-right: 0.2rem;}
+#tbtn{
+font-size: 0.8rem;
+    margin-top: -0.15rem;
+    height: 2rem;
+    padding: 0;
+    width: 3rem;
+}
+p{margin-right: 0.2rem;margin-top: 1%;}
 </style>
 
 <jsp:include page="../header.jsp"></jsp:include>
@@ -108,7 +115,7 @@ padding-left: 28%;
         </div>
 <!-- 검색 옵션 -->
        <div id="ccc">      
-            <input type="date" class="date1 form-control" id="start">  ~  <input type="date" class="date2 form-control" id="end">
+            <input type="date" class="date1 form-control" id="start"><p>~</p><input type="date" class="date2 form-control" id="end">
             <select name="st" class="flag form-control" id="selt">
               <option value='0' selected>기간</option>
                <option value='1'>일</option>
@@ -116,7 +123,7 @@ padding-left: 28%;
                <option value='3'>이메일</option>
         </select>
         <input type="text" id="input" class="text form-control">
-        <button class="btns btns-outline-m" type="button" onclick="check(1)">클릭</button>
+        <button class="btns btns-outline-m" id="tbtn" type="button" onclick="check(1)">클릭</button>
         </div>    
        </div>
 

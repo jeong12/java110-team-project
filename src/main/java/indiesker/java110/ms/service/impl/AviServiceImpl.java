@@ -30,7 +30,6 @@ public class AviServiceImpl implements AviService {
     
     @Override
     public List<Avi> recentList(int no){
-      
       return aviDao.findRecent(no);
     }
 

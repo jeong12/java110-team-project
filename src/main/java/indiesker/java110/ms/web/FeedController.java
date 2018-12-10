@@ -241,9 +241,23 @@ public class FeedController {
       return "redirect:enter?no="+bno;
   }
   
+  
+  
   @RequestMapping("moreavi")
-  public void moreavi(int bno) {
+  public void moreavi(int no,  Model model) {
+    Busker busker = buskerService.get(no);
+    List<Avi> alist = aviService.recentList(no);
+
+    //영상 주소에 관한것
+    for (Avi avi : alist) {
+      String urlid = avi.getUrlid();
+      avi.setThumbnail("https://i.ytimg.com/vi/"+urlid+"/hqdefault.jpg");
+      avi.setUrl("https://www.youtube.com/embed/"+urlid);
+    }
     
+    model.addAttribute("busk",busker);
+    model.addAttribute("recentlist",alist);
+    System.out.println(alist);
     
   }
 }
