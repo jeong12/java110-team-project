@@ -96,15 +96,17 @@ public class BuskerPromotionController {
     
     paging.setPageSize(13);
     paging.setTotalCount(buskerPromotionService.totCommetList(bbno));
+    
     SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     BuskerPromotion bd= buskerPromotionService.get(bbno);
     bd.setNsdt(dformat.format(bd.getSdt()));
     bd.setNedt(dformat.format(bd.getEdt()));
     bd.setNcdt(format.format(bd.getCdt()));
+    
     List<BuskerPromotionComment> commentList = buskerPromotionService.comtList(bbno,paging);
     for (BuskerPromotionComment bpc : commentList) {
-      bpc.setNcdt(dformat.format(bpc.getCdt()));
+      bpc.setNcdt(format.format(bpc.getCdt()));
       if(bpc.getFlag() == 1) {
         bpc.setType("일반회원");
       }else if(bpc.getFlag() == 2) {
@@ -115,6 +117,7 @@ public class BuskerPromotionController {
         bpc.setType("관리자");
       }
     }
+
     model.addAttribute("list", bd);
     model.addAttribute("comment", commentList);
     model.addAttribute("paging",paging);

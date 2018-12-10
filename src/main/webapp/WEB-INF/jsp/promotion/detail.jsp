@@ -46,6 +46,7 @@
     #te{margin-top: 50px;}
     .t-top{border: border; border-top: 1px solid silver}
     textarea{resize: none;  rows=5;}
+    .cdtContext{float: right;}
 </style>
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
@@ -70,6 +71,9 @@
         <a class="pull-left" href="#">
             <img class="media-object" id="phot" src=${list.phot}>
           </a>
+            <div class = 'cdtContext'>
+            <p>${list.ncdt}</p>
+            </div>
         <div class="">
    
           <div class="t1">
@@ -118,7 +122,7 @@
     <div class="cc">
         <tr>
             <th>${com.nik}</th><br>
-            <td>${com.cdt}</td>
+            <td>${com.ncdt}</td>
         </tr>
     </div>
 

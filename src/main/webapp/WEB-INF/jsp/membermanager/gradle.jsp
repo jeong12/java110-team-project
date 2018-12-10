@@ -19,16 +19,16 @@
 </head>
 
 <style>
+#ccc{display: inline-flex;}
 body{background-color: snow;}
 #titl{margin-top: 3.5%; margin-bottom: 2%;}
     #logo{float: left; width: 40px; height: 40px;}
     #haha{margin-top: 0.7%; margin-left: 4%;}
- #ri{margin-right: 12%;}
 .tab{display: none;}
 .hide-bullets {list-style:none;margin-left:-40px;margin-top:20px;}
-
-    #mmain{margin-left:8%; margin-top: 15px;}
-    #ig{width: 129px;height: 60px;}            
+.iframe1{height: 17rem;}
+.iframe2{height: 17rem;}
+    #ig{width: 129px;height: 60px;}  
     .mli{padding:0px; float: left;}
     .aac{ margin-top: 0px; margin-left:3%;}
     .aad{margin-left: -24px; margin-top: 0px;}
@@ -49,8 +49,19 @@ body{background-color: snow;}
     #ccc{float: right;}
     .dtailSupbutton,.dtailbuskbutton{width: 4rem; height: 1.8rem; padding: 0; font-size: 0.8rem;}
     .gradleSupUpdate,.gradleBuskUpdate{width: 3rem; height:1.8rem; padding: 0; font-size : 0.8rem;}
-    #input,#selt,.gradle{height: 25px; font-size: 0.8rem;}
+    #input,#selt,.gradle{font-size: 0.8rem;}
     .slectbtn{width: 3rem; height:1.8rem; padding: 0; font-size : 0.8rem; margin-bottom: 1%;}
+    #myCarousel2{
+        width: 25rem;
+    height: 17rem;
+    }
+    .btb label{float: left;}
+    form-control{height: 2rem;}
+    #input{width: 11rem;}
+    .slectbtn{width: 3rem; margin-left: 1%; height: 2rem; margin-bottom: 1%; margin-top: -0.5%;}
+    .gradle,#selt{width: 7rem; padding: 1%;}
+    #imgcontainer{width: 26.5rem;}
+    #buskp,#buskp2{height: 19rem;}
 </style>
 <header>
     <jsp:include page="../header.jsp"></jsp:include>
@@ -69,16 +80,16 @@ body{background-color: snow;}
        <button class="bt3 btn-sussess btn-sm" value="3">제공자</button>
 
        <div id="ccc">      
-            <select class="gradle">
+            <select class="gradle form-control">
                 <option value="busk">버스커</option>
                 <option value="sup">제공자</option>
             </select>
                         
-            <select name="st" id="selt" class="flag">
+            <select name="st" id="selt" class="flag form-control">
            <option class="select" value="nik">닉네임</option> 
            <option class="select" value="email">이메일</option>
         </select>
-        <input type="text" id="input" class="text">
+        <input type="text" id="input" class="form-control">
         <button type="button"  class="slectbtn btns btns-outline-m">검색</button>
         </div>  
 </div>
@@ -124,6 +135,7 @@ body{background-color: snow;}
       </div>  
       </div>   
       
+      
 <!-- 모달 서포터 -->      
       <div class="container">
 
@@ -135,9 +147,7 @@ body{background-color: snow;}
         <h3 id="ttl">용찬하우스</h3>
       </div>
       
-      <div class="container">
-    <div>
-        <div>
+      <div class="container" id="imgcontainer">
         
             <div id="carousel-example-generic" class="bbbbs carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
@@ -145,7 +155,7 @@ body{background-color: snow;}
                     <li data-target=".bbbbs" data-slide-to="1"></li>
                     <li data-target=".bbbbs" data-slide-to="2"></li>
                 </ol>
-                <div class="carousel-inner">
+                <div class="ttttt carousel-inner">
                     <div class="item active">
                         <img src="" alt="First slide">
                     </div>
@@ -160,8 +170,6 @@ body{background-color: snow;}
                     <span class="glyphicon glyphicon-chevron-left"></span></a><a class="right carousel-control"
                         href=".bbbbs" data-slide="next"><span class="glyphicon glyphicon-chevron-right">
                         </span></a>
-            </div>
-        </div>
     </div>
 </div>
 <div id="push">
@@ -185,16 +193,16 @@ body{background-color: snow;}
   </div>
 
 </div>
-<!-- 모달 서포터 여기까지 -->  
+<!-- 모달 서포터 여기까지 -->
+
+  
 <!-- 버스커 모달 -->
- 
         <div class="container">
 
 
  
 
   <div id="model-id2" class="modal fade" tabindex="-1" role="dialog">
-  <!--  -->
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="">
@@ -203,12 +211,28 @@ body{background-color: snow;}
       </div>
       
       <div id="mmain">
-        <div id="mmain">
-             
-                <div class="row">
-                    <div class="" id="slider" id="main">
-                        <div class="row">
-                            <div class="" id="carousel-bounding-box" >
+    <div class="container" id="imgcontainer">
+        
+            <div id="carousel-example-generic" class="bs carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target=".bs" data-slide-to="0" class="active"></li>
+                    <li data-target=".bs" data-slide-to="1"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="item active" id="buskp">
+                    </div>
+                    <div class="item" id="buskp2">
+                    </div>
+                </div>
+                <a class="left carousel-control" href=".bs" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span></a><a class="right carousel-control"
+                        href=".bs" data-slide="next"><span class="glyphicon glyphicon-chevron-right">
+                        </span></a>
+    </div>
+</div>
+                    <!-- <div class="" id="slider" id="main">
+                      
+                            <div id="carousel-bounding-box" >
                                 <div class="carousel slide" id="myCarousel2">
                           
                                     <div class="carousel-inner" >
@@ -230,12 +254,12 @@ body{background-color: snow;}
                                     <a class="right carousel-control" id="ri" href="#myCarousel2" role="button" data-slide="next">
                                         <span class="glyphicon glyphicon-chevron-right"></span>                                       
                                     </a>                                
-                                    </div>
-                            </div>        
+                                   
+                             
 
                         
                         </div>
-                    </div>
+              
                 </div>
 
                 <div class="aab row hidden-xs" id="slider-thumbs">
@@ -250,7 +274,7 @@ body{background-color: snow;}
                             </li>
                         </ul>                 
                 </div>
-        </div>
+        </div> -->
 </div>
 
     <div class="btb">
@@ -345,14 +369,10 @@ $(document).on('click','.dtailSupbutton',function(){
 			console.log(data.etc);
 			console.log(data.capa);
 	         $.each(data.stagephotos,function(index,item){
+	        	 console.log(item.photo);
 	        	 $(".ttttt").append("<div class='item'><img src='/upload/"+item.photo+"' alt='First slide'></div>")
-            
 	         });
-	         $(".mli").click(function(){
-	             var src = $(this).val();
-	             $(".ttttt").empty();
-	             $(".ttttt").append("<img id='ff'class='photoimg' src="+src+">")
-	         })  
+	   
 	         $(".item:first").removeClass("item").addClass("active item");
 	                                          
 	                $(".sname").append('<p>'+data.name+'</p>');
@@ -374,16 +394,15 @@ $(document).on('click','.dtailbuskbutton',function(){
         dataType: 'json',
         data : {"no":n},
          success : function(data) {
-        	 console.log(data);
              $(".bname").empty();
              $(".bcity").empty();
              $(".bgenre").empty();
              $(".btel").empty();
              $(".bintro").empty();
-             $(".iframe1").empty();  
-             $(".iframe2").empty();
-              $(".iframe1").append("<iframe class='ff'  src='"+data.avi1+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
-               $(".iframe2").append("<iframe class='ff' src='"+data.avi2+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
+             $("#buskp").empty();
+             $("#buskp2").empty();
+              $("#buskp").append("<iframe style='width: 100%;height: 100%;' src='"+data.avi1+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
+              $("#buskp2").append("<iframe style='width: 100%;height: 100%;' src='"+data.avi2+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
                     $(".bname").append('<p>'+data.teamname+'</p>');
                     $(".bcity").append('<p>'+data.city+'</p>');
                     $(".bgenre").append('<p>'+data.teamgenre+'</p>');
@@ -450,6 +469,8 @@ $('.bt3').click(function(){
     
 })
 
+
+// search
 $('.slectbtn').click(function(){
     var gradle = $('.gradle').val(); // grade
     var sflag = $('.flag').val();  // nik,email
@@ -552,34 +573,7 @@ $('.slectbtn').click(function(){
     }
 }) 
 
-//////////////////////////////////////////////////탭
-//////////////////////////////////////////////////모달서포터
- $('#carousel-text').html($('#slide-content-0').html());
+   
 
-//Handles the carousel thumbnails
-$('[id^=carousel-selector-]').click( function(){
-    var id = this.id.substr(this.id.lastIndexOf("-") + 1);
-    var id = parseInt(id);
-    $('#myCarousel2').carousel(id);
-});
-// When the carousel slides, auto update the text
-$('#myCarousel2').on('slid.bs.carousel', function (e) {
-         var id = $('.item.active').data('slide-number');
-        $('#carousel-text').html($('#slide-content-'+id).html());
-}); 
-//////////////////////////////////////////////////버스커 모달
-
-	$('[class^=carousel-selector-]').on('click', function(){
-		console.log("aaa");
-    var id = this.className.substr(this.className.lastIndexOf("-") + 1);
-    var id = parseInt(id);
-    $('#myCarousel').carousel(id);
-});
-
-	// When the carousel slides, auto update the text
-	$('#myCarousel').on('slid.bs.carousel', function(e) {
-		var id = $('.item.active').data('slide-number');
-		$('#carousel-text').html($('#slide-content-' + id).html());
-	});
 </script>
 </html>

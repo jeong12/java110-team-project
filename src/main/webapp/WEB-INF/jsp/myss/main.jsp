@@ -97,7 +97,7 @@ ul {
 	margin-right: 3%;
 }
 
-.container {
+.cont {
 	background-color: white;
 	margin-left: 15rem;
 	margin-right: 15rem;
@@ -282,7 +282,7 @@ text-align: center;
 </head>
 <body>
 
-<div class="container">
+<div class="titl container">
 <div class="row">
 	<div id="titl" class='col-lg-12'>
 		<img id="logo" src="../../img/playButton.png" alt="플레이로고">
@@ -292,7 +292,7 @@ text-align: center;
 	</div>
 
 
-	<div class="container">
+	<div class="cont container">
 		<div class="row">
 			<div class='cnd col-lg-12'>
 				<div class='cal col-lg-7 float-left'>

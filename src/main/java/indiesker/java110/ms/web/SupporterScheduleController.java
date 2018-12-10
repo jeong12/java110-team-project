@@ -199,7 +199,7 @@ public class SupporterScheduleController {
     /*    Member member = (Member)session.getAttribute("loginUser");
     int sno = member.getNo();*/
     
-    int no=99;
+    int no=2;
 
     for(int i=0;i<size;i++) {
       Schedule sche = new Schedule();
