@@ -208,10 +208,11 @@ public class BuskerPromotionController {
        mno = m.getNo();
     }
     
+    int bbno = buskerPromotionService.findBbno(bcno);
+
     int no =buskerPromotionService.deleteComment(bcno);
     if(no <= 0) return null;
     
-    int bbno = buskerPromotionService.findBbno(bcno);
     Paging paging = new Paging();
     paging.setPageSize(13);
     paging.setTotalCount(buskerPromotionService.totCommetList(bbno));
@@ -234,6 +235,11 @@ public class BuskerPromotionController {
     map.put("list", list);
     map.put("paging", paging);
     map.put("mno", mno);
+    
+    for (BuskerPromotionComment bp : list) {
+      System.out.println(bp.getCont());
+    }
+    
     return map;
   }
   
