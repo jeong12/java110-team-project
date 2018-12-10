@@ -1,6 +1,5 @@
 package indiesker.java110.ms.web;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,12 +38,16 @@ public class StageListController {
       Model model) {
 	  
 	  Map<String, Object> params = new HashMap<>();
+	  if(searchType == null)
+		  searchType = "city";
+		  
+	  model.addAttribute("searchType", searchType);//페이지가 갱신되도 서치타입이 유지되도록 처리 
 	  
 	  if(startDate == null && endDate == null) {
 		  params.put("startDate", "2000-01-01");
 		  params.put("endDate", "3000-01-01");
-		  System.out.println(params.get(startDate));
-		  System.out.println(params.get(endDate));
+		  //System.out.println(params.get(startDate));
+		  //System.out.println(params.get(endDate));
 	  }else {
 		  params.put("startDate", startDate);
 		  params.put("endDate", endDate);
@@ -53,8 +56,8 @@ public class StageListController {
 	  params.put("keyword", "%" + keyword + "%");//정확히 검색값을 입력했을 때 뿐 아니라 검색값이 포함되면 검색되도록 처리
 	
 	if(searchType != null && !"".equals(searchType)) { // searchType이 null이 아니고 빈 문자열이 아닐 때 search
-		Date today = new Date();
-	    System.out.println(today);
+		//Date today = new Date();
+	    //System.out.println(today);
 		
 		if (keyword == null) {//공란으로 검색 처리
 			keyword = "";

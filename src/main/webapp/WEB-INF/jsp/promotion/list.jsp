@@ -23,7 +23,6 @@
             load('.js-load', '5', '#js-btn-wrap');
         })
     });
-
     function load(id, cnt, btn) {
         var girls_list = id + ":not(.active)";
         var girls_length = $(girls_list).length;
@@ -41,113 +40,90 @@
 .container {
     width: 1000px;
 }
-
 #titl {
     margin: 0 auto; padding: 10px; width: 1000px;
 }
-
 #logo {
     width: 40px; height: 40px; margin: 10px;
 }
-
 h3 {
     display: inline-block; position: relative; top: .5rem;
 }
-
 #td2 .more-button {
     font-size: 1rem;
 }
-
 #td3 {
     text-align: right; vertical-align: bottom;
 }
-
 ul li.promotion {
     list-style-type: none; line-height: 1.4rem; font-size: .8rem;
 }
-
 .td2 {
     width: 700px;
 }
-
 .js-load {
     display: none;
 }
-
 .js-load.active {
     display: block;
 }
-
 .js-load:after {
     display: none;
 }
-
 .btn-wrap, .lists {
     display: block;
+    margin-bottom: 100px;
 }
-
 .btn-wrap {
     text-align: center;
 }
-
 tbody tr td {
     background-color: #fff !important;
 }
-
 .mb {
     margin-bottom: .8rem;
 }
-
 .proimg {
     border-radius: 2rem; height: 9rem; width: 9.2rem; margin-top: 20px;
 }
-
 td {
     padding-bottom: 0.1rem !important;
 }
-
 .pro_list {
     padding-left: 0.8rem; margin: 15px 0 0.1rem 0;
 }
-
 .btns-outline-dark {
     float: right; margin-bottom: 7px;
 }
-
 .btn-enroll {
     left: 28.5rem;
 }
-
 ul li.promotion.titl {
     font-size: 20px; font-weight: 600;
 }
-
 .listbtn {
     display: inline;
 }
-
 .form-control, #selectsearchbtn {
     height: 36px;
 }
-
 a#movetop {
     position: fixed; right: 2%; bottom: 82px; display: none; z-index: 999;
 }
-
 a:link {
     color: black; text-decoration: none;
 }
-
 a:visited {
     color: black; text-decoration: none;
 }
-
 .promotion a:hover {
     color: white; text-decoration: none;
 }
-
 .promotion a:focus {
     color: white; text-decoration: none;
+}
+.input-group {
+margin-top: 30px;
 }
 </style>
 </head>
@@ -177,18 +153,18 @@ a:visited {
             <select id="selectsearch"
               class="btn btn-default dropdown-toggle"
             >
-              <option value="city">도시</option>
-              <option value="teamname" selected="selected">팀명</option>
+              <!-- <option value="city">도시</option> -->
+              <option value="city" ${searchType eq "city" ? "selected" :""}>도시</option>
+              <!-- <option value="teamname" selected="selected">팀명</option> -->
+              <option value="teamname" ${searchType eq "teamname" ? "selected" :""}>팀명</option>
             </select>
           </div>
           <input type="text" class="form-control" name="city"
-            placeholder="시,도,군" onkeydown="pushenter()"
-          >
+            placeholder="정보를 입력해주세요" onkeydown="pushenter()" id="selectsearchinput" 
+            value="<%=request.getParameter("keyword") != null ? request.getParameter("keyword") : ""%>" > 
           <!-- <input type="hidden" name="search_param" value="all" id="search_param"> -->
           <span class="input-group-btn">
-            <button class="btn btn-default" id="selectsearchbtn"
-              onclick="PageMove()"
-            >
+            <button class="btn btn-default" id="selectsearchbtn" onclick="PageMove()" >
               <span class="glyphicon glyphicon-search"></span>
             </button>
           </span>
@@ -326,16 +302,14 @@ a:visited {
   <script src='../../js/jquery.easing.1.3.js'></script>
   <script>
             // document.getElementById("selectsearchbtn").onclick = function() {PageMove()};
-
             function PageMove() {
                 var searchType = $("#selectsearch option:selected").val();
                 var keyword = $("input[name='city']").val();
-
-                location.href = '?' + searchType + '=' + keyword;
+                //location.href = '/app/promotion/list?' + searchType + '=' + keyword;
+                location.href = '/app/promotion/list?searchType=' + searchType + '&keyword=' + keyword;
                 // location.href="?city="+i;
                 // location.href="?teamname="+i;
             }
-
             function pushenter() {
                 if (window.event.keyCode == 13) {
                     PageMove();

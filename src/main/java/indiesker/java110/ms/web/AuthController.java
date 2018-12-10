@@ -87,7 +87,7 @@ public class AuthController {
     		//System.out.println("------------------------"+update_pw_map.get("password"));
     		
     		authService.update_pw(update_pw_map);
-    		model.addAttribute("update", "변경된 비밀번호는  "+changedPw+"  입니다 (나중에 성공적으로 메일이 발송되었습니다로 변경예정)");
+    		model.addAttribute("update", "성공적으로 메일이 발송되었습니다.");
     		naverMailSend(changedPw,email);//이메일 발송
     		
 
@@ -113,7 +113,7 @@ public class AuthController {
     public static void naverMailSend(String changedPw,String email) {
     	String host = "smtp.naver.com"; 
     	String user = "jakey745@naver.com";  // 네이버일 경우 네이버 계정, gmail경우 gmail 계정 
-    	String password = "jsatree1290"; // 패스워드
+    	String password = "bongu1256!!"; // 패스워드
 
          // SMTP 서버 정보를 설정한다. 
     	Properties props = new Properties(); 
@@ -136,10 +136,14 @@ public class AuthController {
     		message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
 
     		 // 메일 제목 
-    		message.setSubject("인디스커 메일 테스트"); 
+    		message.setSubject("인디스커의 비밀번호 변경 메일 입니다."); 
 
     		// 메일 내용 
-    		message.setText("변경된 비밀번호는  "+changedPw+"  입니다"); 
+    		message.setText(
+    				"인디스커를 이용해 주셔서 감사합니다.\n"
+    				+ "변경된 비밀번호는  "+changedPw+"  입니다.\n"
+    				+ "개인정보를 변경하시고 안전하게 인디스커를 이용하세요."
+    				); 
 
     		// send the message 
     		Transport.send(message); 

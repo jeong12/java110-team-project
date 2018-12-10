@@ -2,10 +2,10 @@
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  id="top">
 <head>
     <meta charset="UTF-8">
-    <title>FollowList</title>
+    <title>팔로우 리스트</title>
 <link rel="stylesheet" href="/css/common.css"/>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -18,9 +18,12 @@
     src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
 <style>
+
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&subset=korean');
+
 #titl {
-    margin: 10px;
-    padding: 10px;
+    margin: 0;
+    padding: 0;
 }
 
 #logo {
@@ -56,6 +59,10 @@
 
 
 /*리스트 출력*/
+.innertable
+{
+text-align: center;
+}
 
 .gallery-title
 {
@@ -85,6 +92,10 @@
 }
 
 /*오른쪽 자세히*/
+#xbutton{
+width: 15px;
+height: 15px;
+}
 .wrapfollowerdetail:target {
     opacity:1;
     pointer-events: auto;
@@ -104,54 +115,126 @@
     pointer-events: none;
 }
 
-.wrapfollowerdetail > div {
+.wrapfollowerdetail > div {/* 모달창 */
     position: absolute;
     top: 25%;
     left: 25%;
     width: 50%;
+    min-width: 700px;
+    max-width: 820px;
+    min-height: 469px;
     height: 50%;
-    padding: 8px;
-    border: 16px solid white;
+    padding: 0;
     background-color: white;
     overflow: auto; 
+    border-radius: 5px;
+}
+#followerdetail {/* 테이블 */
+    border-collapse: separate;
+    border-spacing: 1px;
+    text-align: left;
+    line-height: 1.5;
+    margin : auto;
+    padding-top: 30px; 
 }
 
-.leftside{
-width: 100px;
+.leftside{ /* 일반메뉴 */
+width: 80px;
+height: 35px;
 text-align: left;
+pading: 5px;
+margin: 5px;
+}
+.rightside{
+width: 270px;
+height: 35px;
+text-align: left;
+pading: 5px;
+margin: 5px;
+}
+#closebtn{
+margin-rignt:5px;
+padding-right: 5px;
+padding:0;
+text-align: right;
+}
+#inclosebtn {
+margin-rignt:5px;
+padding-right: 5px;
+text-decoration:none ;
+color:#000000;
+width: 30px;
+height: 30px;
+}
+
+#leftsidebottom{ /* 가장아래 메뉴 */
+margin: 5px 0px 0px 0px;
+padding: 5px 0px 0px 0px;
+width: 80px;
+height: 190px;
+text-align: left;
+vertical-align: top;
+}
+#rightsidebottom{ /* 가장아래 메뉴 */
+margin: 5px 0px 0px 0px;
+padding: 5px 0px 0px 0px;
+width: 270px;
+height: 190px;
+text-align: left;
+vertical-align: top;
+}
+#gofeed{
+text-align: center;
+padding-top: 10px;
+width: 300px;
+height: 20px;
 }
 #detailphoto{
-width: 290px;
-height: 290px;
+width: 300px;
+height: 300px;
+margin: 0 30px;
+padding: 0;
 }
 
 .teamPhotoImg{
 margin: 5px;
 width : 250px;
 height: 250px;
+border-radius: 10px;
 }
 
 .bigdiv{
 display: flex;
 text-align: center;
 }
+
+#followPagenation{
+margin-top: 50px;
+}
+
+/* 위로가기 */
+a#movetop {
+    position: fixed; right: 2%; bottom: 82px; display: none; z-index: 999;
+}
+
 </style>
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
 <body>
 <div id="bodybody">
-    <div id="titl">
-        <h2><img id="logo" src="../../img/playButton.PNG" alt="플레이로고">Follow 리스트</h2>
-    </div>
-
     <div class="container">
+        <div id="pos"></div>
+	    <div id="titl">
+	        <h2><img id="logo" src="../../img/playButton.PNG" alt="플레이로고">팔로우 리스트</h2>
+	    </div>
+
         <div class="row">
             <div id="followPagenation">
                 <c:forEach items="${followerList}" var="bno">
                     <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter ${bno.teamgenre}">
-	                   <a href="#wrapfollowerdetail" value="${bno.bno}" class="followerbtn">
+	                   <a href="#wrapfollowerdetail" value="${bno.bno}" style="text-decoration: none; color: #555; " class="followerbtn">
 		                   <table class="innertable">
-		                       <tr><td><img src="../../img/${bno.teamPhoto}" class="teamPhotoImg"></td></tr> 
+		                       <tr><td><img src="/upload/${bno.teamPhoto}" class="teamPhotoImg"></td></tr> 
 		                       <tr><td>${bno.teamname}</td></tr>
 		                   </table>
 	                   </a>
@@ -167,34 +250,51 @@ text-align: center;
             <div class="sorter">
                 <div class="OutOfpagination">
                     <ul class="pagination">
-                        <c:forEach var="i"  begin="${pageMove.startPageNo}" end="${pageMove.endPageNo}" step="1">
-                            <li><a href="javascript:PageMove(${i})" style="color: #000000;">${i}</a></li>
-                        </c:forEach> 
+                      <a href="javascript:PageMove(${pageMove.startPageNo},${pageMove.no})" class="first">&laquo;&laquo;</a>
+                      <a href="javascript:PageMove(${pageMove.prePageNo},${pageMove.no})" class="prev">&laquo;</a>
+                      <%-- <a href="javascript:PageMovePre(${i},${pageMove.no})" style="color: #000000;">&laquo;</a> --%>
+                        <c:forEach var="i"  begin="${pageMove.visibleStartPageNo}" end="${pageMove.visibleEndPageNo}" step="1">
+                            <li><a href="javascript:PageMove(${i},${pageMove.no})" style="color: #000000;">${i}</a></li>
+                        </c:forEach>
+                      <%-- <a href="javascript:PageMoveNext(${i},${pageMove.no})" style="color: #000000;">&raquo;</a> --%>
+                      <a href="javascript:PageMove(${pageMove.nexPageNo},${pageMove.no})" class="next">&raquo;</a>
+                      <a href="javascript:PageMove(${pageMove.endPageNo},${pageMove.no})" class="last">&raquo;&raquo;</a>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 
+<a href="#" id="movetop"><img src="../../img/topbtn.png"></a>
 
 <!--우측 자세히 보기-->
     <div id="wrapfollowerdetail" class="wrapfollowerdetail">
         <div>
             <table id="followerdetail">
                 <tbody>
-                             <a href="#close">닫기</a> 
-                            
+                             <div id="closebtn"><a href="#close" id="inclosebtn">close X </a></div>
                 </tbody>
             </table>
         </div>
-    </div>       
+    </div>
 
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="/js/headerfixing.js"></script>
+  <script src="/js/promotion/promofilter.js"></script>
+  <script src='../../js/jquery.easing.1.3.js'></script>
 <script>
-//페이징
-
-function PageMove(i){
-    location.href="?pageNo="+i;
+//페이징 
+/* function PageMovePre(prePageNo,no){
+    location.href="?no="+ no +"&pageNo="+prePageNo;
+   } */
+//매개변수 이름 달라도 잘들어가네요;;;;
+function PageMove(i,no){
+    location.href="?no="+ no +"&pageNo="+i;
    }
+
+/* function PageMoveNext(nexPageNo,no){
+    location.href="?no="+ no +"&pageNo="+nexPageNo;
+   } */
 
 
  
@@ -216,19 +316,37 @@ $('.followerbtn').click(function(){
            $("#followerdetail tbody").empty();
                 
            $("#followerdetail tbody").append(
-              '<tr><td colspan="2"><img src="../../img/'+data.teamPhoto+'" id="detailphoto"></td></tr>'
-          	  +'<tr><td class="leftside">팀    명 : </td><td>'+data.teamname+'</td></tr>'
-              +'<tr><td class="leftside">주요장르 : </td><td>'+data.teamgenre+'</td></tr>'
-              +'<tr><td class="leftside">활동도시 : </td><td>'+data.city+'</td></tr>'
-              +'<tr><td class="leftside">소 개 말 : </td><td>'+data.teamInfo+'</td></tr>'
-              +'<tr><td class="leftside"><a href="/app/buskerfeed/enter?bno='+data.bno+'"> '+data.bno+'피드가기</a></td></tr>');
+              '<tr><td rowspan="4"><img src="/upload/'+data.teamPhoto+'" id="detailphoto"></td>'
+          	  +'<td class="leftside">팀    명 : </td><td class="rightside">'+data.teamname+'</td></tr>'
+              +'<tr><td class="leftside">주요장르 : </td><td class="rightside">'+data.teamgenre+'</td></tr>'
+              +'<tr><td class="leftside">활동도시 : </td><td class="rightside">'+data.city+'</td></tr>'
+              +'<tr><td id="leftsidebottom">소 개 말 : </td><td id="rightsidebottom">'+data.teamInfo+'</td></tr>'
+              +'<tr><td id="gofeed" colspan="3"><a href="#close" class="more-button" style="text-decoration: none;">그만 보기</a>'
+              +'<a href="/app/buskerfeed/enter?no='+data.bno+'" class="more-button" style="text-decoration: none;">피드가기</a></td></tr>');
         },
         error : function(request, status, error) {
             alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
         }
     });
-});  
+});
 
+   /* 상단고정, 위로가기 */
+   $(document).scroll(function(){
+       var pos = document.getElementById('pos'); 
+       var movetop = document.getElementById('movetop');
+       if($(pos).attr('value') > 50){
+           movetop.style.display = 'block';
+       } else{
+           movetop.style.display = 'none';
+       }
+    });
+    
+    $('#movetop').click(function(){
+        $('#top').animate({
+             scrollTop:0
+        }, 800, 'easeInQuart');
+        return false;
+    });
 </script>
     
 </body>
