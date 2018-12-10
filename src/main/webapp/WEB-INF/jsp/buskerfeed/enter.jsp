@@ -689,6 +689,7 @@ h2 {
                   </table>
                 </div>
               </div>
+              <div class="invisibleform"></div>
 
               <div class="pinfocontent"></div>
 
@@ -844,7 +845,7 @@ margin-bottom:8px;
             <form action='addavi' method='post'
               enctype="multipart/form-data">
               <div style="display: none">
-                <textarea name="bno" id="bno"></textarea>
+                <input type="text" name="bno" id="bno" value="${busk.bno}"/>
               </div>
               <div style="padding: 10px; height: 500px;">
                 <div>
@@ -917,8 +918,8 @@ margin-bottom:8px;
   <script>
             
         </script>
-  <jsp:include page="../footer.jsp"></jsp:include>
 </body>
+  <jsp:include page="../footer.jsp"></jsp:include>
 </html>
 
 

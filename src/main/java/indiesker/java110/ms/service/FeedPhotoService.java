@@ -11,4 +11,6 @@ public interface FeedPhotoService {
     FeedPhoto getfeedphotobyPbnoNoComt(int no);
     List<FeedPhoto> recentPhotList(int buskNo, int pageNo, int pageSize);
     void delete(int pbno);
+    
+    
 }
