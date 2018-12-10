@@ -164,7 +164,10 @@ table {
     #carouselRec{
     margin-bottom:15px;
     }
-    
+    ul.list-inline.nav.justify-content-center{
+        position: relative;
+        left: 2rem;
+    }
 
 /* @media ( min-width : 750px) and ( max-width : 1281px) {
     .container-mr {
