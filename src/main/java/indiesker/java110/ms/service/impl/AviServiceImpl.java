@@ -81,6 +81,30 @@ public class AviServiceImpl implements AviService {
       
       aviDao.insertcomt(params);
     }
+
+    @Override
+    public void delete(int abno) {
+      int randomno= (int)((Math.random()+1)*10000);
+      
+      
+      Map<String,Object> params= new HashMap<>();
+      params.put("abno", abno);
+      params.put("randomno", randomno);
+      
+      aviDao.deleteAvi(params);
+    }
+
+    @Override
+    public void reviseAvi(String titl, String cont, String urlid, int no) {
+      Map<String,Object> params= new HashMap<>();
+      params.put("titl", titl);
+      params.put("cont", cont);
+      params.put("urlid", urlid);
+      params.put("no", no);
+      
+      aviDao.reviseavi(params);
+      
+    }
    
 }
 

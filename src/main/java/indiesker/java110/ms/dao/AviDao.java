@@ -16,4 +16,6 @@ public interface AviDao {
   void uploadAvi(Map<String, Object> param);
   Avi findByFeedAviNoNC(int no);
   void insertcomt(Map<String,Object> params);
+  void deleteAvi(Map<String,Object> params);
+  void reviseavi(Map<String, Object> params);
 }

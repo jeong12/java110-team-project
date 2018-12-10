@@ -61,6 +61,18 @@ public class FeedPhotoServiceImpl implements FeedPhotoService {
     
     return list.size();
   }
+
+  @Override
+  public void delete(int pbno) {
+    // 10000~20000 사이 숫자 랜덤
+    int randomno = (int)((Math.random()+1)*10000);
+    
+    Map<String,Object> params = new HashMap<>();
+    params.put("pbno", pbno);
+    params.put("randomno", randomno);
+    
+    feedphotoDao.deletePhoto(params);
+  }
   
   
 }
