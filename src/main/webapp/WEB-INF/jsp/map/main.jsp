@@ -12,12 +12,13 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
  <link rel="stylesheet" href="../../css/common.css">
    
    <!--  -->
     <link rel="stylesheet" href="https://unpkg.com/flickity@2.0/dist/flickity.min.css">
-<script src="https://unpkg.com/flickity@2.0/dist/flickity.pkgd.min.js"></script>
+    
+    
    <!--  -->
    
     
@@ -27,19 +28,22 @@
     
     
     /* 박스 */
-        .All{       width: 19rem;
-    height: 28rem;
+        .All{    width: 19rem;
+    height: 25.89rem;
     border: 1px solid black;
     position: relative;
-    top: -44.6rem;
+    top: -43.6rem;
     z-index: 1;
     background-color: white;
+    display:none;
     }
-    .toptable{border-bottom-color: #c6cbce;
+    .toptable{
+        border-bottom-color: #c6cbce;
     background-color: #f2f3f5;
-        text-align: center;
-        height: 5rem;
-        padding-top: 1.5rem;
+    text-align: center;
+    height: 3rem;
+    padding-top: 1rem;
+
     }
     li{list-style: none;}
     .listbox ul li{
@@ -174,7 +178,7 @@ h3 {
     /*  */
     
 body {
-	background-color: snow;
+    background-color: snow;
 }
 #ALLdiv{background-color: white;margin-top: 2.3rem;}
 #titl{margin-top: 2%; margin-bottom: 2%;}
@@ -183,7 +187,9 @@ body {
 footer{clear: both;}
 #map{height: 20rem; clear: both;}
 #caseldiv{border:1px solid red; height: 20rem;}
-#maptitle{border: 1px solid red; width: 5rem; height: 3rem;}
+#maptitle{height: 3rem;
+    text-align: -webkit-auto;
+}
 
 .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
 .wrap * {padding: 0;margin: 0;}
@@ -210,15 +216,39 @@ footer{clear: both;}
     padding-top: 2.5%;
     background-color: #f2f3f5;
     }
-#leftbox{border-radius: 5px 0 0 0;}
-#rightbox{border-radius: 0 5px 0 0;}
+#All{border-radius: 5px 0 0 0;}
+#All2{border-radius: 0 5px 0 0;}
 .form-control{margin: 2% 2%;}
 #sbutton{    
     font-size: 0.8rem;
     width: 3rem;
     height: 2rem;
         margin: auto;
+
+}  
+.All2{
+
+          width: 19rem;
+    height: 31.6rem;
+    border: 1px solid black;
+    position: relative;
+    top: -43.5rem;
+    z-index: 2;
+    background-color: white;
+    left: 13rem;
+    display:none;
+    }    
+    
+.choicearea.active{
+    background-color:red;!important;
     }
+    
+.hdiv{margin-left: 2%;}
+.fas{font-size: 2rem; float: left; margin-left: 2%;
+
+}
+#maptitle{padding-top: 0.8%;margin-left: 7%;}
+
     </style>
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
@@ -233,8 +263,8 @@ footer{clear: both;}
 
 <div class="topdiv">
 <div id="boxleft">
-    <div id="leftbox">하 위</div>
-    <div id="rightbox">하 위</div>
+    <div class='choicearea' id="All">시/도 선택</div>
+    <div class='choicearea' id="All2">시/군/구 선택</div>
 </div>
     
     <div id="inputbox">
@@ -246,7 +276,11 @@ footer{clear: both;}
 <div id="ALLdiv">
 
 <div id="map"></div>
-<p id="maptitle">오늘의 공연목록</p>
+<div id="hdiv">
+
+<i class="fas fa-drum"></i>
+<h3 id="maptitle">오늘의 공연목록</h3>
+</div>
 <div id="caseldiv">
 
 
@@ -254,24 +288,43 @@ footer{clear: both;}
 
 <!--  -->
 <div class="carousel-wrapper">
-  <div class="carousel" data-flickity>
+  <div class="carousel">
+  
+  <!-- 카르셀 시작 -->
+   <div class="carousel-cell">
+      <h3>Product 1</h3>
+      <a class="more" href="">Explore more</a>
+      <img src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=" />
+    </div>
+    
     <div class="carousel-cell">
       <h3>Product 1</h3>
       <a class="more" href="">Explore more</a>
       <img src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=" />
-    
     </div>
+    
     <div class="carousel-cell">
-      <h3>Product 2</h3>
+      <h3>Product 1</h3>
       <a class="more" href="">Explore more</a>
       <img src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=" />
-    
     </div>
+    
     <div class="carousel-cell">
-      <h3>Product 3</h3>
+      <h3>Product 1</h3>
       <a class="more" href="">Explore more</a>
       <img src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=" />
-   
+    </div>
+    <div class="carousel-cell">
+      <h3>Product 1</h3>
+      <a class="more" href="">Explore more</a>
+      <img src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=" />
+    </div>
+    <div class="carousel-cell">
+      <h3>Product 1</h3>
+      <a class="more" href="">Explore more</a>
+      <img src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=" />
+    </div>
+    <!-- 카르셀 끝 -->
      
     </div>
   </div>
@@ -282,21 +335,11 @@ footer{clear: both;}
 </div>
 
 
-<em>클릭한 위치에 마커가 표시됩니다!</em>
 </div>
 
 
-
-
-
-
-
-
-
-
-
-<div class="All">
-    <div class="toptable">안녕하신가</div>
+    <div class="All">
+    <div class="toptable">시 / 도</div>
     <div class="listbox">
         <ul>
             <li>서울특별시</li>
@@ -327,38 +370,55 @@ footer{clear: both;}
     </div>
     
     </div>
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <div class="All2">
+    <div class="toptable">시 / 군 / 구</div>
+    <div class="listbox">
+        <ul>
+            <li>종로구</li>
+            <li>중구</li>
+            <li>용산구</li>
+            <li>성동구</li>
+            <li>광진구</li>
+            <li>동대문구</li>
+            <li>중랑구</li>
+            <li>성북구</li>
+            <li>강북구</li>
+            <li>도봉구</li>
+            <li>노원구</li>
+            <li>은평구</li>
+            <li>서대문구</li>
+            <li>마포구</li>
+            <li>양천구</li>
+            <li>강서구</li>
+            <li>구로구</li>
+            <li>금천구</li>
+            <li>영등포구</li>
+            <li>동작구</li>
+            <li>관악구</li>
+            <li>서초구</li>
+            <li>강남구</li>
+            <li>송파구</li>
+            <li>강동구</li>
+        </ul>
+        
+    </div>
+    <div class="boxbt">
+        <button>취소</button>
+        
+    </div>
     
+    </div>
+
+
+
+<script src="https://unpkg.com/flickity@2.0/dist/flickity.pkgd.min.js"></script>    
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=15e2302756c9e7098ec0d79f7b4d53f4"></script>
 
 <script>
 
+
 $(document).ready(function(){
-	
+    
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
     mapOption = { 
         center: new daum.maps.LatLng(37.4854, 127.034), // 지도의 중심좌표
@@ -372,16 +432,23 @@ var markers=[];
 var points =[];
 var overlays =[];
 
+function removeMarker() {
+    for ( var i = 0; i < markers.length; i++ ) {
+        markers[i].setMap(null);
+    }   
+    markers = [];
+    overlays =[];
+}
 /* daum.maps.event.addListener(markers, 'click', function() {
     overlay.setMap(map);
 }); */
 
 // 기본 overlay를 숨김
 /* function close() {
-	for(var i=0; i<overlays.length ; i++){
-		overlays[i].setMap(null);
-		console.log(i);
-	}
+    for(var i=0; i<overlays.length ; i++){
+        overlays[i].setMap(null);
+        console.log(i);
+    }
 } */
 
 //클릭시 overlay를 보여주기위한 function
@@ -398,47 +465,61 @@ function makecloseOverlay(overlay){
 }
 
 $(document).on('click','.closeOverlay',function (){
-	 var i=$(this).attr('value');
-	 overlays[i].setMap(null);
+     var i=$(this).attr('value');
+     overlays[i].setMap(null);
 });  
+var carouselcontent;
+var ie=23.51;
 
-
-
-$(function(){
-	var i = 0;
-	<c:forEach items="${list}" var="data">
-		var content = '<div class="wrap">' + 
-	    '    <div class="info">' + 
-	    '        <div class="title">' + 
-	    'test' +
-	    '            <div class="closeOverlay" onclick="close()" value='+(i++)+' title="닫기"></div>' + 
-	    '        </div>' + 
-	    '        <div class="body">' + 
-	    '            <div class="img">' +
-	    '                <img src="http://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
-	    '           </div>' + 
-	    '            <div class="desc">' + 
-	    '                <div class="ellipsis">제주특별자치도 제주시 첨단로 242</div>' + 
-	    '                <div class="jibun ellipsis">(우) 63309 (지번) 영평동 2181</div>' + 
-	    '                <div><a href="http://www.kakaocorp.com/main" target="_blank" class="link">홈페이지</a></div>' + 
-	    '            </div>' + 
-	    '        </div>' + 
-	    '    </div>' +    
-	    '</div>';
-	
-	   addMarker(new daum.maps.LatLng(${data.supporter.x}, ${data.supporter.y}),content);
-	   
-	   
-	   
-	</c:forEach>
+ 
+$(function(){   
+    var i = 0;
+    var e = 0;
+    <c:forEach items="${list}" var="data">
+        var content = '<div class="wrap">' + 
+        '    <div class="info">' + 
+        '        <div class="title">' + 
+        '${data.bname}' +
+        '            <div class="closeOverlay" onclick="close()" value='+(i++)+' title="닫기"></div>' + 
+        '        </div>' + 
+        '        <div class="body">' + 
+        '            <div class="img">' +
+        '                <img src="../../img/${data.phot}" width="73" height="70">' +
+        '           </div>' + 
+        '            <div class="desc">' + 
+        '                <div class="ellipsis">${data.addr}</div>' +
+        '                <div class="ellipsis">${data.shopname}</div>' + 
+        '                <div class="jibun ellipsis">${data.nsdt}~${data.nedt}</div>' + 
+        '                <div><a href="/../buskerfeed/enter?no=${data.bno}" target="_blank" class="link">피드로 이동</a></div>' + 
+        '            </div>' + 
+        '        </div>' + 
+        '    </div>' +    
+        '</div>';
+        
+        
+        
+        carouselcontent= '<div class="carousel-cell">'+ 
+					         '<h3>${data.bname}</h3>'+
+					         '<a class="more" href="">Explore more</a>'+
+					         //'<span class="more">${data.nsdt}~${data.nedt}</span>'+
+					         '<img src="../../img/${data.phot}" />'+
+					         '</div>';
+					         
+					        
+       addMarker(new daum.maps.LatLng(${data.x}, ${data.y}),content);
+       $(carouselcontent).appendTo('.flickity-slider'); 
+       
+    </c:forEach>
+    
 });
+
 
 //마커를 생성하고 지도위에 표시하는 함수입니다
 function addMarker(position, content) {
     
     // 마커를 생성, 지도에 추가합니다
     var marker = new daum.maps.Marker({
-    	map : map,
+        map : map,
         position : position
     });
     
@@ -457,7 +538,109 @@ function addMarker(position, content) {
     
 }
 
+$(".choicearea").click(function(){
+    $(this).css('background-color','#c6cbce');
+    $(this).siblings().css('background-color','#f2f3f5');
+    var listID=$(this).attr('id');
+    var listhideID=$(this).siblings().attr('id');
+    $('.'+listID).css('display','block');
+    $('.'+listhideID).css('display','none');
+});
 
+$('html').click(function(e) { 
+	if($(e.target).parent().parent().hasClass("listbox")) {
+		console.log('지역선택중입니다.');
+	}else if(!$(e.target).hasClass("choicearea")) {
+        console.log('태크밖이지롱');
+        $("#All").css('background-color','#f2f3f5');
+        $("#All2").css('background-color','#f2f3f5');
+        $('.All').css('display','none');
+        $('.All2').css('display','none');
+    } //ㅅㄷㄴㅅ
+	
+});
+
+
+$(".All li").click(function(){
+    var searchCode= $(this).text();
+    $("#All").text(searchCode);
+    $("#All").css('background-color','#f2f3f5');
+    $("#All2").css('background-color','#c6cbce');
+    $('.All').css('display','none');
+    $('.All2').css('display','block');
+});
+
+
+$(".All2 li").click(function(){
+    var searchCode= $(this).text();
+    $("#All2").text(searchCode);
+    $('.All2').css('display','none');
+    $("#All2").css('background-color','#f2f3f5');
+    var sido=$("#All").text();
+    var sigungu=$(this).text();
+    console.log(sido);
+    console.log(sigungu);
+    $.ajax({ 
+        type : "POST", //보내는 타입을 Post방식으로 할지,  GET방식으로 할지 결정
+        url : "SearchByTag", 
+        dataType: 'json',
+        data : {
+            "sido":sido,
+            "sigungu":sigungu
+        }, //파라미터 넘겨줄 부분? : 이게 할말이 많은데 원래 GET방식으로 하라했다가 
+        success : function(data) { 
+            if(data!=null){
+                //removeMarker();
+                console.log(data);
+                var i = 0;
+                var bounds = new daum.maps.LatLngBounds() ;
+                $.each(data,function(index,item){
+                    var content = '<div class="wrap">' + 
+                    '    <div class="info">' + 
+                    '        <div class="title">' + 
+                    item.bname +
+                    '            <div class="closeOverlay" onclick="close()" value='+(i++)+' title="닫기"></div>' + 
+                    '        </div>' + 
+                    '        <div class="body">' + 
+                    '            <div class="img">' +
+                    '                <img src="../../img/'+item.phot+' width="73" height="70">' +
+                    '           </div>' + 
+                    '            <div class="desc">' + 
+                    '                <div class="ellipsis">'+item.addr+'</div>' +
+                    '                <div class="ellipsis">'+item.shopname+'</div>' + 
+                    '                <div class="jibun ellipsis">'+item.nsdt+'~'+item.nedt+'</div>' + 
+                    '                <div><a href="/../buskerfeed/enter?no=+'+item.bno+' target="_blank" class="link">피드로 이동</a></div>' + 
+                    '            </div>' + 
+                    '        </div>' + 
+                    '    </div>' +    
+                    '</div>';
+                   bounds.extend(new daum.maps.LatLng(item.x, item.y)); 
+                   //addMarker(new daum.maps.LatLng(item.x, item.y),content);
+                   map.setBounds(bounds);
+                });
+            }else{
+                swal("에러","갬색 지역의 버스커 공연이 없습니다.","error");
+            }
+        },
+        error : function(request, status, error) {
+            swal("검색오류","관리자에게 문의하세요.","error");
+        }
+    });
+    
+});
+
+
+$(".boxbt").click(function(){
+    $('.All').css('display','none');
+    $('.All2').css('display','none');
+    $("#All").css('background-color','#f2f3f5');
+    $("#All2").css('background-color','#f2f3f5');
+})
+
+$('.carousel').flickity({  
+    cellAlign: 'left',
+    contain: true 
+});
 
 
 
@@ -465,6 +648,8 @@ function addMarker(position, content) {
 
 
 </script>
+
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> --> 
 </body>
 <footer>
 <jsp:include page="../footer.jsp"></jsp:include>
