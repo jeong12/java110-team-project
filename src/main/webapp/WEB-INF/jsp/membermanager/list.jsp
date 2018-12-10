@@ -476,10 +476,10 @@ padding-left: 28%;
 /* 정지 기능 */
 function stop(params){
     var stopORun;
+    var grade;
    $('.btn.btns-outline-danger').each(function(index,item){
        if(item.value == params){
            stopORun = item;
-           console.log(stopORun.value);
        }
    });
    
@@ -510,7 +510,7 @@ function stop(params){
               });
               stopORun.value = vals[0] + " " + 1 +vals[1];
               stopORun.innerHTML = '정지해제';
-              
+              location.href = "";
           });
         } 
       });
@@ -540,6 +540,7 @@ function stop(params){
                   
                   stopORun.value = vals[0] + " " + vals[1].substr(1);
                   stopORun.innerHTML = '정지';
+                  location.href = "";
                   
               });
             } 
@@ -1067,7 +1068,7 @@ function goPageStop(e){
                 $('#testappend').append(
                    '<tr><td>'+item.id+'</td>'+
                    '<td class=niks>'+item.nik+'</td>'+
-                   '<td>'+item.email+'</td><td>정지회원</td>'+
+                   '<td>'+item.email+'</td><td>'+item.type+'</td>'+
                    '<td>'+item.ncdt+'</td>'+
                    '<td id="memow">'+item.memo+'</td>'+
                    '<td><button class="btt btns btns-outline-info"'+  

@@ -277,7 +277,7 @@ FROM memb
 <select id="memberAjax" parameterType="map" resultType="MemberManager">
 SELECT m.id, m.nik,m.email,m.cdt,m.memo,m.flag
 FROM memb as m
-where flag = #{flag}
+where flag > #{flag}
 Limit #{paging.startRowNo},#{paging.pageSize}
 </select>
 
@@ -285,7 +285,7 @@ Limit #{paging.startRowNo},#{paging.pageSize}
 select count(*) from
 (SELECT m.id, m.nik,m.email,m.cdt,m.memo,m.flag
 FROM memb as m
-where flag =  #{flag}) as b
+where flag >  #{flag}) as b
 </select>
 
 <update id="upStopMem" parameterType="string">

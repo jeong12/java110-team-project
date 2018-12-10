@@ -445,3 +445,66 @@ a.btns.disabled {
 .show > .btns-outline-m.dropdown-toggle:focus {
   box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);
 }
+
+h1.article  { 
+  font-size: 250%;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  color: #666;
+  padding: 3px 0px;
+  margin: 5px 0;
+  letter-spacing: 1px;
+  word-spacing: 3px;
+}
+ h2.article {
+  font-size: 200%;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  color: #666;
+  PADDING-BOTTOM: 10px;
+  TEXT-ALIGN: left;
+  padding: 3px 0px;
+  margin: 5px 0;
+  BACKGROUND-COLOR: #FFF;
+}
+h3.article  {
+  FONT-SIZE: 22px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  COLOR: #2E86B9;
+  PADDING-BOTTOM: 10px;
+  TEXT-ALIGN: left;
+  padding: 3px 0px;
+  margin: 5px 0;
+  BACKGROUND-COLOR: #FFF;
+}
+h4.article {
+  FONT-SIZE: 22px;
+  COLOR: #eeeeee;
+  PADDING-BOTTOM: 10px;
+  TEXT-ALIGN: left;
+  PADDING-TOP: 10px;
+  PADDING-LEFT: 10px;
+  PADDING-RIGHT: 10px;
+  BACKGROUND-COLOR: #282828;
+  border-radius:3px;
+}
+h5.article {
+  font-size: 22px !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  padding: 3px 5px;
+  margin: 5px 0;
+  BACKGROUND-COLOR: #FFF;
+  BORDER-TOP: 2px solid #ccc;
+  BORDER-RIGHT: 2px solid #ccc;
+}
+h6.article  {
+  font-weight: normal !important;
+  font-style: normal !important;
+  font-size: 1em !important;
+  min-height: inherit !important;
+  min-height: auto !important;
+  PADDING-BOTTOM: 4px;
+  PADDING-TOP: 4px;
+  PADDING-LEFT: 10px;
+  PADDING-RIGHT: 4px;
+  BACKGROUND-COLOR: #FFF;
+}

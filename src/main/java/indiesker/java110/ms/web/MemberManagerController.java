@@ -398,7 +398,7 @@ public class MemberManagerController {
   @ResponseBody
   @RequestMapping(value="showStop")
   public Map<String,Object> showStop(int flag,String pageNo, Paging paging) throws ParseException {
-    flag = 4;
+    flag = 10;
     if(pageNo != null) paging.setPageNo(Integer.parseInt(pageNo));
     
     paging.setPageSize(15);
@@ -409,7 +409,8 @@ public class MemberManagerController {
     SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
     for (MemberManager mm : list) {
       mm.setNcdt(dformat.format(mm.getCdt()));
-    }  
+    }
+    
     
     Map<String,Object> map = new HashMap<>(); 
     map.put("list", list);
