@@ -2,8 +2,11 @@ package indiesker.java110.ms.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import indiesker.java110.ms.dao.BuskerPromotionDao;
 import indiesker.java110.ms.domain.BuskerPromotion;
 import indiesker.java110.ms.domain.BuskerPromotionComment;
@@ -19,15 +22,15 @@ public class BuskerPromotionServiceimpl implements BuskerPromotionService {
     public List<BuskerPromotion> list() {
         return buskerPromotionDao.findAll();
     }
-
-    @Override
-    public List<BuskerPromotion> SearchByCity(String city) {
-      return buskerPromotionDao.findByCity(city);
-    }
-
+	
 	@Override
-	public List<BuskerPromotion> SearchByTeamname(String teamname) {
-		return buskerPromotionDao.findByTeamname(teamname);
+	public List<BuskerPromotion> SearchByCity(Map<String, Object> params) {
+		return buskerPromotionDao.findByCity(params);
+	}
+	
+	@Override
+	public List<BuskerPromotion> SearchByTeamname(Map<String, Object> params) {
+		return buskerPromotionDao.findByTeamname(params);
 	}
 	
 	@Override

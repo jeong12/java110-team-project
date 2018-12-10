@@ -13,8 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import indiesker.java110.ms.domain.Busker;
 import indiesker.java110.ms.domain.BuskerPromotion;
 import indiesker.java110.ms.domain.BuskerPromotionComment;
 import indiesker.java110.ms.domain.Member;
@@ -36,8 +39,8 @@ public class BuskerPromotionController {
     this.buskerService = buskerService;
     this.sc = sc;
   }
-
   
+/*  
   @GetMapping("list")
   public void list(Model model, HttpSession session) {
     List<BuskerPromotion> list = buskerPromotionService.list();
@@ -55,16 +58,43 @@ public class BuskerPromotionController {
 	  List<BuskerPromotion> list = buskerPromotionService.SearchByTeamname(teamname);
 	  model.addAttribute("teamname",list);
   }
-
-/*  @PostMapping(value="list", params="city")
-  public String city(String city) throws Exception {
-    String cities[] = city.split(",");
-    if(cities.length > 1)
-      city = URLEncoder.encode(cities[1], "UTF-8");
-    else
-      city = URLEncoder.encode(cities[0], "UTF-8");
-    return "redirect:list?city="+city;
-  }*/
+*/
+  
+  //프로모션 리스트 (위 세개를 한개로 합침)
+  @GetMapping("list")
+  public void list(Model model,
+          @RequestParam(value="searchType", required=false) String searchType,
+          @RequestParam(value="keyword", required=false)String keyword) {
+	  
+	    if(searchType == null)//페이지가 갱신되도 서치타입이 유지되도록 처리 
+	        searchType = "teamname";//디폴트 값을 팀네임으로 설정
+	        model.addAttribute("searchType", searchType);
+        
+        //searchType에 따라 값을 반납
+	    if (searchType != null && !"".equals(searchType)) { // searchType이 null이 아니고 빈 문자열이 아닐 때는 search
+			  Map<String, Object> params = new HashMap<>();
+			  
+			if (keyword == null) {//keyword가 null일때 처리
+				keyword = "";
+			}
+			
+			params.put("keyword", "%" + keyword + "%");
+			
+			if ("city".equals(searchType)) {
+				List<BuskerPromotion> list = buskerPromotionService.SearchByCity(params);
+				model.addAttribute("city",list);	
+			} else if ("teamname".equals(searchType)) {
+				List<BuskerPromotion> list = buskerPromotionService.SearchByTeamname(params);
+				model.addAttribute("teamname", list);
+			} else {
+				List<BuskerPromotion> list = buskerPromotionService.list();
+				model.addAttribute("list",list);
+			}
+		} else {
+			List<BuskerPromotion> list = buskerPromotionService.list();
+			model.addAttribute("list",list);
+		}
+  }
   
   @RequestMapping("form")
   public void form() {

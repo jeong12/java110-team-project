@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="top">
 
 <head>
 <meta charset="UTF-8">
@@ -13,11 +13,7 @@
     rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-
-<script
-    src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-
-
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 
 <script>
     $(window).on('load', function() {
@@ -75,7 +71,7 @@ margin-bottom : 300px;
 }
 
 #titl {
-    margin: 20px 10px 30px 16%;
+    margin: 20px 10px 30px;
     padding: 10px;
 }
 
@@ -136,6 +132,10 @@ height: 35px;
 padding: 0;
 }
 
+a#movetop {
+    position: fixed; right: 2%; bottom: 82px; display: none; z-index: 999;
+}
+
 /* 날짜 */
 #startdateenddate{
     margin-left: 18%;
@@ -145,8 +145,11 @@ padding: 0;
 <jsp:include page="../header.jsp"></jsp:include>
 <body>
 <div id="bodybody">
-    <div id="titl">
-        <h2><img id="logo" src="../../img/playButton.PNG" alt="플레이로고">무대 목록</h2>
+<div id="pos"></div>
+    <div class="container">
+        <div id="titl">
+            <h2><img id="logo" src="../../img/playButton.PNG" alt="플레이로고">무대 목록</h2>
+        </div>
     </div>
     <div class="container" id="searchdiv">
         <div class="row">
@@ -302,6 +305,12 @@ padding: 0;
         <a href="javascript:;" class="more-button">더보기</a>
     </div>
 
+ <a href="#" id="movetop"><img src="../../img/topbtn.png"></a>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="/js/headerfixing.js"></script>
+    <script src="/js/promotion/promofilter.js"></script>
+    <script src='../../js/jquery.easing.1.3.js'></script>
     <script src="//code.jquery.com/ui/1.8.18/jquery-ui.js"></script>    
     <script>
     //jequery-ui안에서 msie 프로퍼티를 불러오기 위한 jQery.browser 가 없어서 따로 만들어놓음 
@@ -416,6 +425,24 @@ padding: 0;
                 PageMove();
             }
         }
+        
+        
+        $(document).scroll(function(){
+           var pos = document.getElementById('pos'); 
+           var movetop = document.getElementById('movetop');
+           if($(pos).attr('value') > 50){
+               movetop.style.display = 'block';
+           } else{
+               movetop.style.display = 'none';
+           }
+        });
+        
+        $('#movetop').click(function(){
+            $('#top').animate({
+                 scrollTop:0
+            }, 800, 'easeInQuart');
+            return false;
+        });
     </script>
 </body>
 <jsp:include page="../footer.jsp"></jsp:include>

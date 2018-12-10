@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="top">
 <head>
 <meta charset="UTF-8">
 <title>아이디 비밀번호 찾기</title>
@@ -77,15 +77,20 @@ button:hover:before,button:hover:after{
   width:100%;
   transition:800ms ease all;
 }
+
+a#movetop {
+    position: fixed; right: 2%; bottom: 82px; display: none; z-index: 999;
+}
     </style>
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
 <body>
-          
-    <div id="titl">
-        <h2><img id="logo" src="../../img/playButton.PNG" alt="플레이로고">아이디 비밀번호 찾기</h2>
+    <div class="container"> 
+        <div id="pos"></div>
+        <div id="titl">
+            <h2><img id="logo" src="../../img/playButton.PNG" alt="플레이로고">아이디 비밀번호 찾기</h2>
+        </div>
     </div>
-          
           <div class="findidcontent">
           <form action="idis" method="get" class="contentdetail">
                <h2>아이디 찾기</h2>
@@ -102,8 +107,32 @@ button:hover:before,button:hover:after{
                <button class="send">전송</button>
            </form>
                   
-                  
            </div>
+<a href="#" id="movetop"><img src="../../img/topbtn.png"></a>
+
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="/js/headerfixing.js"></script>
+  <script src="/js/promotion/promofilter.js"></script>
+  <script src='../../js/jquery.easing.1.3.js'></script>
+
+<script>
+$(document).scroll(function(){
+    var pos = document.getElementById('pos'); 
+    var movetop = document.getElementById('movetop');
+    if($(pos).attr('value') > 50){
+        movetop.style.display = 'block';
+    } else{
+        movetop.style.display = 'none';
+    }
+ });
+ 
+ $('#movetop').click(function(){
+     $('#top').animate({
+          scrollTop:0
+     }, 800, 'easeInQuart');
+     return false;
+ });
+</script>
 </body>
 <jsp:include page="../footer.jsp"></jsp:include>
 </html>
