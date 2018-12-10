@@ -74,7 +74,8 @@ margin: 0;
                <a href="/app/auth/form" style="text-decoration: none;" class="more-button">
                                           로그인화면으로 돌아가기</a>
            </div>
-</div> 
+</div>
+</script> 
 </body>
 <jsp:include page="../footer.jsp"></jsp:include>
 </html>

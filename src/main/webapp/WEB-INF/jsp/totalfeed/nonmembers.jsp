@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="top">
 
 <head>
 <meta charset="UTF-8">
@@ -98,7 +98,7 @@ margin-bottom : 150px;
 }
 
 #titl {
-	margin: 20px 0 40px;
+	margin: 20px 30px 40px;
 	padding: 0;
 }
 
@@ -143,7 +143,12 @@ margin-bottom : 150px;
 .btn-wrap {
 	text-align: center;
 }
+/* 위로 가기 */
+a#movetop {
+    position: fixed; right: 2%; bottom: 82px; display: none; z-index: 999;
+}
 
+/* 입력창 줄맞춤 */
 #selectsearch{
 height: 35px;
 width: 70px;
@@ -167,11 +172,10 @@ padding: 0;
 <body>
 <div id=bodybody>
 	<div class="container">
-	
+	<div id="pos"></div>
 		<div id="titl">
 	        <h2><img id="logo" src="../../img/playButton.PNG" alt="플레이로고">버스커 목록보기</h2>
 	    </div>
-    
     </div>
 	
 	<div class="container">
@@ -327,8 +331,13 @@ padding: 0;
 	<div id="js-btn-wrap" class="btn-wrap">
 		<a href="javascript:;" class="more-button">더보기</a>
 	</div>
+    <a href="#" id="movetop"><img src="../../img/topbtn.png"></a>
 
 
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="/js/headerfixing.js"></script>
+    <script src="/js/promotion/promofilter.js"></script>
+    <script src='../../js/jquery.easing.1.3.js'></script>
 	<script>
 
 		$(function() {
@@ -367,6 +376,24 @@ padding: 0;
 				PageMove();
 			}
 		}
+		
+		$(document).scroll(function(){
+            var pos = document.getElementById('pos'); 
+            var movetop = document.getElementById('movetop');
+            if($(pos).attr('value') > 50){
+                movetop.style.display = 'block';
+            } else{
+                movetop.style.display = 'none';
+            }
+         });
+         
+         $('#movetop').click(function(){
+        	 //console.log("클릭됨");
+             $('#top').animate({
+                  scrollTop:0
+             }, 800, 'easeInQuart');
+             return false;
+         });
 	</script>
 </body>
 <jsp:include page="../footer.jsp"></jsp:include>

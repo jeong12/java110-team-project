@@ -27,7 +27,7 @@ public class TotalFeedController {
 		this.sc = sc;
 	}
 
-	// 전체피드 비회원
+	// 전체피드
 	@GetMapping("nonmembers")
 	public void nonmembers(Model model,
 			@RequestParam(value="searchType", required=false) String searchType,

@@ -34,17 +34,17 @@ from busk_board bo join busk b on bo.bno = b.bno
 ORDER by bo.cdt DESC
     </select>
     
-    <select id="findByCity" resultMap="buskPromotionMap" parameterType="String">
+    <select id="findByCity" resultMap="buskPromotionMap" parameterType="map">
 select titl, b.name, bo.genre, bo.city, sdt, edt, cnt, etc, bo.phot, cdt
 from busk_board bo join busk b on bo.bno = b.bno
-where bo.city=#{city}
+where bo.city like #{keyword}
 ORDER by bo.cdt DESC
     </select>
     
-    <select id="findByTeamname" resultMap="buskPromotionMap" parameterType="String">
+    <select id="findByTeamname" resultMap="buskPromotionMap" parameterType="map">
 select titl, b.name, bo.genre, bo.city, sdt, edt, cnt, etc, bo.phot, cdt
 from busk_board bo join busk b on bo.bno = b.bno
-where b.name=#{teamname}
+where b.name like #{keyword}
 ORDER by bo.cdt DESC
     </select>
     
