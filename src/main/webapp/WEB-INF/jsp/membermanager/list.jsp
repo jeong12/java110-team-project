@@ -24,35 +24,22 @@
 <style>
 #mytable{background-color: white;}
  body{background-color: snow;}
-    .mc{margin-left:52%;}
-    .carousel{margin-left:52%;}
     .container{width: 80%; margin: auto;}
     .pagination{margin-right: 39%;}    
     td{text-align: center;}
     th{text-align: center;}
-    .slt{ margin-top: 30px;} 
     #start,#end{width: 140px; height: 25px; border-radius: 1%;}
     #selt{height: 25px; margin-right: 2px;}
     #input{height: 25px;}
     #bun{float: left;}
     #ccc{float: right; margin-top: 2%;}
-/*     .hide-bullets {list-style:none;} */
-    #img{margin:0auto;}
     #mttl,.bttl,.stitle{margin-left:45%;}
  }
-margin-left: -40px;
-margin-top:20px;
+img{    width: 25rem;
+    margin-left: 8%;
 }
-    #mmain{margin-left:  8%; margin-top: 15px;}
-    #myCarousel{width: 400px;}
-    #myCarousel2{width: 400px;}
-    .mmimg{width: 400px;height: 300px;}
-    .bbbmimg{width: 400px;height: 300px;}
-    #ig{width: 133px;height: 60px;}
-    .thumbnail{padding: 0px; }
-    .mli{width: 133px;height: 50px; float: left;}
+}
    
-    .aac{margin-left: -24px; margin-top: 0px;}
     .mtb{margin: auto; margin:26px auto 20px; ;
         border: 1px solid silver;
         border-radius: 10px;
@@ -65,10 +52,7 @@ margin-top:20px;
       #titl{margin-top: 3.5%; margin-bottom: 2%;}
     #logo{float: left; width: 40px; height: 40px;}
     #haha{margin-top: 0.7%; margin-left: 4%;}
-    .buskDetail,.memberDetail,.supDetail,.btt2,.btt{width: 4rem; height: 1.8rem; font-size: 0.8rem;padding: 0;}
-    
-    
-    
+     .memberDetail,.buskDetail,.supDetail,.btt2,.btt{width: 4rem; height: 1.8rem; font-size: 0.8rem;padding: 0;}
     /* Tabs css */
 .list-group-horizontal .list-group-item {
     display: inline-block;
@@ -166,7 +150,7 @@ padding-left: 28%;
 				    <td>${m.ncdt}</td>
 				    <td id="memow">${m.memo}</td>
 				    <td><button class="btt btns btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
-				    <td><div  class="detailbtn"><button name="detailAll" class="memberDetail btns btns-outline-secondary"  data-toggle="modal" data-target="#memberDetail" value="${m.nik}">상세보기</button></div></td>
+				    <td><div  class="detailbtn"><button name="detailAll" id="btnA" class="memberDetail btns btns-outline-secondary"  data-toggle="modal" data-target="#modalmemberDetail" value="${m.nik}">상세보기</button></div></td>
 				    <c:choose>
                     <c:when test="${m.flag < 10}">
                     <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지</button></td>
@@ -187,7 +171,7 @@ padding-left: 28%;
                     <td>${m.ncdt}</td>
                     <td id="memow">${m.memo}</td>
                     <td><button class="btt btn btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
-                    <td><div id="detailAll" class="detailbtn"><button name="detailAll" class="buskDetail btns btns-outline-secondary"  data-toggle="modal" data-target=".modelbusk" value="${m.nik}">상세보기</button></div></td>
+                    <td><div id="detailAll" class="detailbtn"><button name="detailAll" class="buskDetail btns btns-outline-secondary"  data-toggle="modal" data-target="#modalbuskDetail" value="${m.nik}">상세보기</button></div></td>
                     <c:choose>
                     <c:when test="${m.flag < 10}">
                     <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지</button></td>
@@ -210,7 +194,7 @@ padding-left: 28%;
                     <td class="col-md-2">${m.ncdt}</td>
                     <td id="memow" class="col-md-2">${m.memo}</td>
                     <td class="col-md-1"><button class="btt btn btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
-                    <td class="col-md-1"><div id="detailAll" class="detailbtn"><button id="detailAll" class="supDetail btns btns-outline-secondary"  data-toggle="modal" data-target="#supDetail" value="${m.nik}">상세보기</button></div></td>
+                    <td class="col-md-1"><div id="detailAll" class="detailbtn"><button id="detailAll" class="supDetail btns btns-outline-secondary"  data-toggle="modal" data-target="#modalsupDetail" value="${m.nik}">상세보기</button></div></td>
                     <c:choose>
                     <c:when test="${m.flag < 10}">
                     <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지</button></td>
@@ -305,9 +289,8 @@ padding-left: 28%;
     </div>
   </div>
 </div>
-
 <div class="container"><!-- 버스커 모달 시작 -->
-  <div class="modelbusk modal fade" tabindex="-1" role="dialog">
+  <div id="modalbuskDetail" class="modalbuskdetail modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="">
@@ -316,22 +299,16 @@ padding-left: 28%;
         
         </div>
       </div>
-      <div id="mmain">
         <div id="mmain">
-                <div class="row">
-                    <div class="col-xs-12" id="slider" id="main">
+                    <div id="slider" id="main">
                         <!-- Top part of the slider -->
-                        <div class="row">
-                            <div class="col-sm-4" id="carousel-bounding-box" >
+                            <div id="carousel-bounding-box" >
                                 <div class="mc carousel slide" id="myCarousel">
                                                           
                                         <div class="bmimg active item"  data-slide-number="0">
                                         </div>
-                                </div>                               
                             </div>                            
-                        </div>
                     </div>
-                </div>
         </div>
 </div>
      <div class="mtb">
@@ -356,7 +333,7 @@ padding-left: 28%;
 <!-- 회원모달 시작 -->
 <div class="container">
 
-  <div id="memberDetail" class="memberDetail modal fade" tabindex="-1" role="dialog">
+  <div id="modalmemberDetail" class="modalmemberDetail modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="">
@@ -366,13 +343,9 @@ padding-left: 28%;
       </div>
       
       <div id="mmain">
-        <div id="mmain">
                 <!-- Slider -->
-                <div class="row">
-                    <div class="col-xs-12" id="slider" id="main">
+                    <div id="slider" id="main">
                         <!-- Top part of the slider -->
-                        <div class="row">
-                            <div class="col-sm-4">
                                 <div class="mc" id="myCarousel2">
                                   
                                     <div class="carousel-inner" >
@@ -380,11 +353,7 @@ padding-left: 28%;
                                         </div>
                                     </div><!-- Carousel nav -->
                                     </div>
-                            </div>        
-                        </div>
-                    </div>
                 </div>
-        </div>
 </div>
 
      <div class="mtb">
@@ -405,7 +374,7 @@ padding-left: 28%;
 <!-- 회원모달 끝 -->
 <!-- 서포터모달 시작 -->
 <div class="container">
-  <div id="supDetail" class="modal fade" tabindex="-1" role="dialog">
+  <div id="modalsupDetail" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="">
@@ -413,25 +382,17 @@ padding-left: 28%;
         <h3 class="stitle"></h3>
       </div>
       
-      <div id="mmain">
         <div id="mmain">
                 <!-- Slider -->
-                <div class="row">
-                    <div class="col-xs-12" id="slider" id="main">
+                <div>
+                    <div id="slider" id="main">
                         <!-- Top part of the slider -->
-                        <div class="row">
-                            <div class="col-sm-4" id="carousel-bounding-box" >
+                            <div id="carousel-bounding-box" >
                                 <div class="carousel slide" id="myCarousel">
                                     <!-- Carousel items -->
                                     <div class="dddd carousel-inner" >
                                         <div class="active item"   data-slide-number="0">
-                                        <img id="ff" src="img/%EB%B2%84%EC%8A%A4%ED%82%B9%201.jpg"></div>
-
-                                        <div class="item"  data-slide-number="1">
-                                        <img id="ff"  src="img/%EB%B2%84%EC%8A%A4%ED%82%B9%202.jpg"></div>
-
-                                        <div class="item" data-slide-number="2">
-                                        <img id="ff" src="img/%EB%B2%84%EC%8A%A4%ED%82%B9%203.jpg"></div>
+                                        <img src="img/%EB%B2%84%EC%8A%A4%ED%82%B9%201.jpg"></div>
 
                                
                                     </div><!-- Carousel nav -->
@@ -442,10 +403,6 @@ padding-left: 28%;
                                         <span class="glyphicon glyphicon-chevron-right"></span>                                       
                                     </a>                                
                                     </div>
-                            </div>        
-
-                          
-                        </div>
                     </div>
                 </div><!--/Slider-->
             
@@ -577,7 +534,6 @@ $('.gg').click(function(){
             }           
     });
 });
-
 
 $(document).on("click",'.memberDetail',function(){
 	var m = $(this).val();
@@ -753,8 +709,8 @@ $.ajax({
                     +'<td>'+'일반회원'+'</td>'
                     +'<td>'+item.ncdt+'</td>'
                     +'<td>'+item.memo+'</td>'
-                    +'<td><button class="btt btn-primary btn-xs"  data-toggle="modal" data-target="#exampleModal"  value="'+item.nik+'">메모수정</button></td>'
-                    +'<td><button class="memberDetail btn-primary btn-xs" data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기</button></td>'
+                    +'<td><button class="btt btns btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="'+item.nik+'">메모수정</button></td>'
+                    +'<td><button class="memberDetail btns btns-outline-secondary" data-toggle="modal" data-target="#modalmemberDetail" value="'+item.nik+'">상세보기</button></td>'
                     + btn
                            );
             }else if(item.flag == 2 || item.flag == 12){
@@ -770,8 +726,8 @@ $.ajax({
                  +'<td>'+'버스커'+'</td>'
                  +'<td>'+item.ncdt+'</td>'
                  +'<td>'+item.memo+'</td>'
-                 +'<td><button class="btt btn-primary btn-xs"  data-toggle="modal" data-target="#exampleModal"  value="'+item.nik+'">메모수정</button></td>'
-                 +'<td><button class="buskDetail btn-primary btn-xs"  data-toggle="modal" data-target=".modelbusk" value="'+item.nik+'">상세보기</button></td>'
+                 +'<td><button class="btt btns btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="'+item.nik+'">메모수정</button></td>'
+                 +'<td><button class="buskDetail btns btns-outline-secondary"  data-toggle="modal" data-target="#modalbuskDetail" value="'+item.nik+'">상세보기</button></td>'
                  + btn        
          );
             }else if(item.flag==3 || item.flag==13){
@@ -787,8 +743,8 @@ $.ajax({
                 +'<td>'+'제공자'+'</td>'
                 +'<td>'+item.ncdt+'</td>'
                 +'<td>'+item.memo+'</td>'
-                +'<td><button class="btt btn-primary btn-xs"  data-toggle="modal" data-target="#exampleModal"  value="'+item.nik+'">메모수정</button></td>'
-                +'<td><button class="supDetail btn-primary btn-xs"  data-toggle="modal" data-target="#supDetail"value="'+item.nik+'">상세보기</button></td>'
+                +'<td><button class="btt btns btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="'+item.nik+'">메모수정</button></td>'
+                +'<td><button class="supDetail btns btns-outline-secondary"  data-toggle="modal" data-target="#modalsupDetail"value="'+item.nik+'">상세보기</button></td>'
                 + btn      
                 );
             }
@@ -965,7 +921,7 @@ function goPageBusk(e){
                           'value="'+item.nik+'">메모수정</button></td>'+
                           '<td><div class="detailbtn"><button name="detailAll"'+
                           'class="memberDetail btns btns-outline-secondary"'+  
-                          'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
+                          'data-toggle="modal" data-target="#modalmemberDetail" value="'+item.nik+'">상세보기'
                           +'</button></div></td>'
                           +btn
                            );});
@@ -1020,7 +976,7 @@ function goPageSup(e){
                           'value="'+item.nik+'">메모수정</button></td>'+
                           '<td><div class="detailbtn"><button name="detailAll"'+
                           'class="memberDetail btns btns-outline-secondary"'+  
-                          'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
+                          'data-toggle="modal" data-target="#modalmemberDetail" value="'+item.nik+'">상세보기'
                           +'</button></div></td>'
                           + btn 
                            );});
@@ -1047,8 +1003,6 @@ function goPageSup(e){
     });
 
 }
-
-
 function goPageStop(e){
     $.ajax({
         type : "POST",
@@ -1133,7 +1087,7 @@ function showList(){
                    'value="'+item.nik+'">메모수정</button></td>'+
                    '<td><div class="detailbtn"><button name="detailAll"'+
                    'class="memberDetail btns btns-outline-secondary"'+  
-                   'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
+                   'data-toggle="modal" data-target="#modalmemberDetail" value="'+item.nik+'">상세보기'
                    +'</button></div></td>'
                    + btn 
 	            	)});
@@ -1190,7 +1144,7 @@ function showMemb(){
                    'value="'+item.nik+'">메모수정</button></td>'+
                    '<td><div class="detailbtn"><button name="detailAll"'+
                    'class="memberDetail btns btns-outline-secondary"'+  
-                   'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
+                   'data-toggle="modal" data-target="#modalmemberDetail" value="'+item.nik+'">상세보기'
                    +'</button></div></td>'
                    + btn
                     );});
@@ -1248,7 +1202,7 @@ function showBusk(){
                        'value="'+item.nik+'">메모수정</button></td>'+
                        '<td><div class="detailbtn"><button name="detailAll"'+
                        'class="memberDetail btns btns-outline-secondary"'+  
-                       'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
+                       'data-toggle="modal" data-target="#modalmemberDetail" value="'+item.nik+'">상세보기'
                        +'</button></div></td>'
                        + btn
                         );});
@@ -1304,7 +1258,7 @@ function showSup(){
                        'value="'+item.nik+'">메모수정</button></td>'+
                        '<td><div class="detailbtn"><button name="detailAll"'+
                        'class="memberDetail btns btns-outline-secondary"'+  
-                       'data-toggle="modal" data-target="#memberDetail" value="'+item.nik+'">상세보기'
+                       'data-toggle="modal" data-target="#modalmemberDetail" value="'+item.nik+'">상세보기'
                        +'</button></div></td>'
                        + btn
                         );});
