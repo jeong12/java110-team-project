@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import indiesker.java110.ms.dao.AviDao;
 import indiesker.java110.ms.dao.BuskerDao;
 import indiesker.java110.ms.domain.Avi;
+import indiesker.java110.ms.domain.Paging;
 import indiesker.java110.ms.service.AviService;
 
 @Service
@@ -107,6 +108,19 @@ public class AviServiceImpl implements AviService {
       
       aviDao.reviseavi(params);
       
+    }
+    
+    @Override
+    public List<Avi> morelist(int no, Paging paging) {
+      Map<String,Object> params = new HashMap<>();
+      params.put("no", no);
+      params.put("paging",paging);
+    return aviDao.moreList(params);
+    }
+    
+    @Override
+    public int totList(int no) {
+    return aviDao.totList(no);
     }
    
 }

@@ -2,6 +2,7 @@ package indiesker.java110.ms.service;
 
 import java.util.List;
 import indiesker.java110.ms.domain.Avi;
+import indiesker.java110.ms.domain.Paging;
 
 public interface AviService {
   List<Avi> list();
@@ -17,4 +18,6 @@ public interface AviService {
   void insertComment(int abno, int no, String cont);
   void delete(int abno);
   void reviseAvi(String titl, String cont, String urlid, int no);
+  int totList(int no);
+  List<Avi> morelist(int no, Paging paging);
 }

@@ -6,8 +6,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import javax.print.attribute.HashAttributeSet;
 import javax.servlet.ServletContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +24,7 @@ import indiesker.java110.ms.domain.Avi;
 import indiesker.java110.ms.domain.Busker;
 import indiesker.java110.ms.domain.Comment;
 import indiesker.java110.ms.domain.FeedPhoto;
-import indiesker.java110.ms.domain.FeedPhotoFile;
+import indiesker.java110.ms.domain.Paging;
 import indiesker.java110.ms.domain.Schedule;
 import indiesker.java110.ms.service.AviService;
 import indiesker.java110.ms.service.BuskerService;
@@ -246,21 +249,65 @@ public class FeedController {
   
   @RequestMapping("moreavi")
   public void moreavi(int no,  Model model){
+    no = 5;
+    Paging paging = new Paging();
+    paging.setTotalCount(aviService.totList(no));
+    paging.setPageSize(12);
     Busker busker = buskerService.get(no);
-    List<Avi> alist = aviService.recentList(no);
+    List<Avi> alist = aviService.morelist(no, paging);
 
     //영상 주소에 관한것
     for (Avi avi : alist) {
       String urlid = avi.getUrlid();
       avi.setThumbnail("https://i.ytimg.com/vi/"+urlid+"/hqdefault.jpg");
       avi.setUrl("https://www.youtube.com/embed/"+urlid);
+      
+      if(avi.getTitle().length()>30) {
+        avi.setTitle(avi.getTitle().substring(0,31)+"...");
+      }
     }
     
+    System.out.println(alist);
     model.addAttribute("busk",busker);
     model.addAttribute("recentlist",alist);
-    System.out.println(alist);
+    model.addAttribute("paging",paging);
     
   }
+  
+  @ResponseBody
+  @RequestMapping("pagination")
+  public Map<String,Object> pagination(int no, int pageNo){
+    Paging paging = new Paging();
+    paging.setPageNo(pageNo);
+    paging.setTotalCount(aviService.totList(no));
+    paging.setPageSize(12);
+    List<Avi> alist = aviService.morelist(no, paging);
+    //영상 주소에 관한것
+    for (Avi avi : alist) {
+      String urlid = avi.getUrlid();
+      avi.setThumbnail("https://i.ytimg.com/vi/"+urlid+"/hqdefault.jpg");
+      avi.setUrl("https://www.youtube.com/embed/"+urlid);
+      
+        if(avi.getTitle().length()>30) {
+          avi.setTitle(avi.getTitle().substring(0,31)+"...");
+        }else {
+          avi.setTitle(avi.getTitle());
+        }
+      }
+    
+    for (Avi aa : alist) {
+      System.out.println(aa.getThumbnail());
+    }
+    Map<String,Object> map = new HashMap<>();
+    map.put("list", alist);
+    map.put("paging", paging);
+    return map;
+  }
+  
+  
+  
+  
+  
 /*  @PostMapping("updatephoto")
   public String updatephoto(
       
