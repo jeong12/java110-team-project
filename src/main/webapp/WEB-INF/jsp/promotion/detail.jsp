@@ -1,4 +1,4 @@
-`<%@ page language="java" 
+<%@ page language="java" 
     contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
@@ -14,13 +14,11 @@
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css"/>
 <link rel='stylesheet' href='../../css/common.css'> <!-- 웹 브라우저 입장에서의 경로 -->
 <style>
-
 #logo{width:40px; height:40px; float: left; margin-top: -4px; margin-right: 0.5rem;}
 #titl{margin-top: 3%; margin-bottom: 3%;}
 #titl h3{float: left; margin-top: 4px; margin-left 2.4 rem;}
 #phot{width: 320px; height: 240px;} 
 .media{height: 56%;}
-
     .mm{width: 800px; height:60px;}    
     .media-body{margin-top: 10px;}
     .titl{position: relative ;text-align: center; margin-bottom: 30px;}
@@ -51,11 +49,11 @@
     #tobbox{
     border: 1px solid silver;
     border-radius: 5px;  
-    height: 34%;
+    height: 13.5rem;
     padding: 1%;
     background-color: white;
         }
-    #textbox{margin-top: 15%;}
+    #textbox{margin-top: 3%;}
     #topbtn{
         font-size: 0.8rem;
     width: 5rem;
@@ -66,12 +64,12 @@
     margin-top: -4%;
     }
     #commenttop{border-top: 1px solid silver;}
-    .t{border-bottom: 1px solid silver; display: -webkit-box;}
+    .t{border-bottom: 1px solid silver; display: -webkit-box; height: 3.8rem;}
     .comments{background-color: white;}
     .pn{margin: 0.5%; width: 5%;}
     .cc{width: 6%; text-align: center;}
     .text{width: 88%; padding-right: 0.3rem;}
-    #cdtr{float: right;}
+    .cdtr{float: right;}
     .icon{
     display: -webkit-inline-box;
     float: right;
@@ -85,6 +83,7 @@
     .t1 label{float: left;}
     footer{clear: both;}
     #mang{display: flex;}
+    .contm{width: 80%; border: 1px solid white;}
 </style>
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
@@ -125,6 +124,8 @@
      <!--  <button id="btn" name="singlebutton" class="btn btn-primary btn-xs" >버스커 피드</button> -->
       </div>
     </div>
+ </div>
+         </div>
      <div id="textbox">
      <div class="c-t">
 
@@ -140,7 +141,6 @@
 
 
          <button id="btn2" name="singlebutton" class="btns btns-outline-m">입력</button>
-
          </div>
          <div id="commenttop"></div>
          <!-- 댓글  -->
@@ -156,15 +156,16 @@
            <div  class="ft">${com.nik}</div>
     </div>
     
-    
       <div class="text">
-          <div id="cdtr">${com.ncdt}</div><br>
-          <div id="contm">${com.cont}</div> <!-- m -->
+          <div class="cdtr" >${com.ncdt}</div><br>
+          <textarea class="contm" readonly="readonly" >${com.cont}</textarea> <!-- m -->
        <c:choose>
              <c:when test="${sessionScope.loginUser.no == com.mno}">
              <div class="icon">
-                <div class="modifycomment" onclick="modifyComment(${com.bcno})"><i class="far fa-edit"></i></div>
+                <div class="editcomment" value="${com.bcno}" style="display:none;"><i class="far fa-check-square"></i></div>
+                <div class="modifycomment" ><i class="far fa-edit"></i></div>
                 <div class="removecomment" onclick="removeComment(${com.bcno})"><i class="fas fa-minus"></i></div>
+                
               </div>
               
              </c:when>
@@ -196,8 +197,8 @@
                                     <a class="page-link" href="javascript:goPage(${paging.nextPageNo})">Next</a></li>
                             </ul>
                         </nav>
-    </div>
-    </div>
+   
+    
     </div>
     </div>
         </div>
@@ -205,110 +206,115 @@
     
     // 댓글 입력
     $('#btn2').click(function(){
-    	
-    	 $.ajax({
+         $.ajax({
              type : "POST",
                 url : "comments",
                 dateType : "json",
-                data :{"comment":$('.comments').val(), "bbno":${list.bbno}},
+                data :{"comment":$('.commentscontext').val(), "bbno":${list.bbno}},
                 success : function(data){
-                		$('.comments').empty();
-                		$('.commentscontext').empty();
-                		$('.pages').empty();
-                		$.each(data.list,function(index,item){
-                		$('.comments').append('<div class="t"><div class="pn"><a><img src="'+item.phot+'" class="pto"></a><p class="nik">'+
-                				item.type+'</p></div>'+'<div class="cc"><tr><th>'+item.nik+'</th><br><td>'+item.ncdt+'</td></tr></div>'+
-                		'<div class="text"><td>'+item.cont+'</td></div></div>'); 
-                		if(item.mno == data.mno){
-                			$('.comments').append('<div class="removecomment" onclick="removeComment(${com.bcno})"><i class="fas fa-minus"></i></div>'+
-                		              '<div class="modifycomment" onclick="modifyComment(${com.bcno})"><i class="far fa-edit"></i></div>');
-                		}
-                	    });
-                		 $('.pages').append(' <ul class="pagination justify-content-center">'+
-                                 '<li class="page-item prev">'+
-                                 '<a class="page-link" href="javascript:goPage('+data.paging.prevPageNo+
-                                         ')">Previous</a></li>');
-                            for(var i = data.paging.startPageNo;i<=data.paging.endPageNo;i++){
-                                if(i == data.paging.pageNo){
-                                    $('.pagination.justify-content-center').append('<li class="page-item active">'+
-                                    '<a href="javascript:goPage('+i+')" class="choice">'+i+'</a></li>');
-                                }else{
-                                    $('.pagination.justify-content-center').append('<li class="page-item">'+
-                                    '<a href="javascript:goPage('+i+')">'+i+'</a></li>');
-                                }
-                            } 
-                         $('.pagination.justify-content-center').append('<li class="page-item">'+
-                                 '<a class="page-link" href="javascript:goPage('+data.paging.nextPageNo+')">Next</a></li>'+
-                                 '</ul></nav>');
+                	window.location.reload() ;
+            	   $('.comments').empty();
+                       $('.commentscontext').empty();
+                       $('.pages').empty();
+                       $.each(data.list,function(index,item){
+                    	   var content =   '<div class="t">'
+                               +'<div class="pn">'
+                               +'<a><img src="'+item.phot+'"class="pto"></a>'
+                               +'<p class="nik">'+item.type+'</p>'
+                               +'</div>'
+                               +'<div class="cc">'
+                               +'<div class="ft">'+item.nik+'</div>'
+                               +'</div>'
+                               +'<div class="text">'
+                               +'<div class="cdtr">'+item.ncdt+'</div><br>'
+                               +'<textarea class="contm" readonly="readonly">'+item.cont+'</textarea>';
+                               if(item.mno == data.mno){ 
+                                   /* $('.comments').append( */
+                                content += '<div class="icon">'
+                                             +'<div class="modifycomment" onclick="modifyComment(${com.bcno})"><i class="far fa-edit"></i></div>'
+                                           +'<div class="removecomment" onclick="removeComment(${com.bcno})"><i class="fas fa-minus"></i></div></div>';
+                               }
+                               $('.comments').append(content);
+                               
+                               });
+                        $('.pages').append(' <ul class="pagination justify-content-center">'+
+                                '<li class="page-item prev">'+
+                                '<a class="page-link" href="javascript:goPage('+data.paging.prevPageNo+
+                                        ')">Previous</a></li>');
+                           for(var i = data.paging.startPageNo;i<=data.paging.endPageNo;i++){
+                               if(i == data.paging.pageNo){
+                                   $('.pagination.justify-content-center').append('<li class="page-item active">'+
+                                   '<a href="javascript:goPage('+i+')" class="choice">'+i+'</a></li>');
+                               }else{
+                                   $('.pagination.justify-content-center').append('<li class="page-item">'+
+                                   '<a href="javascript:goPage('+i+')">'+i+'</a></li>');
+                               }
+                           } 
+                        $('.pagination.justify-content-center').append('<li class="page-item">'+
+                                '<a class="page-link" href="javascript:goPage('+data.paging.nextPageNo+')">Next</a></li>'+
+                                '</ul></nav>');
                 }, error : function(request, status, error) {
                     alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
                 }           
         });
-    	
+        
     });
     
     
     // 댓글 삭제
 function removeComment(e){
-    	
-	 $.ajax({
+     $.ajax({
          type : "GET",
             url : "removeComment",
             dateType : "json",
             data :{"bcno":e},
             success : function(data){
-            	if(data>=1){
-            		alert("성공!");
-                        $('.comments').empty();
-                        $('.commentscontext').empty();
-                        $('.pages').empty();
-                        $.each(data.list,function(index,item){
-                        $('.comments').append('<div class="t"><div class="pn"><a><img src="'+item.phot+'" class="pto"></a><p class="nik">'+
-                                item.type+'</p></div>'+'<div class="cc"><tr><th>'+item.nik+'</th><br><td>'+item.ncdt+'</td></tr></div>'+
-                        '<div class="text"><td>'+item.cont+'</td></div></div>');
-                        if(item.mno == data.mno){
-                            $('.comments').append('<div class="removecomment" onclick="removeComment(${com.bcno})"><i class="fas fa-minus"></i></div>'+
-                                      '<div class="modifycomment" onclick="modifyComment(${com.bcno})"><i class="far fa-edit"></i></div>');
-                        }
-                        });
-                         $('.pages').append(' <ul class="pagination justify-content-center">'+
-                                 '<li class="page-item prev">'+
-                                 '<a class="page-link" href="javascript:goPage('+data.paging.prevPageNo+
-                                         ')">Previous</a></li>');
-                            for(var i = data.paging.startPageNo;i<=data.paging.endPageNo;i++){
-                                if(i == data.paging.pageNo){
-                                    $('.pagination.justify-content-center').append('<li class="page-item active">'+
-                                    '<a href="javascript:goPage('+i+')" class="choice">'+i+'</a></li>');
-                                }else{
-                                    $('.pagination.justify-content-center').append('<li class="page-item">'+
-                                    '<a href="javascript:goPage('+i+')">'+i+'</a></li>');
-                                }
-                            } 
-                         $('.pagination.justify-content-center').append('<li class="page-item">'+
-                                 '<a class="page-link" href="javascript:goPage('+data.paging.nextPageNo+')">Next</a></li>'+
-                                 '</ul></nav>');
-            		
-            		
-            	}else{
-            		alert("삭제!");
-            	}
+                    $('.comments').empty();
+                    $('.commentscontext').empty();
+                    $('.pages').empty();
+                    $.each(data.list,function(index,item){
+                    $('.comments').append('<div class="t"><div class="pn"><a><img src="'+item.phot+'" class="pto"></a><p class="nik">'+
+                            item.type+'</p></div>'+'<div class="cc"><tr><th>'+item.nik+'</th><br><td>'+item.ncdt+'</td></tr></div>'+
+                    '<textarea class="contm" readonly="readonly">'+item.cont+'</textarea></div>'); 
+                    if(item.mno == data.mno){
+                        $('.comments').append('<div class="removecomment" onclick="removeComment(${com.bcno})"><i class="fas fa-minus"></i></div>'+
+                                  '<div class="modifycomment" onclick="modifyComment(${com.bcno})"><i class="far fa-edit"></i></div>');
+                    }
+                    });
+                     $('.pages').append(' <ul class="pagination justify-content-center">'+
+                             '<li class="page-item prev">'+
+                             '<a class="page-link" href="javascript:goPage('+data.paging.prevPageNo+
+                                     ')">Previous</a></li>');
+                        for(var i = data.paging.startPageNo;i<=data.paging.endPageNo;i++){
+                            if(i == data.paging.pageNo){
+                                $('.pagination.justify-content-center').append('<li class="page-item active">'+
+                                '<a href="javascript:goPage('+i+')" class="choice">'+i+'</a></li>');
+                            }else{
+                                $('.pagination.justify-content-center').append('<li class="page-item">'+
+                                '<a href="javascript:goPage('+i+')">'+i+'</a></li>');
+                            }
+                        } 
+                     $('.pagination.justify-content-center').append('<li class="page-item">'+
+                             '<a class="page-link" href="javascript:goPage('+data.paging.nextPageNo+')">Next</a></li>'+
+                             '</ul></nav>');
+                    
+                    
             }, error : function(request, status, error) {
                 alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
             }           
     });
-	
+    
 }
-
 // 페이지 이동
 function goPage(e){
-	function getUrlParams() {
-	    var params = {};
-	    window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) { params[key] = value; });
-	    return params;
-	} 
-	var bbno = getUrlParams().bbno;
-	
-	$.ajax({
+    function getUrlParams() {
+        var params = {};
+        window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) { params[key] = value; });
+        return params;
+    } 
+    var bbno = getUrlParams().bbno;
+    
+    $.ajax({
         type : "GET",
            url : "pagination",
            dateType : "json",
@@ -318,8 +324,8 @@ function goPage(e){
                $('.pages').empty();
                $.each(data.list,function(index,item){
                /* $('.comments').append( */
-            		   
-            	var content =   '<div class="t">'
+                       
+                var content =   '<div class="t">'
                +'<div class="pn">'
                +'<a><img src="'+item.phot+'"class="pto"></a>'
                +'<p class="nik">'+item.type+'</p>'
@@ -328,13 +334,13 @@ function goPage(e){
                +'<div class="ft">'+item.nik+'</div>'
                +'</div>'
                +'<div class="text">'
-               +'<div id="cdtr">'+item.ncdt+'</div><br>'
-               +'<div id="contm">'+item.cont+'</div>';
+               +'<div class="cdtr">'+item.ncdt+'</div><br>'
+               +'<textarea class="contm" readonly="readonly">'+item.cont+'</textarea>';
                if(item.mno == data.mno){
                    /* $('.comments').append( */
                content += '<div class="icon">'
                              +'<div class="modifycomment" onclick="modifyComment(${com.bcno})"><i class="far fa-edit"></i></div>'
-                		   +'<div class="removecomment" onclick="removeComment(${com.bcno})"><i class="fas fa-minus"></i></div></div>';
+                           +'<div class="removecomment" onclick="removeComment(${com.bcno})"><i class="fas fa-minus"></i></div></div>';
                }
                $('.comments').append(content);
                
@@ -359,14 +365,39 @@ function goPage(e){
                alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
            }           
    });
-	
-	
-}
     
     
-function modifyComment(e){
-	console.log("::");
 }
+$(".modifycomment").click(function(){
+	
+	$(this).parent().siblings('textarea').removeAttr('readonly').css('border','1px solid blue');
+	$(this).siblings().css('display','block');
+	$(this).css('display','none');//.css('background-color','red')
+			//parent().attr('class'));//test
+});
+
+$(".editcomment").click(function(){
+	function getUrlParams() {
+        var params = {};
+        window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) { params[key] = value; });
+        return params;
+    } 
+    var bbno = getUrlParams().bbno;
+	var bcno=$(this).attr('value'); 
+	var content = $(this).parent().siblings('textarea').val();
+	
+	
+	
+});
+
+    
+/* function modifyComment(event){
+	console.log("::"); 
+	var bcno=$(event).attr('value');
+	var parent = $(event.parentNode);
+	console.log(parent);
+	parent.sibling().removeAttr('readonly');
+} */
     </script>   
 </body>
 <div class="footer">
@@ -375,20 +406,3 @@ function modifyComment(e){
 </footer>
 </div>
 </html>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
