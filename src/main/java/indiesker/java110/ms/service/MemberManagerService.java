@@ -35,5 +35,6 @@ public interface MemberManagerService {
   String getMemo(String nik);
   int totlist();
   int totlistFlag(int flag);
+  void stopMem(String id, int flag);
   
 }

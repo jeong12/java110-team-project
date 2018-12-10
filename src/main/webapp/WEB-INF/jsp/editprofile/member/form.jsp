@@ -31,7 +31,7 @@ body {
 }
 
 #titl {
-    margin: 0 auto; padding: 10px 0; width: 800px;
+    margin: 0 auto; padding: 10px 0; width: 940px;
 }
 
 #logo {
@@ -121,10 +121,11 @@ input[type=checkbox]+label {
 input[type=checkbox]:checked+label{
     background-color:rgb(52, 58, 64);
 }
+#modi-center{
+    text-align: center;
+}
 .modi{
     margin: 0.5rem 0 1rem;
-    position: relative;
-    left: 13.5rem;
 }
 </style>
 
@@ -263,7 +264,7 @@ input[type=checkbox]:checked+label{
 <body>
 
     <div id="titl">
-        <img id="logo" src="/img/playButton.PNG" alt="플레이로고">
+        <img id="logo" src="/img/playButton.png" alt="플레이로고">
         <h3 class="h3">회원 정보 수정</h3>
     </div> 
     <div class="container">
@@ -322,7 +323,9 @@ input[type=checkbox]:checked+label{
               <input type="checkbox" name="genre" onclick="ChkCount(this)" value="rap" id="rap"> 
               <label for="rap" class='chklabel'>랩</label>
               </div><br>
+              <div id="modi-center">
             <button class="modi btns btns-outline-dark" disabled="disabled" type="submit">수정완료</button>
+            </div>
         </form>
     </div>
 </body>

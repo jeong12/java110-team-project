@@ -12,7 +12,7 @@ body {
 }
 
 #titl {
-    margin: 0 auto; padding: 10px 0; width: 800px;
+    margin: 0 auto; padding: 10px 0; width: 940px;
 }
 
 #logo {
@@ -106,8 +106,9 @@ input[type="text"]:focus, input[type="tel"]:focus, input[type="number"]:focus {
 
 .modi{
     margin: 0.5rem 0 1rem;
-    position: relative;
-    left: 15.5rem;
+}
+#modi-center{
+    text-align: center;
 }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -119,7 +120,7 @@ input[type="text"]:focus, input[type="tel"]:focus, input[type="number"]:focus {
 <body>
 
     <div id="titl">
-        <img id="logo" src="/img/playButton.PNG" alt="플레이로고">
+        <img id="logo" src="/img/playButton.png" alt="플레이로고">
         <h3 class="h3">제공자 정보수정</h3>
     </div>
     <div class=container>
@@ -179,7 +180,9 @@ input[type="text"]:focus, input[type="tel"]:focus, input[type="number"]:focus {
             <br><div id="telMsg" class="guide"></div>
             <h4>기타(희망사항)</h4>
             <textarea name="message" id="message" rows="4" cols="34" class="nonesize" placeholder="100자 이내로 적어주시길 바랍니다."></textarea> <br>
+            <div id="modi-center">
             <button class="modi btns btns-outline-dark" disabled="disabled">수정완료</button>
+            </div>
         </form>
     </div>
 

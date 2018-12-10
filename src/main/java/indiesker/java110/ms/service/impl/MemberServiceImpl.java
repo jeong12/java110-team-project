@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import indiesker.java110.ms.dao.MemberDao;
 import indiesker.java110.ms.domain.Member;
 import indiesker.java110.ms.service.MemberService;
@@ -14,6 +15,7 @@ public class MemberServiceImpl implements MemberService {
 
   @Autowired MemberDao memberDao;
 
+  @Transactional
   @Override
   public void add(Member member) {
 
@@ -112,6 +114,12 @@ public class MemberServiceImpl implements MemberService {
     return memberDao.findMemByNo(no);
   }
 
+  @Override
+  public int getType(int no) {
+    int type = memberDao.getType(no);
+    return type;
+  }
+  
 }
 
 

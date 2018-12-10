@@ -16,6 +16,7 @@
 		<result column="tel" property="tel" />
 		<result column="inst" property="instrument" />
 		<result column="intro" property="teamInfo" />
+		<result column="lcnt" property="likecount" />
 	</resultMap>
 
 	<resultMap type="Busker" id="buskerFeedMap">
@@ -58,6 +59,7 @@
 		phot,
 		inst,
 		tel
+		lcnt
 		from busk
 		where
 		bno=#{value}
@@ -117,6 +119,12 @@
           and bno = #{no}; 
     </select>
 
+
+<update id="updateflag" parameterType="int">
+UPDATE `memb` 
+SET `flag`=2 
+WHERE mno=#{no}
+</update>
     
 </mapper>
 

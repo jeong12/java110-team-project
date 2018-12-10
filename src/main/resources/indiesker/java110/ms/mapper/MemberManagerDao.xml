@@ -288,4 +288,16 @@ FROM memb as m
 where flag =  #{flag}) as b
 </select>
 
+<update id="upStopMem" parameterType="string">
+UPDATE memb 
+SET flag = flag +10
+WHERE id=#{id}
+</update>
+
+<update id="upUnStopMem" parameterType="string">
+UPDATE memb 
+SET flag = flag -10
+WHERE id=#{id}
+</update>
+
  </mapper>

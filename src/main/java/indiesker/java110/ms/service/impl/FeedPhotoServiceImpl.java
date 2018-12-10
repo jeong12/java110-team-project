@@ -35,6 +35,7 @@ public class FeedPhotoServiceImpl implements FeedPhotoService {
     return feedphotoDao.findfeedphotobyPbno(no);
   }
   
+  @Transactional
   @Override
   public void feedPhotoAndFileUpload(int bno, String cont,List<String> files) {
     Map<String, Object> params = new HashMap<>();

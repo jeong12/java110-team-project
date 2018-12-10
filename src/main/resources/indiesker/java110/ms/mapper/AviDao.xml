@@ -143,15 +143,15 @@
 
 	<!-- 인기영상 조회(메인) -->
 	<select id="findbypopul" resultMap="aviMap">
-		SELECT a.abno,a.stm,a.titl, af.lcnt, b.name
-		FROM busk b, avi a, avi_fav
-		af
+		SELECT a.abno,a.stm,a.titl, af.lcnt as lcnt, b.name
+		FROM busk b, avi a, avi_fav af
 		WHERE b.bno=a.bno
 		AND a.abno=af.abno
+		ORDER BY af.lcnt desc
 		LIMIT 9<!-- 여기 수정해야함 -->
 	</select>
 	
-	<!-- 인기영상 조회(메인) -->
+	<!-- 팔로우영상 조회(메인) -->
 	<select id="findByFolAvi" resultMap="aviMap3" parameterType="int">
 	  SELECT a.stm, a.titl, b.name
 	    FROM memb m, folw f, busk b, avi a
@@ -180,6 +180,17 @@
         INSERT INTO avi_comt(cont,cdt,mno,abno)
         VALUES (#{cont},now(),#{mno},#{abno});
     </insert>
+    
+    <select id="statisticsAviLcnt" resultMap="aviMap">
+    select af.abno
+      from avi a, avi_fav af
+     where a.abno = af.abno
+    </select>
+    
+    <update id="statisticsUpdateOfWeek" parameterType="map">
+    UPDATE avi_fav SET lcnt= #{lcnt}
+     where abno= #{abno}
+    </update>
 
 </mapper>
 

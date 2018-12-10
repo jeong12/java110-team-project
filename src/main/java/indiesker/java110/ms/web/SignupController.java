@@ -51,7 +51,7 @@ public class SignupController{
   @PostMapping("member/add")
   public String add(@RequestParam String type,
       Member m,@RequestParam String id,
-      @RequestParam MultipartFile file1) throws Exception  {
+      @RequestParam MultipartFile file1, HttpSession session) throws Exception  {
     
     if (file1.getSize() > 0) {
       String filename = UUID.randomUUID().toString();
@@ -64,8 +64,10 @@ public class SignupController{
     if(type.equals("fan")) {
       return "redirect:form";         
     }else if(type.equals("busker")) {
+      session.setAttribute("from", "busk");
       return "redirect:../busker/form";  
     }else if(type.equals("supporter")) {
+      session.setAttribute("from", "sup");
       return "redirect:../supporter/form";   
     }else {
       return "redirect:form";  
@@ -117,10 +119,11 @@ public class SignupController{
   }
 
   @RequestMapping("busker/add")
-  public void add(Busker b, @RequestParam String url1, @RequestParam String url2, Model model) {
+  public void add(Busker b, @RequestParam String url1, @RequestParam String url2, Model model, HttpSession session) {
     Busker buskers = (Busker) bsuknsup.get("busker");
     String fileName = (String) bsuknsup.get("file");
     String id= (String) bsuknsup.get("id");
+    System.out.println(id);
     int no = memberService.findNoById(id);
     
     String[]fid = url1.split("=");
@@ -132,6 +135,7 @@ public class SignupController{
     buskers.setTeamPhoto(fileName);
     buskers.setNo(no);
     buskerService.add(buskers);
+    session.removeAttribute("from");
   }
   
   
@@ -183,6 +187,7 @@ public class SignupController{
     s.setStagesphoto(splist);
     
     supporterService.insert(s);  
+    session.removeAttribute("from");
 
   }
   

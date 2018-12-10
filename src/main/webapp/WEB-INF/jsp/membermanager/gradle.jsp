@@ -13,16 +13,20 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../../css/common.css">
 </head>
 <title>관리자</title>
 </head>
 
 <style>
-#ri{margin-right: 12%;}
+body{background-color: snow;}
+#titl{margin-top: 3.5%; margin-bottom: 2%;}
+    #logo{float: left; width: 40px; height: 40px;}
+    #haha{margin-top: 0.7%; margin-left: 4%;}
 .tab{display: none;}
 .hide-bullets {list-style:none;margin-left:-40px;margin-top:20px;}
-#ff{width: 50rem;height: 40rem;}
-.ff{width: 50rem;height: 40rem;}
+.iframe1{height: 13rem;}
+.iframe2{height: 13rem;}
     #mmain{margin-left:8%; margin-top: 15px;}
     #ig{width: 129px;height: 60px;}            
     .mli{padding:0px; float: left;}
@@ -40,14 +44,36 @@
     .close{margin-right: 15px;}
     #ttl{margin-left: 21px;}
     .mtb label{float:left;}
-    #supm{width: 50rem; margin-left: 2%;}
+    #supm{width: 25rem; margin-left: 2%;} 
+    table{width: 100%; background-color: white;}
+    #ccc{float: right;}
+    .dtailSupbutton,.dtailbuskbutton{width: 4rem; height: 1.8rem; padding: 0; font-size: 0.8rem;}
+    .gradleSupUpdate,.gradleBuskUpdate{width: 3rem; height:1.8rem; padding: 0; font-size : 0.8rem;}
+    #input,#selt,.gradle{height: 25px; font-size: 0.8rem;}
+    .slectbtn{width: 3rem; height:1.8rem; padding: 0; font-size : 0.8rem; margin-bottom: 1%;}
+    #myCarousel2{
+        width: 25rem;
+    height: 13rem;
+    }
+    .btb label{float: left;}
 </style>
-<body>
-       <button class="bt1 btn-default btn-sm"  onclick="openCity('bt1')">전체</button>
-       <button class="bt2 btn-primary btn-sm" value="2" onclick="openCity('bt2')">버스커</button>
-       <button class="bt3 btn-sussess btn-sm" value="3" onclick="openCity('bt3')">제공자</button>
-       <div id="ccc">      
+<header>
+    <jsp:include page="../header.jsp"></jsp:include>
+</header>
 
+<div id="titl" class="container">
+        <img id="logo" src="../../img/playButton.png" alt="플레이로고">
+        <h3 id="haha">버스킹 일정</h3>
+    </div>
+
+<body>
+<div class="container">
+    <div class="toptop">
+       <button class="bt1 btn-default btn-sm"  onclick="openCity('bt1')">전체</button>
+       <button class="bt2 btn-primary btn-sm" value="2">버스커</button>
+       <button class="bt3 btn-sussess btn-sm" value="3">제공자</button>
+
+       <div id="ccc">      
             <select class="gradle">
                 <option value="busk">버스커</option>
                 <option value="sup">제공자</option>
@@ -58,103 +84,50 @@
            <option class="select" value="email">이메일</option>
         </select>
         <input type="text" id="input" class="text">
-        <button type="button"  class="slectbtn">클릭</button>
+        <button type="button"  class="slectbtn btns btns-outline-m">검색</button>
         </div>  
-
+</div>
        
-        <div class="tab" id="bt1" style="display: contents">
-      
- <table>         
+<div>
+ <table class="table table-bordred table-striped">         
                   <thead>                   
-                       <th>닉네임</th>
-                       <th>팀명/장소</th>
-                       <th>선호장르</th>
-                       <th>이메일</th>
-                       <th>요청등급</th>
-                       <th>상세보기</th>
-                       <th>확정</th>
+                       <tr><th class="col-md-1 text-center">닉네임</th>
+                       <th class="col-md-1 text-center">팀명/장소</th>
+                       <th class="col-md-1 text-center">선호장르</th>
+                       <th class="col-md-2 text-center">이메일</th>
+                       <th class="col-md-1 text-center">요청등급</th>
+                       <th class="col-md-1 text-center">상세보기</th>
+                       <th class="col-md-1 text-center">확정</th></tr>
                    </thead>
     <tbody id="ajappend1">
           <c:forEach items="${sup}" var="m">
-             <tr>
-                    <td>${m.nik}</td>
-                    <td>${m.name}</td>
-                    <td>${m.genre}</td>
-                    <td>${m.email}</td>
-                    <td>${m.flag}</td>
-                    <td><button type="button" class="dtailSupbutton" value="${m.sno}" 
+            <tr>
+                    <td class="col-md-1 text-center">${m.nik}</td>
+                    <td class="col-md-1 text-center">${m.name}</td>
+                    <td class="col-md-1 text-center">${m.genre}</td>
+                    <td class="col-md-1 text-center">${m.email}</td>
+                    <td class="col-md-1 text-center">제공자</td>
+                    <td class="col-md-1 text-center"><button type="button" class="dtailSupbutton btns btns-outline-secondary" value="${m.sno}" 
                     data-target="#model-id" data-toggle="modal">상세보기</button></td>
-                    <td><button class="gradleSupUpdate" type="button" value="${m.sno}">확정</button></td>
-                   
+                    <td class="col-md-1 text-center"><button class="gradleSupUpdate btns btns-outline-success" type="button" value="${m.sno}">확정</button></td>
              </tr>
              </c:forEach>
                 <c:forEach  items="${list}" var="m">
              <tr>
-                 <td>${m.nik}</td>
-                    <td>${m.name}</td>
-                    <td>${m.genre}</td>
-                    <td>${m.email}</td>
-                    <td>${m.flag}</td>
-                    <td><button type="button" class="dtailbuskbutton" value="${m.bno}"
+                 <td  class="col-md-1 text-center">${m.nik}</td>
+                    <td  class="col-md-1 text-center">${m.name}</td>
+                    <td  class="col-md-1 text-center">${m.genre}</td>
+                    <td  class="col-md-1 text-center">${m.email}</td>
+                    <td  class="col-md-1 text-center">버스커</td>
+                    <td  class="col-md-1 text-center"><button type="button" class="dtailbuskbutton btns btns-outline-secondary" value="${m.bno}"
                      data-target="#model-id2" data-toggle="modal">상세보기</button></td>
-                    <td><button class="gradleBuskUpdate" type="button" value="${m.bno}">확정</button></td>
+                    <td  class="col-md-1 text-center"><button class="gradleBuskUpdate btns btns-outline-success" type="button" value="${m.bno}">확정</button></td>
              </tr>
              </c:forEach>
           </tbody>   
       </table>  
-      </div>     
-      <div class="tab" id="bt2">
-       
- <table>         
-                  <thead>                   
-                       <th>닉네임</th>
-                       <th>팀명/장소</th>
-                       <th>선호장르</th>
-                       <th>이메일</th>
-                       <th>요청등급</th>
-                        <th>상세보기</th>
-                       <th>확정</th>
-                   </thead>
-    <tbody id="ajappend2">
-      
-            <%--     <c:forEach  items="${list}" var="m">
-             <tr>
-                 <td>${m.nik}</td>
-                    <td>${m.name}</td>
-                    <td>${m.genre}</td>
-                    <td>${m.email}</td>
-                    <td>${m.flag}</td>
-             </tr>
-             </c:forEach> --%>
-          </tbody>   
-      </table>  
-      </div>     
-      <div class="tab" id="bt3">
-     
- <table>         
-                  <thead>                   
-                       <th>닉네임</th>
-                       <th>팀명/장소</th>
-                       <th>선호장르</th>
-                       <th>이메일</th>
-                       <th>요청등급</th>
-                        <th>상세보기</th>
-                       <th>확정</th>
-                   </thead>
-    <tbody id="ajappend3">
-         <%--  <c:forEach items="${sup}" var="m">
-             <tr>
-                    <td>${m.nik}</td>
-                    <td>${m.name}</td>
-                    <td>${m.genre}</td>
-                    <td>${m.email}</td>
-                    <td>${m.flag}</td>
-             </tr>
-             </c:forEach> --%>
-         
-          </tbody>   
-      </table>  
-      </div>     
+      </div>  
+      </div>   
       
 <!-- 모달 서포터 -->      
       <div class="container">
@@ -167,10 +140,9 @@
         <h3 id="ttl">용찬하우스</h3>
       </div>
       
-      <div class="container" id="supm">
-    <div class="row" id="supm">
-        <div class="col-md-12"  id="supm">
-            <div id="carousel-example-generic" class="bbbbs carousel slide" data-ride="carousel" id="supm">
+      <div class="container">
+        
+            <div id="carousel-example-generic" class="bbbbs carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
                     <li data-target=".bbbbs" data-slide-to="0" class="active"></li>
                     <li data-target=".bbbbs" data-slide-to="1"></li>
@@ -191,8 +163,6 @@
                     <span class="glyphicon glyphicon-chevron-left"></span></a><a class="right carousel-control"
                         href=".bbbbs" data-slide="next"><span class="glyphicon glyphicon-chevron-right">
                         </span></a>
-            </div>
-        </div>
     </div>
 </div>
 <div id="push">
@@ -225,6 +195,7 @@
  
 
   <div id="model-id2" class="modal fade" tabindex="-1" role="dialog">
+  <!--  -->
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="">
@@ -233,12 +204,11 @@
       </div>
       
       <div id="mmain">
-        <div id="mmain">
+       
              
-                <div class="row">
                     <div class="" id="slider" id="main">
-                        <div class="row">
-                            <div class="" id="carousel-bounding-box" >
+                      
+                            <div id="carousel-bounding-box" >
                                 <div class="carousel slide" id="myCarousel2">
                           
                                     <div class="carousel-inner" >
@@ -260,12 +230,12 @@
                                     <a class="right carousel-control" id="ri" href="#myCarousel2" role="button" data-slide="next">
                                         <span class="glyphicon glyphicon-chevron-right"></span>                                       
                                     </a>                                
-                                    </div>
-                            </div>        
+                                   
+                             
 
                         
                         </div>
-                    </div>
+              
                 </div>
 
                 <div class="aab row hidden-xs" id="slider-thumbs">
@@ -306,7 +276,9 @@
  
 </body>
 
-
+<footer>
+    <jsp:include page="../footer.jsp"></jsp:include>
+</footer>
 
 
 <script>
@@ -352,8 +324,7 @@ $('.gradleBuskUpdate').click(function(){
     
 })
 
-
-$('.dtailSupbutton').click(function(){
+$(document).on('click','.dtailSupbutton',function(){
 	var n = $(this).val();
 	alert(n);
     $.ajax({ 
@@ -374,14 +345,10 @@ $('.dtailSupbutton').click(function(){
 			console.log(data.etc);
 			console.log(data.capa);
 	         $.each(data.stagephotos,function(index,item){
+	        	 console.log(item.photo);
 	        	 $(".ttttt").append("<div class='item'><img src='/upload/"+item.photo+"' alt='First slide'></div>")
-            
 	         });
-	         $(".mli").click(function(){
-	             var src = $(this).val();
-	             $(".ttttt").empty();
-	             $(".ttttt").append("<img id='ff'class='photoimg' src="+src+">")
-	         })  
+	   
 	         $(".item:first").removeClass("item").addClass("active item");
 	                                          
 	                $(".sname").append('<p>'+data.name+'</p>');
@@ -394,7 +361,7 @@ $('.dtailSupbutton').click(function(){
 	})
 })
 
-$('.dtailbuskbutton').click(function(){
+$(document).on('click','.dtailbuskbutton',function(){
     var n = $(this).val();
     alert(n);
     $.ajax({ 
@@ -403,6 +370,7 @@ $('.dtailbuskbutton').click(function(){
         dataType: 'json',
         data : {"no":n},
          success : function(data) {
+        	 console.log(data);
              $(".bname").empty();
              $(".bcity").empty();
              $(".bgenre").empty();
@@ -410,8 +378,8 @@ $('.dtailbuskbutton').click(function(){
              $(".bintro").empty();
              $(".iframe1").empty();  
              $(".iframe2").empty();
-              $(".iframe1").append("<iframe class='ff'  src='"+data.avi1+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
-               $(".iframe2").append("<iframe class='ff' src='"+data.avi2+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
+              $(".iframe1").append("<iframe style='width: 100%;height: 100%;' src='"+data.avi1+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
+               $(".iframe2").append("<iframe style='width: 100%;height: 100%;' src='"+data.avi2+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
                     $(".bname").append('<p>'+data.teamname+'</p>');
                     $(".bcity").append('<p>'+data.city+'</p>');
                     $(".bgenre").append('<p>'+data.teamgenre+'</p>');
@@ -435,18 +403,19 @@ $('.bt2').click(function(){
         data : {"flag":flag},
 		success :function(data){
 			
-			$("#ajappend2").empty();
+			$("#ajappend1").empty();
 			
 			$.each(data,function(index,item){
-			$("#ajappend2").append('<tr><td>'+item.nik+'</td>'
-					+'<td>'+item.name+'</td>'
-					+'<td>'+item.genre+'</td>'
-					+'<td>'+item.email+'</td>'
-					+'<td>'+item.flag+'</td></tr>'
-         
+			
+			$("#ajappend1").append("<tr><td class='col-md-1 text-center'>"+item.nik+"</td>"
+					+"<td class='col-md-1 text-center'>"+item.name+"</td>"
+					+"<td class='col-md-1 text-center'>"+item.genre+"</td>"
+					+"<td class='col-md-2 text-center'>"+item.email+"</td>"
+					+"<td class='col-md-1 text-center'>"+item.flag+"</td>"
+				    +"<td class='col-md-1 text-center'><button type='button' class='dtailbuskbutton btns btns-outline-secondary' value='"+item.bno+"'data-target='#model-id2' data-toggle='modal'>상세보기</button></td>"
+				    +"<td class='col-md-1 text-center'><button type='button' class='gradleBuskUpdate btns btns btns-outline-success'  value='"+item.bno+"'>확정</button></td></tr>"
 				   	)
 			});
-			
 		}
 	})
 	
@@ -461,18 +430,17 @@ $('.bt3').click(function(){
         data : {"flag":flag},
         success :function(data){
             
-            $("#ajappend3").empty();
-            
+            $("#ajappend1").empty();
             $.each(data,function(index,item){
-            $("#ajappend3").append('<tr><td>'+item.nik+'</td>'
-                    +'<td>'+item.name+'</td>'
-                    +'<td>'+item.genre+'</td>'
-                    +'<td>'+item.email+'</td>'
-                    +'<td>'+item.flag+'</td></tr>'
-                  
+            $("#ajappend1").append("<tr><td class='col-md-1 text-center'>"+item.nik+"</td>"
+                    +"<td class='col-md-1 text-center'>"+item.name+"</td>"
+                    +"<td class='col-md-1 text-center'>"+item.genre+"</td>"
+                    +"<td class='col-md-1 text-center'>"+item.email+"</td>"
+                    +"<td class='col-md-1 text-center'>"+item.flag+"</td>"
+                    +"<td class='col-md-1 text-center'><button type='button' class='dtailSupbutton btns btns-outline-secondary' value='"+item.bno+"'data-target='#model-id' data-toggle='modal'>상세보기</button></td>"
+                    +"<td class='col-md-1 text-center'><button type='button' class='gradleSupUpdate btns btns btns-outline-success'  value='"+item.bno+"'>확정</button></td></tr>"
                     )
             });
-                      
         }
     })
     
@@ -581,14 +549,6 @@ $('.slectbtn').click(function(){
 }) 
 
 //////////////////////////////////////////////////탭
-function openCity(cityName) {
-	var i;
-	var x = document.getElementsByClassName("tab");
-	for (i = 0; i < x.length; i++) {
-	x[i].style.display = "none"; 
-	}
-	document.getElementById(cityName).style.display = "contents"; 
-	} 
 //////////////////////////////////////////////////모달서포터
  $('#carousel-text').html($('#slide-content-0').html());
 

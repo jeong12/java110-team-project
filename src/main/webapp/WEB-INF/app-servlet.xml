@@ -26,7 +26,7 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/signup/busker/form" />
-			<mvc:mapping path="/signup/supporter/form" />
+			<mvc:mapping path="/signup/supporter/form" />			
 			<bean class = "indiesker.java110.ms.web.interceptor.AuthInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>

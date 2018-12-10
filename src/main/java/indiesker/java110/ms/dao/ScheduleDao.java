@@ -56,5 +56,6 @@ public interface ScheduleDao {
   int findMyAllSchedulebyflagcnt(Map<String,Object> params);
   List<Schedule> findMyAllSchedule(Map<String,Object> params);
   int findMyAllSchedulecnt(int bno);
+  List<Schedule> findAllSchedule();
   
 }

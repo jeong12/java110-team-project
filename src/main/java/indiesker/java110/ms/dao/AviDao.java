@@ -16,4 +16,7 @@ public interface AviDao {
   void uploadAvi(Map<String, Object> param);
   Avi findByFeedAviNoNC(int no);
   void insertcomt(Map<String,Object> params);
+  List<Avi> statisticsAviLcnt();
+  void statisticsUpdateOfWeek(Map<String,Object> params);
+  
 }

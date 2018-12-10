@@ -224,6 +224,10 @@ public class AuthController {
         List<Integer> bno = buskerService.checkBusker(loginUser.getNo());
         List<Integer> sno = supporterService.checkSupporter(loginUser.getNo());
 
+        int type = memberService.getType(loginUser.getNo());
+        if(type != 0) {
+          session.setAttribute("type", type);
+        }
         
         if(bno.size() != 0) {
           session.setAttribute("loginBusker", buskerService.get(bno.get(0)));

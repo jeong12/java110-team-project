@@ -27,10 +27,12 @@ $(function() {
 
 
 $('.tabs li').click(function(){
+	alert(":::::::");
     var tab_id = $(this).attr('data-tab');
     $('.tabs li').removeClass('active current');
     $('.span12').removeClass('active current');
-     
+    console.log(tab_id);
+    
     $(this).addClass('active current');
     $("#"+tab_id).addClass('active current');
     
@@ -343,6 +345,12 @@ $.ajax({
 		error : function(request, status, error) {
 			swal("에러!","에러가 발생했습니다. 관리자에게 문의하시기 바랍니다.","error");
 		}
+	});
+
+$('.pages li').click(function(){
+	console.log(":::::");
+	   $('.pages li').siblings().removeClass('active');
+	   $(this).addClass('active');
 	});
 	
 	
