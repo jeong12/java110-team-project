@@ -365,7 +365,7 @@ body, .container.title {
               </c:forEach>
               <p
                 style="text-align: right; margin: 5px 0; padding-right: 10px;">
-                <a href="http://www.naver.com">동영상더보기</a>
+                <a href="/moreavi?no=${m.abno}">동영상더보기</a>
               </p>
             </c:otherwise>
           </c:choose>

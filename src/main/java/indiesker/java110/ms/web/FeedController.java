@@ -119,6 +119,7 @@ public class FeedController {
     model.addAttribute("busk",busker);
     model.addAttribute("recentlist",alist);
     model.addAttribute("recentplist",plist);
+    System.out.println(alist);
   }
 
   @ResponseBody
@@ -211,6 +212,12 @@ public class FeedController {
     System.out.println(abno+"//"+no+"//"+cont);
     
     aviService.insertComment(abno, no, cont);
+    
+  }
+  
+  @RequestMapping("moreavi")
+  public void moreavi(int bno) {
+    
     
   }
   

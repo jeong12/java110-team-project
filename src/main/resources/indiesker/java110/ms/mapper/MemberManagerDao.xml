@@ -65,43 +65,9 @@ FROM memb as m
 Limit #{paging.startRowNo},#{paging.pageSize}
 </select>
 
-<!-- 선택 -->
-<select id="findselect" resultType="MemberManager" parameterType="map">
-SELECT id, nik, email, flag, cdt, memo
-FROM memb 
-
-<!-- <where>
-<choose>
-<when test="flag == 0">
-
-</when>
-<when test="flag ==1">
-flag = 1
-</when>
-
-<when test="flag ==2">
-flag = 2
-</when>
-
-<when test="flag ==3">
-flag = 3
-</when>
-
-<when test="value ==4">
-flag = 4
-</when>
-</choose>
-</where> -->
-
-limit #{rowNo}, #{size} 
-</select>
-
-
-
 <select id="searchSelect" resultType="MemberManager" parameterType="map">
 SELECT id,nik,email,flag,cdt,memo
 FROM memb
-
 <where>
 <choose>
 <when test="flag == 0">
@@ -118,6 +84,7 @@ email = #{text}
 </when>
 </choose>
 </where>
+Limit #{paging.startRowNo},#{paging.pageSize}
 </select> 
 
 <update id="update" parameterType="Map">
@@ -147,25 +114,39 @@ WHERE m.mno = s.sno
 and m.id = #{id}
 </select>
 
-<select id="gradleBusker" resultType="GradleMember" parameterType="Map">
-SELECT m.nik,b.name,b.genre,m.email,m.flag,b.bno
+<!-- gradle 전체 목록 뽑기 -->
+<select id="gradleList" resultType="GradleMember" parameterType="Map">
+(SELECT m.nik,b.name,b.genre,m.email,m.flag,m.mno
+FROM memb as m , busk as b
+where m.mno = b.bno
+and m.flag = '2'
+and b.per = 'n')
+UNION ALL
+(SELECT m.nik,s.name,s.genre,m.email,m.flag,m.mno
+FROM memb as m , sup as s
+where m.mno = s.sno
+and m.flag = '3'
+and s.per = 'n')
+Limit #{paging.startRowNo},#{paging.pageSize}
+</select>
+
+<select id="gradleBusker" resultType="GradleMember" parameterType="MAP">
+SELECT m.nik,b.name,b.genre,m.email,m.flag,m.mno
 FROM memb as m , busk as b
 where m.mno = b.bno
 and m.flag = '2'
 and b.per = 'n'
-limit #{rowNo}, #{size} 
+Limit #{paging.startRowNo},#{paging.pageSize}
 </select>
 
-<select id="gradleSupporter" resultType="GradleMember" parameterType="Map">
+<select id="gradleSupporter"  resultType="GradleMember" parameterType="MAP">
 SELECT m.nik,s.name,s.genre,m.email,m.flag,s.sno
 FROM memb as m , sup as s
 where m.mno = s.sno
 and m.flag = '3'
 and s.per = 'n'
-limit #{rowNo}, #{size} 
+Limit #{paging.startRowNo},#{paging.pageSize}
 </select>
-
-
 
 <select id="gradleAjaxBusker" resultType="GradleMember" parameterType="map">
 SELECT m.nik,b.name,b.genre,m.email,m.flag,b.bno
@@ -173,7 +154,7 @@ FROM memb as m , busk as b
 where m.mno = b.bno
 and m.flag = '2'
 and b.per ='n'
-limit #{rowNo}, #{size} 
+Limit #{paging.startRowNo},#{paging.pageSize}
 </select>
 
 <select id="gradleAjaxSupporter" resultType="GradleMember" parameterType="map">
@@ -182,35 +163,38 @@ FROM memb as m , sup as s
 where m.mno = s.sno
 and m.flag = '3'
 and s.per = 'n'
-limit #{rowNo}, #{size} 
+Limit #{paging.startRowNo},#{paging.pageSize}
 </select>
 
 <select id="gradleAjaxBuskerSelect" resultType="GradleMember" parameterType="map">
-SELECT m.nik,b.name,b.genre,m.email,m.flag,b.bno
-FROM memb as m , busk as b
-where  m.mno = b.bno 
-and b.per = 'n' and 
-<if test='sflag.equals("email")'>
-m.email = #{text}
-</if>
-<if test='sflag.equals("nik")'>
-m.nik = #{text}
-</if>
-limit #{rowNo}, #{size} 
-</select> 
+SELECT m.nik,b.name,b.genre,m.email,m.flag,m.mno, m.yn
+<choose>
+<when test="type == 2">
+From memb as m, busk as b
+where m.mno = b.bno and 
+<choose>
+<when test="flag.equals('email')">
+email = #{text}
+</when>
+<when test="flag.equals('nik')">
+nik = #{text}
+</when>
+</choose>
+</when>
 
-<select id="gradleAjaxSupporterSelect" resultType="GradleMember" parameterType="map">
-SELECT m.nik,s.name,s.genre,m.email,m.flag,s.sno
-FROM memb as m , sup as s
-where m.mno = s.sno 
-and s.per = 'n' and
-<if test='sflag.equals("email")'>
-m.email = #{text}
-</if>
-<if test='sflag.equals("nik")'>
-m.nik = #{text}
-</if>
-limit #{rowNo}, #{size} 
+<when test="type == 3">
+FROM memb as m , sup as b
+where m.mno = b.sno and
+<choose>
+<when test="flag.equals('email')">
+email = #{text}
+</when>
+<when test="flag.equals('nik')">
+nik = #{text}
+</when>
+</choose>
+</when>
+</choose>
 </select> 
 
 <select id="findbyNo" resultMap="SupporterMap" parameterType="int">
@@ -277,15 +261,29 @@ FROM memb
 <select id="memberAjax" parameterType="map" resultType="MemberManager">
 SELECT m.id, m.nik,m.email,m.cdt,m.memo,m.flag
 FROM memb as m
+<choose>
+<when test="flag lte 3">
 where flag = #{flag}
+</when>
+<when test="flag gte 10">
+where flag >= #{flag}
+</when>
+</choose>
 Limit #{paging.startRowNo},#{paging.pageSize}
 </select>
 
-<select id="totlistFlag" parameterType="int" resultType="Integer">
+<select id="totlistFlag" parameterType="map" resultType="Integer">
 select count(*) from
 (SELECT m.id, m.nik,m.email,m.cdt,m.memo,m.flag
 FROM memb as m
+<choose>
+<when test="flag lte 3">
 where flag =  #{flag}) as b
+</when>
+<when test="flag gte 10">
+where flag >=  #{flag}) as b
+</when>
+</choose>
 </select>
 
 <update id="upStopMem" parameterType="string">
@@ -299,5 +297,77 @@ UPDATE memb
 SET flag = flag -10
 WHERE id=#{id}
 </update>
+
+
+<!-- tot gradle list  -->
+<select id="totgradle" resultType="Integer">
+select count(*) from 
+((SELECT m.nik,b.name,b.genre,m.email,m.flag,m.mno
+FROM memb as m , busk as b
+where m.mno = b.bno
+and m.flag = '2'
+and b.per = 'n')
+UNION ALL
+(SELECT m.nik,s.name,s.genre,m.email,m.flag,m.mno
+FROM memb as m , sup as s
+where m.mno = s.sno
+and m.flag = '3'
+and s.per = 'n')) as b
+</select>
+
+<select id="totgradleAjaxBusker" resultType="Integer">
+select count (*) from
+(SELECT m.nik,b.name,b.genre,m.email,m.flag,b.bno
+FROM memb as m , busk as b
+where m.mno = b.bno
+and m.flag = '2'
+and b.per ='n') as b
+</select>
+
+<select id="totgradleAjaxSupporter" resultType="Integer">
+select count(*)from 
+(SELECT m.nik,s.name,s.genre,m.email,m.flag,s.sno
+FROM memb as m , sup as s
+where m.mno = s.sno
+and m.flag = '3'
+and s.per = 'n') as b
+</select>
+
+<select id="fingFlag" resultType="Integer" parameterType="map">
+SELECT flag FROM memb
+<choose>
+<when test="flag.equals('nik')">
+where nik = #{text}
+</when>
+<when test="flag.equals('email')">
+where email = #{text}
+</when>
+</choose>
+</select>
+
+<select id="totsearchSelect" resultType="Integer" parameterType="map">
+select count(*)
+from
+(SELECT id,nik,email,flag,cdt,memo
+FROM memb
+
+<where>
+<choose>
+<when test="flag == 0">
+cdt between #{cdt1} and #{cdt2}) as b
+</when>
+<when test="flag == 1"> 
+cdt = #{cdt2}) as b
+</when>
+<when test="flag == 2">
+nik = #{text} ) as b
+</when>
+<when test="flag == 3">
+email = #{text} ) as b
+</when>
+</choose>
+</where>
+</select> 
+
 
  </mapper>

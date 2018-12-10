@@ -74,7 +74,6 @@ img{    width: 25rem;
     ul{
     padding-left: 0px;
 }
-
 #bun{
 width: 40%;
 margin-left: -2rem;
@@ -83,10 +82,7 @@ margin-left: -2rem;
 text-align: center;
 padding-left: 28%;
 }
-.list-group-item.active{
-    background-color:red;
-    
-}
+
 .container{width: 70%;}
 .text-left{margin-top: 1%; margin-bottom: -1%;}
 </style>
@@ -112,15 +108,15 @@ padding-left: 28%;
         </div>
 <!-- 검색 옵션 -->
        <div id="ccc">      
-            <input type="date" class="date1" id="start">  ~  <input type="date" class="date2" id="end">
-            <select name="st" class="flag" id="selt">
+            <input type="date" class="date1 form-control" id="start">  ~  <input type="date" class="date2 form-control" id="end">
+            <select name="st" class="flag form-control" id="selt">
               <option value='0' selected>기간</option>
                <option value='1'>일</option>
                <option value='2'>닉네임</option> 
                <option value='3'>이메일</option>
         </select>
-        <input type="text" id="input" class="text">
-        <button type="button" onclick="check()">클릭</button>
+        <input type="text" id="input" class="text form-control">
+        <button class="btns btns-outline-m" type="button" onclick="check(1)">클릭</button>
         </div>    
        </div>
 
@@ -143,15 +139,15 @@ padding-left: 28%;
           <c:forEach  items="${list}" var="m">
           <c:if test= "${m.flag == 1}">
              <tr class="tt">
-				    <td>${m.id}</td>
-				    <td class=niks>${m.nik}</td>
-				    <td>${m.email}</td>
-				    <td>회원</td>
-				    <td>${m.ncdt}</td>
-				    <td id="memow">${m.memo}</td>
-				    <td><button class="btt btns btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
-				    <td><div  class="detailbtn"><button name="detailAll" id="btnA" class="memberDetail btns btns-outline-secondary"  data-toggle="modal" data-target="#modalmemberDetail" value="${m.nik}">상세보기</button></div></td>
-				    <c:choose>
+                    <td>${m.id}</td>
+                    <td class=niks>${m.nik}</td>
+                    <td>${m.email}</td>
+                    <td>회원</td>
+                    <td>${m.ncdt}</td>
+                    <td id="memow">${m.memo}</td>
+                    <td><button class="btt btns btns-outline-info"  data-toggle="modal" data-target="#exampleModal"  value="${m.nik}">메모수정</button></td>
+                    <td><div  class="detailbtn"><button name="detailAll" id="btnA" class="memberDetail btns btns-outline-secondary"  data-toggle="modal" data-target="#modalmemberDetail" value="${m.nik}">상세보기</button></div></td>
+                    <c:choose>
                     <c:when test="${m.flag < 10}">
                     <td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지</button></td>
                     </c:when>
@@ -429,14 +425,13 @@ padding-left: 28%;
 </div>
 <!-- 서포터모달 끝 -->
 <script>
-
 /* 정지 기능 */
 function stop(params){
     var stopORun;
+    var grade;
    $('.btn.btns-outline-danger').each(function(index,item){
        if(item.value == params){
            stopORun = item;
-           console.log(stopORun.value);
        }
    });
    
@@ -467,7 +462,7 @@ function stop(params){
               });
               stopORun.value = vals[0] + " " + 1 +vals[1];
               stopORun.innerHTML = '정지해제';
-              
+              location.href = "";
           });
         } 
       });
@@ -497,6 +492,7 @@ function stop(params){
                   
                   stopORun.value = vals[0] + " " + vals[1].substr(1);
                   stopORun.innerHTML = '정지';
+                  location.href = "";
                   
               });
             } 
@@ -504,13 +500,12 @@ function stop(params){
         
     }
 }
-
 function ssss(){
-	
+    
         swal({position: 'top-end',
-        		  type: 'success',
-        		  title: '변경하였습니다',
-        		  showConfirmButton: false})
+                  type: 'success',
+                  title: '변경하였습니다',
+                  showConfirmButton: false})
 }
 /* feweafwefw */
 //메모 업데이트 해주는 function
@@ -528,24 +523,21 @@ $('.gg').click(function(){
            
             success : function(data){
                 setTimeout("reset()", 1000);
-
             }, error : function(request, status, error) {
                 alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
             }           
     });
 });
-
 $(document).on("click",'.memberDetail',function(){
-	var m = $(this).val();
-	alert(m);
-	
-	$.ajax({
-		type : "POST",
+    var m = $(this).val();
+    
+    $.ajax({
+        type : "POST",
         url : "memberListDetail",
         dataType : 'json',
         data : {"nik":m},
         success : function(data){
-        	$("#mttl").empty();
+            $("#mttl").empty();
             $(".mid").empty();
             $(".meamil").empty();
             $(".mnik").empty();
@@ -561,36 +553,34 @@ $(document).on("click",'.memberDetail',function(){
             $(".mgenre").append('<p>'+data.genre0+','+data.genre1+','+data.genre2+'</p>')
             $(".mmemo").append('<p>'+data.memo+'</p>')
         }
-	})
-	
+    })
+    
 })
-
 $(document).on("click",'.buskDetail',function(){
     var b = $(this).val();
-    alert(b);
-	
+    
     $.ajax({
-    	type : "POST",
-    	url : "buskListDetail",
-    	dataType : 'json',
-    	data : {"nik":b},
-    	success : function(data){
-    		$(".bttl").empty();
-    		$(".bid").empty();
-    		$(".bemail").empty();
-    		$(".bnik").empty();
-    		$(".bteam").empty();
-    		$(".bgenre").empty();
-    		$(".bcity").empty();
-    		$(".btel").empty();
-    		$(".binst").empty();
-    		$(".bmemo").empty();
-    		$(".bmimg").empty();
-    		
-    	    $(".bmimg").append("<img class='bbbmimg' src='/upload/"+data.teamPhoto+"'>")
-    		$(".bttl").append('<h3>'+data.teamname+'</h3>')
-    		$(".bid").append('<p>'+data.id+'</p>')
-    	    $(".bemail").append('<p>'+data.email+'</p>')
+        type : "POST",
+        url : "buskListDetail",
+        dataType : 'json',
+        data : {"nik":b},
+        success : function(data){
+            $(".bttl").empty();
+            $(".bid").empty();
+            $(".bemail").empty();
+            $(".bnik").empty();
+            $(".bteam").empty();
+            $(".bgenre").empty();
+            $(".bcity").empty();
+            $(".btel").empty();
+            $(".binst").empty();
+            $(".bmemo").empty();
+            $(".bmimg").empty();
+            
+            $(".bmimg").append("<img class='bbbmimg' src='/upload/"+data.teamPhoto+"'>")
+            $(".bttl").append('<h3>'+data.teamname+'</h3>')
+            $(".bid").append('<p>'+data.id+'</p>')
+            $(".bemail").append('<p>'+data.email+'</p>')
             $(".bnik").append('<p>'+data.nickname+'</p>')
             $(".bteam").append('<p>'+data.teamname+'</p>')
             $(".bgenre").append('<p>'+data.teamgenre+'</p>')
@@ -598,11 +588,10 @@ $(document).on("click",'.buskDetail',function(){
             $(".btel").append('<p>'+data.tel+'</p>')
             $(".binst").append('<p>'+data.instrument+'</p>')
             $(".bmemo").append("<p>"+data.teamInfo+"</p>")
-    	}
+        }
     })
     
 });
-
 $(document).on("click",'.supDetail',function(){
     var s = $(this).val();
     $.ajax({
@@ -642,11 +631,9 @@ $(document).on("click",'.supDetail',function(){
            
         }});
         });
-
-
 // 메모 값 가져오는 function
 $(document).on("click",'.btt',function(){
-	var nik =$(this).val();
+    var nik =$(this).val();
     $.ajax({
         type : "POST",
            url : "getMemo",
@@ -659,17 +646,15 @@ $(document).on("click",'.btt',function(){
            }, error : function(request, status, error) {
                alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
            }           
-   });	
+   });  
 });
-	
-
-
+    
 function reset(){
-	window.location.href=window.location.href;
+    window.location.href=window.location.href;
 }
 
 // 검색 플래그!
-function check(){
+function check(e){
 var data1= $('.date1').val();
 var data2 =$('.date2').val();
 var flag = $('.flag').val();
@@ -678,24 +663,23 @@ var values={
           "cdt1":data1,
           "cdt2":data2,
           "flag":flag,
-          "text":text
+          "text":text,
+          "pageNo":e
           }
-
 $.ajax({
     type : "POST",
     url : "dateselect",
     dataType: 'json',
     data : values,
     success : function(data){
-            alert("받아와찌롱");
          $("#testappend1").empty();
          $("#testappend2").empty();
          $("#testappend3").empty();
          $("#testappend4").empty();
          $("#testappend").empty();
-         
-         $.each(data,function(index,item){
-             
+         $('.pages').empty();
+
+         $.each(data.list,function(index,item){
             if(item.flag == 1 || item.flag == 11){
                 var btn;
                 if(item.flag < 10){
@@ -720,8 +704,8 @@ $.ajax({
                     } else {
                     btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td></tr>'     
                     }
-            	$("#testappend, #testappend2").append('<tr><td>'+item.id+'</td>'
-            	 +'<td>'+item.nik+'</td>'
+                $("#testappend, #testappend2").append('<tr><td>'+item.id+'</td>'
+                 +'<td>'+item.nik+'</td>'
                  +'<td>'+item.email+'</td>'
                  +'<td>'+'버스커'+'</td>'
                  +'<td>'+item.ncdt+'</td>'
@@ -737,8 +721,8 @@ $.ajax({
                     } else {
                     btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td></tr>'     
                     }
-            	$("#testappend, #testappend3").append('<tr><td>'+item.id+'</td>'
-            	+'<td>'+item.nik+'</td>'
+                $("#testappend, #testappend3").append('<tr><td>'+item.id+'</td>'
+                +'<td>'+item.nik+'</td>'
                 +'<td>'+item.email+'</td>'
                 +'<td>'+'제공자'+'</td>'
                 +'<td>'+item.ncdt+'</td>'
@@ -748,46 +732,52 @@ $.ajax({
                 + btn      
                 );
             }
-        }); 
+        });
+         $('.pages').append(' <ul class="pagination justify-content-center">'+
+                 '<li class="page-item prev">'+
+                 '<a class="page-link" href="javascript:check('+data.paging.prevPageNo+
+                         ')">Previous</a></li>');
+            for(var i = data.paging.startPageNo;i<=data.paging.endPageNo;i++){
+                if(i == data.paging.pageNo){
+                    $('.pagination.justify-content-center').append('<li class="page-item active">'+
+                    '<a href="javascript:check('+i+')" class="choice">'+i+'</a></li>');
+                }else{
+                    $('.pagination.justify-content-center').append('<li class="page-item">'+
+                    '<a href="javascript:check('+i+')">'+i+'</a></li>');
+                }
+            } 
+         $('.pagination.justify-content-center').append('<li class="page-item">'+
+                 '<a class="page-link" href="javascript:check('+data.paging.nextPageNo+')">Next</a></li>'+
+                 '</ul></nav>');
     },
     error : function(request, status, error) {
         alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
     }
     
 });
-
 }
-
 $('#myCarousel').carousel({
     interval: 5000
 });
-
-
 $('#carousel-text').html($('#slide-content-0').html());
-
 //Handles the carousel thumbnails
 $('[id^=carousel-selector-]').click( function(){
     var id = this.id.substr(this.id.lastIndexOf("-") + 1);
     var id = parseInt(id);
     $('#myCarousel').carousel(id);
 });
-
-
 // When the carousel slides, auto update the text
 $('#myCarousel').on('slid.bs.carousel', function (e) {
          var id = $('.item.active').data('slide-number');
         $('#carousel-text').html($('#slide-content-'+id).html());
 });
    
-
 function goPage(e){
-	$('.pageNO').val(e);
-	$('.pageForm').submit();
+    $('.pageNO').val(e);
+    $('.pageForm').submit();
 }
-
-
 function goPageAll(e){
-	$.ajax({
+    $.ajax({
         type : "POST",
         url : "showList",
         data : {"pageNo":e, "flag":1},
@@ -837,17 +827,14 @@ function goPageAll(e){
          }
         
     });
-
 }
-
-
 function goPageMemb(e){
     $.ajax({
         type : "POST",
         url : "showMemb",
         data : {"pageNo":e, "flag":1},
         success : function(data){
-        	 $('#testappend').empty();
+             $('#testappend').empty();
              $('.pages').empty();
              $.each(data.list,function(index,item){
                  var btn;
@@ -892,9 +879,7 @@ function goPageMemb(e){
           }
         
     });
-
 }
-
 function goPageBusk(e){
     $.ajax({
         type : "POST",
@@ -910,7 +895,7 @@ function goPageBusk(e){
                       } else {
                       btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td></tr>'     
                       }
-            	  $('#testappend').append(
+                  $('#testappend').append(
                           '<tr><td>'+item.id+'</td>'+
                           '<td class=niks>'+item.nik+'</td>'+
                           '<td>'+item.email+'</td><td>버스커</td>'+
@@ -946,10 +931,7 @@ function goPageBusk(e){
          }
         
     });
-
 }
-
-
 function goPageSup(e){
     $.ajax({
         type : "POST",
@@ -965,7 +947,7 @@ function goPageSup(e){
                       } else {
                       btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td></tr>'     
                       }
-            	  $('#testappend').append(
+                  $('#testappend').append(
                           '<tr><td>'+item.id+'</td>'+
                           '<td class=niks>'+item.nik+'</td>'+
                           '<td>'+item.email+'</td><td>제공자</td>'+
@@ -1001,7 +983,6 @@ function goPageSup(e){
                 }
         
     });
-
 }
 function goPageStop(e){
     $.ajax({
@@ -1021,7 +1002,7 @@ function goPageStop(e){
                 $('#testappend').append(
                    '<tr><td>'+item.id+'</td>'+
                    '<td class=niks>'+item.nik+'</td>'+
-                   '<td>'+item.email+'</td><td>정지회원</td>'+
+                   '<td>'+item.email+'</td><td>'+item.type+'</td>'+
                    '<td>'+item.ncdt+'</td>'+
                    '<td id="memow">'+item.memo+'</td>'+
                    '<td><button class="btt btns btns-outline-info"'+  
@@ -1054,32 +1035,30 @@ function goPageStop(e){
          }
         
     });
-
 }
-
 function showList(){
-	$('.tabs li').eq(0).removeClass('list-group-item').addClass('list-group-item active');
-	$('.tabs li:not(:eq(0))').removeClass('list-group-item active').addClass('list-group-item');
+    $('.tabs li').eq(0).removeClass('list-group-item').addClass('list-group-item active');
+    $('.tabs li:not(:eq(0))').removeClass('list-group-item active').addClass('list-group-item');
    var flag=1;
-	$.ajax({
-	        type : "POST",
-	        url : "showList",
-	        data : {"flag":flag},   
-	        success : function(data){
-	        	$('#testappend').empty();
-	        	$('.pages').empty();
-	        	  $.each(data.list,function(index,item){
-	        	      console.log(item);
-	        	      var btn;
-	                  if(item.flag < 10){
-	                      btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지</button></td></tr>';                        
-	                      } else {
-	                      btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td></tr>'     
-	                      }
-	            	$('#testappend').append(
-	               '<tr><td>'+item.id+'</td>'+
+    $.ajax({
+            type : "POST",
+            url : "showList",
+            data : {"flag":flag},   
+            success : function(data){
+                $('#testappend').empty();
+                $('.pages').empty();
+                  $.each(data.list,function(index,item){
+                      console.log(item);
+                      var btn;
+                      if(item.flag < 10){
+                          btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지</button></td></tr>';                        
+                          } else {
+                          btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td></tr>'     
+                          }
+                    $('#testappend').append(
+                   '<tr><td>'+item.id+'</td>'+
                    '<td class=niks>'+item.nik+'</td>'+
-	               '<td>'+item.email+'</td><td>'+item.type+'</td>'+
+                   '<td>'+item.email+'</td><td>'+item.type+'</td>'+
                    '<td>'+item.ncdt+'</td>'+
                    '<td id="memow">'+item.memo+'</td>'+
                    '<td><button class="btt btns btns-outline-info"'+  
@@ -1090,31 +1069,29 @@ function showList(){
                    'data-toggle="modal" data-target="#modalmemberDetail" value="'+item.nik+'">상세보기'
                    +'</button></div></td>'
                    + btn 
-	            	)});
-	        $('.pages').append(' <ul class="pagination justify-content-center">'+
+                    )});
+            $('.pages').append(' <ul class="pagination justify-content-center">'+
                     '<li class="page-item prev">'+
                     '<a class="page-link" href="javascript:goPageAll('+data.paging.prevPageNo+
-                    		')">Previous</a></li>');
+                            ')">Previous</a></li>');
                for(var i = data.paging.startPageNo;i<=data.paging.endPageNo;i++){
-            	   if(i == data.paging.pageNo){
-            		   $('.pagination.justify-content-center').append('<li class="page-item active">'+
+                   if(i == data.paging.pageNo){
+                       $('.pagination.justify-content-center').append('<li class="page-item active">'+
                        '<a href="javascript:goPageAll('+i+')" class="choice">'+i+'</a></li>');
-            	   }else{
-            		   $('.pagination.justify-content-center').append('<li class="page-item">'+
+                   }else{
+                       $('.pagination.justify-content-center').append('<li class="page-item">'+
                        '<a href="javascript:goPageAll('+i+')">'+i+'</a></li>');
-            	   }
+                   }
                } 
-	        $('.pagination.justify-content-center').append('<li class="page-item">'+
+            $('.pagination.justify-content-center').append('<li class="page-item">'+
                     '<a class="page-link" href="javascript:goPageAll('+data.paging.nextPageNo+')">Next</a></li>'+
                     '</ul></nav>');
-	        },
-	         error : function(request, status, error) {
-	         }
-	        
-	    });
+            },
+             error : function(request, status, error) {
+             }
+            
+        });
 }
-
-
 function showMemb(){
     $('.tabs li').eq(1).removeClass('list-group-item').addClass('list-group-item active');
     $('.tabs li:not(:eq(1))').removeClass('list-group-item active').addClass('list-group-item');
@@ -1124,7 +1101,7 @@ function showMemb(){
             url : "showMemb",
             data : {"flag":flag},
             success : function(data){
-            	$('#testappend').empty();
+                $('#testappend').empty();
                 $('.pages').empty();
                 $.each(data.list,function(index,item){
                     var btn;
@@ -1134,7 +1111,7 @@ function showMemb(){
                         btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td></tr>'     
                         }
                 $('#testappend').append(
-                		'<tr><td>'+item.id+'</td>'+
+                        '<tr><td>'+item.id+'</td>'+
                    '<td class=niks>'+item.nik+'</td>'+
                    '<td>'+item.email+'</td><td>회원</td>'+
                    '<td>'+item.ncdt+'</td>'+
@@ -1171,11 +1148,9 @@ function showMemb(){
             
         });
 };
-
-
 function showBusk(){
-	   $('.tabs li').eq(2).removeClass('list-group-item').addClass('list-group-item active');
-	    $('.tabs li:not(:eq(2))').removeClass('list-group-item active').addClass('list-group-item');
+       $('.tabs li').eq(2).removeClass('list-group-item').addClass('list-group-item active');
+        $('.tabs li:not(:eq(2))').removeClass('list-group-item active').addClass('list-group-item');
     var flag=2;
     $.ajax({
             type : "POST",
@@ -1228,10 +1203,9 @@ function showBusk(){
             
         });
 };
-
 function showSup(){
-	   $('.tabs li').eq(3).removeClass('list-group-item').addClass('list-group-item active');
-	    $('.tabs li:not(:eq(3))').removeClass('list-group-item active').addClass('list-group-item');
+       $('.tabs li').eq(3).removeClass('list-group-item').addClass('list-group-item active');
+        $('.tabs li:not(:eq(3))').removeClass('list-group-item active').addClass('list-group-item');
     var flag=3;
     $.ajax({
             type : "POST",
@@ -1284,10 +1258,9 @@ function showSup(){
             
         });
 };
-
 function showStop(){
-	   $('.tabs li').eq(4).removeClass('list-group-item').addClass('list-group-item active');
-	    $('.tabs li:not(:eq(4))').removeClass('list-group-item active').addClass('list-group-item');
+       $('.tabs li').eq(4).removeClass('list-group-item').addClass('list-group-item active');
+        $('.tabs li:not(:eq(4))').removeClass('list-group-item active').addClass('list-group-item');
     var flag=4;
     $.ajax({
             type : "POST",
@@ -1340,8 +1313,6 @@ function showStop(){
             
         });
 };
-
-
 </script>
 </body>
 <jsp:include page="../footer.jsp"></jsp:include>
