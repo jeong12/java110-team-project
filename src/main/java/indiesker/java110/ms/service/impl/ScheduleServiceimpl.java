@@ -218,8 +218,8 @@ public class ScheduleServiceimpl implements ScheduleService {
 
     @Override
     public int editperschedule(Schedule schedule) {
-      int no =scheduleDao.editperschedule(schedule);
-      return 1;
+      //int no =scheduleDao.editperschedule(schedule);
+      return scheduleDao.editperschedule(schedule);
       
     }
 
@@ -357,12 +357,32 @@ public class ScheduleServiceimpl implements ScheduleService {
 
     @Override
     public int findMyAllScheduleCnt(int bno) {
-      System.out.println(bno);
       return scheduleDao.findMyAllSchedulecnt(bno);
     }
 
     @Override
     public List<Schedule> findAllSchedule() {
       return scheduleDao.findAllSchedule();
+    }
+
+    @Override
+    public List<Schedule> findSearchAllSchedule(String keyword1, String keyword2) {
+      Map<String,Object> params = new HashMap<>();
+      params.put("keyword1", keyword1);
+      params.put("keyword2", keyword2);
+      return scheduleDao.findSearchAllSchedule(params);
+    }
+
+    @Override
+    public List<Schedule> findTodayAllSchedule() {
+      return scheduleDao.findTodayAllSchedule();
+    }
+
+    @Override
+    public List<Schedule> findTodaySearchAllSchedule(String keyword1, String keyword2) {
+      Map<String,Object> params = new HashMap<>();
+      params.put("keyword1", keyword1);
+      params.put("keyword2", keyword2);
+      return scheduleDao.findSearchAllSchedule(params);
     }
 }
