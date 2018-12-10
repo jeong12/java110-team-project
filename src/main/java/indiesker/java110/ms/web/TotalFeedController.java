@@ -33,9 +33,15 @@ public class TotalFeedController {
 			@RequestParam(value="searchType", required=false) String searchType,
 			@RequestParam(value="keyword", required=false)String keyword,
 			@RequestParam(value="sortType", required=false, defaultValue="lcnt") String sortType){
+		
+		if(searchType == null)
+			searchType = "teamname";
+		
+		model.addAttribute("searchType", searchType);//페이지가 갱신되도 서치타입이 유지되도록 처리 
+		
 		if (searchType != null && !"".equals(searchType)) { // searchType이 null이 아니고 빈 문자열이 아닐 때는 search
-			Map<String, Object> params = new HashMap<>();
-			
+			  Map<String, Object> params = new HashMap<>();
+			  
 			if (keyword == null) {
 				keyword = "";
 			}

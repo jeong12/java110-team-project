@@ -40,33 +40,6 @@
         $(girls_list + ":lt(" + girls_total_cnt + ")").addClass("active");
     }
     
-  //장르별로 표시
-/*     $(document).ready(function(){
-
-        $(".filter-button").click(function(){
-            var value = $(this).attr('data-filter');
-            
-            if(value == "all")
-            {
-                //$('.filter').removeClass('hidden');
-                $('.filter').show('1000');
-            }
-            else
-            {
-//                $('.filter[filter-item="'+value+'"]').removeClass('hidden');
-//                $(".filter").not('.filter[filter-item="'+value+'"]').addClass('hidden');
-                $(".filter").not('.'+value).hide('3000');
-                $('.filter').filter('.'+value).show('3000');
-                
-            }
-        });
-        
-        if ($(".filter-button").removeClass("active")) {
-    $(this).removeClass("active");
-    }
-    $(this).addClass("active");
-
-    });  */
 </script>
 <style>
 body{
@@ -180,8 +153,11 @@ padding: 0;
             <!-- 인기순 최신순 -->
             <div id="startdateenddate">
 				<p>조회기간:
-				    <input type="text" id="from" name="sdt" placeholder="날짜를 선택하세요"> ~
-				    <input type="text" id="to" name="edt" placeholder="날짜를 선택하세요">
+				    <input type="text" id="from" name="sdt" placeholder="날짜를 선택하세요" 
+				    value="<%=request.getParameter("startDate") != null ? request.getParameter("startDate") : ""%>"> 
+				    ~
+				    <input type="text" id="to" name="edt" placeholder="날짜를 선택하세요" 
+				    value="<%=request.getParameter("endDate") != null ? request.getParameter("endDate") : ""%>"> 
 				</p>
             </div>
         
@@ -190,21 +166,24 @@ padding: 0;
                 <div class="input-group">
                     <div class="input-group-btn search-panel">
                         <select id="selectsearch" class="btn btn-default dropdown-toggle">
-                            <option value="city">지역</option>
-                            <option value="teamname" selected="selected">팀명</option>
+                            <!-- <option value="city">지역</option> -->
+                            <option value="city" ${searchType eq "city" ? "selected" :""}>지역</option>
+                            <!-- <option value="name">무대명</option> -->
+                            <option value="name" ${searchType eq "name" ? "selected" :""}>무대명</option>
                             <!-- <option value="genre">장르</option> -->
                         </select>
                     </div>
                     <input type="text" class="form-control" name="city"
-                        placeholder="정보를 입력해주세요" onkeydown="pushenter()" id="selectsearchinput" > <span
-                        class="input-group-btn">
-                        <button class="btn btn-default" id="selectsearchbtn" onclick="PageMove()">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button> <input type="hidden" name="searchType"
-                        value="<%=request.getParameter("searchType") != null ? request.getParameter("searchType") : ""%>" />
-                        <input type="hidden" name="keyword"
-                        value="<%=request.getParameter("keyword") != null ? request.getParameter("keyword") : ""%>" />
-                    </span>
+                        placeholder="정보를 입력해주세요" onkeydown="pushenter()" id="selectsearchinput" 
+                        value="<%=request.getParameter("keyword") != null ? request.getParameter("keyword") : ""%>" > 
+                        <span class="input-group-btn">
+	                        <button class="btn btn-default" id="selectsearchbtn" onclick="PageMove()">
+	                            <span class="glyphicon glyphicon-search"></span>
+	                        </button> <input type="hidden" name="searchType"
+	                        value="<%=request.getParameter("searchType") != null ? request.getParameter("searchType") : ""%>" />
+	                        <input type="hidden" name="keyword"
+	                        value="<%=request.getParameter("keyword") != null ? request.getParameter("keyword") : ""%>" />
+                        </span>
 
                 </div>
 
@@ -212,20 +191,6 @@ padding: 0;
             </div>
             
         </div>
-            <!--         
-            <div id="genrediv" align="center">
-            <button class="btn btn-default filter-button" data-filter="all">All</button>
-            <button class="btn btn-default filter-button" data-filter="ballad">발라드</button>
-            <button class="btn btn-default filter-button" data-filter="dance">댄스</button>
-            <button class="btn btn-default filter-button" data-filter="trot">트로트</button>
-            <button class="btn btn-default filter-button" data-filter="folk">포크</button>
-            <button class="btn btn-default filter-button" data-filter="rock">락</button>
-            <button class="btn btn-default filter-button" data-filter="jazz">재즈</button>
-            <button class="btn btn-default filter-button" data-filter="country">컨츄리</button>
-            <button class="btn btn-default filter-button" data-filter="rnb">알앤비</button>
-            <button class="btn btn-default filter-button" data-filter="rap">랩</button>
-            </div>
-            -->
     </div>
 
     <div class="container">

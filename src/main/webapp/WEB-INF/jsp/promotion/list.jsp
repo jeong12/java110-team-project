@@ -38,15 +38,15 @@
     .container{ 
         width:1000px;
     }
-   #titl{ margin: 0 auto; padding: 10px; width:1000px;}
-   #logo {width: 40px; height: 40px; margin: 10px;}
-   h3{display:inline-block; position: relative; top:.5rem;}
-   #td2 .more-button{
-    font-size:1rem; 
-   }
-   #td3{text-align:right; vertical-align: bottom;}
-   ul li.promotion{list-style-type: none; line-height: 1.2rem; width: 80%; font-size:.8rem;}
-   .td2{width:700px;}
+    #titl{ margin: 0 0 80px 18%; padding: 10px; width:1000px;}
+    #logo {width: 40px; height: 40px; margin: 10px;}
+    h3{display:inline-block; position: relative; top:.5rem;}
+    #td2 .more-button{
+     font-size:1rem; 
+    }
+    #td3{text-align:right; vertical-align: bottom;}
+    ul li.promotion{list-style-type: none; line-height: 1.2rem; width: 80%; font-size:.8rem;}
+    .td2{width:700px;}
     
     .js-load {
         display: none;
@@ -59,6 +59,7 @@
     }
     .btn-wrap, .lists {
         display: block;
+        margin-bottom : 150px;
     }
     .btn-wrap {
         text-align: center;
@@ -92,6 +93,24 @@
  a:visited { color: black; text-decoration: none;}
 .promotion a:hover { color: white ; text-decoration: none ; } 
 .promotion a:focus { color: white ; text-decoration: none ; }
+
+/* 검색창 줄맞춤 */
+#selectsearch{
+height: 35px;
+width: 70px;
+padding: 0;
+text-align: center;
+}
+#selectsearchbtn{
+height: 35px;
+width: 35px;
+padding: 0;
+text-align: center;
+}
+#selectsearchinput{
+height: 35px;
+padding: 0;
+}
 </style>
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
@@ -116,11 +135,14 @@
                     <div class="input-group">
                         <div class="input-group-btn search-panel">
                             <select id="selectsearch" class="btn btn-default dropdown-toggle">
-                                <option value="city">도시</option>
-                                <option value="teamname" selected="selected">팀명</option>
+                            <!-- <option value="city">도시</option> -->
+                            <option value="city" ${searchType eq "city" ? "selected" :""}>지역</option>
+                            <!-- <option value="teamname" selected="selected">팀명</option> -->
+                            <option value="teamname" ${searchType eq "teamname" ? "selected" :""}>팀명</option>
                             </select>
                         </div>
-                        <input type="text" class="form-control" name="city" placeholder="시,도,군" onkeydown="pushenter()">
+                        <input type="text" class="form-control" name="city" placeholder="시,도,군" onkeydown="pushenter()"  id="selectsearchinput"
+                        value="<%=request.getParameter("keyword") != null ? request.getParameter("keyword") : ""%>" >
                         <!-- <input type="hidden" name="search_param" value="all" id="search_param"> -->
                         <span class="input-group-btn">  
                         <button class="btn btn-default" id="selectsearchbtn" onclick="PageMove()"><span class="glyphicon glyphicon-search"></span></button>

@@ -123,30 +123,4 @@ public class FollowerController {
 		
 		return findDetail;
 	}
-	
-/*	
-    @RequestMapping(value="/board/boardList.do")
-    public String boardList(@ModelAttribute("boardVO") BoardVO boardVO,
-            @RequestParam(defaultValue="1") int curPage,
-            HttpServletRequest request,
-            Model model) throws Exception{
-        
-        HttpSession session = request.getSession();
- 
-        // 전체리스트 개수
-        int listCnt = boardServiceImpl.selectBoardListCnt(boardVO);
-        
-        Follwer pagination = new Follwer(listCnt, curPage);
-        
-        boardVO.setStartIndex(pagination.getStartIndex());
-        boardVO.setCntPerPage(pagination.getPageSize());
-        // 전체리스트 출력
-        List<BoardVO> list = boardServiceImpl.selectBoardList(boardVO);
-                
-        model.addAttribute("list", list);
-        model.addAttribute("listCnt", listCnt);
-        model.addAttribute("pagination", pagination);
-        
-        return "board/boardList";
-    }*/
 }

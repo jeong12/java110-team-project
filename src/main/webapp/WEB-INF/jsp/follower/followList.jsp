@@ -122,6 +122,7 @@ height: 15px;
     width: 50%;
     min-width: 700px;
     max-width: 820px;
+    min-height: 469px;
     height: 50%;
     padding: 0;
     background-color: white;

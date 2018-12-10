@@ -181,23 +181,26 @@ padding: 0;
 				<div class="input-group">
 					<div class="input-group-btn search-panel">
 						<select id="selectsearch" class="btn btn-default dropdown-toggle">
-							<option value="city">도시</option>
-							<option value="teamname" selected="selected">팀명</option>
+							<!-- <option value="city">도시</option> -->
+							<option value="city" ${searchType eq "city" ? "selected" :""}>지역</option>
+							<!-- <option value="teamname" selected="selected">팀명</option> -->
+							<option value="teamname" ${searchType eq "teamname" ? "selected" :""}>팀명</option>
 							<!-- <option value="genre">장르</option> -->
 						</select>
 					</div>
 					<input type="text" class="form-control" name="city"
-						placeholder=" 정보를 입력해주세요" onkeydown="pushenter()" id="selectsearchinput"> <span
-						class="input-group-btn">
-						<button class="btn btn-default" id="selectsearchbtn"
-							onclick="PageMove()">
-							<span class="glyphicon glyphicon-search"></span>
-						</button> <input type="hidden" name="searchType"
-						value="<%=request.getParameter("searchType") != null ? request.getParameter("searchType") : ""%>" />
-						<input type="hidden" name="keyword"
-						value="<%=request.getParameter("keyword") != null ? request.getParameter("keyword") : ""%>" />
-						<!-- <button class="btn btn-default" id="selectsearchbtn" onclick="button1_click();"><span class="glyphicon glyphicon-search"></span></button> -->
-					</span>
+						placeholder=" 정보를 입력해주세요" onkeydown="pushenter()" id="selectsearchinput"
+						value="<%=request.getParameter("keyword") != null ? request.getParameter("keyword") : ""%>" >
+						<span class="input-group-btn">
+							<button class="btn btn-default" id="selectsearchbtn"
+								onclick="PageMove()">
+								<span class="glyphicon glyphicon-search"></span>
+							</button> <input type="hidden" name="searchType"
+							value="<%=request.getParameter("searchType") != null ? request.getParameter("searchType") : ""%>" />
+							<input type="hidden" name="keyword"
+							value="<%=request.getParameter("keyword") != null ? request.getParameter("keyword") : ""%>" />
+							<!-- <button class="btn btn-default" id="selectsearchbtn" onclick="button1_click();"><span class="glyphicon glyphicon-search"></span></button> -->
+					    </span>
 
 				</div>
 
@@ -206,12 +209,12 @@ padding: 0;
 			<!-- 인기순 최신순 -->
 			<div>
 				<div>
-					<input type="radio" class="likedate" id="lcnt" name="sortType"
-						value="lcnt"
+					<input type="radio" class="likedate" id="likecount" name="sortType"
+						value="likecount"
 						<%=request.getParameter("sortType") != null
-					? request.getParameter("sortType").equals("lcnt") ? "checked" : ""
+					? request.getParameter("sortType").equals("likecount") ? "checked" : ""
 					: "checked"%>>
-					<label for="lcnt">인기순</label>
+					<label for="likecount">인기순</label>
 				</div>
 
 				<div>
