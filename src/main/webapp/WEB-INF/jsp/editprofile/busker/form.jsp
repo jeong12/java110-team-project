@@ -45,7 +45,9 @@ h4 {
 .h4{
     margin-bottom:1.3rem;
 }
-
+.pd{
+    padding:0 15%;
+}
 
 #upload {
     margin-top: .8rem;
@@ -206,6 +208,7 @@ function readURL(input) {
             <img id="upload" src="/upload/${busker.teamPhoto}" alt="기본이미지" ><br>
             <input type='file' name='file1' id='input_img'
                 onchange="readURL(this);" style="display:none;" /></label></div>
+                <div class="pd">
             <h4>팀명</h4>
             <input type='text' name='teamname' oninput="checkName()" id="teamname"
                 size=30><br> <div id="nameMsg" class="guide"></div>
@@ -231,6 +234,7 @@ function readURL(input) {
             <input type="text" name="instrument" size=30> <br>
             <h4>팀소개</h4>
             <textarea name="teamInfo" rows="4" cols="34" class="nonesize" placeholder="100자 이내로 적어주시길 바랍니다."></textarea><br>
+            </div>
             <div id="modi-center">
             <button class="modi btns btns-outline-dark" disabled="disabled">수정완료</button>
             </div>

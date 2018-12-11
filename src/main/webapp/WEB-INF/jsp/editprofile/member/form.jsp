@@ -45,6 +45,9 @@ h4 {
 .h3 {
     display: inline-block; position: relative; top: .2rem;
 }
+.pd{
+        padding: 0 14%;
+}
  input[type="password"],input[type="email"]{
     border:0;
     border-bottom: 1px double black;
@@ -89,7 +92,7 @@ h4 {
 }
 
 .check{
-    width: 43%;
+    width: 45%;
     display: inline-block;
 }
 input[type=checkbox] {
@@ -281,6 +284,7 @@ input[type=checkbox]:checked+label{
             </c:choose></label>
             <input type='file' name='file1' id='input_img' onchange="readURL(this);" style="display:none;"/>
             </div>
+            <div class="pd">
             <h4>아이디</h4>
             <span id="id">${id}</span><br>
             <h4>비밀번호</h4>
@@ -323,6 +327,7 @@ input[type=checkbox]:checked+label{
               <input type="checkbox" name="genre" onclick="ChkCount(this)" value="rap" id="rap"> 
               <label for="rap" class='chklabel'>랩</label>
               </div><br>
+              </div>
               <div id="modi-center">
             <button class="modi btns btns-outline-dark" disabled="disabled" type="submit">수정완료</button>
             </div>

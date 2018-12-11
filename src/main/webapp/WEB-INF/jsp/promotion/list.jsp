@@ -135,26 +135,15 @@ a#movetop {
     position: fixed; right: 2%; bottom: 82px; display: none; z-index: 999;
 }
 
-a:link {
-    color: black; text-decoration: none;
-}
-
-a:visited {
-    color: black; text-decoration: none;
-}
-
-.promotion a:hover {
-    color: white; text-decoration: none;
-}
-
-.promotion a:focus {
-    color: white; text-decoration: none;
-}
 .listbtn a{
     margin-right:.5rem; 
 }
 .input-group {
 margin-top: 30px;
+}
+#enroll{
+    margin-top: 15px;
+    margin-right: 5%;
 }
 </style>
 </head>
