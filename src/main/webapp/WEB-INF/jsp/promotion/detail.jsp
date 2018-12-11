@@ -28,7 +28,7 @@
     height: 1.1rem; border-radius: 100px;
         text-align: center; background-color: darkgray; color: azure ;margin-bottom: auto; margin-top: 4%;
   }
-    .box{width: 65%; margin-left: 17%}
+    .box{width: 50%; margin: auto;}
     .container{margin-left: -15px; width: 100%;}
     .td{width: 100%}
     #c-box{border: 1px solid silver; width: 93%; height: 60px; margin-bottom: 20px; 
@@ -155,7 +155,7 @@
 
     <div class="pn">
         <a><img src="${com.phot}" class="pto"></a>
-       <p class="nik">버스커</p>
+       <p class="nik">${com.type}</p>
     </div>
     <div class="cc">
            <div  class="ftt">${com.nik}</div>

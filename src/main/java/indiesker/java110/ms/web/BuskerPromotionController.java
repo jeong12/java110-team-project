@@ -193,6 +193,7 @@ public class BuskerPromotionController {
     map.put("list", list);
     map.put("paging", paging);
     map.put("mno", mno);
+    System.out.println(list);
     return map;
   }
   
