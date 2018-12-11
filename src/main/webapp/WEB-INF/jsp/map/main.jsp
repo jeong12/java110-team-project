@@ -186,8 +186,13 @@ body {
 }
 #ALLdiv{margin-top: 2.3rem;}
 #titl{margin-top: 2%; margin-bottom: 2%;}
-#logo{float: left; width: 30px; height: 30px;}
-#haha{margin-top: 0.8%; margin-left: 5.5%;}
+#logo{width: 40px; height: 40px;}
+#haha{    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 1.5%;
+    display: inline-block;
+    position: relative;
+    top: 6px;}
 footer{clear: both;}
 #map{height: 30rem; clear: both;}
 #caseldiv{height: 20rem;}
@@ -255,7 +260,7 @@ footer{margin-top: 3rem;}
     }
     
 .hdiv{margin-left: 2%;}
-.fas{font-size: 2rem; float: left; margin-left: 2%;
+#drum{font-size: 2rem; float: left; margin-left: 2%; 
 
 }
 #maptitle{padding-top: 0.8%;margin-left: 7%;}
@@ -292,7 +297,7 @@ footer{margin-top: 3rem;}
 <div id="map"></div>
 <div id="hdiv">
 
-<i class="fas fa-drum"></i>
+<i class="fas fa-drum" id="drum"></i>
 <h3 id="maptitle">오늘의 공연목록</h3>
 </div>
 <div id="caseldiv">

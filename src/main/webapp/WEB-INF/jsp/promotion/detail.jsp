@@ -96,11 +96,11 @@
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
 <body>
-
 <div id="titlt" class="container">
         <img id="logo" src="/img/playButton.PNG" alt="플레이로고">
         <h2 id="haha">버스킹 일정</h2>
     </div>
+    
 <div class="container">
 
 
