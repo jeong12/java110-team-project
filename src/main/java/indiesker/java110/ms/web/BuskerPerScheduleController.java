@@ -298,15 +298,20 @@ public class BuskerPerScheduleController {
   @ResponseBody
   @RequestMapping("checkschedule")
   public int checkschedule( String sdt, 
-                            String edt, 
-                            int no) throws Exception{
+                            String edt,
+                            HttpSession session
+                            ) throws Exception{
+    
+    Member member = (Member)session.getAttribute("loginUser");
+    int bno = member.getNo();
+    
     edt = sdt.substring(0, 10)+" "+edt;
     sdt=sdt.replaceAll("/", "-");
     edt=edt.replaceAll("/", "-");
     System.out.println(sdt);
     System.out.println(edt);
-    int total=scheduleService.checkperschedule(sdt, edt, no);
-    total+=scheduleService.checkreqschedule(sdt, edt, no);
+    int total=scheduleService.checkperschedule(sdt, edt, bno);
+    total+=scheduleService.checkreqschedule(sdt, edt, bno);
     System.out.println("======================");
     System.out.println(total);
     return total; 
@@ -330,7 +335,12 @@ public class BuskerPerScheduleController {
                             String edt,
                             String nsdt, 
                             String nedt, 
-                            int no) throws Exception{
+                            HttpSession session) throws Exception{
+    Member member = (Member)session.getAttribute("loginUser");
+    int bno = member.getNo();
+    
+    
+    
     edt = sdt.substring(0, 10)+" "+edt;
     sdt=sdt.replaceAll("/", "-");
     edt=edt.replaceAll("/", "-");
@@ -339,8 +349,8 @@ public class BuskerPerScheduleController {
     nsdt=nsdt.replaceAll("/", "-");
     nedt=nedt.replaceAll("/", "-");
     
-    int total=scheduleService.checkeditperschedule(sdt, edt, nsdt, nedt, no);
-    total+=scheduleService.checkeditreqschedule(sdt, edt, nsdt, nedt, no);
+    int total=scheduleService.checkeditperschedule(sdt, edt, nsdt, nedt, bno);
+    total+=scheduleService.checkeditreqschedule(sdt, edt, nsdt, nedt, bno);
     System.out.println("======================");
     System.out.println(total);
     return total;
