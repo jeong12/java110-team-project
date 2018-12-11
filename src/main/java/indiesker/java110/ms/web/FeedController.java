@@ -272,40 +272,6 @@ public class FeedController {
     
   }
   
-  @ResponseBody
-  @RequestMapping("pagination")
-  public Map<String,Object> pagination(int no, int pageNo){
-    Paging paging = new Paging();
-    paging.setPageNo(pageNo);
-    paging.setTotalCount(aviService.totList(no));
-    paging.setPageSize(12);
-    List<Avi> alist = aviService.morelist(no, paging);
-    //영상 주소에 관한것
-    for (Avi avi : alist) {
-      String urlid = avi.getUrlid();
-      avi.setThumbnail("https://i.ytimg.com/vi/"+urlid+"/hqdefault.jpg");
-      avi.setUrl("https://www.youtube.com/embed/"+urlid);
-      
-        if(avi.getTitle().length()>30) {
-          avi.setTitle(avi.getTitle().substring(0,31)+"...");
-        }else {
-          avi.setTitle(avi.getTitle());
-        }
-      }
-    
-    for (Avi aa : alist) {
-      System.out.println(aa.getThumbnail());
-    }
-    Map<String,Object> map = new HashMap<>();
-    map.put("list", alist);
-    map.put("paging", paging);
-    return map;
-  }
-  
-  
-  
-  
-  
 /*  @PostMapping("updatephoto")
   public String updatephoto(
       

@@ -598,6 +598,7 @@ GROUP BY BS.brno
     GROUP BY br.brno
     )
     ORDER BY sdt  
+    Limit #{paging.startRowNo},#{paging.pageSize}    
     </select>
 	
 	<select id="showSsnos" parameterType="int" resultType="int">
@@ -739,7 +740,7 @@ GROUP BY BS.brno
        ps.addr like concat('%',#{keyword},'%'))
        </when>
        <when test="type.equals('date')">
-       ps.sdt like concat(#{date},'%'))
+       ps.sdt >=#{date})
        </when>
        </choose>
 
@@ -757,7 +758,7 @@ GROUP BY BS.brno
        s.bas_addr like concat('%',#{keyword},'%'))
        </when>
        <when test="type.equals('date')">
-       ss.sdt like concat(#{date},'%'))
+       ss.sdt >= #{date})
        </when>
        </choose>
    ORDER BY sdt

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletContext;
+import org.springframework.http.codec.multipart.SynchronossPartHttpMessageReader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,9 +39,10 @@ public class ScheduleController {
   Map<String,Object> search = new HashMap<>();
 
   @GetMapping("list")
-  public void main(Paging paging, Model model, String pageNo) {
-   paging.setPageSize(13);
+  public void main(Paging paging, Model model, @RequestParam(defaultValue="0")int pageNo) {
+   paging.setPageSize(20);
    paging.setTotalCount(scheduleService.totSchedule());
+   paging.setPageNo(pageNo);
    
    List<Schedule> list = scheduleService.showScedule(paging);
    SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd");
@@ -60,21 +62,19 @@ public class ScheduleController {
   @RequestMapping("detail")
   public Busker detail(int bno) {
     Busker b = buskerService.findInfo(bno);
- System.out.println(b);
     return b;
   }
   
-  
-  
   @RequestMapping("search")
-  public void search(@RequestParam String type, @RequestParam String keyword, String date, Model model) {
-
+  public void search(@RequestParam(defaultValue="none") String type, @RequestParam(defaultValue="none") String keyword, 
+                     String date, Model model) {
+    
     search.put("type", type);
     search.put("keyword", keyword);
     search.put("date", date);
-    
+
   Paging paging = new Paging();
-  paging.setPageSize(13);
+  paging.setPageSize(20);
   paging.setTotalCount(scheduleService.totsearchScehdule(type, keyword, date));
   List<Schedule> list = scheduleService.searchScehdule(type, keyword, date, paging);
   SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd");
@@ -87,6 +87,7 @@ public class ScheduleController {
   }
   model.addAttribute("list",list);
   model.addAttribute("paging", paging);
+  System.out.println(paging);
   
   }
   
@@ -99,10 +100,9 @@ public class ScheduleController {
     String date = (String)search.get("date");
     
     Paging paging = new Paging();
-    paging.setPageSize(13);
+    paging.setPageSize(20);
     paging.setPageNo(pageNo);
     paging.setTotalCount(scheduleService.totsearchScehdule(type, keyword, date));
-    
     List<Schedule> list = scheduleService.searchScehdule(type, keyword, date, paging);
    
     SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd");
@@ -114,15 +114,12 @@ public class ScheduleController {
       s.setNedt(hformat.format(s.getEdt()));
     }
     
-    
     Map<String,Object> map = new HashMap<>();
     map.put("list", list);
     map.put("paging", paging);
+    System.out.println(list);
     
     return map;
   }
-  
-  
-  
   
 }

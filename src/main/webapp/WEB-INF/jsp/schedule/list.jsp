@@ -23,7 +23,7 @@
 .tablerigth{width: 18%; position: absolute; right: 10rem;}
 .fter{clear: both;}
 .thead-dark tr th{background-color: #212529; color: white;}
-img{width: 16rem;}
+img{width: 16rem; height: 10rem;}
 .serchin{height: 1.5rem;}
 .search{display: inline; text-align: center;}
 #titl{margin-top: 2%; margin-bottom: 2%;}
@@ -53,7 +53,26 @@ div.tablerigth .rdetail ul span{
     margin-left:5px;
     font-weight: 400;
 }
+@media (min-width:1280px) {
+    .tablerigth{
+    width: 18%;
+    right: 1rem;
+    }
+    img{
+    width:10rem;
+    }
+    div.tablerigth .rdetail ul li {
+    font-size: 16px;
+    }
+}
 
+@media (min-width:1650px){
+.tablerigth{width: 18%; right: 10%;}
+img{width: 14rem; }
+div.tablerigth .rdetail ul li{
+    font-size:16px;
+}
+}
 /* .thead-dark tr th{background-color:#212529; } */
 </style>
 <jsp:include page="../header.jsp"></jsp:include>
@@ -133,6 +152,7 @@ div.tablerigth .rdetail ul span{
 	
 	<script>
 	function goPage(e){
+		console.log(e)
 	    $('.pageNO').val(e);
 	    $('.pageForm').submit();
 	}

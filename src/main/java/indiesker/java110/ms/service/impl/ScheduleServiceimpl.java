@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.codec.multipart.SynchronossPartHttpMessageReader;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -198,7 +199,10 @@ public class ScheduleServiceimpl implements ScheduleService {
     public List<Schedule> showScedule(Paging paging) {
      Map<String,Object> params = new HashMap<>();
      params.put("paging", paging);
-    return scheduleDao.showScedule(params);
+     System.out.println(paging);
+     List<Schedule> list = scheduleDao.showScedule(params);
+     System.out.println(list);
+     return list;
     }
     
     @Override
