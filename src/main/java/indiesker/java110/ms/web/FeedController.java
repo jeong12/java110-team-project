@@ -150,7 +150,7 @@ public class FeedController {
       String pbno, Model model) {   
     int pbno2 = Integer.parseInt(pbno);
     FeedPhoto feedphoto=feedPhotoService.getfeedphotobyPbno(pbno2);
-    
+    System.out.println("testtest!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     if(feedphoto == null) {
       feedphoto = feedPhotoService.getfeedphotobyPbnoNoComt(pbno2);
       feedphoto.setComtcount(0);
@@ -241,43 +241,70 @@ public class FeedController {
       return "redirect:enter?no="+bno;
   }
   
-/*  @PostMapping("updatephoto")
-  public String updatephoto(
-      
-      ) throws Exception {
-    
-    
-    return "redirect:enter?no="+bno;
-  }*/
-/*  @PostMapping("updatephoto")
-  public String updatephoto(@RequestParam String pbno,@RequestParam String content, @RequestParam MultipartFile file1,
-      @RequestParam MultipartFile file2, @RequestParam MultipartFile file3
+  @PostMapping("updatephoto")
+  public String updatephoto(String pbno, String cont, String bno, @RequestParam MultipartFile file1,
+      @RequestParam MultipartFile file2, @RequestParam MultipartFile file3,
+      @RequestParam(defaultValue="0") String fpno1, @RequestParam(defaultValue="0") String fpno2, @RequestParam(defaultValue="0") String fpno3
       ) throws IllegalStateException, IOException {
-    int bno2=Integer.parseInt(bno);
+    int pbno2=Integer.parseInt(pbno);
     
-    List<String> files = new ArrayList<>();
-
+    System.out.println("pbno:"+pbno);
+    System.out.println("cont:"+cont);
+    System.out.println("bno:"+bno);
+    System.out.println("file1:"+file1);
+    System.out.println("file2:"+file2);
+    System.out.println("file3:"+file3);
+    System.out.println("fpno1:"+fpno1);
+    System.out.println("fpno2:"+fpno2);
+    System.out.println("fpno3:"+fpno3);
+    if(fpno2.equals("0") ) {
+      System.out.println("파일1개");
+    }else if(fpno3.equals("0") ) {
+      System.out.println("파일2개");
+    }
+    else {
+      System.out.println("파일3개");
+    }
+    
+    // 내용 업데이트
+    feedPhotoService.updateFeedContent(cont, pbno2);
+    
+    // file1 처리
     if (file1.getSize() > 0) {
+      int fpno11 = Integer.parseInt(fpno1);
       String filename = UUID.randomUUID().toString();
       file1.transferTo(new File(sc.getRealPath("/upload/" + filename)));
-      files.add(filename);
-    }
-
+      feedPhotoService.updateFeedPhoto(filename, fpno11);
+    } 
+    // file2 처리
     if (file2.getSize() > 0) {
-      String filename = UUID.randomUUID().toString();
-      file2.transferTo(new File(sc.getRealPath("/upload/" + filename)));
-      files.add(filename);
+      if(fpno2.equals("0")) {
+        String filename = UUID.randomUUID().toString();
+        file2.transferTo(new File(sc.getRealPath("/upload/" + filename)));
+        feedPhotoService.insertOneFileUpload(filename, pbno2);
+      }else {
+        int fpno22 = Integer.parseInt(fpno2);
+        String filename = UUID.randomUUID().toString();
+        file2.transferTo(new File(sc.getRealPath("/upload/" + filename)));
+        feedPhotoService.updateFeedPhoto(filename, fpno22);
+      }
     }
+    // file3 처리
     if (file3.getSize() > 0) {
-      String filename = UUID.randomUUID().toString();
-      file3.transferTo(new File(sc.getRealPath("/upload/" + filename)));
-      files.add(filename);
+      if(fpno3.equals("0")) {
+        String filename = UUID.randomUUID().toString();
+        file3.transferTo(new File(sc.getRealPath("/upload/" + filename)));
+        feedPhotoService.insertOneFileUpload(filename, pbno2);
+      }else {
+        int fpno33 = Integer.parseInt(fpno2);
+        String filename = UUID.randomUUID().toString();
+        file3.transferTo(new File(sc.getRealPath("/upload/" + filename)));
+        feedPhotoService.updateFeedPhoto(filename, fpno33);
+      }
     }
-    feedPhotoService.feedPhotoAndFileUpload(bno2, content, files);
-    
     
     return "redirect:enter?no="+bno;
-  }*/
+  }
 }
 
 

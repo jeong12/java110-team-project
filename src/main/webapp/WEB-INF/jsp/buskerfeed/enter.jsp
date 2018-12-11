@@ -246,8 +246,8 @@ body, .container.title {
     <div id="titl">
       <img id="logo" src="../img/playbutton.png" alt="플레이로고">
       <h3>버스커피드: ${busk.bno}</h3>
-      <h1 id="sessionno"><c:out value="${sessionno}"/></h1>
-      <h1 id="buskno"><c:out value="${buskno}"/></h1>
+      <h1 style="display:none" id="sessionno"><c:out value="${sessionno}"/></h1>
+      <h1 style="display:none" id="buskno"><c:out value="${buskno}"/></h1>
     </div>
   </div>
   <div class="container feed" style="background-color: white;">
@@ -322,7 +322,7 @@ body, .container.title {
                 <tr>
                   <td>${sche.nsdt }~${sche.nedt }</td>
                   <td id="shopname">
-                    <h4>${sche.shopname }</h4>
+                    <h4 style="padding-left: 10%;padding-right: 8%;">${sche.shopname }</h4>
                   </td>
                   <td>${sche.addr }</td>
                 </tr>
@@ -348,7 +348,7 @@ body, .container.title {
           <c:choose>
             <c:when test="${empty recentlist }">
               <div style="padding-left: 20px;">
-                <h3>영상이 없습니다!</h3>
+                <h3>영상이 없습니다</h3>
               </div>
             </c:when>
             <c:otherwise>
@@ -388,7 +388,7 @@ body, .container.title {
           <div class="row feedphotos">
             <c:choose>
               <c:when test="${empty recentplist }">
-                <p style="padding-left: 15px;">사진이 없습니다!</p>
+                <h3>사진이 없습니다</h3>
               </c:when>
               <c:otherwise>
                 <c:forEach items="${recentplist}" var="t">
@@ -689,7 +689,7 @@ h2 {
                   </table>
                 </div>
               </div>
-              <div class="invisibleform"></div>
+              <div class="invisibleform" style="display:none;"></div>
 
               <div class="pinfocontent"></div>
 

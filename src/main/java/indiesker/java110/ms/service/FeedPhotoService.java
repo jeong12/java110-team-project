@@ -12,5 +12,7 @@ public interface FeedPhotoService {
     List<FeedPhoto> recentPhotList(int buskNo, int pageNo, int pageSize);
     void delete(int pbno);
     
-    
+    void updateFeedPhoto(String filename, int fpno);
+    void updateFeedContent(String content, int pbno);
+    void insertOneFileUpload(String filename, int pbno);
 }
