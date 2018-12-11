@@ -574,6 +574,9 @@ h2 {
     float:right;
     margin-right:2%;
 }
+.modal-dialog.modal-lg{
+margin-top:120px;
+}
 </style>
 
   <div class="modal fade" id="avimodal" tabindex="-1" role="dialog"
