@@ -1,3 +1,4 @@
+<<<<<<< HEAD:src/main/webapp/WEB-INF/jsp/buskerfeed/moreavi.jsp
 <%@ page language="java" contentType="text/html; charset=UTF-8"
   pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -6,7 +7,7 @@
 <html>
 <head>
 <meta charset='UTF-8'>
-<title>버스커피드</title>
+<title>버스커 동영상 더보기</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -26,55 +27,42 @@
 .container.feed {
   background-color: white;
   padding: 0 0 30px 0;
-  border: 1px solid gray;
 }
+
 body, .container.title {
   background-color: floralwhite;
 }
+
 #titl {
   width: 700px;
   margin: 10px;
   padding: 10px;
 }
+
 #logo {
   width: 40px;
   height: 40px;
   margin: 10px;
 }
+
 #titl h3 {
   margin-left: 70px;
   margin-top: -6.5%;
 }
-.imgschecon {
-  float: left;
-  width: 40%;
-  border: 1px solid gray;
-}
-.imgschecon table {
-  border-collapse: separate;
-  border-spacing: 0 10px;
-}
-.aviphotcont {
-  float: right;
-  width: 57%;
-}
-.col-md-4 {
-  margin-top: 10px;
-  padding-left: 7px;
-}
-.col-md-4.avi button {
-  border: 0;
-  padding: 0;
-}
-.col-md-4.photo button {
-  border: 0;
-  padding: 0;
-}
-.twPc-button {
+
+ .twPc-button {
   margin: 0 -10px;
   margin-top: -7%;
   width: 100%;
+} 
+
+.col-md-4 avi{
+border: 1px solid #DDD;
 }
+
+.twPc-dtwPc-divUser{height: 10rem;}
+
+
 .twPc-bg {
   background-image: url("../../img/feedheader.png");
   background-position: 0 50%;
@@ -85,9 +73,11 @@ body, .container.title {
   width: 100%;
   background-position: 0 50%;
 }
+
 .twPc-block {
   display: block !important;
 }
+
 .twPc-avatarLink {
   background-color: #fff;
   border-radius: 6px;
@@ -99,6 +89,7 @@ body, .container.title {
   vertical-align: 30px;
   margin-top: -12%;
 }
+
 .twPc-avatarImg {
   border: 2px solid #fff;
   border-radius: 7px;
@@ -107,18 +98,22 @@ body, .container.title {
   height: 300px;
   width: 300px;
 }
+
 .teaminfo1 {
   height: 60px;
   margin-left: 430px;
 }
+
 .teaminfo1 h1 {
   margin-right: 70px;
   color: white;
 }
+
 .teaminfo1 h3 {
   margin-right: 70px;
   color: white;
 }
+
 .infotextarea {
   background-color: white;
   font-size: 18px;
@@ -128,6 +123,7 @@ body, .container.title {
   margin: 35px 0 0 40px;
   max-height: 165px;
 }
+
 .glyphicon-play-circle {
   color: white;
   font-size: 60px;
@@ -138,49 +134,66 @@ body, .container.title {
   text-shadow: 0 1px 3px rgba(0, 0, 0, .5);
   transition: all 500ms ease-in-out;
 }
+
 .small.title {
   font-size: 14px;
   margin-top: 7px;
     font-weight: 500;
+    margin-bottom: 0.5rem;
+    margin-left: 0.6rem;
 }
+
 .posttitle {
   background-color: black;
   border-radius: 0.25rem;
+  margin-bottom: 2rem;
+  width: 58.4rem;
 }
+
 .posttitle i {
   color: white;
   font-size: 20px;
   padding: 10px;
 }
+
 .row.feedphotos {
   margin: 0 20px 0 20px;
 }
-.avi, .photo, .imgschecon {
+
+.avi,.imgschecon {
   background-color: #DDD;
   border-radius: 0.25rem;
+  
 }
+
 .imgschecon {
   margin-left: 5px;
 }
+
 .aviphotcont {
   margin-right: 5px;
 }
+
 .schetable {
   padding: 10px;
 }
+
 .schetable tr {
   padding: 10px;
 }
+
 .btn.btns-outline-dark {
   /*   line-height: 1;
   width: 35%;
   font-size: 0.8rem; */
   margin-right: 15px;
 }
+
 .far.fa-heart, .far.fa-star {
   font-size: 50px;
   color: white;
 }
+
 #feedmainphoto {
   border: 1px solid gray;
 }
@@ -204,6 +217,11 @@ body, .container.title {
          white-space: nowrap;
          vertical-align: middle;
 }
+.feedcontent{
+    background-color: #DDD;
+}
+
+button{background-color:#DDD; border: 1px solid #DDD;}
 </style>
 <body>
 <c:set var="sessionno" value="${sessionScope.loginUser.no }"/>
@@ -256,71 +274,16 @@ body, .container.title {
           rows="5" disabled placeholder="반가워요~">${busk.teamInfo }</textarea>
         <!-- 250자 제한 -->
       </div>
-      
-        <!-- sessionScope.loginUser.no -->     
-       <c:choose>
-      <c:when test="${busk.bno == sessionScope.loginUser.no }">
-       <div style="padding-left: 75%;">
-        <button id="aviupload" class="btn btns-outline-dark"
-          data-target="#aviUploadModal" data-toggle="modal">영상올리기</button>
-        <button id="photoupload" class="btn btns-outline-dark"
-          data-target="#photoUploadModal" data-toggle="modal">사진올리기</button>
-      </div>
-       </c:when>
-        </c:choose>
     </div>
     <!-- 여기까지 버스커 저옵~~~~~~~~ -->
     <div class="feedcontent" style="width: 100%">
-      <div class="imgschecon" style="min-height: 200px;">
-        <div class="posttitle">
-          <i class="far fa-calendar-check"> 공연/버스킹 스케줄</i>
-        </div>
-        <table class="schetable">
-          <c:choose>
-            <c:when test="${empty schelist }">
-              <div style="padding-left: 20px;">
-                <h3>스케줄이 없습니다!</h3>
-              </div>
-            </c:when>
-            <c:otherwise>
-              <c:forEach items="${schelist}" var="sche">
-                <tr>
-                  <td colspan="3"><h2>${sche.date }</h2></td>
-                </tr>
-                <tr>
-                  <td>${sche.nsdt }~${sche.nedt }</td>
-                  <td id="shopname">
-                    <h4>${sche.shopname }</h4>
-                  </td>
-                  <td>${sche.addr }</td>
-                </tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-              </c:forEach>
-            </c:otherwise>
-          </c:choose>
-        </table>
-      </div>
-
-      <div class="aviphotcont" style="min-height: 300px;">
+      <!-- <div class="aviphotcont" style="min-height: 300px;"> -->
         <!-- 영상썸네일 -->
-        <div class=avi
-          style="border: 1px solid gray; margin-bottom: 20px; min-height: 200px;">
+        <div class=avi style="margin-bottom: 20px; min-height: 300px;">
           <div class="posttitle">
-            <i class="far fa-play-circle"> 영상게시글</i>
+            <i class="far fa-play-circle">동영상 더보기</i>
           </div>
-          <!-- #eee -->
-          <!-- class="row" -->
-          <c:choose>
-            <c:when test="${empty recentlist }">
-              <div style="padding-left: 20px;">
-                <h3>영상이 없습니다!</h3>
-              </div>
-            </c:when>
-            <c:otherwise>
-              <c:forEach items="${recentlist}" var="m" begin="0" end="2">
+              <c:forEach items="${recentlist}" var="m">
                 <div class="col-md-4 avi">
                   <button data-target="#avimodal" data-toggle="modal"
                     value="${m.aviboardno }">
@@ -328,99 +291,83 @@ body, .container.title {
                       style="width: 100%; height: auto;"> <span
                       class="glyphicon glyphicon-play-circle"></span>
                   </button>
-                  <c:set var="title" value="${m.title}" />
-                  <c:choose>
-                    <c:when test="${fn:length(title) > 21}">
-                      <div class="small title">${fn:substring(title,0,21)}...</div>
-                    </c:when>
-                    <c:otherwise>
                       <div class="small title">${m.title}</div>
-                    </c:otherwise>
-                  </c:choose>
                 </div>
               </c:forEach>
-              <p
-                style="text-align: right; margin: 5px 0; padding-right: 10px;">
-                <a href="http://www.naver.com">동영상더보기</a>
-              </p>
-            </c:otherwise>
-          </c:choose>
-
-        </div>
-        <!-- 사진 게시물 -->
-        <div class="photo"
-          style="border: 1px solid gray; min-height: 200px;">
-          <div class="posttitle">
-            <i class="far fa-image"> 사진게시글</i>
-          </div>
-          <div class="row feedphotos">
-            <c:choose>
-              <c:when test="${empty recentplist }">
-                <p style="padding-left: 15px;">사진이 없습니다!</p>
-              </c:when>
-              <c:otherwise>
-                <c:forEach items="${recentplist}" var="t">
-                  <div class="col-md-4 photo"
-                    style="margin-bottom: 25px;">
-                    <button data-target="#photomodal"
-                      data-toggle="modal" value="${t.pbno }">
-                      <img src="../../upload/${t.firphot }"
-                        style="width: 110%; height: 150px;"
-                        id="feedmainphoto">
-                    </button>
-                    <div class="small title" style="padding-left: 10px">게시일:
-                      ${t.cdt }</div>
-                  </div>
-                </c:forEach>
-              </c:otherwise>
-            </c:choose>
-          </div>
         </div>
       </div>
     </div>
-  </div>
+       <nav aria-label="Page navigation example" class='pages'>
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item prev">
+                                    <a class="page-link" href="javascript:goPage(${paging.prevPageNo})">Previous</a></li>
+                                <c:forEach var="i" begin="${paging.startPageNo}" end="${paging.endPageNo}" step="1">
+                                 <c:choose>
+                                 <c:when test="${i eq paging.pageNo}">
+                                    <li class="page-item active">
+                                    <a href="javascript:goPage(${i})" class="choice">${i}</a></li>
+                                 </c:when>  
+                                 <c:otherwise>
+                                  <li class="page-item">
+                                  <a href="javascript:goPage(${i})">${i}</a></li>
+                                </c:otherwise>
+                                </c:choose>
+                                </c:forEach>
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:goPage(${paging.nextPageNo})">Next</a></li>
+                            </ul>
+                        </nav>
   <!-- ====================================모달================================= -->
   <!-- 영상모달 -->
   <style>
 .modal-body {
   height: 500px;
 }
+
 .avicontent {
   float: left;
   width: 60%;
 }
+
 .teaminfo td {
   padding: 10px 20px 10px 0;
 }
+
 .contents {
   padding: 10px;
   margin-right: 20px;
   border: 1px solid red;
   height: 140px;
 }
+
 /* ///////////////////////////////////// */
 h2 {
   margin: 0;
 }
+
 .modal-header {
   background-color: black;
   color: white;
   font-size: 20px;
   padding: 10px;
 }
+
 .close {
   color: white;
   opacity: 1;
 }
+
 .modal-body {
   background-color: white;
 }
+
 .comment {
   float: right;
   width: 40%;
   border: 1px solid gray;
   padding: 5px;
 }
+
 #acomtcont,#pcomtcont{
   border-radius: 0.25rem;
   background-color: white;
@@ -438,47 +385,59 @@ h2 {
   border-radius: 0.25rem;
   background-color: white;
 }
+
 .comtinsert {
   padding: 10px;
   border-bottom: 1px solid gray;
   height: 103px;
 }
+
 .comtcont, .comtdate {
   float: right;
   
 }
+
 .comtimg, .comtname {
   float: left;
 }
+
 .comttop {
   height: 50px;
 }
+
 .comtbottom {
   height: 25px;
 }
+
 .comtimg {
   width: 20%;
   height: 48px;
   padding: 2px 11px;
 }
+
 .comtcont {
   width: 80%;
   height: 48px;
 }
+
 .comtname {
   width: 20%;
   text-align: center;
   font-weight: 1000;
 }
+
 .comtdate {
   color: #777;
 }
+
 .comtwrap {
   padding: 10px 10px 0 0;
 }
+
 #teamphoto {
   border-radius: 20px;
 }
+
 .pinfocontent {
   border: 1px solid gray;
   border-radius: 0.25rem;
@@ -493,22 +452,27 @@ h2 {
   height: 190px;
   padding: 10px 10px 0 5px;
 }
+
 .infoimg {
   float: left;
   width: 9%;
   height: 44px;
   margin: 0 10px 5px 10px;
 }
+
 .mid {
   padding: 5px 50px 0 60px;
 }
+
 .bot {
   text-align: right;
 }
+
 .far.fa-heart.modallike {
   color: black;
   font-size: 24px;
 }
+
 #modalgenre, #modalcity {
   color: #777;
 }
@@ -552,27 +516,33 @@ h2 {
 .modal-body.photo {
   height: 620px;
 }
+
 .photocontent {
   float: left;
   width: 60%;
 }
+
 .comment {
   float: right;
   width: 40%;
   border-radius: 0.25rem;
 }
+
 .teaminfo td {
   padding: 10px 20px 10px 0;
 }
+
 .contents {
   padding: 10px;
   margin-right: 20px;
   border: 1px solid red;
   height: 140px;
 }
+
 h2 {
   margin: 0;
 }
+
 .feedphotos button {
   border: 0;
   padding: 0;
@@ -583,74 +553,31 @@ h2 {
   padding: 0;
   margin: 9px;
 }
+
 .smallimg {
   width: 150px;
   height: 100px;
 }
+
 .bigimg {
   width: 95%;
   height: 290px;
 }
+
 .modal-content.photo {
   height: 670px;
 }
 </style>
-  <div class="modal fade" id="photomodal" tabindex="-1" role="dialog"
-    aria-labelledby="enlargeImageModal" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content photo">
-        <div class="modal-header photo">
-          사진 상세 조회
-          <button type="button" class="close" data-dismiss="modal"
-            aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-          <div id="delrevbtn" style="margin-right:8px;">
-          
-          </div>
-        </div>
-        <div class="modal-body photo">
-          <div class="modalcontainer">
-            <div class="photocontent">
-              <div class="feedphoto">
-                <div class="feedphoto1"></div>
-                <div>
-                  <table>
-                    <tr class="feedphoto2">
-
-                    </tr>
-                  </table>
-                </div>
-              </div>
-              <div class="invisibleform"></div>
-
-              <div class="pinfocontent"></div>
-
-            </div>
-            <div class="comment">
-              <div class="comtinsert">
-
-                <div class='pinsertcontent'></div>
-
-              </div>
-              <div class="pcomtlist"
-                style="overflow: auto; height: 484px;"></div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
   <!-- ==============================업로드 모달======================================= -->
-  <!-- 사진업로드 모달 -->
   <style>
 .modal-body.photup {
   height: 410px;
 }
+
 .uploadbtn {
   color: snow;
 }
+
 #upload1, #upload2, #upload3, #uploadavi {
   border: 1px solid #ccc;
   border-radius: 0.25rem;
@@ -747,6 +674,7 @@ margin-bottom:8px;
 .modal-body.aviup {
   height: 530px;
 }
+
 #title, #content {
   -webkit-appearance: textfield;
   background-color: white;
@@ -775,7 +703,7 @@ margin-bottom:8px;
             <form action='addavi' method='post'
               enctype="multipart/form-data">
               <div style="display: none">
-                <input type="text" name="bno" id="bno" value="${busk.bno}"/>
+                <textarea name="bno" id="bno"></textarea>
               </div>
               <div style="padding: 10px; height: 500px;">
                 <div>
@@ -825,29 +753,68 @@ margin-bottom:8px;
       </div>
     </div>
   </div>
- 
   
-  
-  
-  
-  <!-- =========================================================== -->
-  <button type="button" class="btns btns-outline-primary">Primary</button>
-  <button type="button" class="btns btns-outline-secondary">Secondary</button>
-  <button type="button" class="btn btns-outline-success">Success</button>
-  <button type="button" class="btns btns-outline-danger">Danger</button>
-  <button type="button" class="btns btns-outline-warning">Warning</button>
-  <button type="button" class="btns btns-outline-info">Info</button>
-  <button type="button" class="btns btns-outline-light">Light</button>
-  <button type="button" class="btn btns-outline-dark">Dark</button>
-  <!-- ===================================================================== -->
-
-
   <script src="/js/feeddetail3.js" type="text/javascript"></script>
   <script src="/js/feedupload.js" type="text/javascript"></script>
   <script src="/js/feed.js" type="text/javascript"></script>
   <script>
             
+  function goPage(e){
+	  
+	    function getUrlParams() {
+	        var params = {};
+	        window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) { params[key] = value; });
+	        return params;
+	    } 
+	  
+	    var bno = getUrlParams().no;
+	    
+	    $.ajax({
+	    	   type : "POST",
+	           url : "pagination",
+	           dataType: 'json',
+	           data :{"pageNo":e, "no":bno},
+	           success : function(data){
+	        	   console.log(":::::::");
+	        	   console.log(data);
+	               $('.avi').empty();
+	               $('.pages').empty();
+	            	   $('.avi:first()').append(
+	            	    '<div class="posttitle"><i class="far fa-play-circle">동영상 더보기</i></div>');
+	               $.each(data.list,function(index,item){
+	            	   $('.avi:last()').append(
+	            	   '<div class="col-md-4 avi">'+
+	            	   '<button data-target="#avimodal" data-toggle="modal" value="'+item.aviboardno+
+	            	   '" <img src="'+item.thumbnail+'"  style="width: 100%; height: auto;">'+
+	            	   '<span class="glyphicon glyphicon-play-circle"></span></button>'+
+	            	   '<div class="small title">'+item.title+'</div></div>');
+	                 
+	               });
+	               $('.pages').append(' <ul class="pagination justify-content-center">'+
+	                        '<li class="page-item prev">'+
+	                        '<a class="page-link" href="javascript:goPage('+data.paging.prevPageNo+
+	                                ')">Previous</a></li>');
+	                   for(var i = data.paging.startPageNo;i<=data.paging.endPageNo;i++){
+	                       if(i == data.paging.pageNo){
+	                           $('.pagination.justify-content-center').append('<li class="page-item active">'+
+	                           '<a href="javascript:goPage('+i+')" class="choice">'+i+'</a></li>');
+	                       }else{
+	                           $('.pagination.justify-content-center').append('<li class="page-item">'+
+	                           '<a href="javascript:goPage('+i+')">'+i+'</a></li>');
+	                       }
+	                   } 
+	                $('.pagination.justify-content-center').append('<li class="page-item">'+
+	                        '<a class="page-link" href="javascript:goPage('+data.paging.nextPageNo+')">Next</a></li>'+
+	                        '</ul></nav>');
+	           }, error : function(request, status, error) {
+	               alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+	           }           
+	   });
+	    
+	    
+	}
+  
         </script>
-</body>
   <jsp:include page="../footer.jsp"></jsp:include>
+</body>
 </html>

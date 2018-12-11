@@ -84,6 +84,7 @@ ul li.promotion {
 
 .btn-wrap, .lists {
     display: block;
+    margin-bottom: 100px;
 }
 
 .btn-wrap {
@@ -152,6 +153,9 @@ a:visited {
 .listbtn a{
     margin-right:.5rem; 
 }
+.input-group {
+margin-top: 30px;
+}
 </style>
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
@@ -180,18 +184,16 @@ a:visited {
             <select id="selectsearch"
               class="btn btn-default dropdown-toggle"
             >
-              <option value="city">도시</option>
-              <option value="teamname" selected="selected">팀명</option>
+			<option value="city" ${searchType eq "city" ? "selected" :""}>도시</option>
+			<option value="teamname" ${searchType eq "teamname" ? "selected" :""}>팀명</option>
             </select>
           </div>
-          <input type="text" class="form-control" name="city"
-            placeholder="시,도,군" onkeydown="pushenter()"
-          >
+            <input type="text" class="form-control" name="city"
+            placeholder="정보를 입력해주세요" onkeydown="pushenter()" id="selectsearchinput" 
+            value="<%=request.getParameter("keyword") != null ? request.getParameter("keyword") : ""%>" > 
           <!-- <input type="hidden" name="search_param" value="all" id="search_param"> -->
           <span class="input-group-btn">
-            <button class="btn btn-default" id="selectsearchbtn"
-              onclick="PageMove()"
-            >
+            <button class="btn btn-default" id="selectsearchbtn" onclick="PageMove()" >
               <span class="glyphicon glyphicon-search"></span>
             </button>
           </span>
@@ -334,7 +336,7 @@ a:visited {
                 var searchType = $("#selectsearch option:selected").val();
                 var keyword = $("input[name='city']").val();
 
-                location.href = '?' + searchType + '=' + keyword;
+				location.href = '/app/promotion/list?searchType=' + searchType + '&keyword=' + keyword;
                 // location.href="?city="+i;
                 // location.href="?teamname="+i;
             }

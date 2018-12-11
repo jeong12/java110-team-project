@@ -215,9 +215,9 @@ function readURL1(input) {
     }
 };
 
+$(function(){
 var mini;
 var maxi;
-$(function(){
 $('#textinput2').datetimepicker({
 minDate:0,
 timepicker:false,

@@ -42,7 +42,7 @@ body{background-color: snow;}
         width: 500px; padding: 10px; padding-bottom: 30px;
     }
     .close{margin-right: 15px;}
-    #ttl{margin-left: 21px;}
+    .ttl{margin-left: 21px;}
     .mtb label{float:left;}
     #supm{width: 25rem; margin-left: 2%;} 
     table{width: 100%; background-color: white;}
@@ -62,6 +62,8 @@ body{background-color: snow;}
     .gradle,#selt{width: 7rem; padding: 1%;}
     #imgcontainer{width: 26.5rem;}
     #buskp,#buskp2{height: 19rem;}
+    .pages{text-align: center;}
+    #ajappend1 h4{text-align: center;}
 </style>
 <header>
     <jsp:include page="../header.jsp"></jsp:include>
@@ -76,21 +78,16 @@ body{background-color: snow;}
 <div class="container">
     <div class="toptop">
        <button class="bt1 btn-default btn-sm"  onclick="openCity('bt1')">전체</button>
-       <button class="bt2 btn-primary btn-sm" value="2">버스커</button>
-       <button class="bt3 btn-sussess btn-sm" value="3">제공자</button>
+       <button class="bt2 btn-primary btn-sm" value="2" onclick="goPageBusker(1)">버스커</button>
+       <button class="bt3 btn-sussess btn-sm" value="3" onclick="goPageSup(1)">제공자</button>
 
        <div id="ccc">      
-            <select class="gradle form-control">
-                <option value="busk">버스커</option>
-                <option value="sup">제공자</option>
-            </select>
-                        
             <select name="st" id="selt" class="flag form-control">
-           <option class="select" value="nik">닉네임</option> 
+           <option class="select" value="nik" selected="selected">닉네임</option> 
            <option class="select" value="email">이메일</option>
         </select>
         <input type="text" id="input" class="form-control">
-        <button type="button"  class="slectbtn btns btns-outline-m">검색</button>
+        <button type="button"  class="slectbtn btns btns-outline-m" onclick="goSearch(1)">검색</button>
         </div>  
 </div>
        
@@ -106,32 +103,40 @@ body{background-color: snow;}
                        <th class="col-md-1 text-center">확정</th></tr>
                    </thead>
     <tbody id="ajappend1">
-          <c:forEach items="${sup}" var="m">
-            <tr>
-                    <td class="col-md-1 text-center">${m.nik}</td>
-                    <td class="col-md-1 text-center">${m.name}</td>
-                    <td class="col-md-1 text-center">${m.genre}</td>
-                    <td class="col-md-1 text-center">${m.email}</td>
-                    <td class="col-md-1 text-center">제공자</td>
-                    <td class="col-md-1 text-center"><button type="button" class="dtailSupbutton btns btns-outline-secondary" value="${m.sno}" 
-                    data-target="#model-id" data-toggle="modal">상세보기</button></td>
-                    <td class="col-md-1 text-center"><button class="gradleSupUpdate btns btns-outline-success" type="button" value="${m.sno}">확정</button></td>
-             </tr>
-             </c:forEach>
                 <c:forEach  items="${list}" var="m">
              <tr>
                  <td  class="col-md-1 text-center">${m.nik}</td>
                     <td  class="col-md-1 text-center">${m.name}</td>
                     <td  class="col-md-1 text-center">${m.genre}</td>
                     <td  class="col-md-1 text-center">${m.email}</td>
-                    <td  class="col-md-1 text-center">버스커</td>
-                    <td  class="col-md-1 text-center"><button type="button" class="dtailbuskbutton btns btns-outline-secondary" value="${m.bno}"
+                    <td  class="col-md-1 text-center">${m.type}</td>
+                    <td  class="col-md-1 text-center"><button type="button" class="dtailbuskbutton btns btns-outline-secondary" value="${m.mno}"
                      data-target="#model-id2" data-toggle="modal">상세보기</button></td>
-                    <td  class="col-md-1 text-center"><button class="gradleBuskUpdate btns btns-outline-success" type="button" value="${m.bno}">확정</button></td>
+                    <td  class="col-md-1 text-center"><button class="gradleBuskUpdate btns btns-outline-success" type="button" value="${m.mno}">확정</button></td>
              </tr>
              </c:forEach>
           </tbody>   
       </table>  
+        <nav aria-label="Page navigation example" class='pages'>
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item prev">
+                                    <a class="page-link" href="javascript:goPage(${paging.prevPageNo})">Previous</a></li>
+                                <c:forEach var="i" begin="${paging.startPageNo}" end="${paging.endPageNo}" step="1">
+                                 <c:choose>
+                                 <c:when test="${i eq paging.pageNo}">
+                                    <li class="page-item active">
+                                    <a href="javascript:goPage(${i})" class="choice">${i}</a></li>
+                                 </c:when>  
+                                 <c:otherwise>
+                                  <li class="page-item">
+                                  <a href="javascript:goPage(${i})">${i}</a></li>
+                                </c:otherwise>
+                                </c:choose>
+                                </c:forEach>
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:goPage(${paging.nextPageNo})">Next</a></li>
+                            </ul>
+                        </nav>
       </div>  
       </div>   
       
@@ -144,7 +149,7 @@ body{background-color: snow;}
     <div class="modal-content">
       <div class="">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="ttl">용찬하우스</h3>
+        <h3 class="ttl"></h3>
       </div>
       
       <div class="container" id="imgcontainer">
@@ -207,7 +212,7 @@ body{background-color: snow;}
     <div class="modal-content">
       <div class="">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="ttl">용찬하우스</h3>
+        <h3 class="ttl"></h3>
       </div>
       
       <div id="mmain">
@@ -308,7 +313,6 @@ body{background-color: snow;}
 <script>
 $('.gradleSupUpdate').click(function(){
 	var no = $(this).val();
-	alert(no);
 	
 	$.ajax({
 		type : "POST",
@@ -329,7 +333,6 @@ $('.gradleSupUpdate').click(function(){
 
 $('.gradleBuskUpdate').click(function(){
     var no = $(this).val();
-    alert(no);
     
     $.ajax({
         type : "POST",
@@ -348,15 +351,16 @@ $('.gradleBuskUpdate').click(function(){
     
 })
 
+// sup modal
 $(document).on('click','.dtailSupbutton',function(){
 	var n = $(this).val();
-	alert(n);
     $.ajax({ 
         type : "POST", 
         url : "supdetail",
         dataType: 'json',
 		data : {"no":n},
 	     success : function(data) {
+	    	 $('.ttl').empty();
 			 $(".sname").empty();
 			 $(".scnt").empty();
 			 $(".saddr").empty();
@@ -364,17 +368,14 @@ $(document).on('click','.dtailSupbutton',function(){
 			 $(".stel").empty();
 			 $(".smessage").empty();
 			 $(".ttttt").empty();
-			console.log(data);
-			console.log(data.det_addr);
-			console.log(data.etc);
-			console.log(data.capa);
 	         $.each(data.stagephotos,function(index,item){
 	        	 console.log(item.photo);
 	        	 $(".ttttt").append("<div class='item'><img src='/upload/"+item.photo+"' alt='First slide'></div>")
 	         });
 	   
 	         $(".item:first").removeClass("item").addClass("active item");
-	                                          
+	                
+	                $('.ttl').append(data.name);
 	                $(".sname").append('<p>'+data.name+'</p>');
 	                $(".scnt").append('<p>'+data.capa+'</p>');
 	                $(".saddr").append('<p>'+data.detailaddr+'</p>');
@@ -385,15 +386,16 @@ $(document).on('click','.dtailSupbutton',function(){
 	})
 })
 
+// buskmodal
 $(document).on('click','.dtailbuskbutton',function(){
     var n = $(this).val();
-    alert(n);
     $.ajax({ 
         type : "POST", 
         url : "buskdetail",
         dataType: 'json',
         data : {"no":n},
          success : function(data) {
+        	 $('.ttl').empty();
              $(".bname").empty();
              $(".bcity").empty();
              $(".bgenre").empty();
@@ -403,6 +405,8 @@ $(document).on('click','.dtailbuskbutton',function(){
              $("#buskp2").empty();
               $("#buskp").append("<iframe style='width: 100%;height: 100%;' src='"+data.avi1+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
               $("#buskp2").append("<iframe style='width: 100%;height: 100%;' src='"+data.avi2+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
+                    
+                    $('.ttl').append(data.teamname);
                     $(".bname").append('<p>'+data.teamname+'</p>');
                     $(".bcity").append('<p>'+data.city+'</p>');
                     $(".bgenre").append('<p>'+data.teamgenre+'</p>');
@@ -417,162 +421,178 @@ $('.bt1').click(function(){
         	window.location.href=window.location.href;
 })
 
-$('.bt2').click(function(){
+
+// gradle busker ajax
+function goPageBusker(e){
 	var flag = $('.bt2').val();
 	$.ajax({
 		type : "POST",
 		url : "gradleAjaxBusker",
         dataType: 'json',
-        data : {"flag":flag},
+        data : {"flag":flag, "pageNo":e},
 		success :function(data){
-			
 			$("#ajappend1").empty();
-			
-			$.each(data,function(index,item){
-			
+			$('.pages').empty();
+			$.each(data.list,function(index,item){
 			$("#ajappend1").append("<tr><td class='col-md-1 text-center'>"+item.nik+"</td>"
 					+"<td class='col-md-1 text-center'>"+item.name+"</td>"
 					+"<td class='col-md-1 text-center'>"+item.genre+"</td>"
 					+"<td class='col-md-2 text-center'>"+item.email+"</td>"
-					+"<td class='col-md-1 text-center'>"+item.flag+"</td>"
+					+"<td class='col-md-1 text-center'>버스커</td>"
 				    +"<td class='col-md-1 text-center'><button type='button' class='dtailbuskbutton btns btns-outline-secondary' value='"+item.bno+"'data-target='#model-id2' data-toggle='modal'>상세보기</button></td>"
 				    +"<td class='col-md-1 text-center'><button type='button' class='gradleBuskUpdate btns btns btns-outline-success'  value='"+item.bno+"'>확정</button></td></tr>"
-				   	)
-			});
-		}
-	})
-	
-})
+				   	); });
+	        $('.pages').append(' <ul class="pagination justify-content-center">'+
+	                '<li class="page-item prev">'+
+	                '<a class="page-link" href="javascript:goPageBusker('+data.paging.prevPageNo+
+	                        ')">Previous</a></li>');
+	           for(var i = data.paging.startPageNo;i<=data.paging.endPageNo;i++){
+	               if(i == data.paging.pageNo){
+	                   $('.pagination.justify-content-center').append('<li class="page-item active">'+
+	                   '<a href="javascript:goPageBusker('+i+')" class="choice">'+i+'</a></li>');
+	               }else{
+	                   $('.pagination.justify-content-center').append('<li class="page-item">'+
+	                   '<a href="javascript:goPageBusker('+i+')">'+i+'</a></li>');
+	               }
+	           } 
+	        $('.pagination.justify-content-center').append('<li class="page-item">'+
+	                '<a class="page-link" href="javascript:goPageBusker('+data.paging.nextPageNo+')">Next</a></li>'+
+	                '</ul></nav>');
+		},error : function(request, status, error) {
+            alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+        }
+	});
+}
 
-$('.bt3').click(function(){
+// gradle ajax
+function goPageSup(e){
     var flag = $('.bt3').val();
     $.ajax({
         type : "POST",
         url : "gradleAjaxSupporter",
         dataType: 'json',
-        data : {"flag":flag},
+        data : {"flag":flag, "pageNo":e},
         success :function(data){
-            
-            $("#ajappend1").empty();
-            $.each(data,function(index,item){
-            $("#ajappend1").append("<tr><td class='col-md-1 text-center'>"+item.nik+"</td>"
+        	$("#ajappend1").empty();
+            $('.pages').empty();
+            $.each(data.list,function(index,item){
+            $("#ajappend1").append(
+            		"<tr><td class='col-md-1 text-center'>"+item.nik+"</td>"
                     +"<td class='col-md-1 text-center'>"+item.name+"</td>"
                     +"<td class='col-md-1 text-center'>"+item.genre+"</td>"
-                    +"<td class='col-md-1 text-center'>"+item.email+"</td>"
-                    +"<td class='col-md-1 text-center'>"+item.flag+"</td>"
-                    +"<td class='col-md-1 text-center'><button type='button' class='dtailSupbutton btns btns-outline-secondary' value='"+item.bno+"'data-target='#model-id' data-toggle='modal'>상세보기</button></td>"
-                    +"<td class='col-md-1 text-center'><button type='button' class='gradleSupUpdate btns btns btns-outline-success'  value='"+item.bno+"'>확정</button></td></tr>"
+                    +"<td class='col-md-2 text-center'>"+item.email+"</td>"
+                    +"<td class='col-md-1 text-center'>제공자</td>"
+                    +"<td class='col-md-1 text-center'><button type='button' class='dtailbuskbutton btns btns-outline-secondary' value='"+item.sno+"'data-target='#model-id2' data-toggle='modal'>상세보기</button></td>"
+                    +"<td class='col-md-1 text-center'><button type='button' class='gradleBuskUpdate btns btns btns-outline-success'  value='"+item.sno+"'>확정</button></td></tr>"
                     )
             });
-        }
-    })
-    
-})
+            $('.pages').append(' <ul class="pagination justify-content-center">'+
+                    '<li class="page-item prev">'+
+                    '<a class="page-link" href="javascript:goPageSup('+data.paging.prevPageNo+
+                            ')">Previous</a></li>');
+               for(var i = data.paging.startPageNo;i<=data.paging.endPageNo;i++){
+                   if(i == data.paging.pageNo){
+                       $('.pagination.justify-content-center').append('<li class="page-item active">'+
+                       '<a href="javascript:goPageSup('+i+')" class="choice">'+i+'</a></li>');
+                   }else{
+                       $('.pagination.justify-content-center').append('<li class="page-item">'+
+                       '<a href="javascript:goPageSup('+i+')">'+i+'</a></li>');
+                   }
+               } 
+            $('.pagination.justify-content-center').append('<li class="page-item">'+
+                    '<a class="page-link" href="javascript:goPageSup('+data.paging.nextPageNo+')">Next</a></li>'+
+                    '</ul></nav>');
+            },error : function(request, status, error) {
+                alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+            }
+        });
+    }
 
 
 // search
-$('.slectbtn').click(function(){
-    var gradle = $('.gradle').val(); // grade
-    var sflag = $('.flag').val();  // nik,email
-    var text = $('.text').val(); // 입력값
-    
-    console.log("sflag:"+sflag);
-    console.log("text:"+text);
-    console.log("gradle:"+gradle);
-    
-    var values={
-    		"text":text,
-    		"sflag":sflag,
-    }
-                                                                                                                              
-    if(gradle == 'busk'){
-    	$.ajax({
+function goSearch(e){
+    var flag = $('.flag').val();  // nik,email
+    var text = $('#input').val(); // 입력값
+
+    $.ajax({
     		type:"POST",
-    		url :"gradleAjaxBuskerSelect",
-    		data : values,
-    		dataType : 'json',
+    		url :"graleSearch",
+    		data : {"flag":flag, "text":text, "pageNo":e},
     		success : function(data){
+    			console.log(data);
+    			$('.pages').empty();
     			$("#ajappend1").empty();
-    			$("#ajappend2").empty();
-    			$("#ajappend3").empty();
-    			alert("1번이지롱");
-    			 if(data.length == 0){
-    				 alert("다시입력해주세요");
-                 }             
-    			
-    			  $.each(data,function(index,item){
-    		            console.log('--------------');
-    		                                              
-    		                                                   
-    		            $("#ajappend1").append('<tr><td>'+item.nik+'</td>'
-    		                    +'<td>'+item.name+'</td>'
-    		                    +'<td>'+item.genre+'</td>'
-    		                    +'<td>'+item.email+'</td>'
-    		                    +'<td>'+item.flag+'</td></tr>'
-    		                    );
-    		            $("#ajappend2").append('<tr><td>'+item.nik+'</td>'
-    		                	+'<td>'+item.name+'</td>'
-    	                        +'<td>'+item.genre+'</td>'
-    	                        +'<td>'+item.email+'</td>'
-    	                        +'<td>'+item.flag+'</td></tr>'
-    		                    );
-    		            $("#ajappend3").append('<tr><td>'+item.nik+'</td>'
-                                +'<td>'+item.name+'</td>'
-                                +'<td>'+item.genre+'</td>'
-                                +'<td>'+item.email+'</td>'
-                                +'<td>'+item.flag+'</td></tr>'
-                                );
-    		        }); 
-    		    },
+    			if(data.tail == 0) {
+    				$("#ajappend1").append('<tr><td colspan="8"><h4>일반 회원이거나, 해당 정보가 없습니다.</h4></td></tr>');
+    			}else if(data.tail == 1){
+    				$("#ajappend1").append('<tr><td colspan="8"><h4>승인된 회원입니다.</h4></td></tr>');
+    			}
+    			else{
+    			$.each(data.list,function(index,item){
+    				console.log(item);
+    		            $("#ajappend1").append(
+    		            		 '<tr><td  class="col-md-1 text-center">'+item.nik+'</td>'+
+    		                     '<td class="col-md-1 text-center">'+item.name+'</td>'+
+    		                     '<td class="col-md-1 text-center">'+item.genre+'</td>'+
+    		                     '<td class="col-md-1 text-center">'+item.email+'</td>'+
+    		                     '<td class="col-md-1 text-center">'+item.type+'</td>'+
+    		                     '<td class="col-md-1 text-center"><button type="button" class="dtailbuskbutton btns btns-outline-secondary"'+
+    		                     'value="'+item.mno+'" data-target="#model-id2" data-toggle="modal">상세보기</button></td>'+
+    		                     '<td class="col-md-1 text-center"><button class="gradleBuskUpdate btns btns-outline-success" type="button"'+
+    		                     'value="'+item.mno+'">확정</button></td></tr>');
+    			})
+    			}},
     		    error : function(request, status, error) {
     		        alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
     		    }
-    	})
+    	});
     }
-                                           
-    if(gradle == "sup"){
-    	   $.ajax({
-               type:"POST",
-               url :"gradleAjaxSupporterSelect",
-               data : values,
-               dataType : 'json',
-               success : function(data){
-                   $("#ajappend1").empty();
-                   $("#ajappend2").empty();
-                   $("#ajappend3").empty();
-                   alert("2번이지롱");
-                   if(data.length == 0){
-                       alert("다시입력해주세요");
-                   }             
-                     $.each(data,function(index,item){
-                           console.log('--------------');
-                           $("#ajappend1").append('<tr><td>'+item.nik+'</td>'
-                                   +'<td>'+item.name+'</td>'
-                                   +'<td>'+item.genre+'</td>'
-                                   +'<td>'+item.email+'</td>'
-                                   +'<td>'+item.flag+'</td></tr>'
-                                   );
-                           $("#ajappend2").append('<tr><td>'+item.nik+'</td>'
-                                   +'<td>'+item.name+'</td>'
-                                   +'<td>'+item.genre+'</td>'
-                                   +'<td>'+item.email+'</td>'
-                                   +'<td>'+item.flag+'</td></tr>'
-                                   );
-                           $("#ajappend3").append('<tr><td>'+item.nik+'</td>'
-                                   +'<td>'+item.name+'</td>'
-                                   +'<td>'+item.genre+'</td>'
-                                   +'<td>'+item.email+'</td>'
-                                   +'<td>'+item.flag+'</td></tr>'
-                                   );
-                       }); 
-                   },
-                   error : function(request, status, error) {
-                       alert("에러가 발생했습니다. 이태형에게 문의하시기 바랍니다");
-                   }
-           })
-    }
-}) 
 
+
+// main paging
+function goPage(e){
+	$.ajax({
+        type : "GET",
+        url : "gradleListPagination",
+        data : {"PageNo":e},
+        success : function(data){
+            $('#ajappend1').empty();
+            $('.pages').empty();
+              $.each(data.list,function(index,item){
+                $('#ajappend1').append(
+               '<tr><td class="col-md-1 text-center">'+item.nik+'</td>'+
+               '<td class="col-md-1 text-center">'+item.name+'</td>'+
+               '<td class="col-md-1 text-center">'+item.genre+'</td>'+
+               '<td class="col-md-1 text-center">'+item.email+'</td>'+
+               '<td class="col-md-1 text-center">'+item.type+'</td>'+
+               '<td class="col-md-1 text-center"><button type="button" class="dtailbuskbutton btns btns-outline-secondary" value="'+item.mno+'"'+
+                'data-target="#model-id2" data-toggle="modal">상세보기</button></td>'+
+               '<td class="col-md-1 text-center"><button class="gradleBuskUpdate btns btns-outline-success" type="button" value="'+item.mno+'">확정</button></td>'
+                +'</tr>')});
+        $('.pages').append(' <ul class="pagination justify-content-center">'+
+                '<li class="page-item prev">'+
+                '<a class="page-link" href="javascript:goPage('+data.paging.prevPageNo+
+                        ')">Previous</a></li>');
+           for(var i = data.paging.startPageNo;i<=data.paging.endPageNo;i++){
+               if(i == data.paging.pageNo){
+                   $('.pagination.justify-content-center').append('<li class="page-item active">'+
+                   '<a href="javascript:goPage('+i+')" class="choice">'+i+'</a></li>');
+               }else{
+                   $('.pagination.justify-content-center').append('<li class="page-item">'+
+                   '<a href="javascript:goPage('+i+')">'+i+'</a></li>');
+               }
+           } 
+        $('.pagination.justify-content-center').append('<li class="page-item">'+
+                '<a class="page-link" href="javascript:goPage('+data.paging.nextPageNo+')">Next</a></li>'+
+                '</ul></nav>');
+        },
+        error : function(request, status, error) {
+            alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+        }
+        
+    });
+	
+}
    
 
 </script>

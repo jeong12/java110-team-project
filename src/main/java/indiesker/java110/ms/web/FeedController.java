@@ -6,8 +6,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import javax.print.attribute.HashAttributeSet;
 import javax.servlet.ServletContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +24,7 @@ import indiesker.java110.ms.domain.Avi;
 import indiesker.java110.ms.domain.Busker;
 import indiesker.java110.ms.domain.Comment;
 import indiesker.java110.ms.domain.FeedPhoto;
+import indiesker.java110.ms.domain.Paging;
 import indiesker.java110.ms.domain.Schedule;
 import indiesker.java110.ms.service.AviService;
 import indiesker.java110.ms.service.BuskerService;
@@ -119,12 +123,14 @@ public class FeedController {
     model.addAttribute("busk",busker);
     model.addAttribute("recentlist",alist);
     model.addAttribute("recentplist",plist);
+    System.out.println(alist);
   }
 
   @ResponseBody
   @RequestMapping("showavi")
   public Avi getAviNo(
       String abno, Model model) {   
+    System.out.println(abno);
     int abno2 = Integer.parseInt(abno);
     Avi feedavi=aviService.getfeedavibyAbno(abno2);
 
@@ -148,7 +154,7 @@ public class FeedController {
       String pbno, Model model) {   
     int pbno2 = Integer.parseInt(pbno);
     FeedPhoto feedphoto=feedPhotoService.getfeedphotobyPbno(pbno2);
-
+    
     if(feedphoto == null) {
       feedphoto = feedPhotoService.getfeedphotobyPbnoNoComt(pbno2);
       feedphoto.setComtcount(0);
@@ -197,7 +203,7 @@ public class FeedController {
 
   @PostMapping("addavi")
   public String addavi(@RequestParam String bno, String title, String content, String url) {
-    System.out.println(bno);
+    System.out.println("test"+bno);
     int bno2=Integer.parseInt(bno);
     String urlid = url.substring(32,43);
 
@@ -209,12 +215,136 @@ public class FeedController {
   @RequestMapping("insertavicomt")
   public void insertcomt(int abno, int no, String cont) {
     System.out.println(abno+"//"+no+"//"+cont);
-    
     aviService.insertComment(abno, no, cont);
+  }
+ 
+  @GetMapping("deleteavi")
+  public String deleteavi(int abno,int bno) throws Exception {
+      aviService.delete(abno);
+      return "redirect:enter?no="+bno;
+  }
+
+  @GetMapping("deletephoto")
+  public String deletephoto(int pbno,int bno) throws Exception {
+    feedPhotoService.delete(pbno);
+      return "redirect:enter?no="+bno;
+  }
+  
+  @GetMapping("updateavi")
+  public String updateavi(int abno,int bno,String title,
+      String url, String cont) throws Exception {
+    
+    System.out.println(abno);
+    System.out.println(bno);
+    System.out.println(title);
+    System.out.println(url);
+    System.out.println(cont);
+    
+    aviService.reviseAvi(title, cont, url, abno);
+    
+      return "redirect:enter?no="+bno;
+  }
+  
+  
+  
+  @RequestMapping("moreavi")
+  public void moreavi(int no,  Model model){
+    no = 5;
+    Paging paging = new Paging();
+    paging.setTotalCount(aviService.totList(no));
+    paging.setPageSize(12);
+    Busker busker = buskerService.get(no);
+    List<Avi> alist = aviService.morelist(no, paging);
+
+    //영상 주소에 관한것
+    for (Avi avi : alist) {
+      String urlid = avi.getUrlid();
+      avi.setThumbnail("https://i.ytimg.com/vi/"+urlid+"/hqdefault.jpg");
+      avi.setUrl("https://www.youtube.com/embed/"+urlid);
+      
+      if(avi.getTitle().length()>30) {
+        avi.setTitle(avi.getTitle().substring(0,31)+"...");
+      }
+    }
+    
+    System.out.println(alist);
+    model.addAttribute("busk",busker);
+    model.addAttribute("recentlist",alist);
+    model.addAttribute("paging",paging);
     
   }
   
+  @ResponseBody
+  @RequestMapping("pagination")
+  public Map<String,Object> pagination(int no, int pageNo){
+    Paging paging = new Paging();
+    paging.setPageNo(pageNo);
+    paging.setTotalCount(aviService.totList(no));
+    paging.setPageSize(12);
+    List<Avi> alist = aviService.morelist(no, paging);
+    //영상 주소에 관한것
+    for (Avi avi : alist) {
+      String urlid = avi.getUrlid();
+      avi.setThumbnail("https://i.ytimg.com/vi/"+urlid+"/hqdefault.jpg");
+      avi.setUrl("https://www.youtube.com/embed/"+urlid);
+      
+        if(avi.getTitle().length()>30) {
+          avi.setTitle(avi.getTitle().substring(0,31)+"...");
+        }else {
+          avi.setTitle(avi.getTitle());
+        }
+      }
+    
+    for (Avi aa : alist) {
+      System.out.println(aa.getThumbnail());
+    }
+    Map<String,Object> map = new HashMap<>();
+    map.put("list", alist);
+    map.put("paging", paging);
+    return map;
+  }
+  
+  
+  
+  
+  
+/*  @PostMapping("updatephoto")
+  public String updatephoto(
+      
+      ) throws Exception {
+    
+    
+    return "redirect:enter?no="+bno;
+  }*/
+/*  @PostMapping("updatephoto")
+  public String updatephoto(@RequestParam String pbno,@RequestParam String content, @RequestParam MultipartFile file1,
+      @RequestParam MultipartFile file2, @RequestParam MultipartFile file3
+      ) throws IllegalStateException, IOException {
+    int bno2=Integer.parseInt(bno);
+    
+    List<String> files = new ArrayList<>();
 
+    if (file1.getSize() > 0) {
+      String filename = UUID.randomUUID().toString();
+      file1.transferTo(new File(sc.getRealPath("/upload/" + filename)));
+      files.add(filename);
+    }
+
+    if (file2.getSize() > 0) {
+      String filename = UUID.randomUUID().toString();
+      file2.transferTo(new File(sc.getRealPath("/upload/" + filename)));
+      files.add(filename);
+    }
+    if (file3.getSize() > 0) {
+      String filename = UUID.randomUUID().toString();
+      file3.transferTo(new File(sc.getRealPath("/upload/" + filename)));
+      files.add(filename);
+    }
+    feedPhotoService.feedPhotoAndFileUpload(bno2, content, files);
+    
+    
+    return "redirect:enter?no="+bno;
+  }*/
 }
 
 

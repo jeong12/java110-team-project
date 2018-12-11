@@ -2,8 +2,11 @@ package indiesker.java110.ms.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import indiesker.java110.ms.dao.BuskerPromotionDao;
 import indiesker.java110.ms.domain.BuskerPromotion;
 import indiesker.java110.ms.domain.BuskerPromotionComment;
@@ -19,15 +22,15 @@ public class BuskerPromotionServiceimpl implements BuskerPromotionService {
     public List<BuskerPromotion> list() {
         return buskerPromotionDao.findAll();
     }
-
-    @Override
-    public List<BuskerPromotion> SearchByCity(String city) {
-      return buskerPromotionDao.findByCity(city);
-    }
-
+	
 	@Override
-	public List<BuskerPromotion> SearchByTeamname(String teamname) {
-		return buskerPromotionDao.findByTeamname(teamname);
+	public List<BuskerPromotion> SearchByCity(Map<String, Object> params) {
+		return buskerPromotionDao.findByCity(params);
+	}
+	
+	@Override
+	public List<BuskerPromotion> SearchByTeamname(Map<String, Object> params) {
+		return buskerPromotionDao.findByTeamname(params);
 	}
 	
 	@Override
@@ -46,7 +49,9 @@ public class BuskerPromotionServiceimpl implements BuskerPromotionService {
 	    HashMap<String,Object> params = new HashMap<>();
 	    params.put("no",bbno);
 	    params.put("paging", paging);
-	    return buskerPromotionDao.comtList(params);
+	    List<BuskerPromotionComment> list = buskerPromotionDao.comtList(params);
+	    System.out.println(list);
+	    return list;
 	  }
 
 	  @Override
@@ -70,7 +75,10 @@ public class BuskerPromotionServiceimpl implements BuskerPromotionService {
 	  
 	  @Override
 	  public int findBbno(int bcno) {
-	  return buskerPromotionDao.findBbno(bcno);
+	  Integer bbno = buskerPromotionDao.findBbno(bcno);
+	  System.out.println("bbno"+bbno);
+	  return bbno;
+	  
 	  }
 
 }

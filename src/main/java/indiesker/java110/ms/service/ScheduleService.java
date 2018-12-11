@@ -41,7 +41,7 @@ public interface ScheduleService {
     List<Schedule> mybslistbyflag(int flag, int bno,int pageNo, int pageSize);
     int checkeditperschedule(String sdt, String edt, String nsdt, String nedt, int no);
     int checkeditreqschedule(String sdt, String edt, String nsdt, String nedt, int no);
-    List<Schedule> searchScehdule(String type, String keyword, String date);
+    List<Schedule> searchScehdule(String type, String keyword, String date,Paging paging);
     List<Schedule> findoverdue(int no, Paging paging);
     int totFindreqschedule(int no);
     int totfindSuggestsbyflag(int no, int flag);
@@ -53,5 +53,9 @@ public interface ScheduleService {
     int buskbyflagscheduleCnt(int flag, int bno);
     List<Schedule> findMyAllSchedule(int bno, int pageNo, int pageSize);
     int findMyAllScheduleCnt(int bno);
-    List<Schedule> findAllSchedule();
+    List<Schedule> findAllSchedule();//test용
+    List<Schedule> findSearchAllSchedule(String keyword1, String keyword2);//test용
+    List<Schedule> findTodayAllSchedule();
+    List<Schedule> findTodaySearchAllSchedule(String keyword, String keyword2);
+    int totsearchScehdule(String type, String keyword, String date);
 }

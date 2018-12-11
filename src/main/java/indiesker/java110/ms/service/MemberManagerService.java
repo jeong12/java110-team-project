@@ -11,7 +11,7 @@ import indiesker.java110.ms.domain.Supporter;
 public interface MemberManagerService {
   List<MemberManager> listAll(Paging paging);
   List<MemberManager> listSelect (char flag,int pageNo, int pageSize);
-  List<MemberManager> dateSelect (String flag, String text,String cdt1,String cdt2,int pageNo, int pageSize);
+  List<MemberManager> dateSelect (String flag, String text,String cdt1,String cdt2,Paging paging);
   int update(String memo,String nik);
   
   Member memListDetail(String nik);
@@ -19,22 +19,25 @@ public interface MemberManagerService {
   Busker buskListDetail(String nik);
   List<String> memListDetailByGenre(String nik);
   List<MemberManager>  memberAjax(int flag, Paging paging);
-  
-  List<GradleMember> gradleBusker (int pageNo, int pageSize);
-  List<GradleMember> gradleSupporter (int pageNo, int pageSize);
-  List<GradleMember> gradleAjaxBusker(int pageNo, int pageSize);
-  List<GradleMember> gradleAjaxSupporter(int pageNo, int pageSize);
-  List<GradleMember> gradleAjaxBuskerSelect(String sflag, String text,int pageNo, int pageSize);
-  List<GradleMember> gradleAjaxSupporterSelect(String sflag, String text,int pageNo, int pageSize);
+  List<GradleMember> gradleList (Paging paging);
+  List<GradleMember> gradleBusker (Paging paging);
+  List<GradleMember> gradleSupporter (Paging paging);
+  List<GradleMember> gradleAjaxBusker(Paging paging);
+  List<GradleMember> gradleAjaxSupporter(Paging paging);
   Supporter supGet(int no);
   Busker buskGet(int no);
   int gradleBuskUpdate(int no);
   int gradleSupUpdate(int no);
   
-  List<GradleMember> gradleSelect(char flag,String email, String nik, int pageNo, int pageSize);
+  List<GradleMember> gradleSelect(String flag, String text, int type);
   String getMemo(String nik);
   int totlist();
   int totlistFlag(int flag);
   void stopMem(String id, int flag);
   
+  int totgradle();
+  int totgradleAjaxBusker();
+  int totgradleAjaxSupporter();
+  Integer fingFlag(String flag, String text);
+  int totdateSelect (String flag, String text,String cdt1,String cdt2);
 }

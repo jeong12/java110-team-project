@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="top">
 
 <head>
 <meta charset="UTF-8">
@@ -13,11 +13,7 @@
     rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-
-<script
-    src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-
-
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 
 <script>
     $(window).on('load', function() {
@@ -40,33 +36,6 @@
         $(girls_list + ":lt(" + girls_total_cnt + ")").addClass("active");
     }
     
-  //장르별로 표시
-/*     $(document).ready(function(){
-
-        $(".filter-button").click(function(){
-            var value = $(this).attr('data-filter');
-            
-            if(value == "all")
-            {
-                //$('.filter').removeClass('hidden');
-                $('.filter').show('1000');
-            }
-            else
-            {
-//                $('.filter[filter-item="'+value+'"]').removeClass('hidden');
-//                $(".filter").not('.filter[filter-item="'+value+'"]').addClass('hidden');
-                $(".filter").not('.'+value).hide('3000');
-                $('.filter').filter('.'+value).show('3000');
-                
-            }
-        });
-        
-        if ($(".filter-button").removeClass("active")) {
-    $(this).removeClass("active");
-    }
-    $(this).addClass("active");
-
-    });  */
 </script>
 <style>
 body{
@@ -98,10 +67,11 @@ margin-bottom : 300px;
     width: 250px;
     height: 250px;
     margin: 5px;
+    border-radius: 10px;
 }
 
 #titl {
-    margin: 10px;
+    margin: 20px 10px 30px;
     padding: 10px;
 }
 
@@ -141,6 +111,31 @@ margin-bottom : 300px;
     text-align: center;
 }
 
+#searchdiv {
+    margin-bottom: 50px;
+}
+
+#selectsearch{
+height: 35px;
+width: 70px;
+padding: 0;
+text-align: center;
+}
+#selectsearchbtn{
+height: 35px;
+width: 35px;
+padding: 0;
+text-align: center;
+}
+#selectsearchinput{
+height: 35px;
+padding: 0;
+}
+
+a#movetop {
+    position: fixed; right: 2%; bottom: 82px; display: none; z-index: 999;
+}
+
 /* 날짜 */
 #startdateenddate{
     margin-left: 18%;
@@ -150,17 +145,22 @@ margin-bottom : 300px;
 <jsp:include page="../header.jsp"></jsp:include>
 <body>
 <div id="bodybody">
-    <div id="titl">
-        <h2><img id="logo" src="../../img/playButton.PNG" alt="플레이로고">무대 목록</h2>
-        
-    </div>
+<div id="pos"></div>
     <div class="container">
+        <div id="titl">
+            <h2><img id="logo" src="../../img/playButton.PNG" alt="플레이로고">무대 목록</h2>
+        </div>
+    </div>
+    <div class="container" id="searchdiv">
         <div class="row">
             <!-- 인기순 최신순 -->
             <div id="startdateenddate">
 				<p>조회기간:
-				    <input type="text" id="from" name="sdt" placeholder="날짜를 선택하세요"> ~
-				    <input type="text" id="to" name="edt" placeholder="날짜를 선택하세요">
+				    <input type="text" id="from" name="sdt" placeholder="날짜를 선택하세요" 
+				    value="<%=request.getParameter("startDate") != null ? request.getParameter("startDate") : ""%>"> 
+				    ~
+				    <input type="text" id="to" name="edt" placeholder="날짜를 선택하세요" 
+				    value="<%=request.getParameter("endDate") != null ? request.getParameter("endDate") : ""%>"> 
 				</p>
             </div>
         
@@ -169,21 +169,24 @@ margin-bottom : 300px;
                 <div class="input-group">
                     <div class="input-group-btn search-panel">
                         <select id="selectsearch" class="btn btn-default dropdown-toggle">
-                            <option value="city">지역</option>
-                            <option value="teamname" selected="selected">팀명</option>
+                            <!-- <option value="city">지역</option> -->
+                            <option value="city" ${searchType eq "city" ? "selected" :""}>지역</option>
+                            <!-- <option value="name">무대명</option> -->
+                            <option value="name" ${searchType eq "name" ? "selected" :""}>무대명</option>
                             <!-- <option value="genre">장르</option> -->
                         </select>
                     </div>
                     <input type="text" class="form-control" name="city"
-                        placeholder="정보를 입력해주세요" onkeydown="pushenter()"> <span
-                        class="input-group-btn">
-                        <button class="btn btn-default" id="selectsearchbtn" onclick="PageMove()">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button> <input type="hidden" name="searchType"
-                        value="<%=request.getParameter("searchType") != null ? request.getParameter("searchType") : ""%>" />
-                        <input type="hidden" name="keyword"
-                        value="<%=request.getParameter("keyword") != null ? request.getParameter("keyword") : ""%>" />
-                    </span>
+                        placeholder="정보를 입력해주세요" onkeydown="pushenter()" id="selectsearchinput" 
+                        value="<%=request.getParameter("keyword") != null ? request.getParameter("keyword") : ""%>" > 
+                        <span class="input-group-btn">
+	                        <button class="btn btn-default" id="selectsearchbtn" onclick="PageMove()">
+	                            <span class="glyphicon glyphicon-search"></span>
+	                        </button> <input type="hidden" name="searchType"
+	                        value="<%=request.getParameter("searchType") != null ? request.getParameter("searchType") : ""%>" />
+	                        <input type="hidden" name="keyword"
+	                        value="<%=request.getParameter("keyword") != null ? request.getParameter("keyword") : ""%>" />
+                        </span>
 
                 </div>
 
@@ -191,20 +194,6 @@ margin-bottom : 300px;
             </div>
             
         </div>
-            <!--         
-            <div id="genrediv" align="center">
-            <button class="btn btn-default filter-button" data-filter="all">All</button>
-            <button class="btn btn-default filter-button" data-filter="ballad">발라드</button>
-            <button class="btn btn-default filter-button" data-filter="dance">댄스</button>
-            <button class="btn btn-default filter-button" data-filter="trot">트로트</button>
-            <button class="btn btn-default filter-button" data-filter="folk">포크</button>
-            <button class="btn btn-default filter-button" data-filter="rock">락</button>
-            <button class="btn btn-default filter-button" data-filter="jazz">재즈</button>
-            <button class="btn btn-default filter-button" data-filter="country">컨츄리</button>
-            <button class="btn btn-default filter-button" data-filter="rnb">알앤비</button>
-            <button class="btn btn-default filter-button" data-filter="rap">랩</button>
-            </div>
-            -->
     </div>
 
     <div class="container">
@@ -316,6 +305,12 @@ margin-bottom : 300px;
         <a href="javascript:;" class="more-button">더보기</a>
     </div>
 
+ <a href="#" id="movetop"><img src="../../img/topbtn.png"></a>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="/js/headerfixing.js"></script>
+    <script src="/js/promotion/promofilter.js"></script>
+    <script src='../../js/jquery.easing.1.3.js'></script>
     <script src="//code.jquery.com/ui/1.8.18/jquery-ui.js"></script>    
     <script>
     //jequery-ui안에서 msie 프로퍼티를 불러오기 위한 jQery.browser 가 없어서 따로 만들어놓음 
@@ -430,6 +425,24 @@ margin-bottom : 300px;
                 PageMove();
             }
         }
+        
+        
+        $(document).scroll(function(){
+           var pos = document.getElementById('pos'); 
+           var movetop = document.getElementById('movetop');
+           if($(pos).attr('value') > 50){
+               movetop.style.display = 'block';
+           } else{
+               movetop.style.display = 'none';
+           }
+        });
+        
+        $('#movetop').click(function(){
+            $('#top').animate({
+                 scrollTop:0
+            }, 800, 'easeInQuart');
+            return false;
+        });
     </script>
 </body>
 <jsp:include page="../footer.jsp"></jsp:include>

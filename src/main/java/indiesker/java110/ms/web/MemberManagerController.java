@@ -34,7 +34,9 @@ public class MemberManagerController {
     this.sc = sc;
   }
 
-  @GetMapping("list")
+  
+  // list의 전체 목록 뿌리는 메서드
+  @GetMapping("list") 
   public void list(Paging paging, Model model, String pageNo) {
 
     paging.setTotalCount(memberManagerService.totlist());
@@ -51,6 +53,8 @@ public class MemberManagerController {
       model.addAttribute("list", list);
   }
 
+  
+  //gradle 검색
   @GetMapping("select")
   public void listSelect(char flag,
           @RequestParam(defaultValue="1") int pageNo,
@@ -67,19 +71,20 @@ public class MemberManagerController {
       model.addAttribute("select", select);
   }
 
+  
+  
   @ResponseBody
   @RequestMapping(value="dateselect")
-  public List<MemberManager> dateSelect(String flag, String text,String cdt1, String cdt2,
-          @RequestParam(defaultValue="1") int pageNo,
-          @RequestParam(defaultValue="10") int pageSize,
-          Model model) throws ParseException {
+  public Map<String,Object> dateSelect(String flag, String text,String cdt1, String cdt2,
+          int pageNo, Model model) throws ParseException {
+    
+    Map<String,Object> map = new HashMap<>();
+    Paging paging = new Paging();
+    if(pageNo != 0) paging.setPageNo(pageNo);
+    paging.setPageSize(20);
+    paging.setTotalCount(memberManagerService.totdateSelect(flag, text, cdt1, cdt2));
         
-      if (pageNo < 1)
-          pageNo = 1;
-      if (pageSize < 3 || pageSize > 10)
-          pageSize = 3;
-      
-      List<MemberManager> list =memberManagerService.dateSelect(flag,text,cdt1,cdt2,pageNo, pageSize);
+      List<MemberManager> list =memberManagerService.dateSelect(flag,text,cdt1,cdt2,paging);
       DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
       for(MemberManager m:list) {
@@ -88,9 +93,13 @@ public class MemberManagerController {
           m.setMemo("메모없음");
         }
       }
-      return list; 
+      map.put("list", list);
+      map.put("paging", paging);
+      return map;
   }
 
+  
+  // List의 상세보기(회원)
   @ResponseBody
   @RequestMapping(value = "memberListDetail")
   public Member memberListDetail(String nik) {
@@ -103,6 +112,7 @@ public class MemberManagerController {
 
   }
 
+  // List의 상세보기(버스커)
   @ResponseBody
   @RequestMapping(value = "buskListDetail")
   public Busker buskerListDetail(String nik) {
@@ -115,6 +125,7 @@ public class MemberManagerController {
     return bno;
   }
 
+  // List의 상세보기(제공자)
   @ResponseBody
   @RequestMapping(value = "supListDetail")
   public Supporter supListDetail(String nik) {
@@ -135,91 +146,83 @@ public class MemberManagerController {
     return rno;
   }
 
+  // gradle 전체 보기
   @RequestMapping("gradle")
-  public void listSelect(@RequestParam(defaultValue = "1") int pageNo,
-      @RequestParam(defaultValue = "5") int pageSize, Model model) {
-    if (pageNo < 1)
-      pageNo = 1;
-    if (pageSize < 3 || pageSize > 10)
-      pageSize = 3;
-    List<GradleMember> gradleBusker = memberManagerService.gradleBusker(pageNo, pageSize);
-    List<GradleMember> gradleSupporter = memberManagerService.gradleSupporter(pageNo, pageSize);
-    model.addAttribute("list", gradleBusker);
-    model.addAttribute("sup", gradleSupporter);
+  public void listSelect(Model model) {
+    Paging paging = new Paging();
+    paging.setPageSize(15);
+    paging.setTotalCount(memberManagerService.totgradle());
+    List<GradleMember> list = memberManagerService.gradleList(paging);
+    
+    for (GradleMember gm : list) {
+      if(gm.getFlag() == '2') gm.setType("버스커");
+      else if(gm.getFlag() == '3') gm.setType("제공자");
+    }
+    model.addAttribute("list", list);
+    model.addAttribute("paging",paging);
   }
-
+  
   @ResponseBody
   @RequestMapping(value = "gradleAjaxBusker")
-  public List<GradleMember> gradleAjaxBusker(@RequestParam(defaultValue = "1") int pageNo,
-      @RequestParam(defaultValue = "10") int pageSize, Model model) throws ParseException {
+  public Map<String,Object> gradleAjaxBusker(int flag, int pageNo) throws ParseException {
+    
+    Paging paging = new Paging();
+    paging.setTotalCount(memberManagerService.totgradleAjaxBusker());
+    if(pageNo != 0) paging.setPageNo(pageNo); 
 
-    if (pageNo < 1)
-      pageNo = 1;
-
-    if (pageSize < 3 || pageSize > 10)
-      pageSize = 3;
-
-    List<GradleMember> list = memberManagerService.gradleAjaxBusker(pageNo, pageSize);
-
-    return list;
+    List<GradleMember> list = memberManagerService.gradleAjaxBusker(paging);
+    
+    Map<String,Object> map = new HashMap<>();
+    map.put("list", list);
+    map.put("paging", paging);
+    return map;
   }
 
   @ResponseBody
   @RequestMapping(value = "gradleAjaxSupporter")
-  public List<GradleMember> gradleAjaxSupporter(@RequestParam(defaultValue = "1") int pageNo,
-      @RequestParam(defaultValue = "10") int pageSize, Model model) throws ParseException {
+  public Map<String,Object> gradleAjaxSupporter(int flag, int pageNo) throws ParseException {
 
-    if (pageNo < 1)
-      pageNo = 1;
+    Paging paging = new Paging();
+    paging.setTotalCount(memberManagerService.totgradleAjaxSupporter());
+    if(pageNo != 0) paging.setPageNo(pageNo);
+   
+    List<GradleMember> list = memberManagerService.gradleAjaxSupporter(paging);
 
-    if (pageSize < 3 || pageSize > 10)
-      pageSize = 3;
-
-    List<GradleMember> list = memberManagerService.gradleAjaxSupporter(pageNo, pageSize);
-
-    return list;
+    Map<String,Object> map = new HashMap<>();
+    map.put("list", list);
+    map.put("paging", paging);
+    return map;
   }
 
+ 
   @ResponseBody
-  @RequestMapping(value = "gradleAjaxBuskerSelect")
-  public List<GradleMember> gradleAjaxBuskerSelect(String sflag, String text,
-      @RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10") int pageSize,
-      Model model) throws ParseException {
-
-    if (pageNo < 1)
-      pageNo = 1;
-
-    if (pageSize < 3 || pageSize > 10)
-      pageSize = 3;
-
-    List<GradleMember> list =
-        memberManagerService.gradleAjaxBuskerSelect(sflag, text, pageNo, pageSize);
-
-    for (GradleMember gradleMember : list) {
+  @RequestMapping("graleSearch")
+  public Map<String,Object> gradleSearch(int pageNo, String text, String flag){
+    Map<String,Object> map = new HashMap<>();
+    int type = memberManagerService.fingFlag(flag, text);
+    if(type <= 0) {
+      map.put("tail", 0 );
+    }else{
+      List<GradleMember> list = memberManagerService.gradleSelect(flag, text, type);
+      System.out.println(list);
+      for (GradleMember gm : list) {
+        if(gm.getFlag() == '2' && gm.getYn() == 'n') {
+          gm.setType("버스커");
+        }
+        else if(gm.getFlag() == '3' && gm.getYn() == 'n') {
+          gm.setType("제공자");
+        }else {
+          map.put("tail", 1);
+        }
+      }
+      System.out.println(list);
+      map.put("list", list);
     }
-
-    return list;
+    return map;
   }
 
-  @ResponseBody
-  @RequestMapping(value = "gradleAjaxSupporterSelect")
-  public List<GradleMember> gradleAjaxSupporterSelect(String sflag, String text,
-      @RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10") int pageSize,
-      Model model) throws ParseException {
-
-    if (pageNo < 1)
-      pageNo = 1;
-
-    if (pageSize < 3 || pageSize > 10)
-      pageSize = 3;
-
-    List<GradleMember> list =
-        memberManagerService.gradleAjaxSupporterSelect(sflag, text, pageNo, pageSize);
-
-
-    return list;
-  }
-
+  
+  // gradle 상세보기
   @ResponseBody
   @RequestMapping(value = "supdetail")
   public Supporter supDetail(int no, Model model) {
@@ -227,6 +230,7 @@ public class MemberManagerController {
     return s;
   }
 
+  // gradle 상세보기
   @ResponseBody
   @RequestMapping(value = "buskdetail")
   public Busker buskDetail(int no, Model model) {
@@ -234,6 +238,7 @@ public class MemberManagerController {
     return b;
   }
 
+  // gradle update
   @ResponseBody
   @RequestMapping(value = "gradlebuskupdate")
   public int gradleBuskUpdate(int no, Model medel) {
@@ -242,6 +247,7 @@ public class MemberManagerController {
     return bno;
   }
 
+  // gradle update
   @ResponseBody
   @RequestMapping(value = "gradlesupupdate")
   public int gradleSupUpdate(int no, Model medel) {
@@ -250,6 +256,7 @@ public class MemberManagerController {
     return sno;
   }
 
+  // list memo
   @ResponseBody
   @RequestMapping(value = "getMemo", produces = "application/text; charset=utf8")
   public String getMemo(String nik) {
@@ -291,6 +298,8 @@ public class MemberManagerController {
    * return rno; }
    */
 
+  
+  // list tab1
   @ResponseBody
   @RequestMapping(value="showList")
   public Map<String,Object>showList(String flag, String pageNo, Paging paging) throws ParseException {
@@ -325,7 +334,7 @@ public class MemberManagerController {
   }
 
 
-
+  // list tab1
   @ResponseBody
   @RequestMapping(value="showMemb")
   public Map<String,Object> showMemb(String flag, String pageNo) throws ParseException {
@@ -400,10 +409,11 @@ public class MemberManagerController {
   public Map<String,Object> showStop(int flag,String pageNo, Paging paging) throws ParseException {
     flag = 10;
     if(pageNo != null) paging.setPageNo(Integer.parseInt(pageNo));
-    
     paging.setPageSize(15);
+
     paging.setTotalCount(memberManagerService.totlistFlag(flag));
     
+    System.out.println(paging.getTotalCount());
     List<MemberManager>  list = memberManagerService.memberAjax(flag,paging);
     
     SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
@@ -425,4 +435,26 @@ public class MemberManagerController {
     memberManagerService.stopMem(id, flag);
   }
 
+  
+  
+  @ResponseBody
+  @RequestMapping("gradleListPagination")
+  public Map<String,Object> gradlePagination(int PageNo) {
+    Paging paging = new Paging();
+    paging.setPageSize(15);
+    paging.setTotalCount(memberManagerService.totgradle());
+    paging.setPageNo(PageNo);
+    List<GradleMember> list = memberManagerService.gradleList(paging);
+    
+    for (GradleMember gm : list) {
+      if(gm.getFlag() == '2') gm.setType("버스커");
+      else if(gm.getFlag() == '3') gm.setType("제공자");
+    }
+    
+    Map<String,Object> params = new HashMap<>();
+    params.put("list", list);
+    params.put("paging", paging);
+    return params;
+  }
+  
 }
