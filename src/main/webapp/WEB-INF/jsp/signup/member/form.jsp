@@ -25,7 +25,7 @@ margin-bottom: 3%;
 
 #titl h3{
 float: left; 
-margin-top: -5px;
+margin-top: 1px;
 font-size: 24px;
 }
 
@@ -49,6 +49,7 @@ label {
 	font-family: "Open Sans", Helvetica, sans-serif;
 	font-size: 14px;
 	font-weight: 900;
+	margin-top: 0.5rem;
 }
 
 form {
@@ -97,7 +98,7 @@ input[type=checkbox] {
 	text-align: center;
 	border: 1px solid silver;
 	border-radius: 25px;
-	background-color: rgba(52, 58, 64, 0.5);
+	background-color: #b1cdf3;
 	color: white;
 }
 
@@ -112,14 +113,11 @@ input[type=checkbox]+label {
 }
 
 input[type=checkbox]:checked+label{
-    background-color:rgb(52, 58, 64);
+    background-color:#7894b7;
 ;
 }
 
-#upload {
-	width: 64%;
-	padding-left: 25%;
-}
+#upload {width: 100%; height: 100%; margin-top: 1rem;}
 
 #input_img {
 	padding-top: 20px;
@@ -146,6 +144,10 @@ margin-bottom: 1rem;
 }
 .cbtn{
 text-align: center;}
+
+#input_img{opacity: 0;}
+.labelimg{text-align: center;}
+
 </style>
 </head>
 <jsp:include page="../../header.jsp"></jsp:include>
@@ -154,7 +156,7 @@ text-align: center;}
 <div class="title container">
 <div class="row">
     <div id="titl" class='col-lg-8'>
-        <img id="logo" src="../../../img/playButton.png" alt="플레이로고">
+        <img id="logo" src="../../../img/playButton.PNG" alt="플레이로고">
         <h3>회원가입</h3>
     </div>
     </div>
@@ -182,8 +184,11 @@ text-align: center;}
 			  <label for="checknickname">닉네임</label><br>
 			  <input type="text" name="nickname" required class="id"
 				 	 id="checknickname" oninput="checkNickname()" autocomplete="off"><br> 
-			  <span	 id="nickMsg"></span> <label for='input_img'>사진</label><br> 
+			  <span	 id="nickMsg"></span> 
+			  <div class='labelimg'>
+			  <label for='input_img'>프로필 사진
 			  <img id="upload" src="/img/anonymous.png" alt="기본이미지"><br>
+			  </label><br></div> 
 			  <input type='file' name='file1' id='input_img' onchange="readURL(this);" /> 
 			  <br><label>선호하는 장르</label><br> 
 			  <label>필수적으로 3개를 골라주세요</label><br> 

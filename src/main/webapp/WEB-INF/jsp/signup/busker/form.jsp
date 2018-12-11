@@ -126,7 +126,7 @@ select {
     margin-bottom: 6%;
 }
 
-
+#input_img{opacity: 0;}
 </style>
 </head>
 <jsp:include page="../../header.jsp"></jsp:include>
@@ -173,10 +173,10 @@ select {
             <input type="text" name="streamingUrl" size=30 id="straming" autocomplete="off"> <br>
             <label for="teamInfo">팀 소개</label><br>
             <input type="text" name="teamInfo" size=30 id="teamInfo" autocomplete="off"> <br>
+            
             <label for="input_img">사진</label><br>
             <img id="upload" src="/img/anonymous.png" alt="기본이미지"><br>
-            <input type='file' name='file1' id='input_img'
-                onchange="readURL(this);" />
+            <input type='file' name='file1' id='input_img' onchange="readURL(this);" />
             <br><br><button class="signupbtn btns btns btns-outline-light" disabled="disabled">다음으로</button>
         </form>
         </div>

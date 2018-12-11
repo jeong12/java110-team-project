@@ -22,7 +22,7 @@
 }
 
 div.fix {
-    position: fixed; top: 0; width: 100%; z-index: 9999;
+    position: fixed; top: 0; width: 100%; z-index: 999;
 }
 
 .top-bar .contact-info {
