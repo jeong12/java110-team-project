@@ -61,7 +61,7 @@ padding-bottom: 5%; background-color: white;}
 </head>
 <body>
 <div id="titl" class="container">
-       <img id="logo" src="../../img/playButton.png" alt="플레이로고">
+       <img id="logo" src="../../img/playButton.PNG" alt="플레이로고">
        <h3 id="haha">버스킹 일정</h3>
 </div>
 <div class='contatiner'>

@@ -67,9 +67,9 @@ ul li.prolist {
 
 .genre {
     margin: 2% 4% 2% 0;
-    padding: 5px 5px;
+    padding: 5px 15px;
     text-align: center;
-    border: 1px solid silver;
+    border: 0;
     border-radius: 10px;
     background-color: #ddd;
     color: black;
@@ -130,7 +130,7 @@ ul li.prolist {
 <body>
 
    <div id="titl">
-        <img id="logo" src="../../img/playButton.png" alt="플레이로고">
+        <img id="logo" src="../../img/playButton.PNG" alt="플레이로고">
         <h3>내 정보</h3>
     </div>
    <div class="container default">

@@ -244,7 +244,7 @@ body, .container.title {
 
   <div class="container title">
     <div id="titl">
-      <img id="logo" src="../img/playbutton.png" alt="플레이로고">
+      <img id="logo" src="../../img/playButton.PNG" alt="플레이로고">
       <h3>버스커피드: ${busk.bno}</h3>
       <h1 style="display:none" id="sessionno"><c:out value="${sessionno}"/></h1>
       <h1 style="display:none" id="buskno"><c:out value="${buskno}"/></h1>
