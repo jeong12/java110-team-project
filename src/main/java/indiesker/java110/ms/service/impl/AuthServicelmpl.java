@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import indiesker.java110.ms.dao.AuthDao;
-import indiesker.java110.ms.domain.Member;
 import indiesker.java110.ms.service.AuthService;
 
 @Service
@@ -15,7 +14,7 @@ public class AuthServicelmpl implements AuthService{
 	@Autowired AuthDao authDao;
 	  
 	@Override
-	public Member getId(String email) {
+	public String getId(String email) {
 	  return authDao.findByEamil(email);
 	}
 
