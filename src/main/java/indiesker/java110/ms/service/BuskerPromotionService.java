@@ -2,7 +2,6 @@ package indiesker.java110.ms.service;
 
 import java.util.List;
 import java.util.Map;
-
 import indiesker.java110.ms.domain.BuskerPromotion;
 import indiesker.java110.ms.domain.BuskerPromotionComment;
 import indiesker.java110.ms.domain.Paging;
@@ -18,5 +17,6 @@ public interface BuskerPromotionService {
 	int totCommetList(int bbno);
 	int deleteComment(int bcno);
 	int findBbno(int bcno);
+	int editbcomt(int bcno, String comment);
     
 }

@@ -18,4 +18,5 @@ public interface BuskerPromotionDao {
   int totCommetList(int bbno);
   int deleteComment(int bcno);
   int findBbno(int bcno);
+  int bcContentEdit(Map<String,Object> params);
 }
