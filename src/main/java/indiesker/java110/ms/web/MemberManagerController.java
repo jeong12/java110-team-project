@@ -76,11 +76,11 @@ public class MemberManagerController {
   @ResponseBody
   @RequestMapping(value="dateselect")
   public Map<String,Object> dateSelect(String flag, String text,String cdt1, String cdt2,
-          int pageNo, Model model) throws ParseException {
+      @RequestParam(defaultValue="0") int pageNo, Model model) throws ParseException {
     
     Map<String,Object> map = new HashMap<>();
     Paging paging = new Paging();
-    if(pageNo != 0) paging.setPageNo(pageNo);
+    paging.setPageNo(pageNo);
     paging.setPageSize(20);
     paging.setTotalCount(memberManagerService.totdateSelect(flag, text, cdt1, cdt2));
         
@@ -164,11 +164,11 @@ public class MemberManagerController {
   
   @ResponseBody
   @RequestMapping(value = "gradleAjaxBusker")
-  public Map<String,Object> gradleAjaxBusker(int flag, int pageNo) throws ParseException {
+  public Map<String,Object> gradleAjaxBusker(int flag, @RequestParam(defaultValue="0") int pageNo) throws ParseException {
     
     Paging paging = new Paging();
     paging.setTotalCount(memberManagerService.totgradleAjaxBusker());
-    if(pageNo != 0) paging.setPageNo(pageNo); 
+    paging.setPageNo(pageNo);
 
     List<GradleMember> list = memberManagerService.gradleAjaxBusker(paging);
     
@@ -180,11 +180,11 @@ public class MemberManagerController {
 
   @ResponseBody
   @RequestMapping(value = "gradleAjaxSupporter")
-  public Map<String,Object> gradleAjaxSupporter(int flag, int pageNo) throws ParseException {
+  public Map<String,Object> gradleAjaxSupporter(int flag, @RequestParam(defaultValue="0") int pageNo) throws ParseException {
 
     Paging paging = new Paging();
     paging.setTotalCount(memberManagerService.totgradleAjaxSupporter());
-    if(pageNo != 0) paging.setPageNo(pageNo);
+    paging.setPageNo(pageNo);
    
     List<GradleMember> list = memberManagerService.gradleAjaxSupporter(paging);
 
@@ -197,7 +197,7 @@ public class MemberManagerController {
  
   @ResponseBody
   @RequestMapping("graleSearch")
-  public Map<String,Object> gradleSearch(int pageNo, String text, String flag){
+  public Map<String,Object> gradleSearch(String text, String flag){
     Map<String,Object> map = new HashMap<>();
     int type = memberManagerService.fingFlag(flag, text);
     if(type <= 0) {
@@ -307,6 +307,8 @@ public class MemberManagerController {
     paging.setPageSize(15);
     if(pageNo != null) {
       paging.setPageNo(Integer.parseInt(pageNo));
+    }else if(pageNo == null) {
+      paging.setPageNo(0);
     }
 
     List<MemberManager> list = memberManagerService.listAll(paging);
@@ -343,7 +345,11 @@ public class MemberManagerController {
     if(paging.getStartPageNo() == 0) {
         paging.setStartPageNo(1);
     }
-    if(pageNo != null)      paging.setPageNo(Integer.parseInt(pageNo));
+    if(pageNo != null) {
+      paging.setPageNo(Integer.parseInt(pageNo));
+    }else if(pageNo == null) {
+      paging.setPageNo(0);
+    }
     paging.setTotalCount(memberManagerService.totlistFlag(Integer.parseInt(flag)));
     
     List<MemberManager>  list = memberManagerService.memberAjax(Integer.parseInt(flag),paging);
@@ -364,7 +370,11 @@ public class MemberManagerController {
   @RequestMapping(value="showBusk")
   public Map<String,Object> showBusk(int flag,String pageNo) throws ParseException {
     Paging paging = new Paging();
-    if(pageNo != null) paging.setPageNo(Integer.parseInt(pageNo));
+    if(pageNo != null) {
+      paging.setPageNo(Integer.parseInt(pageNo));
+    }else if(pageNo == null) {
+      paging.setPageNo(0);
+    }
     flag = 2;
     paging.setPageSize(15);
     paging.setTotalCount(memberManagerService.totlistFlag(flag));
@@ -388,7 +398,11 @@ public class MemberManagerController {
   public Map<String,Object> showSup(int flag,String pageNo) throws ParseException {
     Paging paging = new Paging();
     flag = 3;
-    if(pageNo != null) paging.setPageNo(Integer.parseInt(pageNo));
+    if(pageNo != null) {
+      paging.setPageNo(Integer.parseInt(pageNo));
+    }else if(pageNo == null) {
+      paging.setPageNo(0);
+    }
     paging.setPageSize(15);
     paging.setTotalCount(memberManagerService.totlistFlag(flag));
     
@@ -408,7 +422,11 @@ public class MemberManagerController {
   @RequestMapping(value="showStop")
   public Map<String,Object> showStop(int flag,String pageNo, Paging paging) throws ParseException {
     flag = 10;
-    if(pageNo != null) paging.setPageNo(Integer.parseInt(pageNo));
+    if(pageNo != null) {
+      paging.setPageNo(Integer.parseInt(pageNo));
+    }else if(pageNo == null) {
+      paging.setPageNo(0);
+    }
     paging.setPageSize(15);
 
     paging.setTotalCount(memberManagerService.totlistFlag(flag));

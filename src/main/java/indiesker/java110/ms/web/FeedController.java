@@ -248,11 +248,10 @@ public class FeedController {
   
   
   @RequestMapping("moreavi")
-  public void moreavi(int no,  Model model){
-    no = 5;
-    Paging paging = new Paging();
-    paging.setTotalCount(aviService.totList(no));
+  public void moreavi(int no,  Model model, @RequestParam(defaultValue="0")int pageNo, Paging paging){
+    paging.setPageNo(pageNo);
     paging.setPageSize(12);
+    paging.setTotalCount(aviService.totList(no));
     Busker busker = buskerService.get(no);
     List<Avi> alist = aviService.morelist(no, paging);
 
@@ -267,7 +266,6 @@ public class FeedController {
       }
     }
     
-    System.out.println(alist);
     model.addAttribute("busk",busker);
     model.addAttribute("recentlist",alist);
     model.addAttribute("paging",paging);
