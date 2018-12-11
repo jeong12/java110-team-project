@@ -20,7 +20,6 @@ margin-right: 0.5rem;
 #titl{
 margin-top: 5%;
 margin-bottom: 3%;
-/* margin-left: 11%; */
 }
 
 #titl h3{
@@ -33,15 +32,12 @@ body{
 background-color: snow;
 }
 
-.container {
-    background-color: white;
-}
-
 .join_form {
 	border: 1px solid silver;
 	border-radius: 10px;
 	margin: 0px auto;
 	margin-bottom: 10%;
+	background-color: #ebebeb;
 }
 
 label {
@@ -57,16 +53,18 @@ form {
 	padding: 5% 10%;
 }
 
-input {
+#joinform input {
 	font-family: "Open Sans", Helvetica, sans-serif;
-	font-size: 11px; border : none;
-	border-bottom: 2px solid #ebebeb;
+	font-size: 11px;
 	position: relative;
 	width: 80%;
-	border: none; 
-	border-bottom : 2px solid #ebebeb; 
 	position : relative;
 	width : 80%;
+	background-color: #ebebeb;
+	border-bottom: 1px solid black;
+	border-left: none;
+	border-right: none;
+	border-top: none;
 }
 
 span{
@@ -96,7 +94,7 @@ input[type=checkbox] {
 	width: 65px;
 	height: 20px;
 	text-align: center;
-	border: 1px solid silver;
+	/* border: 1px solid silver; */
 	border-radius: 25px;
 	background-color: #b1cdf3;
 	color: white;
@@ -165,9 +163,9 @@ text-align: center;}
 		<div class="row">
 		<div class='col-lg-12'>
 		  <div class="join_form col-lg-8">
-			<form action='add' method='post' enctype="multipart/form-data">
-			  <label for="checkid">아이디</label><br> 
-			  <input type='text' name='id' required class="id" oninput="checkId()" id="checkid" autocomplete="off"><br>
+			<form action='add' method='post' enctype="multipart/form-data" id='joinform'>
+			<label for="checkid">아이디</label><br>
+			<input type="text" name="id" oninput="checkId()" id="checkid" autocomplete="off" autofocus="autofocus" style="background-color: #ebebeb;"> <br>
 			  <span id="idMsg"></span><br>
 			  <label for="pwd">비밀번호</label><br> 
 			  <input type="password" placeholder="8자 이상 영어, 숫자, 특수문자 포함" name="password" 

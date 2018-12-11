@@ -286,7 +286,7 @@ text-align: center;
 
 <div class="row">
 	<div id="titl" class='col-lg-12'>
-		<img id="logo" src="../../img/playButton.png" alt="플레이로고">
+		<img id="logo" src="../../img/playButton.PNG" alt="플레이로고">
 		<h3>무대관리</h3>
 	</div>
 	</div>

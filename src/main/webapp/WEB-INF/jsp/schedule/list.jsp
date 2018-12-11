@@ -23,9 +23,8 @@
 .tablerigth{width: 18%; position: absolute; right: 10rem;}
 .fter{clear: both;}
 .thead-dark tr th{background-color: #212529; color: white;}
-img{width: 16rem; height: 10rem;}
 .serchin{height: 1.5rem;}
-.search{display: inline; text-align: center;}
+.search{display: inline; text-align: center; float: right;}
 #titl{margin-top: 2%; margin-bottom: 2%;}
 #logo{float: left;}
 #haha{margin-top: 0.7%; margin-left: 5%;}
@@ -38,40 +37,32 @@ nav.pages {text-align: center;}
 table.table.table-hover, tr th{ 
 text-align: center; 
 }
-div.tablerigth .rdetail ul{
-    text-align: center;
-}
-div.tablerigth .rdetail ul li{
-    font-size:20px;
-    font-weight: 600;
-    margin-top: 5px;
-}
-div.tablerigth .rdetail ul li:last-child{
-    text-align:left;
-}
-div.tablerigth .rdetail ul span{
-    margin-left:5px;
-    font-weight: 400;
-}
+.imgtable{}
+.rdetail img{margin-bottom: 1.5rem;}
+
+.tablerigth div{display: inline-block;}
+.rdetail{border: 1px solid black; border-radius: 8px 8px 0px 0px;}
+img{width: 100%;height: 100%; border-radius: 8px 8px 5px 5px;}
+.rimg{width: 17rem;
+    height: 15rem;}
+.imgtable{    padding: 1rem;
+    padding-top: 0;}
+.btn{background-color: #23272b;
+ color: white;
+  padding: .25rem .5rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    border-radius: .2rem;}
+
 @media (min-width:1280px) {
     .tablerigth{
     width: 18%;
     right: 1rem;
     }
-    img{
-    width:10rem;
-    }
-    div.tablerigth .rdetail ul li {
-    font-size: 16px;
-    }
 }
 
 @media (min-width:1650px){
 .tablerigth{width: 18%; right: 10%;}
-img{width: 14rem; }
-div.tablerigth .rdetail ul li{
-    font-size:16px;
-}
 }
 /* .thead-dark tr th{background-color:#212529; } */
 </style>
@@ -169,13 +160,15 @@ div.tablerigth .rdetail ul li{
 	            	$(".tablerigth").empty();
 	                $(".tablerigth").append(
 	                '<div class="rdetail">'
-	                +'<ul class="list-inline">'
-	                +'<li><img src="/upload/'+data.teamPhoto+'"></li>'
-	                +'<li>팀명<span>'+data.teamname+'</span></li>'
-	                +'<li>주요장르<span>'+data.teamgenre+'</span></li>'
-	                +'<li>소개말<span>'+data.teamInfo+'</span></li>'
-	                +'</ul>'
+	                +'<div class="rimg">'
+	                +'<img src="/upload/'+data.teamPhoto+'"><br>'
 	                +'</div>'
+	                +'<div class="imgtable">'
+	                +'<h3 class="titl">팀명'+data.teamname+'</h3><br>'
+	                +'<div class="titl">주요장르</div><div>'+data.teamgenre+'</div><br>'
+	                +'<div class="titl">소개말</div><div>'+data.teamInfo+'<div>'
+	                +'</div><br>'
+	                +'<br><button class="btn">피드가기</button>'
 	                );
 	            }, error : function(request, status, error) {
 	                alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
