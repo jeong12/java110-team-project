@@ -35,6 +35,10 @@ public class MapController {
       l.setNsdt(format.format(l.getSdt()));
       l.setNedt(hformat.format(l.getEdt()));
       l.setNcdt(dformat.format(l.getCdt()));
+      String naddr=l.getAddr().substring(l.getAddr().indexOf(" ")+1,l.getAddr().length());
+      int startindex=l.getAddr().indexOf(" ")+1;
+      int endindex=naddr.indexOf(" ")+startindex;
+      l.setSimpleaddr(l.getAddr().substring(0,endindex));
     }
     
     
@@ -45,7 +49,7 @@ public class MapController {
   
   @ResponseBody
   @RequestMapping(value="SearchByTag")
-  public List<Schedule> getDateSchedule(
+  public List<Schedule> getTodaySchedule(
       String sido,
       String sigungu) {
     
@@ -74,11 +78,36 @@ public class MapController {
       l.setNsdt(format.format(l.getSdt()));
       l.setNedt(hformat.format(l.getEdt()));
       l.setNcdt(dformat.format(l.getCdt()));
+      String naddr=l.getAddr().substring(l.getAddr().indexOf(" ")+1,l.getAddr().length());
+      int startindex=l.getAddr().indexOf(" ")+1;
+      int endindex=naddr.indexOf(" ")+startindex;
+      l.setSimpleaddr(l.getAddr().substring(0,endindex));
+    }
+    return list;
+
+  }
+  
+  
+  @ResponseBody
+  @RequestMapping(value="SearchByWord")
+  public List<Schedule> getDateSchedule(
+      String keyword) {
+    
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    SimpleDateFormat hformat = new SimpleDateFormat("HH:mm");
+    SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
+    
+
+    List<Schedule> list = scheduleService.findbywordSearchAllSchedule(keyword);
+    
+    for (Schedule l : list) {
+      l.setNsdt(format.format(l.getSdt()));
+      l.setNedt(hformat.format(l.getEdt()));
+      l.setNcdt(dformat.format(l.getCdt()));
     }
 
     return list;
 
   }
-  
 
 }

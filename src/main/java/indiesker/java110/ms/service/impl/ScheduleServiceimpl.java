@@ -397,7 +397,6 @@ public class ScheduleServiceimpl implements ScheduleService {
       return scheduleDao.findSearchAllSchedule(params);
     }
     
-    
     @Override
     public int totsearchScehdule(String type, String keyword, String date) {
       Map<String,Object> params = new HashMap<>();
@@ -407,4 +406,9 @@ public class ScheduleServiceimpl implements ScheduleService {
       return scheduleDao.totsearchSchedule(params);
     }
     
+    @Override
+    public List<Schedule> findbywordSearchAllSchedule(String keyword) {
+       
+      return scheduleDao.findbywordSearchAllSchedule(keyword);
+    }
 }
