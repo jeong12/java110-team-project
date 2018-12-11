@@ -34,8 +34,8 @@
     #textinputmember{width: 15%; margin-left: 20%;}
     .blabel{margin-left: 7%;}
     #textarea{width: 40%; margin-left:15%; height: 15rem;}
-    #upload1{width: 29rem; height: 21rem; border: 1px solid silver;}
-    .xybtn{width: 30%; margin: auto;}             
+    #upload1{width: 17rem; height: 15rem; border: 1px solid silver;}
+    .xybtn{width: 30%; margin: auto; display: flex;}
     .lbtn{float: left;}
     .rbtn{float: right;}
     #logo{width: 40px; height:40px; float: left; margin-top: -4px;}
@@ -76,9 +76,9 @@
 </div>
 <div class="form-group" id='datetimepicker1'>
   <label class="leftlabel" for="textinput">날짜</label>  
-  <input id="textinput2" name="sdt" type="text" placeholder="시작일을 입력하시오" class="form-control input-md" autocomplete="off">
+  <input id="textinput2" name="nsdt" type="text" placeholder="시작일을 입력하시오" class="form-control input-md" autocomplete="off">
   <label id="labelb">~</label>
-  <input id="textinput3" name="edt" type="text" placeholder="종료일을 입력하시오" class="form-control input-md" autocomplete="off">
+  <input id="textinput3" name="nedt" type="text" placeholder="종료일을 입력하시오" class="form-control input-md" autocomplete="off">
 </div>
 <div class="form-group">
   <label class="leftlabel" for="textinput">연락처1</label>  
@@ -113,39 +113,6 @@
     <button type="button" class="btns btns-outline-dark">뒤로가기</button>
 </div> 
 </div>
-
-<!--  -->
-</form>
-</div>
-<button type="button" class="btns btns-outline-primary">Primary</button>
-<button type="button" class="btns btns-outline-secondary">Secondary</button>
-<button type="button" class="btns btns-outline-success">Success</button>
-<button type="button" class="btns btns-outline-danger">Danger</button>
-<button type="button" class="btns btns-outline-warning">Warning</button>
-<button type="button" class="btns btns-outline-info">Info</button>
-<button type="button" class="btns btns-outline-light">Light</button>
-<button type="button" class="btn btns-outline-dark">Dark</button>
-
-<!--Dark-green-->
-<button type="button" class="btn">Dark-green</button>
-
-<!--Light-green-->
-<button type="button" class="btn btn-light-green">Light-green</button>
-
-<!--Yellow-->
-<button type="button" class="btn btn-yellow">Yellow</button>
-
-<!--Amber-->
-<button type="button" class="btn btn-amber">Amber</button>
-
-<!--Deep-orange-->
-<button type="button" class="btn btn-deep-orange">Deep-orange</button>
-
-<!--Brown-->
-<button type="button" class="btn btn-brown">Brown</button>
-
-<!--Blue-grey-->
-<button type="button" class="btn btn-blue-grey">Blue-grey</button>
 
 </body>
 
