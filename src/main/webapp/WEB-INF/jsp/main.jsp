@@ -155,7 +155,12 @@ table {
     } 
     .title, .like{ 
     padding-left: .2rem; 
-    width: 97%;
+    width: 240px;
+    }
+    .title {
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
     }
     .teamname{
     font-size: 100%;
@@ -343,7 +348,7 @@ table {
         <div class="col-md-2 col-xs-1"></div>
         <div class="col-md-5 col-xs-5">
           <!-- 스트리밍 -->
-          <div class="streaming mb-3"> 
+          <div class="streaming my-3"> 
             <h1 class="text-center">현재 공연중</h1>
             <iframe width="400" height="300"
               src="https://www.youtube.com/embed/aR8Fe1lTKHo"
@@ -382,7 +387,7 @@ table {
             <table class="table table-striped custab"></table>
           </div>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12 my-3">
           <ul class="list-inline nav justify-content-center">
             <li class="list-inline-item mr-2"><a
               href="#" class="contents-a" 
@@ -432,12 +437,12 @@ table {
   </div>
 
   <div class="container">
-    <div class="row mt-md-3">
+    <div class="row my-md-2">
       <h3>인기동영상</h3>
     </div>
     <p class="underline"></p>
 
-    <div id="carouselPop" class="row carousel slide"
+    <div id="carouselPop" class="row carousel slide mb-4"
       data-rade="carousel"
     >
       <div class="carousel-inner">
@@ -452,15 +457,7 @@ table {
                   style="width: 250px;"
                 >
                 </a>
-                <c:set var ="title" value = "${avi.title}"/>
-                <c:choose>
-                <c:when test="${fn:length(title) > 23}">
-                <div class="small title">${fn:substring(title,0,23)}...</div>
-                </c:when>
-                <c:otherwise>
                 <div class="small title">${avi.title}</div>
-                </c:otherwise>
-                </c:choose>
                 <div class="small like"><span class="small teamname">${avi.teamname} &nbsp &nbsp
                 </span>좋아요 수:${avi.likeAvi}</div>
               </div>
@@ -481,8 +478,8 @@ table {
                 </a>
                 <c:set var ="title" value = "${avi.title}"/>
                 <c:choose>
-                <c:when test="${fn:length(title) > 23}">
-                <div class="small title">${fn:substring(title,0,23)}...</div>
+                <c:when test="${fn:length(title) > 19}">
+                <div class="small title">${fn:substring(title,0,19)}...</div>
                 </c:when>
                 <c:otherwise>
                 <div class="small title">${avi.title}</div>
@@ -508,8 +505,8 @@ table {
                 </a>
                 <c:set var ="title" value = "${avi.title}"/>
                 <c:choose>
-                <c:when test="${fn:length(title) > 23}">
-                <div class="small title">${fn:substring(title,0,23)}...</div>
+                <c:when test="${fn:length(title) > 19}">
+                <div class="small title">${fn:substring(title,0,19)}...</div>
                 </c:when>
                 <c:otherwise>
                 <div class="small title">${avi.title}</div>
@@ -536,12 +533,12 @@ table {
     </div>
 
     <div class="rec_avi" style="display:none">
-      <div class="row mt-md-3">
+      <div class="row my-md-2">
         <h3>최신 동영상</h3>
       </div>
       <p class="underline"></p>
 
-      <div id="carouselRec" class="row carousel slide"
+      <div id="carouselRec" class="row carousel slide mb-4"
         data-rade="carousel"
       >
         <div class="carousel-inner">
@@ -557,14 +554,7 @@ table {
                   >
                   </a>
                   <c:set var ="title" value = "${avi.title}"/>
-                <c:choose>
-                <c:when test="${fn:length(title) > 23}">
-                <div class="small title">${fn:substring(title,0,23)}...</div>
-                </c:when>
-                <c:otherwise>
                 <div class="small title">${avi.title}</div>
-                </c:otherwise>
-                </c:choose>
                 <div class="small like"><span class="small teamname">${avi.teamname} &nbsp &nbsp
                 </span>좋아요 수:${avi.likeAvi}</div>
                 </div>
@@ -584,8 +574,8 @@ table {
                   </a>
              <c:set var ="title" value = "${avi.title}"/>
                 <c:choose>
-                <c:when test="${fn:length(title) > 23}">
-                <div class="small title">${fn:substring(title,0,23)}...</div>
+                <c:when test="${fn:length(title) > 19}">
+                <div class="small title">${fn:substring(title,0,19)}...</div>
                 </c:when>
                 <c:otherwise>
                 <div class="small title">${avi.title}</div>
@@ -610,8 +600,8 @@ table {
                   </a>
                <c:set var ="title" value = "${avi.title}"/>
                 <c:choose>
-                <c:when test="${fn:length(title) > 23}">
-                <div class="small title">${fn:substring(title,0,23)}...</div>
+                <c:when test="${fn:length(title) > 17}">
+                <div class="small title">${fn:substring(title,0,17)}...</div>
                 </c:when>
                 <c:otherwise>
                 <div class="small title">${avi.title}</div>
@@ -639,12 +629,12 @@ table {
     </div>
 
     <div class="fol_avi" style="display:none">
-      <div class="row mt-md-3">
+      <div class="row my-md-2">
         <h3>팔로우 동영상</h3>
       </div>
       <p class="underline"></p>
 
-      <div id="carouselFol" class="row carousel slide"
+      <div id="carouselFol" class="row carousel slide mb-4"
         data-rade="carousel"
       >
         <div class="carousel-inner">
@@ -661,8 +651,8 @@ table {
                   </a>
                 <c:set var ="title" value = "${avi.title}"/>
                 <c:choose>
-                <c:when test="${fn:length(title) > 23}">
-                <div class="small title">${fn:substring(title,0,23)}...</div>
+                <c:when test="${fn:length(title) > 19}">
+                <div class="small title">${fn:substring(title,0,19)}...</div>
                 </c:when>
                 <c:otherwise>
                 <div class="small title">${avi.title}</div>
@@ -688,8 +678,8 @@ table {
                   </a>
                 <c:set var ="title" value = "${avi.title}"/>
                 <c:choose>
-                <c:when test="${fn:length(title) > 23}">
-                <div class="small title">${fn:substring(title,0,23)}...</div>
+                <c:when test="${fn:length(title) > 19}">
+                <div class="small title">${fn:substring(title,0,19)}...</div>
                 </c:when>
                 <c:otherwise>
                 <div class="small title">${avi.title}</div>
@@ -716,8 +706,8 @@ table {
                   </a>
                   <c:set var ="title" value = "${avi.title}"/>
                 <c:choose>
-                <c:when test="${fn:length(title) > 23}">
-                <div class="small title">${fn:substring(title,0,23)}...</div>
+                <c:when test="${fn:length(title) > 19}">
+                <div class="small title">${fn:substring(title,0,19)}...</div>
                 </c:when>
                 <c:otherwise>
                 <div class="small title">${avi.title}</div>
@@ -725,6 +715,7 @@ table {
                 </c:choose>
                 <div class="small like"><span class="small teamname">${avi.teamname} &nbsp &nbsp
                 </span>좋아요 수:${avi.likeAvi}</div>
+                </div>
               </c:forEach>
             </div>
           </div>
@@ -746,8 +737,6 @@ table {
 
   </div>
   <!-- custom -->
-  <script src="../js/headerfixing.js"></script>
-  
   <script src="../js/todayTime.js"></script>
   <script>
   <!--동영상 첫 슬라이드 활성화-->

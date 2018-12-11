@@ -31,7 +31,8 @@ public class AuthInterceptor implements HandlerInterceptor{
     if(session.getAttribute("loginUser") == null) { // 로그인하지 않았으면
       if(session.getAttribute("from").equals("busk")) {
         return true;
-      }else if(session.getAttribute("from").equals("sup")) {
+      }
+      if(session.getAttribute("from").equals("sup")) {
         return true;
       }
       response.sendRedirect("/app/auth/form");

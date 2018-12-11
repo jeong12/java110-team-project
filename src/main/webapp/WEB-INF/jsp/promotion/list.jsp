@@ -149,13 +149,16 @@ a:visited {
 .promotion a:focus {
     color: white; text-decoration: none;
 }
+.listbtn a{
+    margin-right:.5rem; 
+}
 </style>
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
 <body>
   <div id="pos"></div>
   <div id="titl">
-    <img id="logo" src="../../img/playButton.png" alt="플레이로고">
+    <img id="logo" src="../../img/playButton.PNG" alt="플레이로고">
     <h3>버스킹 홍보</h3>
 
     <c:choose>
@@ -343,9 +346,9 @@ a:visited {
             }
             
             $(document).scroll(function(){
-               var pos = document.getElementById('pos'); 
+               var st = $(window).scrollTop();
                var movetop = document.getElementById('movetop');
-               if($(pos).attr('value') > 50){
+               if(st > 50){
                    movetop.style.display = 'block';
                } else{
                    movetop.style.display = 'none';

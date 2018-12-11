@@ -3,10 +3,9 @@ $(function(){
             win = window;
           $(win).on('scroll',
              function(){
-                 var pos = $(this).scrollTop();
-               $('#pos').attr('value', pos);
-//               console.log('body= '+ pos, ' #pos= '+top_bar);
-               if(pos > top_bar){
+                 var pos = $(window).scrollTop();
+                 
+               if(pos > 50){
                     $('#headerfix').addClass('fix');
                } 
                 else{

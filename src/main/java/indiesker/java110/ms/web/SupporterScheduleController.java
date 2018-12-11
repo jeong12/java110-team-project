@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import indiesker.java110.ms.domain.Member;
 import indiesker.java110.ms.domain.Paging;
 import indiesker.java110.ms.domain.Schedule;
 import indiesker.java110.ms.domain.ScheduleTime;
@@ -36,10 +37,9 @@ public class SupporterScheduleController {
   @GetMapping("main")
   public void main (Model model,HttpSession session) throws ParseException {
     
-/*    Member member = (Member)session.getAttribute("loginUser");
-    int sno = member.getNo();*/
+    Member member = (Member)session.getAttribute("loginUser");
+    int sno = member.getNo();
     
-    int sno = 2;
     int flag=1;
     Paging paging1 = new Paging();
     Paging paging2 = new Paging();
@@ -117,10 +117,9 @@ public class SupporterScheduleController {
   @RequestMapping("showDate")
   public List<Schedule> findunableSchedule(String date,Model model, HttpSession session){
 
-    /*    Member member = (Member)session.getAttribute("loginUser");
-    int no = member.getNo();*/
+    Member member = (Member)session.getAttribute("loginUser");
+    int no = member.getNo();
     
-    int no = 2;
     List<Schedule> slist = scheduleService.findunableSchedule(date, no);
     SimpleDateFormat format = new SimpleDateFormat("HH:mm");
     for (Schedule ps : slist) {
@@ -196,17 +195,15 @@ public class SupporterScheduleController {
     int size = insertDate.length;
     List<Schedule> rlist = new ArrayList<>();
     
-    /*    Member member = (Member)session.getAttribute("loginUser");
-    int sno = member.getNo();*/
+    Member member = (Member)session.getAttribute("loginUser");
+    int sno = member.getNo();
     
-    int no=2;
-
     for(int i=0;i<size;i++) {
       Schedule sche = new Schedule();
       Supporter sup = new Supporter();
       sche.setNsdt(day+" "+insertDate[i].substring(0,5));
       sche.setNedt(day+" "+insertDate[i].substring(8));
-      sup.setNo(no);
+      sup.setNo(sno);
       sche.setSupporter(sup);
       rlist.add(sche);
     }    
@@ -290,9 +287,8 @@ public class SupporterScheduleController {
   @RequestMapping("page")
   public List<Schedule> paging(String type,String pageNo, Paging paging, HttpSession session){
     
-    /*    Member member = (Member)session.getAttribute("loginUser");
-    int sno = member.getNo();*/
-    int sno = 2;
+    Member member = (Member)session.getAttribute("loginUser");
+    int sno = member.getNo();
     paging.setPageNo(Integer.parseInt(pageNo));
     paging.setPageSize(10);
     
