@@ -57,4 +57,5 @@ public interface ScheduleService {
     List<Schedule> findSearchAllSchedule(String keyword1, String keyword2);//test용
     List<Schedule> findTodayAllSchedule();
     List<Schedule> findTodaySearchAllSchedule(String keyword, String keyword2);
+    List<Schedule> findbywordSearchAllSchedule(String keyword);
 }

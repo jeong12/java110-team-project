@@ -395,4 +395,10 @@ public class ScheduleServiceimpl implements ScheduleService {
       params.put("keyword2", keyword2);
       return scheduleDao.findSearchAllSchedule(params);
     }
+
+    @Override
+    public List<Schedule> findbywordSearchAllSchedule(String keyword) {
+       
+      return scheduleDao.findbywordSearchAllSchedule(keyword);
+    }
 }
