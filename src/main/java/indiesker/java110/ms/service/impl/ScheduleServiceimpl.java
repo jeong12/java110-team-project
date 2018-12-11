@@ -51,9 +51,9 @@ public class ScheduleServiceimpl implements ScheduleService {
     
 
     @Override
-    public List<Schedule> findbydate(String no, String date) {
+    public List<Schedule> findbydate(int bno, String date) {
       HashMap<String,Object> params = new HashMap<>();
-      params.put("bno", no);
+      params.put("bno", bno);
       params.put("date", date);
       return scheduleDao.findbydate(params);
     }
@@ -210,7 +210,7 @@ public class ScheduleServiceimpl implements ScheduleService {
       Map<String, Object> params=new HashMap<>();
       params.put("sdt", sdt);
       params.put("edt", edt);
-      params.put("no", 5);
+      params.put("no", no);
       
       return scheduleDao.checkperschedule(params);
     }
@@ -220,7 +220,7 @@ public class ScheduleServiceimpl implements ScheduleService {
       Map<String, Object> params=new HashMap<>();
       params.put("sdt", sdt);
       params.put("edt", edt);
-      params.put("no", 5);
+      params.put("no", no);
       
       return scheduleDao.checkreqschedule(params);
     }

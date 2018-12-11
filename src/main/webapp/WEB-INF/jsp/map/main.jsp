@@ -489,6 +489,9 @@ $(function(){
         '    </div>' +    
         '</div>';
         
+       
+        
+        
         
         /* 
         carouselcontent= '<div class="carousel-cell">'+ 
@@ -582,10 +585,39 @@ $(".All2 li").click(function(){
         }, //파라미터 넘겨줄 부분? : 이게 할말이 많은데 원래 GET방식으로 하라했다가 
         success : function(data) { 
             if(data.length!='0'){
-                //removeMarker();
-                console.log(data);
-                var i = 0;
+            	if(data.length=='0'){
+                    swal("에러","갬색 지역의 버스커 공연이 없습니다.","error");
+                }else{
+                       $('.carousel-wrapper').empty();
+                       $('.carousel-wrapper').append('<div class="carousel"></div>'); 
+                       
+    
+                    var bounds = new daum.maps.LatLngBounds() ;
+                    $.each(data,function(index,item){
+                       bounds.extend(new daum.maps.LatLng(item.x, item.y));
+                       
+                       carouselcontent= 
+                           '<div class="carousel-cell" value="'+item.x+','+item.y+'" >'+
+                                 '<h3>'+item.bname+'</h3>'+
+                                 '<label>'+item.nsdt+'~'+item.nedt+'</label>'+
+                                 '<label class="a">'+item.simpleaddr+'</label>'+
+                                 '<img style="height: 8rem;" src="/upload/'+item.phot+'" />'+
+                           '</div>'
+                           
+                                        
+                       $('.carousel').append(carouselcontent); 
+                       
+                    }); 
+                   map.setBounds(bounds);
+                   $('.carousel').flickity();
+                }
+            	
+            	
+                /* var i = 0;
                 var bounds = new daum.maps.LatLngBounds() ;
+                $('.carousel-wrapper').empty();
+                $('.carousel-wrapper').append('<div class="carousel"></div>'); 
+                
                 $.each(data,function(index,item){
                     var content = '<div class="wrap">' + 
                     '    <div class="info">' + 
@@ -606,10 +638,12 @@ $(".All2 li").click(function(){
                     '        </div>' + 
                     '    </div>' +    
                     '</div>';
+                    
+                    
                    bounds.extend(new daum.maps.LatLng(item.x, item.y)); 
                    //addMarker(new daum.maps.LatLng(item.x, item.y),content);
                 });
-                   map.setBounds(bounds);
+                   map.setBounds(bounds); */
             }else{
                 swal("에러","갬색 지역의 버스커 공연이 없습니다.","error");
             }
@@ -667,12 +701,14 @@ $('#sbutton').click(function(){
 		        	$.each(data,function(index,item){
 		               bounds.extend(new daum.maps.LatLng(item.x, item.y));
 		               
-		               carouselcontent= '<div class="carousel-cell">'+ 
-		                                '<h3>'+item.bname+'</h3>'+
-		                                '<a class="more" href="">Explore more</a>'+
-		                                '<img src="/upload/'+item.phot+'"/>'+  
-		                                '</div>';  
-		                                
+		               carouselcontent= 
+		            	   '<div class="carousel-cell" value="'+item.x+','+item.y+'" >'+
+		            	         '<h3>'+item.bname+'</h3>'+
+		            	         '<label>'+item.nsdt+'~'+item.nedt+'</label>'+
+		            	         '<label class="a">'+item.simpleaddr+'</label>'+
+		            	         '<img style="height: 8rem;" src="/upload/'+item.phot+'}" />'+
+		            	   '</div>'
+		            	   
 		                                
 		               $('.carousel').append(carouselcontent); 
 		               
