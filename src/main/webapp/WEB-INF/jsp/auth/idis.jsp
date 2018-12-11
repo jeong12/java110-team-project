@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="top">
 <head>
 <meta charset="UTF-8">
 <title>아이디찾기</title>
@@ -14,7 +14,7 @@ padding: 0;
 }
 
 #bodybody{
-min-height: 800px;
+min-height: 850px;
 margin: 0;
 }
 
@@ -57,11 +57,16 @@ margin: 0;
 .send {
     margin-bottom: 250px;
 }
+
+a#movetop {
+    position: fixed; right: 2%; bottom: 82px; display: none; z-index: 999;
+}
     </style>
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
 <body>
 <div id=bodybody>
+    <div id="pos"></div>
     <div id="titl">
         <img id="logo" src="../../img/playButton.PNG" alt="플레이로고" id="titlimg">
         <h2 id="titl2">아이디 찾기</h2>
@@ -74,8 +79,30 @@ margin: 0;
                <a href="/app/auth/form" style="text-decoration: none;" class="more-button">
                                           로그인화면으로 돌아가기</a>
            </div>
+<a href="#" id="movetop"><img src="../../img/topbtn.png"></a>
 </div>
-</script> 
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="/js/headerfixing.js"></script>
+  <script src="/js/promotion/promofilter.js"></script>
+  <script src='../../js/jquery.easing.1.3.js'></script>
+<script>
+$(document).scroll(function(){
+    var pos = document.getElementById('pos'); 
+    var movetop = document.getElementById('movetop');
+    if($(pos).attr('value') > 50){
+        movetop.style.display = 'block';
+    } else{
+        movetop.style.display = 'none';
+    }
+ });
+ 
+ $('#movetop').click(function(){
+     $('#top').animate({
+          scrollTop:0
+     }, 800, 'easeInQuart');
+     return false;
+ });
+</script>
 </body>
 <jsp:include page="../footer.jsp"></jsp:include>
 </html>

@@ -27,9 +27,16 @@ public class Schedule {
   protected String phot;
   protected String bno;
   protected String bname;
+  protected String simpleaddr;
   
   
 
+  public String getSimpleaddr() {
+    return simpleaddr;
+  }
+  public void setSimpleaddr(String simpleaddr) {
+    this.simpleaddr = simpleaddr;
+  }
   public String getBname() {
     return bname;
   }
