@@ -13,29 +13,31 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
  <link rel="stylesheet" href="../../css/common.css">
    
    <!--  -->
     <link rel="stylesheet" href="https://unpkg.com/flickity@2.0/dist/flickity.min.css">
     
     
-   <!--  -->
-   
+   <!-- 폰트 -->
+<link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
     
     <style>
     
-    
-    
+    h3{font-family: "Do Hyeon"}
     
     /* 박스 */
-        .All{    width: 19rem;
+        .All{   
+        width: 19rem;
     height: 25.89rem;
     border: 1px solid black;
     position: relative;
-    top: -43.6rem;
+    top: -54rem;
+    left: 19.1rem;
     z-index: 1;
     background-color: white;
-    display:none;
+    display: none;
     }
     .toptable{
         border-bottom-color: #c6cbce;
@@ -50,7 +52,8 @@
         width: 33.3333%;
         border: 1px solid #d8dde0;
         padding: 5% 0% 4% 0%;
-        text-align: center
+        text-align: center;
+        cursor: pointer;
  
     }
     .listbox ul{
@@ -84,11 +87,11 @@ html, body {
 }
 
 img {
-  max-width: 100%;
-  height: auto;
-  display: block;
+     max-width: 100%;
+    height: 100%;
+    width: 100%;
+    margin: auto;
 }
-
 h3 {
   text-align: center;
   font-weight: 400;
@@ -133,6 +136,7 @@ h3 {
   text-decoration: none;
   transition: opacity 300ms ease;
 }
+
 .carousel-wrapper .carousel .carousel-cell .more:hover, .carousel-wrapper .carousel .carousel-cell .more:active, .carousel-wrapper .carousel .carousel-cell .more:visited, .carousel-wrapper .carousel .carousel-cell .more:focus {
   color: #CFCFCF;
   text-decoration: none;
@@ -176,35 +180,41 @@ h3 {
   overflow: visible;
 }
     /*  */
-    
+.ellipsis{word-break: break-all;}  
 body {
     background-color: snow;
 }
-#ALLdiv{background-color: white;margin-top: 2.3rem;}
+#ALLdiv{margin-top: 2.3rem;}
 #titl{margin-top: 2%; margin-bottom: 2%;}
 #logo{float: left; width: 30px; height: 30px;}
 #haha{margin-top: 0.8%; margin-left: 5.5%;}
 footer{clear: both;}
-#map{height: 20rem; clear: both;}
-#caseldiv{border:1px solid red; height: 20rem;}
+#map{height: 30rem; clear: both;}
+#caseldiv{height: 20rem;}
 #maptitle{height: 3rem;
     text-align: -webkit-auto;
 }
+footer{margin-top: 3rem;}
+.flickity-viewport{margin-bottom: 7rem;}
+.carousel-cell{text-align: center;}
 
 .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
 .wrap * {padding: 0;margin: 0;}
-.wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+.wrap .info {width: 286px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
 .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
 .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
 .info .closeOverlay {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
-.info .closeOverlay:hover {cursor: pointer;}
+.info .closeOverlay:hover {cursor: pointer;} 
 .info .body {position: relative;overflow: hidden;}
-.info .desc {position: relative;margin: 13px 0 0 90px;height: 75px;}
-.desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+.info .desc {    position: relative;
+    margin: 13px 0 0 90px;
+    height: 75px;
+    padding-right: 2%;}
+.desc .ellipsis {overflow: hidden;     white-space: normal;}
 .desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
-.info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
+.info .img {position: absolute;top: 10px;left: 5px;width: 4rem;height: 3.5rem;border: 1px solid #ddd;color: #888;overflow: hidden;}
 .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
-.info .link {color: #5085BB;}
+.info .link {color: #5085BB; float: right;}
 #inputbox{float: right; display: flex; width: 17rem;}
 .topdiv{display: inline-flex; width: 100%; display: unset;}
 #boxleft{float: left; display: -webkit-inline-box;}
@@ -226,17 +236,18 @@ footer{clear: both;}
         margin: auto;
 
 }  
+.info{width: 7rem;}
 .All2{
 
-          width: 19rem;
+              width: 19rem;
     height: 31.6rem;
     border: 1px solid black;
     position: relative;
-    top: -43.5rem;
+    top: -54rem;
     z-index: 2;
     background-color: white;
-    left: 13rem;
-    display:none;
+    left: 32.1rem;
+    display: none;
     }    
     
 .choicearea.active{
@@ -248,7 +259,10 @@ footer{clear: both;}
 
 }
 #maptitle{padding-top: 0.8%;margin-left: 7%;}
+.carousel-cell{top: 3rem;}
+.flickity-viewport{background-color: rgba(93, 91, 213, 0.07);}
 
+.flickity-enabled.is-draggable .flickity-viewport{cursor: default;}
     </style>
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
@@ -268,7 +282,7 @@ footer{clear: both;}
 </div>
     
     <div id="inputbox">
-    <input class="form-control" type="text">
+    <input class="form-control" type="text" id="searchinput">
     <button id="sbutton" class="btns btns-outline-m">검색</button>
     </div>
 </div>
@@ -288,44 +302,19 @@ footer{clear: both;}
 
 <!--  -->
 <div class="carousel-wrapper">
-  <div class="carousel">
+  <div class="carousel" data-flickity>
   
   <!-- 카르셀 시작 -->
-   <div class="carousel-cell">
-      <h3>Product 1</h3>
-      <a class="more" href="">Explore more</a>
-      <img src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=" />
+  <c:forEach items="${list}" var="cl">
+      <div class="carousel-cell" value="${cl.x},${cl.y}" >
+        <h3>${cl.bname}</h3>
+        <label>${cl.nsdt}~${cl.nedt}</label>
+        <label class='a'>${cl.simpleaddr}</label>
+        <img style="height: 8rem;" src="/upload/${cl.phot}" />
     </div>
-    
-    <div class="carousel-cell">
-      <h3>Product 1</h3>
-      <a class="more" href="">Explore more</a>
-      <img src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=" />
-    </div>
-    
-    <div class="carousel-cell">
-      <h3>Product 1</h3>
-      <a class="more" href="">Explore more</a>
-      <img src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=" />
-    </div>
-    
-    <div class="carousel-cell">
-      <h3>Product 1</h3>
-      <a class="more" href="">Explore more</a>
-      <img src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=" />
-    </div>
-    <div class="carousel-cell">
-      <h3>Product 1</h3>
-      <a class="more" href="">Explore more</a>
-      <img src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=" />
-    </div>
-    <div class="carousel-cell">
-      <h3>Product 1</h3>
-      <a class="more" href="">Explore more</a>
-      <img src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=" />
-    </div>
-    <!-- 카르셀 끝 -->
-     
+  </c:forEach>
+  <!-- 카르셀 끝 -->
+  
     </div>
   </div>
 </div>
@@ -415,7 +404,12 @@ footer{clear: both;}
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=15e2302756c9e7098ec0d79f7b4d53f4"></script>
 
 <script>
-
+ $(".listbox ul li").mouseover(function(){
+	$(this).css("background-color","#d1e1fc");
+}) 
+$(".listbox ul li").mouseleave(function(){
+    $(this).css("background-color","white");
+})
 
 $(document).ready(function(){
     
@@ -484,30 +478,31 @@ $(function(){
         '        </div>' + 
         '        <div class="body">' + 
         '            <div class="img">' +
-        '                <img src="../../img/${data.phot}" width="73" height="70">' +
+        '                <img src="/upload/${data.phot}" width="73" height="70">' +
         '           </div>' + 
         '            <div class="desc">' + 
         '                <div class="ellipsis">${data.addr}</div>' +
-        '                <div class="ellipsis">${data.shopname}</div>' + 
-        '                <div class="jibun ellipsis">${data.nsdt}~${data.nedt}</div>' + 
-        '                <div><a href="/../buskerfeed/enter?no=${data.bno}" target="_blank" class="link">피드로 이동</a></div>' + 
+        '                <div class="ellipsis">${data.bname}</div>' + 
+        '                <div class="wow"><div class="jibun ellipsis">${data.nsdt}~${data.nedt}</div><a href="/app/buskerfeed/enter?no=${data.bno}" target="_blank" class="link">피드로 이동</a></div>' + 
         '            </div>' + 
         '        </div>' + 
         '    </div>' +    
         '</div>';
         
+       
         
         
+        
+        /* 
         carouselcontent= '<div class="carousel-cell">'+ 
 					         '<h3>${data.bname}</h3>'+
 					         '<a class="more" href="">Explore more</a>'+
 					         //'<span class="more">${data.nsdt}~${data.nedt}</span>'+
 					         '<img src="../../img/${data.phot}" />'+
-					         '</div>';
+					         '</div>'; */
 					         
 					        
        addMarker(new daum.maps.LatLng(${data.x}, ${data.y}),content);
-       $(carouselcontent).appendTo('.flickity-slider'); 
        
     </c:forEach>
     
@@ -589,11 +584,40 @@ $(".All2 li").click(function(){
             "sigungu":sigungu
         }, //파라미터 넘겨줄 부분? : 이게 할말이 많은데 원래 GET방식으로 하라했다가 
         success : function(data) { 
-            if(data!=null){
-                //removeMarker();
-                console.log(data);
-                var i = 0;
+            if(data.length!='0'){
+            	if(data.length=='0'){
+                    swal("에러","갬색 지역의 버스커 공연이 없습니다.","error");
+                }else{
+                       $('.carousel-wrapper').empty();
+                       $('.carousel-wrapper').append('<div class="carousel"></div>'); 
+                       
+    
+                    var bounds = new daum.maps.LatLngBounds() ;
+                    $.each(data,function(index,item){
+                       bounds.extend(new daum.maps.LatLng(item.x, item.y));
+                       
+                       carouselcontent= 
+                           '<div class="carousel-cell" value="'+item.x+','+item.y+'" >'+
+                                 '<h3>'+item.bname+'</h3>'+
+                                 '<label>'+item.nsdt+'~'+item.nedt+'</label>'+
+                                 '<label class="a">'+item.simpleaddr+'</label>'+
+                                 '<img style="height: 8rem;" src="/upload/'+item.phot+'" />'+
+                           '</div>'
+                           
+                                        
+                       $('.carousel').append(carouselcontent); 
+                       
+                    }); 
+                   map.setBounds(bounds);
+                   $('.carousel').flickity();
+                }
+            	
+            	
+                /* var i = 0;
                 var bounds = new daum.maps.LatLngBounds() ;
+                $('.carousel-wrapper').empty();
+                $('.carousel-wrapper').append('<div class="carousel"></div>'); 
+                
                 $.each(data,function(index,item){
                     var content = '<div class="wrap">' + 
                     '    <div class="info">' + 
@@ -614,10 +638,12 @@ $(".All2 li").click(function(){
                     '        </div>' + 
                     '    </div>' +    
                     '</div>';
+                    
+                    
                    bounds.extend(new daum.maps.LatLng(item.x, item.y)); 
                    //addMarker(new daum.maps.LatLng(item.x, item.y),content);
-                   map.setBounds(bounds);
                 });
+                   map.setBounds(bounds); */
             }else{
                 swal("에러","갬색 지역의 버스커 공연이 없습니다.","error");
             }
@@ -637,11 +663,66 @@ $(".boxbt").click(function(){
     $("#All2").css('background-color','#f2f3f5');
 })
 
-$('.carousel').flickity({  
-    cellAlign: 'left',
-    contain: true 
+
+$('.carousel-cell').click(function(){
+	console.log('선택이미지');
+	var test = $(this).attr('value').split(',');
+	var x=test[0];
+	var y=test[1];
+	
+	var gocenter = new daum.maps.LatLng(x, y);
+	
+	map.setCenter(gocenter);
+	
+	
 });
 
+$('#sbutton').click(function(){
+	var keyword=$('#searchinput').val();
+	if(keyword.length==0){
+		swal("오류","검색어를 다시 설정해주세요.","warning");
+	}else{
+		$.ajax({ 
+	        type : "POST", 
+	        url : "SearchByWord",
+	        dataType: 'json',
+	        data: {
+	            'keyword':keyword        	
+	        }, 
+	        success : function(data) {
+	        	if(data.length=='0'){
+	        		swal("에러","갬색 지역의 버스커 공연이 없습니다.","error");
+	        	}else{
+		               $('.carousel-wrapper').empty();
+		               $('.carousel-wrapper').append('<div class="carousel"></div>'); 
+		               
+	
+		        	var bounds = new daum.maps.LatLngBounds() ;
+		        	$.each(data,function(index,item){
+		               bounds.extend(new daum.maps.LatLng(item.x, item.y));
+		               
+		               carouselcontent= 
+		            	   '<div class="carousel-cell" value="'+item.x+','+item.y+'" >'+
+		            	         '<h3>'+item.bname+'</h3>'+
+		            	         '<label>'+item.nsdt+'~'+item.nedt+'</label>'+
+		            	         '<label class="a">'+item.simpleaddr+'</label>'+
+		            	         '<img style="height: 8rem;" src="/upload/'+item.phot+'}" />'+
+		            	   '</div>'
+		            	   
+		                                
+		               $('.carousel').append(carouselcontent); 
+		               
+		            }); 
+	               map.setBounds(bounds);
+	               $('.carousel').flickity();
+	        	}
+	        },
+	        error : function(request, status, error) {
+	            swal("오류","데이터전송 오류","error");
+	        }
+	    });
+	}
+})
 
 
 })

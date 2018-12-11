@@ -418,7 +418,7 @@ GROUP BY BS.brno
 	<insert id="insertperschedule" parameterType="Schedule"
 		useGeneratedKeys="true" keyColumn="psno" keyProperty="psno">
 		insert into per_sche(sdt,edt,addr,x,y,shopname,cdt,cnt,bno)
-		values(#{nsdt},#{nedt},#{addr},#{x},#{y},#{shopname},now(),#{cnt},5)
+		values(#{nsdt},#{nedt},#{addr},#{x},#{y},#{shopname},now(),#{cnt},#{bno})
 	</insert>
 
 	<!-- 스케줄조회 : 확정 버스커 스케줄 출력하는 쿼리 -->
@@ -1110,6 +1110,39 @@ SELECT
         </choose>
     </select>
     
+    
+<select id="findbywordSearchAllSchedule" resultMap="MapscheduleMap"
+        parameterType="String">
+SELECT 
+        brno, shopname, addr, sdt, edt, cnt, flag, cdt, x, y, phot, bno, name
+  FROM(
+          (SELECT 
+                PS.psno as brno, PS.shopname, PS.addr, PS.sdt, PS.edt, PS.cnt, 3 as flag, 
+                PS.cdt,
+                PS.x,
+                PS.y,
+                B.phot,
+                B.bno,
+                B.name
+           FROM per_sche PS, busk B
+          WHERE PS.bno = B.bno
+            and SUBSTR(PS.sdt,1,10) >= SUBSTR(NOW(),1,10)
+           UNION
+          SELECT
+                BR.brno, S.name as shopname, S.bas_addr as addr, MIN(SC.sdt) as sdt, MAX(SC.edt) as edt,
+                BR.cnt, BS.flag, BR.cdt, S.x, S.y, B.phot, B.bno, B.name
+            FROM busk B, busk_req BR, busk_stag BS,stag_sche SC, sup S
+           WHERE B.bno=BR.bno
+             AND BR.brno=BS.brno
+             AND BS.ssno=SC.ssno
+             AND SC.sno = S.sno
+        GROUP BY BS.brno
+          HAVING SUBSTR(sdt,1,10) >= SUBSTR(NOW(),1,10)) ASD
+        )
+ WHERE addr like CONCAT('%',#{keyword1},'%') 
+</select>
+
+
 </mapper>
 
 

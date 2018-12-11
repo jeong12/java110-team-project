@@ -61,4 +61,6 @@ public interface ScheduleDao {
   List<Schedule> findTodayAllSchedule();
   List<Schedule> findTodaySearchSchedule(Map<String,Object> params);
   int totsearchSchedule(Map<String,Object> params);
+  List<Schedule> findbywordSearchAllSchedule(String keyword);
+  
 }
