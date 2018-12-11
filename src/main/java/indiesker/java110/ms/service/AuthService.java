@@ -2,12 +2,10 @@ package indiesker.java110.ms.service;
 
 import java.util.Map;
 
-import indiesker.java110.ms.domain.Member;
-
 public interface AuthService {
 	
   //아이디 찾기
-  Member getId(String email);
+  String getId(String email);
   
   //비밀번호 찾기
   String checkEmail(String id);

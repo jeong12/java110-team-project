@@ -59,7 +59,19 @@ public class AuthController {
     
     @GetMapping("idis")
     public void idis(String email, Model model) {
-        Member m=authService.getId(email);
+        
+    	if(email.equals(null))
+            email = "";
+    		
+    	String m = authService.getId(email);
+        if (email.equals("")) {
+        	m = "입력된 정보가 없습니다.";
+        }else if (m == null) {
+        	m = "입력된 정보와 일치하는 정보가 없습니다";
+        }else {
+        	m = "입력하신 정보와 일치하는 아이디는 " + m + " 입니다";
+        }
+        
         model.addAttribute("member",m);
     }
     

@@ -6,7 +6,7 @@
 <mapper namespace="indiesker.java110.ms.dao.AuthDao">
 
 <!-- 아이디 찾기 -->
-    <select id="findByEamil" parameterType="string" resultType="Member">
+    <select id="findByEamil" parameterType="string" resultType="String">
     SELECT id 
     FROM memb 
     where email=#{email}

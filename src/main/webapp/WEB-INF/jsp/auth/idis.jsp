@@ -73,7 +73,7 @@ a#movetop {
     </div>
           
           <div class="findidcontent">
-               <h2 id="resultcoment">입력하신 이메일과 일치하는 아이디는 "${member.id}"입니다.</h2>
+               <h2 id="resultcoment">${member}</h2>
                <a href="/app/main" style="text-decoration: none;" class="more-button">
                                           메인화면으로 돌아가기</a>
                <a href="/app/auth/form" style="text-decoration: none;" class="more-button">
