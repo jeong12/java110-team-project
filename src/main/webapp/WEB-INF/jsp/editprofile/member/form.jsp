@@ -264,7 +264,7 @@ input[type=checkbox]:checked+label{
 <body>
 
     <div id="titl">
-        <img id="logo" src="/img/playButton.png" alt="플레이로고">
+        <img id="logo" src="/img/playButton.PNG" alt="플레이로고">
         <h3 class="h3">회원 정보 수정</h3>
     </div> 
     <div class="container">

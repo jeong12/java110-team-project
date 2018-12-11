@@ -120,7 +120,7 @@ input[type="text"]:focus, input[type="tel"]:focus, input[type="number"]:focus {
 <body>
 
     <div id="titl">
-        <img id="logo" src="/img/playButton.png" alt="플레이로고">
+        <img id="logo" src="/img/playButton.PNG" alt="플레이로고">
         <h3 class="h3">제공자 정보수정</h3>
     </div>
     <div class=container>
