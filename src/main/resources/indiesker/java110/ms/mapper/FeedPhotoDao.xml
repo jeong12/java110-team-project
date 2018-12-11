@@ -138,7 +138,7 @@
 	<!-- 피드사진모달 댓글 없을때 -->
 	<select id="findfeedphotobyPbnoNC" resultMap="feedphotomodal2"
 		parameterType="int">
-		select p.cont, p.lcnt, fp.phot,fp.fpno,b.phot as
+		select p.pbno,b.bno ,p.cont, p.lcnt, fp.phot,fp.fpno,b.phot as
 		teamphot,b.name,b.city,b.genre
 		from phot p, feed_phot fp,busk b
 		where
@@ -169,6 +169,13 @@
 			(#{item},#{pbno})
 		</foreach>
 	</insert>
+	
+	<!-- 한개만 insert -->
+	   <insert id="feedPhotoOneFileUpload" parameterType="map"
+        useGeneratedKeys="true" keyColumn="fpno" keyProperty="fpno">
+        INSERT INTO feed_phot (phot,pbno)
+        values(#{filename},#{pbno})
+    </insert>
 	<!-- 포토게시글삭제 -->
 	<update id="deletePhoto" parameterType="map">
 		UPDATE phot
@@ -178,16 +185,21 @@
 	</update>
 
 	<!-- 사진수정 -->
-	<update id="revisephotos" parameterType="FeedPhoto">
+	<update id="revisephoto" parameterType="map">
 		UPDATE feed_phot
-	    <foreach collection="feedphotoFiles" item="item" separator=";">
-    	SET phot=#{item.filename}
-		WHERE fpno=#{item.fpno};
-        </foreach>
+    	SET phot=#{filename}
+		WHERE fpno=#{fpno};
 	</update>
+	   <!-- <update id="revisephotos" parameterType="FeedPhoto">
+        UPDATE feed_phot
+        <foreach collection="feedphotoFiles" item="item" separator=";">
+        SET phot=#{item.filename}
+        WHERE fpno=#{item.fpno};
+        </foreach>
+    </update> -->
 	<!-- 사진게시글수정 -->
-	<update id="revisephotoboard" parameterType="map">
-		UPDATE pho
+	<update id="revisephotocont" parameterType="map">
+		UPDATE phot
 		SET cont=#{cont}
 		WHERE pbno=#{no}
 	</update>

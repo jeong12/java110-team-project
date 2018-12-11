@@ -74,6 +74,36 @@ public class FeedPhotoServiceImpl implements FeedPhotoService {
     
     feedphotoDao.deletePhoto(params);
   }
+
+  @Override
+  public void updateFeedPhoto(String filename, int fpno) {
+    Map<String,Object> params = new HashMap<>();
+    params.put("filename", filename);
+    params.put("fpno", fpno);
+    
+    feedphotoDao.revisephoto(params);
+  }
+
+  @Override
+  public void updateFeedContent(String content, int pbno) {
+    Map<String,Object> params = new HashMap<>();
+    params.put("cont", content);
+    params.put("no", pbno);
+    
+    feedphotoDao.revisephotocont(params);
+  }
+
+  @Override
+  public void insertOneFileUpload(String filename, int pbno) {
+    Map<String,Object> params = new HashMap<>();
+    params.put("filename", filename);
+    params.put("pbno", pbno);
+    
+    feedphotoDao.feedPhotoOneFileUpload(params);
+    
+    
+  }
+  
   
   
 }

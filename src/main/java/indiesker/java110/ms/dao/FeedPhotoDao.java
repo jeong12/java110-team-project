@@ -16,7 +16,8 @@ public interface FeedPhotoDao {
   FeedPhoto findfeedphotobyPbnoNC(int no);
   void deletePhoto(Map<String,Object> params);
   
-  void revisephotoboard(Map<String,Object> params);
-  void revisephotos(FeedPhoto feedphoto);
+  void revisephotocont(Map<String,Object> params);
+  void revisephoto(Map<String,Object> params);
+  void feedPhotoOneFileUpload(Map<String,Object> params);
   
 }
