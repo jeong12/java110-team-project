@@ -140,6 +140,9 @@ a#movetop {
 #startdateenddate{
     margin-left: 18%;
 }
+    #js-btn-wrap a.more-button:hover {
+    color: white; text-decoration: none;
+}
 </style>
 </head>
 <jsp:include page="../header.jsp"></jsp:include>

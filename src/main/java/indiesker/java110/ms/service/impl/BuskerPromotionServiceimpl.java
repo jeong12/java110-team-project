@@ -81,6 +81,14 @@ public class BuskerPromotionServiceimpl implements BuskerPromotionService {
 	  
 	  }
 
+    @Override
+    public int editbcomt(int bcno, String comment) {
+      HashMap<String,Object> params = new HashMap<>();
+      params.put("bcno", bcno);
+      params.put("comment", comment);
+      return buskerPromotionDao.bcContentEdit(params);
+    }
+
 }
 
 

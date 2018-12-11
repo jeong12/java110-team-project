@@ -476,15 +476,7 @@ table {
                   style="width: 250px;"
                 >
                 </a>
-                <c:set var ="title" value = "${avi.title}"/>
-                <c:choose>
-                <c:when test="${fn:length(title) > 19}">
-                <div class="small title">${fn:substring(title,0,19)}...</div>
-                </c:when>
-                <c:otherwise>
                 <div class="small title">${avi.title}</div>
-                </c:otherwise>
-                </c:choose>
                 <div class="small like"><span class="small teamname">${avi.teamname} &nbsp &nbsp
                 </span>좋아요 수:${avi.likeAvi}</div>
               </div>
@@ -503,15 +495,7 @@ table {
                   style="width: 250px;"
                 >
                 </a>
-                <c:set var ="title" value = "${avi.title}"/>
-                <c:choose>
-                <c:when test="${fn:length(title) > 19}">
-                <div class="small title">${fn:substring(title,0,19)}...</div>
-                </c:when>
-                <c:otherwise>
                 <div class="small title">${avi.title}</div>
-                </c:otherwise>
-                </c:choose>
                 <div class="small like"><span class="small teamname">${avi.teamname} &nbsp &nbsp
                 </span>좋아요 수:${avi.likeAvi}</div>
               </div>
@@ -553,7 +537,6 @@ table {
                     style="width: 250px;"
                   >
                   </a>
-                  <c:set var ="title" value = "${avi.title}"/>
                 <div class="small title">${avi.title}</div>
                 <div class="small like"><span class="small teamname">${avi.teamname} &nbsp &nbsp
                 </span>좋아요 수:${avi.likeAvi}</div>
@@ -572,15 +555,7 @@ table {
                     style="width: 250px;"
                   >
                   </a>
-             <c:set var ="title" value = "${avi.title}"/>
-                <c:choose>
-                <c:when test="${fn:length(title) > 19}">
-                <div class="small title">${fn:substring(title,0,19)}...</div>
-                </c:when>
-                <c:otherwise>
                 <div class="small title">${avi.title}</div>
-                </c:otherwise>
-                </c:choose>
                 <div class="small like"><span class="small teamname">${avi.teamname} &nbsp &nbsp
                 </span>좋아요 수:${avi.likeAvi}</div>
                 </div>
@@ -598,15 +573,7 @@ table {
                     style="width: 250px;"
                   >
                   </a>
-               <c:set var ="title" value = "${avi.title}"/>
-                <c:choose>
-                <c:when test="${fn:length(title) > 17}">
-                <div class="small title">${fn:substring(title,0,17)}...</div>
-                </c:when>
-                <c:otherwise>
                 <div class="small title">${avi.title}</div>
-                </c:otherwise>
-                </c:choose>
                 <div class="small like"><span class="small teamname">${avi.teamname} &nbsp &nbsp
                 </span>좋아요 수:${avi.likeAvi}</div>
                 </div>
@@ -649,15 +616,7 @@ table {
                     style="width: 250px;"
                   >
                   </a>
-                <c:set var ="title" value = "${avi.title}"/>
-                <c:choose>
-                <c:when test="${fn:length(title) > 19}">
-                <div class="small title">${fn:substring(title,0,19)}...</div>
-                </c:when>
-                <c:otherwise>
                 <div class="small title">${avi.title}</div>
-                </c:otherwise>
-                </c:choose>
                 <div class="small like"><span class="small teamname">${avi.teamname} &nbsp &nbsp
                 </span>좋아요 수:${avi.likeAvi}</div>
                 </div>
@@ -676,15 +635,7 @@ table {
                     style="width: 250px;"
                   >
                   </a>
-                <c:set var ="title" value = "${avi.title}"/>
-                <c:choose>
-                <c:when test="${fn:length(title) > 19}">
-                <div class="small title">${fn:substring(title,0,19)}...</div>
-                </c:when>
-                <c:otherwise>
                 <div class="small title">${avi.title}</div>
-                </c:otherwise>
-                </c:choose>
                 <div class="small like"><span class="small teamname">${avi.teamname} &nbsp &nbsp
                 </span>좋아요 수:${avi.likeAvi}</div>
                 </div>
@@ -704,15 +655,7 @@ table {
                     style="width: 250px;"
                   >
                   </a>
-                  <c:set var ="title" value = "${avi.title}"/>
-                <c:choose>
-                <c:when test="${fn:length(title) > 19}">
-                <div class="small title">${fn:substring(title,0,19)}...</div>
-                </c:when>
-                <c:otherwise>
                 <div class="small title">${avi.title}</div>
-                </c:otherwise>
-                </c:choose>
                 <div class="small like"><span class="small teamname">${avi.teamname} &nbsp &nbsp
                 </span>좋아요 수:${avi.likeAvi}</div>
                 </div>
