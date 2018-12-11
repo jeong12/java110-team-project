@@ -221,6 +221,9 @@ border: 1px solid #DDD;
     background-color: #DDD;
 }
 
+.pages{ text-align : center;
+}
+
 button{background-color:#DDD; border: 1px solid #DDD;}
 </style>
 <body>
@@ -231,9 +234,6 @@ button{background-color:#DDD; border: 1px solid #DDD;}
   <div class="container title">
     <div id="titl">
       <img id="logo" src="../img/playbutton.png" alt="플레이로고">
-      <h3>버스커피드: ${busk.bno}</h3>
-      <h1 id="sessionno"><c:out value="${sessionno}"/></h1>
-      <h1 id="buskno"><c:out value="${buskno}"/></h1>
     </div>
   </div>
   <div class="container feed" style="background-color: white;">
@@ -317,6 +317,10 @@ button{background-color:#DDD; border: 1px solid #DDD;}
                                     <a class="page-link" href="javascript:goPage(${paging.nextPageNo})">Next</a></li>
                             </ul>
                         </nav>
+                        <form action="moreavi" class="pageForm">
+                        <input type="hidden" class="pageNO" name="pageNo">
+                        <input type="hidden" class="no" name="no">
+                        </form>
   <!-- ====================================모달================================= -->
   <!-- 영상모달 -->
   <style>
@@ -761,59 +765,19 @@ margin-bottom:8px;
             
   function goPage(e){
 	  
-	    function getUrlParams() {
-	        var params = {};
-	        window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) { params[key] = value; });
-	        return params;
-	    } 
-	  
-	    var bno = getUrlParams().no;
-	    
-	    $.ajax({
-	    	   type : "POST",
-	           url : "pagination",
-	           dataType: 'json',
-	           data :{"pageNo":e, "no":bno},
-	           success : function(data){
-	        	   console.log(":::::::");
-	        	   console.log(data);
-	               $('.avi').empty();
-	               $('.pages').empty();
-	            	   $('.avi:first()').append(
-	            	    '<div class="posttitle"><i class="far fa-play-circle">동영상 더보기</i></div>');
-	               $.each(data.list,function(index,item){
-	            	   $('.avi:last()').append(
-	            	   '<div class="col-md-4 avi">'+
-	            	   '<button data-target="#avimodal" data-toggle="modal" value="'+item.aviboardno+
-	            	   '" <img src="'+item.thumbnail+'"  style="width: 100%; height: auto;">'+
-	            	   '<span class="glyphicon glyphicon-play-circle"></span></button>'+
-	            	   '<div class="small title">'+item.title+'</div></div>');
-	                 
-	               });
-	               $('.pages').append(' <ul class="pagination justify-content-center">'+
-	                        '<li class="page-item prev">'+
-	                        '<a class="page-link" href="javascript:goPage('+data.paging.prevPageNo+
-	                                ')">Previous</a></li>');
-	                   for(var i = data.paging.startPageNo;i<=data.paging.endPageNo;i++){
-	                       if(i == data.paging.pageNo){
-	                           $('.pagination.justify-content-center').append('<li class="page-item active">'+
-	                           '<a href="javascript:goPage('+i+')" class="choice">'+i+'</a></li>');
-	                       }else{
-	                           $('.pagination.justify-content-center').append('<li class="page-item">'+
-	                           '<a href="javascript:goPage('+i+')">'+i+'</a></li>');
-	                       }
-	                   } 
-	                $('.pagination.justify-content-center').append('<li class="page-item">'+
-	                        '<a class="page-link" href="javascript:goPage('+data.paging.nextPageNo+')">Next</a></li>'+
-	                        '</ul></nav>');
-	           }, error : function(request, status, error) {
-	               alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
-	           }           
-	   });
-	    
-	    
-	}
-  
+	  function getUrlParams() {
+          var params = {};
+          window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) { params[key] = value; });
+          return params;
+      } 
+    
+      var bno = getUrlParams().no;
+
+	        $('.pageNO').val(e);
+	        $('.no').val(bno);
+	        $('.pageForm').submit();
+	    }
+
         </script>
   <jsp:include page="../footer.jsp"></jsp:include>
 </body>

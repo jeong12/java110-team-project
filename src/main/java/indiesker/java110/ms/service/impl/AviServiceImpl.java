@@ -112,10 +112,13 @@ public class AviServiceImpl implements AviService {
     
     @Override
     public List<Avi> morelist(int no, Paging paging) {
+      System.out.println("service"+paging);
       Map<String,Object> params = new HashMap<>();
       params.put("no", no);
       params.put("paging",paging);
-    return aviDao.moreList(params);
+    List<Avi> list = aviDao.moreList(params);
+    System.out.println(list);
+    return list;
     }
     
     @Override

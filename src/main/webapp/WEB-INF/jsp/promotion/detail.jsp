@@ -9,8 +9,9 @@
 <meta charset='UTF-8'>
 <title>버스커 홍보 상세보기</title>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css"/>
 <link rel='stylesheet' href='../../css/common.css'> <!-- 웹 브라우저 입장에서의 경로 -->
 <style>
@@ -28,7 +29,7 @@
         text-align: center; background-color: darkgray; color: azure ;margin-bottom: auto; margin-top: 4%;
   }
     .box{width: 65%; margin-left: 17%}
-    .container{margin-left: -15px; width: 100%; margin-bottom: 62rem;}
+    .container{margin-left: -15px; width: 100%;}
     .td{width: 100%}
     #c-box{border: 1px solid silver; width: 93%; height: 60px; margin-bottom: 20px; 
     margin-top: 10px; border-radius: 6px;}
@@ -44,7 +45,7 @@
     #bp{width: 98%;}
     #te{margin-top: 50px;}
     .t-top{border: border; border-top: 1px solid silver}
-    textarea{resize: none;  rows=5;}
+    textarea{resize: none; overflow:hidden;}
     .cdtContext{float: right;}
     #tobbox{
     border: 1px solid silver;
@@ -64,7 +65,7 @@
     margin-top: -4%;
     }
     #commenttop{border-top: 1px solid silver;}
-    .t{border-bottom: 1px solid silver; display: -webkit-box; height: 3.8rem;}
+    .t{border-bottom: 1px solid silver; display: -webkit-box; /* height: 3.8rem; */}
     .comments{background-color: white;}
     .pn{margin: 0.5%; width: 5%;}
     .cc{width: 6%; text-align: center;}
@@ -74,28 +75,33 @@
     display: -webkit-inline-box;
     float: right;
     clear: both;
-    margin-top: 1%;
+    margin-top: 3%;
     }
     .far,.fas{font-size: 1rem;}
     .cc div{margin-top: 35%;}
     .t1{margin-left: 28%;}
-    .ft{font-weight: 800; float: left;}
+    .ft{font-weight: 800; float: left;
+    height: 100%;
+    text-align: -webkit-center;}
     .t1 label{float: left;}
     footer{clear: both;}
     #mang{display: flex;}
-    .contm{width: 80%; border: 1px solid white;}
+    .contm{width: 94%; border: 1px solid white; overflow:hidden;  overflow-wrap:break-word;}
+    .pages{text-align: center;}
+    .ftt{font-weight:800; }
+    #titlt{margin-top: 2%; margin-bottom: 2%;}
+#logo{float: left;}
+#haha{margin-top: 0.8%; margin-left: 5.5%;}
 </style>
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
 <body>
 
+<div id="titlt" class="container">
+        <img id="logo" src="/img/playButton.PNG" alt="플레이로고">
+        <h2 id="haha">버스킹 일정</h2>
+    </div>
 <div class="container">
-<div class="row">
-    <div id="titl" class='col-lg-12'>
-        <img id="logo" src="../../img/playButton.png" alt="플레이로고">
-        <h3>무대관리</h3>
-    </div>
-    </div>
 
 
      <div class="box">
@@ -139,7 +145,6 @@
              </c:otherwise>
             </c:choose>
 
-
          <button id="btn2" name="singlebutton" class="btns btns-outline-m">입력</button>
          </div>
          <div id="commenttop"></div>
@@ -153,19 +158,18 @@
        <p class="nik">버스커</p>
     </div>
     <div class="cc">
-           <div  class="ft">${com.nik}</div>
+           <div  class="ftt">${com.nik}</div>
     </div>
     
       <div class="text">
           <div class="cdtr" >${com.ncdt}</div><br>
-          <textarea class="contm" readonly="readonly" >${com.cont}</textarea> <!-- m -->
+          <textarea class="contm" onkeydown="resize(this)" onkeyup="resize(this)" readonly="readonly" rows="2" maxlength="100" >${com.cont}</textarea> <!-- m -->
        <c:choose>
              <c:when test="${sessionScope.loginUser.no == com.mno}">
              <div class="icon">
                 <div class="editcomment" value="${com.bcno}" style="display:none;"><i class="far fa-check-square"></i></div>
                 <div class="modifycomment" ><i class="far fa-edit"></i></div>
                 <div class="removecomment" onclick="removeComment(${com.bcno})"><i class="fas fa-minus"></i></div>
-                
               </div>
               
              </c:when>
@@ -203,9 +207,36 @@
     </div>
         </div>
     <script type="text/javascript">
+    //textarea
+    function resize(obj) {
+    	
+  var str = $(obj).val();
+  var str_arr = str.split("\n");  // 줄바꿈 기준으로 나눔 
+  var row = str_arr.length;  // row = 줄 수 
+  if(row >3){
+  //마지막 입력문자 삭제
+
+  swal("3줄 이상 입력할 수 없습니다.");
+  var lastChar = str.slice(0,-1); //열 
+
+  $(obj).val(lastChar);
+
+  obj.style.height = "1px";
+  obj.style.height = (12+obj.scrollHeight)+"px";
+  }
+  
+  obj.style.height = "1px";
+  obj.style.height = (12+obj.scrollHeight)+"px";
+}
     
     // 댓글 입력
     $('#btn2').click(function(){
+    	
+    if($('.commentscontext').val().length == 0){
+    		swal("경고","내용을 입력하세요!","warning");
+    		return;
+    	}
+    	
          $.ajax({
              type : "POST",
                 url : "comments",
@@ -384,9 +415,29 @@ $(".editcomment").click(function(){
     } 
     var bbno = getUrlParams().bbno;
 	var bcno=$(this).attr('value'); 
-	var content = $(this).parent().siblings('textarea').val();
+	var comment = $(this).parent().siblings('textarea').val();
 	
+	$(this).parent().siblings('textarea').attr('readonly','readonly').css('border','0');
+    $(this).siblings().css('display','block');
+    $(this).css('display','none');
+	///test
 	
+	$.ajax({ 
+        type : "POST", 
+        url : "bcContentEdit",
+        dataType: 'json',
+        data: {
+        	'bbno':bbno,
+        	'bcno':bcno,
+        	'comment':comment
+        }, 
+        success : function(data) {
+        	swal("짜잔","댓글이 수정완료!","success");
+        },
+        error : function(request, status, error) {
+            swal("오류","달력데이터 오류","error");
+        }
+    });
 	
 });
 

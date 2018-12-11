@@ -44,7 +44,7 @@ padding: 0px;
 }
 
 #bodybody{
-    min-height: 700px;
+    min-height: 850px;
 }
 
 #genrediv{
@@ -207,7 +207,8 @@ a#movetop {
 
                         <c:forEach items="${list}" var="list">
                             <div class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${list.genre}">
-                                <a href="/app/applystages/page?sno=${list.sno}" class="js-load">
+                                <a href="/app/applystages/page?sno=${list.sno}" 
+                                style="text-decoration: none; color: #555; " class="js-load">
                                     <table>
                                         <tr>
                                             <td><img src="../../img/${list.photoName}.png"
@@ -234,7 +235,8 @@ a#movetop {
                     <div class="table table-list-search">
                         <c:forEach items="${name}" var="name">
                             <div class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${name.genre}">
-                                <a href="/app/applystages/page?sno=${name.sno}" class="js-load">
+                                <a href="/app/applystages/page?sno=${name.sno}" 
+                                style="text-decoration: none; color: #555; " class="js-load">
                                     <table>
                                         <tr>
                                             <td><img src="../../img/${name.photoName}.png"
@@ -260,7 +262,7 @@ a#movetop {
                     <div class="table table-list-search">
                         <c:forEach items="${local}" var="local">
                             <div class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${local.genre}">
-                                <a href="/app/applystages/page?sno=${local.sno}" class="js-load">
+                                <a href="/app/applystages/page?sno=${local.sno}" style="text-decoration: none; color: #555; " class="js-load">
                                     <table>
                                         <tr>
                                             <td><img src="../../img/${local.photoName}.png"
@@ -286,7 +288,8 @@ a#movetop {
                     <div class="table table-list-search">
                         <c:forEach items="${genre}" var="genre">
                             <div class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${genre.genre}">
-                                <a href="/app/applystages/page?sno=${genre.sno}" class="js-load">
+                                <a href="/app/applystages/page?sno=${genre.sno}" 
+                                style="text-decoration: none; color: #555; " class="js-load">
                                     <table>
                                         <tr>
                                             <td><img src="../../img/${genre.photoName}.png" class="teamPhotoImg"></td>

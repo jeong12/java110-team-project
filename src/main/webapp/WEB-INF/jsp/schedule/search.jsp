@@ -18,10 +18,10 @@
 
 .rigth{float: right;}
 .tableleft{float: left; width:100%; }
-.tablerigth{width: 18%; position: absolute; right: 10rem;}
+.tablerigth{width: 18%; position: absolute; right: 10%;}
 .fter{clear: both;}
 .thead-dark tr th{background-color: #212529; color: white;}
-img{width: 16rem;}
+img{width: 16rem; height: 10rem;}
 .serchin{height: 1.5rem;}
 .search{display: inline; text-align: center;}
 #titl{margin-top: 2%; margin-bottom: 2%;}
@@ -51,6 +51,27 @@ div.tablerigth .rdetail ul span{
     margin-left:5px;
     font-weight: 400;
 }
+
+@media (min-width:1280px) {
+    .tablerigth{
+    width: 18%;
+    right: 1rem;
+    }
+    img{
+    width:10rem;
+    }
+    div.tablerigth .rdetail ul li {
+    font-size: 16px;
+    }
+}
+
+@media (min-width:1650px){
+.tablerigth{width: 18%; right: 10%;}
+img{width: 14rem; }
+div.tablerigth .rdetail ul li{
+    font-size:16px;
+}
+}
 #haha{margin-top: 0.7%; margin-left: 5%;}
 </style>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -65,7 +86,6 @@ div.tablerigth .rdetail ul span{
 		<h3 id="haha">버스킹 일정</h3>
 	</div>
     <div class='container'>
-<<<<<<< HEAD
     <div class='tableleft'>
                 <div class='search'>
                     <form action="search">
@@ -90,9 +110,9 @@ div.tablerigth .rdetail ul span{
                                 <th>장소</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class='content'>
                             <c:forEach items="${list}" var="m">
-                            <tr onClick="showDetail(${m.busker.bno})" style="cursor:pointer">
+                            <tr onclick="showDetail(${m.busker.bno})" style="cursor:pointer">
                                     <th scope="row">${m.ncdt}</th>
                                     <td>${m.nsdt}~ ${m.nedt}</td>
                                     <td>${m.busker.teamname}</td>
@@ -121,132 +141,36 @@ div.tablerigth .rdetail ul span{
                                     <a class="page-link" href="javascript:goPage(${paging.nextPageNo})">Next</a></li>
                             </ul>
                         </nav>
-                        <form action="list" class="pageForm">
+                        <form action="search" class="pageForm">
                         <input type="hidden" class="pageNO" name="pageNo">
+                        <input type="hidden" class="type" name="type">
+                        <input type="hidden" class="date" name="date"> 
+                        <input type="hidden" class="keyword" name="keyword">  
                         </form>
                 </div>
 
         </div>
-        
         <div class="tablerigth">
         
         </div>
-=======
-    <div class='row'>
-    <div class='col-lg-12'>
-    <div class='search col-lg-10'>
-    <button type="button" class="btn btn-outline-secondary" a onclick="window.location.reload()">목록</button><br>
-    <form action="search">
-    <select name="type">
-    <option value="date" selected>기간</option>
-    <option value="team">팀명</option>
-    <option value="city">도시</option>
-    </select>
-    <input type="date" name="date"> 
-    <input type="text" name="keyword"><button type="submit">검색하기</button>
-    </form>
-    </div>
-    <div class='col-lg-12'>
-	<table class="table table-hover">
-	<thead class='thead-dark'>
-	<tr>
-	   <th scope="col">날짜</th>
-	   <th scope="col">시간</th>
-	   <th scope="col">팀명</th>
-	   <th scope="col">장소</th>
-	</tr>
-	</thead>
-	<tbody class='content'>
-	<c:forEach items="${list}" var="m">
-	<tr>
-	   <th scope="row">${m.ncdt}</th>
-	   <td>${m.nsdt} ~ ${m.nedt}</td>
-	   <td onClick="location.href='detail?no=${m.sno}'">${m.busker.teamname}</td>
-	   <td>${m.addr}</td>
-	   </tr>
-	</c:forEach>
-	</tbody>
-	</table>
-	<nav aria-label="Page navigation example" class='pages'>
-                            <ul class="pagination justify-content-center">
-                                <li class="page-item prev">
-                                    <a class="page-link" href="javascript:goPage(${paging.prevPageNo})">Previous</a></li>
-                                <c:forEach var="i" begin="${paging.startPageNo}" end="${paging.endPageNo}" step="1">
-                                 <c:choose>
-                                 <c:when test="${i eq paging.pageNo}">
-                                    <li class="page-item active">
-                                    <a href="javascript:goPage(${i})" class="choice">${i}</a></li>
-                                 </c:when>  
-                                 <c:otherwise>
-                                  <li class="page-item">
-                                  <a href="javascript:goPage(${i})">${i}</a></li>
-                                </c:otherwise>
-                                </c:choose>
-                                </c:forEach>
-                                <li class="page-item">
-                                    <a class="page-link" href="javascript:goPage(${paging.nextPageNo})">Next</a></li>
-                            </ul>
-                        </nav>
->>>>>>> branch 'master' of https://github.com/moo-93/java110-team-project.git
-	</div>
-<<<<<<< HEAD
-  <script>
-  function goPage(e){
-      $('.pageNO').val(e);
-      $('.pageForm').submit();
-  }
-  
-  
-  function showDetail(e){
-      console.log(e);
-       $.ajax({
-           type : "POST",
-              url : "detail",
-              data :{"bno":e},               
-              success : function(data){
-                  $('.tableleft').css('width','80%');
-                  $(".tablerigth").empty();
-                  $(".tablerigth").append(
-                  '<div class="rdetail">'
-                  +'<ul class="list-inline">'
-                  +'<li><img src="/upload/'+data.teamPhoto+'"></li>'
-                  +'<li>팀명<span>'+data.teamname+'</span></li>'
-                  +'<li>주요장르<span>'+data.teamgenre+'</span></li>'
-                  +'<li>소개말<span>'+data.teamInfo+'</span></li>'
-                  +'</ul>'
-                  +'</div>'
-                  );
-              }, error : function(request, status, error) {
-                  alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
-              }   
-      });
-  }
-  
-  
-  var currentPosition = 
-      parseInt($(".tablerigth").css("top")); 
-     $(window).scroll(function() { 
-         var position = $(window).scrollTop(); 
-         $(".tablerigth").stop().animate({"top":position+currentPosition+"px"},1000); });
-  </script>
-=======
-	</div>
-	</div>
-	</div>
-	<script type="text/javascript">
+        </div>
+        
+        
+	<script>
 	function goPage(e){
-		$.ajax({ 
+	$.ajax({ 
 	        type : "POST", //보내는 타입을 Post방식으로 할지,  GET방식으로 할지 결정
 	        url : "searchPaging", 
 	        dataType: 'json',
 	        data : {"pageNo":e},
-	        success : function(data) { 
+	        success : function(data) {
+	        	console.log(data);
 	        	$('.content').empty();
 	        	$('.pages').empty();
 	        	 $.each(data.list,function(index,item){
 	        	$('.content').append(  
 	        	'<tr><th scope="row">'+item.ncdt+'</th><td>'+item.nsdt+'~'+item.nedt+'</td>'+
-	            '<td onClick="location.href=' +"'detail?no="+item.sn+"'"+'">'+
+	            '<td onClick="location.href=' +"'detail?no="+item.busker.bno+"'"+'">'+
 	            item.busker.teamname+'</td><td>'+item.addr+'</td></tr>');
 	        });
 	        	 $('.pages').append(' <ul class="pagination justify-content-center">'+
@@ -269,12 +193,40 @@ div.tablerigth .rdetail ul span{
 	              error : function(request, status, error) {
 	              }
 		});
-		
-		
+		  
+		  var currentPosition = 
+		      parseInt($(".tablerigth").css("top")); 
+		     $(window).scroll(function() { 
+		         var position = $(window).scrollTop(); 
+		         $(".tablerigth").stop().animate({"top":position+currentPosition+"px"},1000); }); 
 	}
 	
+	function showDetail(e){
+        console.log(e);
+         $.ajax({
+             type : "POST",
+                url : "detail",
+                data :{"bno":e},               
+                success : function(data){
+                    $('.tableleft').css('width','80%');
+                    $(".tablerigth").empty();
+                    $(".tablerigth").append(
+                    '<div class="rdetail">'
+                    +'<ul class="list-inline">'
+                    +'<li><img src="/upload/'+data.teamPhoto+'"></li>'
+                    +'<li>팀명<span>'+data.teamname+'</span></li>'
+                    +'<li>주요장르<span>'+data.teamgenre+'</span></li>'
+                    +'<li>소개말<span>'+data.teamInfo+'</span></li>'
+                    +'</ul>'
+                    +'</div>'
+                    );
+                }, error : function(request, status, error) {
+                    alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+                }   
+        });
+    }
+	
 	</script>
->>>>>>> branch 'master' of https://github.com/moo-93/java110-team-project.git
 </body>
 <jsp:include page="../footer.jsp"></jsp:include>
 </html>

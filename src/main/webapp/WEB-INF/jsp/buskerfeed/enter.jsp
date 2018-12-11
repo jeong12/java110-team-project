@@ -28,53 +28,65 @@
   padding: 0 0 30px 0;
   border: 1px solid gray;
 }
+
 body, .container.title {
   background-color: floralwhite;
 }
+
 #titl {
   width: 700px;
   margin: 10px;
   padding: 10px;
 }
+
 #logo {
   width: 40px;
   height: 40px;
   margin: 10px;
 }
+
 #titl h3 {
   margin-left: 70px;
   margin-top: -6.5%;
 }
+
 .imgschecon {
   float: left;
   width: 40%;
   border: 1px solid gray;
 }
+
 .imgschecon table {
   border-collapse: separate;
   border-spacing: 0 10px;
 }
+
 .aviphotcont {
   float: right;
   width: 57%;
 }
+
 .col-md-4 {
   margin-top: 10px;
   padding-left: 7px;
 }
+
 .col-md-4.avi button {
   border: 0;
   padding: 0;
 }
+
 .col-md-4.photo button {
   border: 0;
   padding: 0;
 }
+
 .twPc-button {
   margin: 0 -10px;
   margin-top: -7%;
   width: 100%;
 }
+
 .twPc-bg {
   background-image: url("../../img/feedheader.png");
   background-position: 0 50%;
@@ -85,9 +97,11 @@ body, .container.title {
   width: 100%;
   background-position: 0 50%;
 }
+
 .twPc-block {
   display: block !important;
 }
+
 .twPc-avatarLink {
   background-color: #fff;
   border-radius: 6px;
@@ -99,6 +113,7 @@ body, .container.title {
   vertical-align: 30px;
   margin-top: -12%;
 }
+
 .twPc-avatarImg {
   border: 2px solid #fff;
   border-radius: 7px;
@@ -107,18 +122,22 @@ body, .container.title {
   height: 300px;
   width: 300px;
 }
+
 .teaminfo1 {
   height: 60px;
   margin-left: 430px;
 }
+
 .teaminfo1 h1 {
   margin-right: 70px;
   color: white;
 }
+
 .teaminfo1 h3 {
   margin-right: 70px;
   color: white;
 }
+
 .infotextarea {
   background-color: white;
   font-size: 18px;
@@ -128,6 +147,7 @@ body, .container.title {
   margin: 35px 0 0 40px;
   max-height: 165px;
 }
+
 .glyphicon-play-circle {
   color: white;
   font-size: 60px;
@@ -138,49 +158,61 @@ body, .container.title {
   text-shadow: 0 1px 3px rgba(0, 0, 0, .5);
   transition: all 500ms ease-in-out;
 }
+
 .small.title {
   font-size: 14px;
   margin-top: 7px;
     font-weight: 500;
 }
+
 .posttitle {
   background-color: black;
   border-radius: 0.25rem;
 }
+
 .posttitle i {
   color: white;
   font-size: 20px;
   padding: 10px;
 }
+
 .row.feedphotos {
   margin: 0 20px 0 20px;
 }
+
 .avi, .photo, .imgschecon {
   background-color: #DDD;
   border-radius: 0.25rem;
 }
+
 .imgschecon {
   margin-left: 5px;
 }
+
 .aviphotcont {
   margin-right: 5px;
 }
+
 .schetable {
   padding: 10px;
 }
+
 .schetable tr {
   padding: 10px;
 }
+
 .btn.btns-outline-dark {
   /*   line-height: 1;
   width: 35%;
   font-size: 0.8rem; */
   margin-right: 15px;
 }
+
 .far.fa-heart, .far.fa-star {
   font-size: 50px;
   color: white;
 }
+
 #feedmainphoto {
   border: 1px solid gray;
 }
@@ -214,8 +246,8 @@ body, .container.title {
     <div id="titl">
       <img id="logo" src="../img/playbutton.png" alt="플레이로고">
       <h3>버스커피드: ${busk.bno}</h3>
-      <h1 id="sessionno"><c:out value="${sessionno}"/></h1>
-      <h1 id="buskno"><c:out value="${buskno}"/></h1>
+      <h1 style="display:none" id="sessionno"><c:out value="${sessionno}"/></h1>
+      <h1 style="display:none" id="buskno"><c:out value="${buskno}"/></h1>
     </div>
   </div>
   <div class="container feed" style="background-color: white;">
@@ -290,7 +322,7 @@ body, .container.title {
                 <tr>
                   <td>${sche.nsdt }~${sche.nedt }</td>
                   <td id="shopname">
-                    <h4>${sche.shopname }</h4>
+                    <h4 style="padding-left: 10%;padding-right: 8%;">${sche.shopname }</h4>
                   </td>
                   <td>${sche.addr }</td>
                 </tr>
@@ -316,7 +348,7 @@ body, .container.title {
           <c:choose>
             <c:when test="${empty recentlist }">
               <div style="padding-left: 20px;">
-                <h3>영상이 없습니다!</h3>
+                <h3>영상이 없습니다</h3>
               </div>
             </c:when>
             <c:otherwise>
@@ -341,7 +373,7 @@ body, .container.title {
               </c:forEach>
               <p
                 style="text-align: right; margin: 5px 0; padding-right: 10px;">
-                <a href="http://www.naver.com">동영상더보기</a>
+                <a href="moreavi?no=${busk.bno }">동영상더보기</a>
               </p>
             </c:otherwise>
           </c:choose>
@@ -356,7 +388,7 @@ body, .container.title {
           <div class="row feedphotos">
             <c:choose>
               <c:when test="${empty recentplist }">
-                <p style="padding-left: 15px;">사진이 없습니다!</p>
+                <h3>사진이 없습니다</h3>
               </c:when>
               <c:otherwise>
                 <c:forEach items="${recentplist}" var="t">
@@ -385,42 +417,51 @@ body, .container.title {
 .modal-body {
   height: 500px;
 }
+
 .avicontent {
   float: left;
   width: 60%;
 }
+
 .teaminfo td {
   padding: 10px 20px 10px 0;
 }
+
 .contents {
   padding: 10px;
   margin-right: 20px;
   border: 1px solid red;
   height: 140px;
 }
+
 /* ///////////////////////////////////// */
 h2 {
   margin: 0;
 }
+
 .modal-header {
   background-color: black;
   color: white;
   font-size: 20px;
   padding: 10px;
 }
+
 .close {
   color: white;
   opacity: 1;
 }
+
 .modal-body {
   background-color: white;
 }
+
 .comment {
   float: right;
   width: 40%;
   border: 1px solid gray;
   padding: 5px;
 }
+
 #acomtcont,#pcomtcont{
   border-radius: 0.25rem;
   background-color: white;
@@ -438,47 +479,59 @@ h2 {
   border-radius: 0.25rem;
   background-color: white;
 }
+
 .comtinsert {
   padding: 10px;
   border-bottom: 1px solid gray;
   height: 103px;
 }
+
 .comtcont, .comtdate {
   float: right;
   
 }
+
 .comtimg, .comtname {
   float: left;
 }
+
 .comttop {
   height: 50px;
 }
+
 .comtbottom {
   height: 25px;
 }
+
 .comtimg {
   width: 20%;
   height: 48px;
   padding: 2px 11px;
 }
+
 .comtcont {
   width: 80%;
   height: 48px;
 }
+
 .comtname {
   width: 20%;
   text-align: center;
   font-weight: 1000;
 }
+
 .comtdate {
   color: #777;
 }
+
 .comtwrap {
   padding: 10px 10px 0 0;
 }
+
 #teamphoto {
   border-radius: 20px;
 }
+
 .pinfocontent {
   border: 1px solid gray;
   border-radius: 0.25rem;
@@ -493,22 +546,27 @@ h2 {
   height: 190px;
   padding: 10px 10px 0 5px;
 }
+
 .infoimg {
   float: left;
   width: 9%;
   height: 44px;
   margin: 0 10px 5px 10px;
 }
+
 .mid {
   padding: 5px 50px 0 60px;
 }
+
 .bot {
   text-align: right;
 }
+
 .far.fa-heart.modallike {
   color: black;
   font-size: 24px;
 }
+
 #modalgenre, #modalcity {
   color: #777;
 }
@@ -552,27 +610,33 @@ h2 {
 .modal-body.photo {
   height: 620px;
 }
+
 .photocontent {
   float: left;
   width: 60%;
 }
+
 .comment {
   float: right;
   width: 40%;
   border-radius: 0.25rem;
 }
+
 .teaminfo td {
   padding: 10px 20px 10px 0;
 }
+
 .contents {
   padding: 10px;
   margin-right: 20px;
   border: 1px solid red;
   height: 140px;
 }
+
 h2 {
   margin: 0;
 }
+
 .feedphotos button {
   border: 0;
   padding: 0;
@@ -583,14 +647,17 @@ h2 {
   padding: 0;
   margin: 9px;
 }
+
 .smallimg {
   width: 150px;
   height: 100px;
 }
+
 .bigimg {
   width: 95%;
   height: 290px;
 }
+
 .modal-content.photo {
   height: 670px;
 }
@@ -622,7 +689,7 @@ h2 {
                   </table>
                 </div>
               </div>
-              <div class="invisibleform"></div>
+              <div class="invisibleform" style="display:none;"></div>
 
               <div class="pinfocontent"></div>
 
@@ -648,9 +715,11 @@ h2 {
 .modal-body.photup {
   height: 410px;
 }
+
 .uploadbtn {
   color: snow;
 }
+
 #upload1, #upload2, #upload3, #uploadavi {
   border: 1px solid #ccc;
   border-radius: 0.25rem;
@@ -747,6 +816,7 @@ margin-bottom:8px;
 .modal-body.aviup {
   height: 530px;
 }
+
 #title, #content {
   -webkit-appearance: textfield;
   background-color: white;
@@ -851,3 +921,19 @@ margin-bottom:8px;
 </body>
   <jsp:include page="../footer.jsp"></jsp:include>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

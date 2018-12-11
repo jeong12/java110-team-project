@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import indiesker.java110.ms.domain.Member;
 import indiesker.java110.ms.domain.Paging;
 import indiesker.java110.ms.domain.Schedule;
 import indiesker.java110.ms.domain.Supporter;
@@ -33,11 +34,14 @@ public class BuskerPerScheduleController {
   }
 
   @PostMapping("add")
-  public String add(Schedule schedule) {
+  public String add(Schedule schedule, HttpSession session) {
+    Member member = (Member)session.getAttribute("loginUser");
+    int bno = member.getNo();
+    
 
     schedule.setNsdt(schedule.getNsdt().toString());
     schedule.setNedt(schedule.getNsdt().substring(0, 10)+' '+schedule.getNedt().toString());
-
+    schedule.setBno(Integer.toString(bno));
     System.out.println(schedule.getAddr());
     System.out.println(schedule.getNsdt());
     System.out.println(schedule.getNedt());
@@ -52,10 +56,13 @@ public class BuskerPerScheduleController {
 
   @GetMapping("main")
   public void main(
-      @RequestParam(defaultValue="5")int bno,
       @RequestParam(defaultValue="1")int pageNo,
       @RequestParam(defaultValue="10")int pageSize,
+      HttpSession session,
       Model model) {
+    
+    Member member = (Member)session.getAttribute("loginUser");
+    int bno = member.getNo();
 
     Paging paging1 = new Paging();
     Paging paging2 = new Paging();
@@ -219,20 +226,23 @@ public class BuskerPerScheduleController {
   @ResponseBody
   @RequestMapping(value="clikeDate")
   public List<Schedule> getDateSchedule(
-      @RequestParam(value="no") String no,
+      HttpSession session,
       @RequestParam(value="date")String date, Model model) {
-    System.out.println(no);
-    System.out.println(date);
-    List<Schedule> clist = scheduleService.findbydate(no, date);
+    
+    Member member = (Member)session.getAttribute("loginUser");
+    int bno = member.getNo();
+    
+    List<Schedule> clist = scheduleService.findbydate(bno, date);
 
     for (Schedule s : clist) {
       System.out.println(s.getNedt());
     }
 
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    SimpleDateFormat eformat = new SimpleDateFormat("HH:mm");
     for (Schedule ps : clist) {
       ps.setNsdt(format.format(ps.getSdt()));
-      ps.setNedt(format.format(ps.getEdt()));
+      ps.setNedt(eformat.format(ps.getEdt()));
     }
 
 
@@ -342,10 +352,9 @@ public class BuskerPerScheduleController {
   @RequestMapping("page")
   public List<Schedule> paging(String type,String pageNo, HttpSession session){
     
-    /*    Member member = (Member)session.getAttribute("loginUser");
-    int bno = member.getNo();*/
+    Member member = (Member)session.getAttribute("loginUser");
+    int bno = member.getNo();
     int pageSize=10;
-    int bno = 5;
     int pageNoo=Integer.parseInt(pageNo);
     
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");

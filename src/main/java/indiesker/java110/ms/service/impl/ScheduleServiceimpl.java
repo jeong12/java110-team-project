@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.codec.multipart.SynchronossPartHttpMessageReader;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -51,9 +52,9 @@ public class ScheduleServiceimpl implements ScheduleService {
     
 
     @Override
-    public List<Schedule> findbydate(String no, String date) {
+    public List<Schedule> findbydate(int bno, String date) {
       HashMap<String,Object> params = new HashMap<>();
-      params.put("bno", no);
+      params.put("bno", bno);
       params.put("date", date);
       return scheduleDao.findbydate(params);
     }
@@ -198,7 +199,10 @@ public class ScheduleServiceimpl implements ScheduleService {
     public List<Schedule> showScedule(Paging paging) {
      Map<String,Object> params = new HashMap<>();
      params.put("paging", paging);
-    return scheduleDao.showScedule(params);
+     System.out.println(paging);
+     List<Schedule> list = scheduleDao.showScedule(params);
+     System.out.println(list);
+     return list;
     }
     
     @Override
@@ -210,7 +214,7 @@ public class ScheduleServiceimpl implements ScheduleService {
       Map<String, Object> params=new HashMap<>();
       params.put("sdt", sdt);
       params.put("edt", edt);
-      params.put("no", 5);
+      params.put("no", no);
       
       return scheduleDao.checkperschedule(params);
     }
@@ -220,7 +224,7 @@ public class ScheduleServiceimpl implements ScheduleService {
       Map<String, Object> params=new HashMap<>();
       params.put("sdt", sdt);
       params.put("edt", edt);
-      params.put("no", 5);
+      params.put("no", no);
       
       return scheduleDao.checkreqschedule(params);
     }
@@ -397,7 +401,6 @@ public class ScheduleServiceimpl implements ScheduleService {
       return scheduleDao.findSearchAllSchedule(params);
     }
     
-    
     @Override
     public int totsearchScehdule(String type, String keyword, String date) {
       Map<String,Object> params = new HashMap<>();
@@ -407,4 +410,9 @@ public class ScheduleServiceimpl implements ScheduleService {
       return scheduleDao.totsearchSchedule(params);
     }
     
+    @Override
+    public List<Schedule> findbywordSearchAllSchedule(String keyword) {
+       
+      return scheduleDao.findbywordSearchAllSchedule(keyword);
+    }
 }
