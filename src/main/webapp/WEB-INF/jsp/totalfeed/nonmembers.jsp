@@ -165,6 +165,9 @@ text-align: center;
 height: 35px;
 padding: 0;
 }
+    #js-btn-wrap a.more-button:hover {
+    color: white; text-decoration: none;
+}
 
 </style>
 </head>

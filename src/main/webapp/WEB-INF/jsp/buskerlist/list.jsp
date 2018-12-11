@@ -29,6 +29,16 @@
         border: 1px solid silver;
         padding: 15px;
     }
+    
+    a:link {
+    color: black; text-decoration: none;
+}
+
+    a:visited {
+    color: black; text-decoration: none;
+}
+
+
 </style>
 </head>
 <body>
