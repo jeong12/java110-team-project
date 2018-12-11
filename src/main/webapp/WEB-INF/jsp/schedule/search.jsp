@@ -168,7 +168,7 @@ div.tablerigth .rdetail ul li{
 	        	$('.content').empty();
 	        	$('.pages').empty();
 	        	 $.each(data.list,function(index,item){
-	        	$('.content').append(  
+	        	$('.content').append(  pull
 	        	'<tr><th scope="row">'+item.ncdt+'</th><td>'+item.nsdt+'~'+item.nedt+'</td>'+
 	            '<td onClick="location.href=' +"'detail?no="+item.busker.bno+"'"+'">'+
 	            item.busker.teamname+'</td><td>'+item.addr+'</td></tr>');
@@ -176,7 +176,7 @@ div.tablerigth .rdetail ul li{
 	        	 $('.pages').append(' <ul class="pagination justify-content-center">'+
 	                     '<li class="page-item prev">'+
 	                     '<a class="page-link" href="javascript:goPage('+data.paging.prevPageNo+
-	                             ')">Previous</a></li>');
+	                        git p     ')">Previous</a></li>');
 	                for(var i = data.paging.startPageNo;i<=data.paging.endPageNo;i++){
 	                    if(i == data.paging.pageNo){
 	                        $('.pagination.justify-content-center').append('<li class="page-item active">'+
