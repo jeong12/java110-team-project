@@ -294,11 +294,12 @@ public class ScheduleServiceimpl implements ScheduleService {
     }
     
     @Override
-    public List<Schedule> searchScehdule(String type, String keyword, String date) {
+    public List<Schedule> searchScehdule(String type, String keyword, String date, Paging paging) {
       Map<String,Object> params = new HashMap<>();
       params.put("type", type);
       params.put("keyword", keyword);
       params.put("date", date);
+      params.put("paging", paging);
     return scheduleDao.searchSchedule(params);
     }
     
@@ -395,4 +396,15 @@ public class ScheduleServiceimpl implements ScheduleService {
       params.put("keyword2", keyword2);
       return scheduleDao.findSearchAllSchedule(params);
     }
+    
+    
+    @Override
+    public int totsearchScehdule(String type, String keyword, String date) {
+      Map<String,Object> params = new HashMap<>();
+      params.put("type", type);
+      params.put("keyword", keyword);
+      params.put("date", date);
+      return scheduleDao.totsearchSchedule(params);
+    }
+    
 }
