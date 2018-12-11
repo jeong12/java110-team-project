@@ -116,13 +116,12 @@ public class Paging {
       
       this.setStartRowNo((pageNo-1)*pageSize);
   }
-  
   @Override
   public String toString() {
-      return "Paging [getPageSize()=" + getPageSize() + ", getFirstPageNo()=" + getFirstPageNo()
-              + ", getPrevPageNo()=" + getPrevPageNo() + ", getStartPageNo()=" + getStartPageNo() + ", getPageNo()="
-              + getPageNo() + ", getEndPageNo()=" + getEndPageNo() + ", getNextPageNo()=" + getNextPageNo()
-              + ", getFinalPageNo()=" + getFinalPageNo() + ", getTotalCount()=" + getTotalCount() + "]";
+    return "Paging [pageSize=" + pageSize + ", startRowNo=" + startRowNo + ", firstPageNo="
+        + firstPageNo + ", prevPageNo=" + prevPageNo + ", startPageNo=" + startPageNo + ", pageNo="
+        + pageNo + ", endPageNo=" + endPageNo + ", nextPageNo=" + nextPageNo + ", finalPageNo="
+        + finalPageNo + ", totalCount=" + totalCount + "]";
   }
 
 }

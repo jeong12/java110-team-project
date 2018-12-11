@@ -101,6 +101,7 @@ ul {
 	background-color: white;
 	margin-left: 15rem;
 	margin-right: 15rem;
+    min-height: 810px;
 }
 
 .suggests {
@@ -281,8 +282,8 @@ text-align: center;
 <jsp:include page="../header.jsp"></jsp:include>
 </head>
 <body>
-
 <div class="titl container">
+
 <div class="row">
 	<div id="titl" class='col-lg-12'>
 		<img id="logo" src="../../img/playButton.png" alt="플레이로고">
@@ -316,7 +317,7 @@ text-align: center;
 					</div>
 				</div>
 			</div>
-
+ 
 			<!-- 필터 -->
 			<div class='col-lg-12'>
 				<div class='list-group list-group-horizontal'>

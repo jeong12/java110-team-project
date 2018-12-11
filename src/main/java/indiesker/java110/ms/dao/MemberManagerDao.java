@@ -25,10 +25,10 @@ public interface MemberManagerDao {
   //////////////////////////////gradle
   List<GradleMember> gradleBusker(Map<String,Object> params);
   List<GradleMember> gradleSupporter(Map<String,Object> params);
+  List<GradleMember> gradleList(Map<String,Object> params);
   List<GradleMember> gradleAjaxBusker(Map<String,Object>params);
   List<GradleMember> gradleAjaxSupporter(Map<String,Object>params);
   List<GradleMember> gradleAjaxBuskerSelect(Map<String,Object>params);
-  List<GradleMember> gradleAjaxSupporterSelect(Map<String,Object>params);
   int update(Map<String,Object> params);
   Supporter findbyNo(int no);
   Busker fidnBuskbyNo(int no);
@@ -37,9 +37,14 @@ public interface MemberManagerDao {
   ////////////////////////////////gradle끝
   String getMemo(String nik);
   int totlist();
-  int totlistFlag(int flag);
+  int totlistFlag(Map<String,Object> params);
   void upStopMem(String id);
   void upUnStopMem(String id);
   
-  
+  int totgradle(); // gradle tot
+  int totgradleAjaxBusker(); //gradle ajax busker
+  int totgradleAjaxSupporter(); //gradle ajax sup
+  Integer fingFlag(Map<String,Object> params); // gradle find flag for search type
+  int totgradleSearch(Map<String,Object> params); // gradle search list tot
+  int totsearchSelect(Map<String,Object> params);
 }

@@ -6,8 +6,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import javax.print.attribute.HashAttributeSet;
 import javax.servlet.ServletContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +24,7 @@ import indiesker.java110.ms.domain.Avi;
 import indiesker.java110.ms.domain.Busker;
 import indiesker.java110.ms.domain.Comment;
 import indiesker.java110.ms.domain.FeedPhoto;
+import indiesker.java110.ms.domain.Paging;
 import indiesker.java110.ms.domain.Schedule;
 import indiesker.java110.ms.service.AviService;
 import indiesker.java110.ms.service.BuskerService;
@@ -119,6 +123,7 @@ public class FeedController {
     model.addAttribute("busk",busker);
     model.addAttribute("recentlist",alist);
     model.addAttribute("recentplist",plist);
+    System.out.println(alist);
   }
 
   @ResponseBody
@@ -149,7 +154,7 @@ public class FeedController {
       String pbno, Model model) {   
     int pbno2 = Integer.parseInt(pbno);
     FeedPhoto feedphoto=feedPhotoService.getfeedphotobyPbno(pbno2);
-
+    
     if(feedphoto == null) {
       feedphoto = feedPhotoService.getfeedphotobyPbnoNoComt(pbno2);
       feedphoto.setComtcount(0);
@@ -198,7 +203,7 @@ public class FeedController {
 
   @PostMapping("addavi")
   public String addavi(@RequestParam String bno, String title, String content, String url) {
-    System.out.println(bno);
+    System.out.println("test"+bno);
     int bno2=Integer.parseInt(bno);
     String urlid = url.substring(32,43);
 
@@ -240,6 +245,104 @@ public class FeedController {
       return "redirect:enter?no="+bno;
   }
   
+  
+  
+  @RequestMapping("moreavi")
+  public void moreavi(int no,  Model model, @RequestParam(defaultValue="0")int pageNo, Paging paging){
+    paging.setPageNo(pageNo);
+    paging.setPageSize(12);
+    paging.setTotalCount(aviService.totList(no));
+    Busker busker = buskerService.get(no);
+    List<Avi> alist = aviService.morelist(no, paging);
+
+    //영상 주소에 관한것
+    for (Avi avi : alist) {
+      String urlid = avi.getUrlid();
+      avi.setThumbnail("https://i.ytimg.com/vi/"+urlid+"/hqdefault.jpg");
+      avi.setUrl("https://www.youtube.com/embed/"+urlid);
+      
+      if(avi.getTitle().length()>30) {
+        avi.setTitle(avi.getTitle().substring(0,31)+"...");
+      }
+    }
+    
+    model.addAttribute("busk",busker);
+    model.addAttribute("recentlist",alist);
+    model.addAttribute("paging",paging);
+    
+  }
+  
+  @ResponseBody
+  @RequestMapping("pagination")
+  public Map<String,Object> pagination(int no, int pageNo){
+    Paging paging = new Paging();
+    paging.setPageNo(pageNo);
+    paging.setTotalCount(aviService.totList(no));
+    paging.setPageSize(12);
+    List<Avi> alist = aviService.morelist(no, paging);
+    //영상 주소에 관한것
+    for (Avi avi : alist) {
+      String urlid = avi.getUrlid();
+      avi.setThumbnail("https://i.ytimg.com/vi/"+urlid+"/hqdefault.jpg");
+      avi.setUrl("https://www.youtube.com/embed/"+urlid);
+      
+        if(avi.getTitle().length()>30) {
+          avi.setTitle(avi.getTitle().substring(0,31)+"...");
+        }else {
+          avi.setTitle(avi.getTitle());
+        }
+      }
+    
+    for (Avi aa : alist) {
+      System.out.println(aa.getThumbnail());
+    }
+    Map<String,Object> map = new HashMap<>();
+    map.put("list", alist);
+    map.put("paging", paging);
+    return map;
+  }
+  
+  
+  
+  
+  
+/*  @PostMapping("updatephoto")
+  public String updatephoto(
+      
+      ) throws Exception {
+    
+    
+    return "redirect:enter?no="+bno;
+  }*/
+/*  @PostMapping("updatephoto")
+  public String updatephoto(@RequestParam String pbno,@RequestParam String content, @RequestParam MultipartFile file1,
+      @RequestParam MultipartFile file2, @RequestParam MultipartFile file3
+      ) throws IllegalStateException, IOException {
+    int bno2=Integer.parseInt(bno);
+    
+    List<String> files = new ArrayList<>();
+
+    if (file1.getSize() > 0) {
+      String filename = UUID.randomUUID().toString();
+      file1.transferTo(new File(sc.getRealPath("/upload/" + filename)));
+      files.add(filename);
+    }
+
+    if (file2.getSize() > 0) {
+      String filename = UUID.randomUUID().toString();
+      file2.transferTo(new File(sc.getRealPath("/upload/" + filename)));
+      files.add(filename);
+    }
+    if (file3.getSize() > 0) {
+      String filename = UUID.randomUUID().toString();
+      file3.transferTo(new File(sc.getRealPath("/upload/" + filename)));
+      files.add(filename);
+    }
+    feedPhotoService.feedPhotoAndFileUpload(bno2, content, files);
+    
+    
+    return "redirect:enter?no="+bno;
+  }*/
 }
 
 

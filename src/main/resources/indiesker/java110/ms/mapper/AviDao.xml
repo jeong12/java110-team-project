@@ -201,6 +201,25 @@
         WHERE abno=#{no}
 	</update>
 	
+	<select id="totList" resultType="Integer" parameterType="int">
+        select count(*) from 
+        (SELECT a.abno,a.stm,a.titl
+        FROM busk b, avi a
+        WHERE b.bno=a.bno
+        AND
+        b.bno=#{value}) as b
+    </select>
+    
+    <select id="moreList" resultMap="aviMap" parameterType="map">
+        SELECT a.abno,a.stm,a.titl
+        FROM busk b, avi a
+        WHERE b.bno=a.bno
+        AND
+        b.bno=#{no}
+        ORDER BY cdt desc
+        Limit #{paging.startRowNo},#{paging.pageSize}
+    </select>
+	
 	
 </mapper>
 

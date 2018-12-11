@@ -40,9 +40,8 @@ public class MemberManagerServiceImpl implements MemberManagerService{
   }
 
 @Override
-public List<MemberManager> dateSelect(String flag, String text,String ncdt1,String ncdt2,int pageNo, int pageSize) {
+public List<MemberManager> dateSelect(String flag, String text,String ncdt1,String ncdt2,Paging paging) {
   HashMap<String,Object> params = new HashMap<>();
-  System.out.println("============================");
   params.put("flag", flag);
   System.out.println(flag);
   params.put("text", text);
@@ -51,20 +50,8 @@ public List<MemberManager> dateSelect(String flag, String text,String ncdt1,Stri
   System.out.println(ncdt1);
   params.put("cdt2",ncdt2);
   System.out.println(ncdt2);
-  params.put("rowNo", (pageNo - 1) * pageSize);
-  params.put("size", pageSize);
-  
-  List<MemberManager> list = memberManagerDao.searchSelect(params);
-  
-  for (MemberManager m : list) {
-   System.out.println("서비스임");
-   System.out.println("****************");
-   System.out.println(m.getCdt());
-   System.out.println("****************");
-   System.out.println(m);
-  }
-  
-  return list;
+  params.put("paging",paging);
+  return memberManagerDao.searchSelect(params);
 }
 
 @Transactional
@@ -107,66 +94,40 @@ public List<MemberManager> dateSelect(String flag, String text,String ncdt1,Stri
  
  // 등급관리//////////////////////////////////////////////
  @Override
- public List<GradleMember> gradleBusker(int pageNo, int pageSize) {
+ public List<GradleMember> gradleList(Paging paging) {
    HashMap<String,Object> params = new HashMap<>();
-   params.put("rowNo", (pageNo - 1) * pageSize);
-   params.put("size", pageSize);
-   
+   params.put("paging", paging);
+   return memberManagerDao.gradleList(params);
+ }
+
+ @Override
+public List<GradleMember> gradleBusker(Paging paging) {
+   HashMap<String,Object> params = new HashMap<>();
+   params.put("paging", paging);
+  return memberManagerDao.gradleBusker(params);
+}
+ 
+ @Override
+public List<GradleMember> gradleSupporter(Paging paging) {
+   HashMap<String,Object> params = new HashMap<>();
+   params.put("paging", paging);
+   return memberManagerDao.gradleSupporter(params);
+}
+ 
+ 
+ @Override
+ public List<GradleMember> gradleAjaxBusker(Paging paging) {
+   HashMap<String,Object> params = new HashMap<>();
+   params.put("paging", paging);
    return memberManagerDao.gradleBusker(params);
  }
 
  @Override
- public List<GradleMember> gradleSupporter(int pageNo, int pageSize) {
+ public List<GradleMember> gradleAjaxSupporter(Paging paging) {
    HashMap<String,Object> params = new HashMap<>();
-   params.put("rowNo", (pageNo - 1) * pageSize);
-   params.put("size", pageSize);
+   params.put("paging", paging);
    return memberManagerDao.gradleSupporter(params);
  }
-
- @Override
- public List<GradleMember> gradleAjaxBusker(int pageNo, int pageSize) {
-   HashMap<String,Object> params = new HashMap<>();
-   params.put("rowNo", (pageNo - 1) * pageSize);
-   params.put("size", pageSize);
-   
-   return memberManagerDao.gradleBusker(params);
- }
-
- @Override
- public List<GradleMember> gradleAjaxSupporter(int pageNo, int pageSize) {
-   HashMap<String,Object> params = new HashMap<>();
-   params.put("rowNo", (pageNo - 1) * pageSize);
-   params.put("size", pageSize);
-   return memberManagerDao.gradleSupporter(params);
- }
- 
- @Override
- public List<GradleMember> gradleAjaxBuskerSelect (String sflag, String text,int pageNo, int pageSize) {
-   HashMap<String,Object> params = new HashMap<>();
-   params.put("text", text);
-   params.put("sflag", sflag);
-   params.put("rowNo", (pageNo - 1) * pageSize);
-   params.put("size", pageSize);
-   
-   List<GradleMember> list = memberManagerDao.gradleAjaxBuskerSelect(params);
-   
-   
-   return list;
- }
-
- @Override
- public List<GradleMember> gradleAjaxSupporterSelect (String sflag, String text,int pageNo, int pageSize) {
-   HashMap<String,Object> params = new HashMap<>();
-   params.put("text", text);
-   params.put("sflag", sflag);
-   params.put("rowNo", (pageNo - 1) * pageSize);
-   params.put("size", pageSize);
-   
-   List<GradleMember> list = memberManagerDao.gradleAjaxSupporterSelect(params);
-   
-   return list;
- }
- 
  
  @Override//등급관리 서포터 상세보기
  public Supporter supGet(int no) {
@@ -196,10 +157,12 @@ public List<MemberManager> dateSelect(String flag, String text,String ncdt1,Stri
  
 
 @Override
-public List<GradleMember> gradleSelect(char flag, String email, String nik, int pageNo,
-    int pageSize) {
-  // TODO Auto-generated method stub
-  return null;
+public List<GradleMember> gradleSelect(String flag, String text, int type) {
+  Map<String,Object> params = new HashMap<>();
+  params.put("flag", flag);
+  params.put("text", text);
+  params.put("type", type);
+  return memberManagerDao.gradleAjaxBuskerSelect(params);
 }
 
 @Override
@@ -221,7 +184,9 @@ public int totlist() {
 
 @Override
 public int totlistFlag(int flag) {
-  return memberManagerDao.totlistFlag(flag);
+  Map<String,Object> params = new HashMap<>();
+  params.put("flag", flag);
+  return memberManagerDao.totlistFlag(params);
 }
 
 @Override
@@ -235,12 +200,42 @@ public void stopMem(String id, int flag) {
 }
 
 
+@Override
+public int totgradle() {
+  return memberManagerDao.totgradle();
+}
 
+@Override
+public int totgradleAjaxSupporter() {
+  return memberManagerDao.totgradleAjaxBusker();
+}
 
+@Override
+public int totgradleAjaxBusker() {
+  return memberManagerDao.totgradleAjaxSupporter();
+}
 
+@Override
+public Integer fingFlag(String flag, String text) {
+  Map<String,Object> params = new HashMap<>();
+  params.put("flag", flag);
+  params.put("text", text);
+  Integer f = memberManagerDao.fingFlag(params);
+  if(f == null || f == 0) {
+    return 0;
+  }else {
+    return f;
+  }
+}
 
-
-
-
+@Override
+public int totdateSelect(String flag, String text, String cdt1, String cdt2) {
+  Map<String,Object> params = new HashMap<>();
+  System.out.println(flag);
+  params.put("flag", flag);
+  params.put("cdt1", cdt1);
+  params.put("cdt2", cdt2);
+  return memberManagerDao.totsearchSelect(params);
+}
 
 }

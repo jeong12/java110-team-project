@@ -11,8 +11,9 @@ public class GradleMember {
   protected String gradle;
   protected int sno;
   protected int bno;
-  
-  
+  protected int mno;
+  protected String type;
+  protected char yn;
   
   public int getSno() {
     return sno;
@@ -75,13 +76,39 @@ public class GradleMember {
   public void setEmail(String email) {
     this.email = email;
   }
+  public int getMno() {
+    return mno;
+  }
+  public void setMno(int mno) {
+    this.mno = mno;
+  }
+  
+  
+  public String getType() {
+    return type;
+  }
+  public void setType(String type) {
+    this.type = type;
+  }
+  
+  public char getYn() {
+    return yn;
+  }
+  public void setYn(char yn) {
+    this.yn = yn;
+  }
   @Override
   public String toString() {
     return "GradleMember [id=" + id + ", nik=" + nik + ", name=" + name + ", genre=" + genre
         + ", email=" + email + ", flag=" + flag + ", sflag=" + sflag + ", gradle=" + gradle
-        + ", sno=" + sno + ", bno=" + bno + "]";
+        + ", sno=" + sno + ", bno=" + bno + ", mno=" + mno + ", type=" + type + ", yn=" + yn + "]";
   }
- 
+
+
+  
+  
+  
+  
   
   
   

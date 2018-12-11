@@ -14,33 +14,54 @@
 <link rel="stylesheet" href="../../css/common.css">
 <style>
 #logo {
-	width: 50px;
-	height: 50px;
+	width: 40px;
+	height: 40px;
 }
 
 .rigth{float: right;}
-.tableleft{float: left; width: 70%;}
-.tablerigth{width: 30%; padding: 4%; position: absolute; right: 0;}
+.tableleft{float: left; width:100%; }
+.tablerigth{width: 18%; position: absolute; right: 10rem;}
 .fter{clear: both;}
 .thead-dark tr th{background-color: #212529; color: white;}
-.detailleft{float: left; width: 50%;}
-.detailright{float: right; width: 50%; margin-top: -1%;}
 img{width: 16rem;}
 .serchin{height: 1.5rem;}
-.search{display: inline;}
+.search{display: inline; text-align: center;}
 #titl{margin-top: 2%; margin-bottom: 2%;}
 #logo{float: left;}
-#haha{margin-top: 1.2%; margin-left: 5.5%;}
-.search{float: right;}
-#m{margin-bottom: 1%;}
+#haha{margin-top: 0.7%; margin-left: 5%;}
+#m{margin-bottom: 4px; font-size: 0.6rem;
+    padding: .35rem .35rem;}
 nav.pages {text-align: center;}
+#md{
+    margin-top:5px;
+}
+table.table.table-hover, tr th{ 
+text-align: center; 
+}
+div.tablerigth .rdetail ul{
+    text-align: center;
+}
+div.tablerigth .rdetail ul li{
+    font-size:20px;
+    font-weight: 600;
+    margin-top: 5px;
+}
+div.tablerigth .rdetail ul li:last-child{
+    text-align:left;
+}
+div.tablerigth .rdetail ul span{
+    margin-left:5px;
+    font-weight: 400;
+}
+
 /* .thead-dark tr th{background-color:#212529; } */
 </style>
 <jsp:include page="../header.jsp"></jsp:include>
 </head>
 <body>
+<div id="pos" style="display:none"></div>
 	<div id="titl" class="container">
-        <img id="logo" src="../../img/playButton.png" alt="플레이로고">
+        <img id="logo" src="../../img/playButton.PNG" alt="플레이로고">
         <h3 id="haha">버스킹 일정</h3>
     </div>
 	<div class='container'>
@@ -55,10 +76,10 @@ nav.pages {text-align: center;}
 						<input class="serchin" type="date" name="date">
 						 <input class="serchin" type="text"
 							name="keyword">
-						<button id="m" class="btn btns-outline-m" type="submit">검색하기</button>
+						<button id="m" class="btns btns-outline-m" type="submit">검색하기</button>
 					</form>
 				</div>
-				<div class=''>
+				<div class='' id="md">
 					<table class="table table-hover">
 						<thead class='thead-dark'>
 							<tr>
@@ -70,10 +91,10 @@ nav.pages {text-align: center;}
 						</thead>
 						<tbody>
 							<c:forEach items="${list}" var="m">
-								<tr>
+								<tr onClick="showDetail(${m.busker.bno})" style="cursor:pointer">
 									<th scope="row">${m.ncdt}</th>
 									<td>${m.nsdt}~ ${m.nedt}</td>
-									<td onClick="showDetail(${m.busker.bno})">${m.busker.teamname}</td>
+									<td>${m.busker.teamname}</td>
 									<td>${m.addr}</td>
 								</tr>
 							</c:forEach>
@@ -124,22 +145,18 @@ nav.pages {text-align: center;}
 	            url : "detail",
 	            data :{"bno":e},	           
 	            success : function(data){
+	                $('.tableleft').css('width','80%');
 	            	$(".tablerigth").empty();
-	                $(".tablerigth").append("<div class='rdetail'>"
-	                +"<div class=ct>"
-	                +"<div><img src='/upload/"+data.teamPhoto+"'></div>"
-	                +"<div class='detailAll'>"
-	                +"<div class='detailleft'>팀명</div>"
-	                +"<div class='detailright'>"+data.teamname+"</div>"
-	                +"<div class='detailleft'>주요장르</div>"
-	                +"<div class='detailright'>"+data.teamgenre+"</div>"
-	                +"<div class='btbox'>"	                
-	                +"<div class=''>소개말</div>"
-	                +"<div class=''>"+data.teamInfo+"</div>"
-	                +"</div>"
-	                +"</div>"
-	                +"</div>"
-	                +"</div>");
+	                $(".tablerigth").append(
+	                '<div class="rdetail">'
+	                +'<ul class="list-inline">'
+	                +'<li><img src="/upload/'+data.teamPhoto+'"></li>'
+	                +'<li>팀명<span>'+data.teamname+'</span></li>'
+	                +'<li>주요장르<span>'+data.teamgenre+'</span></li>'
+	                +'<li>소개말<span>'+data.teamInfo+'</span></li>'
+	                +'</ul>'
+	                +'</div>'
+	                );
 	            }, error : function(request, status, error) {
 	                alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
 	            }   

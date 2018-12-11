@@ -12,6 +12,7 @@ public class MemberManager {
   protected String ncdt;
   protected String text;
   protected String type;
+  protected char yn;
 
   public String getNcdt() {
     return ncdt;
@@ -67,10 +68,16 @@ public class MemberManager {
   public void setType(String type) {
     this.type = type;
   }
+  public char getYn() {
+    return yn;
+  }
+  public void setYn(char yn) {
+    this.yn = yn;
+  }
   @Override
   public String toString() {
     return "MemberManager [id=" + id + ", nik=" + nik + ", email=" + email + ", flag=" + flag
         + ", memo=" + memo + ", cdt=" + cdt + ", ncdt=" + ncdt + ", text=" + text + ", type=" + type
-        + "]";
+        + ", yn=" + yn + "]";
   }
 }

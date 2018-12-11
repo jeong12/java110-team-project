@@ -75,7 +75,10 @@ public class BuskerPromotionServiceimpl implements BuskerPromotionService {
 	  
 	  @Override
 	  public int findBbno(int bcno) {
-	  return buskerPromotionDao.findBbno(bcno);
+	  Integer bbno = buskerPromotionDao.findBbno(bcno);
+	  System.out.println("bbno"+bbno);
+	  return bbno;
+	  
 	  }
 
 }

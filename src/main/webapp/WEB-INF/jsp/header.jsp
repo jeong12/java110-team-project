@@ -15,6 +15,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="/js/filter.js"></script>
+    
 <style>
 .top-bar {
     background: black; color: #fff; font-size: 0.9rem; padding: 10px 0;
@@ -153,14 +154,14 @@ a:focus, a:hover {
                           <span class=" d-md-inline-block_c">내 정보수정</span></a>
                           <!--버스커일 경우-->
                           <div id="busk_icon" style="display:none">
-                          <a href="#"><i class="fa fa-globe"></i>
+                          <a href="/app/mybs/main?no=${sessionScope.loginUser.no}"><i class="fa fa-globe"></i>
                           <span class=" d-md-inline-block_c">내 의뢰현황</span></a>
-                          <a href="#"><i class="fas fa-drum"></i>
-                          <span class=" d-md-inline-block_c">버스킹 신청</span></a>
+                          <a href="/app/buskerfeed/enter?no=${sessionScope.loginUser.no}"><i class="fas fa-drum"></i>
+                          <span class=" d-md-inline-block_c">나의 피드</span></a>
                           </div>
                           <!--제공자일 경우--> 
                           <div id="sup_icon" style="display:none">
-                          <a href="#"><i class="fa fa-globe"></i>
+                          <a href="/app/myss/main"><i class="fa fa-globe"></i>
                           <span class=" d-md-inline-block_c">내 무대 관리하기</span></a>
                           </div>
                           <a href="/app/membermanager/list" id="user_manager" style="display:none;">
@@ -201,7 +202,7 @@ a:focus, a:hover {
         <div id="sup" style="display:none">${sessionScope.loginSupporter.name}</div>
         
         
-        
+        <script src="/js/headerfixing.js"></script> 
   <script>
     /* accordion & icon-bar */
     

@@ -17,7 +17,6 @@
 		<result column="x" property="x" />
 		<result column="y" property="y" />
 	</resultMap>
-	
 
 	<resultMap type="Schedule" id="buskerscheduleMap">
 		<id column="brno" property="sno" />
@@ -27,8 +26,8 @@
 		<result column="edt" property="edt" />
 		<result column="cnt" property="cnt" />
 		<result column="flag" property="flag" />
-		<result column="cdt" property="photo" />
-		<result column="phot" property="cdt" />
+		<result column="cdt" property="cdt" />
+		<result column="phot" property="photo" />
 		<result column="buskname" property="buskname" />
 		<association property="supporter" javaType="supporter">
 			<id column="sno" property="no" />
@@ -729,41 +728,41 @@ GROUP BY BS.brno
 </select>    
 
     <select id="searchSchedule" resultMap="ScheduleMap">
-    (select b.name, ps.addr, ps.sdt,ps.edt, b.bno
-     from per_sche as ps, busk as b
-     where ps.bno = b.bno AND ps.sdt>=curdate() and
-     <choose>
-        <when test="type == 'team'">
-        b.name=#{keyword})
-        </when>
-        <when test="type == 'city'">
-        ps.addr like concat('%',#{keyword},'%'))
-        </when>
-        <when test="type == 'date'">
-        ps.sdt like concat(#{date},'%'))
-        </when>
-        </choose>
+   (select b.name, ps.addr, ps.sdt,ps.edt, b.bno
+    from per_sche as ps, busk as b
+    where ps.bno = b.bno AND ps.sdt>=curdate() and
+    <choose>
+       <when test="type.equals('team')">
+       b.name=#{keyword})
+       </when>
+       <when test="type.equals('city')">
+       ps.addr like concat('%',#{keyword},'%'))
+       </when>
+       <when test="type.equals('date')">
+       ps.sdt like concat(#{date},'%'))
+       </when>
+       </choose>
 
-    UNION ALL
+   UNION ALL
 
-    (select b.name, concat(s.bas_addr,' ',s.det_addr)as addr, ss.sdt,ss.edt, b.bno
-    from busk_stag as bs, busk as b, sup as s, stag_sche as ss, busk_req as br
-    where bs.ssno=ss.ssno and bs.brno=br.brno and ss.sno=s.sno and br.bno=b.bno AND ss.sdt>=curdate() 
-    AND bs.flag='2' and 
-         <choose>
-        <when test="type == 'team'">
-        b.name=#{keyword})
-        </when>
-        <when test="type == 'city'">
-        s.bas_addr like concat('%',#{keyword},'%'))
-        </when>
-        <when test="type == 'date'">
-        ss.sdt like concat(#{date},'%'))
-        </when>
-        </choose>
-    GROUP BY br.brno
-    ORDER BY sdt    
-    </select>
+   (select b.name, concat(s.bas_addr,' ',s.det_addr)as addr, ss.sdt,ss.edt, b.bno
+   from busk_stag as bs, busk as b, sup as s, stag_sche as ss, busk_req as br
+   where bs.ssno=ss.ssno and bs.brno=br.brno and ss.sno=s.sno and br.bno=b.bno AND ss.sdt>=curdate()
+   AND bs.flag='2' and
+        <choose>
+       <when test="type.equals('team')">
+       b.name=#{keyword})
+       </when>
+       <when test="type.equals('city')">
+       s.bas_addr like concat('%',#{keyword},'%'))
+       </when>
+       <when test="type.equals('date')">
+       ss.sdt like concat(#{date},'%'))
+       </when>
+       </choose>
+   ORDER BY sdt
+   Limit #{paging.startRowNo},#{paging.pageSize}
+   </select>
     
     <select id="findoverdue" parameterType="map"  resultMap="ShowReqsToSupporterMap">
     select b.name, b.genre, min(ss.sdt)as sdt, max(ss.edt)as edt, br.cnt,
@@ -948,6 +947,7 @@ SELECT
         )
 </select>  
     
+   
 <select id="findAllSchedule" resultMap="MapscheduleMap"
         parameterType="map">
 SELECT 
@@ -1072,6 +1072,43 @@ SELECT
  WHERE addr like concat('%',#{keyword1},'%'))
     OR addr like concat('%',#{keyword2},'%'));
 </select>
+    
+     <select id="totsearchSchedule" resultType="Integer" parameterType="map">
+    
+    select count(*) from 
+    ((select b.name, ps.addr, ps.sdt,ps.edt, b.bno
+     from per_sche as ps, busk as b
+     where ps.bno = b.bno AND ps.sdt>=curdate() and
+     <choose>
+        <when test="type.equals('team')">
+        b.name=#{keyword})
+        </when>
+        <when test="type.equals('city')">
+        ps.addr like concat('%',#{keyword},'%'))
+        </when>
+        <when test="type.equals('date')">
+        ps.sdt like concat(#{date},'%'))
+        </when>
+        </choose>
+
+    UNION ALL
+
+    (select b.name, concat(s.bas_addr,' ',s.det_addr)as addr, ss.sdt,ss.edt, b.bno
+    from busk_stag as bs, busk as b, sup as s, stag_sche as ss, busk_req as br
+    where bs.ssno=ss.ssno and bs.brno=br.brno and ss.sno=s.sno and br.bno=b.bno AND ss.sdt>=curdate() 
+    AND bs.flag='2' and 
+         <choose>
+        <when test="type.equals('team')">
+        b.name=#{keyword})) as b
+        </when>
+        <when test="type.equals('city')">
+        s.bas_addr like concat('%',#{keyword},'%')))asb
+        </when>
+        <when test="type.equals('date')">
+        ss.sdt like concat(#{date},'%')))As b
+        </when>
+        </choose>
+    </select>
     
 </mapper>
 
