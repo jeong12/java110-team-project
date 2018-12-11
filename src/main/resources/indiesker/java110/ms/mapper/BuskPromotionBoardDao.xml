@@ -35,14 +35,14 @@ ORDER by bo.cdt DESC
     </select>
     
     <select id="findByCity" resultMap="buskPromotionMap" parameterType="map">
-select titl, b.name, bo.genre, bo.city, sdt, edt, cnt, etc, bo.phot, cdt
+select titl, b.name, bo.genre, bo.city, sdt, edt, cnt, etc, bo.phot, cdt, bo.bbno
 from busk_board bo join busk b on bo.bno = b.bno
 where bo.city like #{keyword}
 ORDER by bo.cdt DESC
     </select>
     
     <select id="findByTeamname" resultMap="buskPromotionMap" parameterType="map">
-select titl, b.name, bo.genre, bo.city, sdt, edt, cnt, etc, bo.phot, cdt
+select titl, b.name, bo.genre, bo.city, sdt, edt, cnt, etc, bo.phot, cdt, bo.bbno
 from busk_board bo join busk b on bo.bno = b.bno
 where b.name like #{keyword}
 ORDER by bo.cdt DESC
@@ -92,6 +92,12 @@ ORDER by bo.cdt DESC
     SELECT bbno FROM `board_comt` WHERE bcno = #{bcno}
     </select>
 
+
+    <update  id="bcContentEdit" parameterType="map" >
+    update board_comt 
+       set cont=#{comment} 
+     where bcno=#{bcno}
+    </update>
 </mapper>
 
 

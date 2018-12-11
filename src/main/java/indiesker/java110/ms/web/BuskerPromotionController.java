@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
-import indiesker.java110.ms.domain.Busker;
 import indiesker.java110.ms.domain.BuskerPromotion;
 import indiesker.java110.ms.domain.BuskerPromotionComment;
 import indiesker.java110.ms.domain.Member;
@@ -124,6 +122,8 @@ public class BuskerPromotionController {
   public void detail(
       int bbno, Paging paging, Model model) {
     
+    
+    System.out.println(bbno);
     paging.setPageSize(13);
     paging.setTotalCount(buskerPromotionService.totCommetList(bbno));
     
@@ -281,6 +281,24 @@ public class BuskerPromotionController {
     map.put("mno", mno);
     return map;
   }
+  
+  
+ //댓글수정 
+ @ResponseBody
+ @RequestMapping("bcContentEdit")
+ public int bcContentEdit(int bbno, int bcno, String comment) {
+   System.out.println(bbno);
+   System.out.println(bcno);
+   System.out.println(comment);
+   /*if(session.getAttribute("loginUser") != null) {
+     Member m = (Member)session.getAttribute("loginUser");
+      mno = m.getNo();
+   }Z*/
+   
+   
+   return buskerPromotionService.editbcomt(bcno, comment);
+ }
+
 
 }
 
