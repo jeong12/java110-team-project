@@ -155,7 +155,7 @@
 
     <div class="pn">
         <a><img src="${com.phot}" class="pto"></a>
-       <p class="nik">버스커</p>
+       <p class="nik">${com.type}</p>
     </div>
     <div class="cc">
            <div  class="ftt">${com.nik}</div>
