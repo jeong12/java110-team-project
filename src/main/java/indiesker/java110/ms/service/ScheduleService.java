@@ -9,7 +9,7 @@ public interface ScheduleService {
     List<Schedule> myperlist(int bno, int pageNo, int pageSize);
     void addSchedule(Schedule schedule);
     List<Schedule> mybslist(int bno, int pageNo, int pageSize);
-    List<Schedule> findbydate(String no, String date);
+    List<Schedule> findbydate(int bno, String date);
     List<Schedule> findbyflag(String flag, int pageNo, int pageSize);
     void addStageSchedule(Schedule schedule);
     List<Schedule> mysslist(int no, Paging paging);

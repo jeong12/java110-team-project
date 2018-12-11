@@ -418,7 +418,7 @@ GROUP BY BS.brno
 	<insert id="insertperschedule" parameterType="Schedule"
 		useGeneratedKeys="true" keyColumn="psno" keyProperty="psno">
 		insert into per_sche(sdt,edt,addr,x,y,shopname,cdt,cnt,bno)
-		values(#{nsdt},#{nedt},#{addr},#{x},#{y},#{shopname},now(),#{cnt},5)
+		values(#{nsdt},#{nedt},#{addr},#{x},#{y},#{shopname},now(),#{cnt},#{bno})
 	</insert>
 
 	<!-- 스케줄조회 : 확정 버스커 스케줄 출력하는 쿼리 -->
