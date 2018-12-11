@@ -33,7 +33,7 @@
 }
 
 #bodybody{
-    min-height: 700px;
+    min-height: 850px;
 }
 
 /*페이지네이션*/
@@ -96,7 +96,7 @@ text-align: center;
 width: 15px;
 height: 15px;
 }
-.wrapfollowerdetail:target {
+div.wrapfollowerdetailOpen {
     opacity:1;
     pointer-events: auto;
 }
@@ -232,7 +232,8 @@ a#movetop {
             <div id="followPagenation">
                 <c:forEach items="${followerList}" var="bno">
                     <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter ${bno.teamgenre}">
-	                   <a href="#wrapfollowerdetail" value="${bno.bno}" style="text-decoration: none; color: #555; " class="followerbtn">
+	                   <a href="javascript:void(0)" value="${bno.bno}" 
+	                   style="text-decoration: none; color: #555; " class="followerbtn" >
 		                   <table class="innertable">
 		                       <tr><td><img src="/upload/${bno.teamPhoto}" class="teamPhotoImg"></td></tr> 
 		                       <tr><td>${bno.teamname}</td></tr>
@@ -270,9 +271,10 @@ a#movetop {
 <!--우측 자세히 보기-->
     <div id="wrapfollowerdetail" class="wrapfollowerdetail">
         <div>
+        <div id="closebtn"><a href="javascript:void(0)" id="inclosebtn">close X </a></div>
             <table id="followerdetail">
                 <tbody>
-                             <div id="closebtn"><a href="#close" id="inclosebtn">close X </a></div>
+                             
                 </tbody>
             </table>
         </div>
@@ -300,9 +302,9 @@ function PageMove(i,no){
  
 
 //자세히 보기
-$('.followerbtn').click(function(){
-    
-    var bno = $(this).attr('value');
+$('.followerbtn').click(function(e){
+	var folbtn = $(e.target).parent().parent().parent().parent().parent()
+    var bno = $(folbtn).attr('value'); 
     console.log(bno);
     
     $.ajax({ 
@@ -321,14 +323,17 @@ $('.followerbtn').click(function(){
               +'<tr><td class="leftside">주요장르 : </td><td class="rightside">'+data.teamgenre+'</td></tr>'
               +'<tr><td class="leftside">활동도시 : </td><td class="rightside">'+data.city+'</td></tr>'
               +'<tr><td id="leftsidebottom">소 개 말 : </td><td id="rightsidebottom">'+data.teamInfo+'</td></tr>'
-              +'<tr><td id="gofeed" colspan="3"><a href="#close" class="more-button" style="text-decoration: none;">그만 보기</a>'
+              +'<tr><td id="gofeed" colspan="3"><a href="javascript:void(0)" class="more-button" style="text-decoration: none;" >그만 보기</a>'
               +'<a href="/app/buskerfeed/enter?no='+data.bno+'" class="more-button" style="text-decoration: none;">피드가기</a></td></tr>');
+           $('.wrapfollowerdetail').addClass('wrapfollowerdetailOpen');
         },
         error : function(request, status, error) {
             alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
         }
     });
+	
 });
+
 
    /* 상단고정, 위로가기 */
    $(document).scroll(function(){
@@ -347,6 +352,21 @@ $('.followerbtn').click(function(){
         }, 800, 'easeInQuart');
         return false;
     });
+    
+    
+    $('#inclosebtn').click(function(e){
+    	
+        console.log('test');
+        $('div.wrapfollowerdetail.wrapfollowerdetailOpen').removeClass('wrapfollowerdetailOpen');
+    });
+    $('a.more-button').ready(function(){
+	    $(this).click(function(e){
+	        $('div.wrapfollowerdetail.wrapfollowerdetailOpen').removeClass('wrapfollowerdetailOpen');
+	    });
+    });
+    	
+    
+        
 </script>
     
 </body>

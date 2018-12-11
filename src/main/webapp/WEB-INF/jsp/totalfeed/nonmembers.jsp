@@ -74,7 +74,7 @@
 </script>
 <style>
 #bodybody{
-min-height: 700px;
+min-height: 850px;
 }
 
 .teamnametr{
@@ -256,7 +256,8 @@ padding: 0;
 
 						<c:forEach items="${totalFeed}" var="tf">
 							<div class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${tf.teamgenre}">
-								<a href="/app/buskerfeed/enter?no=${tf.bno}" style="text-decoration: none; color: #555; " class="js-load">
+								<a href="/app/buskerfeed/enter?no=${tf.bno}" 
+								style="text-decoration: none; color: #555; " class="js-load">
 									<table>
 										<tr>
 											<td><img src="/upload/${tf.teamPhoto}"
@@ -283,7 +284,8 @@ padding: 0;
 					<div class="table table-list-search">
 						<c:forEach items="${city}" var="tf">
 							<div class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${tf.teamgenre}">
-								<a href="/app/buskerfeed/enter?no=${tf.bno}" style="text-decoration: none; color: #555;" class="js-load">
+								<a href="/app/buskerfeed/enter?no=${tf.bno}" 
+								style="text-decoration: none; color: #555;" class="js-load">
 									<table>
 										<tr>
 											<td><img src="/upload/${tf.teamPhoto}"
@@ -309,7 +311,8 @@ padding: 0;
 					<div class="table table-list-search">
 						<c:forEach items="${teamname}" var="tf">
 							<div class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${tf.teamgenre}">
-								<a href="/app/buskerfeed/enter?no=${tf.bno}" style="text-decoration: none; color: #555;" class="js-load">
+								<a href="/app/buskerfeed/enter?no=${tf.bno}" 
+								style="text-decoration: none; color: #555;" class="js-load">
 									<table>
 										<tr>
 											<td><img src="/upload/${tf.teamPhoto}"
