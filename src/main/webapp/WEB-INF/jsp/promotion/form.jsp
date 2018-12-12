@@ -35,22 +35,23 @@
     .blabel{margin-left: 7%;}
     #textarea{width: 40%; margin-left:15%; height: 15rem;}
     #upload1{width: 17rem; height: 15rem; border: 1px solid silver;}
-    .xybtn{width: 30%; margin: auto; display: flex;}
+    .xybtn{width: 30%; margin: auto;     text-align: -webkit-center;}
     .lbtn{float: left;}
     .rbtn{float: right;}
-    #logo{width: 40px; height:40px; float: left; margin-top: -4px;}
+    #logo{width: 40px; height:40px; float: left; margin-top: -4px; margin-right: 1%;}
     #titl{margin-top: 2%; margin-left: 19%;}
     #titleh2{float: left; margin-top: 0;}
+    #filebutton{opacity: 0;}
+    .btns{margin-right: 1rem;}
 </style>
 </head>
 <header>
 <jsp:include page="../header.jsp"></jsp:include>
   </header>  
     <div id="titl">
-        <img id="logo" src="../../img/playButton.png" alt="플레이로고">
+        <img id="logo" src="../../img/playButton.PNG" alt="플레이로고">
         <h2 id="titleh2">무대관리</h2>
     </div>
-    
 <body>         
 
 <div class="container">
@@ -90,15 +91,18 @@
 </div>
 </div>
 <div class="right">
-<div class="imguppend">
+<!-- <div class="imguppend">
 <img id="upload1" name="" alt="기본이미지" src="/img/anonymous.png">
-</div>
+</div> -->
 <div class="form-group">
-  <label class=" control-label" for="filebutton">사진</label>
+  <label class=" control-label" for="filebutton">
+  <img id="upload1" name="" alt="기본이미지" src="/img/anonymous.png">
+  </label>
     <input id="filebutton" name="file1" class="input-file" type="file" onchange="readURL1(this)">
 </div>
 </div>
 </div>
+
 <div class="bbtn">
 <div class="form-group">
   <label class="blabel" for="textarea">홍보내용</label>  
@@ -106,14 +110,14 @@
 </div>
 </div>
 <div class="xybtn">
-<div>
-    <button type="button" onclick="hihihi()" id="send" class="btns btns-outline-success btn-sm">확인</button>
-</div>   
- <div>
     <button type="button" class="btns btns-outline-dark">뒤로가기</button>
-</div> 
+    <button type="button" onclick="hihihi()" id="send" class="btns btns-outline-success btn-sm">확인</button>
 </div>
 
+</form>
+</div>
+
+<jsp:include page="../footer.jsp"></jsp:include>
 </body>
 
 <!-- jQuery library -->
@@ -221,5 +225,5 @@ $('#textinput3').change(function () {
 });
 
 </script>
-<jsp:include page="../footer.jsp"></jsp:include>
+
 </html>

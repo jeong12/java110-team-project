@@ -115,7 +115,7 @@ public class BuskerPromotionController {
       
       buskerPromotionService.add(buskerBoard);
       
-      return "redirect:form";
+      return "redirect:list";
   }
   
   @GetMapping("detail")
