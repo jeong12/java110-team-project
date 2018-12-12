@@ -24,8 +24,8 @@ body {
 }
 
 .container {
-    width: 800px; padding-right: 3rem; padding-left: 3rem;
-    margin-right: auto; margin-left: auto; margin-bottom: 1rem;
+    width: 800px;  min-height:800px; padding: 3rem 3rem 0;
+    margin-right: auto; margin-left: auto; margin-bottom: 2rem;
     border-radius: 8px/7px; background-color: #ebebeb;
     box-shadow: 1px 2px 5px rgba(0, 0, 0, .31);
     border: solid 1px #cbc9c9;
@@ -36,8 +36,10 @@ h4 {
 }
 
 #upload1, #upload2, #upload3 {
-    margin: .8rem .8rem .2rem; height: 150px; width: 150px;
-    border-radius: 3rem;
+    margin: .8rem .8rem .2rem;
+    height: 200px;
+    width: 200px;
+    border-radius: 15px;
 }
 
 #input_img1, #input_img2, #input_img3 {
@@ -49,15 +51,15 @@ h4 {
 }
 
 #imgfile {
-    position: relative; text-align: center; margin-bottom: .5rem;
+    position: relative; text-align: center; margin-bottom: 1.2rem;
 }
 
 #sgnere {
     border: 0; border-bottom: 1px solid black; margin-top: 2px;
-    font-size: 18px; font-weight: 500; width: 20%;
+    font-size: 18px; font-weight: 500; width: 13%;
     background-color: #f5f5f5; -webkit-appearance: none;
     background: url(/img/bottom.png) no-repeat 95% 50%;
-    background-size: 15%;
+    background-size: 20%;
 }
 
 #sgnere:focus {
@@ -84,7 +86,9 @@ input[type="text"]:focus, input[type="tel"]:focus, input[type="number"]:focus {
     padding-left: 9.1rem;
 }
 #map{
-    height:400px; margin-top:1rem; display:none;
+    height: 300px;
+    width: 94%;
+    margin: 1.2rem 0 0.5rem; display:none;
 }
 .addr_btn{
     font-size: 0.6rem;
@@ -96,7 +100,7 @@ input[type="text"]:focus, input[type="tel"]:focus, input[type="number"]:focus {
     background-color: #ebebeb;
     resize: none;
     position: relative;
-    top: 0.3rem;
+    top: 0.5rem;
     border-radius: 7px 0 7px 0;
 }
 .nonesize:focus{
@@ -105,10 +109,13 @@ input[type="text"]:focus, input[type="tel"]:focus, input[type="number"]:focus {
 }
 
 .modi{
-    margin: 0.5rem 0 1rem;
+    margin: 0.8rem 0 1rem;
 }
 #modi-center{
     text-align: center;
+}
+.pd{
+    padding: 0 6% 0 10%;
 }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -149,6 +156,7 @@ input[type="text"]:focus, input[type="tel"]:focus, input[type="number"]:focus {
                 </tr>
             </table>
             </div>
+            <div class="pd">
             <h4>상호명</h4>
             <input type='text' name='name' oninput="checkName()" id="name"
                 size=30><br> <div id="nameMsg" class="guide"></div>
@@ -174,12 +182,13 @@ input[type="text"]:focus, input[type="tel"]:focus, input[type="number"]:focus {
             <div id="map"></div>
             <h4>수용가능인원</h4>
             <input type="number" id="capa" name="capa" onchange="checkCapa()">
-            <div id="capaMsg" class="guide"></div> <br>
+            <div id="capaMsg" class="guide"></div>
             <h4>연락처</h4>
             <input type="tel" id="tel" name="tel" size=30 onchange="checkTel()"> 
             <br><div id="telMsg" class="guide"></div>
             <h4>기타(희망사항)</h4>
             <textarea name="message" id="message" rows="4" cols="34" class="nonesize" placeholder="100자 이내로 적어주시길 바랍니다."></textarea> <br>
+            </div>
             <div id="modi-center">
             <button class="modi btns btns-outline-dark" disabled="disabled">수정완료</button>
             </div>

@@ -17,6 +17,9 @@
     <script src="/js/filter.js"></script>
     
 <style>
+.col-md-5_c{
+    padding-left: 0px;
+}
 .top-bar {
     background: black; color: #fff; font-size: 0.9rem; padding: 10px 0;
 }

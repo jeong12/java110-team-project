@@ -15,7 +15,7 @@
 
 <style>
 #titl {
-    margin: 0 auto;
+    margin: 0 auto; 
     padding: 10px 0;
 }
 
@@ -24,7 +24,7 @@
 }
 
 h3 {
-    display: inline-block; position: relative; top: .5rem;
+    display: inline-block; position: relative; top: .2rem;
 }
 .default{
     min-height: 671px;
@@ -52,9 +52,6 @@ ul li.prolist {
 }
 
 .proimg {
-    border-radius: 2rem; height: 230px; width: 250px;
-}
-.busimg {
     border-radius: 2rem; height: 300px; width: 300px;
 }
 .carousel-inner>.item>img{
@@ -185,7 +182,7 @@ ul li.prolist {
                               </ul>
                           </td>
                           <td>
-                          <img src="../../upload/${bus.teamPhoto}" alt="test1" class="busimg">
+                          <img src="../../upload/${bus.teamPhoto}" alt="test1" class="proimg">
                           <div class="probtn"><button class="btns btns-outline-dark" onclick="EditBus()">수정하기</button></div>
                           </td>
                       </tr>
@@ -211,7 +208,7 @@ ul li.prolist {
                               </ul>
                           </td>
                           <td>
-                          <%-- <img src="../../upload/${sup.stagephotos[0].photo}" alt="test1" class="busimg"> --%>
+                          <%-- <img src="../../upload/${sup.stagephotos[0].photo}" alt="test1" class="proimg"> --%>
                           <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                             
                               <!-- Wrapper for slides -->

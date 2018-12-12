@@ -65,7 +65,7 @@ opacity: 0.8;}
     <div class="title container">
 <div class="row">
     <div id="titl" class='col-lg-8'>
-        <img id="logo" src="../../../img/tum.png" alt="플레이로고">
+        <img id="logo" src="../../../img/playButton.PNG" alt="플레이로고">
         <h3>버스커 되기 >> 동영상 올리기 >> <b>신청완료</b></h3>
     </div>
     </div>

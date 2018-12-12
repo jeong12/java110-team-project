@@ -98,7 +98,7 @@ function removes(){
 			}else{
 				$.each(data,function(index,item){
 				$(".selectdates").append(
-					'<li class="list-group-item"><input type="checkbox" name="stagedate" value="'+item.sno+'">'+item.nsdt+'~'+item.nedt+'</li>');
+					'<li class="list-group-item"><input type="checkbox" name="stagedate" value="'+item.sno+'">'+item.nsdt+' ~ '+item.nedt+'</li>');
 				});
 				$(".panel-footer").append(
 				'<button class="btn btn-lg btn-block btn-success" onclick="removeDate()">삭제하기</button>'

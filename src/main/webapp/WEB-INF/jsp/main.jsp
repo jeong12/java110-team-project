@@ -70,6 +70,8 @@ table {
 
 .avi-margin {
     margin-left: 8.7rem;
+    margin-top: .8rem;
+    margin-bottom: .7rem;
 }
 .list-inline-item{
     width: 190px;
@@ -105,7 +107,7 @@ table {
     right:6rem;
     background:rgba(0,0,0,0.5);
     width:56%;
-    height:46%;
+    height:43%;
     padding:2%;
     text-align:center;
     color:#fff !important;
@@ -130,7 +132,7 @@ table {
   }
  .caption a i {
   position: absolute;
-  bottom: 0.8rem;
+  bottom: 0.4rem;
   right: 0.5rem;
   padding: 0 0.5rem;
   font-size: 2rem;
@@ -171,7 +173,20 @@ table {
     }
     ul.list-inline.nav.justify-content-center{
         position: relative;
-        left: 2rem;
+        left: 1.5rem;
+    }
+    #list_titl{
+        margin-top: .7rem;
+        margin-bottom: .8rem;
+    }
+    .text-center{
+        margin-bottom:.8rem;     
+    }
+    .table-responsive{
+        min-height: 245px;
+    }
+    #nul{
+    max-width: 16%; width: 100%;
     }
 
 /* @media ( min-width : 750px) and ( max-width : 1281px) {
@@ -233,6 +248,7 @@ table {
     .placeImg {
         width:6.4rem;
         height:8rem; 
+        cursor:pointer;
     }
     .placMainSub{
         text-align: center;        
@@ -271,21 +287,33 @@ table {
         ></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
       </ol>
       <div class="carousel-inner">
         <div class="carousel-item active">
           <img class="d-block w-100 Ad-slide"
-            src="../img/main_test1.JPG" alt="첫번째 슬라이드"
+            src="../img/main_banner1.jpg" alt="첫번째 슬라이드"
           >
         </div>
         <div class="carousel-item">
           <img class="d-block w-100 Ad-slide"
-            src="../img/main_test2.JPG" alt="두번째 슬라이드"
+            src="../img/main_banner2.jpg" alt="두번째 슬라이드"
           >
         </div>
         <div class="carousel-item">
           <img class="d-inline-block w-100 Ad-slide"
             src="../img/main_test3.JPG" alt="세번째 슬라이드"
+          >
+        </div>
+        <div class="carousel-item">
+          <img class="d-inline-block w-100 Ad-slide"
+            src="../img/main_banner3.png" alt="네번째 슬라이드"
+          >
+        </div>
+        <div class="carousel-item">
+          <img class="d-inline-block w-100 Ad-slide"
+            src="https://image.slidesharecdn.com/20142827-161124110125/95/-2-638.jpg?cb=1479985940" alt="네번째 슬라이드"
           >
         </div>
       </div>
@@ -345,11 +373,11 @@ table {
             <div class="col-md-12 col-xs-12 mb-3" id="button"></div>
           </div>
         </div>
-        <div class="col-md-2 col-xs-1"></div>
+        <div id="nul"></div>
         <div class="col-md-5 col-xs-5">
           <!-- 스트리밍 -->
           <div class="streaming my-3"> 
-            <h1 class="text-center">현재 공연중</h1>
+            <h1 class="text-center">지금 공연중</h1>
             <iframe width="400" height="300"
               src="https://www.youtube.com/embed/aR8Fe1lTKHo"
               frameborder="0"
@@ -390,7 +418,7 @@ table {
         <div class="col-md-12 my-3">
           <ul class="list-inline nav justify-content-center">
             <li class="list-inline-item mr-2"><a
-              href="#" class="contents-a" 
+              href="schedule/list" class="contents-a" 
             > <i class="far fa-calendar-alt fa-4x"></i> <br> <span
                 class="contents-menu"
               >버스킹 일정</span></a> <br>
@@ -398,7 +426,7 @@ table {
                 한눈에!</div></li>
 
             <li class="list-inline-item mx-2"><a
-              href="#" class="contents-a" 
+              href="map/main" class="contents-a" 
             > <i class="fas fa-map-marked-alt fa-4x"></i><br> <span
                 class="contents-menu"
               >버스킹 위치</span></a><br>
@@ -406,7 +434,7 @@ table {
                 제공</div></li>
 
             <li class="list-inline-item ml-2" ><a
-              href="#" class="contents-a" 
+              href="totalfeed/nonmembers" class="contents-a"  
             > <i class="fas fa-clipboard-list fa-4x"></i><br> <span
                 class="contents-menu"
               >버스킹 목록</span></a><br>

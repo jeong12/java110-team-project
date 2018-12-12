@@ -49,10 +49,14 @@ background-color: snow;
 input {
 	font-family: "Open Sans", Helvetica, sans-serif;
 	border: none;
-	border-bottom: 2px solid #ebebeb;
+	border-bottom: 1px solid black;
 	padding-bottom: 10px;
 	position: relative;
 	width: 75%;
+	background-color: #ebebeb;
+	border-left: none;
+	border-right: none;
+	border-top: none;
 }
 .join_form {
     margin: 0px auto;
@@ -60,16 +64,17 @@ input {
     border-radius: 10px;
     padding-bottom: 5%;
     margin-bottom: 11%;
+    background-color: #ebebeb;
 }
 
 
 input:focus {
 	outline: none;
-	border-bottom-color: #3CC !important;
+	border-bottom: 2px double black !important;
 }
 
 input:hover {
-	border-bottom-color: #3CC;
+	border-bottom: 2px double black !important;
 }
 
 input:invalid {
@@ -144,7 +149,7 @@ input::-webkit-input-placeholder{text-align: center;}
 <div class="title container">
 <div class="row">
     <div id="titl" class='col-lg-8'>
-        <img id="logo" src="../../../img/tum.png" alt="플레이로고">
+        <img id="logo" src="../../../img/playButton.PNG" alt="플레이로고">
         <h3>버스커 되기 >> <b>동영상 올리기</b> >> 신청완료</h3>
     </div>
     </div>

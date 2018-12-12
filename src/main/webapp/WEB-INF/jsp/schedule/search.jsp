@@ -11,24 +11,19 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link href="../../css/common.css" rel="stylesheet">
 <style>
-#logo {
-    width: 40px;
-    height: 40px;
-}
-
+#logo { width: 40px; height: 40px;}
 .rigth{float: right;}
 .tableleft{float: left; width:100%; }
-.tablerigth{width: 18%; position: absolute; right: 10%;}
+.tablerigth{width: 18%; position: absolute; right: 10rem;}
 .fter{clear: both;}
 .thead-dark tr th{background-color: #212529; color: white;}
-img{width: 16rem; height: 10rem;}
 .serchin{height: 1.5rem;}
-.search{display: inline; text-align: center;}
+.search{display: inline; text-align: center; float: right;}
 #titl{margin-top: 2%; margin-bottom: 2%;}
 #logo{float: left;}
-#haha{margin-top: 1.2%; margin-left: 5.5%;}
+#haha{margin-top: 0.7%; margin-left: 5%;}
 #m{margin-bottom: 4px; font-size: 0.6rem;
-    padding: .35rem .35rem;} 
+    padding: .35rem .35rem;}
 nav.pages {text-align: center;}
 #md{
     margin-top:5px;
@@ -36,43 +31,35 @@ nav.pages {text-align: center;}
 table.table.table-hover, tr th{ 
 text-align: center; 
 }
-div.tablerigth .rdetail ul{
-    text-align: center;
-}
-div.tablerigth .rdetail ul li{
-    font-size:20px;
-    font-weight: 600;
-    margin-top: 5px;
-}
-div.tablerigth .rdetail ul li:last-child{
-    text-align:left;
-}
-div.tablerigth .rdetail ul span{
-    margin-left:5px;
-    font-weight: 400;
-}
+.imgtable{}
+.rdetail img{margin-bottom: 1.5rem;}
+
+.tablerigth div{display: inline-block;}
+.rdetail{border: 1px solid black; border-radius: 8px 8px 0px 0px;}
+img{width: 100%;height: 100%; border-radius: 8px 8px 5px 5px;}
+.rimg{width: 17rem;
+    height: 15rem;}
+.imgtable{    padding: 1rem;
+    padding-top: 0;}
+.btn{background-color: #23272b;
+ color: white;
+  padding: .25rem .5rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    border-radius: .2rem;}
+.teamname{margin-bottom: -17px;}
 
 @media (min-width:1280px) {
     .tablerigth{
     width: 18%;
     right: 1rem;
     }
-    img{
-    width:10rem;
-    }
-    div.tablerigth .rdetail ul li {
-    font-size: 16px;
-    }
 }
 
 @media (min-width:1650px){
 .tablerigth{width: 18%; right: 10%;}
-img{width: 14rem; }
-div.tablerigth .rdetail ul li{
-    font-size:16px;
-}
-}
-#haha{margin-top: 0.7%; margin-left: 5%;}
+.genre{color: gray;}
+.intro{margin-top: 1rem};
 </style>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -168,7 +155,7 @@ div.tablerigth .rdetail ul li{
 	        	$('.content').empty();
 	        	$('.pages').empty();
 	        	 $.each(data.list,function(index,item){
-	        	$('.content').append(  pull
+	        	$('.content').append(  
 	        	'<tr><th scope="row">'+item.ncdt+'</th><td>'+item.nsdt+'~'+item.nedt+'</td>'+
 	            '<td onClick="location.href=' +"'detail?no="+item.busker.bno+"'"+'">'+
 	            item.busker.teamname+'</td><td>'+item.addr+'</td></tr>');
@@ -176,7 +163,7 @@ div.tablerigth .rdetail ul li{
 	        	 $('.pages').append(' <ul class="pagination justify-content-center">'+
 	                     '<li class="page-item prev">'+
 	                     '<a class="page-link" href="javascript:goPage('+data.paging.prevPageNo+
-	                        git p     ')">Previous</a></li>');
+	                     ')">Previous</a></li>');
 	                for(var i = data.paging.startPageNo;i<=data.paging.endPageNo;i++){
 	                    if(i == data.paging.pageNo){
 	                        $('.pagination.justify-content-center').append('<li class="page-item active">'+
@@ -200,31 +187,38 @@ div.tablerigth .rdetail ul li{
 		         var position = $(window).scrollTop(); 
 		         $(".tablerigth").stop().animate({"top":position+currentPosition+"px"},1000); }); 
 	}
-	
 	function showDetail(e){
-        console.log(e);
          $.ajax({
              type : "POST",
                 url : "detail",
                 data :{"bno":e},               
                 success : function(data){
-                    $('.tableleft').css('width','80%');
+                	$('.tableleft').css('width','80%');
                     $(".tablerigth").empty();
                     $(".tablerigth").append(
                     '<div class="rdetail">'
-                    +'<ul class="list-inline">'
-                    +'<li><img src="/upload/'+data.teamPhoto+'"></li>'
-                    +'<li>팀명<span>'+data.teamname+'</span></li>'
-                    +'<li>주요장르<span>'+data.teamgenre+'</span></li>'
-                    +'<li>소개말<span>'+data.teamInfo+'</span></li>'
-                    +'</ul>'
+                    +'<div class="rimg">'
+                    +'<img src="/upload/'+data.teamPhoto+'"><br>'
                     +'</div>'
+                    +'<div class="imgtable">'
+                    +'<h3 class="teamname">'+data.teamname+'</h3><br>'
+                    +'<div class="genre">'+data.teamgenre+'</div><br>'
+                    +'<div class="intro">'+data.teamInfo+'<div>'
+                    +'</div><br>'
+                    +'<br><button class="btn">피드가기</button>'
                     );
                 }, error : function(request, status, error) {
                     alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
                 }   
         });
     }
+	
+	
+	   var currentPosition = 
+	        parseInt($(".tablerigth").css("top")); 
+	       $(window).scroll(function() { 
+	           var position = $(window).scrollTop(); 
+	           $(".tablerigth").stop().animate({"top":position+currentPosition+"px"},1000); });
 	
 	</script>
 </body>
