@@ -556,13 +556,13 @@ $(document).on("click",'.memberDetail',function(){
             $(".mmemo").empty();
             $(".mmimg").empty();
             
-            $(".mmimg").append("<img src='/upload/"+data.photo+"'>")
-            $("#mttl").append('<h3>'+data.nickname+'</h3>')
-            $(".mid").append('<p>'+data.id+'</p>')
-            $(".meamil").append('<p>'+data.email+'</p>')
-            $(".mnik").append('<p>'+data.nickname+'</p>')
-            $(".mgenre").append('<p>'+data.genre0+','+data.genre1+','+data.genre2+'</p>')
-            $(".mmemo").append('<p>'+data.memo+'</p>')
+            $(".mmimg").append("<img src='/upload/"+data.photo+"'>");
+            $("#mttl").append('<h3>'+data.nickname+'</h3>');
+            $(".mid").append('<p>'+data.id+'</p>');
+            $(".meamil").append('<p>'+data.email+'</p>');
+            $(".mnik").append('<p>'+data.nickname+'</p>');
+            $(".mgenre").append('<p>'+data.genre0+','+data.genre1+','+data.genre2+'</p>');
+            $(".mmemo").append('<p>'+data.memo+'</p>');
         }
     })
     
