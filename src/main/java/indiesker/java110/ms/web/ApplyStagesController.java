@@ -4,11 +4,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import indiesker.java110.ms.domain.Member;
 import indiesker.java110.ms.domain.Schedule;
 import indiesker.java110.ms.domain.StagePhoto;
 import indiesker.java110.ms.domain.Supporter;
@@ -51,9 +53,8 @@ public class ApplyStagesController {
 
   @ResponseBody
   @RequestMapping("chkDates")
-  public List<Schedule> chkDates(String date){
-    int no = 2;
-    List<Schedule> slist = scheduleService.findPossibleStages(no, date);
+  public List<Schedule> chkDates(String date, int sno){
+    List<Schedule> slist = scheduleService.findPossibleStages(sno, date);
 
     SimpleDateFormat hformat = new SimpleDateFormat("HH:mm");
     for (Schedule s : slist) {
@@ -65,9 +66,10 @@ public class ApplyStagesController {
   
   @ResponseBody
   @RequestMapping("applyStage")
-  public int applyStage(String[] ssno, String cont, String count){
+  public int applyStage(String[] ssno, String cont, String count, HttpSession session){
     
-    int bno = 5;
+    Member m = (Member)session.getAttribute("loginUser");
+    int bno = m.getNo();
     ArrayList<Integer> list = new ArrayList<>();
     for(int i=0;i<ssno.length;i++) {
       list.add(Integer.parseInt(ssno[i]));

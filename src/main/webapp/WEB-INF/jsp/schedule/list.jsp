@@ -13,11 +13,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="../../css/common.css">
 <style>
-#logo {
-	width: 40px;
-	height: 40px;
-}
-
+#logo {	width: 40px; height: 40px;}
 .rigth{float: right;}
 .tableleft{float: left; width:100%; }
 .tablerigth{width: 18%; position: absolute; right: 10rem;}
@@ -53,6 +49,7 @@ img{width: 100%;height: 100%; border-radius: 8px 8px 5px 5px;}
     font-size: .875rem;
     line-height: 1.5;
     border-radius: .2rem;}
+.teamname{margin-bottom: -17px;}
 
 @media (min-width:1280px) {
     .tablerigth{
@@ -63,8 +60,9 @@ img{width: 100%;height: 100%; border-radius: 8px 8px 5px 5px;}
 
 @media (min-width:1650px){
 .tablerigth{width: 18%; right: 10%;}
-}
-/* .thead-dark tr th{background-color:#212529; } */
+.genre{color: gray;}
+.intro{margin-top: 1rem};
+
 </style>
 <jsp:include page="../header.jsp"></jsp:include>
 </head>
@@ -164,9 +162,9 @@ img{width: 100%;height: 100%; border-radius: 8px 8px 5px 5px;}
 	                +'<img src="/upload/'+data.teamPhoto+'"><br>'
 	                +'</div>'
 	                +'<div class="imgtable">'
-	                +'<h3 class="titl">팀명'+data.teamname+'</h3><br>'
-	                +'<div class="titl">주요장르</div><div>'+data.teamgenre+'</div><br>'
-	                +'<div class="titl">소개말</div><div>'+data.teamInfo+'<div>'
+	                +'<h3 class="teamname">'+data.teamname+'</h3><br>'
+	                +'<div class="genre">'+data.teamgenre+'</div><br>'
+	                +'<div class="intro">'+data.teamInfo+'<div>'
 	                +'</div><br>'
 	                +'<br><button class="btn">피드가기</button>'
 	                );
