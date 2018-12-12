@@ -65,6 +65,27 @@ body{background-color: snow;}
     .pages{text-align: center;}
     #ajappend1 h4{text-align: center;}
     .tabs li{display: inline-block;}
+    .list-group-horizontal .list-group-item {
+    display: inline-block;
+    cursor:pointer;
+}
+.list-group-horizontal .list-group-item {
+    margin-bottom: 0;
+    margin-left:-4px;
+    margin-right: 0;
+}
+.list-group-horizontal .list-group-item:first-child {
+    border-top-right-radius:0;
+    border-bottom-left-radius:4px;
+}
+.list-group-horizontal .list-group-item:last-child {
+    border-top-right-radius:4px;
+    border-bottom-left-radius:0;
+}
+    ul{
+    padding-left: 0px;
+}
+.toptop{margin-bottom: -0.5rem;}
 </style>
 <header>
     <jsp:include page="../header.jsp"></jsp:include>
@@ -77,7 +98,7 @@ body{background-color: snow;}
 
 <body>
 <div class="container">
-        <div class="toptop">       
+        <div class="toptop"> 
         <div class="text-left" style='display:inline-block;'>
             <div class="list-group list-group-horizontal">
                <ul class='tabs'>

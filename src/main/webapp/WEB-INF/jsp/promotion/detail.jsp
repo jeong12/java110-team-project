@@ -103,6 +103,8 @@
     margin-left: 7%;}
 i {margin-right: 1rem;}
 .contents div{margin-bottom: 0.5rem;}
+.contents{margin-top: 1rem;}
+
 </style>
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
