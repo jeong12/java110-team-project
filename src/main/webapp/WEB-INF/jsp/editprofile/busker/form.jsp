@@ -51,7 +51,7 @@ h4 {
 
 #upload {
     margin-top: .8rem;
-    margin-bottom: .2rem;
+    margin-bottom: .8rem;
     height:150px; width: 150px;
     border-radius: 3rem;
 }
@@ -102,7 +102,7 @@ h4 {
 }
     
 .modi{
-    margin: 0.5rem 0 1rem;
+    margin: 0.9rem 0 1.5rem;
 }
 #modi-center{
     text-align: center;
@@ -233,7 +233,7 @@ function readURL(input) {
             <h4 class="h4">주 연주 악기</h4>
             <input type="text" name="instrument" size=30> <br>
             <h4>팀소개</h4>
-            <textarea name="teamInfo" rows="4" cols="34" class="nonesize" placeholder="100자 이내로 적어주시길 바랍니다."></textarea><br>
+            <textarea name="teamInfo" rows="4" cols="31" class="nonesize" placeholder="100자 이내로 적어주시길 바랍니다."></textarea><br>
             </div>
             <div id="modi-center">
             <button class="modi btns btns-outline-dark" disabled="disabled">수정완료</button>
