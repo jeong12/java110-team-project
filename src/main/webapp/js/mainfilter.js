@@ -35,7 +35,7 @@ $().ready(function(){
             swal("잠깐!","일반회원이 아닙니다!","error");
             return false;
         } else {
-                location.href="signup/busker/form"; 
+                location.href="signup/supporter/form"; 
         }
     });
 

@@ -65,7 +65,7 @@ opacity: 0.8;}
     <div class="title container">
 <div class="row">
     <div id="titl" class='col-lg-8'>
-        <img id="logo" src="../../../img/tum.png" alt="플레이로고">
+        <img id="logo" src="../../../img/playButton.PNG" alt="플레이로고">
         <h3>버스커 되기 >> 동영상 올리기 >> <b>신청완료</b></h3>
     </div>
     </div>
@@ -79,7 +79,7 @@ opacity: 0.8;}
    <h2>버스커 신청을 해주셔서 감사합니다.</h2>
    <h2>다시 로그인 하시면, 버스커로 활동 가능하십니다.</h2>
    <h2>올리신 영상에 문제가 있을 경우 활동이 제약됩니다.</h2>
-    <button id="btttttn" type="button" class='btns btns btns-outline-light'>홈으로 </button>
+    <a href='../../main' class="btns btns btns-outline-light">홈으로</a>
      </div>
     </div>
     </div>

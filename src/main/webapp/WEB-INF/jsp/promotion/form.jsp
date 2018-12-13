@@ -16,7 +16,7 @@
 <style>
     body{background-color: snow;}
     table{border-collapse: separate;border-spacing: 10px 20px; margin : 0 auto;}  
-    .container{border:1px solid silver; height:47rem; margin: 0 auto; border-radius: 10px; background-color: white;
+    .container{border:1px solid silver; height:44rem; margin: 0 auto; border-radius: 10px; background-color: white;
     margin-top: 7%; margin-bottom: 4%}
     .form-horizontal{ margin: auto;}
     .All{width:100%;  margin-top: 6%;}
@@ -35,22 +35,23 @@
     .blabel{margin-left: 7%;}
     #textarea{width: 40%; margin-left:15%; height: 15rem;}
     #upload1{width: 17rem; height: 15rem; border: 1px solid silver;}
-    .xybtn{width: 30%; margin: auto; display: flex;}
+    .xybtn{width: 30%; margin: auto;  margin-top:4%;   text-align: -webkit-center;}
     .lbtn{float: left;}
     .rbtn{float: right;}
-    #logo{width: 40px; height:40px; float: left; margin-top: -4px;}
+    #logo{width: 40px; height:40px; float: left; margin-top: -4px; margin-right: 1%;}
     #titl{margin-top: 2%; margin-left: 19%;}
     #titleh2{float: left; margin-top: 0;}
+    #filebutton{opacity: 0;}
+    .btns{margin-right: 1rem;}
 </style>
 </head>
 <header>
 <jsp:include page="../header.jsp"></jsp:include>
   </header>  
     <div id="titl">
-        <img id="logo" src="../../img/playButton.png" alt="플레이로고">
+        <img id="logo" src="../../img/playButton.PNG" alt="플레이로고">
         <h2 id="titleh2">무대관리</h2>
     </div>
-    
 <body>         
 
 <div class="container">
@@ -90,15 +91,18 @@
 </div>
 </div>
 <div class="right">
-<div class="imguppend">
+<!-- <div class="imguppend">
 <img id="upload1" name="" alt="기본이미지" src="/img/anonymous.png">
-</div>
+</div> -->
 <div class="form-group">
-  <label class=" control-label" for="filebutton">사진</label>
+  <label class=" control-label" for="filebutton">
+  <img id="upload1" name="" alt="기본이미지" src="/img/anonymous.png">
+  </label>
     <input id="filebutton" name="file1" class="input-file" type="file" onchange="readURL1(this)">
 </div>
 </div>
 </div>
+
 <div class="bbtn">
 <div class="form-group">
   <label class="blabel" for="textarea">홍보내용</label>  
@@ -106,14 +110,14 @@
 </div>
 </div>
 <div class="xybtn">
-<div>
+    <button type="button" onclick="location.href='list.jsp'" class="btns btns-outline-dark">뒤로가기</button>
     <button type="button" onclick="hihihi()" id="send" class="btns btns-outline-success btn-sm">확인</button>
-</div>   
- <div>
-    <button type="button" class="btns btns-outline-dark">뒤로가기</button>
-</div> 
 </div>
 
+</form>
+</div>
+
+<jsp:include page="../footer.jsp"></jsp:include>
 </body>
 
 <!-- jQuery library -->
@@ -127,6 +131,7 @@
 <script
     src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <script>
+
 function hihihi(){
 	var titl = $("input[name='titl']").val();
 	var gnere = $("input[name='genre']").val();
@@ -221,5 +226,5 @@ $('#textinput3').change(function () {
 });
 
 </script>
-<jsp:include page="../footer.jsp"></jsp:include>
+
 </html>

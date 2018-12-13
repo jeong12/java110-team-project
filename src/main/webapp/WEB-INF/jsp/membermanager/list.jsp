@@ -22,6 +22,7 @@
 </head>
 
 <style>
+#topbutton{margin-bottom:0.5rem; }
 #mytable{background-color: white;}
  body{background-color: snow;}
     .container{width: 80%; margin: auto;}
@@ -31,23 +32,21 @@
     #bun{float: left;}
     #ccc{float: right; margin-top: 2%;}
     #mttl,.bttl,.stitle{margin-left:45%;}
- }
-img{    width: 25rem;
-    margin-left: 8%;
-}
-}
-   
-    .mtb{margin: auto; margin:26px auto 20px; ;
-        border: 1px solid silver;
-        border-radius: 10px;
-        width: 500px;
-        padding: 10px;
+.close{margin-right: 1rem;}
+.mtb{    border: 1px solid silver;
+width: 26.5rem;
+padding: 0.5rem;
+margin: auto;
+margin-top: 1.5rem;
+margin-bottom: 1rem;
+border-radius: 5px;
     }
+
     #ttl{margin-left: 21px;}
     .mtb label{float: left}
       #titl{margin-top: 3.5%; margin-bottom: 2%;}
     #logo{float: left; width: 40px; height: 40px;}
-    #haha{margin-top: 0.7%; margin-left: 4%;}
+    #haha{margin-top: 0.6%; margin-left: 4%;}
      .memberDetail,.buskDetail,.supDetail,.btt2,.btt{width: 4rem; height: 1.8rem; font-size: 0.8rem;padding: 0;}
     /* Tabs css */
 .list-group-horizontal .list-group-item {
@@ -91,12 +90,17 @@ font-size: 0.8rem;
     padding: 0;
     width: 3rem;
 }
-p{margin-right: 0.2rem;margin-top: 1%;}
+#topp{margin-right: 0.2rem;margin-top: 1%;}
+img{width: 100%; height: 100%;}
+.bmimg,.carousel,.mc{    width: 26.5rem;
+    height: 19rem;
+    margin: auto;}
 </style>
+
 
 <jsp:include page="../header.jsp"></jsp:include>
 <div id="titl" class="container">
-        <img id="logo" src="../../img/playButton.png" alt="플레이로고">
+        <img id="logo" src="../../img/playButton.PNG" alt="플레이로고">
         <h3 id="haha">회원관리</h3>
     </div>
 <body>
@@ -115,7 +119,7 @@ p{margin-right: 0.2rem;margin-top: 1%;}
         </div>
 <!-- 검색 옵션 -->
        <div id="ccc">      
-            <input type="date" class="date1 form-control" id="start"><p>~</p><input type="date" class="date2 form-control" id="end">
+            <input type="date" class="date1 form-control" id="start"><p id="topp">~</p><input type="date" class="date2 form-control" id="end">
             <select name="st" class="flag form-control" id="selt">
               <option value='0' selected>기간</option>
                <option value='1'>일</option>
@@ -552,13 +556,13 @@ $(document).on("click",'.memberDetail',function(){
             $(".mmemo").empty();
             $(".mmimg").empty();
             
-            $(".mmimg").append("<img src='/upload/"+data.photo+"'>")
-            $("#mttl").append('<h3>'+data.nickname+'</h3>')
-            $(".mid").append('<p>'+data.id+'</p>')
-            $(".meamil").append('<p>'+data.email+'</p>')
-            $(".mnik").append('<p>'+data.nickname+'</p>')
-            $(".mgenre").append('<p>'+data.genre0+','+data.genre1+','+data.genre2+'</p>')
-            $(".mmemo").append('<p>'+data.memo+'</p>')
+            $(".mmimg").append("<img src='/upload/"+data.photo+"'>");
+            $("#mttl").append('<h3>'+data.nickname+'</h3>');
+            $(".mid").append('<p>'+data.id+'</p>');
+            $(".meamil").append('<p>'+data.email+'</p>');
+            $(".mnik").append('<p>'+data.nickname+'</p>');
+            $(".mgenre").append('<p>'+data.genre0+','+data.genre1+','+data.genre2+'</p>');
+            $(".mmemo").append('<p>'+data.memo+'</p>');
         }
     })
     

@@ -67,6 +67,11 @@ public class MemberManagerController {
       if (pageSize < 3 || pageSize > 10)
           pageSize = 3;
       List<MemberManager> select = memberManagerService.listSelect(flag ,pageNo, pageSize);
+      for (MemberManager mm : select) {
+        if(mm.getMemo() == null) {
+          mm.setMemo("해당 데이터가 없습니다.");
+        }
+      }
       
       model.addAttribute("select", select);
   }
@@ -224,9 +229,10 @@ public class MemberManagerController {
   
   // gradle 상세보기
   @ResponseBody
-  @RequestMapping(value = "supdetail")
-  public Supporter supDetail(int no, Model model) {
+  @RequestMapping("supdetail")
+  public Supporter supDetail(int no) {
     Supporter s = memberManagerService.supGet(no);
+    System.out.println(s);
     return s;
   }
 
@@ -235,6 +241,8 @@ public class MemberManagerController {
   @RequestMapping(value = "buskdetail")
   public Busker buskDetail(int no, Model model) {
     Busker b = memberManagerService.buskGet(no);
+    if(b.getMessage() == null)
+    b.setMessage("팀소개 글이 없습니다.");
     return b;
   }
 

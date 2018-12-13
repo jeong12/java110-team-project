@@ -42,13 +42,13 @@ margin-right: 0.5rem;
 
 #titl{
 margin-top: 3%;
-margin-bottom: 3%;
+margin-bottom: 2.3%;
+padding-left: 28px;
 }
 
 #titl h3{
 float: left; 
-margin-top: 4px;
-margin-left 2.4 rem;
+margin-top: 1px;
 }
 
 .flagdata td {
@@ -99,8 +99,8 @@ ul {
 
 .cont {
 	background-color: white;
-	margin-left: 15rem;
-	margin-right: 15rem;
+	margin-left: auto;
+    margin-right: auto;
     min-height: 810px;
 }
 
@@ -144,10 +144,6 @@ tr th {
 	box-shadow: 0 0 30px rgba(0, 0, 0, .2);
 }
 
-.price-panel:hover>.panel-heading {
-	box-shadow: 0 0 30px rgba(0, 0, 0, .2) inset;
-}
-
 .price-panel>.panel-heading {
 	color: white;
 	text-shadow: 0 3px 0 rgba(50, 50, 50, .6);
@@ -170,11 +166,18 @@ tr th {
 
 .panel-green>.panel-heading {
 	background-color: #57ac57;
-	border-color: #71df71;
+    border-color: #71df71;
+}
+.panel-green>.panel-heading2{
+    background-color: #EB9316;
+    border-color: #efc07d;
 }
 
 .panel-green>.panel-body {
 	background-color: #65c965;
+}
+.panel-green>.panel-body2{
+    background-color: rgb(236, 179, 98);
 }
 
 .dates {
@@ -268,16 +271,61 @@ tr th {
 text-align: center;
 }
 
-.modalimg{width:24rem; margin-left:7%; }
-.abcdmang{border: 1px solid silver; width: 83%; border-radius: 8px; margin: auto;}
-.abcdleft{width: 50%; float: left; text-align: center;}
-.abcdright{width: 50%; float: right; text-align: center;}
-.apd1{text-align: center;}
-.pd{float:right; width:100%; margin-right:8.5%;}
-.pdb{float:right; background-color:#3F51D1; height:1.5rem;}
-.bbutton{text-align:center;}
-.brno,.rbrno{margin-rigth:3%; margin-left:3%;}
+input[type="checkbox"] {
+    display:none;
+}
 
+input[type="checkbox"] + label span {
+    display:inline-block;
+    width:19px;
+    height:19px;
+    margin: -3px 6px 0 0;
+    vertical-align:middle;
+    background:url(/img/check_radio_sheet.png) left top no-repeat;
+    cursor:pointer;
+}
+
+input[type="checkbox"]:checked + label span {
+    background:url(/img/check_radio_sheet.png) -19px top no-repeat;
+    background-color:inherit;
+}
+
+.modalimg{    
+    width: 400px;
+    height: 300px;
+    margin: 15px auto;
+    display: block;
+    }
+.abcdmang{border: 1px solid silver; width: 83%; border-radius: 8px; margin: auto;}
+.apd1{text-align: center; margin: 15px 0;}
+.bbutton{text-align:center; position: relative; right: 1%;}
+.brno,.rbrno,.pdb{margin-rigth:3%; margin-left:3%;}
+.label{
+    vertical-align: middle;
+   padding: .3em .6em .3em;
+   font-size: 86%;
+   font-weight: 700;
+}
+div.qwer.modal-header{
+    background-color: black;
+    color: #fff;
+    padding: 10px;
+}
+.tabbus{
+    margin: 20px auto 10px;
+    min-width: 400px;
+    height: 140px;
+    font-size: 18px;
+    border-top: 1px solid #bbafaf;
+    border-bottom: 1px solid #bbafaf;
+}
+.tabbus tr td:nth-child(2n+1){
+    font-weight: 600;
+    width:40%;
+}
+.tabbus tr td:nth-child(2n){
+    font-weight: 400;
+}
 </style>
 <jsp:include page="../header.jsp"></jsp:include>
 </head>
@@ -286,7 +334,7 @@ text-align: center;
 
 <div class="row">
 	<div id="titl" class='col-lg-12'>
-		<img id="logo" src="../../img/playButton.png" alt="플레이로고">
+		<img id="logo" src="../../img/playButton.PNG" alt="플레이로고">
 		<h3>무대관리</h3>
 	</div>
 	</div>
@@ -307,7 +355,7 @@ text-align: center;
 							<h4></h4>
 						</div>
 						<div class="panel-body">
-							<h2></h2>
+							<h2 style="margin-top: 6px;"></h2>
 						</div>
 						<div class='dates'>
 							<ul class="selectdates list-group">
@@ -573,7 +621,7 @@ text-align: center;
 				</div>
 				<!-- Footer -->
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					<button type="button" class="btns btns-outline-dark" data-dismiss="modal">닫기</button>
 				</div>
 			</div>
 		</div>

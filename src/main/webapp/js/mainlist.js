@@ -371,7 +371,8 @@ function OpenImg(){
 
         e.stopImmediatePropagation();
         var no = $(this).find('.supno').text();
-
+        $('#nul').css('max-width','15%');
+        
         $.ajax({ 
             type : "POST", 
             url : "supPhoto",
@@ -410,6 +411,7 @@ function OpenDetail(){
         e.stopImmediatePropagation();
 
         var no = $(this).find('.bno').text();
+        $('#nul').css('max-width','15%');
 
         $.ajax({ 
             type : "POST", 
