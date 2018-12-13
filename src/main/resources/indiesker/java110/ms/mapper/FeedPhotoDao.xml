@@ -31,9 +31,8 @@
 		limit #{rowNo}, #{size}
 	</select>
 
-	<select id="findRecentPhot2" resultMap="feedPhotoMap"
-		parameterType="int">
-		SELECT p.pbno, fp.phot
+	<select id="findRecentPhot2" resultType="Integer" parameterType="int">
+		SELECT count(*)
 		FROM busk b, phot p,(SELECT *
 		FROM
 		feed_phot
@@ -59,6 +58,7 @@
 		</collection>
 		<collection property="comments" ofType="Comment">
 			<id column="pcno" property="pcno" />
+			<result column="mno" property="mno" />
 			<result column="comtphot" property="comtphot" />
 			<result column="comtname" property="comtname" />
 			<result column="cdt" property="cdt" />
@@ -75,7 +75,8 @@
 		feedprofphot,fb.name AS teamname,
 		fb.genre,fb.city, p.cont AS feedcont,
 		p.lcnt, cb.phot AS comtphot, cb.name AS comtname,
-		pc.cdt, pc.cont
+		pc.cdt, pc.cont,
+		pc.mno
 		FROM
 		phot p, feed_phot fp, phot_comt pc,busk fb,memb m,busk cb
 		WHERE
@@ -92,7 +93,8 @@
 		feedprofphot,fb.name AS teamname,
 		fb.genre,fb.city, p.cont AS
 		feedcont,p.lcnt,m.phot AS comtphot,s.name AS
-		comtname,pc.cdt,pc.cont
+		comtname,pc.cdt,pc.cont,
+		pc.mno
 		FROM phot p, feed_phot fp, phot_comt pc,busk fb,memb m,sup s
 		WHERE
 		p.pbno=fp.pbno
@@ -108,7 +110,8 @@
 		feedprofphot,fb.name AS teamname,
 		fb.genre,fb.city, p.cont AS
 		feedcont,p.lcnt,m.phot AS comtphot,m.nik AS
-		comtname,pc.cdt,pc.cont
+		comtname,pc.cdt,pc.cont,
+		pc.mno
 		FROM phot p, feed_phot fp, phot_comt pc,busk fb,memb m
 		WHERE
 		p.pbno=fp.pbno
@@ -138,9 +141,11 @@
 	<!-- 피드사진모달 댓글 없을때 -->
 	<select id="findfeedphotobyPbnoNC" resultMap="feedphotomodal2"
 		parameterType="int">
-		select p.pbno,b.bno ,p.cont, p.lcnt, fp.phot,fp.fpno,b.phot as
+		select p.pbno,b.bno ,p.cont, p.lcnt,
+		fp.phot,fp.fpno,b.phot as
 		teamphot,b.name,b.city,b.genre
-		from phot p, feed_phot fp,busk b
+		from phot p,
+		feed_phot fp,busk b
 		where
 		p.pbno=fp.pbno
 		and p.bno=b.bno
@@ -169,13 +174,14 @@
 			(#{item},#{pbno})
 		</foreach>
 	</insert>
-	
+
 	<!-- 한개만 insert -->
-	   <insert id="feedPhotoOneFileUpload" parameterType="map"
-        useGeneratedKeys="true" keyColumn="fpno" keyProperty="fpno">
-        INSERT INTO feed_phot (phot,pbno)
-        values(#{filename},#{pbno})
-    </insert>
+	<insert id="feedPhotoOneFileUpload" parameterType="map"
+		useGeneratedKeys="true" keyColumn="fpno" keyProperty="fpno">
+		INSERT INTO
+		feed_phot (phot,pbno)
+		values(#{filename},#{pbno})
+	</insert>
 	<!-- 포토게시글삭제 -->
 	<update id="deletePhoto" parameterType="map">
 		UPDATE phot
@@ -187,23 +193,38 @@
 	<!-- 사진수정 -->
 	<update id="revisephoto" parameterType="map">
 		UPDATE feed_phot
-    	SET phot=#{filename}
+		SET
+		phot=#{filename}
 		WHERE fpno=#{fpno};
 	</update>
-	   <!-- <update id="revisephotos" parameterType="FeedPhoto">
-        UPDATE feed_phot
-        <foreach collection="feedphotoFiles" item="item" separator=";">
-        SET phot=#{item.filename}
-        WHERE fpno=#{item.fpno};
-        </foreach>
-    </update> -->
+	<!-- <update id="revisephotos" parameterType="FeedPhoto"> UPDATE feed_phot 
+		<foreach collection="feedphotoFiles" item="item" separator=";"> SET phot=#{item.filename} 
+		WHERE fpno=#{item.fpno}; </foreach> </update> -->
 	<!-- 사진게시글수정 -->
 	<update id="revisephotocont" parameterType="map">
 		UPDATE phot
-		SET cont=#{cont}
+		SET
+		cont=#{cont}
 		WHERE pbno=#{no}
 	</update>
 
+	<!-- 댓글 입력 -->
+	<insert id="insertcomt" parameterType="map"
+		useGeneratedKeys="true" keyColumn="acno" keyProperty="acno">
+		insert into phot_comt(cont,cdt,mno,pbno)
+		values (#{cont},now(),#{mno},#{pbno})
+	</insert>
+	<!-- 댓글 수정 -->
+	<update id="revisecomt" parameterType="map">
+		update phot_comt
+		set cont=#{cont}
+		where pcno=#{pcno}
+	</update>
+	<!-- 댓글 삭제 -->
+	<delete id="deletecomt" parameterType="int">
+		delete from phot_comt
+		where pcno = #{pcno}
+	</delete>
 </mapper>
 
 

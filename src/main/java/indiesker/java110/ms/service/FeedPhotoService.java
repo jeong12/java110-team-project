@@ -15,4 +15,8 @@ public interface FeedPhotoService {
     void updateFeedPhoto(String filename, int fpno);
     void updateFeedContent(String content, int pbno);
     void insertOneFileUpload(String filename, int pbno);
+    
+    int insertPhotComt(int pbno, int mno, String cont);
+    int revisePhotComment(String cont, int pcno);
+    int deletePhotComment(int pcno);
 }

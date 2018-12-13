@@ -77,10 +77,10 @@ public class AviServiceImpl implements AviService {
 
     @Transactional
     @Override
-    public void insertComment(int abno, int no, String cont) {
+    public void insertComment(int abno, int mno, String cont) {
       Map<String,Object> params = new HashMap<>();
       params.put("cont", cont);
-      params.put("mno", no);
+      params.put("mno", mno);
       params.put("abno", abno);
       
       aviDao.insertcomt(params);
@@ -125,9 +125,22 @@ public class AviServiceImpl implements AviService {
     public int totList(int no) {
     return aviDao.totList(no);
     }
+
+    @Override
+    public int reviseComment(String cont, int acno) {
+      Map<String,Object> params = new HashMap<>();
+      params.put("cont", cont);
+      params.put("acno", acno);
+      
+      return aviDao.revisecomt(params);
+    }
+
+    @Override
+    public int deleteComment(int acno) {
+      return aviDao.deletecomt(acno);
+      }
    
 }
-
 
 
 
