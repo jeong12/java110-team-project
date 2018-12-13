@@ -38,6 +38,7 @@
 		<result column="flag" property="flag"></result>
 		<collection property="comments" ofType="Comment">
 			<id column="acno" property="acno" />
+			<result column="mno" property="mno" />
 			<result column="phot" property="comtphot" />
 			<result column="name" property="comtname" />
 			<result column="comtcont" property="cont" />
@@ -63,37 +64,50 @@
 	<!-- 피드동영상 모달 -->
 	<select id="findfeedavibyAbno" resultMap="aviMap2"
 		parameterType="int">
-		select * from(select * from(SELECT m.flag,a.titl,a.stm,a.cdt as avicdt,bb.phot as buskprofile,bb.name as buskteamname,bb.genre,bb.city,a.cont,a.lcnt,b.phot,b.name,ac.cdt,ac.cont as comtcont,ac.acno,a.abno
-		FROM busk as b,avi as a,avi_comt as ac,busk as bb,memb as m
-		WHERE a.abno=ac.abno and ac.mno=b.bno AND bb.bno=a.bno AND a.abno=#{no} AND
+		select * from(select * from(SELECT
+		m.flag,a.titl,a.stm,a.cdt as avicdt,
+		bb.phot as buskprofile,bb.name as
+		buskteamname,bb.genre,bb.city,a.cont,a.lcnt,b.phot,
+		b.name,ac.cdt,ac.cont as comtcont,ac.acno,a.abno,ac.mno
+		FROM busk as
+		b,avi as a,avi_comt as ac,busk as bb,memb as m
+		WHERE a.abno=ac.abno and
+		ac.mno=b.bno AND bb.bno=a.bno AND a.abno=#{no} AND
 		m.mno=b.bno) as t1
 		UNION ALL
 		select * from(SELECT m.flag,a.titl,
-		a.stm,a.cdt as avicdt,bb.phot as
+		a.stm,a.cdt as
+		avicdt,bb.phot as
 		buskprofile,bb.name as
 		buskteamname,bb.genre,bb.city,a.cont,a.lcnt,
-		m.phot,s.name,ac.cdt,ac.cont as comtcont,ac.acno,a.abno
-		FROM sup as s,
+		m.phot,s.name,ac.cdt,ac.cont as comtcont,ac.acno,a.abno,ac.mno
+		FROM sup
+		as s,
 		avi as a,avi_comt as ac,busk as bb,memb as m
 		WHERE a.abno=ac.abno
 		and ac.mno=s.sno AND bb.bno=a.bno AND
 		a.abno=#{no} AND m.mno =
-		s.sno) as t2
+		s.sno) as
+		t2
 		UNION ALL
 		select * from(SELECT m.flag,a.titl,a.stm,a.cdt
-		as avicdt,bb.phot as
+		as
+		avicdt,bb.phot as
 		buskprofile,bb.name as
 		buskteamname,bb.genre,bb.city,a.cont,a.lcnt,
 		m.phot,m.nik
-		,ac.cdt,ac.cont as comtcont,ac.acno,a.abno
-		FROM memb as m,avi as a,
+		,ac.cdt,ac.cont as comtcont,ac.acno,a.abno,ac.mno
+		FROM memb as m,avi as
+		a,
 		avi_comt as ac,busk as bb
 		WHERE a.abno=ac.abno and ac.mno=m.mno
-		AND bb.bno=a.bno AND
+		AND
+		bb.bno=a.bno AND
 		a.abno=#{no} AND m.flag=1) as t3
 		) as tab
 		order by
-		cdt desc
+		cdt
+		desc
 	</select>
 
 	<!-- 피드동영상 모달 댓글없을때 -->
@@ -139,24 +153,27 @@
 	<!-- 인기영상 조회(메인) -->
 	<select id="findbypopul" resultMap="aviMap">
 		SELECT a.abno,a.stm,a.titl, af.lcnt as lcnt, b.name
-		FROM busk b, avi a, avi_fav af
+		FROM busk b, avi a,
+		avi_fav af
 		WHERE b.bno=a.bno
 		AND a.abno=af.abno
 		ORDER BY af.lcnt desc
 		LIMIT 9<!-- 여기 수정해야함 -->
 	</select>
-	
+
 	<!-- 팔로우영상 조회(메인) -->
-	<select id="findByFolAvi" resultMap="aviMap3" parameterType="int">
-	  SELECT a.stm, a.titl, b.name
-	    FROM memb m, folw f, busk b, avi a
-	   WHERE m.mno=#{no}
-	     AND m.mno=f.mno
-	     AND b.bno=f.bno
-	     AND b.bno=a.bno
-	ORDER BY a.cdt desc
-	   LIMIT 9
-    </select>
+	<select id="findByFolAvi" resultMap="aviMap3"
+		parameterType="int">
+		SELECT a.stm, a.titl, b.name
+		FROM memb m, folw f, busk b,
+		avi a
+		WHERE m.mno=#{no}
+		AND m.mno=f.mno
+		AND b.bno=f.bno
+		AND b.bno=a.bno
+		ORDER BY a.cdt desc
+		LIMIT 9
+	</select>
 
 	<insert id="insert" parameterType="avi" useGeneratedKeys="true"
 		keyColumn="abno" keyProperty="aviboardno">
@@ -171,56 +188,74 @@
 		values(#{title},#{content},0,now(),#{urlid},#{buskerno});
 	</insert>
 
-    <insert id="insertcomt" parameterType="map"
-        useGeneratedKeys="true" keyColumn="acno" keyProperty="acno">
-        INSERT INTO avi_comt(cont,cdt,mno,abno)
-        VALUES (#{cont},now(),#{mno},#{abno});
-    </insert>
-    
-    <select id="statisticsAviLcnt" resultMap="aviMap">
-    select af.abno
-      from avi a, avi_fav af
-     where a.abno = af.abno
-    </select>
-    
-    <update id="statisticsUpdateOfWeek" parameterType="map">
-    UPDATE avi_fav SET lcnt= #{lcnt}
-     where abno= #{abno}
-    </update>
+	<!-- 댓글 입력 -->
+	<insert id="insertcomt" parameterType="map"
+		useGeneratedKeys="true" keyColumn="acno" keyProperty="acno">
+		INSERT INTO
+		avi_comt(cont,cdt,mno,abno)
+		VALUES (#{cont},now(),#{mno},#{abno});
+	</insert>
+	<!-- 댓글 수정 -->
+	<update id="revisecomt" parameterType="map">
+		update avi_comt
+		set cont=#{cont}
+		where acno=#{acno}
+	</update>
+	<!-- 댓글 삭제 -->
+	<delete id="deletecomt" parameterType="int">
+delete from avi_comt where acno = #{acno}
+	</delete>
 
+	<select id="statisticsAviLcnt" resultMap="aviMap">
+		select af.abno
+		from avi
+		a, avi_fav af
+		where a.abno = af.abno
+	</select>
+
+	<update id="statisticsUpdateOfWeek" parameterType="map">
+		UPDATE avi_fav
+		SET lcnt= #{lcnt}
+		where abno= #{abno}
+	</update>
 
 	<update id="deleteAvi" parameterType="map">
 		UPDATE avi
-        SET bno=#{randomno}
-        WHERE abno=#{abno}
+		SET
+		bno=#{randomno}
+		WHERE abno=#{abno}
 	</update>
-	
+
 	<update id="reviseavi" parameterType="map">
-        UPDATE avi
-        SET titl=#{titl}, cont=#{cont}, stm=#{urlid} 
-        WHERE abno=#{no}
+		UPDATE avi
+		SET titl=#{titl},
+		cont=#{cont}, stm=#{urlid}
+		WHERE abno=#{no}
 	</update>
-	
+
 	<select id="totList" resultType="Integer" parameterType="int">
-        select count(*) from 
-        (SELECT a.abno,a.stm,a.titl
-        FROM busk b, avi a
-        WHERE b.bno=a.bno
-        AND
-        b.bno=#{value}) as b
-    </select>
-    
-    <select id="moreList" resultMap="aviMap" parameterType="map">
-        SELECT a.abno,a.stm,a.titl
-        FROM busk b, avi a
-        WHERE b.bno=a.bno
-        AND
-        b.bno=#{no}
-        ORDER BY cdt desc
-        Limit #{paging.startRowNo},#{paging.pageSize}
-    </select>
-	
-	
+		select
+		count(*) from
+		(SELECT a.abno,a.stm,a.titl
+		FROM busk b, avi a
+		WHERE
+		b.bno=a.bno
+		AND
+		b.bno=#{value}) as b
+	</select>
+
+	<select id="moreList" resultMap="aviMap" parameterType="map">
+		SELECT
+		a.abno,a.stm,a.titl
+		FROM busk b, avi a
+		WHERE b.bno=a.bno
+		AND
+		b.bno=#{no}
+		ORDER BY cdt desc
+		Limit #{paging.startRowNo},#{paging.pageSize}
+	</select>
+
+
 </mapper>
 
 
