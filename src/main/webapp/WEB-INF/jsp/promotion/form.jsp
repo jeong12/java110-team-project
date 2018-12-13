@@ -16,7 +16,7 @@
 <style>
     body{background-color: snow;}
     table{border-collapse: separate;border-spacing: 10px 20px; margin : 0 auto;}  
-    .container{border:1px solid silver; height:47rem; margin: 0 auto; border-radius: 10px; background-color: white;
+    .container{border:1px solid silver; height:44rem; margin: 0 auto; border-radius: 10px; background-color: white;
     margin-top: 7%; margin-bottom: 4%}
     .form-horizontal{ margin: auto;}
     .All{width:100%;  margin-top: 6%;}
@@ -35,7 +35,7 @@
     .blabel{margin-left: 7%;}
     #textarea{width: 40%; margin-left:15%; height: 15rem;}
     #upload1{width: 17rem; height: 15rem; border: 1px solid silver;}
-    .xybtn{width: 30%; margin: auto;     text-align: -webkit-center;}
+    .xybtn{width: 30%; margin: auto;  margin-top:4%;   text-align: -webkit-center;}
     .lbtn{float: left;}
     .rbtn{float: right;}
     #logo{width: 40px; height:40px; float: left; margin-top: -4px; margin-right: 1%;}
@@ -110,7 +110,7 @@
 </div>
 </div>
 <div class="xybtn">
-    <button type="button" class="btns btns-outline-dark">뒤로가기</button>
+    <button type="button" onclick="location.href='list.jsp'" class="btns btns-outline-dark">뒤로가기</button>
     <button type="button" onclick="hihihi()" id="send" class="btns btns-outline-success btn-sm">확인</button>
 </div>
 
@@ -131,6 +131,7 @@
 <script
     src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <script>
+
 function hihihi(){
 	var titl = $("input[name='titl']").val();
 	var gnere = $("input[name='genre']").val();
