@@ -49,7 +49,9 @@ margin: 0;
     margin-bottom: 100px;
     margin-left: 10%;
 }
-
+.more-button:hover{
+    color: #fff;
+}
 .send {
     margin-bottom: 250px;
 }
@@ -70,8 +72,8 @@ a#movetop {
           <div class="findidcontent">
                <h2>${check}</h2>
                <h2>${update}</h2>
-               <a href="/app/main" style="text-decoration: none;" class="more-button">
-                                          메인화면으로 돌아가기</a>
+               <a href="/app/auth/findid" style="text-decoration: none;" class="more-button">
+                                          아이디/비밀번호 찾기로 돌아가기</a>
                <a href="/app/auth/form" style="text-decoration: none;" class="more-button">
                                           로그인화면으로 돌아가기</a>
           </div>

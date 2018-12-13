@@ -11,29 +11,50 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
-<!--     <link
-    href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    rel="stylesheet" id="bootstrap-css">
-<script
-    src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
 <style>
 
-@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&subset=korean');
-
 #titl {
-    margin: 0;
-    padding: 0;
+    margin: 10px auto; padding: 10px 0; width: 920px;
 }
 
 #logo {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     margin: 10px;
 }
 
 #bodybody{
     min-height: 850px;
+}
+    
+body {
+    margin: 0;
+    background-color: #f5f5f5;
+}
+
+.container {
+    height: 950px;
+    width: 900px;
+    padding-right: auto;
+    padding-left: 2rem;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 1rem;
+    border-radius: 8px/7px;
+    background-color: #ebebeb; 
+    /* box-shadow: 1px 2px 5px rgba(0,0,0,.31);  */
+    border: solid 1px #cbc9c9;
+}
+/* 데이터가 없을 때 */
+#nodata{
+text-align: center;
+}
+#nodata h3{
+position: absolute;
+width:100%;
+margin-top: -800px;
+margin-left: auto;
+font-size: 32px;
 }
 
 /*페이지네이션*/
@@ -89,6 +110,37 @@ text-align: center;
 .gallery_product
 {
     margin-bottom: 30px;
+}
+/* 팀이름 크기조절 */
+.teamnamefont{
+font-size: large;
+/* font-family: -webkit-body; */
+}
+
+.teamPhotoImg {
+    width: 210px;
+    height: 210px;
+    margin: 0;
+    border-radius: 0.25rem;
+}
+.teamPhotoImgWrap {
+    /* display: inline-block; */
+    margin: 11px 0 11px 11px;
+    position: relative;
+}
+.teamPhotoImgWrap:after {
+    position: absolute;
+    display: block;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: 
+      inset 0 0 20px #fff /* 배경과 같은 색 */,
+      inset 0 0 20px #fff,
+      inset 0 0 20px #fff,
+      inset 0 0 20px #fff;
 }
 
 /*오른쪽 자세히*/
@@ -189,18 +241,51 @@ padding-top: 10px;
 width: 300px;
 height: 20px;
 }
-#detailphoto{
-width: 300px;
-height: 300px;
-margin: 0 30px;
-padding: 0;
+
+
+
+/* 모달창 사진 */
+
+.detailphotowrap {
+    /* display: inline-block; */
+    position: relative;
+    overflow: hidden; /* 불필요한 부분 가리기 */
+    padding: 6px; /* 6px정도 이미지 밖으로 표현 */
+}
+.detailphotowrap:before,
+.detailphotowrap:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    width: 97px;
+    height: 50px;
+    background: #fff; /* 배경색과 같은 색 */
+    transform: rotate(-30deg);
+}
+/* 왼쪽 위 */
+.detailphotowrap:before {
+    box-shadow: 0 10px 8px -12px rgba(0, 0, 0, 0.8);
+    top: -24px;
+    bottom: auto;
+    right: auto;
+    left: -26px;
+
+}
+/* 오른쪽 아래 */
+.detailphotowrap:after {
+    box-shadow: 0 -10px 10px -10px rgba(0, 0, 0, 0.7);
+    top: auto;
+    bottom: -22px;
+    right: -25px;
+    left: auto;
 }
 
-.teamPhotoImg{
-margin: 5px;
-width : 250px;
+#detailphoto{
+width: 250px;
 height: 250px;
-border-radius: 10px;
+margin: 0 30px;
+padding: 0;
+box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
 }
 
 .bigdiv{
@@ -222,11 +307,11 @@ a#movetop {
 <jsp:include page="../header.jsp"></jsp:include>
 <body>
 <div id="bodybody">
-    <div class="container">
         <div id="pos"></div>
 	    <div id="titl">
 	        <h2><img id="logo" src="../../img/playButton.PNG" alt="플레이로고">팔로우 리스트</h2>
 	    </div>
+    <div class="container">
 
         <div class="row">
             <div id="followPagenation">
@@ -235,8 +320,8 @@ a#movetop {
 	                   <a href="javascript:void(0)" value="${bno.bno}" 
 	                   style="text-decoration: none; color: #555; " class="followerbtn" >
 		                   <table class="innertable">
-		                       <tr><td><img src="/upload/${bno.teamPhoto}" class="teamPhotoImg"></td></tr> 
-		                       <tr><td>${bno.teamname}</td></tr>
+		                       <tr><td class="teamPhotoImgWrap"><img src="/upload/${bno.teamPhoto}" class="teamPhotoImg"></td></tr> 
+		                       <tr><td class="teamnamefont">${bno.teamname}</td></tr>
 		                   </table>
 	                   </a>
                     </div>
@@ -251,15 +336,15 @@ a#movetop {
             <div class="sorter">
                 <div class="OutOfpagination">
                     <ul class="pagination">
-                      <a href="javascript:PageMove(${pageMove.startPageNo},${pageMove.no})" class="first">&laquo;&laquo;</a>
-                      <a href="javascript:PageMove(${pageMove.prePageNo},${pageMove.no})" class="prev">&laquo;</a>
+                      <li><a href="javascript:PageMove(${pageMove.startPageNo},${pageMove.no})" class="first" style="color: #000000;">&laquo;&laquo;</a></li>
+                      <li><a href="javascript:PageMove(${pageMove.prePageNo},${pageMove.no})" class="prev" style="color: #000000;">&laquo;</a></li>
                       <%-- <a href="javascript:PageMovePre(${i},${pageMove.no})" style="color: #000000;">&laquo;</a> --%>
                         <c:forEach var="i"  begin="${pageMove.visibleStartPageNo}" end="${pageMove.visibleEndPageNo}" step="1">
                             <li><a href="javascript:PageMove(${i},${pageMove.no})" style="color: #000000;">${i}</a></li>
                         </c:forEach>
                       <%-- <a href="javascript:PageMoveNext(${i},${pageMove.no})" style="color: #000000;">&raquo;</a> --%>
-                      <a href="javascript:PageMove(${pageMove.nexPageNo},${pageMove.no})" class="next">&raquo;</a>
-                      <a href="javascript:PageMove(${pageMove.endPageNo},${pageMove.no})" class="last">&raquo;&raquo;</a>
+                      <li><a href="javascript:PageMove(${pageMove.nexPageNo},${pageMove.no})" class="next" style="color: #000000;">&raquo;</a></li>
+                      <li><a href="javascript:PageMove(${pageMove.endPageNo},${pageMove.no})" class="last" style="color: #000000;">&raquo;&raquo;</a></li>
                     </ul>
                 </div>
             </div>
@@ -267,6 +352,10 @@ a#movetop {
     </div>
 
 <a href="#" id="movetop"><img src="../../img/topbtn.png"></a>
+<!-- 팔로잉된 버스커가 없을때 -->
+<div id="nodata">
+    <h3>${nodata}</h3>
+</div>
 
 <!--우측 자세히 보기-->
     <div id="wrapfollowerdetail" class="wrapfollowerdetail">
@@ -303,9 +392,10 @@ function PageMove(i,no){
 
 //자세히 보기
 $('.followerbtn').click(function(e){
-	var folbtn = $(e.target).parent().parent().parent().parent().parent()
+	var folbtn = $(e.target).parent().parent().parent().parent()
     var bno = $(folbtn).attr('value'); 
-    console.log(bno);
+/* 	console.log(folbtn);
+    console.log(bno); */
     
     $.ajax({ 
         type : "POST", //보내는 타입을 Post방식으로 할지,  GET방식으로 할지 결정
@@ -318,7 +408,7 @@ $('.followerbtn').click(function(e){
            $("#followerdetail tbody").empty();
                 
            $("#followerdetail tbody").append(
-              '<tr><td rowspan="4"><img src="/upload/'+data.teamPhoto+'" id="detailphoto"></td>'
+              '<tr><td rowspan="4" class="detailphotowrap"><img src="/upload/'+data.teamPhoto+'" id="detailphoto"></td>'
           	  +'<td class="leftside">팀    명 : </td><td class="rightside">'+data.teamname+'</td></tr>'
               +'<tr><td class="leftside">주요장르 : </td><td class="rightside">'+data.teamgenre+'</td></tr>'
               +'<tr><td class="leftside">활동도시 : </td><td class="rightside">'+data.city+'</td></tr>'

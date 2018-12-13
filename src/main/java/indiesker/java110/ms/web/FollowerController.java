@@ -88,6 +88,14 @@ public class FollowerController {
 	pageMove.put("nexPageNo", nexPageNo);
 	
 	model.addAttribute("pageMove", pageMove);
+	
+	//등록된 팔로워가 없을 경우 처리
+	if(totalCount == 0) {
+		model.addAttribute("nodata", "팔로잉 한 버스커가 없습니다.");
+	}else {
+		model.addAttribute("nodata", "");
+	}
+	
 	}
 	
 	
