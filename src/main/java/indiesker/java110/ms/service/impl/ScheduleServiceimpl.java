@@ -83,6 +83,7 @@ public class ScheduleServiceimpl implements ScheduleService {
 
     @Override
     public Schedule myperdetail(int no) {
+      System.out.println("이거실행");
       return scheduleDao.findbypsno(no);
     }
 

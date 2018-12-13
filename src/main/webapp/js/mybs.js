@@ -5,10 +5,11 @@ function moveFocus(next){
 }
 
 
+
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 mapOption = {
-	    center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
-	    level: 5 // 지도의 확대 레벨
+	    center: new daum.maps.LatLng(37.5342, 126.992), // 지도의 중심좌표
+	    level: 2 // 지도의 확대 레벨
 };
 
 //지도를 미리 생성
@@ -188,19 +189,19 @@ $(function() {
     	  
     	  
             if(_prevObj) { // 이전클릭한 데이터가 존재한다면? ture라면?
-                _prevObj.css('background-color', 'white'); // 이전날짜의 배경을 없앰 
+                _prevObj.css('background-color', 'snow'); // 이전날짜의 배경을 없앰 
                 $(this).css('background-color', 'gray'); // 현재의 배경을 색상을 지정
             } else {
                 $(this).css('background-color', 'gray'); // 이전클릭한 데이터가 없다면? 그냥 현재의 배경만 색상 지정
             }
               _prevObj = $(this); // 이전데이터 저장하는 변수에 현재누른 것을 넣어줌으로 첫번째 if 문에서 실행되게 함
-            $("#selectday h4").html(date.format());
+            $("#selectday").html(date.format());
             
               
             /* 여기서 부터는 클릭 date를 받아 스케줄 출력해주는 ajax처리  */ 
             
             // no같은 경우 버스커 번호임, 지금은 로그인안했으니까 5번으로 고정 
-            var values = {"no":"5" , "date":date.format()};
+            var values = {"date":date.format()};
             
             $.ajax({ 
                 type : "POST", 
@@ -210,11 +211,10 @@ $(function() {
                 success : function(data) {
                 	    // 데이터 출력 할 곳 초기화
                         $("#clickdate").empty();
-                        $("#selectday h3").empty();
-                        console.log(data);
-                if(data.length==0){
+                        $("#nodata").empty();
+                if(data.length==0){	
                 	// 해당일의 데이터가 없을경우 
-                    $("#selectday h3").append('해당일의 스케줄이 존재하지않습니다.');
+                    $("#nodata").append('해당일의 스케줄이 존재하지않습니다.');
                 }else{
                 	
                 	// 데이터를 list로 받아와서 foreach문으로 출력해줌!
@@ -345,10 +345,11 @@ $(document).on('click','.detailinfobtn',function(){
                 /* 이거왜했지? 테스트인듯.. */
                 cosole.log(data.addr)
             }else{
+            	console.log(data);
                 /* 컨트롤러에서 a,b값에 따라 요청스케줄, 개인스케줄중 한가지를 리턴해줌 */
                 if(data.supporter==null){// 개인스케줄의 경우 supporter 객체를 받지 않음, 고로 개인스케줄 모달에 데이터 처리
-                    $("#pershopname").append(data.shopname);
-                    $("#pergenre").append('장르를만들자');
+                    $("#pershopname").append(data.busker.teamname);
+                    $("#pergenre").append(data.busker.teamgenre);
                     $("#percnt").append(data.cnt+'명');
                     $("#persdt").append(data.nsdt);
                     $("#peredt").append(data.nedt);
@@ -431,6 +432,12 @@ $(document).on('click','.detailinfobtn',function(){
     });
 });
     
+/*$('.modal').on('hidden.bs.modal', function (e) {
+    console.log('modal close');
+  $(this).find('form')[0].reset()
+});
+
+*/
 $(document).on('click','.removebtn',function(){
 	
 	var f = $(this).val();
