@@ -397,9 +397,12 @@ public class ScheduleServiceimpl implements ScheduleService {
     @Override
     public List<Schedule> findTodaySearchAllSchedule(String keyword1, String keyword2) {
       Map<String,Object> params = new HashMap<>();
+      System.out.println("impl까지왔당");
+      System.out.println(keyword1);
+      System.out.println(keyword2);
       params.put("keyword1", keyword1);
       params.put("keyword2", keyword2);
-      return scheduleDao.findSearchAllSchedule(params);
+      return scheduleDao.findTodaySearchSchedule(params);
     }
     
     @Override
