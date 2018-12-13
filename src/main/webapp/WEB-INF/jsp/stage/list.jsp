@@ -439,21 +439,21 @@ font-size: large;
         
         
         $(document).scroll(function(){
-           var pos = document.getElementById('pos'); 
-           var movetop = document.getElementById('movetop');
-           if($(pos).attr('value') > 50){
-               movetop.style.display = 'block';
-           } else{
-               movetop.style.display = 'none';
-           }
-        });
-        
-        $('#movetop').click(function(){
-            $('#top').animate({
-                 scrollTop:0
-            }, 800, 'easeInQuart');
-            return false;
-        });
+            var st = $(window).scrollTop();
+            var movetop = document.getElementById('movetop');
+            if(st > 50){
+                movetop.style.display = 'block';
+            } else{
+                movetop.style.display = 'none';
+            }
+         });
+         
+         $('#movetop').click(function(){
+             $('#top').animate({
+                  scrollTop:0
+             }, 800, 'easeInQuart');
+             return false;
+         });
     </script>
 </body>
 <jsp:include page="../footer.jsp"></jsp:include>
