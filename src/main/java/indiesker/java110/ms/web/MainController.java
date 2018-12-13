@@ -49,7 +49,7 @@ public class MainController {
     model.addAttribute("avipop",poppulAvi);
     
     System.out.println(session.getAttribute("loginUser"));
-    System.out.println(session.getAttribute("loginSupporter"));
+    System.out.println(session.getAttribute("loginBusker"));
     
     Member loginUser = (Member)session.getAttribute("loginUser");
     if(loginUser != null) {

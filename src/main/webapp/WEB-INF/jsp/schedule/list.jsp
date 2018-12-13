@@ -140,6 +140,7 @@ img{width: 100%;height: 100%; border-radius: 8px 8px 5px 5px;}
 	</div>
 	
 	<script>
+	var bno;
 	function goPage(e){
 		console.log(e)
 	    $('.pageNO').val(e);
@@ -149,6 +150,7 @@ img{width: 100%;height: 100%; border-radius: 8px 8px 5px 5px;}
 	
 	function showDetail(e){
 		console.log(e);
+		bno=e;
 		 $.ajax({
 	         type : "POST",
 	            url : "detail",
@@ -166,7 +168,7 @@ img{width: 100%;height: 100%; border-radius: 8px 8px 5px 5px;}
 	                +'<div class="genre">'+data.teamgenre+'</div><br>'
 	                +'<div class="intro">'+data.teamInfo+'<div>'
 	                +'</div><br>'
-	                +'<br><button class="btn">피드가기</button>'
+	                +'<br><button class="btn" onclick="gofeed()">피드가기</button>'
 	                );
 	            }, error : function(request, status, error) {
 	                alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
@@ -180,6 +182,10 @@ img{width: 100%;height: 100%; border-radius: 8px 8px 5px 5px;}
 	   $(window).scroll(function() { 
 		   var position = $(window).scrollTop(); 
 		   $(".tablerigth").stop().animate({"top":position+currentPosition+"px"},1000); });
+	   
+	 function gofeed(){
+	     location.href="../buskerfeed/enter?no="+bno;
+	 }
 /* 	$(function(){
 		var $win = $(window);
 		var top = $(window).scrollTop();

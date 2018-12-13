@@ -25,10 +25,6 @@ body {
 	float: left;
 }
 
-#name {
-	margin-bottom: 20%;
-}
-
 #calendar, #selectday {
 	display: inline-block;
 }
@@ -57,9 +53,14 @@ body {
 #name {
 	text-align: center;
 	margin: 50px;
-	margin-bottom: 8%;
+	margin-bottom: 4%; 
 }
-
+#name h2.article{
+    text-align: center;
+    font-size: 320%;
+}
+.tobtbody{
+}
 #info {
 	clear: both;
 }
@@ -67,10 +68,6 @@ body {
 #info table tbody td {
 	padding: 10px;
 }
-/* img{
-width: 29%; height:10%;
-margin: auto;
-} */
 .calenderSelectBox {
 	float: left;
 }
@@ -80,13 +77,14 @@ ul li {
 }
 
 .Atable {
-	width: 60%;
-	margin: auto;
-	border: 1px solid silver;
-	border-radius: 17px;
-	margin-top: 2%;
-	padding-bottom: 5%;
-	background-color: white;
+    width: 60%;
+    margin: auto;
+    border: 1px solid silver;
+    border-radius: 17px;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    padding-bottom: 2.5%;
+    background-color: white;
 }
 
 .maptable1 {
@@ -118,7 +116,7 @@ ul li {
 .btable {
 	width: 100%;
 	height: 40%;
-	margin-top: 115%;
+    margin-top: 86%;
 }
 
 #photo {
@@ -192,7 +190,7 @@ ul li {
 <!--boot snipp syule-->
 .pricing-divider h3{color: white;} 
 
-.list-unstyled{overflow: auto;}
+.list-unstyled{overflow: auto; min-height: 150px;}
 .bg-gradient {
 	background: #C9D6FF;
 	background: -webkit-linear-gradient(to right, #E2E2E2, #C9D6FF);
@@ -227,9 +225,13 @@ ul li {
 }
 
 .btn-custom {
-	background: #C64545;
+	background: #f3cccc;
 	color: #fff;
 	border-radius: 20px
+}
+.btn-custom:hover{
+    background: #dc9090;
+    color: #fff;
 }
 
 .img-float {
@@ -241,10 +243,10 @@ ul li {
 
 .princing-item {
 	transition: all 150ms ease-out;
-	float: right; 
 	margin-top:	7rem; 
-	margin-right: 4rem;
+	margin-right: 2rem;
 	width: 17rem;
+    display: inline-block;
 }
 
 .princing-item:hover {
@@ -260,6 +262,69 @@ ul li {
 	-webkit-transform: translate3d(-15px, 0, 0);
 	transform: translate3d(-15px, 0, 0);
 }
+#date{
+    font-size:35px;
+    margin-top: 2px;
+}
+input[type="checkbox"] {
+    display:none;
+}
+
+input[type="checkbox"] + label span {
+    display:inline-block;
+    width:19px;
+    height:19px;
+    margin:-2px 10px 0 0;
+    vertical-align:middle;
+    background:url(/img/check_radio_sheet.png) left top no-repeat;
+    cursor:pointer;
+}
+
+input[type="checkbox"]:checked + label span {
+    background:url(/img/check_radio_sheet.png) -19px top no-repeat;
+    background-color:inherit;
+}
+.modal-header{
+    background: #151313;
+    color: #fff;
+}
+.modal-content{
+    top:10rem;
+}
+div h3.article{
+    color:#666;
+    text-align: center;
+    margin-bottom: .7rem;
+}
+.content{
+    margin: 0 1rem 1rem;
+}
+h4.teamnum{
+    display:inline-block;
+    min-width: 6rem;
+}
+#cont{
+    resize:none;
+    left: 3px;
+    
+}
+#countMsg{
+    padding: .4rem 6.1rem;
+}
+#applbtn{
+    text-align: center;
+    margin-top: .6rem;
+}
+#applbtn button.btns {
+    font-size: 16px;
+    padding: 5px 10px;
+    cursor: not-allowed;
+}
+button.close{
+    color: white;
+    opacity: 1;
+}
+}
 </style>
 <jsp:include page="../header.jsp" />
 </head>
@@ -274,7 +339,7 @@ ul li {
 				<!--  -->
 				<!-- 타이틀 -->
 				<div id="name">
-					<h2>${list.name}</h2>
+					<h2 class="article">${list.name}</h2>
 				</div>
 				<!-- 타이틀끝 -->
 				<div class="maptable">
@@ -304,7 +369,7 @@ ul li {
 									<td>${list.tel}</td>
 								</tr>
 								<tr>
-									<td><h4>장소 위치</h4></td>
+									<td><h4>희망 글</h4></td>
 									<td>${list.message}</td>
 								</tr>
 							</tbody>
@@ -352,7 +417,7 @@ ul li {
 					<!-- 신청(부트스트랩) -->
 					<div class="col-4 princing-item blue">
 						<div class="pricing-divider ">
-							<h3></h3>
+							<h3 id="date"></h3>
 							<svg class='pricing-divider-img'
 								enable-background='new 0 0 300 100' height='100px' id='Layer_1'
 								preserveAspectRatio='none' version='1.1' viewBox='0 0 300 100'
@@ -417,17 +482,16 @@ ul li {
 				<!-- body -->
 				<div class="modal-body">
 					<div class="info">
-						<h5>신청내역</h5>
-						<ul>
-						</ul>
+						<h3 class="article">신청내역</h3>
 					</div>
 					<div class="content">
-						<label for="count">팀 인원</label> <input type="number" id="count"><br>
-						<br> <span id="countMsg"></span><br> <label for="cont">추가
-							전달사항</label><br>
-						<textarea name="cont" id="cont" cols="40" rows="8"></textarea>
-						<br>
-						<button type="button" onclick="applyStage()" id='applybtn'>신청하기</button>
+						<h4 class="teamnum">팀 인원</h4> <input type="number" id="count">
+						<br> <div id="countMsg"></div>
+                       <h4 class="teamnum" style="float:left;">추가 전달사항</h4>
+						<textarea name="cont" id="cont" cols="40" rows="5"></textarea><br>
+                        <div id="applbtn">
+						<button type="button" class="btns btns-outline-dark" onclick="applyStage()" id='applybtn' disabled>신청하기</button>
+                        </div>
 					</div>
 				</div>
 
@@ -448,22 +512,34 @@ ul li {
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c63782df6473def89780e1d964f9d83a&libraries=services"></script>
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=15e2302756c9e7098ec0d79f7b4d53f4&libraries=services"></script>
 	<script type="text/javascript">
 	
 $(".tobtbody tr td:nth-child(even)").css("width","73%");
 
 $('.stageapplybtn').hide();
 var _prevObj = null;
-
+var sup = document.getElementById('sup').innerHTML;
+var busk = document.getElementById('busker').innerHTML;
 
 $(function() {  
   $('#calendar').fullCalendar({      
       dayClick: function(date, jsEvent, view, resourceObj) {
           var current_date = moment().format('YYYY-MM-DD')
           if(current_date > date.format()) {
-              alert("오늘 이후의 날짜를 골라주세요")
+              
+              swal("","오늘 이후의 날짜를 골라주세요","info");
           }else{
+              
+              /* 캘린더를 누르는순간 제공자가아니면 다음을 진해하지못하게 막는 로직 */
+              if(sup.length > 0){
+                  swal("오류!","제공자는 무대를 신청할 수 없습니다.","error");
+                  return false;
+              } else if(busk.length <= 0){
+                  swal("오류!","버스커 회원만 무대를 신청할 수 있습니다.","error");
+                  return false;
+              }
+              
               if(_prevObj) {
                   _prevObj.css('background-color', 'white');
                   $(this).css('background-color', 'gray');
@@ -498,9 +574,11 @@ $(function() {
                     return
                 }else{
        $.each(data,function(index,item){
+           var chk = 'chk'+index;
                 $(".list-unstyled").append(
-                 '<li><input type="checkbox" name="applydate"'+ 
-                 'value="'+item.sno+'_'+item.nsdt+'~'+item.nedt+'">'+item.nsdt+'~'+item.nedt+
+                 '<li><input type="checkbox" name="applydate" id="'+chk+'"' + 
+                 'value="'+item.sno+'_'+item.nsdt+' - '+item.nedt+'"><label for="'+chk+'"><span></span>'+
+                 item.nsdt+' - '+item.nedt+'</label>'+
                  '</li>');
                 });
        $('.stageapplybtn').show();
@@ -533,7 +611,7 @@ function addcont(){
     }
 
     if(chkCnt == 0){
-        alert("신청하실 시간을 체크해주세요");
+        swal("","시간을 체크해야 신청이 가능합니다!","info");
         $('#addcontModal').modal('hide');
         return
     }
@@ -545,7 +623,7 @@ function addcont(){
     $('#addcontModal').modal('show');
     $.each(chks,function(index,item){
     $('.card-body ul').append(
-            '<li>'+item+'</li>');       
+            '<li style="display:none;">'+item+'</li>');       
     });
 };
 
@@ -566,35 +644,35 @@ function applyStage(){
 
     var cont = $('#cont').val();
     var count = $('#count').val();
-    console.log(count);
-    $.ajax({ 
-        type : "GET", 
-        url : "applyStage", 
-        traditional : true,
-        data : {"ssno" : addchk, "cont" : cont, "count":count},
-        success : function(data){
-            if(data != null){
-                alert("success!");
-                window.location.href=window.location.href;
-            }else
-                alert("fail!");
-        },
-        error : function(request, status, error) {
-            alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
-        }
-    });
-
     
+        swal("","신청하시겠습니까 ?","success").then((will)=>{
+            if(will){
+                $.ajax({ 
+                    type : "GET", 
+                    url : "applyStage", 
+                    traditional : true,
+                    data : {"ssno" : addchk, "cont" : cont, "count":count},
+                    success : function(data){
+                        
+                                window.location.href=window.location.href;  
+                    },
+                    error : function(request, status, error) {
+                        alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
+                    }
+                });
+            }
+        });
 }
 
 
 $('#count').on("focusout",function(){
     var cnt = $('#count').val();
+    
     if(cnt == "" || cnt == 0){
-       $('#applybtn').prop("disabled", true);
-       $('#countMsg').html("1 이상의 팀원 수를 적어주세요").css("background-color", "#FFCECE");
+       $('#applybtn').prop("disabled", true).css('cursor','not-allowed');
+       $('#countMsg').html("1 이상의 팀원 수를 적어주세요").css('color','red');
     }else{
-         $('#applybtn').prop("disabled", false);
+         $('#applybtn').prop("disabled", false).css('cursor','pointer');
           $('#countMsg').html("");
     }
 });
@@ -613,6 +691,7 @@ $('#count').on("focusout",function(){
  });
  marker.setDraggable(true); // 마커를 움직일수 있게 설정 false일경우 고정!
  map.relayout();
+
 
 
 
