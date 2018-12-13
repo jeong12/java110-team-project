@@ -1040,7 +1040,7 @@ SELECT
                 PS.y,
                 B.phot,
                 B.bno,
-                B.name     
+                B.name
            FROM per_sche PS, busk B
           WHERE PS.bno = B.bno
             and SUBSTR(PS.sdt,1,10) = SUBSTR(NOW(),1,10)
@@ -1056,7 +1056,7 @@ SELECT
         GROUP BY BS.brno
           HAVING SUBSTR(sdt,1,10) = SUBSTR(NOW(),1,10)) ASD
         )
- order by sdt asc
+  ORDER BY sdt ASC;
 </select>
 
 
@@ -1064,8 +1064,8 @@ SELECT
         parameterType="map">
 SELECT 
         brno, shopname, addr, sdt, edt, cnt, flag, cdt, x, y, phot, bno, name
-  FROM(
-          (SELECT 
+  FROM   
+        (SELECT 
                 PS.psno as brno, PS.shopname, PS.addr, PS.sdt, PS.edt, PS.cnt, 3 as flag, 
                 PS.cdt,
                 PS.x,
@@ -1076,21 +1076,20 @@ SELECT
            FROM per_sche PS, busk B
           WHERE PS.bno = B.bno
             and SUBSTR(PS.sdt,1,10) = SUBSTR(NOW(),1,10)
-           UNION
-          SELECT
+          UNION
+         SELECT
                 BR.brno, S.name as shopname, S.bas_addr as addr, MIN(SC.sdt) as sdt, MAX(SC.edt) as edt,
                 BR.cnt, BS.flag, BR.cdt, S.x, S.y, B.phot, B.bno, B.name
-            FROM busk B, busk_req BR, busk_stag BS,stag_sche SC, sup S
-           WHERE B.bno=BR.bno
-             AND BR.brno=BS.brno
-             AND BS.ssno=SC.ssno
-             AND SC.sno = S.sno
+           FROM busk B, busk_req BR, busk_stag BS,stag_sche SC, sup S
+          WHERE B.bno=BR.bno
+            AND BR.brno=BS.brno
+            AND BS.ssno=SC.ssno
+            AND SC.sno = S.sno
         GROUP BY BS.brno
-          HAVING SUBSTR(sdt,1,10) = SUBSTR(NOW(),1,10)) ASD
-        )
- WHERE addr like concat('%',#{keyword1},'%'))
-    OR addr like concat('%',#{keyword2},'%'));
- order by sdt asc
+          HAVING SUBSTR(sdt,1,10) = SUBSTR(NOW(),1,10)) asd
+ WHERE addr like concat('%',#{keyword1},'%')
+    OR addr like concat('%',#{keyword2},'%')
+    order by sdt asc
 </select>
     
      <select id="totsearchSchedule" resultType="Integer" parameterType="map">

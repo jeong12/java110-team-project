@@ -337,10 +337,10 @@ footer{margin-top: 3rem;}
     <div class="toptable">시 / 도</div>
     <div class="listbox">
         <ul>
-            <li>서울특별시</li>
+            <li id='seoul'>서울특별시</li>
             <li>경기도</li>
             <li>인천광역시</li>
-            <li>부산광역시</li>
+            <li id='busan'>부산광역시</li>
             <li>대구광역시</li>
             <li>광주광역시</li>
             <li>대전광역시</li>
@@ -365,7 +365,7 @@ footer{margin-top: 3rem;}
     </div>
     
     </div>
-    <div class="All2">
+    <div class="All2" id='seoulmenu'>
     <div class="toptable">시 / 군 / 구</div>
     <div class="listbox">
         <ul>
@@ -405,7 +405,33 @@ footer{margin-top: 3rem;}
     </div>
 
 
-
+    <div class="All2" id='busanmenu' style="height: 23.1rem;">
+	    <div class="toptable">시 / 군 / 구</div>
+	    <div class="listbox">
+	        <ul>
+	            <li>중구</li>
+	            <li>서구</li>
+	            <li>동구</li>
+	            <li>영도구</li>
+	            <li>부산진구</li>
+	            <li>동래구</li>
+	            <li>남구</li>
+	            <li>북구</li>
+	            <li>해운대구</li>
+	            <li>사하구</li>
+	            <li>금정구</li>
+	            <li>강서구</li>
+	            <li>연제구</li>
+	            <li>수영구</li>
+	            <li>사상구</li>
+	            <li>기장군</li>
+	        </ul>
+	    </div>
+		    <div class="boxbt">
+		        <button>취소</button>
+		    </div>
+    </div>
+    
 <script src="https://unpkg.com/flickity@2.0/dist/flickity.pkgd.min.js"></script>    
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=15e2302756c9e7098ec0d79f7b4d53f4"></script>
 
@@ -548,27 +574,52 @@ $(".choicearea").click(function(){
     $('.'+listhideID).css('display','none');
 });
 
+
+/* 시군구 선택시 무엇을 열어줄지 */
+$("#All2").click(function(){
+	var area =$("#All").text(); 
+    var listID=$(this).attr('id');
+    var listhideID=$(this).siblings().attr('id');
+    console.log(area);
+    $(this).css('background-color','#c6cbce');
+    $(this).siblings().css('background-color','#f2f3f5');
+    
+    if(area=='부산광역시'){
+    	$('#busanmenu').css('display','block');
+    	$('#seoulmenu').css('display','none');
+    }else if(area=='서울특별시'){
+    	$('#seoulmenu').css('display','block');
+    	$('#busanmenu').css('display','none');
+    }else{
+    	$('.All2').css('display','none');
+    	swal("","시도를 먼저 선택해주세요.","warning");
+    	
+    }
+    
+    //$('.'+listhideID).css('display','none');
+});
+
+
 $('html').click(function(e) { 
 	if($(e.target).parent().parent().hasClass("listbox")) {
-		console.log('지역선택중입니다.');
 	}else if(!$(e.target).hasClass("choicearea")) {
-        console.log('태크밖이지롱');
         $("#All").css('background-color','#f2f3f5');
         $("#All2").css('background-color','#f2f3f5');
         $('.All').css('display','none');
         $('.All2').css('display','none');
-    } //ㅅㄷㄴㅅ
+    }
 	
 });
 
 
 $(".All li").click(function(){
     var searchCode= $(this).text();
+    var area = $(this).attr('id');
     $("#All").text(searchCode);
     $("#All").css('background-color','#f2f3f5');
     $("#All2").css('background-color','#c6cbce');
     $('.All').css('display','none');
-    $('.All2').css('display','block');
+    $('#'+area+'menu').css('display','block');
 });
 
 
