@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>여러개 마커 제어하기</title>
+    <title>버스커 위치</title>
     <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
@@ -25,7 +25,7 @@
     
     <style>
     
-    h3{font-family: "Do Hyeon"}
+    .caselh3{font-family: "Do Hyeon"}
     
     /* 박스 */
         .All{   
@@ -186,7 +186,7 @@ body {
 }
 #ALLdiv{margin-top: 2.3rem;}
 #titl{margin-top: 2%; margin-bottom: 2%;}
-#logo{float: left; width: 30px; height: 30px;}
+#logo{float: left; width: 40px; height: 40px;}
 #haha{margin-top: 0.8%; margin-left: 5.5%;}
 footer{clear: both;}
 #map{height: 30rem; clear: both;}
@@ -236,6 +236,7 @@ footer{margin-top: 3rem;}
         margin: auto;
 
 }  
+.carousel-wrapper{cursor: pointer;}
 .info{width: 7rem;}
 .All2{
 
@@ -255,20 +256,19 @@ footer{margin-top: 3rem;}
     }
     
 .hdiv{margin-left: 2%;}
-.fas{font-size: 2rem; float: left; margin-left: 2%;
-
+#bticon{font-size: 2rem; float: left; margin-left: 2%;
 }
 #maptitle{padding-top: 0.8%;margin-left: 7%;}
 .carousel-cell{top: 3rem;}
-.flickity-viewport{background-color: rgba(93, 91, 213, 0.07);}
-
-.flickity-enabled.is-draggable .flickity-viewport{cursor: default;}
+.flickity-viewport{background-color: rgba(93, 91, 213, 0.07); }
+.flickity-enabled.is-draggable .flickity-viewport{cursor: pointer;}
     </style>
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
 <div id="titl" class="container">
        <img id="logo" src="../../img/playButton.PNG" alt="플레이로고">
-       <h2 id="haha">버스킹 일정</h2>
+       <h3 id="haha" style="display: flex;">버스커 위치</h3>
+      
    </div>
 
 <body>
@@ -292,7 +292,7 @@ footer{margin-top: 3rem;}
 <div id="map"></div>
 <div id="hdiv">
 
-<i class="fas fa-drum"></i>
+<i class="fas fa-drum" id="bticon"></i>
 <h3 id="maptitle">오늘의 공연목록</h3>
 </div>
 <div id="caseldiv">
@@ -307,7 +307,7 @@ footer{margin-top: 3rem;}
   <!-- 카르셀 시작 -->
   <c:forEach items="${list}" var="cl">
       <div class="carousel-cell" value="${cl.x},${cl.y}" >
-        <h3>${cl.bname}</h3>
+        <h3 class="caselh3">${cl.bname}</h3>
         <label>${cl.nsdt}~${cl.nedt}</label>
         <label class='a'>${cl.simpleaddr}</label>
         <img style="height: 8rem;" src="/upload/${cl.phot}" />
@@ -415,8 +415,8 @@ $(document).ready(function(){
     
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
     mapOption = { 
-        center: new daum.maps.LatLng(37.4854, 127.034), // 지도의 중심좌표
-        level: 7 // 지도의 확대 레벨
+        center: new daum.maps.LatLng(37.5342, 126.992), // 지도의 중심좌표
+        level: 7 // 지도의 확대 레벨ㅅㄷㄴㅅㄴㄷㅅㄴㄷㅅ
     };
 
 var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다.
@@ -586,7 +586,7 @@ $(".All2 li").click(function(){
         success : function(data) { 
             if(data.length!='0'){
             	if(data.length=='0'){
-                    swal("에러","갬색 지역의 버스커 공연이 없습니다.","error");
+                    swal("","갬색 지역의 버스커 공연이 없습니다.","warning");
                 }else{
                        $('.carousel-wrapper').empty();
                        $('.carousel-wrapper').append('<div class="carousel"></div>'); 
@@ -645,7 +645,7 @@ $(".All2 li").click(function(){
                 });
                    map.setBounds(bounds); */
             }else{
-                swal("에러","갬색 지역의 버스커 공연이 없습니다.","error");
+                swal("","갬색 지역의 버스커 공연이 없습니다.","warning");
             }
         },
         error : function(request, status, error) {
@@ -680,7 +680,7 @@ $('.carousel-cell').click(function(){
 $('#sbutton').click(function(){
 	var keyword=$('#searchinput').val();
 	if(keyword.length==0){
-		swal("오류","검색어를 다시 설정해주세요.","warning");
+		swal("","검색어를 다시 설정해주세요.","warning");
 	}else{
 		$.ajax({ 
 	        type : "POST", 
@@ -691,7 +691,7 @@ $('#sbutton').click(function(){
 	        }, 
 	        success : function(data) {
 	        	if(data.length=='0'){
-	        		swal("에러","갬색 지역의 버스커 공연이 없습니다.","error");
+	        		swal("","갬색 지역의 버스커 공연이 없습니다.","warning");
 	        	}else{
 		               $('.carousel-wrapper').empty();
 		               $('.carousel-wrapper').append('<div class="carousel"></div>'); 

@@ -227,7 +227,7 @@ public class BuskerPerScheduleController {
   @RequestMapping(value="clikeDate")
   public List<Schedule> getDateSchedule(
       HttpSession session,
-      @RequestParam(value="date")String date, Model model) {
+      @RequestParam(value="date")String date) {
     
     Member member = (Member)session.getAttribute("loginUser");
     int bno = member.getNo();
@@ -258,8 +258,6 @@ public class BuskerPerScheduleController {
     String flag=fakeflag.substring(0,1);
     int no=Integer.parseInt(fakeflag.substring(1, fakeflag.length()));  
     Schedule detailschedule= null;
-    System.out.println(flag);
-    System.out.println(no);
     if(flag.equals("a")) {
       detailschedule= scheduleService.myreqdetail(no);
       Supporter s= detailschedule.getSupporter();
@@ -268,14 +266,11 @@ public class BuskerPerScheduleController {
       }
     }else {
       detailschedule= scheduleService.myperdetail(no);
-      System.out.println(detailschedule.getShopname());
     }
-
+    
     detailschedule.setNsdt(format.format(detailschedule.getSdt()).replaceAll("-", "/"));
     detailschedule.setNedt(format.format(detailschedule.getEdt()).replaceAll("-", "/"));
     detailschedule.setNcdt(format.format(detailschedule.getCdt()).replaceAll("-", "/"));
-    System.out.println(detailschedule.getNsdt());
-    System.out.println(detailschedule.getNedt());
     return detailschedule;
 
   }
@@ -283,11 +278,8 @@ public class BuskerPerScheduleController {
   @ResponseBody
   @RequestMapping("deleteschedule")
   public int reqdelete(String fakeflag) throws Exception{
-    System.out.println(fakeflag);
     String flag=fakeflag.substring(0,1);
     int no=Integer.parseInt(fakeflag.substring(1, fakeflag.length()));
-    System.out.println(flag);
-    System.out.println(no);
     if(flag.equals("a")) {
       return scheduleService.deleteReqSchedule(no);
     }else {
@@ -312,7 +304,6 @@ public class BuskerPerScheduleController {
     System.out.println(edt);
     int total=scheduleService.checkperschedule(sdt, edt, bno);
     total+=scheduleService.checkreqschedule(sdt, edt, bno);
-    System.out.println("======================");
     System.out.println(total);
     return total; 
     
@@ -351,8 +342,6 @@ public class BuskerPerScheduleController {
     
     int total=scheduleService.checkeditperschedule(sdt, edt, nsdt, nedt, bno);
     total+=scheduleService.checkeditreqschedule(sdt, edt, nsdt, nedt, bno);
-    System.out.println("======================");
-    System.out.println(total);
     return total;
     
   }
