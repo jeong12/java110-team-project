@@ -15,9 +15,12 @@ public interface AviService {
   List<Avi> getFolAvi(int no);
   void uploadAvi(int bno, String title, String content, String url);
   Avi getfeedavibyAbnoNoComt(int no);
-  void insertComment(int abno, int no, String cont);
+  void insertComment(int abno, int mno, String cont);
   void delete(int abno);
   void reviseAvi(String titl, String cont, String urlid, int no);
   int totList(int no);
   List<Avi> morelist(int no, Paging paging);
+  int reviseComment(String cont, int acno);
+  int deleteComment(int acno);
+  
 }

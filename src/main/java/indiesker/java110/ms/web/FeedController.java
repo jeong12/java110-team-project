@@ -8,9 +8,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
-import javax.print.attribute.HashAttributeSet;
 import javax.servlet.ServletContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,21 +59,17 @@ public class FeedController {
   @GetMapping("enter")
   public void list(
       int no,
-      @RequestParam(defaultValue="0") int pageNo,
+      @RequestParam(defaultValue="1") int pageNo,
       @RequestParam(defaultValue="9") int pageSize,
       Model model) {
-    // 버스커말고 다른 회원이 접근할때!
-    /*    boolean checkbusk = memberService.isBusker(no);
-    System.out.println(checkbusk);
+    
+    Paging paging1 = new Paging();
+    
+    paging1.setPageSize(9);
 
-    if(checkbusk == false) {
-      goback();
-
-    }*/
-
-    /*int photocount = feedPhotoService.recentPhotList2(no);*/
-
-
+    paging1.setTotalCount(feedPhotoService.recentPhotList2(no));
+    System.out.println("총 사진 갯수="+feedPhotoService.recentPhotList2(no));
+    
     List<Schedule> fplist = sheduleService.findFeedPerSchedule(no);//스케줄 now()이후 날짜부터 출력!
     List<Schedule> fflist = sheduleService.findFeedFixSchedule(no);
     Busker busker = buskerService.get(no);
@@ -117,20 +113,25 @@ public class FeedController {
       ps.setNsdt(formatsdt.format(ps.getSdt()));
       ps.setNedt(formatedt.format(ps.getEdt()));
     }
+    
+    SimpleDateFormat scheformatdate = new SimpleDateFormat("EEE. d MMM", new Locale("en", "US"));
+    for (Schedule ps : fplist) {
+      ps.setFeeddate(scheformatdate.format(ps.getSdt()));
+      System.out.println(ps.getFeeddate());
+    }
+    
 
-
+    model.addAttribute("photo", paging1);
     model.addAttribute("schelist",fplist);
     model.addAttribute("busk",busker);
     model.addAttribute("recentlist",alist);
     model.addAttribute("recentplist",plist);
-    System.out.println(alist);
   }
 
   @ResponseBody
   @RequestMapping("showavi")
   public Avi getAviNo(
       String abno, Model model) {   
-    System.out.println(abno);
     int abno2 = Integer.parseInt(abno);
     Avi feedavi=aviService.getfeedavibyAbno(abno2);
 
@@ -154,7 +155,6 @@ public class FeedController {
       String pbno, Model model) {   
     int pbno2 = Integer.parseInt(pbno);
     FeedPhoto feedphoto=feedPhotoService.getfeedphotobyPbno(pbno2);
-    System.out.println("testtest!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     if(feedphoto == null) {
       feedphoto = feedPhotoService.getfeedphotobyPbnoNoComt(pbno2);
       feedphoto.setComtcount(0);
@@ -165,6 +165,7 @@ public class FeedController {
       for (Comment comment : comts) {
         comment.setStrcdt(comment.getCdt().toString());
       }
+      
       return feedphoto;
     }
   }
@@ -203,7 +204,6 @@ public class FeedController {
 
   @PostMapping("addavi")
   public String addavi(@RequestParam String bno, String title, String content, String url) {
-    System.out.println("test"+bno);
     int bno2=Integer.parseInt(bno);
     String urlid = url.substring(32,43);
 
@@ -212,10 +212,91 @@ public class FeedController {
     return "redirect:enter?no="+bno2;
   }
 
-  @RequestMapping("insertavicomt")
-  public void insertcomt(int abno, int no, String cont) {
-    System.out.println(abno+"//"+no+"//"+cont);
-    aviService.insertComment(abno, no, cont);
+  @ResponseBody
+  @RequestMapping("insertcomment")
+  public Avi insertcomt(String abno, String mno, String cont) {
+    System.out.println(abno);
+    System.out.println(mno);
+    System.out.println(cont);
+    int abno2 = Integer.parseInt(abno);
+    int mno2 = Integer.parseInt(mno);
+
+    aviService.insertComment(abno2, mno2, cont);
+    //입력완료================================
+    Avi feedavi = aviService.getfeedavibyAbno(abno2);
+    List<Comment> comts=feedavi.getComments();
+    for (Comment comment : comts) {
+      comment.setStrcdt(comment.getCdt().toString());
+    }
+
+    return feedavi;
+  }
+  
+  @ResponseBody
+  @RequestMapping("insertphotcomment")
+  public FeedPhoto insertphotcomt(String pbno, String mno, String cont) {
+    int pbno2 = Integer.parseInt(pbno);
+    int mno2 = Integer.parseInt(mno);
+
+    int no = feedPhotoService.insertPhotComt(pbno2, mno2, cont);
+    System.out.println(no);
+    //입력완료================================
+    FeedPhoto feedphoto = feedPhotoService.getfeedphotobyPbno(pbno2);
+    List<Comment> comts=feedphoto.getComments();
+    for (Comment comment : comts) {
+      comment.setStrcdt(comment.getCdt().toString());
+    }
+    return feedphoto;
+  }
+
+  @ResponseBody
+  @RequestMapping("revisecomment")
+  public int revisecomt(String acno,  String cont) {
+    int acno2 = Integer.parseInt(acno);
+    int kk = aviService.reviseComment(cont, acno2);
+    System.out.println(kk);
+    return aviService.reviseComment(cont, acno2);
+  }
+
+  @ResponseBody
+  @RequestMapping("revisephotcomment")
+  public int revisephotcomt(String pcno,  String cont) {
+    int pcno2 = Integer.parseInt(pcno);
+    
+    return feedPhotoService.revisePhotComment(cont, pcno2);
+  }
+  
+  @ResponseBody
+  @RequestMapping("removecomment")
+  public Avi removecomt(String acno,String abno) {
+    int acno2 = Integer.parseInt(acno);
+    int abno2 = Integer.parseInt(abno);
+    aviService.deleteComment(acno2);
+
+    Avi feedavi=aviService.getfeedavibyAbno(abno2);
+
+    List<Comment> comts=feedavi.getComments();
+    for (Comment comment : comts) {
+      comment.setStrcdt(comment.getCdt().toString());
+    }
+    
+    return feedavi;
+  }
+  @ResponseBody
+  @RequestMapping("removephotcomment")
+  public FeedPhoto removephotcomt(String pcno,String pbno) {
+    int pcno2 = Integer.parseInt(pcno);
+    int pbno2 = Integer.parseInt(pbno);
+    feedPhotoService.deletePhotComment(pcno2);
+
+    FeedPhoto feedphoto=feedPhotoService.getfeedphotobyPbno(pbno2);
+
+    List<Comment> comts=feedphoto.getComments();
+    for (Comment comment : comts) {
+      comment.setStrcdt(comment.getCdt().toString());
+    }
+    
+    return feedphoto;
   }
 
   @GetMapping("deleteavi")
@@ -233,13 +314,6 @@ public class FeedController {
   @GetMapping("updateavi")
   public String updateavi(int abno,int bno,String title,
       String url, String cont) throws Exception {
-
-    System.out.println(abno);
-    System.out.println(bno);
-    System.out.println(title);
-    System.out.println(url);
-    System.out.println(cont);
-
     aviService.reviseAvi(title, cont, url, abno);
 
     return "redirect:enter?no="+bno;
@@ -269,35 +343,17 @@ public class FeedController {
     model.addAttribute("paging",paging);
 
   }
-  
+
   @PostMapping("updatephoto")
   public String updatephoto(String pbno, String cont, String bno, @RequestParam MultipartFile file1,
       @RequestParam MultipartFile file2, @RequestParam MultipartFile file3,
       @RequestParam(defaultValue="0") String fpno1, @RequestParam(defaultValue="0") String fpno2, @RequestParam(defaultValue="0") String fpno3
       ) throws IllegalStateException, IOException {
     int pbno2=Integer.parseInt(pbno);
-    
-    System.out.println("pbno:"+pbno);
-    System.out.println("cont:"+cont);
-    System.out.println("bno:"+bno);
-    System.out.println("file1:"+file1);
-    System.out.println("file2:"+file2);
-    System.out.println("file3:"+file3);
-    System.out.println("fpno1:"+fpno1);
-    System.out.println("fpno2:"+fpno2);
-    System.out.println("fpno3:"+fpno3);
-    if(fpno2.equals("0") ) {
-      System.out.println("파일1개");
-    }else if(fpno3.equals("0") ) {
-      System.out.println("파일2개");
-    }
-    else {
-      System.out.println("파일3개");
-    }
-    
+
     // 내용 업데이트
     feedPhotoService.updateFeedContent(cont, pbno2);
-    
+
     // file1 처리
     if (file1.getSize() > 0) {
       int fpno11 = Integer.parseInt(fpno1);
@@ -331,11 +387,36 @@ public class FeedController {
         feedPhotoService.updateFeedPhoto(filename, fpno33);
       }
     }
-    
+
     return "redirect:enter?no="+bno;
   }
 
+  @ResponseBody
+  @RequestMapping("photopaging")
+  public Map<String,Object> photopaging(String pageno,String buskno) {
+    int buskno2 = Integer.parseInt(buskno);
+    int pageno2 = Integer.parseInt(pageno);
+    Paging paging1 = new Paging();
+    
+    paging1.setPageSize(9);
 
+    paging1.setTotalCount(feedPhotoService.recentPhotList2(buskno2));
+    
+    List<FeedPhoto> plist = feedPhotoService.recentPhotList(buskno2,pageno2,9);
+    
+    for (FeedPhoto f : plist) {
+      System.out.println(f.getCdt());
+      f.setStrcdt(f.getCdt().toString());
+      }
+    
+    Map<String,Object> map = new HashMap<>();
+    map.put("plist", plist);
+    map.put("paging", paging1);
+    
+    
+    return map;
+  }
+  
 }
 
 

@@ -8,7 +8,7 @@ public interface FeedPhotoDao {
 /*  List<FeedPhoto> findByFeedPhoto();
   FeedPhoto findPhotoFile(int no);*/
   List<FeedPhoto> findRecentPhot(Map<String,Object> params);
-  List<FeedPhoto> findRecentPhot2(int no);
+  int findRecentPhot2(int no);
   FeedPhoto findByImage(int no);
   FeedPhoto findfeedphotobyPbno(int no);
   int feedPhotoUpload(Map<String,Object> params);
@@ -19,5 +19,9 @@ public interface FeedPhotoDao {
   void revisephotocont(Map<String,Object> params);
   void revisephoto(Map<String,Object> params);
   void feedPhotoOneFileUpload(Map<String,Object> params);
+  
+  int insertcomt(Map<String,Object> params);
+  int revisecomt(Map<String,Object> params);
+  int deletecomt(int pcno);
   
 }
