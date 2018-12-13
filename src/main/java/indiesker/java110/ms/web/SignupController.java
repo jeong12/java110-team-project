@@ -62,7 +62,7 @@ public class SignupController{
     bsuknsup.put("id", id);
     memberService.add(m);
     if(type.equals("fan")) {
-      return "redirect:form";         
+      return "redirect:../../main";         
     }else if(type.equals("busker")) {
       session.setAttribute("from", "busk");
       return "redirect:../busker/form";  
