@@ -5,13 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Indisker : 무대제공자 회원가입</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c63782df6473def89780e1d964f9d83a&libraries=services"></script>
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="/js/signupSupporter.js" type="text/javascript"></script>
+
 <style>
 <style>
 th {
@@ -58,6 +53,7 @@ background-color: snow;
     border-radius: 10px;
     margin: 0px auto;
     margin-bottom: 10%;
+    background-color: #ebebeb;
 }
 label {
     margin-bottom: 0px;
@@ -78,21 +74,23 @@ form {
 
 input {
     font-family: "Open Sans", Helvetica, sans-serif;
-    font-size: 11px; border : none;
-    border-bottom: 2px solid #ebebeb;
+    font-size: 11px;
     position: relative;
-    width: 80%;
-    border: none; border-bottom : 2px solid #ebebeb; position : relative;
     width : 80%;
+    background-color: #ebebeb;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom: 1px solid silver;
 }
 
 input:focus {
     outline: none;
-    border-bottom-color: #3CC !important;
+    border-bottom: 2px solid black;
 }
 
 input:hover {
-    border-bottom-color: #3CC;
+   border-bottom: 2px solid black;
 }
 
 input:invalid {
@@ -132,6 +130,7 @@ select {
     margin-bottom: 5%;
     
 }
+#input_img1,#input_img2,#input_img3 {opacity: 0;}
 </style>
 </head>
 <jsp:include page="../../header.jsp"></jsp:include>
@@ -140,7 +139,7 @@ select {
 <div class="title container">
 <div class="row">
     <div id="titl" class='col-lg-12'>
-        <img id="logo" src="../../../img/playButton.png" alt="플레이로고">
+        <img id="logo" src="../../../img/playButton.PNG" alt="플레이로고">
         <h3>무대제공자 되기</h3>
     </div>
     </div>
@@ -155,7 +154,7 @@ select {
 			<input type='text' name='name' oninput="checkName()" id="name" size=30 autocomplete="off"><br> 
 			<span id="nameMsg"></span><br>
 			<label for="sgenre">퍼포먼스/장르(희망)</label><br>
-			<select name='sgnere' id='sgnere'>
+			<select name='sgnere' id='sgnere' onfocus="checkName()">
 				<option value="ballad" selected="selected">발라드</option>
 				<option value="dance">댄스</option>
 				<option value="trot">트로트</option>
@@ -167,25 +166,28 @@ select {
 				<option value="rap">랩</option>
 			</select><br>
 			<label for="baseaddr">주소</label><br>
-			<input type="text" id="baseaddr" name="baseaddr" placeholder="주소" size=60 autocomplete="off">
             <input type="button" onclick="searchAddr()" value="주소 검색">
+			<input type="text" id="baseaddr" name="baseaddr" placeholder="주소" size=60 autocomplete="off" oninput="goDaum()">
 			<input type="text" id="detailaddr" name="detailaddr" placeholder="상세주소" size=60 onchange="checkDetailAddr()" autocomplete="off">
             <input type="hidden" id="x" name="x" autocomplete="off">
             <input type="hidden" id="y" name="y" autocomplete="off"><br>			
 			<span id="daMsg"></span><br>
 			<div id="map" style="width:400px;height:400px;margin-top:10px;display:none"></div>
 			<label for="capa">수용가능인원</label><br>
-			<input type="number" id="capa" name="capa" size=30 onchange="checkCapa()" autocomplete="off">
+			<input type="number" id="capa" name="capa" size=30 onchange="checkCapa()" autocomplete="off" onfocus="checkDetailAddr()">
 			<span id="capaMsg"></span><br>
 			<label for="tel">연락처</label><br>
-			<input type="tel" id="tel" name="tel" size=30 onchange="checkTel()" autocomplete="off"> <br>
+			<input type="tel" id="tel" name="tel" size=30 oninput="checkTel()" autocomplete="off" onfocus="checkDetailAddr()"> <br>
+			<span id="telMsg"></span><br>
 			<label for="message">기타(희망사항)</label><br>
-			<input type="textarea" name="message" id="message" size=30 autocomplete="off"> <br>
-			<label>사진</label>
-			<label>해당 공연장 사진을 올려주세요</label><br>
-			<img id="upload1" src="/img/default_image.png" alt="기본이미지">
-			<img id="upload2" src="/img/default_image.png" alt="기본이미지">
-			<img id="upload3" src="/img/default_image.png" alt="기본이미지"><br>			
+			<input type="text" name="message" id="message" size=30 autocomplete="off"> <br>
+			<label>해당 공연장 사진을 3장 올려주세요</label><br>
+			<label for="input_img1">
+			<img id="upload1" src="/img/default_image.png" alt="기본이미지"></label>
+			<label for="input_img2">
+			<img id="upload2" src="/img/default_image.png" alt="기본이미지"></label>
+			<label for="input_img3">
+			<img id="upload3" src="/img/default_image.png" alt="기본이미지"></label>			
 			<input type='file' name='file1' id='input_img1' onchange="readURL1(this);" /> 
 		    <input type='file' name='file2' id='input_img2' onchange="readURL2(this);" /> 
 		    <input type='file' name='file3' id='input_img3' onchange="readURL3(this);" /> 
@@ -196,6 +198,13 @@ select {
 	</div>
 	</div>
 	</div>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c63782df6473def89780e1d964f9d83a&libraries=services"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/signupSupporters.js" type="text/javascript"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	
 	<script>
      var mapContainer = document.getElementById('map'), // 지도를 표시할 div
