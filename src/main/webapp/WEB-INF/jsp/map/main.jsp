@@ -185,7 +185,7 @@ body {
     background-color: snow;
 }
 #ALLdiv{margin-top: 2.3rem;}
-#titl{margin-top: 2%; margin-bottom: 2%;}
+#titl{margin-top: 2%; margin-bottom: 2%; display: -webkit-box;}
 #logo{width: 40px; height: 40px;}
 #haha{    margin-top: 0;
     margin-bottom: 0;
