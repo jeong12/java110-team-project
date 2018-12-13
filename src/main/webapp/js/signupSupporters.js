@@ -5,7 +5,6 @@ var chkTel=0;
 var chkFile1=0;
 var chkFile2=0;
 var chkFile3=0;
-
 function checkName(){
     var names=$('#name').val(); 
     $.ajax({
@@ -17,12 +16,10 @@ function checkName(){
             if(names.length<=0 && data=='0') {
                 $(".signupbtn").prop("disabled", true);
                 $(".signupbtn").css("background-color", "#aaaaaa");
-                $("#name").css("background-color", "#FFCECE");
-                $("#nameMsg").html("상호명을 입력해주세요.")
+                $("#nameMsg").html("상호명을 입력해주세요.").css('color','red');
                 chkName = 0;
             } else if (data == '0') {
-                $("#name").css("background-color", "#B0F6AC");
-                $("#nameMsg").html("사용 가능한 상호명입니다.")
+                $("#nameMsg").html("사용 가능한 상호명입니다.").css('color','black');
                 chkName = 1;
                 if(chkName==1 && chkDetAddr ==1&& chkCapa ==1  && chkTel ==1 && chkFile1==1 && chkFile2==1 && chkFile3==1) {
                     $(".signupbtn").prop("disabled", false);
@@ -31,8 +28,7 @@ function checkName(){
             } else if (data >= '1') {
                 $(".signupbtn").prop("disabled", true);
                 $(".signupbtn").css("background-color", "#aaaaaa");
-                $("#name").css("background-color", "#FFCECE");
-                $("#nameMsg").html("이미 존재하는 상호명입니다.")
+                $("#nameMsg").html("이미 존재하는 상호명입니다.").css('color','red');
                 chkName = 0;
             } 
         }
@@ -40,7 +36,6 @@ function checkName(){
 }
 
 $('chkFlag button').click(function(){
-    alert("::::::::");
 });
 
 function checkDetailAddr(){ 
@@ -49,11 +44,10 @@ function checkDetailAddr(){
     if(detaddr.length<=0 || baddr.length<=0) {
         $(".signupbtn").prop("disabled", true);
         $(".signupbtn").css("background-color", "#aaaaaa");
-        $("#detailaddr").css("background-color", "#FFCECE");
-        $("#daMsg").html("주소를 입력해주세요.")
+        $("#daMsg").html("주소를 입력해주세요.").css('color','red');
         chkDetAddr = 0;
     }else if (detaddr.length>0 && baddr.length>0) {
-        $("#detailaddr").css("background-color", "#B0F6AC");
+    	$("#daMsg").html(" ");
         chkDetAddr = 1;
         if(chkName==1 && chkDetAddr ==1 && chkCapa ==1  && chkTel ==1 && chkFile1==1 && chkFile2==1 && chkFile3==1) {
             $(".signupbtn").prop("disabled", false);
@@ -68,13 +62,11 @@ function checkCapa(){
     if(capacity.length<=0) {
         $(".signupbtn").prop("disabled", true);
         $(".signupbtn").css("background-color", "#aaaaaa");
-        $("#capa").css("background-color", "#FFCECE");
-        $("#capaMsg").html("수용인원을 입력해주세요.")
+        $("#capaMsg").html("수용인원을 입력해주세요.").css('color','red');
         chkCapa = 0;
     } else if (capacity.length>0) {
-        $("#capa").css("background-color", "#B0F6AC");
         chkCapa = 1;
-
+        $("#capaMsg").html(" ");
         if(chkName==1 && chkDetAddr ==1 && chkCapa ==1  && chkTel ==1 && chkFile1==1 && chkFile2==1 && chkFile3==1) {
             $(".signupbtn").prop("disabled", false);
             $(".signupbtn").css("background-color", "#4CAF50");
@@ -87,20 +79,19 @@ function checkTel(){
     if(tele.length<=0) {
         $(".signupbtn").prop("disabled", true);
         $(".signupbtn").css("background-color", "#aaaaaa");
-        $("#tel").css("background-color", "#FFCECE");
-        $("#capaMsg").html("수용인원을 입력해주세요.")
+        $("#telMsg").html("전화번호를 입력해주세요.").css('color','red');
         chkTel = 0;
-    } else if (tele.length>0) {
-        $("#tel").css("background-color", "#B0F6AC");
+    }else if (/(\d{2}).*(\d{3}).*(\d{4})/.test($('#tel').val())) {
         chkTel = 1;
-
-        if(chkName==1 && chkDetAddr ==1 && chkCapa ==1  && chkTel ==1 && chkFile1==1 && chkFile2==1 && chkFile3==1) {
-            $(".signupbtn").prop("disabled", false);
-            $(".signupbtn").css("background-color", "#4CAF50");
-        }
+        $("#telMsg").html("등록 가능한 연락처입니다.").css('color','black');
+    
+    }else{
+    	$("#telMsg").html("올바르지 않은 연락처입니다.").css('color','red');
+    }if(chkName==1 && chkCity==1 && chkTel==1 && chkFile==1) {
+        $(".signupbtn").prop("disabled", false);
+        $(".signupbtn").css("background-color", "#4CAF50");
     } 
 };
-
 
 function readURL1(input) { 
     var chkImg = document.getElementById('input_img1').value
@@ -109,7 +100,7 @@ function readURL1(input) {
             chkImg !="gif" && chkImg !="png" && chkImg !="bmp"){
         chkFile1=0;
         $(".signupbtn").prop("disabled", true);
-        alert("이미지 파일만 올려주세요");
+        swal("잠깐!","이미지 파일만 올려주세요.","warning");
         $('#upload1').attr('src', "/img/default_image.png");}
     else if (input.files && input.files[0]){ 
         var reader = new FileReader(); 
@@ -132,7 +123,7 @@ function readURL2(input) {
             chkImg !="gif" && chkImg !="png" && chkImg !="bmp"){
         chkFile2=0;
         $(".signupbtn").prop("disabled", true);
-        alert("이미지 파일만 올려주세요");
+        swal("잠깐!","이미지 파일만 올려주세요.","warning");
         $('#upload2').attr('src', "/img/default_image.png");}
     else if (input.files && input.files[0]){ 
         var reader = new FileReader(); 
@@ -155,7 +146,7 @@ function readURL3(input) {
             chkImg !="gif" && chkImg !="png" && chkImg !="bmp"){
         chkFile3=0;
         $(".signupbtn").prop("disabled", true);
-        alert("이미지 파일만 올려주세요");
+        swal("잠깐!","이미지 파일만 올려주세요.","warning");
         $('#upload3').attr('src', "/img/default_image.png");}
     else if (input.files && input.files[0]){ 
         var reader = new FileReader(); 
@@ -169,3 +160,8 @@ function readURL3(input) {
         }
     }
 };
+
+function goDaum(){
+	$('#baseaddr').val("");
+	searchAddr();
+}

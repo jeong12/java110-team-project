@@ -18,7 +18,9 @@
 #logo{width:40px; height:40px; float: left; margin-top: -4px; margin-right: 0.5rem;}
 #titl{margin-top: 3%; margin-bottom: 3%;}
 #titl h3{float: left; margin-top: 4px; margin-left 2.4 rem;}
-#phot{width: 320px; height: 240px;} 
+#phot{    width: 15rem;
+    border-radius: 0.25rem;
+    height: 12.4rem;} 
 .media{height: 56%;}
     .mm{width: 800px; height:60px;}    
     .media-body{margin-top: 10px;}
@@ -48,22 +50,28 @@
     textarea{resize: none; overflow:hidden;}
     .cdtContext{float: right;}
     #tobbox{
-    border: 1px solid silver;
-    border-radius: 5px;  
-    height: 13.5rem;
-    padding: 1%;
+        border: 1px solid silver;
+    border-radius: 5px;
+    height: 12.8rem;
+    padding: 0.3%;
     background-color: white;
         }
     #textbox{margin-top: 3%;}
     #topbtn{
-        font-size: 0.8rem;
+              font-size: 0.8rem;
     width: 5rem;
     height: 2rem;
     padding: 0;
     float: right;
     clear: both;
-    margin-top: -4%;
-    }
+    margin-top: -5%;
+    margin-right: 1%;
+
+}
+
+    #ctnt{width: 10%;}
+    .fas,.far{float: left;}
+     .far{margin-left: 1.5%;} 
     #commenttop{border-top: 1px solid silver;}
     .t{border-bottom: 1px solid silver; display: -webkit-box; /* height: 3.8rem; */}
     .comments{background-color: white;}
@@ -78,27 +86,32 @@
     margin-top: 3%;
     }
     .far,.fas{font-size: 1rem;}
-    .cc div{margin-top: 35%;}
-    .t1{margin-left: 28%;}
-    .ft{font-weight: 800; float: left;
-    height: 100%;
-    text-align: -webkit-center;}
+    .cc div{margin-top: 43%;}
+    .t1{margin-left: 16rem;}
+    .ft{ float: left; height: 100%; margin-right: 3%; }
     .t1 label{float: left;}
     footer{clear: both;}
-    #mang{display: flex;}
+    #mang{display: flex;
+    margin-right: -9%;}
     .contm{width: 94%; border: 1px solid white; overflow:hidden;  overflow-wrap:break-word;}
     .pages{text-align: center;}
     .ftt{font-weight:800; }
-    #titlt{margin-top: 2%; margin-bottom: 2%;}
+    #titlt{margin-top: 2%; margin-bottom: 2%;     margin-left: 23rem;}
 #logo{float: left;}
-#haha{margin-top: 0.8%; margin-left: 5.5%;}
+#haha{margin-top: 0rem; margin-top: 0.2rem;}
+#tabl{    margin-top: 5%;
+    margin-left: 7%;}
+i {margin-right: 1rem;}
+.contents div{margin-bottom: 0.5rem;}
+.contents{margin-top: 1rem;}
+
 </style>
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
 <body>
 <div id="titlt" class="container">
         <img id="logo" src="/img/playButton.PNG" alt="플레이로고">
-        <h2 id="haha">버스킹 일정</h2>
+        <h3 id="haha">버스킹 일정</h3>
     </div>
     
 <div class="container">
@@ -111,25 +124,25 @@
           
           <div id="tobbox">
         <a class="pull-left" href="#">
-            <img class="media-object" id="phot" src="${list.phot}">
+            <img class="media-object" id="phot" src='/upload/${list.phot}'>
           </a>
             <div class = 'cdtContext'>
             <p>${list.ncdt}</p>
             </div>
           <div class="t1">
-               <div class="ft">팀명:</div><div>${list.teamname}<div>
-                <div class="ft">장르:</div><div>${list.genre}</div>
-                <div class="ft">공연지역:</div><div>${list.city}</div>
-                <div id="mang">
-                <div class="ft">날짜:</div><div>${list.nsdt}</div>~<div>${list.nedt}</div>
-                </div>
-                <div class="ft">인원:</div><div>${list.cnt}</div>
-                <div class="ft">내용:</div><div>${list.etc}</div>
+               <div class="ft"><h3 id="tabl">${list.teamname}</h3>
+            <div class='contents'>
+              <i class="fas fa-music"></i><div>${list.genre}<br></div>
+              <i class="fas fa-map-marked-alt"></i><div>${list.city}<br></div>
+              <div id="mang"><i class="far fa-calendar-alt"></i>${list.nsdt}~${list.nedt}<br></div>
+              <i id="ctnt" class="fas fa-male" style="text-align: center;"></i><div>${list.cnt}<br></div>
+              <i class="far fa-sticky-note"></i><div>${list.etc}<br></div>
             </div>
-      <a href='../buskerfeed/enter?no=${list.bno}'><button id="topbtn" class="btns btns btns-outline-m">피드가기</button></a>
      <!--  <button id="btn" name="singlebutton" class="btn btn-primary btn-xs" >버스커 피드</button> -->
       </div>
     </div>
+     <a href='../buskerfeed/enter?no=${list.bno}'><button id="topbtn" class="btns btns btns-outline-m">피드가기</button></a>
+     
  </div>
          </div>
      <div id="textbox">

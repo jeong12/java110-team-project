@@ -13,6 +13,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link rel="stylesheet" href="../../css/common.css">
 </head>
 <title>관리자</title>
@@ -65,6 +66,27 @@ body{background-color: snow;}
     .pages{text-align: center;}
     #ajappend1 h4{text-align: center;}
     .tabs li{display: inline-block;}
+    .list-group-horizontal .list-group-item {
+    display: inline-block;
+    cursor:pointer;
+}
+.list-group-horizontal .list-group-item {
+    margin-bottom: 0;
+    margin-left:-4px;
+    margin-right: 0;
+}
+.list-group-horizontal .list-group-item:first-child {
+    border-top-right-radius:0;
+    border-bottom-left-radius:4px;
+}
+.list-group-horizontal .list-group-item:last-child {
+    border-top-right-radius:4px;
+    border-bottom-left-radius:0;
+}
+    ul{
+    padding-left: 0px;
+}
+.toptop{margin-bottom: -0.5rem;}
 </style>
 <header>
     <jsp:include page="../header.jsp"></jsp:include>
@@ -77,7 +99,7 @@ body{background-color: snow;}
 
 <body>
 <div class="container">
-        <div class="toptop">       
+        <div class="toptop"> 
         <div class="text-left" style='display:inline-block;'>
             <div class="list-group list-group-horizontal">
                <ul class='tabs'>
@@ -343,8 +365,7 @@ $('.gradleSupUpdate').click(function(){
 		dataType : "json",
 		data : {"no":no},
 		success : function(data){
-			alert("변경됨")
-			window.location.href=window.location.href;
+			swal("Here's a message!");
 		},
 		 error : function(request, status, error) {
              alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
@@ -363,13 +384,27 @@ $('.gradleBuskUpdate').click(function(){
         dataType : "json",
         data : {"no":no},
         success : function(data){
-            alert("변경됨")
-            window.location.href=window.location.href;
+        	swal({
+        		  title: "Are you sure?",
+        		  text: "Once deleted, you will not be able to recover this imaginary file!",
+        		  icon: "warning",
+        		  buttons: true,
+        		  dangerMode: true,
+        		})
+        		.then((willDelete) => {
+        		  if (willDelete) {
+        		    swal("Poof! Your imaginary file has been deleted!", {
+        		      icon: "success",
+        		    });
+        		  } else {
+        		    swal("Your imaginary file is safe!");
+        		  }
+        		});
+             /* window.location.href=window.location.href;  */
         },
          error : function(request, status, error) {
              alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
          }
-        
     })
     
 })

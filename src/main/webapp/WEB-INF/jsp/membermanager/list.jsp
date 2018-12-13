@@ -46,7 +46,7 @@ border-radius: 5px;
     .mtb label{float: left}
       #titl{margin-top: 3.5%; margin-bottom: 2%;}
     #logo{float: left; width: 40px; height: 40px;}
-    #haha{margin-top: 0.7%; margin-left: 4%;}
+    #haha{margin-top: 0.6%; margin-left: 4%;}
      .memberDetail,.buskDetail,.supDetail,.btt2,.btt{width: 4rem; height: 1.8rem; font-size: 0.8rem;padding: 0;}
     /* Tabs css */
 .list-group-horizontal .list-group-item {
@@ -100,7 +100,7 @@ img{width: 100%; height: 100%;}
 
 <jsp:include page="../header.jsp"></jsp:include>
 <div id="titl" class="container">
-        <img id="logo" src="../../img/playButton.png" alt="플레이로고">
+        <img id="logo" src="../../img/playButton.PNG" alt="플레이로고">
         <h3 id="haha">회원관리</h3>
     </div>
 <body>
@@ -556,13 +556,13 @@ $(document).on("click",'.memberDetail',function(){
             $(".mmemo").empty();
             $(".mmimg").empty();
             
-            $(".mmimg").append("<img src='/upload/"+data.photo+"'>")
-            $("#mttl").append('<h3>'+data.nickname+'</h3>')
-            $(".mid").append('<p>'+data.id+'</p>')
-            $(".meamil").append('<p>'+data.email+'</p>')
-            $(".mnik").append('<p>'+data.nickname+'</p>')
-            $(".mgenre").append('<p>'+data.genre0+','+data.genre1+','+data.genre2+'</p>')
-            $(".mmemo").append('<p>'+data.memo+'</p>')
+            $(".mmimg").append("<img src='/upload/"+data.photo+"'>");
+            $("#mttl").append('<h3>'+data.nickname+'</h3>');
+            $(".mid").append('<p>'+data.id+'</p>');
+            $(".meamil").append('<p>'+data.email+'</p>');
+            $(".mnik").append('<p>'+data.nickname+'</p>');
+            $(".mgenre").append('<p>'+data.genre0+','+data.genre1+','+data.genre2+'</p>');
+            $(".mmemo").append('<p>'+data.memo+'</p>');
         }
     })
     
