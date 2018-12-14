@@ -46,8 +46,8 @@ public class StageListController {
 	  model.addAttribute("searchType", searchType);//페이지가 갱신되도 서치타입이 유지되도록 처리 
 	  
 	  if(startDate == null && endDate == null) {
-		  params.put("startDate", "2000-01-01");
-		  params.put("endDate", "3000-01-01");
+		  params.put("startDate", "2000-11-20");
+		  params.put("endDate", "3000-12-20");
 		  //System.out.println(params.get(startDate));
 		  //System.out.println(params.get(endDate));
 	  }else {
