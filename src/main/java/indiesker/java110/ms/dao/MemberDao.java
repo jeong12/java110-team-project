@@ -15,4 +15,11 @@ public interface MemberDao {
   Member buskCheck(int no);
   Member findMemByNo(int no);
   int getType(int no);
+  int followcomeon(Map<String,Object> params);
+  int nonefollow(Map<String,Object> params);
+  int searchfollow(Map<String,Object> params);
+  int likecomeon(Map<String,Object> params);
+  int nonelike(Map<String,Object> params);
+  int searchlikecount(Map<String,Object> params);
+  int searchlikeox(Map<String,Object> params);
 }

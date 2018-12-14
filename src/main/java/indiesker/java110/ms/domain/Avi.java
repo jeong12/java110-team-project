@@ -18,8 +18,22 @@ public class Avi extends Busker{
   protected char flag;
   protected List<Comment> comments;
   protected int comtcount;
+  protected int returnlikecount;
+  protected int likeOX;
   
   
+  public int getReturnlikecount() {
+    return returnlikecount;
+  }
+  public void setReturnlikecount(int returnlikecount) {
+    this.returnlikecount = returnlikecount;
+  }
+  public int getLikeOX() {
+    return likeOX;
+  }
+  public void setLikeOX(int likeOX) {
+    this.likeOX = likeOX;
+  }
   public int getComtcount() {
     return comtcount;
   }

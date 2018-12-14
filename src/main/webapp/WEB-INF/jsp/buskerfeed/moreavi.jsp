@@ -1,4 +1,3 @@
-<<<<<<< HEAD:src/main/webapp/WEB-INF/jsp/buskerfeed/moreavi.jsp
 <%@ page language="java" contentType="text/html; charset=UTF-8"
   pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -231,11 +230,6 @@ button{background-color:#DDD; border: 1px solid #DDD;}
 <c:set var="buskno" value="${busk.bno}"/>
   <jsp:include page="../header.jsp"></jsp:include>
 
-  <div class="container title">
-    <div id="titl">
-      <img id="logo" src="../img/playbutton.png" alt="플레이로고">
-    </div>
-  </div>
   <div class="container feed" style="background-color: white;">
     <a class="twPc-bg twPc-block"></a>
     <div style="height: 270px; border: 1px dotted white;">
