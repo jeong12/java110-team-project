@@ -227,7 +227,7 @@ width: 100px;
                                 style="text-decoration: none; color: #555; " class="js-load">
                                     <table>
                                         <tr>
-                                            <td colspan="2"><img src="../../img/${list.photoName}.png"
+                                            <td colspan="2"><img src="../../upload/${list.photoName}"
                                                 class="teamPhotoImg"></td>
                                         </tr>
                                         <tr class="teamnametr">
