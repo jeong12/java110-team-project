@@ -10,10 +10,11 @@
         <result column="name"  property="name"/>
         <result column="phot"  property="photoName"/>
         <result column="genre"  property="genre"/>
+        <result column="bas_addr"  property="local"/>
     </resultMap>
 
 <select id="findAll" resultMap="StageMap" parameterType="map">
-select S.sno, S.name, SP.phot, SUBSTR(SC.sdt,1,10) 
+select S.sno, S.name, SP.phot, SUBSTR(SC.sdt,1,10),S.bas_addr
   from sup S, stag_sche SC, stag_phot SP
  where S.sno = SC.sno 
    and S.sno = SP.sno
@@ -22,7 +23,7 @@ select S.sno, S.name, SP.phot, SUBSTR(SC.sdt,1,10)
     </select>
   
 <select id="findByName" resultMap="StageMap" parameterType="map">
-select S.sno, S.name, SP.phot, SUBSTR(SC.sdt,1,10) 
+select S.sno, S.name, SP.phot, SUBSTR(SC.sdt,1,10),S.bas_addr
   from sup S, stag_sche SC, stag_phot SP
  where S.name like #{keyword}
    and S.sno = SC.sno 
@@ -32,7 +33,7 @@ select S.sno, S.name, SP.phot, SUBSTR(SC.sdt,1,10)
     </select>  
     
 <select id="findByLocal" resultMap="StageMap" parameterType="map">
-select S.sno, S.name, SP.phot, SUBSTR(SC.sdt,1,10) 
+select S.sno, S.name, SP.phot, SUBSTR(SC.sdt,1,10),S.bas_addr
   from sup S, stag_sche SC, stag_phot SP
  where S.bas_addr like #{keyword}
    and S.sno = SC.sno 
@@ -42,7 +43,7 @@ select S.sno, S.name, SP.phot, SUBSTR(SC.sdt,1,10)
     </select>  
     
 <select id="findByGenre" resultMap="StageMap" parameterType="map">
-select S.sno, S.name, SP.phot, SUBSTR(SC.sdt,1,10) 
+select S.sno, S.name, SP.phot, SUBSTR(SC.sdt,1,10),S.bas_addr
   from sup S, stag_sche SC, stag_phot SP
  where S.genre like #{keyword}
    and S.sno = SC.sno 

@@ -139,7 +139,18 @@ a#movetop {
 /* 팀이름 크기조절 */
 .teamnamefont{
 font-size: large;
+margin-left: 5px;
+text-align: left;
+padding:0 10px;
+width: 150px;
 /* font-family: -webkit-body; */
+}
+.teamlocalfont{
+font-size:small;
+color:red;
+margin-right: 0;
+text-align: right;
+width: 100px;
 }
 /* 날짜 */
 #startdateenddate{
@@ -216,10 +227,11 @@ font-size: large;
                                 style="text-decoration: none; color: #555; " class="js-load">
                                     <table>
                                         <tr>
-                                            <td><img src="../../img/${list.photoName}.png"
+                                            <td colspan="2"><img src="../../img/${list.photoName}.png"
                                                 class="teamPhotoImg"></td>
                                         </tr>
                                         <tr class="teamnametr">
+                                            <td class="teamlocalfont">${list.local}</td>
                                             <td class="teamnamefont">${list.name}</td>
                                         </tr>
                                     </table>
@@ -248,6 +260,7 @@ font-size: large;
                                                 class="teamPhotoImg"></td>
                                         </tr>
                                         <tr class="teamnametr">
+                                            <td class="teamlocalfont">${list.local}</td>
                                             <td class="teamnamefont">${name.name}</td>
                                         </tr>
                                     </table>
@@ -274,6 +287,7 @@ font-size: large;
                                                 class="teamPhotoImg"></td>
                                         </tr>
                                         <tr class="teamnametr">
+                                            <td class="teamlocalfont">${list.local}</td>
                                             <td class="teamnamefont">${local.name}</td>
                                         </tr>
                                     </table>
@@ -300,6 +314,7 @@ font-size: large;
                                             <td><img src="../../img/${genre.photoName}.png" class="teamPhotoImg"></td>
                                         </tr>
                                         <tr class="teamnametr">
+                                            <td class="teamlocalfont">${list.local}</td>
                                             <td class="teamnamefont">${genre.name}</td>
                                         </tr>
                                     </table>
