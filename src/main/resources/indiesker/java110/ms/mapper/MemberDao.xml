@@ -37,7 +37,7 @@
 
 	<select id="findByEmailPassword" parameterType="map"
 		resultType="Member">
-		select mno as no, id, email, nik as nickname, phot as photo
+		select mno as no, id, email, nik as nickname, phot as photo, flag as yn
 		from memb
 		where id=#{id} and pwd=password(#{password})
 	</select>

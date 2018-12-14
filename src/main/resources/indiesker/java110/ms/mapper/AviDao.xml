@@ -158,7 +158,7 @@
 
 	<!-- 인기영상 조회(메인) -->
 	<select id="findbypopul" resultMap="aviMap">
-		SELECT a.abno,a.stm,a.titl, af.lcnt as lcnt, b.name
+		SELECT a.abno,a.stm,a.titl, (a.lcnt - af.lcnt) as lcnt, b.name
 		FROM busk b, avi a,
 		avi_fav af
 		WHERE b.bno=a.bno

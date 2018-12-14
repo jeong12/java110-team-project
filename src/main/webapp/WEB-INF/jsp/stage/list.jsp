@@ -256,7 +256,7 @@ width: 100px;
                                 style="text-decoration: none; color: #555; " class="js-load">
                                     <table>
                                         <tr>
-                                            <td colspan="2"><img src="../../upload/${name.photoName}.png"
+                                            <td colspan="2"><img src="../../upload/${name.photoName}"
                                                 class="teamPhotoImg"></td>
                                         </tr>
                                         <tr class="teamnametr">
@@ -283,7 +283,7 @@ width: 100px;
                                 <a href="/app/applystages/page?sno=${local.sno}" style="text-decoration: none; color: #555; " class="js-load">
                                     <table>
                                         <tr>
-                                            <td colspan="2"><img src="../../upload/${local.photoName}.png"
+                                            <td colspan="2"><img src="../../upload/${local.photoName}"
                                                 class="teamPhotoImg"></td>
                                         </tr>
                                         <tr class="teamnametr">

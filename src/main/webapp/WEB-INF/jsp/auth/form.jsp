@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,6 +89,9 @@ input[type="password"]::placeholder, input[type="text"]::placeholder{
                         <input class="btns btn-lg btns-outline-secondary btn-block" type="submit" value="Sign In">
                     </fieldset>
                     </form>
+                    <c:if test="${not empty cookie.yn.value}"> 
+                    <div style="text-align: center; color:red; margin-top:16px;">해당 회원은 정지회원입니다.</div>
+                    </c:if>
                       <hr/>
                     <center><h5>다른 계정으로 간편 로그인</h5>
                     <a id="custom-login-brn" href="javascript:loginWithKakao()">
@@ -106,6 +110,8 @@ input[type="password"]::placeholder, input[type="text"]::placeholder{
         </div>
     </div>
 </div>
+
+
 
 <a href="http://developers.kakao.com/logout"></a><!-- 로그아웃 -->
 <script type='text/javascript'>
