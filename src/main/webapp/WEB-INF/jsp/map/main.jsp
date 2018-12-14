@@ -651,6 +651,7 @@ $(".All2 li").click(function(){
     
                     var bounds = new daum.maps.LatLngBounds() ;
                     $.each(data,function(index,item){
+                        console.log(item);
                        bounds.extend(new daum.maps.LatLng(item.x, item.y));
                        
                        carouselcontent= 
@@ -756,6 +757,7 @@ $('#sbutton').click(function(){
 	
 		        	var bounds = new daum.maps.LatLngBounds() ;
 		        	$.each(data,function(index,item){
+		        	    console.log(item);
 		               bounds.extend(new daum.maps.LatLng(item.x, item.y));
 		               
 		               carouselcontent= 

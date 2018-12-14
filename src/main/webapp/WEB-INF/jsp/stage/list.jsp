@@ -147,7 +147,7 @@ width: 150px;
 }
 .teamlocalfont{
 font-size:small;
-color:red;
+color:#f31313bd;
 margin-right: 0;
 text-align: right;
 width: 100px;
@@ -188,14 +188,14 @@ width: 100px;
                 <div class="input-group">
                     <div class="input-group-btn search-panel">
                         <select id="selectsearch" class="btn btn-default dropdown-toggle">
-                            <!-- <option value="city">지역</option> -->
-                            <option value="city" ${searchType eq "city" ? "selected" :""}>지역</option>
+                            <!-- <option value="">지역</option> -->
+                            <option value="local" ${searchType eq "local" ? "selected" :""}>지역</option>
                             <!-- <option value="name">무대명</option> -->
                             <option value="name" ${searchType eq "name" ? "selected" :""}>무대명</option>
                             <!-- <option value="genre">장르</option> -->
                         </select>
                     </div>
-                    <input type="text" class="form-control" name="city"
+                    <input type="text" class="form-control" name="local"
                         placeholder="정보를 입력해주세요" onkeydown="pushenter()" id="selectsearchinput" 
                         value="<%=request.getParameter("keyword") != null ? request.getParameter("keyword") : ""%>" > 
                         <span class="input-group-btn">
@@ -227,7 +227,7 @@ width: 100px;
                                 style="text-decoration: none; color: #555; " class="js-load">
                                     <table>
                                         <tr>
-                                            <td colspan="2"><img src="../../img/${list.photoName}.png"
+                                            <td colspan="2"><img src="../../upload/${list.photoName}"
                                                 class="teamPhotoImg"></td>
                                         </tr>
                                         <tr class="teamnametr">
@@ -256,11 +256,11 @@ width: 100px;
                                 style="text-decoration: none; color: #555; " class="js-load">
                                     <table>
                                         <tr>
-                                            <td><img src="../../img/${name.photoName}.png"
+                                            <td colspan="2"><img src="../../img/${name.photoName}.png"
                                                 class="teamPhotoImg"></td>
                                         </tr>
                                         <tr class="teamnametr">
-                                            <td class="teamlocalfont">${list.local}</td>
+                                            <td class="teamlocalfont">${name.local}</td>
                                             <td class="teamnamefont">${name.name}</td>
                                         </tr>
                                     </table>
@@ -283,11 +283,11 @@ width: 100px;
                                 <a href="/app/applystages/page?sno=${local.sno}" style="text-decoration: none; color: #555; " class="js-load">
                                     <table>
                                         <tr>
-                                            <td><img src="../../img/${local.photoName}.png"
+                                            <td colspan="2"><img src="../../img/${local.photoName}.png"
                                                 class="teamPhotoImg"></td>
                                         </tr>
                                         <tr class="teamnametr">
-                                            <td class="teamlocalfont">${list.local}</td>
+                                            <td class="teamlocalfont">${local.local}</td>
                                             <td class="teamnamefont">${local.name}</td>
                                         </tr>
                                     </table>
@@ -300,33 +300,6 @@ width: 100px;
         </div>
     </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="main">
-                    <div class="table table-list-search">
-                        <c:forEach items="${genre}" var="genre">
-                            <div class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${genre.genre}">
-                                <a href="/app/applystages/page?sno=${genre.sno}" 
-                                style="text-decoration: none; color: #555; " class="js-load">
-                                    <table>
-                                        <tr>
-                                            <td><img src="../../img/${genre.photoName}.png" class="teamPhotoImg"></td>
-                                        </tr>
-                                        <tr class="teamnametr">
-                                            <td class="teamlocalfont">${list.local}</td>
-                                            <td class="teamnamefont">${genre.name}</td>
-                                        </tr>
-                                    </table>
-                                </a>
-                            </div>
-                        </c:forEach>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
     <div id="js-btn-wrap" class="btn-wrap">
         <a href="javascript:;" class="more-button">더보기</a>
     </div>
@@ -425,7 +398,7 @@ width: 100px;
     //검색
         function PageMove() {
             var searchType = $("#selectsearch option:selected").val();
-            var keyword = $("input[name='city']").val();
+            var keyword = $("input[name='local']").val();
             var startDate = $("input[name='sdt']").val();
             var endDate = $("input[name='edt']").val();
             

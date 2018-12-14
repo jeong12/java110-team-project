@@ -63,7 +63,7 @@ public class BuskerPerScheduleController {
     
     Member member = (Member)session.getAttribute("loginUser");
     int bno = member.getNo();
-
+    System.out.println("세션bno:"+bno);
     Paging paging1 = new Paging();
     Paging paging2 = new Paging();
     Paging paging3 = new Paging();
@@ -296,6 +296,8 @@ public class BuskerPerScheduleController {
     
     Member member = (Member)session.getAttribute("loginUser");
     int bno = member.getNo();
+
+    System.out.println("버스커세션번호:"+bno);
     
     edt = sdt.substring(0, 10)+" "+edt;
     sdt=sdt.replaceAll("/", "-");
@@ -303,6 +305,7 @@ public class BuskerPerScheduleController {
     System.out.println(sdt);
     System.out.println(edt);
     int total=scheduleService.checkperschedule(sdt, edt, bno);
+    System.out.println(total);
     total+=scheduleService.checkreqschedule(sdt, edt, bno);
     System.out.println(total);
     return total; 
@@ -329,8 +332,6 @@ public class BuskerPerScheduleController {
                             HttpSession session) throws Exception{
     Member member = (Member)session.getAttribute("loginUser");
     int bno = member.getNo();
-    
-    
     
     edt = sdt.substring(0, 10)+" "+edt;
     sdt=sdt.replaceAll("/", "-");
