@@ -138,7 +138,7 @@ a#movetop {
 }
 /* 팀이름 크기조절 */
 .teamnamefont{
-font-size: large;
+font-size: middle;
 margin-left: 5px;
 text-align: left;
 padding:0 10px;
@@ -227,7 +227,7 @@ width: 100px;
                                 style="text-decoration: none; color: #555; " class="js-load">
                                     <table>
                                         <tr>
-                                            <td colspan="2"><img src="../../img/${list.photoName}.png"
+                                            <td colspan="2"><img src="../../upload/${list.photoName}"
                                                 class="teamPhotoImg"></td>
                                         </tr>
                                         <tr class="teamnametr">
@@ -256,7 +256,7 @@ width: 100px;
                                 style="text-decoration: none; color: #555; " class="js-load">
                                     <table>
                                         <tr>
-                                            <td colspan="2"><img src="../../img/${name.photoName}.png"
+                                            <td colspan="2"><img src="../../upload/${name.photoName}"
                                                 class="teamPhotoImg"></td>
                                         </tr>
                                         <tr class="teamnametr">
@@ -283,7 +283,7 @@ width: 100px;
                                 <a href="/app/applystages/page?sno=${local.sno}" style="text-decoration: none; color: #555; " class="js-load">
                                     <table>
                                         <tr>
-                                            <td colspan="2"><img src="../../img/${local.photoName}.png"
+                                            <td colspan="2"><img src="../../upload/${local.photoName}"
                                                 class="teamPhotoImg"></td>
                                         </tr>
                                         <tr class="teamnametr">

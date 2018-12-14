@@ -135,10 +135,9 @@ public class SupporterScheduleController {
   @RequestMapping("showPossibleDate")
   public List<String> findableSchedule(String date,Model model, HttpSession session){
 
-    /*    Member member = (Member)session.getAttribute("loginUser");
-    int no = member.getNo();*/
+    Member member = (Member)session.getAttribute("loginUser");
+    int no = member.getNo();
     
-    int no = 2;
     List<String> list = new ArrayList<>();
     List<Schedule> slist = scheduleService.findunableSchedule(date, no);
 
@@ -245,16 +244,18 @@ public class SupporterScheduleController {
   @ResponseBody
   @RequestMapping("consent")
   public String applyReqs(String[] reqdates, String brno){
-
+    
     List<Integer> ssnos = scheduleService.showSsnos(Integer.parseInt(brno));
     List<Integer> todelete = new ArrayList<>();
     ArrayList<Integer> reqs = new ArrayList<>();
     
     for(int i=0;i<reqdates.length;i++) {
       reqs.add(Integer.parseInt(reqdates[i]));
+      System.out.println(reqs);
     }
+    
     scheduleService.consentapply(reqs);
-    if(reqdates.length >1) {
+    
     for(int i=0;i<ssnos.size();i++) {
       for(int j=0;j<reqdates.length;j++) {
         if(ssnos.get(i) != Integer.parseInt(reqdates[j])) 
@@ -269,7 +270,6 @@ public class SupporterScheduleController {
         }
     }
     scheduleService.refuseapply(td);
-    }
     return "redirect:main";
   }
   

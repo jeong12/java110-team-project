@@ -211,21 +211,21 @@ public class ScheduleServiceimpl implements ScheduleService {
     return scheduleDao.showSsnos(no);
     }
     
-    public int checkperschedule(String sdt, String edt, int no) {
+    public int checkperschedule(String sdt, String edt, int bno) {
       Map<String, Object> params=new HashMap<>();
       params.put("sdt", sdt);
       params.put("edt", edt);
-      params.put("no", no);
+      params.put("bno", bno);
       
       return scheduleDao.checkperschedule(params);
     }
     
     @Override
-    public int checkreqschedule(String sdt, String edt, int no) {
+    public int checkreqschedule(String sdt, String edt, int bno) {
       Map<String, Object> params=new HashMap<>();
       params.put("sdt", sdt);
       params.put("edt", edt);
-      params.put("no", no);
+      params.put("bno", bno);
       
       return scheduleDao.checkreqschedule(params);
     }
@@ -275,25 +275,25 @@ public class ScheduleServiceimpl implements ScheduleService {
     }
 
     @Override
-    public int checkeditperschedule(String sdt, String edt, String nsdt, String nedt, int no) {
+    public int checkeditperschedule(String sdt, String edt, String nsdt, String nedt, int bno) {
       Map<String, Object> params=new HashMap<>();
       params.put("sdt", sdt);
       params.put("edt", edt);
       params.put("nsdt", nsdt);
       params.put("nedt", nedt);
-      params.put("no", no);
+      params.put("bno", bno);
       
       return scheduleDao.checkeditperschedule(params);
     }
 
     @Override
-    public int checkeditreqschedule(String sdt, String edt, String nsdt, String nedt, int no) {
+    public int checkeditreqschedule(String sdt, String edt, String nsdt, String nedt, int bno) {
       Map<String, Object> params=new HashMap<>();
       params.put("sdt", sdt);
       params.put("edt", edt);
       params.put("nsdt", nsdt);
       params.put("nedt", nedt);
-      params.put("no", no);
+      params.put("bno", bno);
       
       return scheduleDao.checkeditreqschedule(params);
     }

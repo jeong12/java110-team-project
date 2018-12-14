@@ -201,7 +201,7 @@ $('.col-md-4.avi button').on('click', function() {
                         '</tr>'+
                         '<tr>'+
                           '<td style="width: 86%;"><input style="border-radius: 0.25rem; width: 98%; margin-right: 10px;"'+
-                            'type="text" name="revurl" id="revurl" value="https://www.youtube.com/embed/'+data.urlid+'" '+
+                            'type="text" name="revurl" id="revurl" value="https://www.youtube.com/watch?v='+data.urlid+'" '+
                             'placeholder="URL 입력"/></td>'+
                           '<td><button type="button" onclick="urlchkrev()" class="btn btns-outline-dark urlchkrev">확인</button></td>'+
                         '</tr>'+

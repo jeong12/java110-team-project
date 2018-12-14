@@ -47,6 +47,9 @@ public class MemberManagerController {
      SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
      for (MemberManager mm : list) {
       mm.setNcdt(dformat.format(mm.getCdt()));
+      if(mm.getMemo() == null) {
+        mm.setMemo("메모 없음");
+      }
     }
      
       model.addAttribute("paging",paging);
@@ -137,7 +140,7 @@ public class MemberManagerController {
     Supporter sno = memberManagerService.supListDetail(nik);
 
     if (sno.getMemo() == null) {
-      sno.setMemo("메모없음");
+      sno.setMemo("메모 없음");
     }
     return sno;
   }
@@ -329,6 +332,10 @@ public class MemberManagerController {
     SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
 
     for (MemberManager mm : list) {
+      if(mm.getMemo()==null) {
+        mm.setMemo("메모 없음");
+      }
+      
         if(mm.getFlag() == 1) {
           mm.setNcdt(dformat.format(mm.getCdt()));
           mm.setType("회원");
@@ -370,7 +377,9 @@ public class MemberManagerController {
     SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
     for (MemberManager mm : list) {
       mm.setNcdt(dformat.format(mm.getCdt()));
-      System.out.println(mm.getFlag());
+      if(mm.getMemo()==null) {
+        mm.setMemo("메모 없음");
+      }
     }    
     
     Map<String,Object> map = new HashMap<>(); 
@@ -398,6 +407,9 @@ public class MemberManagerController {
     SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
     for (MemberManager mm : list) {
       mm.setNcdt(dformat.format(mm.getCdt()));
+      if(mm.getMemo()== null) {
+        mm.setMemo("메모 없음");
+      }
     }  
     
     Map<String,Object> map = new HashMap<>(); 
@@ -425,6 +437,9 @@ public class MemberManagerController {
     SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
     for (MemberManager mm : list) {
       mm.setNcdt(dformat.format(mm.getCdt()));
+      if(mm.getMemo()== null) {
+        mm.setMemo("메모 없음");
+      }
     }  
     
     Map<String,Object> map = new HashMap<>(); 
@@ -451,6 +466,9 @@ public class MemberManagerController {
     SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
     for (MemberManager mm : list) {
       mm.setNcdt(dformat.format(mm.getCdt()));
+      if(mm.getMemo()==null) {
+        mm.setMemo("메모 없음");
+      }
     }
     
     

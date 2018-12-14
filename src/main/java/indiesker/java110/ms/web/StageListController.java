@@ -40,23 +40,23 @@ public class StageListController {
 	  //System.out.println(keyword);
 	  
 	  Map<String, Object> params = new HashMap<>();
-	  if(searchType == null)
-		  searchType = "local";
+	  /*if(searchType == null)
+		  searchType = "local";*/
 		  
 	  model.addAttribute("searchType", searchType);//페이지가 갱신되도 서치타입이 유지되도록 처리 
 	  
 	  if(startDate == null && endDate == null) {
-		  params.put("startDate", "2000-01-01");
-		  params.put("endDate", "3000-01-01");
+		  params.put("startDate", "2000-11-20");
+		  params.put("endDate", "3000-12-20");
 		  //System.out.println(params.get(startDate));
 		  //System.out.println(params.get(endDate));
 	  }else {
-		  params.put("startDate", startDate);
-		  params.put("endDate", endDate);
+		  params.put("startDate", "startDate");
+		  params.put("endDate", "endDate");
 	  }
 	  
 	  params.put("keyword", "%" + keyword + "%");//정확히 검색값을 입력했을 때 뿐 아니라 검색값이 포함되면 검색되도록 처리
-	
+	  
 	if(searchType != null && !"".equals(searchType)) { // searchType이 null이 아니고 빈 문자열이 아닐 때 search
 		//Date today = new Date();
 	    //System.out.println(today);
@@ -79,8 +79,7 @@ public class StageListController {
 			cutAddr(list);
 			model.addAttribute("list", list);
 		}
-		
-	}else {
+	} else{
 		List<StageList> list = stageListService.list(params);
 		cutAddr(list);
 		model.addAttribute("list", list);

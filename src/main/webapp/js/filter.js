@@ -33,9 +33,8 @@ $().ready(function(){
             $('#pro_img').attr('src', '/upload/'+m_imgPath);
             
             if(b_imgPath.concat('http')){
-                $('#pro_img').attr('src',m_imgPath);
+                $('#pro_img').attr('src','/upload/'+m_imgPath);
             }
-
             busk_icon.style.display = 'none';
             sup_icon.style.display = 'none';
             // 추후에 제공자 수정해야함 지금은 none 고정

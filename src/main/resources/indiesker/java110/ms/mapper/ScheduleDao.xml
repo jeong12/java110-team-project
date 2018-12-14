@@ -577,7 +577,7 @@ GROUP BY BS.brno
 	         WHERE B.bno = BR.bno
 	           AND BR.brno = BS.brno
 	           AND BS.ssno = SS.ssno
-	           AND B.bno=#{no}
+	           AND B.bno=#{bno}
 	         GROUP BY BS.brno
 	       ) c
 	 WHERE sdt BETWEEN #{sdt} and #{edt}
@@ -587,9 +587,9 @@ GROUP BY BS.brno
 <select id="checkperschedule" parameterType="map" resultType="int">
     SELECT count(sdt)
       FROM per_sche
-     WHERE sdt BETWEEN #{sdt} and #{edt}
-        OR edt BETWEEN #{sdt} and #{edt}
-       AND bno=#{no}  
+     WHERE (sdt BETWEEN #{sdt} and #{edt}
+        OR edt BETWEEN #{sdt} and #{edt})
+       AND bno=#{bno}
 </select>    
 
 <update id='editperschedule' parameterType="Schedule" >
@@ -723,7 +723,7 @@ GROUP BY BS.brno
                       WHERE B.bno = BR.bno
                         AND BR.brno = BS.brno
                         AND BS.ssno = SS.ssno
-                        AND B.bno=#{no}
+                        AND B.bno=#{bno}
                    GROUP BY BS.brno
                      ) c
               WHERE sdt NOT BETWEEN #{sdt} and #{edt}
@@ -739,7 +739,7 @@ GROUP BY BS.brno
            FROM per_sche
           WHERE sdt NOT BETWEEN #{sdt} and #{edt}
             AND edt NOT BETWEEN #{sdt} and #{edt}
-            AND bno=#{no}
+            AND bno=#{bno}
         )  c
    WHERE sdt BETWEEN #{nsdt} and #{nedt}
       OR edt BETWEEN #{nsdt} and #{nedt}
