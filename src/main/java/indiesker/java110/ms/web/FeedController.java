@@ -8,10 +8,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
-import javax.print.attribute.HashAttributeSet;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,7 @@ import indiesker.java110.ms.domain.Avi;
 import indiesker.java110.ms.domain.Busker;
 import indiesker.java110.ms.domain.Comment;
 import indiesker.java110.ms.domain.FeedPhoto;
+import indiesker.java110.ms.domain.Member;
 import indiesker.java110.ms.domain.Paging;
 import indiesker.java110.ms.domain.Schedule;
 import indiesker.java110.ms.service.AviService;
@@ -59,20 +61,27 @@ public class FeedController {
   @GetMapping("enter")
   public void list(
       int no,
-      @RequestParam(defaultValue="0") int pageNo,
+      @RequestParam(defaultValue="1") int pageNo,
       @RequestParam(defaultValue="9") int pageSize,
-      Model model) {
-    // 버스커말고 다른 회원이 접근할때!
-    /*    boolean checkbusk = memberService.isBusker(no);
-    System.out.println(checkbusk);
+      Model model, HttpSession session) {
+    //팔로우,좋아요 OX 처리
+    Member m = new Member();
+    int followcount = 0;
+    int likecount = 0;
+    int loginNum = 0;
+    if(session.getAttribute("loginUser") != null) {
+      m = (Member)session.getAttribute("loginUser");
+      loginNum = m.getNo();
+      followcount = memberService.searchFollow(loginNum, no);
+      likecount = memberService.searchLikeOX(loginNum, no, 1);
+    }
+    //좋아요 count처리
+    Busker buskerlikecount = new Busker();
+    buskerlikecount.setLikecount(memberService.searchLikeCount(no, 1));
 
-    if(checkbusk == false) {
-      goback();
-
-    }*/
-
-    /*int photocount = feedPhotoService.recentPhotList2(no);*/
-
+    Paging paging1 = new Paging();
+    paging1.setPageSize(9);
+    paging1.setTotalCount(feedPhotoService.recentPhotList2(no));
 
     List<Schedule> fplist = sheduleService.findFeedPerSchedule(no);//스케줄 now()이후 날짜부터 출력!
     List<Schedule> fflist = sheduleService.findFeedFixSchedule(no);
@@ -118,25 +127,69 @@ public class FeedController {
       ps.setNedt(formatedt.format(ps.getEdt()));
     }
 
+    // 요일 대문자로
+    SimpleDateFormat scheformatdate2 = new SimpleDateFormat("EEEE", new Locale("en", "US"));
+    for (Schedule ps : fplist) {
+      if((scheformatdate2.format(ps.getSdt())).equals("Monday")) {
+        ps.setBigDay("MONDAY");
+      }else if((scheformatdate2.format(ps.getSdt())).equals("Tuesday")) {
+        ps.setBigDay("TUESDAY");
+      }else if((scheformatdate2.format(ps.getSdt())).equals("Wednesday")) {
+        ps.setBigDay("WEDNESDAY");
+      }else if((scheformatdate2.format(ps.getSdt())).equals("Thursday")) {
+        ps.setBigDay("THURSDAY");
+      }else if((scheformatdate2.format(ps.getSdt())).equals("Friday")) {
+        ps.setBigDay("FRIDAY");
+      }else if((scheformatdate2.format(ps.getSdt())).equals("Saturday")) {
+        ps.setBigDay("SATURDAY");
+      }else if((scheformatdate2.format(ps.getSdt())).equals("Sunday")) {
+        ps.setBigDay("SUNDAY");
+      }
+    }
 
+    SimpleDateFormat scheformatdate = new SimpleDateFormat(". d MMM", new Locale("en", "US"));
+    for (Schedule ps : fplist) {
+      ps.setFeeddate(scheformatdate.format(ps.getSdt()));
+    }
+
+    m.setFollowNum(followcount);
+    m.setHeartNum(likecount);
+
+    model.addAttribute("feedlikecount",buskerlikecount);
+    model.addAttribute("loginuser",m);
+    model.addAttribute("photo", paging1);
     model.addAttribute("schelist",fplist);
     model.addAttribute("busk",busker);
     model.addAttribute("recentlist",alist);
     model.addAttribute("recentplist",plist);
-    System.out.println(alist);
   }
 
   @ResponseBody
   @RequestMapping("showavi")
   public Avi getAviNo(
-      String abno, Model model) {   
-    System.out.println(abno);
+      String abno, Model model,HttpSession session) {  
+    int loginno = 0;
+    
     int abno2 = Integer.parseInt(abno);
     Avi feedavi=aviService.getfeedavibyAbno(abno2);
 
     if(feedavi == null) {
       feedavi = aviService.getfeedavibyAbnoNoComt(abno2);
       feedavi.setComtcount(0);
+      feedavi.setReturnlikecount(memberService.searchLikeCount(abno2, 3));
+      
+      if(session.getAttribute("loginUser") != null) {
+        Member mm = (Member)session.getAttribute("loginUser");
+        loginno = mm.getNo();
+
+        System.out.println("test: " +loginno + abno2);
+        if((memberService.searchLikeOX(loginno, abno2, 3))==1) {
+          feedavi.setLikeOX(1);
+        }else {
+          feedavi.setLikeOX(0);
+        }
+      }
+      
       return feedavi;
     }else {
       feedavi.setComtcount(5);
@@ -144,6 +197,21 @@ public class FeedController {
       for (Comment comment : comts) {
         comment.setStrcdt(comment.getCdt().toString());
       }
+      
+      feedavi.setReturnlikecount(memberService.searchLikeCount(abno2, 3));
+      
+      if(session.getAttribute("loginUser") != null) {
+        Member mm = (Member)session.getAttribute("loginUser");
+        loginno = mm.getNo();
+
+        System.out.println("test: " +loginno + abno2);
+        if((memberService.searchLikeOX(loginno, abno2, 3))==1) {
+          feedavi.setLikeOX(1);
+        }else {
+          feedavi.setLikeOX(0);
+        }
+      }
+      
       return feedavi;
     }
   }
@@ -151,13 +219,26 @@ public class FeedController {
   @ResponseBody
   @RequestMapping("showphoto")
   public FeedPhoto getPhotoNo(
-      String pbno, Model model) {   
+      String pbno, Model model,HttpSession session) {   
+    int loginno = 0;
     int pbno2 = Integer.parseInt(pbno);
     FeedPhoto feedphoto=feedPhotoService.getfeedphotobyPbno(pbno2);
-    System.out.println("testtest!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     if(feedphoto == null) {
       feedphoto = feedPhotoService.getfeedphotobyPbnoNoComt(pbno2);
       feedphoto.setComtcount(0);
+      
+      feedphoto.setReturnlikecount(memberService.searchLikeCount(pbno2, 2));
+      if(session.getAttribute("loginUser") != null) {
+        Member mm = (Member)session.getAttribute("loginUser");
+        loginno = mm.getNo();
+
+        if((memberService.searchLikeOX(loginno, pbno2, 2))==1) {
+          feedphoto.setLikeOX(1);
+        }else {
+          feedphoto.setLikeOX(0);
+        }
+      }
+      
       return feedphoto;
     }else {
       feedphoto.setComtcount(5);
@@ -165,6 +246,19 @@ public class FeedController {
       for (Comment comment : comts) {
         comment.setStrcdt(comment.getCdt().toString());
       }
+      feedphoto.setReturnlikecount(memberService.searchLikeCount(pbno2, 2));
+      if(session.getAttribute("loginUser") != null) {
+        Member mm = (Member)session.getAttribute("loginUser");
+        loginno = mm.getNo();
+
+        if((memberService.searchLikeOX(loginno, pbno2, 2))==1) {
+          feedphoto.setLikeOX(1);
+        }else {
+          feedphoto.setLikeOX(0);
+        }
+      }
+
+
       return feedphoto;
     }
   }
@@ -203,7 +297,6 @@ public class FeedController {
 
   @PostMapping("addavi")
   public String addavi(@RequestParam String bno, String title, String content, String url) {
-    System.out.println("test"+bno);
     int bno2=Integer.parseInt(bno);
     String urlid = url.substring(32,43);
 
@@ -212,10 +305,86 @@ public class FeedController {
     return "redirect:enter?no="+bno2;
   }
 
-  @RequestMapping("insertavicomt")
-  public void insertcomt(int abno, int no, String cont) {
-    System.out.println(abno+"//"+no+"//"+cont);
-    aviService.insertComment(abno, no, cont);
+  @ResponseBody
+  @RequestMapping("insertcomment")
+  public Avi insertcomt(String abno, String mno, String cont) {
+    int abno2 = Integer.parseInt(abno);
+    int mno2 = Integer.parseInt(mno);
+
+    aviService.insertComment(abno2, mno2, cont);
+    //입력완료================================
+    Avi feedavi = aviService.getfeedavibyAbno(abno2);
+    List<Comment> comts=feedavi.getComments();
+    for (Comment comment : comts) {
+      comment.setStrcdt(comment.getCdt().toString());
+    }
+
+    return feedavi;
+  }
+
+  @ResponseBody
+  @RequestMapping("insertphotcomment")
+  public FeedPhoto insertphotcomt(String pbno, String mno, String cont) {
+    int pbno2 = Integer.parseInt(pbno);
+    int mno2 = Integer.parseInt(mno);
+
+    int no = feedPhotoService.insertPhotComt(pbno2, mno2, cont);
+    //입력완료================================
+    FeedPhoto feedphoto = feedPhotoService.getfeedphotobyPbno(pbno2);
+    List<Comment> comts=feedphoto.getComments();
+    for (Comment comment : comts) {
+      comment.setStrcdt(comment.getCdt().toString());
+    }
+    return feedphoto;
+  }
+
+  @ResponseBody
+  @RequestMapping("revisecomment")
+  public int revisecomt(String acno,  String cont) {
+    int acno2 = Integer.parseInt(acno);
+    int kk = aviService.reviseComment(cont, acno2);
+    return aviService.reviseComment(cont, acno2);
+  }
+
+  @ResponseBody
+  @RequestMapping("revisephotcomment")
+  public int revisephotcomt(String pcno,  String cont) {
+    int pcno2 = Integer.parseInt(pcno);
+
+    return feedPhotoService.revisePhotComment(cont, pcno2);
+  }
+
+  @ResponseBody
+  @RequestMapping("removecomment")
+  public Avi removecomt(String acno,String abno) {
+    int acno2 = Integer.parseInt(acno);
+    int abno2 = Integer.parseInt(abno);
+    aviService.deleteComment(acno2);
+
+    Avi feedavi=aviService.getfeedavibyAbno(abno2);
+
+    List<Comment> comts=feedavi.getComments();
+    for (Comment comment : comts) {
+      comment.setStrcdt(comment.getCdt().toString());
+    }
+
+    return feedavi;
+  }
+  @ResponseBody
+  @RequestMapping("removephotcomment")
+  public FeedPhoto removephotcomt(String pcno,String pbno) {
+    int pcno2 = Integer.parseInt(pcno);
+    int pbno2 = Integer.parseInt(pbno);
+    feedPhotoService.deletePhotComment(pcno2);
+
+    FeedPhoto feedphoto=feedPhotoService.getfeedphotobyPbno(pbno2);
+
+    List<Comment> comts=feedphoto.getComments();
+    for (Comment comment : comts) {
+      comment.setStrcdt(comment.getCdt().toString());
+    }
+
+    return feedphoto;
   }
 
   @GetMapping("deleteavi")
@@ -233,13 +402,6 @@ public class FeedController {
   @GetMapping("updateavi")
   public String updateavi(int abno,int bno,String title,
       String url, String cont) throws Exception {
-
-    System.out.println(abno);
-    System.out.println(bno);
-    System.out.println(title);
-    System.out.println(url);
-    System.out.println(cont);
-
     aviService.reviseAvi(title, cont, url, abno);
 
     return "redirect:enter?no="+bno;
@@ -269,35 +431,17 @@ public class FeedController {
     model.addAttribute("paging",paging);
 
   }
-  
+
   @PostMapping("updatephoto")
   public String updatephoto(String pbno, String cont, String bno, @RequestParam MultipartFile file1,
       @RequestParam MultipartFile file2, @RequestParam MultipartFile file3,
       @RequestParam(defaultValue="0") String fpno1, @RequestParam(defaultValue="0") String fpno2, @RequestParam(defaultValue="0") String fpno3
       ) throws IllegalStateException, IOException {
     int pbno2=Integer.parseInt(pbno);
-    
-    System.out.println("pbno:"+pbno);
-    System.out.println("cont:"+cont);
-    System.out.println("bno:"+bno);
-    System.out.println("file1:"+file1);
-    System.out.println("file2:"+file2);
-    System.out.println("file3:"+file3);
-    System.out.println("fpno1:"+fpno1);
-    System.out.println("fpno2:"+fpno2);
-    System.out.println("fpno3:"+fpno3);
-    if(fpno2.equals("0") ) {
-      System.out.println("파일1개");
-    }else if(fpno3.equals("0") ) {
-      System.out.println("파일2개");
-    }
-    else {
-      System.out.println("파일3개");
-    }
-    
+
     // 내용 업데이트
     feedPhotoService.updateFeedContent(cont, pbno2);
-    
+
     // file1 처리
     if (file1.getSize() > 0) {
       int fpno11 = Integer.parseInt(fpno1);
@@ -331,10 +475,84 @@ public class FeedController {
         feedPhotoService.updateFeedPhoto(filename, fpno33);
       }
     }
-    
+
     return "redirect:enter?no="+bno;
   }
 
+  @ResponseBody
+  @RequestMapping("photopaging")
+  public Map<String,Object> photopaging(String pageno,String buskno) {
+    int buskno2 = Integer.parseInt(buskno);
+    int pageno2 = Integer.parseInt(pageno);
+    Paging paging1 = new Paging();
+
+    paging1.setPageSize(9);
+
+    paging1.setTotalCount(feedPhotoService.recentPhotList2(buskno2));
+
+    List<FeedPhoto> plist = feedPhotoService.recentPhotList(buskno2,pageno2,9);
+
+    for (FeedPhoto f : plist) {
+      f.setStrcdt(f.getCdt().toString());
+    }
+
+    Map<String,Object> map = new HashMap<>();
+    map.put("plist", plist);
+    map.put("paging", paging1);
+
+
+    return map;
+  }
+
+  @ResponseBody
+  @RequestMapping("followme")
+  public int followfollow(String loginno,String feedbuskno) {
+    int loginno2 = Integer.parseInt(loginno);
+    int feedbuskno2 = Integer.parseInt(feedbuskno);
+
+    return memberService.followComeOn(loginno2, feedbuskno2);
+  }
+
+  @ResponseBody
+  @RequestMapping("nonefollow")
+  public int nonefollow(String loginno,String feedbuskno) {
+    int loginno2 = Integer.parseInt(loginno);
+    int feedbuskno2 = Integer.parseInt(feedbuskno);
+
+    return memberService.noneFollow(loginno2, feedbuskno2);
+  }
+
+  // 좋아요 관련
+  @ResponseBody
+  @RequestMapping("likeme")
+  public Map<String,Object> likelike(String loginno,String feedbuskno, String flag) {
+    int loginno2 = Integer.parseInt(loginno);
+    int feedbuskno2 = Integer.parseInt(feedbuskno);
+    int flag2 = Integer.parseInt(flag);
+
+    memberService.likeComeOn(loginno2, feedbuskno2, flag2);
+
+    Map<String,Object> map = new HashMap<>();
+    map.put("returnlikecount", memberService.searchLikeCount(feedbuskno2, flag2));
+
+    return map;
+  }
+
+  @ResponseBody
+  @RequestMapping("nonelike")
+  public Map<String,Object> nonelike(String loginno,String feedbuskno, String flag) {
+    int loginno2 = Integer.parseInt(loginno);
+    int feedbuskno2 = Integer.parseInt(feedbuskno);
+    int flag2 = Integer.parseInt(flag);
+    
+
+    memberService.noneLike(loginno2, feedbuskno2,flag2);
+
+    Map<String,Object> map = new HashMap<>();
+    map.put("returnlikecount", memberService.searchLikeCount(feedbuskno2, flag2));
+
+    return map;
+  }
 
 }
 

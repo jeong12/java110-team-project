@@ -23,9 +23,8 @@ public class FeedPhotoServiceImpl implements FeedPhotoService {
   public List<FeedPhoto> recentPhotList(int buskNo, int pageNo, int pageSize) {
     HashMap<String, Object> params = new HashMap<>();
     params.put("no", buskNo);
-    params.put("rowNo", pageNo);
+    params.put("rowNo", (pageNo - 1) * pageSize);
     params.put("size", pageSize);
-    
     
     return feedphotoDao.findRecentPhot(params);
   }
@@ -58,9 +57,11 @@ public class FeedPhotoServiceImpl implements FeedPhotoService {
 
   @Override
   public int recentPhotList2(int buskNo) {
-    List<FeedPhoto> list = feedphotoDao.findRecentPhot2(buskNo);
+    System.out.println("buskNo"+buskNo);
+    int photosize = feedphotoDao.findRecentPhot2(buskNo);
+    System.out.println("photosize:"+photosize);
     
-    return list.size();
+    return photosize;
   }
 
   @Override
@@ -100,8 +101,30 @@ public class FeedPhotoServiceImpl implements FeedPhotoService {
     params.put("pbno", pbno);
     
     feedphotoDao.feedPhotoOneFileUpload(params);
+  }
+
+  @Override
+  public int insertPhotComt(int pbno, int mno, String cont) {
+    Map<String,Object> params = new HashMap<>();
+    params.put("cont", cont);
+    params.put("mno", mno);
+    params.put("pbno", pbno);
     
+    return feedphotoDao.insertcomt(params);
+  }
+
+  @Override
+  public int revisePhotComment(String cont, int pcno) {
+    Map<String,Object> params = new HashMap<>();
+    params.put("cont", cont);
+    params.put("pcno", pcno);
     
+    return feedphotoDao.revisecomt(params);
+  }
+
+  @Override
+  public int deletePhotComment(int pcno) {
+    return feedphotoDao.deletecomt(pcno);
   }
   
   

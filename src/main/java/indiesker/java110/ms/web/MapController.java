@@ -26,7 +26,7 @@ public class MapController {
   
   @GetMapping("main")
   public void main(Model model) {
-    List<Schedule> list = scheduleService.findAllSchedule();//test용
+    List<Schedule> list = scheduleService.findTodayAllSchedule();//test용
     //List<Schedule> list = scheduleService.findTodayAllSchedule();
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     SimpleDateFormat hformat = new SimpleDateFormat("HH:mm");
@@ -40,11 +40,7 @@ public class MapController {
       int endindex=naddr.indexOf(" ")+startindex;
       l.setSimpleaddr(l.getAddr().substring(0,endindex));
     }
-    
-    
     model.addAttribute("list", list);
-    
-    
   }
   
   @ResponseBody
@@ -72,7 +68,7 @@ public class MapController {
     System.out.println(keyword1);
     System.out.println(keyword2);
 
-    List<Schedule> list = scheduleService.findSearchAllSchedule(keyword1, keyword2);
+    List<Schedule> list = scheduleService.findTodaySearchAllSchedule(keyword1, keyword2);
     
     for (Schedule l : list) {
       l.setNsdt(format.format(l.getSdt()));
@@ -107,7 +103,6 @@ public class MapController {
     }
 
     return list;
-
   }
 
 }

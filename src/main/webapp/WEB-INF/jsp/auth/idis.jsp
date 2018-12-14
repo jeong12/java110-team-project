@@ -57,6 +57,9 @@ margin: 0;
 .send {
     margin-bottom: 250px;
 }
+.more-button:hover{
+    color: #fff;
+}
 
 a#movetop {
     position: fixed; right: 2%; bottom: 82px; display: none; z-index: 999;
@@ -74,8 +77,8 @@ a#movetop {
           
           <div class="findidcontent">
                <h2 id="resultcoment">${member}</h2>
-               <a href="/app/main" style="text-decoration: none;" class="more-button">
-                                          메인화면으로 돌아가기</a>
+               <a href="/app/auth/findid" style="text-decoration: none;" class="more-button">
+                                          아이디/비밀번호 찾기로 돌아가기</a>
                <a href="/app/auth/form" style="text-decoration: none;" class="more-button">
                                           로그인화면으로 돌아가기</a>
            </div>
@@ -86,6 +89,8 @@ a#movetop {
   <script src="/js/promotion/promofilter.js"></script>
   <script src='../../js/jquery.easing.1.3.js'></script>
 <script>
+
+
 $(document).scroll(function(){
     var pos = document.getElementById('pos'); 
     var movetop = document.getElementById('movetop');

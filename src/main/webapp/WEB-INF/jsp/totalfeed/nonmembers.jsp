@@ -91,10 +91,10 @@ margin-bottom : 150px;
 }
 
 .teamPhotoImg {
-	width: 250px;
-	height: 250px;
-	margin: 5px;
-	border-radius: 10px;
+	width: 230px;
+	height: 230px;
+	margin: 10px;
+	border-radius: 0.25rem;
 }
 
 #titl {
@@ -103,9 +103,9 @@ margin-bottom : 150px;
 }
 
 #logo {
-	width: 50px;
-	height: 50px;
-	margin: 10px;
+	width: 40px;
+	height: 40px;
+	margin: 5px;
 }
 
 #titl2 {
@@ -143,6 +143,16 @@ margin-bottom : 150px;
 .btn-wrap {
 	text-align: center;
 }
+#maincon {
+    margin-top: 0;
+}
+
+/* 팀이름 크기조절 */
+.teamnamefont{
+font-size: large;
+/* font-family: -webkit-body; */
+}
+
 /* 위로 가기 */
 a#movetop {
     position: fixed; right: 2%; bottom: 82px; display: none; z-index: 999;
@@ -165,8 +175,15 @@ text-align: center;
 height: 35px;
 padding: 0;
 }
-    #js-btn-wrap a.more-button:hover {
+.more-button {
     color: white; text-decoration: none;
+}
+#js-btn-wrap a.more-button:hover {
+    color: white; text-decoration: none;
+}
+.more-button:focus{
+    color: #fff;
+    text-decoration: none;
 }
 
 </style>
@@ -177,7 +194,7 @@ padding: 0;
 	<div class="container">
 	<div id="pos"></div>
 		<div id="titl">
-	        <h2><img id="logo" src="../../img/playButton.PNG" alt="플레이로고">버스커 목록보기</h2>
+	        <h3><img id="logo" src="../../img/playButton.PNG" alt="플레이로고">버스커 목록보기</h3>
 	    </div>
     </div>
 	
@@ -202,7 +219,8 @@ padding: 0;
 							<button class="btn btn-default" id="selectsearchbtn"
 								onclick="PageMove()">
 								<span class="glyphicon glyphicon-search"></span>
-							</button> <input type="hidden" name="searchType"
+							</button> 
+							<input type="hidden" name="searchType"
 							value="<%=request.getParameter("searchType") != null ? request.getParameter("searchType") : ""%>" />
 							<input type="hidden" name="keyword"
 							value="<%=request.getParameter("keyword") != null ? request.getParameter("keyword") : ""%>" />
@@ -214,13 +232,13 @@ padding: 0;
 				<!-- </form>  -->
 			</div>
 			<!-- 인기순 최신순 -->
-			<div>
-				<div>
+			<div style="display: flex; width: 160px; height: 50px; padding-top: 5px;">
+				<div style="margin-right: 10px;">
 					<input type="radio" class="likedate" id="likecount" name="sortType"
 						value="likecount"
 						<%=request.getParameter("sortType") != null
-					? request.getParameter("sortType").equals("likecount") ? "checked" : ""
-					: "checked"%>>
+					    ? request.getParameter("sortType").equals("likecount") ? "checked" : ""
+					    : "checked"%>>
 					<label for="likecount">인기순</label>
 				</div>
 
@@ -228,23 +246,23 @@ padding: 0;
 					<input type="radio" class="likedate" id="cdt" name="sortType"
 						value="cdt"
 						<%=request.getParameter("sortType") != null
-					? request.getParameter("sortType").equals("cdt") ? "checked" : ""
-					: ""%>>
+						? request.getParameter("sortType").equals("cdt") ? "checked" : ""
+						: ""%>>
 					<label for="cdt">최신순</label>
 				</div>
 			</div>
 			
-			<div align="center">
-            <button class="btn btn-default filter-button" data-filter="all">All</button>
-            <button class="btn btn-default filter-button" data-filter="ballad">발라드</button>
-            <button class="btn btn-default filter-button" data-filter="dance">댄스</button>
-            <button class="btn btn-default filter-button" data-filter="trot">트로트</button>
-            <button class="btn btn-default filter-button" data-filter="folk">포크</button>
-            <button class="btn btn-default filter-button" data-filter="rock">락</button>
-            <button class="btn btn-default filter-button" data-filter="jazz">재즈</button>
-            <button class="btn btn-default filter-button" data-filter="country">컨츄리</button>
-            <button class="btn btn-default filter-button" data-filter="rnb">알앤비</button>
-            <button class="btn btn-default filter-button" data-filter="rap">랩</button>
+			<div align="center" style="margin:0 0 -40px 0; padding: 0;">
+                <button class="btn btn-default filter-button" data-filter="all">All</button>
+                <button class="btn btn-default filter-button" data-filter="ballad">발라드</button>
+                <button class="btn btn-default filter-button" data-filter="dance">댄스</button>
+                <button class="btn btn-default filter-button" data-filter="trot">트로트</button>
+                <button class="btn btn-default filter-button" data-filter="folk">포크</button>
+                <button class="btn btn-default filter-button" data-filter="rock">락</button>
+                <button class="btn btn-default filter-button" data-filter="jazz">재즈</button>
+                <button class="btn btn-default filter-button" data-filter="country">컨츄리</button>
+                <button class="btn btn-default filter-button" data-filter="rnb">알앤비</button>
+                <button class="btn btn-default filter-button" data-filter="rap">랩</button>
             </div>
 			
 		</div>
@@ -253,7 +271,7 @@ padding: 0;
 
 	<div class="container">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-12" id="maincon">
 				<div class="main">
 					<div class="table table-list-search">
 
@@ -267,24 +285,13 @@ padding: 0;
 												class="teamPhotoImg"></td>
 										</tr>
 										<tr class="teamnametr">
-											<td>${tf.teamname}</td>
+											<td class="teamnamefont">${tf.teamname}</td>
 										</tr>
 									</table>
 								</a>
 							</div>
 						</c:forEach>
 
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="main">
-					<div class="table table-list-search">
 						<c:forEach items="${city}" var="tf">
 							<div class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${tf.teamgenre}">
 								<a href="/app/buskerfeed/enter?no=${tf.bno}" 
@@ -295,23 +302,13 @@ padding: 0;
 												class="teamPhotoImg"></td>
 										</tr>
 										<tr class="teamnametr">
-											<td>${tf.teamname}</td>
+											<td class="teamnamefont">${tf.teamname}</td>
 										</tr>
 									</table>
 								</a>
 							</div>
 						</c:forEach>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="main">
-					<div class="table table-list-search">
 						<c:forEach items="${teamname}" var="tf">
 							<div class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6 filter ${tf.teamgenre}">
 								<a href="/app/buskerfeed/enter?no=${tf.bno}" 
@@ -322,7 +319,7 @@ padding: 0;
 												class="teamPhotoImg"></td>
 										</tr>
 										<tr class="teamnametr">
-											<td>${tf.teamname}</td>
+											<td class="teamnamefont">${tf.teamname}</td>
 										</tr>
 									</table>
 								</a>
@@ -383,10 +380,10 @@ padding: 0;
 			}
 		}
 		
-		$(document).scroll(function(){
-            var pos = document.getElementById('pos'); 
+        $(document).scroll(function(){
+            var st = $(window).scrollTop();
             var movetop = document.getElementById('movetop');
-            if($(pos).attr('value') > 50){
+            if(st > 50){
                 movetop.style.display = 'block';
             } else{
                 movetop.style.display = 'none';
@@ -394,7 +391,6 @@ padding: 0;
          });
          
          $('#movetop').click(function(){
-        	 //console.log("클릭됨");
              $('#top').animate({
                   scrollTop:0
              }, 800, 'easeInQuart');

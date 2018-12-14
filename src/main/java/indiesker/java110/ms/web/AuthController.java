@@ -56,29 +56,96 @@ public class AuthController {
     @GetMapping("findid")
     public void findid() {
     }
-    
-    @GetMapping("idis")
-    public void idis(String email, Model model) {
+/*    
+    @ResponseBody
+    @RequestMapping("nodata")
+    public Map<String,Object> nodata(String email) {
+        System.out.println(email);
+    	if(email.equals(null)) {
+    		return null;
+    	}else {
+	    	String id=authService.getId(email);
+	    	HashMap<String,Object> params = new HashMap<>();
+	    	params.put("id", id);
+	        return params;
+    	}
         
-    	if(email.equals(null))
-            email = "";
-    		
-    	String m = authService.getId(email);
-        if (email.equals("")) {
-        	m = "입력된 정보가 없습니다.";
-        }else if (m == null) {
-        	m = "입력된 정보와 일치하는 정보가 없습니다";
-        }else {
-        	m = "입력하신 정보와 일치하는 아이디는 " + m + " 입니다";
-        }
-        
-        model.addAttribute("member",m);
+    }
+    */
+    @ResponseBody
+    @RequestMapping("nodata")
+    public Map<String,Object> nodata(String email) {
+    	System.out.println(email);
+    	if(email.equals(null)) {
+    		return null;
+    	}else {
+    		String id=authService.getId(email);
+    		HashMap<String,Object> params = new HashMap<>();
+    		params.put("id", id);
+    		return params;
+    		//idis(id,null);
+    	}
+    	
     }
     
-    @PostMapping("checkemail")
-    public void checkEmail(String id, String email, Model model) {
-    	String check = authService.checkEmail(id);
-    	//System.out.println(check+"<<<<<<<<<<"+id+"***********"+email);
+    @RequestMapping("idis")
+    public void idis(String id, Model model) {
+    	model.addAttribute("member", "입력하신 이메일과 일치하는 아이디는"+id+"입니다.");
+    }
+    
+    @ResponseBody
+    @RequestMapping("nodatapw")
+    public Map<String,Object> nodatapw(String id, String email) {
+    	
+    	if(id==null) {
+    		System.out.println("no id");
+    		return null;
+    	}else if(email==null) {
+    		System.out.println("no email");
+    		return null;
+    	}else {
+    		
+    		String check = authService.checkEmail(id);
+    		
+    		if (check.equals(email)) {
+        		
+        		// 임시 비밀번호 생성
+        		String changedPw = "";
+        		for (int i = 0; i < 12; i++) {
+        			changedPw += (char) ((Math.random() * 26) + 97);
+        		}
+        		
+        		Map<String,String> update_pw_map = new HashMap<String, String>();
+        		update_pw_map.put("email", email);
+        		update_pw_map.put("password", changedPw);
+        		
+        		authService.update_pw(update_pw_map);
+
+        		naverMailSend(changedPw,email);//이메일 발송
+        		
+        		HashMap<String,Object> params = new HashMap<>();
+        		params.put("yes", "성공적으로 메일이 발송되었습니다.");
+        		
+        		return params;
+
+        	}else {
+            System.out.println("no no no");
+    		return null;
+    		//idis(id,null);
+        	}
+    	}
+    	
+    }
+    
+    @GetMapping("checkemail")
+    public void checkEmail(Model model) {
+/*		if(id.equals(null))
+			id="a";
+		
+		if(email.equals(null))
+			email="a@a.a";*/
+    	
+/*    	String check = authService.checkEmail(id);
     	
     	if (check.equals(email)) {
     		model.addAttribute("check","입력하신 정보가 일치합니다.");
@@ -104,9 +171,13 @@ public class AuthController {
     		
 
     	}else {
-    		model.addAttribute("check","입력하신 정보가 일치하지 않습니다.");
-    		model.addAttribute("update","비밀번호 변경에 실패하였습니다.");
-    	}
+
+    		*/
+		model.addAttribute("check","입력하신 정보가 일치합니다.");
+		model.addAttribute("update","성공적으로 메일이 발송되었습니다.");
+/*    		model.addAttribute("check","입력하신 정보가 일치하지 않습니다.");
+    		model.addAttribute("update","비밀번호 변경에 실패하였습니다.");*/
+    	//}
     }
   
 //비밀번호 찾기
@@ -132,6 +203,7 @@ public class AuthController {
     	props.put("mail.smtp.host", host); 
     	props.put("mail.smtp.port", 587); //네이버 : 587, 구글 : 465
     	props.put("mail.smtp.auth", "true"); 
+    	props.put("mail.smtp.content","text/html");
     	//prop.put("mail.smtp.ssl.trust", "smtp.gmail.com"); //구글예제는 포함
 
     	Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
@@ -141,6 +213,7 @@ public class AuthController {
     	}); 
 
     	try {
+    		
     		MimeMessage message = new MimeMessage(session); 
     		message.setFrom(new InternetAddress(user)); 
 
@@ -148,14 +221,40 @@ public class AuthController {
     		message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
 
     		 // 메일 제목 
-    		message.setSubject("인디스커의 비밀번호 변경 메일 입니다."); 
+    		message.setSubject("인디스커의 비밀번호가 변경되었습니다.");
+    		message.setContentMD5("인디스커의 비밀번호가 변경되었습니다.");
 
+    		
+    		String msg = "<div style=\"border: 2px solid #555;border-radius: 0.25rem; margin: auto; width: 550px;\"><div style=\"text-align: center;\">\r\n" + 
+    				"           <h2 style=\"font-size: 2em;\">인디스커 비밀번호 변경안내</h2>\r\n" + 
+    				"           <img src=\"https://images.unsplash.com/photo-1486994816305-105a487dac3b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60\" alt=\"\">\r\n" + 
+    				"           <h3>고객님의 인디스커 비밀번호가 변경되었습니다.</h3>\r\n" + 
+    				"       </div>\r\n" + 
+    				"       <div style=\"margin: auto; width: 500px;\">\r\n" + 
+    				"           <p>인디스커를 이용해주셔서 감사합니다.</p>\r\n" + 
+    				"           <div style=\"display: flex; margin: 10px 0;\">\r\n" + 
+    				"           <p></p><p>변경된 비밀번호 : \r</p>" +
+    				"           <p style=\"background-color:darkkhaki; padding: 0 5px; margin: 0 5px;\">" + changedPw + "</p><p></p>\r\n" + 
+    				"           </div>\r\n" + 
+    				"           <p>안전한 사용을 위하여 비밀번호를 주기적으로 변경하여 주십시오</p>\r\n" + 
+    				"           <p style=\"margin: 10px 0;\">궁금하신 사항은 인디스커 홈페이지에서 문의 주시기 바랍니다.</p>\r\n" + 
+    				"       </div> \r\n" + 
+    				"       <div style=\"text-align: center;\">\r\n" + 
+    				"       <a href=\"/app/main\" \r\n" + 
+    				"       style=\"\r\n" + 
+    				"           text-decoration: none;\r\n" + 
+    				"           background-color: #000000; border: none; color: #ffffff;\r\n" + 
+    				"            cursor: pointer; display: inline-block; margin: 20px;\r\n" + 
+    				"            font-family: 'BenchNine', Arial, sans-serif; font-size: 1em;\r\n" + 
+    				"            font-size: 22px; line-height: 1em; margin: 15px 40px; outline: none;\r\n" + 
+    				"            padding: 12px 40px 10px; position: relative;\r\n" + 
+    				"            text-transform: uppercase; font-weight: 700;\">\r\n" + 
+    				"       인디스커로 바로가기</a>\r\n" + 
+    				"       </div></div>";
+    		
     		// 메일 내용 
-    		message.setText(
-    				"인디스커를 이용해 주셔서 감사합니다.\n"
-    				+ "변경된 비밀번호는  "+changedPw+"  입니다.\n"
-    				+ "개인정보를 변경하시고 안전하게 인디스커를 이용하세요."
-    				); 
+    		//message.setText(msg);
+    		message.setContent(msg, "text/html;charset=UTF-8");
 
     		// send the message 
     		Transport.send(message); 
@@ -279,7 +378,7 @@ public class AuthController {
         System.out.println("Gd");
       } else {
         session.invalidate();
-        System.out.println("비밀번호틀림쓰");
+        System.out.println("비밀번호가 일치하지 않습니다.");
       }
     }
 
@@ -292,7 +391,7 @@ public class AuthController {
         session.setAttribute("loginUser", loginUser);
       } else {
         session.invalidate();
-        System.out.println("비밀번호틀림쓰");
+        System.out.println("비밀번호가 일치하지 않습니다.");
       }
     }
 

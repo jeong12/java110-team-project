@@ -66,23 +66,45 @@ public class StageListController {
 		
 		if ("name".equals(searchType)) {
 			List<StageList> list = stageListService.findByName(params);
+			cutAddr(list);
 			model.addAttribute("name",list);
 		}else if ("local".equals(searchType)) {
 			List<StageList> list = stageListService.findByLocal(params);
+			cutAddr(list);
 			model.addAttribute("local",list);
 		}else if ("genre".equals(searchType)) {
 			List<StageList> list = stageListService.findByGenre(params);
+			cutAddr(list);
 			model.addAttribute("genre",list);
 		}else {
 			List<StageList> list = stageListService.list(params);
+			cutAddr(list);
 			model.addAttribute("list", list);
 		}
 		
 	}else {
 		List<StageList> list = stageListService.list(params);
+		cutAddr(list);
 		model.addAttribute("list", list);
 	}
 
 
+  }
+  
+  //주소 자르기
+  public List<StageList> cutAddr(List<StageList> list){
+	  
+	  
+	  for (int i=0;i<list.size();i++) {
+			String addr = list.get(i).getLocal();
+			String changed1 = addr.split(" ")[0];
+			String changed2 = addr.split(" ")[1];
+			addr = changed1.substring(0, 2) + " " +changed2.substring(0, 2);
+			System.out.println(addr);
+			list.get(i).setLocal(addr);
+		}
+	  
+	  
+	return list;
   }
 }

@@ -63,7 +63,6 @@ h4 {
 
 .imgmodi{
     margin-top: .8rem;
-    margin-bottom: .5rem;
     height:150px; width: 150px;
     border-radius: 3rem;
 }
@@ -119,7 +118,7 @@ input[type=checkbox]+label {
     padding-left: 25px;
     margin-right: 15px;
     font-size: 13px;
-    margin: 2% 1%; 
+    margin: 2% 1%;
 }
 
 input[type=checkbox]:checked+label{
@@ -129,9 +128,8 @@ input[type=checkbox]:checked+label{
     text-align: center;
 }
 .modi{
-    margin: 0.9rem 0 1.5rem;
+    margin: 0.5rem 0 1rem;
 }
-
 </style>
 
 <script>

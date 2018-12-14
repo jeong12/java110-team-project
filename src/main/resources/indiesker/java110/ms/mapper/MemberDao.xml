@@ -4,86 +4,149 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="indiesker.java110.ms.dao.MemberDao">
-    
-<!--     <resultMap type="member" id="memberMap">
-    <id column="mno" property="no"/>
-    <result column="id" property="id"/>
-    <result column="email" property="email"/>
-    <result column="pwd" property="password"/>
-    <result column="nik" property="nickname"/>
-    <result column="phot" property="photo"/>
-    </resultMap> -->
-    
+
+	<!-- <resultMap type="member" id="memberMap"> <id column="mno" property="no"/> 
+		<result column="id" property="id"/> <result column="email" property="email"/> 
+		<result column="pwd" property="password"/> <result column="nik" property="nickname"/> 
+		<result column="phot" property="photo"/> </resultMap> -->
+
 	<insert id="insert" parameterType="member"
 		useGeneratedKeys="true" keyColumn="mno" keyProperty="no">
 		insert into memb(id,email,pwd,nik,phot,cdt,genre0,genre1,genre2,yn)
 		values(#{id},#{email},password(#{password}),#{nickname},
 		#{photo},now(),
 		<foreach collection="genre" item="genre" separator=",">
-		#{genre}
+			#{genre}
 		</foreach>
 		,'n')
 	</insert>
 
-    <select id="checkId" parameterType="string" resultType="int">
-    select count(*) from memb where id=Lower(#{id})
-    </select>
-    
-    <select id="checkEmail" parameterType="string" resultType="int">
-    select count(*) from memb where email=#{email}
-    </select>
-    
-    <select id="checkNickname" parameterType="string" resultType="int">
-    select count(*) from memb where nik=Lower(#{nickname})
-    </select>
-    
-    <select id="findByEmailPassword" parameterType="map" resultType="Member">
-    select mno as no, id, email, nik as nickname, phot as photo
-      from memb 
-     where id=#{id} and pwd=password(#{password})
-    </select>
-    
-    <select id="findByIdNick" parameterType="map" resultType="Member">
-    select mno, id, email, nik as nickname, phot as photo
-      from memb 
-     where id=#{id} and nik=#{nickname}
-     </select>
+	<select id="checkId" parameterType="string" resultType="int">
+		select
+		count(*) from memb where id=Lower(#{id})
+	</select>
 
-    <select id="findNoById" parameterType="string" resultType="int">
-    select mno from memb where id=#{id}
+	<select id="checkEmail" parameterType="string" resultType="int">
+		select count(*) from memb where email=#{email}
+	</select>
+
+	<select id="checkNickname" parameterType="string"
+		resultType="int">
+		select count(*) from memb where nik=Lower(#{nickname})
+	</select>
+
+	<select id="findByEmailPassword" parameterType="map"
+		resultType="Member">
+		select mno as no, id, email, nik as nickname, phot as photo
+		from memb
+		where id=#{id} and pwd=password(#{password})
+	</select>
+
+	<select id="findByIdNick" parameterType="map"
+		resultType="Member">
+		select mno, id, email, nik as nickname, phot as photo
+		from
+		memb
+		where id=#{id} and nik=#{nickname}
+	</select>
+
+	<select id="findNoById" parameterType="string" resultType="int">
+		select mno from memb where id=#{id}
+	</select>
+
+	<update id="updateMemb" parameterType="member">
+		UPDATE memb
+		SET email = #{email}, pwd = password(#{password}), phot =
+		#{photo},
+		<foreach collection="genre" item="genre" separator=","
+			index="index">
+			genre#{index} = #{genre}
+		</foreach>
+		WHERE mno = #{no}
+	</update>
+
+	<!-- 버스커 체크 -->
+	<resultMap type="Member" id="buskCheckMap">
+		<result column="flag" property="membflag" />
+	</resultMap>
+	<select id="buskCheck" parameterType="int"
+		resultMap="buskCheckMap">
+		select flag
+		from memb
+		where mno=#{no}
+	</select>
+
+	<select id="findMemByNo" parameterType="int"
+		resultMap="buskCheckMap">
+		select id, email, nik as nickname, phot as photo, genre0,
+		genre1, genre2,
+		cdt
+		from memb
+		where mno=#{no}
+	</select>
+
+	<!-- 버스커 타입 -->
+	<select id="getType" parameterType="int" resultType="Integer">
+		select flag
+		from memb
+		where mno=#{no}
+	</select>
+
+	<!-- 즐겨찾기 추가 -->
+	<insert id="followcomeon" parameterType="map">
+		insert into
+		folw(mno,bno)
+		values(#{mno},#{bno})
+	</insert>
+
+	<!-- 즐겨찾기 취소 -->
+	<delete id="nonefollow" parameterType="map">
+		DELETE FROM folw
+		WHERE
+		mno=#{mno} AND bno=#{bno}
+	</delete>
+
+	<!-- 즐겨찾기 검색 -->
+	<select id="searchfollow" parameterType="map"
+		resultType="Integer">
+		select count(*)
+		from folw
+		where mno=#{mno}
+		and bno=#{bno}
+	</select>
+
+	<!-- 좋아요 누르기 -->
+	<insert id="likecomeon" parameterType="map">
+		insert into
+		likes(mno,bono,flag)
+		values (#{mno},#{bono},#{flag})
+	</insert>
+
+	<!-- 좋아요 취소하기 -->
+	<delete id="nonelike" parameterType="map">
+		delete from likes
+		where
+		mno=#{mno}
+		and bono=#{bono}
+		and flag=#{flag}
+	</delete>
+
+	<!-- 좋아요 수 리턴 -->
+	<select id="searchlikecount" parameterType="map" resultType="Integer">
+		select count(*)
+		from likes
+		where bono=#{bono}
+		and flag=#{flag}
+	</select>
+	
+	   <!-- 좋아요 했나 검색 -->
+    <select id="searchlikeox" parameterType="map" resultType="Integer">
+        select count(*)
+        from likes
+        where bono=#{bono}
+        and flag=#{flag}
+        and mno=#{mno}
     </select>
-    
-    <update id="updateMemb" parameterType="member">
-    UPDATE memb 
-       SET email = #{email}, pwd = password(#{password}), phot = #{photo},
-       <foreach collection="genre" item="genre" separator="," index="index">
-        genre#{index} = #{genre}
-        </foreach>
-           WHERE mno = #{no}
-    </update>
-    
-    <!-- 버스커 체크 -->
-    <resultMap type="Member" id="buskCheckMap">
-        <result column="flag" property="membflag" />
-    </resultMap>
-    <select id="buskCheck" parameterType="int" resultMap="buskCheckMap">
-        select flag
-        from memb
-        where mno=#{no}
-    </select>
-    
-    <select id="findMemByNo" parameterType="int" resultMap="buskCheckMap">
-        select id, email, nik as nickname, phot as photo, genre0, genre1, genre2, cdt
-        from memb
-        where mno=#{no}
-    </select>
-    
-    <!-- 버스커 타입 -->
-     <select id="getType" parameterType="int" resultType="Integer">
-        select flag
-        from memb
-        where mno=#{no}
-    </select>
-    
+
 </mapper>
 

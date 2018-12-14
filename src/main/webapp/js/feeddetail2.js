@@ -9,6 +9,8 @@ $(".col-md-4.photo button").on('click', function() {
     
     var pbno=$(this).val();
     console.log("photoBoardNO:"+pbno);
+    
+    
     $.ajax({
         type:"GET",
         url:"showphoto",
@@ -27,7 +29,7 @@ $(".col-md-4.photo button").on('click', function() {
                     '<button type="button" onclick="photorevise()" id="photorevise" class="btn btns-outline-warning" style="margin-top: -3%;">수정</button>'+
                     "<button id='photoreviseend' onclick='photoreviseend()' style='display:none;margin-top: -3%;' class='btn btns-outline-warning'>수정완료</button>"+
                     '<button onclick="photoremove()" id="photodelete" class="btn btns-outline-warning" style="margin-top: -3%;">삭제</button>'+
-                    '<button style="display:none;" id="photonumber" value="'+pbno+'"></button>'
+                    '<button style="display:none"; id="photoboardnumber" value="'+pbno+'">'+pbno+'</button>'
                     );
             }
             $(".feedphoto1").append("<img src='../../upload/"+data.feedphotoFiles[0].filename+"' alt='첫번쨰사진' class='bigimg'>");
@@ -35,8 +37,6 @@ $(".col-md-4.photo button").on('click', function() {
                 $(".feedphoto2").append(
                         "<td><button id='photonumber"+index+"' value='"+data.feedphotoFiles[index].fpno+"' style='display:none;'></button><button class='photofakeclass' style='display:none;' id='photofake"+index+"' value='"+item.filename+"'></button><button value='"+item.filename+"' ><img src='../../upload/"+item.filename+"' alt='....' class='smallimg'></button></td>"
                 );
-                
-                console.log("index:"+index);
             });
             
             // 팀 정보!!
@@ -45,7 +45,15 @@ $(".col-md-4.photo button").on('click', function() {
             } else{
                 var value = "<img src='../../upload/"+data.teamPhoto+"' style='width:100%;height: 100%;' alt='프로필사진' id='teamphoto'>";
             }
+            if(data.likeOX == 0){
+                var ox = '<i class="far fa-heart modallike" id="photoheartbefore" style="margin-right: 30px;"></i>'+
+                '<i class="fas fa-heart modallike" id="photoheartafter" style="margin-right: 30px;display: none;"></i>'
+            }else{
+                var ox = '<i class="far fa-heart modallike" id="photoheartbefore" style="margin-right: 30px;display: none;"></i>'+
+                '<i class="fas fa-heart modallike" id="photoheartafter" style="margin-right: 30px;"></i>'
+            }
             $(".pinfocontent").append(
+                    '<div id="pbnoval" value="'+pbno+'" ></div>'+
                     '<div class="top">'+
                     '<div class="infoimg">'+
                     value+
@@ -62,26 +70,34 @@ $(".col-md-4.photo button").on('click', function() {
                   ' font-size:20px;background-color:white;border: 0;border-radius:0.25rem;" rows="3">'+data.feedcont+'</textarea>'+
                   '</div>'+
                   '<div class="bot">'+
-                    '<i class="far fa-heart modallike" style="margin-right: 30px;"></i>'+
-                    data.lcnt+
+                      ox+
+                    '<div id="photolikecnt"><i id="photolikecount">'+data.returnlikecount+'</i></div>'+
                   '</div>'
             );
             
             //댓글
             $(".pinsertcontent").append(
-                    '<form action="insertphotocomt">'+
                     '<textarea name="pcomtcont" id="pcomtcont" style="resize:none;width:100%;" rows="2" placeholder="댓글을 입력해주세요.">'+
                     '</textarea>'+
                     '<br>'+
-                    '<button style="float:right;" class="btn btns-outline-m">입력</button>'+
-                    '</form>'
+                     '<button id="pbnovaluebtn" style="display:none;" value="'+pbno+'"></button>'+
+                    '<button id="photocomtsendbtn" style="float:right;" class="btn btns-outline-m">입력</button>'
             );
             if(data.comtcount == 5){
                 $.each(data.comments,function(index,item){
                     if(item.comtphot ==null){
-                        var value = "<img id='teamphoto' style='width:100%;height: 100%;' src='/img/phot1.png' alt='프로필사진'>";
+                        var value = "<img class='teamphoto' style='width:100%;height: 100%;' src='/img/phot1.png' alt='프로필사진'>";
                     } else{
-                        var value = "<img id='teamphoto' style='width:100%;height: 100%;' alt='없넹' src='../../upload/"+item.comtphot+"'>";
+                        var value = "<img class='teamphoto' style='width:100%;height: 100%;' alt='없넹' src='../../upload/"+item.comtphot+"'>";
+                    }
+                    if(item.mno == sessionno){
+                        var comtrevise = 
+                            '<div class="revdelpcomt" value="'+item.pcno+'">'+
+                            '<i class="fas fa-pen revpcomtend" style="display:none;"></i>'+
+                            '<i class="fas fa-pen revpcomt"></i>'+
+                            '<i class="fas fa-trash-alt delpcomt"></i></div>'
+                    }else{
+                        var comtrevise = ''
                     }
                     $(".pcomtlist").append(
                             '<div class="comtwrap">'+
@@ -90,13 +106,14 @@ $(".col-md-4.photo button").on('click', function() {
                                 value+
                                 '</div>'+
                                 '<div class="comtcont">'+
-                                '<textarea id="pcomtcontlist" readonly="readonly" disabled style="resize:none;width:100%;" rows="2">'+item.cont+'</textarea>'+
+                                '<textarea class="pcomtcontlist" readonly="readonly" disabled style="resize:none;width:100%;" rows="2">'+item.cont+'</textarea>'+
                                 '</div>'+
                             '</div>'+
                             '<div class="comtbottom">'+
                                 '<div class="comtname">'+item.comtname+'</div>'+
                                 '<div class="comtdate">'+item.strcdt+'</div>'+
                             '</div>'+
+                            comtrevise+
                         '</div>'
                     );
                 })
@@ -135,7 +152,8 @@ $('.col-md-4.avi button').on('click', function() {
             if(data.length != 0){
                if(sessionno == buskno){
                     $(".modal-header.avi").append(
-                            "<textarea id='avititlerev' readonly='readonly' disabled rows='1' style='resize:none;border-radius:0.25rem;" +
+                            '<div id="delcomtval" value="'+abno+'" ></div>'+
+                            "<textarea id='avititlerev' readonly='readonly' disabled rows='1' style='width:75%;resize:none;border-radius:0.25rem;" +
                             "background-color: transparent;border: 0;'>"+data.title+"</textarea>"+
                             "<h4 style='display:none;' id=avinumber>"+abno+"</h4>"+
                             "<button type='button' class='close' data-dismiss='modal'"+
@@ -148,6 +166,7 @@ $('.col-md-4.avi button').on('click', function() {
                     );
                 }else{
                     $(".modal-header.avi").append(
+                            '<div id="delcomtval" value="'+abno+'" ></div>'+
                             data.title+
                             "<button type='button' class='close' data-dismiss='modal'"+
                             "aria-label='Close' style='padding-right: 10px;'>"+
@@ -181,6 +200,15 @@ $('.col-md-4.avi button').on('click', function() {
                 } else{
                     var value = "<img src='../../upload/"+data.teamPhoto+"' style='width:100%;height: 100%;' alt='프로필사진' id='teamphoto'>";
                 }
+                if(data.likeOX == 0){
+                    console.log('0');
+                    var ox = '<i class="far fa-heart modallike" id="aviheartbefore" style="margin-right: 30px;"></i>'+
+                    '<i class="fas fa-heart modallike" id="aviheartafter" style="margin-right: 30px;display: none;"></i>'
+                }else{
+                    console.log('1');
+                    var ox = '<i class="far fa-heart modallike" id="aviheartbefore" style="margin-right: 30px;display: none;"></i>'+
+                    '<i class="fas fa-heart modallike" id="aviheartafter" style="margin-right: 30px;"></i>'
+                }
                 $(".ainfocontent").append(
                         '<div class="top">'+
                         '<div class="infoimg">'+
@@ -198,25 +226,34 @@ $('.col-md-4.avi button').on('click', function() {
                       ' font-size:20px;background-color:white;border: 0;border-radius:0.25rem" rows="3">'+data.content+'</textarea>'+
                       '</div>'+
                       '<div class="bot">'+
-                        '<i class="far fa-heart modallike" style="margin-right: 30px;"></i>'+
-                        data.avilikecount+
+                          ox+
+                      '<div id="avilikecnt"><i id="avilikecount">'+data.returnlikecount+'</i></div>'+
                       '</div>'
                 );
+                //댓글입력
                 $(".ainsertcontent").append(
-                        '<form action="insertavicomt">'+
                         '<textarea name="acomtcont" id="acomtcont" style="resize:none;width:100%;" rows="2" placeholder="댓글을 입력해주세요.">'+
                         '</textarea>'+
                         '<br>'+
-                        '<button style="float:right;" class="btn btns-outline-m">입력</button>'+
-                        '</form>'
+                        '<button id="abnovaluebtn" style="display:none;" value="'+abno+'"></button>'+
+                        '<button id="avicomtsendbtn" style="float:right;" class="btn btns-outline-m">입력</button>'
                 );
-                
+                //댓글 리스트
                 if(data.comtcount == 5){
                     $.each(data.comments,function(index,item){
                         if(item.comtphot ==null){
-                            var value = "<img id='teamphoto' style='width:100%;height: 100%;' src='/img/phot1.png' alt='프로필사진'>";
+                            var value = "<img class='teamphoto' style='width:100%;height: 100%;' src='/img/phot1.png' alt='프로필사진'>";
                         } else{
-                            var value = "<img id='teamphoto' style='width:100%;height: 100%;' alt='없넹' src='../../upload/"+item.comtphot+"'>";
+                            var value = "<img class='teamphoto' style='width:100%;height: 100%;' alt='없넹' src='../../upload/"+item.comtphot+"'>";
+                        }
+                        if(item.mno == sessionno){
+                            var comtrevise = 
+                            '<div class="revdelacomt" value="'+item.acno+'">'+
+                            '<i class="fas fa-pen revacomtend" style="display:none;" ></i>'+
+                            '<i class="fas fa-pen revacomt"></i>'+
+                            '<i class="fas fa-trash-alt delacomt"></i></div>'
+                        }else{
+                            var comtrevise = ''
                         }
                         $(".acomtlist").append(
                                 '<div class="comtwrap">'+
@@ -225,13 +262,14 @@ $('.col-md-4.avi button').on('click', function() {
                                     value+
                                     '</div>'+
                                     '<div class="comtcont">'+
-                                    '<textarea id="acomtcontlist" readonly="readonly" disabled style="resize:none;width:100%;" rows="2">'+item.cont+'</textarea>'+
+                                    '<textarea class="acomtcontlist" readonly="readonly" disabled style="resize:none;width:100%;" rows="2">'+item.cont+'</textarea>'+
                                     '</div>'+
                                 '</div>'+
                                 '<div class="comtbottom">'+
                                     '<div class="comtname">'+item.comtname+'</div>'+
                                     '<div class="comtdate">'+item.strcdt+'</div>'+
                                 '</div>'+
+                                comtrevise+
                             '</div>'
                         );
                     })
@@ -239,6 +277,323 @@ $('.col-md-4.avi button').on('click', function() {
             }
         }
     })
+});
+
+//사진댓글입력
+$(document).on("click","#photocomtsendbtn",function(){
+    var sessionno=$('#sessionno').html();
+    console.log("sessionNO:"+sessionno);
+    var pbno=$("#pbnoval").attr('value');
+    console.log(pbno);
+    var content=$("#pcomtcont").val();
+    console.log(content);
+    
+    $.ajax({
+        url:'insertphotcomment',
+        type:'GET',
+        dataType:'json',
+        data:{
+            "mno":sessionno,
+            "pbno":pbno,
+            "cont":content
+        },
+        success:function(data){
+            $(".pinsertcontent").empty();
+            $(".pcomtlist").empty();
+            
+            //댓글
+            $(".pinsertcontent").append(
+                    '<textarea name="pcomtcont" id="pcomtcont" style="resize:none;width:100%;" rows="2" placeholder="댓글을 입력해주세요.">'+
+                    '</textarea>'+
+                    '<br>'+
+                    '<button id="pbnovaluebtn" style="display:none;" value="'+pbno+'"></button>'+
+                    '<button id="photocomtsendbtn" style="float:right;" class="btn btns-outline-m">입력</button>'
+            );
+                $.each(data.comments,function(index,item){
+                    if(item.comtphot ==null){
+                        var value = "<img class='teamphoto' style='width:100%;height: 100%;' src='/img/phot1.png' alt='프로필사진'>";
+                    } else{
+                        var value = "<img class='teamphoto' style='width:100%;height: 100%;' alt='없넹' src='../../upload/"+item.comtphot+"'>";
+                    }
+                    if(item.mno == sessionno){
+                        var comtrevise = 
+                            '<div class="revdelpcomt" value="'+item.pcno+'">'+
+                            '<i class="fas fa-pen revpcomtend" style="display:none;"></i>'+
+                            '<i class="fas fa-pen revpcomt"></i>'+
+                            '<i class="fas fa-trash-alt delpcomt"></i></div>'
+                    }else{
+                        var comtrevise = ''
+                    }
+                    $(".pcomtlist").append(
+                            '<div class="comtwrap">'+
+                            '<div class="comttop">'+
+                                '<div class="comtimg">'+
+                                value+
+                                '</div>'+
+                                '<div class="comtcont">'+
+                                '<textarea class="pcomtcontlist" readonly="readonly" disabled style="resize:none;width:100%;" rows="2">'+item.cont+'</textarea>'+
+                                '</div>'+
+                            '</div>'+
+                            '<div class="comtbottom">'+
+                                '<div class="comtname">'+item.comtname+'</div>'+
+                                '<div class="comtdate">'+item.strcdt+'</div>'+
+                            '</div>'+
+                            comtrevise+
+                        '</div>'
+                    );
+                })
+            
+        }
+        
+        
+    });
+});
+//사진댓글수정
+$(document).on("click",".revpcomt",function(){
+    $(this).parent().parent().find(".pcomtcontlist").removeAttr("readonly").removeAttr("disabled").addClass("revrev");
+    $(this).siblings(".revpcomtend").css("display","");
+    $(this).css("display","none");
+ });
+//사진댓글수정완료
+$(document).on("click",".revpcomtend",function(){
+    var pcno = $(this).parent().attr('value');
+    var content = $(this).parent().parent().find(".pcomtcontlist").val();
+    console.log("pcno:"+pcno);
+    console.log("cont:"+content);
+    
+    console.log("수정완료버튼펑션먹나??")
+    
+    $.ajax({
+        url:'revisephotcomment',
+        type:'GET',
+        dataType:'json',
+        data:{
+            "pcno":pcno,
+            "cont":content
+        },
+        success:function(data){
+            swal("댓글 수정","이 완료되었습니다.","success");
+            }
+        });
+    
+   $(this).parent().parent().find(".pcomtcontlist").attr("readonly","readonly").removeClass("revrev");
+   $(this).parent().parent().find(".pcomtcontlist").attr("disabled",true);
+   $(this).siblings(".revpcomt").css("display","");
+   $(this).css("display","none");
+});
+//사진댓글삭제
+$(document).on("click",".delpcomt",function(){
+    var sessionno=$('#sessionno').html();
+    var pbno=$("#pbnoval").attr('value');
+    var pcno = $(this).parent().attr('value');
+    
+    $.ajax({
+        url:'removephotcomment',
+        type:'GET',
+        dataType:'json',
+        data:{
+            "pcno":pcno,
+            "pbno":pbno
+        },
+        success:function(data){
+            swal("댓글 삭제","가 완료되었습니다.","success");
+            $(".pcomtlist").empty();
+            
+            $.each(data.comments,function(index,item){
+                if(item.comtphot ==null){
+                    var value = "<img class='teamphoto' style='width:100%;height: 100%;' src='/img/phot1.png' alt='프로필사진'>";
+                } else{
+                    var value = "<img class='teamphoto' style='width:100%;height: 100%;' alt='없넹' src='../../upload/"+item.comtphot+"'>";
+                }
+                if(item.mno == sessionno){
+                    var comtrevise = 
+                        '<div class="revdelpcomt" value="'+item.pcno+'">'+
+                        '<i class="fas fa-pen revpcomtend" style="display:none;"></i>'+
+                        '<i class="fas fa-pen revpcomt"></i>'+
+                        '<i class="fas fa-trash-alt delpcomt"></i></div>'
+                }else{
+                    var comtrevise = ''
+                }
+                $(".pcomtlist").append(
+                        '<div class="comtwrap">'+
+                        '<div class="comttop">'+
+                            '<div class="comtimg">'+
+                            value+
+                            '</div>'+
+                            '<div class="comtcont">'+
+                            '<textarea class="pcomtcontlist" readonly="readonly" disabled style="resize:none;width:100%;" rows="2">'+item.cont+'</textarea>'+
+                            '</div>'+
+                        '</div>'+
+                        '<div class="comtbottom">'+
+                            '<div class="comtname">'+item.comtname+'</div>'+
+                            '<div class="comtdate">'+item.strcdt+'</div>'+
+                        '</div>'+
+                        comtrevise+
+                    '</div>'
+                );
+            })
+            }
+        });
+    
+});
+
+
+// 영상댓글입력
+$(document).on("click","#avicomtsendbtn",function(){
+    var sessionno=$('#sessionno').html();
+    console.log("sessionNO:"+sessionno);
+    var abno=$("#delcomtval").attr('value');
+    console.log(abno);
+    var content=$("#acomtcont").val();
+    console.log(content);
+    
+    $.ajax({
+        url:'insertcomment',
+        type:'GET',
+        dataType:'json',
+        data:{
+            "mno":sessionno,
+            "abno":abno,
+            "cont":content
+        },
+        success:function(data){
+            $(".ainsertcontent").empty();
+            $(".acomtlist").empty();
+            
+            //댓글입력
+            $(".ainsertcontent").append(
+                    '<textarea name="acomtcont" id="acomtcont" style="resize:none;width:100%;" rows="2" placeholder="댓글을 입력해주세요.">'+
+                    '</textarea>'+
+                    '<br>'+
+                    '<button id="abnovaluebtn" style="display:none;" value="'+abno+'"></button>'+
+                    '<button id="avicomtsendbtn" style="float:right;" class="btn btns-outline-m">입력</button>'
+            );
+            
+            $.each(data.comments,function(index,item){
+                if(item.comtphot ==null){
+                    var value = "<img class='teamphoto' style='width:100%;height: 100%;' src='/img/phot1.png' alt='프로필사진'>";
+                } else{
+                    var value = "<img class='teamphoto' style='width:100%;height: 100%;' alt='없넹' src='../../upload/"+item.comtphot+"'>";
+                }
+                if(item.mno == sessionno){
+                    var comtrevise = 
+                        '<div class="revdelacomt" value="'+item.acno+'">'+
+                        '<i class="fas fa-pen revacomtend" style="display:none;"></i>'+
+                        '<i class="fas fa-pen revacomt"></i>'+
+                        '<i class="fas fa-trash-alt delacomt"></i></div>'
+                }else{
+                    var comtrevise = ''
+                }
+                $(".acomtlist").append(
+                        '<div class="comtwrap">'+
+                        '<div class="comttop">'+
+                            '<div class="comtimg">'+
+                            value+
+                            '</div>'+
+                            '<div class="comtcont">'+
+                            '<textarea class="acomtcontlist" readonly="readonly" disabled style="resize:none;width:100%;" rows="2">'+item.cont+'</textarea>'+
+                            '</div>'+
+                        '</div>'+
+                        '<div class="comtbottom">'+
+                            '<div class="comtname">'+item.comtname+'</div>'+
+                            '<div class="comtdate">'+item.strcdt+'</div>'+
+                        '</div>'+
+                        comtrevise+
+                    '</div>'
+                );
+            })
+        }
+        
+        
+    });
+});
+// 영상댓글수정
+$(document).on("click",".revacomt",function(){
+   $(this).parent().parent().find(".acomtcontlist").removeAttr("readonly").removeAttr("disabled").addClass("revrev");
+   $(this).siblings(".revacomtend").css("display","");
+   $(this).css("display","none");
+   
+});
+
+//영상댓글수정 완료
+$(document).on("click",".revacomtend",function(){
+    var acno = $(this).parent().attr('value');
+    var content = $(this).parent().parent().find(".acomtcontlist").val();
+    console.log("acno:"+acno);
+    console.log("cont:"+content);
+    
+    $.ajax({
+        url:'revisecomment',
+        type:'GET',
+        dataType:'json',
+        data:{
+            "acno":acno,
+            "cont":content
+        },
+        success:function(data){
+            swal("댓글 수정","이 완료되었습니다.","success");
+            }
+        });
+    
+   $(this).parent().parent().find(".acomtcontlist").attr("readonly","readonly").removeClass("revrev");
+   $(this).parent().parent().find(".acomtcontlist").attr("disabled",true);
+   $(this).siblings(".revacomtend").css("display","none");
+   $(this).css("display","");
+});
+// 영상댓글 삭제
+$(document).on("click",".delacomt",function(){
+    var sessionno=$('#sessionno').html();
+    var abno=$("#delcomtval").attr('value');
+    var acno = $(this).parent().attr('value');
+    
+    $.ajax({
+        url:'removecomment',
+        type:'GET',
+        dataType:'json',
+        data:{
+            "acno":acno,
+            "abno":abno
+        },
+        success:function(data){
+            swal("댓글 삭제","가 완료되었습니다.","success");
+            $(".acomtlist").empty();
+            
+            $.each(data.comments,function(index,item){
+                if(item.comtphot ==null){
+                    var value = "<img class='teamphoto' style='width:100%;height: 100%;' src='/img/phot1.png' alt='프로필사진'>";
+                } else{
+                    var value = "<img class='teamphoto' style='width:100%;height: 100%;' alt='없넹' src='../../upload/"+item.comtphot+"'>";
+                }
+                if(item.mno == sessionno){
+                    var comtrevise = 
+                        '<div class="revdelacomt" value="'+item.acno+'">'+
+                        '<i class="fas fa-pen revacomtend" style="display:none;"></i>'+
+                        '<i class="fas fa-pen revacomt"></i>'+
+                        '<i class="fas fa-trash-alt delacomt"></i></div>'
+                }else{
+                    var comtrevise = ''
+                }
+                $(".acomtlist").append(
+                        '<div class="comtwrap">'+
+                        '<div class="comttop">'+
+                            '<div class="comtimg">'+
+                            value+
+                            '</div>'+
+                            '<div class="comtcont">'+
+                            '<textarea class="acomtcontlist" readonly="readonly" disabled style="resize:none;width:100%;" rows="2">'+item.cont+'</textarea>'+
+                            '</div>'+
+                        '</div>'+
+                        '<div class="comtbottom">'+
+                            '<div class="comtname">'+item.comtname+'</div>'+
+                            '<div class="comtdate">'+item.strcdt+'</div>'+
+                        '</div>'+
+                        comtrevise+
+                    '</div>'
+                );
+            })
+            }
+        });
+    
 });
 //영상수정에서 url재입력 시
 function urlchkrev(){
@@ -292,8 +647,8 @@ function aviremove(){
 //사진게시글삭제
 function photoremove(){
     var buskno=$('#buskno').html();  
-    console.log(buskno);
-    var pbno=$('#photonumber').html(); 
+    console.log("buskno"+buskno);
+    var pbno=$('#photoboardnumber').html(); 
     console.log("pbno: "+pbno);
     
     location.href = 'deletephoto?pbno='+pbno+'&bno='+buskno;
@@ -307,7 +662,7 @@ function photorevise(){
     $("#revphotcont").removeAttr("readonly");
     $("#revphotcont").css("border","1px solid #80808066");
     
-    var photnumber = $("#photonumber").val();
+    var photoboardnumber = $("#photoboardnumber").val();
     var contentt = $("#revphotcont").val();
     var buskno=$('#buskno').html();  
     
@@ -345,7 +700,7 @@ function photorevise(){
                 '<table id="imgtable">'+
                 '<tr>'+
                 '<td style="display:none;">'+
-                "<input  type='text' name='pbno' id='pbno' value='"+photnumber+"'/>"+
+                "<input  type='text' name='pbno' id='pbno' value='"+photoboardnumber+"'/>"+
                 "<input  type='text' name='cont' id='cont' value='"+contentt+"'/>"+
                 "<input  type='text' name='bno' id='bno' value='"+buskno+"'/>"+
                 '</td>'+
@@ -383,7 +738,7 @@ function photorevise(){
                 '<table id="imgtable">'+
                 '<tr>'+
                 '<td style="display:none;">'+
-                "<input type='text' name='pbno' id='pbno' value='"+photnumber+"'/>"+
+                "<input type='text' name='pbno' id='pbno' value='"+photoboardnumber+"'/>"+
                 "<input  type='text' name='cont' id='cont' value='"+contentt+"'/>"+
                 "<input  type='text' name='bno' id='bno' value='"+buskno+"'/>"+
                 '</td>'+
@@ -420,7 +775,7 @@ function photorevise(){
                 '<table id="imgtable">'+
                 '<tr>'+
                 '<td style="display:none;">'+
-                "<input  type='text' name='pbno' id='pbno' value='"+photnumber+"'/>"+
+                "<input  type='text' name='pbno' id='pbno' value='"+photoboardnumber+"'/>"+
                 "<input  type='text' name='cont' id='cont' value='"+contentt+"'/>"+
                 "<input type='text' name='bno' id='bno' value='"+buskno+"'/>"+
                 '</td>'+
@@ -448,12 +803,6 @@ function photorevise(){
 
 
     }
-    /*
-    var photono = new Array();
-    var arr = new Array();
-    */
-
-
 
 }
 
@@ -512,13 +861,171 @@ function photoreviseend(){
     var contcont = $("#revphotcont").val();
     $("#cont").val(contcont);
     
-    
     $(".invisiblesubmit").submit();
-    
 }
 
+// 사진게시글 좋아요========================================================================
 
-
+/* 하얀하트누를때 */
+$(document).on("click","#photoheartbefore",function(){
+    // 게시글번호
+    var photono = $("#pbnoval").attr("value");
+    console.log("photono:"+photono);
+    // 로그인했나
+    var vvv = $("#memId").text().length;
+     if( vvv == 0){
+        swal({
+              title: "로그인 해주세요.", 
+            /* text: "로그인 해주세요!", */
+            icon: "warning",
+            buttons:{
+                catch: {
+                    text: "확인",
+                    value: "ok",
+                  }
+            }
+      }).then((value)=>{
+           return;
+      })
+        
+    } else{
+        // 로그인 했다면 로그인넘버를 알아와~
+        var loginno = $("#memId").text();
+        $(this).css("display","none");
+        $("#photoheartafter").css("display","");
+        
+         $.ajax({
+             type:"GET",
+             url:"likeme",
+             data:{
+                 "loginno":loginno,
+                 "feedbuskno":photono,
+                 "flag":2
+             },
+             success:function(data){
+                 $("#photolikecnt").empty();
+                 
+                 $("#photolikecnt").append(
+                         '<i id="photolikecount">'+data.returnlikecount+'</i>'
+                 );
+             }
+        });
+    }
+});
+/* 검은하트누를때 */
+ $(document).on("click","#photoheartafter",function(){
+     // 게시글번호
+     var photono = $("#pbnoval").attr("value");
+     // 로그인했나
+     var vvv = $("#memId").text().length;
+      if( vvv == 0){
+          
+      }else{
+          // 로그인 했다면 로그인넘버를 알아와~
+          var loginno = $("#memId").text();
+          $(this).css("display","none");
+          $("#photoheartbefore").css("display","");
+          
+           $.ajax({
+               type:"GET",
+               url:"nonelike",
+               data:{
+                   "loginno":loginno,
+                   "feedbuskno":photono,
+                   "flag":2
+               },
+               success:function(data){
+                   $("#photolikecnt").empty();
+                   
+                   $("#photolikecnt").append(
+                           '<i id="photolikecount">'+data.returnlikecount+'</i>'
+                   );
+               }
+          });
+      }
+    
+}); 
+ 
+ // 동영상게시글 좋아요
+ 
+ /* 하얀하트누를때 */
+ $(document).on("click","#aviheartbefore",function(){
+     // 게시글번호
+     var avino = $("#delcomtval").attr("value");
+     // 로그인했나
+     var vvv = $("#memId").text().length;
+      if( vvv == 0){
+         swal({
+               title: "로그인 해주세요.", 
+             /* text: "로그인 해주세요!", */
+             icon: "warning",
+             buttons:{
+                 catch: {
+                     text: "확인",
+                     value: "ok",
+                   }
+             }
+       }).then((value)=>{
+            return;
+       })
+         
+     } else{
+         // 로그인 했다면 로그인넘버를 알아와~
+         var loginno = $("#memId").text();
+         $(this).css("display","none");
+         $("#aviheartafter").css("display","");
+         
+          $.ajax({
+              type:"GET",
+              url:"likeme",
+              data:{
+                  "loginno":loginno,
+                  "feedbuskno":avino,
+                  "flag":3
+              },
+              success:function(data){
+                  $("#avilikecnt").empty();
+                  
+                  $("#avilikecnt").append(
+                          '<i id="avilikecount">'+data.returnlikecount+'</i>'
+                  );
+              }
+         });
+     }
+ });
+ /* 검은하트누를때 */
+  $(document).on("click","#aviheartafter",function(){
+      // 게시글번호
+      var avino = $("#delcomtval").attr("value");
+      // 로그인했나
+      var vvv = $("#memId").text().length;
+       if( vvv == 0){
+           
+       }else{
+           // 로그인 했다면 로그인넘버를 알아와~
+           var loginno = $("#memId").text();
+           $(this).css("display","none");
+           $("#aviheartbefore").css("display","");
+           
+            $.ajax({
+                type:"GET",
+                url:"nonelike",
+                data:{
+                    "loginno":loginno,
+                    "feedbuskno":avino,
+                    "flag":3
+                },
+                success:function(data){
+                    $("#avilikecnt").empty();
+                    
+                    $("#avilikecnt").append(
+                            '<i id="avilikecount">'+data.returnlikecount+'</i>'
+                    );
+                }
+           });
+       }
+     
+ }); 
 
 
 

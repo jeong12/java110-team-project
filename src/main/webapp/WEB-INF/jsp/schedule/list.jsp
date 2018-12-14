@@ -30,6 +30,9 @@ nav.pages {text-align: center;}
 #md{
     margin-top:5px;
 }
+.pages{margin-bottom: 1rem;}
+body{height: 50rem}
+footer{margin-top: 3rem;}
 table.table.table-hover, tr th{ 
 text-align: center; 
 }

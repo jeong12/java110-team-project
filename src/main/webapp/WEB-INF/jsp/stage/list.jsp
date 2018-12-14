@@ -6,7 +6,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>무대 목록</title>
+<title>공연장 현황</title>
 <link rel="stylesheet" href="/css/common.css"/>
 <link
     href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"
@@ -64,10 +64,11 @@ margin-bottom : 300px;
 }
 
 .teamPhotoImg {
-    width: 250px;
-    height: 250px;
-    margin: 5px;
-    border-radius: 10px;
+    width: 230px;
+    height: 230px;
+    margin: 10px;
+    border-radius: 0.25rem;
+
 }
 
 #titl {
@@ -76,9 +77,9 @@ margin-bottom : 300px;
 }
 
 #logo {
-    width: 50px;
-    height: 50px;
-    margin: 10px;
+    width: 40px;
+    height: 40px;
+    margin: 5px;
 }
 
 #td3 {
@@ -112,7 +113,7 @@ margin-bottom : 300px;
 }
 
 #searchdiv {
-    margin-bottom: 50px;
+    margin-bottom: 5px;
 }
 
 #selectsearch{
@@ -135,7 +136,22 @@ padding: 0;
 a#movetop {
     position: fixed; right: 2%; bottom: 82px; display: none; z-index: 999;
 }
-
+/* 팀이름 크기조절 */
+.teamnamefont{
+font-size: large;
+margin-left: 5px;
+text-align: left;
+padding:0 10px;
+width: 150px;
+/* font-family: -webkit-body; */
+}
+.teamlocalfont{
+font-size:small;
+color:red;
+margin-right: 0;
+text-align: right;
+width: 100px;
+}
 /* 날짜 */
 #startdateenddate{
     margin-left: 18%;
@@ -151,18 +167,18 @@ a#movetop {
 <div id="pos"></div>
     <div class="container">
         <div id="titl">
-            <h2><img id="logo" src="../../img/playButton.PNG" alt="플레이로고">무대 목록</h2>
+            <h3><img id="logo" src="../../img/playButton.PNG" alt="플레이로고">공연장 현황</h3>
         </div>
     </div>
     <div class="container" id="searchdiv">
         <div class="row">
             <!-- 인기순 최신순 -->
             <div id="startdateenddate">
-				<p>조회기간:
-				    <input type="text" id="from" name="sdt" placeholder="날짜를 선택하세요" 
+				<p style="font-size: 18px; margin: 0 0 20px 0;">조회기간 
+				    <input type="text" id="from" name="sdt" placeholder=" 시작일" style="font-size: 12px; margin: 0 10px 0 5px;"
 				    value="<%=request.getParameter("startDate") != null ? request.getParameter("startDate") : ""%>"> 
 				    ~
-				    <input type="text" id="to" name="edt" placeholder="날짜를 선택하세요" 
+				    <input type="text" id="to" name="edt" placeholder=" 종료일" style="font-size: 12px; margin: 0 5px 0 5px;"
 				    value="<%=request.getParameter("endDate") != null ? request.getParameter("endDate") : ""%>"> 
 				</p>
             </div>
@@ -211,11 +227,12 @@ a#movetop {
                                 style="text-decoration: none; color: #555; " class="js-load">
                                     <table>
                                         <tr>
-                                            <td><img src="../../img/${list.photoName}.png"
+                                            <td colspan="2"><img src="../../img/${list.photoName}.png"
                                                 class="teamPhotoImg"></td>
                                         </tr>
                                         <tr class="teamnametr">
-                                            <td>${list.name}</td>
+                                            <td class="teamlocalfont">${list.local}</td>
+                                            <td class="teamnamefont">${list.name}</td>
                                         </tr>
                                     </table>
                                 </a>
@@ -243,7 +260,8 @@ a#movetop {
                                                 class="teamPhotoImg"></td>
                                         </tr>
                                         <tr class="teamnametr">
-                                            <td>${name.name}</td>
+                                            <td class="teamlocalfont">${list.local}</td>
+                                            <td class="teamnamefont">${name.name}</td>
                                         </tr>
                                     </table>
                                 </a>
@@ -269,7 +287,8 @@ a#movetop {
                                                 class="teamPhotoImg"></td>
                                         </tr>
                                         <tr class="teamnametr">
-                                            <td>${local.name}</td>
+                                            <td class="teamlocalfont">${list.local}</td>
+                                            <td class="teamnamefont">${local.name}</td>
                                         </tr>
                                     </table>
                                 </a>
@@ -295,7 +314,8 @@ a#movetop {
                                             <td><img src="../../img/${genre.photoName}.png" class="teamPhotoImg"></td>
                                         </tr>
                                         <tr class="teamnametr">
-                                            <td>${genre.name}</td>
+                                            <td class="teamlocalfont">${list.local}</td>
+                                            <td class="teamnamefont">${genre.name}</td>
                                         </tr>
                                     </table>
                                 </a>
@@ -434,21 +454,21 @@ a#movetop {
         
         
         $(document).scroll(function(){
-           var pos = document.getElementById('pos'); 
-           var movetop = document.getElementById('movetop');
-           if($(pos).attr('value') > 50){
-               movetop.style.display = 'block';
-           } else{
-               movetop.style.display = 'none';
-           }
-        });
-        
-        $('#movetop').click(function(){
-            $('#top').animate({
-                 scrollTop:0
-            }, 800, 'easeInQuart');
-            return false;
-        });
+            var st = $(window).scrollTop();
+            var movetop = document.getElementById('movetop');
+            if(st > 50){
+                movetop.style.display = 'block';
+            } else{
+                movetop.style.display = 'none';
+            }
+         });
+         
+         $('#movetop').click(function(){
+             $('#top').animate({
+                  scrollTop:0
+             }, 800, 'easeInQuart');
+             return false;
+         });
     </script>
 </body>
 <jsp:include page="../footer.jsp"></jsp:include>

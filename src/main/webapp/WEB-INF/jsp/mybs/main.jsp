@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset='utf-8' />
+    <meta charset='utf-8' />
+    <title>내 의뢰현황</title>
 <!-- 모달 -->
 <link rel="stylesheet"
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
@@ -20,18 +21,89 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha256-3dkvEK0WLHRJ7/Csr0BZjAWxERc5WH7bdeUya2aXxdU= sha512-+L4yy6FRcDGbXJ9mPG8MT/3UCDzwR9gPeyFNMCtInsol++5m3bk2bXWKdZjvybmohrAsn3Ua5x8gfLnbE1YkOg==" crossorigin="anonymous">
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
+.pricing-divider h3{color: white;}
+
+.bg-gradient {
+    background: #C9D6FF;
+    background: -webkit-linear-gradient(to right, #E2E2E2, #C9D6FF);
+    background: linear-gradient(to right, #E2E2E2, #C9D6FF);
+}
+
+ul li {
+    margin-bottom: 1.4rem;
+}
+.pricing-divider  {
+    border-radius: 20px;
+    background: #b9d5e5;
+    padding: 1em 0 4em;
+    position: relative;
+}
+
+.blue b {
+    color: #2D5772
+}
+
+.pricing-divider-img {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 80px;
+}
+
+.deco-layer {
+    -webkit-transition: -webkit-transform 0.5s;
+    transition: transform 0.5s;
+}
+
+.btn-custom {
+    background: #C64545;
+    color: #fff;
+    border-radius: 20px
+}
+
+.img-float {
+    width: 50px;
+    position: absolute;
+    top: -3.5rem;
+    right: 1rem
+}
+
+.princing-item {
+    transition: all 150ms ease-out;
+    float: right;
+    margin-top:    0rem;
+    margin-right: 0rem;
+    width: 20rem;
+}
+
+.princing-item:hover {
+    transform: scale(1.05);
+}
+
+.princing-item:hover .deco-layer--1 {
+    -webkit-transform: translate3d(15px, 0, 0);
+    transform: translate3d(15px, 0, 0);
+}
+
+.princing-item:hover .deco-layer--2 {
+    -webkit-transform: translate3d(-15px, 0, 0);
+    transform: translate3d(-15px, 0, 0);
+}
+th{text-align: -webkit-center !important; }
+/* sdfajkl;sdfajkl;fasd */
 #calendar {
 	max-width: 900px;
 	margin: 0 auto;
 }
 
-#calendar, #selectday {
+#calendar{
 	display: inline-block;
 }
 
 #logo {
-	width: 50px;
-	height: 50px;
+	width: 40px;
+	height: 40px;
 }
 
 #addschedule {
@@ -81,7 +153,7 @@ display: none;
 display:inherit;
 } 
 
-#map,#reqmap,#permap{
+#map,#reqmap,#permap,#editmap{
     margin-top: 10px;
     border: 3px solid gray;
 }
@@ -92,10 +164,72 @@ display:inherit;
   border: 0;
   -ms-interpolation-mode: bicubic;
 }
+.pages{
+  text-align: center;
+    
+}
+
+.btns{
+    padding: 0;
+    width: 4rem;
+    height: 2rem;
+    font-size:0.8rem;    
+}
 #titl{margin-top: 2%; margin-bottom: 2%;}
 #logo{float: left;}
-#haha{margin-top: 0.8%; margin-left: 5.5%;}
+#haha{    margin-top: 0.7%;
+    margin-left: 5%;}
+#addschedulebtn{
+    width: 6rem;
+    margin-top: 1%;
+    margin-left: 13%;
+}
 
+.table td{
+    vertical-align: middle !important;
+}
+
+.table th{
+    text-align: center;
+}
+
+
+.label{
+    padding: .3em .6em .3em;
+    font-size: 86%;
+    font-weight: 700;
+}
+.nodata{
+    margin-bottom: 0;
+    background-color: white;
+    border-radius:0.25rem;
+    height: 20.3rem;
+}
+
+.pricing-divider h5{
+    text-align: center;
+    vertical-align: middle;
+}
+
+#selectday{
+    font-size:35px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color: black;
+    
+}
+
+#databody{
+    background-color: white;
+    height: 20rem;
+    border-radius: 0 0 1.1rem 1.1rem;
+}
+#nodata *{
+    margin-top: 0;
+}
+#datatable{
+    border: 0;
+}
 </style>
 
 </head>
@@ -103,7 +237,7 @@ display:inherit;
     <jsp:include page="../header.jsp"></jsp:include> 
 	<div id="titl" class="container">
 		<img id="logo" src="/img/playButton.PNG" alt="플레이로고">
-		<h2 id="haha">버스킹 일정</h2>
+		<h3 id="haha">내 의뢰현황</h3>
 	</div>
 
 
@@ -112,37 +246,64 @@ display:inherit;
 			<div id='calendar'></div>
 		</div>
 
-		<div class="col-lg-6" style="float:right; width:30%"><!-- 이거하면된다고?  -->
-			<div class="agenda" style="float: left;">
-				<div class="table-responsive">
-					<div id='selectday'>
-						<h4>날짜를 선택해주세요.</h4>
-						<table class="table table-condensed table-bordered">
-							<thead>
-								<tr>
-									<th width="140px">시간</th>
-									<th width="140px">공연장소명</th>
-									<th width="194px">주소</th>
-								</tr>
-							</thead>
-							<tbody id='clickdate'>
+		<div class="col-lg-6" style="float:right; width:30%; text-align:center;"> <!-- 이거하면된다고?-->
+			<div class="col-4 princing-item blue">
+				<div class="pricing-divider ">
+					<h3 id='selectday'>날짜를 선택해주세요</h3>
+					<svg class='pricing-divider-img'
+						enable-background='new 0 0 300 100' height='100px' id='Layer_1'
+						preserveAspectRatio='none' version='1.1' viewBox='0 0 300 100'
+						width='300px' x='0px' xml:space='preserve'
+						xmlns:xlink='http://www.w3.org/1999/xlink'
+						xmlns='http://www.w3.org/2000/svg' y='0px'>
+                <path class='deco-layer deco-layer--1'
+							d='M30.913,43.944c0,0,42.911-34.464,87.51-14.191c77.31,35.14,113.304-1.952,146.638-4.729
+                                       c48.654-4.056,69.94,16.218,69.94,16.218v54.396H30.913V43.944z'
+							fill='#FFFFFF' opacity='0.6'></path>
+                <path class='deco-layer deco-layer--2'
+							d='M-35.667,44.628c0,0,42.91-34.463,87.51-14.191c77.31,35.141,113.304-1.952,146.639-4.729
+   c48.653-4.055,69.939,16.218,69.939,16.218v54.396H-35.667V44.628z'
+							fill='#FFFFFF' opacity='0.6'></path>
+                <path class='deco-layer deco-layer--3'
+							d='M43.415,98.342c0,0,48.283-68.927,109.133-68.927c65.886,0,97.983,67.914,97.983,67.914v3.716
+   H42.401L43.415,98.342z'
+							fill='#FFFFFF' opacity='0.7'></path>
+                <path class='deco-layer deco-layer--4'
+							d='M-34.667,62.998c0,0,56-45.667,120.316-27.839C167.484,57.842,197,41.332,232.286,30.428
+   c53.07-16.399,104.047,36.903,104.047,36.903l1.333,36.667l-372-2.954L-34.667,62.998z'
+							fill='#FFFFFF'></path>
+            </svg>
+				</div>
 
-							</tbody>
-						</table>
-						<h3></h3>
+				<div class="card-body bg-white mt-0 shadow" id='databody' >
+					<div class="list-unstyled mb-5 position-relative" class='nodata'>
+					   <table  id='datatable'>
+                            <thead>
+                                <tr>
+                                    <th width="140px">시간</th>
+                                    <th width="140px">공연장소명</th>
+                                    <th width="194px">주소</th>
+                                </tr>
+                            </thead>
+                            <tbody id='clickdate'>
+
+                            </tbody>
+                        </table>
+                        <h5 id='nodata'></h5>
 					</div>
 				</div>
 			</div>
+
 		</div>
-	</div>
+	</div> 
 	
 <div class="container">
-    <div class="row" style="padding-top:10px;">
+    <div class="row" style="padding-top:50px;">
         
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left" style='display:inline-block;'>
                 <div id="addschedule">
-                   <button style="margin-top: -4%;" type="button" class="btns btns-outline-primary" data-toggle="modal"
-                       data-target="#myModal">스케줄등록하기</button>
+                   <button type="button" class="btns btns-outline-primary" data-toggle="modal"
+                       data-target="#myModal" id="addschedulebtn">스케줄등록하기</button>
                </div>
             <div class="list-group list-group-horizontal">
                <ul class='tabs'>
@@ -161,7 +322,7 @@ display:inherit;
 </div>	
 
 
-<div class="container" style="width=70%">
+<div class="container" style="width=70%; text-align: center;">
     <div class="row" style="width=100%">
         <div class="span12 current" id='tab1'>
             <table class="table table-striped table-condensed">	
@@ -501,7 +662,6 @@ input, textarea, button { margin-top:0px }
 	<!-- 스케줄 등록모달 -->
 	<div id="myModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
-
 			<!-- 모달 내부 설정 -->
 			<div class="modal-content">
 				<div class="modal-header">
@@ -728,9 +888,9 @@ input, textarea, button { margin-top:0px }
                     
                     <div class="form-group" style='float:right; margin-right: 10px;'>
                       <label class="col-md-4 control-label" ></label>  
-                      <div class="col-md-4">
-                      <button class="btn btn-default" value="" id="editno" type="button" data-dismiss="modal">수정</button>
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <div class="col-md-12" style="padding:0;">
+                      <button class="btns btns-outline-success" value="" id="editno" type="button" data-dismiss="modal">수정</button>
+                      <button type="button" class="btns btns-outline-danger" data-dismiss="modal">Close</button>
                       </div>
                     </div>
                     </fieldset>
@@ -889,7 +1049,6 @@ div.footer a.Cbtn-danger:hover{
                 <div class="tile">
                     <div class="wrapper">
                         <div class="header">요청스케줄 상세보기</div><!--test  -->
-
                         <div class="banner-img">
                             <div id="reqmap" style="width:48%;height:10rem;margin-top:10px; float:left;"></div> 
                             
@@ -1004,7 +1163,7 @@ div.footer a.Cbtn-danger:hover{
             <div class="col-lg-12 col-md-4 col-sm-6 col-xs-12" style="margin: auto">
                 <div class="tile">
                     <div class="wrapper">
-                        <div class="header">요청스케줄 상세보기</div><!--test  -->
+                        <div class="header">개인스케줄 상세보기</div><!--test  -->
 
                         <div class="banner-img">
                             <div id="permap" style="width:97%;height:10rem;margin-top:10px;margin: auto;"></div>
@@ -1012,7 +1171,7 @@ div.footer a.Cbtn-danger:hover{
                         <div class="banner-img" style="float: right;">
                             
                         </div>
-
+                <form>
                         <div class="dates" style="width:95%; margin-left: 2.5%; ">
                             <div class="start">
                                 <strong>시작시간</strong> 
@@ -1059,7 +1218,7 @@ div.footer a.Cbtn-danger:hover{
                                 <div id="pery" style="display: none"></div>
 
                         </div>
-
+                </form>
                         <div class="footer">
                             <button data-toggle="modal" data-target="#EditScheduleModal" class="btns btns-outline-success"
                             id="editbtn" data-dismiss="modal">수정</button>

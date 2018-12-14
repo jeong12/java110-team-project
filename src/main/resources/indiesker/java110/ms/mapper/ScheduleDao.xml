@@ -191,6 +191,24 @@
         <result column="name" property="bname" />
     </resultMap>
     
+    <resultMap type="Schedule" id="nperscheduleMap">
+        <id column="psno" property="sno" />
+        <result column="shopname" property="shopname" />
+        <result column="addr" property="addr" />
+        <result column="sdt" property="sdt" />
+        <result column="edt" property="edt" />
+        <result column="cnt" property="cnt" />
+        <result column="cdt" property="cdt" />
+        <result column="flag" property="flag" />
+        <result column="x" property="x" />
+        <result column="y" property="y" />
+        <association property="busker" javaType="busker">
+            <id column="bno"   property="bno"/>
+            <result column="name" property="teamname" />
+            <result column="genre" property="teamgenre"/>
+        </association>
+    </resultMap>
+    
  <!-- 스케줄조회 : 확정 버스커 스케줄 출력하는 쿼리  -->
  <select id="findbydate" resultMap="buskerscheduleMap" parameterType="map">
     SELECT 
@@ -237,7 +255,7 @@
   limit #{rowNo}, #{size}
  </select>
  
- <select id="findbypsno" resultMap="perscheduleMap" parameterType="int">
+ <select id="findbypsno" resultMap="nperscheduleMap" parameterType="int">
  SELECT PS.psno,
         PS.sdt,
         PS.edt,
@@ -245,12 +263,11 @@
         PS.addr, 
         PS.x, 
         PS.y, 
-        PS.shopname, 
         PS.cdt, 
-        PS.cnt, 
-        B.name as 
-        buskname ,B.
-        genre
+        PS.cnt,
+        B.bno, 
+        B.name,
+        B.genre
   FROM per_sche PS, busk B
  WHERE PS.bno = B.bno
    AND PS.psno=#{value}
@@ -1023,38 +1040,7 @@ SELECT
                 PS.y,
                 B.phot,
                 B.bno,
-                B.name     
-           FROM per_sche PS, busk B
-          WHERE PS.bno = B.bno
-            and SUBSTR(PS.sdt,1,10) == SUBSTR(NOW(),1,10)
-           UNION
-          SELECT
-                BR.brno, S.name as shopname, S.bas_addr as addr, MIN(SC.sdt) as sdt, MAX(SC.edt) as edt,
-                BR.cnt, BS.flag, BR.cdt, S.x, S.y, B.phot, B.bno, B.name
-            FROM busk B, busk_req BR, busk_stag BS,stag_sche SC, sup S
-           WHERE B.bno=BR.bno
-             AND BR.brno=BS.brno
-             AND BS.ssno=SC.ssno
-             AND SC.sno = S.sno
-        GROUP BY BS.brno
-          HAVING SUBSTR(sdt,1,10) == SUBSTR(NOW(),1,10)) ASD
-        )
-</select>
-
-
-<select id="findTodaySearchSchedule" resultMap="MapscheduleMap"
-        parameterType="map">
-SELECT 
-        brno, shopname, addr, sdt, edt, cnt, flag, cdt, x, y, phot, bno, name
-  FROM(
-          (SELECT 
-                PS.psno as brno, PS.shopname, PS.addr, PS.sdt, PS.edt, PS.cnt, 3 as flag, 
-                PS.cdt,
-                PS.x,
-                PS.y,
-                B.phot,
-                B.bno,
-                B.name  
+                B.name
            FROM per_sche PS, busk B
           WHERE PS.bno = B.bno
             and SUBSTR(PS.sdt,1,10) = SUBSTR(NOW(),1,10)
@@ -1070,8 +1056,40 @@ SELECT
         GROUP BY BS.brno
           HAVING SUBSTR(sdt,1,10) = SUBSTR(NOW(),1,10)) ASD
         )
- WHERE addr like concat('%',#{keyword1},'%'))
-    OR addr like concat('%',#{keyword2},'%'));
+  ORDER BY sdt ASC;
+</select>
+
+
+<select id="findTodaySearchSchedule" resultMap="MapscheduleMap"
+        parameterType="map">
+SELECT 
+        brno, shopname, addr, sdt, edt, cnt, flag, cdt, x, y, phot, bno, name
+  FROM   
+        (SELECT 
+                PS.psno as brno, PS.shopname, PS.addr, PS.sdt, PS.edt, PS.cnt, 3 as flag, 
+                PS.cdt,
+                PS.x,
+                PS.y,
+                B.phot,
+                B.bno,
+                B.name  
+           FROM per_sche PS, busk B
+          WHERE PS.bno = B.bno
+            and SUBSTR(PS.sdt,1,10) = SUBSTR(NOW(),1,10)
+          UNION
+         SELECT
+                BR.brno, S.name as shopname, S.bas_addr as addr, MIN(SC.sdt) as sdt, MAX(SC.edt) as edt,
+                BR.cnt, BS.flag, BR.cdt, S.x, S.y, B.phot, B.bno, B.name
+           FROM busk B, busk_req BR, busk_stag BS,stag_sche SC, sup S
+          WHERE B.bno=BR.bno
+            AND BR.brno=BS.brno
+            AND BS.ssno=SC.ssno
+            AND SC.sno = S.sno
+        GROUP BY BS.brno
+          HAVING SUBSTR(sdt,1,10) = SUBSTR(NOW(),1,10)) asd
+ WHERE addr like concat('%',#{keyword1},'%')
+    OR addr like concat('%',#{keyword2},'%')
+    order by sdt asc
 </select>
     
      <select id="totsearchSchedule" resultType="Integer" parameterType="map">
@@ -1127,7 +1145,7 @@ SELECT
                 B.name
            FROM per_sche PS, busk B
           WHERE PS.bno = B.bno
-            and SUBSTR(PS.sdt,1,10) >= SUBSTR(NOW(),1,10)
+            and SUBSTR(PS.sdt,1,10) = SUBSTR(NOW(),1,10)
            UNION
           SELECT
                 BR.brno, S.name as shopname, S.bas_addr as addr, MIN(SC.sdt) as sdt, MAX(SC.edt) as edt,
@@ -1138,9 +1156,10 @@ SELECT
              AND BS.ssno=SC.ssno
              AND SC.sno = S.sno
         GROUP BY BS.brno
-          HAVING SUBSTR(sdt,1,10) >= SUBSTR(NOW(),1,10)) ASD
+          HAVING SUBSTR(sdt,1,10) = SUBSTR(NOW(),1,10)) ASD
         )
  WHERE addr like CONCAT('%',#{keyword1},'%') 
+ order by sdt asc
 </select>
 
 

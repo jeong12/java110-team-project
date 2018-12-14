@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>여러개 마커 제어하기</title>
+    <title>버스커 위치</title>
     <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
@@ -25,7 +25,7 @@
     
     <style>
     
-    h3{font-family: "Do Hyeon"}
+    .caselh3{font-family: "Do Hyeon"}
     
     /* 박스 */
         .All{   
@@ -185,7 +185,7 @@ body {
     background-color: snow;
 }
 #ALLdiv{margin-top: 2.3rem;}
-#titl{margin-top: 2%; margin-bottom: 2%;}
+#titl{margin-top: 2%; margin-bottom: 2%; display: -webkit-box;}
 #logo{width: 40px; height: 40px;}
 #haha{    margin-top: 0;
     margin-bottom: 0;
@@ -260,20 +260,21 @@ footer{margin-top: 3rem;}
     }
     
 .hdiv{margin-left: 2%;}
-#drum{font-size: 2rem; float: left; margin-left: 2%; 
 
+#bticon{font-size: 2rem; float: left; margin-left: 2%;
 }
 #maptitle{padding-top: 0.8%;margin-left: 7%;}
 .carousel-cell{top: 3rem;}
 .flickity-viewport{background-color: rgba(93, 91, 213, 0.07);}
 
-.flickity-enabled.is-draggable .flickity-viewport{cursor: default;}
+.flickity-enabled.is-draggable .flickity-viewport{cursor: pointer;}
     </style>
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
 <div id="titl" class="container">
        <img id="logo" src="../../img/playButton.PNG" alt="플레이로고">
-       <h2 id="haha">버스킹 일정</h2>
+       <h3 id="haha" style="display: flex;">버스커 위치</h3>
+      
    </div>
 
 <body>
@@ -297,7 +298,7 @@ footer{margin-top: 3rem;}
 <div id="map"></div>
 <div id="hdiv">
 
-<i class="fas fa-drum" id="drum"></i>
+<i class="fas fa-drum" id="bticon"></i>
 <h3 id="maptitle">오늘의 공연목록</h3>
 </div>
 <div id="caseldiv">
@@ -312,7 +313,7 @@ footer{margin-top: 3rem;}
   <!-- 카르셀 시작 -->
   <c:forEach items="${list}" var="cl">
       <div class="carousel-cell" value="${cl.x},${cl.y}" >
-        <h3>${cl.bname}</h3>
+        <h3 class="caselh3">${cl.bname}</h3>
         <label>${cl.nsdt}~${cl.nedt}</label>
         <label class='a'>${cl.simpleaddr}</label>
         <img style="height: 8rem;" src="/upload/${cl.phot}" />
@@ -336,10 +337,10 @@ footer{margin-top: 3rem;}
     <div class="toptable">시 / 도</div>
     <div class="listbox">
         <ul>
-            <li>서울특별시</li>
+            <li id='seoul'>서울특별시</li>
             <li>경기도</li>
             <li>인천광역시</li>
-            <li>부산광역시</li>
+            <li id='busan'>부산광역시</li>
             <li>대구광역시</li>
             <li>광주광역시</li>
             <li>대전광역시</li>
@@ -364,7 +365,7 @@ footer{margin-top: 3rem;}
     </div>
     
     </div>
-    <div class="All2">
+    <div class="All2" id='seoulmenu'>
     <div class="toptable">시 / 군 / 구</div>
     <div class="listbox">
         <ul>
@@ -404,7 +405,33 @@ footer{margin-top: 3rem;}
     </div>
 
 
-
+    <div class="All2" id='busanmenu' style="height: 23.1rem;">
+	    <div class="toptable">시 / 군 / 구</div>
+	    <div class="listbox">
+	        <ul>
+	            <li>중구</li>
+	            <li>서구</li>
+	            <li>동구</li>
+	            <li>영도구</li>
+	            <li>부산진구</li>
+	            <li>동래구</li>
+	            <li>남구</li>
+	            <li>북구</li>
+	            <li>해운대구</li>
+	            <li>사하구</li>
+	            <li>금정구</li>
+	            <li>강서구</li>
+	            <li>연제구</li>
+	            <li>수영구</li>
+	            <li>사상구</li>
+	            <li>기장군</li>
+	        </ul>
+	    </div>
+		    <div class="boxbt">
+		        <button>취소</button>
+		    </div>
+    </div>
+    
 <script src="https://unpkg.com/flickity@2.0/dist/flickity.pkgd.min.js"></script>    
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=15e2302756c9e7098ec0d79f7b4d53f4"></script>
 
@@ -420,7 +447,7 @@ $(document).ready(function(){
     
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
     mapOption = { 
-        center: new daum.maps.LatLng(37.4854, 127.034), // 지도의 중심좌표
+        center: new daum.maps.LatLng(37.5342, 126.992), // 지도의 중심좌표
         level: 7 // 지도의 확대 레벨
     };
 
@@ -547,27 +574,52 @@ $(".choicearea").click(function(){
     $('.'+listhideID).css('display','none');
 });
 
+
+/* 시군구 선택시 무엇을 열어줄지 */
+$("#All2").click(function(){
+	var area =$("#All").text(); 
+    var listID=$(this).attr('id');
+    var listhideID=$(this).siblings().attr('id');
+    console.log(area);
+    $(this).css('background-color','#c6cbce');
+    $(this).siblings().css('background-color','#f2f3f5');
+    
+    if(area=='부산광역시'){
+    	$('#busanmenu').css('display','block');
+    	$('#seoulmenu').css('display','none');
+    }else if(area=='서울특별시'){
+    	$('#seoulmenu').css('display','block');
+    	$('#busanmenu').css('display','none');
+    }else{
+    	$('.All2').css('display','none');
+    	swal("","시도를 먼저 선택해주세요.","warning");
+    	
+    }
+    
+    //$('.'+listhideID).css('display','none');
+});
+
+
 $('html').click(function(e) { 
 	if($(e.target).parent().parent().hasClass("listbox")) {
-		console.log('지역선택중입니다.');
 	}else if(!$(e.target).hasClass("choicearea")) {
-        console.log('태크밖이지롱');
         $("#All").css('background-color','#f2f3f5');
         $("#All2").css('background-color','#f2f3f5');
         $('.All').css('display','none');
         $('.All2').css('display','none');
-    } //ㅅㄷㄴㅅ
+    }
 	
 });
 
 
 $(".All li").click(function(){
     var searchCode= $(this).text();
+    var area = $(this).attr('id');
     $("#All").text(searchCode);
     $("#All").css('background-color','#f2f3f5');
     $("#All2").css('background-color','#c6cbce');
     $('.All').css('display','none');
-    $('.All2').css('display','block');
+    $('#'+area+'menu').css('display','block');
 });
 
 
@@ -591,7 +643,7 @@ $(".All2 li").click(function(){
         success : function(data) { 
             if(data.length!='0'){
             	if(data.length=='0'){
-                    swal("에러","갬색 지역의 버스커 공연이 없습니다.","error");
+                    swal("","갬색 지역의 버스커 공연이 없습니다.","warning");
                 }else{
                        $('.carousel-wrapper').empty();
                        $('.carousel-wrapper').append('<div class="carousel"></div>'); 
@@ -650,7 +702,7 @@ $(".All2 li").click(function(){
                 });
                    map.setBounds(bounds); */
             }else{
-                swal("에러","갬색 지역의 버스커 공연이 없습니다.","error");
+                swal("","갬색 지역의 버스커 공연이 없습니다.","warning");
             }
         },
         error : function(request, status, error) {
@@ -685,7 +737,7 @@ $('.carousel-cell').click(function(){
 $('#sbutton').click(function(){
 	var keyword=$('#searchinput').val();
 	if(keyword.length==0){
-		swal("오류","검색어를 다시 설정해주세요.","warning");
+		swal("","검색어를 다시 설정해주세요.","warning");
 	}else{
 		$.ajax({ 
 	        type : "POST", 
@@ -696,7 +748,7 @@ $('#sbutton').click(function(){
 	        }, 
 	        success : function(data) {
 	        	if(data.length=='0'){
-	        		swal("에러","갬색 지역의 버스커 공연이 없습니다.","error");
+	        		swal("","갬색 지역의 버스커 공연이 없습니다.","warning");
 	        	}else{
 		               $('.carousel-wrapper').empty();
 		               $('.carousel-wrapper').append('<div class="carousel"></div>'); 
