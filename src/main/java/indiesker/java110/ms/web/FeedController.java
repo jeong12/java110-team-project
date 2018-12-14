@@ -169,7 +169,7 @@ public class FeedController {
   public Avi getAviNo(
       String abno, Model model,HttpSession session) {  
     int loginno = 0;
-    
+
     int abno2 = Integer.parseInt(abno);
     Avi feedavi=aviService.getfeedavibyAbno(abno2);
 
@@ -177,7 +177,7 @@ public class FeedController {
       feedavi = aviService.getfeedavibyAbnoNoComt(abno2);
       feedavi.setComtcount(0);
       feedavi.setReturnlikecount(memberService.searchLikeCount(abno2, 3));
-      
+
       if(session.getAttribute("loginUser") != null) {
         Member mm = (Member)session.getAttribute("loginUser");
         loginno = mm.getNo();
@@ -189,7 +189,7 @@ public class FeedController {
           feedavi.setLikeOX(0);
         }
       }
-      
+
       return feedavi;
     }else {
       feedavi.setComtcount(5);
@@ -197,9 +197,9 @@ public class FeedController {
       for (Comment comment : comts) {
         comment.setStrcdt(comment.getCdt().toString());
       }
-      
+
       feedavi.setReturnlikecount(memberService.searchLikeCount(abno2, 3));
-      
+
       if(session.getAttribute("loginUser") != null) {
         Member mm = (Member)session.getAttribute("loginUser");
         loginno = mm.getNo();
@@ -211,7 +211,7 @@ public class FeedController {
           feedavi.setLikeOX(0);
         }
       }
-      
+
       return feedavi;
     }
   }
@@ -226,7 +226,7 @@ public class FeedController {
     if(feedphoto == null) {
       feedphoto = feedPhotoService.getfeedphotobyPbnoNoComt(pbno2);
       feedphoto.setComtcount(0);
-      
+
       feedphoto.setReturnlikecount(memberService.searchLikeCount(pbno2, 2));
       if(session.getAttribute("loginUser") != null) {
         Member mm = (Member)session.getAttribute("loginUser");
@@ -238,7 +238,7 @@ public class FeedController {
           feedphoto.setLikeOX(0);
         }
       }
-      
+
       return feedphoto;
     }else {
       feedphoto.setComtcount(5);
@@ -326,7 +326,9 @@ public class FeedController {
   @RequestMapping("insertphotcomment")
   public FeedPhoto insertphotcomt(String pbno, String mno, String cont) {
     int pbno2 = Integer.parseInt(pbno);
+    System.out.println("mno:"+mno);
     int mno2 = Integer.parseInt(mno);
+    System.out.println("@@@test");
 
     int no = feedPhotoService.insertPhotComt(pbno2, mno2, cont);
     //입력완료================================
@@ -363,12 +365,22 @@ public class FeedController {
 
     Avi feedavi=aviService.getfeedavibyAbno(abno2);
 
-    List<Comment> comts=feedavi.getComments();
-    for (Comment comment : comts) {
-      comment.setStrcdt(comment.getCdt().toString());
-    }
+    if(feedavi == null) {
+      feedavi = aviService.getfeedavibyAbnoNoComt(abno2);
+      feedavi.setComtcount(0);
+      System.out.println("fucking");
 
-    return feedavi;
+      return feedavi;
+    }else {
+      feedavi.setComtcount(5);
+
+      List<Comment> comts=feedavi.getComments();
+      for (Comment comment : comts) {
+        comment.setStrcdt(comment.getCdt().toString());
+      }
+
+      return feedavi;
+    }
   }
   @ResponseBody
   @RequestMapping("removephotcomment")
@@ -379,12 +391,20 @@ public class FeedController {
 
     FeedPhoto feedphoto=feedPhotoService.getfeedphotobyPbno(pbno2);
 
-    List<Comment> comts=feedphoto.getComments();
-    for (Comment comment : comts) {
-      comment.setStrcdt(comment.getCdt().toString());
-    }
+    if(feedphoto == null) {
+      feedphoto = feedPhotoService.getfeedphotobyPbnoNoComt(pbno2);
+      feedphoto.setComtcount(0);
 
-    return feedphoto;
+      return feedphoto;
+    }else {
+      feedphoto.setComtcount(5);
+
+      List<Comment> comts=feedphoto.getComments();
+      for (Comment comment : comts) {
+        comment.setStrcdt(comment.getCdt().toString());
+      }
+      return feedphoto;
+    }
   }
 
   @GetMapping("deleteavi")
@@ -562,7 +582,7 @@ public class FeedController {
     int loginno2 = Integer.parseInt(loginno);
     int feedbuskno2 = Integer.parseInt(feedbuskno);
     int flag2 = Integer.parseInt(flag);
-    
+
 
     memberService.noneLike(loginno2, feedbuskno2,flag2);
 

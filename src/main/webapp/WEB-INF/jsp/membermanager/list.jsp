@@ -82,7 +82,7 @@ padding-left: 28%;
 .text-left{margin-top: 1%; margin-bottom: -1%;}
 #ccc{display: inline-flex;}
 #selt{width: 6rem; margin-right: 0.2rem;}
-#input{width:6rem; margin-right: 0.2rem;}
+#input{width:11rem; margin-right: 0.2rem;}
 #tbtn{
 font-size: 0.8rem;
     margin-top: -0.15rem;
@@ -131,6 +131,7 @@ img{width: 100%; height: 100%;}
         </div>    
        </div>
 
+<!-- 전체 보기  -->
         <div class="table table-responsive">
               
          <div class="tab12" id="bt1"> 
@@ -436,6 +437,7 @@ img{width: 100%; height: 100%;}
 </div>
 <!-- 서포터모달 끝 -->
 <script>
+
 /* 정지 기능 */
 function stop(params){
     var stopORun;
@@ -518,8 +520,8 @@ function ssss(){
                   title: '변경하였습니다',
                   showConfirmButton: false})
 }
-/* feweafwefw */
-//메모 업데이트 해주는 function
+
+//메모 업데이트
 $('.gg').click(function(){
      var texta = $(".texta").val();
      var nik = $(".nikval").attr("value");
@@ -539,6 +541,8 @@ $('.gg').click(function(){
             }           
     });
 });
+
+/* 일반회원 상세보기 */
 $(document).on("click",'.memberDetail',function(){
     var m = $(this).val();
     
@@ -567,6 +571,8 @@ $(document).on("click",'.memberDetail',function(){
     })
     
 })
+
+/* 버스커 상세보기 */
 $(document).on("click",'.buskDetail',function(){
     var b = $(this).val();
     
@@ -603,6 +609,8 @@ $(document).on("click",'.buskDetail',function(){
     })
     
 });
+
+/* 제공자 상세보기 */
 $(document).on("click",'.supDetail',function(){
     var s = $(this).val();
     $.ajax({
@@ -642,7 +650,8 @@ $(document).on("click",'.supDetail',function(){
            
         }});
         });
-// 메모 값 가져오는 function
+        
+// 메모 값 가져오기
 $(document).on("click",'.btt',function(){
     var nik =$(this).val();
     $.ajax({
@@ -652,19 +661,20 @@ $(document).on("click",'.btt',function(){
            success : function(data){
            $(".cl").empty();
            $('#message-text').empty();
-           $('.cl').append("<h1 class='nikval' value="+nik+">"+nik+"님의 메모수정:</h1>"); 
+           $('.cl').append("<h1 class='nikval' value="+nik+">"+nik+"님의 메모수정</h1>"); 
            $('#message-text').append(data);
            }, error : function(request, status, error) {
                alert("에러가 발생했습니다. 관리자에게 문의하시기 바랍니다");
            }           
    });  
 });
-    
+   
+/* 새로고침 */
 function reset(){
     window.location.href=window.location.href;
 }
 
-// 검색 플래그!
+/* 검색 */
 function check(e){
 var data1= $('.date1').val();
 var data2 =$('.date2').val();
@@ -694,9 +704,9 @@ $.ajax({
             if(item.flag == 1 || item.flag == 11){
                 var btn;
                 if(item.flag < 10){
-                    btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지</button></td></tr>';                        
+                    btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="'+item.id+" "+item.flag+'" onclick="stop(value)">정지</button></td></tr>';                        
                     } else {
-                    btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td></tr>'     
+                    btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value=value="'+item.id+" "+item.flag+'" onclick="stop(value)">정지해제</button></td></tr>'     
                     }
             $("#testappend, #testappend1").append('<tr><td>'+item.id+'</td>'
                     +'<td>'+item.nik+'</td>'
@@ -711,9 +721,9 @@ $.ajax({
             }else if(item.flag == 2 || item.flag == 12){
                 var btn;
                 if(item.flag < 10){
-                    btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지</button></td></tr>';                        
+                    btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="'+item.id+" "+item.flag+'" onclick="stop(value)">정지</button></td></tr>';                        
                     } else {
-                    btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td></tr>'     
+                    btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="'+item.id+" "+item.flag+'" onclick="stop(value)">정지해제</button></td></tr>'     
                     }
                 $("#testappend, #testappend2").append('<tr><td>'+item.id+'</td>'
                  +'<td>'+item.nik+'</td>'
@@ -728,9 +738,9 @@ $.ajax({
             }else if(item.flag==3 || item.flag==13){
                 var btn;
                 if(item.flag < 10){
-                    btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지</button></td></tr>';                        
+                    btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="'+item.id+" "+item.flag+'" onclick="stop(value)">정지</button></td></tr>';                        
                     } else {
-                    btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td></tr>'     
+                    btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="'+item.id+" "+item.flag+'" onclick="stop(value)">정지해제</button></td></tr>'     
                     }
                 $("#testappend, #testappend3").append('<tr><td>'+item.id+'</td>'
                 +'<td>'+item.nik+'</td>'
@@ -767,6 +777,8 @@ $.ajax({
     
 });
 }
+
+/* 카르셀 */
 $('#myCarousel').carousel({
     interval: 5000
 });
@@ -782,11 +794,15 @@ $('#myCarousel').on('slid.bs.carousel', function (e) {
          var id = $('.item.active').data('slide-number');
         $('#carousel-text').html($('#slide-content-'+id).html());
 });
-   
+
+
+/* 전체보기 페이징 */
 function goPage(e){
     $('.pageNO').val(e);
     $('.pageForm').submit();
 }
+
+/* 에이작으로 전체보기 페이징 */
 function goPageAll(e){
     $.ajax({
         type : "POST",
@@ -839,6 +855,8 @@ function goPageAll(e){
         
     });
 }
+
+/* 에이작으로 일반회원 페이징 */
 function goPageMemb(e){
     $.ajax({
         type : "POST",
@@ -891,6 +909,8 @@ function goPageMemb(e){
         
     });
 }
+
+/* 에이작으로 버스커 페이징 */
 function goPageBusk(e){
     $.ajax({
         type : "POST",
@@ -943,6 +963,9 @@ function goPageBusk(e){
         
     });
 }
+
+
+/* 에이작으로 서포터 페이징 */
 function goPageSup(e){
     $.ajax({
         type : "POST",
@@ -995,6 +1018,8 @@ function goPageSup(e){
         
     });
 }
+
+/* 에이작으로 정지회원 페이징 */
 function goPageStop(e){
     $.ajax({
         type : "POST",
@@ -1047,6 +1072,8 @@ function goPageStop(e){
         
     });
 }
+
+/* 에이작으로 전체보기 */
 function showList(){
     $('.tabs li').eq(0).removeClass('list-group-item').addClass('list-group-item active');
     $('.tabs li:not(:eq(0))').removeClass('list-group-item active').addClass('list-group-item');
@@ -1103,6 +1130,9 @@ function showList(){
             
         });
 }
+
+
+/* 에이작으로 일반회원*/
 function showMemb(){
     $('.tabs li').eq(1).removeClass('list-group-item').addClass('list-group-item active');
     $('.tabs li:not(:eq(1))').removeClass('list-group-item active').addClass('list-group-item');
@@ -1117,9 +1147,9 @@ function showMemb(){
                 $.each(data.list,function(index,item){
                     var btn;
                     if(item.flag < 10){
-                        btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지</button></td></tr>';                        
+                        btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="'+item.id+" "+item.flag+'" onclick="stop(value)">정지</button></td></tr>';                        
                         } else {
-                        btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td></tr>'     
+                        btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="'+item.id+" "+item.flag+'" onclick="stop(value)">정지해제</button></td></tr>'     
                         }
                 $('#testappend').append(
                         '<tr><td>'+item.id+'</td>'+
@@ -1159,6 +1189,9 @@ function showMemb(){
             
         });
 };
+
+
+/* 에이작으로 버스커 */
 function showBusk(){
        $('.tabs li').eq(2).removeClass('list-group-item').addClass('list-group-item active');
         $('.tabs li:not(:eq(2))').removeClass('list-group-item active').addClass('list-group-item');
@@ -1173,9 +1206,9 @@ function showBusk(){
                 $.each(data.list,function(index,item){
                     var btn;
                     if(item.flag < 10){
-                        btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지</button></td></tr>';                        
+                        btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="'+item.id+" "+item.flag+'" onclick="stop(value)">정지</button></td></tr>';                        
                         } else {
-                        btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td></tr>'     
+                        btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="'+item.id+" "+item.flag+'" onclick="stop(value)">정지해제</button></td></tr>'     
                         }
                     $('#testappend').append(
                        '<tr><td>'+item.id+'</td>'+
@@ -1214,6 +1247,9 @@ function showBusk(){
             
         });
 };
+
+
+/* 에이작으로 제공자*/
 function showSup(){
        $('.tabs li').eq(3).removeClass('list-group-item').addClass('list-group-item active');
         $('.tabs li:not(:eq(3))').removeClass('list-group-item active').addClass('list-group-item');
@@ -1228,9 +1264,9 @@ function showSup(){
                 $.each(data.list,function(index,item){
                     var btn;
                     if(item.flag < 10){
-                        btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지</button></td></tr>';                        
+                        btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="'+item.id+" "+item.flag+'" onclick="stop(value)">정지</button></td></tr>';                        
                         } else {
-                        btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td></tr>'     
+                        btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="'+item.id+" "+item.flag+'" onclick="stop(value)">정지해제</button></td></tr>'     
                         }
                     $('#testappend').append(
                        '<tr><td>'+item.id+'</td>'+
@@ -1269,6 +1305,9 @@ function showSup(){
             
         });
 };
+
+
+/* 에이작으로 정지 탭*/
 function showStop(){
        $('.tabs li').eq(4).removeClass('list-group-item').addClass('list-group-item active');
         $('.tabs li:not(:eq(4))').removeClass('list-group-item active').addClass('list-group-item');
@@ -1283,9 +1322,9 @@ function showStop(){
                 $.each(data.list,function(index,item){
                     var btn;
                     if(item.flag < 10){
-                        btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지</button></td></tr>';                        
+                        btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="'+item.id+" "+item.flag+'" onclick="stop(value)">정지</button></td></tr>';                        
                         } else {
-                        btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="${m.id} ${m.flag}" onclick="stop(value)">정지해제</button></td></tr>'     
+                        btn = '<td><button class="btn btns-outline-danger" data-title="Delete" data-toggle="modal" data-target="#delete" value="'+item.id+" "+item.flag+'" onclick="stop(value)">정지해제</button></td></tr>'     
                         }
                     $('#testappend').append(
                        '<tr><td>'+item.id+'</td>'+

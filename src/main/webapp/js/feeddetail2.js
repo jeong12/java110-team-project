@@ -10,6 +10,7 @@ $(".col-md-4.photo button").on('click', function() {
     var pbno=$(this).val();
     console.log("photoBoardNO:"+pbno);
     
+    var vvv = $("#memId").text().length;
     
     $.ajax({
         type:"GET",
@@ -75,14 +76,25 @@ $(".col-md-4.photo button").on('click', function() {
                   '</div>'
             );
             
-            //댓글
-            $(".pinsertcontent").append(
-                    '<textarea name="pcomtcont" id="pcomtcont" style="resize:none;width:100%;" rows="2" placeholder="댓글을 입력해주세요.">'+
-                    '</textarea>'+
-                    '<br>'+
-                     '<button id="pbnovaluebtn" style="display:none;" value="'+pbno+'"></button>'+
-                    '<button id="photocomtsendbtn" style="float:right;" class="btn btns-outline-m">입력</button>'
-            );
+            if(vvv==0){
+                //댓글
+                $(".pinsertcontent").append(
+                        '<textarea name="pcomtcont" id="pcomtcont" readonly="readonly" disabled style="resize:none;width:100%;" rows="2" placeholder="로그인 해주세요.">'+
+                        '</textarea>'+
+                        '<br>'+
+                         '<button id="pbnovaluebtn" style="display:none;" value="'+pbno+'"></button>'+
+                        '<button id="photocomtsendbtn" disabled style="float:right;" class="btn btns-outline-m">입력</button>'
+                );
+            } else{
+                //댓글
+                $(".pinsertcontent").append(
+                        '<textarea name="pcomtcont" id="pcomtcont" style="resize:none;width:100%;" rows="2" placeholder="댓글을 입력해주세요.">'+
+                        '</textarea>'+
+                        '<br>'+
+                         '<button id="pbnovaluebtn" style="display:none;" value="'+pbno+'"></button>'+
+                        '<button id="photocomtsendbtn" style="float:right;" class="btn btns-outline-m">입력</button>'
+                );
+            }
             if(data.comtcount == 5){
                 $.each(data.comments,function(index,item){
                     if(item.comtphot ==null){
@@ -137,6 +149,8 @@ $('.col-md-4.avi button').on('click', function() {
     console.log("buskerNo:"+buskno);
     var abno=$(this).val();
     console.log("AVIBOARDNO:"+abno);
+    var vvv = $("#memId").text().length;
+    
     $.ajax({
         type:"GET",
         url:"showavi",
@@ -230,14 +244,27 @@ $('.col-md-4.avi button').on('click', function() {
                       '<div id="avilikecnt"><i id="avilikecount">'+data.returnlikecount+'</i></div>'+
                       '</div>'
                 );
-                //댓글입력
-                $(".ainsertcontent").append(
-                        '<textarea name="acomtcont" id="acomtcont" style="resize:none;width:100%;" rows="2" placeholder="댓글을 입력해주세요.">'+
-                        '</textarea>'+
-                        '<br>'+
-                        '<button id="abnovaluebtn" style="display:none;" value="'+abno+'"></button>'+
-                        '<button id="avicomtsendbtn" style="float:right;" class="btn btns-outline-m">입력</button>'
-                );
+                
+                if(vvv==0){
+                    //댓글입력
+                    $(".ainsertcontent").append(
+                            '<textarea name="acomtcont" id="acomtcont" readonly="readonly" disabled style="resize:none;width:100%;" rows="2" placeholder="로그인 해주세요.">'+
+                            '</textarea>'+
+                            '<br>'+
+                            '<button id="abnovaluebtn" style="display:none;" value="'+abno+'"></button>'+
+                            '<button id="avicomtsendbtn" style="float:right;" disabled class="btn btns-outline-m">입력</button>'
+                    );
+                }else{
+                    //댓글입력
+                    $(".ainsertcontent").append(
+                            '<textarea name="acomtcont" id="acomtcont" style="resize:none;width:100%;" rows="2" placeholder="댓글을 입력해주세요.">'+
+                            '</textarea>'+
+                            '<br>'+
+                            '<button id="abnovaluebtn" style="display:none;" value="'+abno+'"></button>'+
+                            '<button id="avicomtsendbtn" style="float:right;" class="btn btns-outline-m">입력</button>'
+                    );
+                }
+
                 //댓글 리스트
                 if(data.comtcount == 5){
                     $.each(data.comments,function(index,item){
@@ -281,7 +308,7 @@ $('.col-md-4.avi button').on('click', function() {
 
 //사진댓글입력
 $(document).on("click","#photocomtsendbtn",function(){
-    var sessionno=$('#sessionno').html();
+    var sessionno=$("#memId").text();
     console.log("sessionNO:"+sessionno);
     var pbno=$("#pbnoval").attr('value');
     console.log(pbno);
@@ -399,6 +426,7 @@ $(document).on("click",".delpcomt",function(){
             swal("댓글 삭제","가 완료되었습니다.","success");
             $(".pcomtlist").empty();
             
+            if(data.comtcount == 5){
             $.each(data.comments,function(index,item){
                 if(item.comtphot ==null){
                     var value = "<img class='teamphoto' style='width:100%;height: 100%;' src='/img/phot1.png' alt='프로필사진'>";
@@ -433,6 +461,7 @@ $(document).on("click",".delpcomt",function(){
                 );
             })
             }
+        }
         });
     
 });
@@ -440,7 +469,7 @@ $(document).on("click",".delpcomt",function(){
 
 // 영상댓글입력
 $(document).on("click","#avicomtsendbtn",function(){
-    var sessionno=$('#sessionno').html();
+    var sessionno=$("#memId").text();
     console.log("sessionNO:"+sessionno);
     var abno=$("#delcomtval").attr('value');
     console.log(abno);
@@ -558,6 +587,7 @@ $(document).on("click",".delacomt",function(){
             swal("댓글 삭제","가 완료되었습니다.","success");
             $(".acomtlist").empty();
             
+            if(data.comtcount == 5){
             $.each(data.comments,function(index,item){
                 if(item.comtphot ==null){
                     var value = "<img class='teamphoto' style='width:100%;height: 100%;' src='/img/phot1.png' alt='프로필사진'>";
@@ -592,6 +622,7 @@ $(document).on("click",".delacomt",function(){
                 );
             })
             }
+        }
         });
     
 });
