@@ -75,3 +75,11 @@ function readURL(input) {
         $(".signupbtn").css("background-color", "#4CAF50");
     }
 }
+
+$('#teamInfo').on('keyup',function(){
+	var cont = $('#teamInfo').val();
+	var contl = cont.length;
+	if(contl > 250){
+		$('#teamInfo').val(cont.substring(0,250));
+	}
+});

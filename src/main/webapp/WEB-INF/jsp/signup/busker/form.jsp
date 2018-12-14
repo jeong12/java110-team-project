@@ -92,10 +92,11 @@ input:invalid {
     box-shadow: none;
 }
 
-#upload {width: 100%; height: 100%; margin-top: 1rem; padding-left: 8rem;}
-#input_img {
+#upload {width: 100%; height: 100%;/*  margin-top: 1rem; padding-left: 8rem; */}
+/* #input_img {
     padding-top: 20px;
-}
+} */
+
 .signupbtn:disabled {
     cursor: not-allowed;
     background-color: #3F51D1;
@@ -124,6 +125,8 @@ input:invalid {
     border-right: none;
     border-bottom: 1px solid black;
 }
+
+#teamInfo{resize: none;}
 #input_img{opacity: 0;}
 </style>
 </head>
@@ -167,13 +170,12 @@ input:invalid {
             <br> <span id="telMsg"></span><br>
              <label for="instrument">악기</label><br>
             <input type="text" name="instrument" size=30 id="instrument" autocomplete="off" onfocus="checkTel()"> <br>
-            <label for="straming">스트리밍 url</label><br>
-            <input type="text" name="streamingUrl" size=30 id="straming" autocomplete="off"> <br>
             <label for="teamInfo">팀 소개</label><br>
-            <input type="text" name="teamInfo" size=30 id="teamInfo" autocomplete="off"> <br>
-            
+            <textarea name="teamInfo" id="teamInfo" autocomplete="off" rows="4" cols="40" placeholder="최대 250자까지 입력됩니다."></textarea><br>
+            <div class='teamphoto'>
             <label for="input_img">팀 사진
             <img id="upload" src="/img/anonymous.png" alt="기본이미지"></label><br>
+            </div>
             <input type='file' name='file1' id='input_img' onchange="readURL(this);" />
             <br><br><button class="signupbtn btns btns btns-outline-light" disabled="disabled">다음으로</button>
         </form>
@@ -182,7 +184,7 @@ input:invalid {
     </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="/js/signupBuskers.js" type="text/javascript"></script>
+<script src="/js/signupBusker.js" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
