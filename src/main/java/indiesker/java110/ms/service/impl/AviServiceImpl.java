@@ -65,14 +65,14 @@ public class AviServiceImpl implements AviService {
     
     @Transactional
     @Override
-    public void uploadAvi(int bno, String title, String content, String url) {
+    public int uploadAvi(int bno, String title, String content, String url) {
       Map<String,Object> params = new HashMap<>();
       params.put("title", title);
       params.put("content", content);
       params.put("urlid", url);
       params.put("buskerno",bno );
       
-      aviDao.uploadAvi(params);
+      return aviDao.uploadAvi(params);
     }
 
     @Transactional
@@ -139,6 +139,13 @@ public class AviServiceImpl implements AviService {
     public int deleteComment(int acno) {
       return aviDao.deletecomt(acno);
       }
+
+    @Override
+    public int printAbno() {
+      List<Avi> avi = aviDao.printabno();
+      
+      return avi.get(0).getAviboardno();
+    }
    
 }
 

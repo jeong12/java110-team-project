@@ -299,9 +299,13 @@ public class FeedController {
   public String addavi(@RequestParam String bno, String title, String content, String url) {
     int bno2=Integer.parseInt(bno);
     String urlid = url.substring(32,43);
-
+    
+    System.out.println("before");
     aviService.uploadAvi(bno2, title, content, urlid);
-
+    int abno = aviService.printAbno();
+    System.out.println(abno);
+    memberService.inaviFavLikeCount(abno);
+    
     return "redirect:enter?no="+bno2;
   }
 
@@ -574,6 +578,7 @@ public class FeedController {
       memberService.buskLikeCount(memberService.searchLikeCount(feedbuskno2, flag2), feedbuskno2);
     }else if(flag2 == 3) {
       memberService.aviLikeCount(memberService.searchLikeCount(feedbuskno2, flag2), feedbuskno2);
+      memberService.upaviFavLikeCount(memberService.searchLikeCount(feedbuskno2, flag2), feedbuskno2);
     }
 
     Map<String,Object> map = new HashMap<>();
@@ -595,6 +600,7 @@ public class FeedController {
       memberService.buskLikeCount(memberService.searchLikeCount(feedbuskno2, flag2), feedbuskno2);
     }else if(flag2 == 3) {
       memberService.aviLikeCount(memberService.searchLikeCount(feedbuskno2, flag2), feedbuskno2);
+      memberService.upaviFavLikeCount(memberService.searchLikeCount(feedbuskno2, flag2), feedbuskno2);
     }
 
     Map<String,Object> map = new HashMap<>();

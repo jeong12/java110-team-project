@@ -13,7 +13,7 @@ public interface AviDao {
   List<Avi> findRecent(int no);
   Avi findfeedavibyAbno(int no);
   List<Avi> findByFolAvi(int no);
-  void uploadAvi(Map<String, Object> param);
+  int uploadAvi(Map<String, Object> param);
   Avi findByFeedAviNoNC(int no);
   void insertcomt(Map<String,Object> params);
   List<Avi> statisticsAviLcnt();
@@ -24,5 +24,5 @@ public interface AviDao {
   List<Avi> moreList(Map<String, Object> params);
   int revisecomt(Map<String,Object> params);
   int deletecomt(int acno);
-  
+  List<Avi> printabno();
 }
