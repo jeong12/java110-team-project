@@ -135,10 +135,9 @@ public class SupporterScheduleController {
   @RequestMapping("showPossibleDate")
   public List<String> findableSchedule(String date,Model model, HttpSession session){
 
-    /*    Member member = (Member)session.getAttribute("loginUser");
-    int no = member.getNo();*/
+    Member member = (Member)session.getAttribute("loginUser");
+    int no = member.getNo();
     
-    int no = 2;
     List<String> list = new ArrayList<>();
     List<Schedule> slist = scheduleService.findunableSchedule(date, no);
 

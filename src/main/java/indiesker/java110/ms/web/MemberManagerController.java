@@ -180,13 +180,14 @@ public class MemberManagerController {
     Map<String,Object> map = new HashMap<>();
     map.put("list", list);
     map.put("paging", paging);
+    System.out.println(list);
     return map;
   }
 
   @ResponseBody
   @RequestMapping(value = "gradleAjaxSupporter")
   public Map<String,Object> gradleAjaxSupporter(int flag, @RequestParam(defaultValue="0") int pageNo) throws ParseException {
-
+    System.out.println(flag);
     Paging paging = new Paging();
     paging.setTotalCount(memberManagerService.totgradleAjaxSupporter());
     paging.setPageNo(pageNo);
@@ -211,16 +212,17 @@ public class MemberManagerController {
       List<GradleMember> list = memberManagerService.gradleSelect(flag, text, type);
       System.out.println(list);
       for (GradleMember gm : list) {
-        if(gm.getFlag() == '2' && gm.getYn() == 'n') {
+        if(gm.getFlag() == '2' && gm.getYn() == 'N') {
+          map.put("tail", 2);
           gm.setType("버스커");
         }
-        else if(gm.getFlag() == '3' && gm.getYn() == 'n') {
+        else if(gm.getFlag() == '3' && gm.getYn() == 'N') {
+          map.put("tail", 2);
           gm.setType("제공자");
         }else {
           map.put("tail", 1);
         }
       }
-      System.out.println(list);
       map.put("list", list);
     }
     return map;
@@ -249,19 +251,23 @@ public class MemberManagerController {
   // gradle update
   @ResponseBody
   @RequestMapping(value = "gradlebuskupdate")
-  public int gradleBuskUpdate(int no, Model medel) {
+  public Map<String,Object> gradleBuskUpdate(int no, Model medel) {
 
-    int bno = memberManagerService.gradleBuskUpdate(no);
-    return bno;
+    int result = memberManagerService.gradleBuskUpdate(no);
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("result", result);
+    return params;
   }
 
   // gradle update
   @ResponseBody
   @RequestMapping(value = "gradlesupupdate")
-  public int gradleSupUpdate(int no, Model medel) {
+  public Map<String,Object> gradleSupUpdate(int no) {
 
-    int sno = memberManagerService.gradleSupUpdate(no);
-    return sno;
+    int result = memberManagerService.gradleSupUpdate(no);
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("result", result);
+    return params;
   }
 
   // list memo

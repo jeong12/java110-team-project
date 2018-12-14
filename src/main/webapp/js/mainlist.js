@@ -419,6 +419,8 @@ function OpenDetail(){
             dataType: 'json',
             data: {"no":no}, 
             success : function(data) {
+                var $consup = $('.bestBus').find('a');
+                $consup.attr('href','buskerfeed/enter?no='+no);
                 $('table.custab').empty();
                 $.each(data,function(index,item){
                     $('.BusMainImg').attr('src' ,'/upload/'+item.teamPhoto);

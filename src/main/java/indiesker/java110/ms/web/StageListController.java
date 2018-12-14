@@ -37,9 +37,11 @@ public class StageListController {
 	  @RequestParam(value="endDate", required=false)String endDate,
       Model model) {
 	  
+	  //System.out.println(keyword);
+	  
 	  Map<String, Object> params = new HashMap<>();
 	  if(searchType == null)
-		  searchType = "city";
+		  searchType = "local";
 		  
 	  model.addAttribute("searchType", searchType);//페이지가 갱신되도 서치타입이 유지되도록 처리 
 	  
@@ -72,10 +74,6 @@ public class StageListController {
 			List<StageList> list = stageListService.findByLocal(params);
 			cutAddr(list);
 			model.addAttribute("local",list);
-		}else if ("genre".equals(searchType)) {
-			List<StageList> list = stageListService.findByGenre(params);
-			cutAddr(list);
-			model.addAttribute("genre",list);
 		}else {
 			List<StageList> list = stageListService.list(params);
 			cutAddr(list);
@@ -88,7 +86,6 @@ public class StageListController {
 		model.addAttribute("list", list);
 	}
 
-
   }
   
   //주소 자르기
@@ -100,10 +97,9 @@ public class StageListController {
 			String changed1 = addr.split(" ")[0];
 			String changed2 = addr.split(" ")[1];
 			addr = changed1.substring(0, 2) + " " +changed2.substring(0, 2);
-			System.out.println(addr);
+			//System.out.println(addr);
 			list.get(i).setLocal(addr);
 		}
-	  
 	  
 	return list;
   }
