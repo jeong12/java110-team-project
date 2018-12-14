@@ -20,6 +20,7 @@
 </head>
 
 <style>
+
 #ccc{display: inline-flex;}
 body{background-color: snow;}
 #titl{margin-top: 3.5%; margin-bottom: 2%;}
@@ -61,7 +62,10 @@ body{background-color: snow;}
     #input{width: 11rem;}
     .slectbtn{width: 3rem; margin-left: 1%; height: 2rem; margin-bottom: 1%; margin-top: -0.5%;}
     .gradle,#selt{width: 7rem; padding: 1%;}
-    #imgcontainer{width: 26.5rem;}
+     #imgcontainer{
+     width: 26.5rem;
+    height: 18rem;
+    } 
     #buskp,#buskp2{height: 19rem;}
     .pages{text-align: center;}
     #ajappend1 h4{text-align: center;}
@@ -87,6 +91,7 @@ body{background-color: snow;}
     padding-left: 0px;
 }
 .toptop{margin-bottom: -0.5rem;}
+
 </style>
 <header>
     <jsp:include page="../header.jsp"></jsp:include>
@@ -443,7 +448,7 @@ $(document).on('click','.dtailSupbutton',function(){
 			 $(".ttttt").empty();
 	         $.each(data.stagephotos,function(index,item){
 	        	 console.log(item.photo);
-	        	 $(".ttttt").append("<div class='item'><img src='/upload/"+item.photo+"' alt='First slide'></div>")
+	        	 $(".ttttt").append("<div class='item'><img style='width: 100%; height: 376px;' src='/upload/"+item.photo+"' alt='First slide'></div>")
 	         });
 	   
 	         $(".item:first").removeClass("item").addClass("active item");
@@ -476,9 +481,8 @@ $(document).on('click','.dtailbuskbutton',function(){
              $(".bintro").empty();
              $("#buskp").empty();
              $("#buskp2").empty();
-              $("#buskp").append("<iframe style='width: 100%;height: 100%;' src='"+data.avi1+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
-              $("#buskp2").append("<iframe style='width: 100%;height: 100%;' src='"+data.avi2+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
-                    
+              $("#buskp").append("<iframe style='width: 100%;height: 376px;' src='"+data.avi1+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
+              $("#buskp2").append("<iframe style='width: 100%;height: 376px;' src='"+data.avi2+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
                     $('.ttl').append(data.teamname);
                     $(".bname").append('<p>'+data.teamname+'</p>');
                     $(".bcity").append('<p>'+data.city+'</p>');

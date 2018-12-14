@@ -358,14 +358,11 @@ body, .container.title {
         <table class="teaminfo1">
           <tr>
             <td><h1 style="margin-right: 330px;">${busk.teamname }</h1></td>
-            <td><i class="far fa-heart" style="margin-right: 15px;">
+            <td><i class="far fa-heart" style="margin-right: 15px;" onclick="chkLike()">
             </i></td>
+            <td><i class="fas fa-heart" style="display:none;"></i></td>
             <td><h2 style="margin-right: 30px; color: white;">${busk.likecount }</h2></td>
             <td><i class="far fa-star"></i></td>
-            <!-- 
-               <i class="fas fa-heart"></i> 칠한 하트
-               <i class="fas fa-star"></i>  칠한 별
-             -->
           </tr>
         </table>
       </div>
@@ -1119,6 +1116,15 @@ h2 {
               });
           }
       });
+  }
+  
+  
+  function chkLike(){
+	  console.log("::::");
+	  $('.far fa-heart').hide();
+	  $('.likely').append('<i class="fas fa-heart"></i>');
+	  
+	  
   }
   </script>
 </body>
