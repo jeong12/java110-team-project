@@ -569,6 +569,12 @@ public class FeedController {
     int flag2 = Integer.parseInt(flag);
 
     memberService.likeComeOn(loginno2, feedbuskno2, flag2);
+    
+    if(flag2 == 1) {
+      memberService.buskLikeCount(memberService.searchLikeCount(feedbuskno2, flag2), feedbuskno2);
+    }else if(flag2 == 3) {
+      memberService.aviLikeCount(memberService.searchLikeCount(feedbuskno2, flag2), feedbuskno2);
+    }
 
     Map<String,Object> map = new HashMap<>();
     map.put("returnlikecount", memberService.searchLikeCount(feedbuskno2, flag2));
@@ -583,8 +589,13 @@ public class FeedController {
     int feedbuskno2 = Integer.parseInt(feedbuskno);
     int flag2 = Integer.parseInt(flag);
 
-
     memberService.noneLike(loginno2, feedbuskno2,flag2);
+    
+    if(flag2 == 1) {
+      memberService.buskLikeCount(memberService.searchLikeCount(feedbuskno2, flag2), feedbuskno2);
+    }else if(flag2 == 3) {
+      memberService.aviLikeCount(memberService.searchLikeCount(feedbuskno2, flag2), feedbuskno2);
+    }
 
     Map<String,Object> map = new HashMap<>();
     map.put("returnlikecount", memberService.searchLikeCount(feedbuskno2, flag2));

@@ -147,6 +147,18 @@
         and flag=#{flag}
         and mno=#{mno}
     </select>
+    
+    <update id="busklcnt" parameterType="map">
+        update busk
+        set lcnt=#{lcnt}
+        where bno=#{bono}
+    </update>
+    
+    <update id="avilcnt" parameterType="map">
+        update avi
+        set lcnt=#{lcnt}
+        where abno=#{bono}
+    </update>
 
 </mapper>
 

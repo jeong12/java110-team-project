@@ -187,6 +187,24 @@ public class MemberServiceImpl implements MemberService {
     return memberDao.searchlikeox(params);
   }
 
+  @Override
+  public void buskLikeCount(int lcnt,int bono) {
+    Map<String,Object> params = new HashMap<>();
+    params.put("lcnt", lcnt);
+    params.put("bono", bono);
+    
+    memberDao.busklcnt(params);
+  }
+
+  @Override
+  public void aviLikeCount(int lcnt,int bono) {
+    Map<String,Object> params = new HashMap<>();
+    params.put("lcnt", lcnt);
+    params.put("bono", bono);
+    
+    memberDao.avilcnt(params);
+  }
+
 
 }
 

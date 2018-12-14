@@ -22,4 +22,6 @@ public interface MemberDao {
   int nonelike(Map<String,Object> params);
   int searchlikecount(Map<String,Object> params);
   int searchlikeox(Map<String,Object> params);
+  int busklcnt(Map<String,Object> params);
+  int avilcnt(Map<String,Object> params);
 }
