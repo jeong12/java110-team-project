@@ -428,7 +428,23 @@ public class FeedController {
   }
 
   @RequestMapping("moreavi")
-  public void moreavi(int no,  Model model, @RequestParam(defaultValue="0")int pageNo, Paging paging){
+  public void moreavi(int no,  Model model, @RequestParam(defaultValue="0")int pageNo, Paging paging, HttpSession session){
+    
+  //팔로우,좋아요 OX 처리
+    Member m = new Member();
+    int followcount = 0;
+    int likecount = 0;
+    int loginNum = 0;
+    if(session.getAttribute("loginUser") != null) {
+      m = (Member)session.getAttribute("loginUser");
+      loginNum = m.getNo();
+      followcount = memberService.searchFollow(loginNum, no);
+      likecount = memberService.searchLikeOX(loginNum, no, 1);
+    }
+    //좋아요 count처리
+    Busker buskerlikecount = new Busker();
+    buskerlikecount.setLikecount(memberService.searchLikeCount(no, 1));
+    
     paging.setPageNo(pageNo);
     paging.setPageSize(12);
     paging.setTotalCount(aviService.totList(no));
@@ -449,6 +465,8 @@ public class FeedController {
     model.addAttribute("busk",busker);
     model.addAttribute("recentlist",alist);
     model.addAttribute("paging",paging);
+    model.addAttribute("feedlikecount",buskerlikecount);
+    model.addAttribute("loginuser",m);
 
   }
 

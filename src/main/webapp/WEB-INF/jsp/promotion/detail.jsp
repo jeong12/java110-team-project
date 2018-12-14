@@ -93,7 +93,7 @@
     footer{clear: both;}
     #mang{display: flex;
     margin-right: -9%;}
-    .contm{width: 94%; border: 1px solid white; overflow:hidden;  overflow-wrap:break-word;}
+    .contm{border: 1px solid white; overflow:hidden;  overflow-wrap:break-word;}
     .pages{text-align: center;}
     .ftt{font-weight:800; }
     #titlt{margin-top: 2%; margin-bottom: 2%;     margin-left: 23rem;}
@@ -101,10 +101,10 @@
 #haha{margin-top: 0rem; margin-top: 0.2rem;}
 #tabl{    margin-top: 5%;
     margin-left: 7%;}
-i {margin-right: 1rem;}
+.contents i{margin-right: 1rem;}
 .contents div{margin-bottom: 0.5rem;}
 .contents{margin-top: 1rem;}
-
+.far{margin-right: 0.2rem;}
 </style>
 </head>
 <jsp:include page="../header.jsp"></jsp:include>

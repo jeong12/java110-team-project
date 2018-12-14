@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset='UTF-8'>
-<title>버스커 동영상 더보기</title>
+<title>동영상 더보기</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -21,11 +21,14 @@
   href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
   integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
   crossorigin="anonymous">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 </head>
 <style>
 .container.feed {
   background-color: white;
   padding: 0 0 30px 0;
+  border: 1px solid gray;
 }
 
 body, .container.title {
@@ -49,18 +52,42 @@ body, .container.title {
   margin-top: -6.5%;
 }
 
- .twPc-button {
+.imgschecon {
+  float: left;
+  width: 40%;
+  border: 1px solid gray;
+}
+
+.imgschecon table {
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+
+.aviphotcont {
+  float: right;
+  width: 57%;
+}
+
+.col-md-4 {
+  margin-top: 10px;
+  padding-left: 7px;
+}
+
+.col-md-4.avi button {
+  border: 0;
+  padding: 0;
+}
+
+.col-md-4.photo button {
+  border: 0;
+  padding: 0;
+}
+
+.twPc-button {
   margin: 0 -10px;
   margin-top: -7%;
   width: 100%;
-} 
-
-.col-md-4 avi{
-border: 1px solid #DDD;
 }
-
-.twPc-dtwPc-divUser{height: 10rem;}
-
 
 .twPc-bg {
   background-image: url("../../img/feedheader.png");
@@ -137,16 +164,12 @@ border: 1px solid #DDD;
 .small.title {
   font-size: 14px;
   margin-top: 7px;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-    margin-left: 0.6rem;
+  font-weight: 500;
 }
 
 .posttitle {
   background-color: black;
   border-radius: 0.25rem;
-  margin-bottom: 2rem;
-  width: 58.4rem;
 }
 
 .posttitle i {
@@ -159,10 +182,9 @@ border: 1px solid #DDD;
   margin: 0 20px 0 20px;
 }
 
-.avi,.imgschecon {
-  background-color: #DDD;
+.avi, .photo, .imgschecon {
+  background-color: #eee;
   border-radius: 0.25rem;
-  
 }
 
 .imgschecon {
@@ -188,48 +210,134 @@ border: 1px solid #DDD;
   margin-right: 15px;
 }
 
-.far.fa-heart, .far.fa-star {
+.fa-heart, .fa-star {
   font-size: 50px;
   color: white;
 }
 
-#feedmainphoto {
-  border: 1px solid gray;
-}
-.changesuccess{
-                 color: #28a745;
-         background-color: transparent;
-         background-image: none;
-         border-color: #28a745;
-         border: 1px solid transparent;
-         border-radius: 4px;
-         user-select: none;
-         touch-action: manipulation;
-         cursor: pointer;
-         display: inline-block;
-         padding: 6px 12px;
-         margin-bottom: 0;
-         font-size: 14px;
-         font-weight: 400;
-         line-height: 1.42857143;
-         text-align: center;
-         white-space: nowrap;
-         vertical-align: middle;
-}
-.feedcontent{
-    background-color: #DDD;
+.changesuccess {
+  color: #28a745;
+  background-color: transparent;
+  background-image: none;
+  border-color: #28a745;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  user-select: none;
+  touch-action: manipulation;
+  cursor: pointer;
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
 }
 
-.pages{ text-align : center;
+.acomtcontlist.revrev {
+  -webkit-appearance: textfield;
+  background-color: white;
+  -webkit-rtl-ordering: logical;
+  cursor: text;
+  padding: 1px;
+  border-width: 2px;
+  border-style: inset;
+  border-color: initial;
+  border-image: initial;
 }
 
-button{background-color:#DDD; border: 1px solid #DDD;}
+.pcomtcontlist.revrev {
+  -webkit-appearance: textfield;
+  background-color: white;
+  -webkit-rtl-ordering: logical;
+  cursor: text;
+  padding: 1px;
+  border-width: 2px;
+  border-style: inset;
+  border-color: initial;
+  border-image: initial;
+}
+
+.schewrap {
+  padding: 20px 10px 10px 10px;
+  margin-bottom: 13px;
+}
+
+.schedate {
+  background-color: #f1bf08;
+  text-align: center;
+  color: black;
+  font-size: 22px;
+  padding: 3px;
+  margin-bottom: 1px;
+  border-radius: 0.25rem 0.25rem 0 0;
+}
+
+.timeshopname {
+  height: 34px;
+  margin: 2px 0;
+}
+
+.schetime {
+  float: left;
+  width: 30%;
+  font-size: 16px;
+  padding: 5px 0;
+  background-color: #9e9e9e38;
+  color: black;
+  text-align: center;
+}
+
+.scheshopname {
+  float: right;
+  width: 70%;
+  font-size: 16px;
+  padding: 5px 16px 5px 0;
+  background-color: #2a2b2d;
+  color: white;
+  text-align: right;
+}
+
+.scheaddr {
+  font-size: 15px;
+  padding: 5px 16px 5px 5px;
+  background-color: #2a2b2d;
+  color: white;
+  text-align: left;
+}
+#feedlikecount{
+    font-size: 30px;
+    margin-right: 30px;
+    color: white;
+    font-weight: 500;
+}
+#photolikecnt{
+float:right;
+padding-right: 10px;
+}
+#avilikecnt{
+float:right;
+padding-right: 10px;
+}
+.pages{text-align: center;}
 </style>
 <body>
-<c:set var="sessionno" value="${sessionScope.loginUser.no }"/>
-<c:set var="buskno" value="${busk.bno}"/>
+  <c:set var="sessionno" value="${sessionScope.loginUser.no }" />
+  <c:set var="buskno" value="${busk.bno}" />
   <jsp:include page="../header.jsp"></jsp:include>
 
+  <div class="container title">
+    <div id="titl" style="display: none;">
+      <h1 style="display: none" id="sessionno">
+        <c:out value="${sessionno}" />
+      </h1>
+      <h1 style="display: none" id="buskno">
+        <c:out value="${buskno}" />
+      </h1>
+    </div>
+  </div>
   <div class="container feed" style="background-color: white;">
     <a class="twPc-bg twPc-block"></a>
     <div style="height: 270px; border: 1px dotted white;">
@@ -237,14 +345,35 @@ button{background-color:#DDD; border: 1px solid #DDD;}
       <div class="twPc-button">
         <table class="teaminfo1">
           <tr>
-            <td><h1 style="margin-right: 330px;">${busk.teamname }</h1></td>
-            <td><i class="far fa-heart" style="margin-right: 30px;">
-                ${busk.likecount }</i></td>
-            <td><i class="far fa-star"></i></td>
-            <!-- 
-               <i class="fas fa-heart"></i> 칠한 하트
-               <i class="fas fa-star"></i>  칠한 별
-             -->
+            <td><h1 style="margin-right: 400px;">${busk.teamname }</h1></td>
+            <!-- 좋아요 버튼 -->
+            <c:choose>
+              <c:when test="${loginuser.heartNum == 0}">
+                <td><i class="far fa-heart" id="feedheartbefore" style="margin-right: 15px;"></i> 
+                <i class="fas fa-heart" id="feedheartafter"
+                  style="margin-right: 15px;display: none;"></i></td>
+              </c:when>
+              <c:otherwise>
+                <td><i class="far fa-heart" id="feedheartbefore" style="margin-right: 15px; display: none;"></i> 
+                <i class="fas fa-heart" id="feedheartafter" style="margin-right: 15px;"></i></td>
+              </c:otherwise>
+            </c:choose>
+            
+            <td id="feedliketd"><i id="feedlikecount">${feedlikecount.likecount }</i></td>
+            
+            <!-- 팔로우 버튼 -->
+            <c:choose>
+              <c:when test="${loginuser.followNum == 0}">
+                <td><i class="far fa-star" id="feedstarbefore"></i>
+                  <i class="fas fa-star" id="feedstarafter"
+                  style="display: none"></i></td>
+              </c:when>
+              <c:otherwise>
+                <td><i class="far fa-star" id="feedstarbefore"
+                  style="display: none"></i> <i class="fas fa-star"
+                  id="feedstarafter"></i></td>
+              </c:otherwise>
+            </c:choose>
           </tr>
         </table>
       </div>
@@ -268,11 +397,20 @@ button{background-color:#DDD; border: 1px solid #DDD;}
           rows="5" disabled placeholder="반가워요~">${busk.teamInfo }</textarea>
         <!-- 250자 제한 -->
       </div>
+
+      <!-- sessionScope.loginUser.no -->
+      <c:choose>
+        <c:when test="${busk.bno == sessionScope.loginUser.no }">
+          <div style="padding-left: 75%;">
+            <button id="aviupload" class="btn btns-outline-dark"
+              data-target="#aviUploadModal" data-toggle="modal">영상올리기</button>
+            <button id="photoupload" class="btn btns-outline-dark"
+              data-target="#photoUploadModal" data-toggle="modal">사진올리기</button>
+          </div>
+        </c:when>
+      </c:choose>
     </div>
-    <!-- 여기까지 버스커 저옵~~~~~~~~ -->
-    <div class="feedcontent" style="width: 100%">
-      <!-- <div class="aviphotcont" style="min-height: 300px;"> -->
-        <!-- 영상썸네일 -->
+   <!-- 영상썸네일 -->
         <div class=avi style="margin-bottom: 20px; min-height: 300px;">
           <div class="posttitle">
             <i class="far fa-play-circle">동영상 더보기</i>
@@ -315,6 +453,32 @@ button{background-color:#DDD; border: 1px solid #DDD;}
                         <input type="hidden" class="pageNO" name="pageNo">
                         <input type="hidden" class="no" name="no">
                         </form>
+
+
+
+
+
+  <script>
+            
+  function goPage(e){
+      
+      function getUrlParams() {
+          var params = {};
+          window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) { params[key] = value; });
+          return params;
+      } 
+    
+      var bno = getUrlParams().no;
+
+            $('.pageNO').val(e);
+            $('.no').val(bno);
+            $('.pageForm').submit();
+        }
+
+        </script>
+   
+   
+   
   <!-- ====================================모달================================= -->
   <!-- 영상모달 -->
   <style>
@@ -366,10 +530,10 @@ h2 {
   padding: 5px;
 }
 
-#acomtcont,#pcomtcont{
+#acomtcont, #pcomtcont {
   border-radius: 0.25rem;
   background-color: white;
-    -webkit-appearance: textfield;
+  -webkit-appearance: textfield;
   background-color: white;
   -webkit-rtl-ordering: logical;
   cursor: text;
@@ -379,9 +543,17 @@ h2 {
   border-color: initial;
   border-image: initial;
 }
-#acomtcontlist,#pcomtcontlist{
+
+#acomtcontlist, #pcomtcontlist {
   border-radius: 0.25rem;
-  background-color: white;
+  background-color: floralwhite;
+  border: 0;
+}
+
+.acomtcontlist, .pcomtcontlist {
+  border-radius: 0.25rem;
+  background-color: inherit;
+  border: 0;
 }
 
 .comtinsert {
@@ -392,7 +564,6 @@ h2 {
 
 .comtcont, .comtdate {
   float: right;
-  
 }
 
 .comtimg, .comtname {
@@ -436,6 +607,10 @@ h2 {
   border-radius: 20px;
 }
 
+.teamphoto {
+  border-radius: 20px;
+}
+
 .pinfocontent {
   border: 1px solid gray;
   border-radius: 0.25rem;
@@ -443,6 +618,7 @@ h2 {
   height: 190px;
   padding: 10px 10px 0 5px;
 }
+
 .ainfocontent {
   border: 1px solid gray;
   border-radius: 0.25rem;
@@ -466,7 +642,7 @@ h2 {
   text-align: right;
 }
 
-.far.fa-heart.modallike {
+.far.fa-heart.modallike, .fas.fa-heart.modallike {
   color: black;
   font-size: 24px;
 }
@@ -474,9 +650,32 @@ h2 {
 #modalgenre, #modalcity {
   color: #777;
 }
-.btn.btns-outline-warning{
-    float:right;
-    margin-right:2%;
+
+.btn.btns-outline-warning {
+  float: right;
+  margin-right: 2%;
+}
+
+.modal-dialog.modal-lg {
+  margin-top: 170px;
+}
+
+.revdelacomt {
+  text-align: right;
+}
+
+.revdelpcomt {
+  text-align: right;
+}
+
+.revdelacomt i {
+  margin-right: 4%;
+  font-size: 15px;
+}
+
+.revdelpcomt i {
+  margin-right: 4%;
+  font-size: 15px;
 }
 </style>
 
@@ -500,7 +699,8 @@ h2 {
                 <div class='ainsertcontent'></div>
 
               </div>
-              <div class="acomtlist"
+              <div class="nowacomt"></div>
+              <div class="acomtlist" data-mcs-theme="light-thick"
                 style="overflow: auto; height: 360px;"></div>
             </div>
           </div>
@@ -509,164 +709,7 @@ h2 {
     </div>
   </div>
 
-  <!-- 사진모달 -->
-  <style>
-.modal-body.photo {
-  height: 620px;
-}
-
-.photocontent {
-  float: left;
-  width: 60%;
-}
-
-.comment {
-  float: right;
-  width: 40%;
-  border-radius: 0.25rem;
-}
-
-.teaminfo td {
-  padding: 10px 20px 10px 0;
-}
-
-.contents {
-  padding: 10px;
-  margin-right: 20px;
-  border: 1px solid red;
-  height: 140px;
-}
-
-h2 {
-  margin: 0;
-}
-
-.feedphotos button {
-  border: 0;
-  padding: 0;
-  margin: 9px;
-}
-.feedphoto button {
-  border: 0;
-  padding: 0;
-  margin: 9px;
-}
-
-.smallimg {
-  width: 150px;
-  height: 100px;
-}
-
-.bigimg {
-  width: 95%;
-  height: 290px;
-}
-
-.modal-content.photo {
-  height: 670px;
-}
-</style>
-  <!-- ==============================업로드 모달======================================= -->
-  <style>
-.modal-body.photup {
-  height: 410px;
-}
-
-.uploadbtn {
-  color: snow;
-}
-
-#upload1, #upload2, #upload3, #uploadavi {
-  border: 1px solid #ccc;
-  border-radius: 0.25rem;
-}
-#imgtable>td {
-    width:33%;
-    height:164px;
-}
-#imgtable{
-    width: 100%;
-}
-#upload1, #upload2, #upload3{
-height: 164px; width: 265px;
-margin-bottom:10px;
-}
-#revupload1, #revupload2, #revupload3{
-  border: 1px solid #ccc;
-  border-radius: 0.25rem;
-height: 128px; width: 200px;
-margin-bottom:8px;
-}
-</style>
-  <div class="modal fade" id="photoUploadModal" tabindex="-1"
-    role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          사진업로드
-          <button type="button" class="close" data-dismiss="modal">
-            <span>×</span>
-          </button>
-        </div>
-        <div class="modal-body photup">
-          <div class="modalcontainer">
-            <form action='addphoto' method='post'
-              enctype="multipart/form-data">
-              <div style="padding: 10px; height: 386px;">
-                <div style="display: none">
-                  <textarea name="bno" id="bno">${busk.bno }</textarea>
-                </div>
-                <div>
-                  <div style="margin: 20px 0;">
-                    <table id="imgtable">
-                      <tr>
-                        <!-- height: 70px; width: 100px;  -->
-                        <td style="padding:0 5px 0 5px;"><img
-                          id="upload1" src="/img/default_image.png"
-                          alt="기본이미지"></td>
-                        <td style="padding:0 5px 0 5px;"><img
-                          id="upload2" src="/img/default_image.png"
-                          alt="기본이미지"></td>
-                        <td style="padding:0 5px 0 5px;"><img
-                          id="upload3" src="/img/default_image.png"
-                          alt="기본이미지"></td>
-                      </tr>
-                      <tr>
-                        <td style="padding:0 0 0 10px;"><label for="input_img1">파일업로드</label> <input
-                          style="height: 0; width: 150px; opacity: 0;"
-                          type='file' name='file1' id='input_img1'
-                          onchange="readURL1(this);" /></td>
-                        <td style="padding:0 0 0 10px;"><label for="input_img2">파일업로드</label> <input
-                          style="height: 0; width: 150px; opacity: 0;"
-                          type='file' name='file2' id='input_img2'
-                          onchange="readURL2(this);" /></td>
-                        <td style="padding:0 0 0 10px;"><label for="input_img3">파일업로드</label> <input
-                          style="height: 0; width: 150px; opacity: 0;"
-                          type='file' name='file3' id='input_img3'
-                          onchange="readURL3(this);" /></td>
-                      </tr>
-                    </table>
-                    <div style="margin-top: 40px; margin-bottom: 5px;">
-                      <textarea
-                        style="width: 100%; resize: none; border-radius: 0.25rem;"
-                        rows="3" name="content" id="content"
-                        placeholder="내용 입력"></textarea>
-                    </div>
-                    <button type="button" data-dismiss="modal"
-                      style="float: right; margin: 0 10px 0 15px;"
-                      class="btn btns-outline-dark">취소</button>
-                    <button class="btn btns-outline-dark uploadbtn"
-                      style="float: right; margin: 0 10px 0 15px;"
-                      disabled="disabled" id="photoaddbtn">등록</button>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  
   <!-- 영상 업로드 모달 -->
   <style>
 .modal-body.aviup {
@@ -701,7 +744,8 @@ margin-bottom:8px;
             <form action='addavi' method='post'
               enctype="multipart/form-data">
               <div style="display: none">
-                <textarea name="bno" id="bno"></textarea>
+                <input type="text" name="bno" id="bno"
+                  value="${busk.bno}" />
               </div>
               <div style="padding: 10px; height: 500px;">
                 <div>
@@ -751,28 +795,148 @@ margin-bottom:8px;
       </div>
     </div>
   </div>
-  
-  <script src="/js/feeddetail3.js" type="text/javascript"></script>
+
+  <script src="/js/feeddetail2.js" type="text/javascript"></script>
   <script src="/js/feedupload.js" type="text/javascript"></script>
   <script src="/js/feed.js" type="text/javascript"></script>
   <script>
+  
+  /* 하얀별누를때 */
+  $(document).on("click","#feedstarbefore",function(){
+      var feedbuskno = ${busk.bno};
+      var vvv = $("#memId").text().length;
+       if( vvv == 0){
+          swal({
+                title: "로그인 해주세요.", 
+              /* text: "로그인 해주세요!", */
+              icon: "warning",
+              buttons:{
+                  catch: {
+                      text: "확인",
+                      value: "ok",
+                    }
+              }
+        }).then((value)=>{
+             return;
+        })
+          
+      } else{
+          var loginno = $("#memId").text();
+          $(this).css("display","none");
+          $("#feedstarafter").css("display","");
+          
+           $.ajax({
+               type:"GET",
+               url:"followme",
+               data:{
+                   "loginno":loginno,
+                   "feedbuskno":feedbuskno
+               },
+               success:function(data){
+                   swal("Follower","가 되었습니다.","info");
+               }
+          });
+      }
+  });
+  /* 검은별누를때 */
+   $(document).on("click","#feedstarafter",function(){
+       var feedbuskno = ${busk.bno};
+       var vvv = $("#memId").text().length;
+        if( vvv == 0){
             
-  function goPage(e){
-	  
-	  function getUrlParams() {
-          var params = {};
-          window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) { params[key] = value; });
-          return params;
-      } 
-    
-      var bno = getUrlParams().no;
-
-	        $('.pageNO').val(e);
-	        $('.no').val(bno);
-	        $('.pageForm').submit();
-	    }
-
-        </script>
-  <jsp:include page="../footer.jsp"></jsp:include>
+        }else{
+            var loginno = $("#memId").text();
+            $(this).css("display","none");
+            $("#feedstarbefore").css("display","");
+            
+             $.ajax({
+                 type:"GET",
+                 url:"nonefollow",
+                 data:{
+                     "loginno":loginno,
+                     "feedbuskno":feedbuskno
+                 },
+                 success:function(data){
+                     swal("Follow","가 취소되었습니다.","info");
+                 }
+            });
+        }
+      
+  }); 
+  
+   /* 하얀하트누를때 */
+   $(document).on("click","#feedheartbefore",function(){
+       var feedbuskno = ${busk.bno};
+       var vvv = $("#memId").text().length;
+        if( vvv == 0){
+           swal({
+                 title: "로그인 해주세요.", 
+               /* text: "로그인 해주세요!", */
+               icon: "warning",
+               buttons:{
+                   catch: {
+                       text: "확인",
+                       value: "ok",
+                     }
+               }
+         }).then((value)=>{
+              return;
+         })
+           
+       } else{
+           var loginno = $("#memId").text();
+           $(this).css("display","none");
+           $("#feedheartafter").css("display","");
+           
+            $.ajax({
+                type:"GET",
+                url:"likeme",
+                data:{
+                    "loginno":loginno,
+                    "feedbuskno":feedbuskno,
+                    "flag":1
+                },
+                success:function(data){
+                    $("#feedliketd").empty();
+                    
+                    $("#feedliketd").append(
+                            '<i id="feedlikecount">'+data.returnlikecount+'</i>'
+                    );
+                }
+           });
+       }
+   });
+   /* 검은하트누를때 */
+    $(document).on("click","#feedheartafter",function(){
+        var feedbuskno = ${busk.bno};
+        var vvv = $("#memId").text().length;
+         if( vvv == 0){
+             
+         }else{
+             var loginno = $("#memId").text();
+             $(this).css("display","none");
+             $("#feedheartbefore").css("display","");
+             
+              $.ajax({
+                  type:"GET",
+                  url:"nonelike",
+                  data:{
+                      "loginno":loginno,
+                      "feedbuskno":feedbuskno,
+                      "flag":1
+                  },
+                  success:function(data){
+                      $("#feedliketd").empty();
+                      
+                      $("#feedliketd").append(
+                              '<i id="feedlikecount">'+data.returnlikecount+'</i>'
+                      );
+                  }
+             });
+         }
+       
+   }); 
+  </script>
 </body>
+<jsp:include page="../footer.jsp"></jsp:include>
 </html>
