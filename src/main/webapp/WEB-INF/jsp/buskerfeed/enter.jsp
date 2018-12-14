@@ -210,7 +210,7 @@ body, .container.title {
   margin-right: 15px;
 }
 
-.far.fa-heart, .far.fa-star {
+.fa-heart, .fa-star {
   font-size: 50px;
   color: white;
 }
@@ -261,53 +261,66 @@ body, .container.title {
 }
 
 .schewrap {
-  padding:20px 10px 10px 10px;
-      margin-bottom: 13px;
+  padding: 20px 10px 10px 10px;
+  margin-bottom: 13px;
 }
 
 .schedate {
-      background-color: #f1bf08;
-    text-align: center;
-    color: white;
-    font-size: 22px;
-    padding: 3px;
-        margin-bottom: 1px;
-            border-radius: 0.25rem 0.25rem 0 0;
+  background-color: #f1bf08;
+  text-align: center;
+  color: black;
+  font-size: 22px;
+  padding: 3px;
+  margin-bottom: 1px;
+  border-radius: 0.25rem 0.25rem 0 0;
 }
 
 .timeshopname {
-  height:30px;
-  margin:1px 0;
+  height: 34px;
+  margin: 2px 0;
 }
 
 .schetime {
-  float:left;
-  width:30%;
-      font-size: 16px;
-    padding: 3px 0;
-    background-color: #9e9e9e38;
-    color: black;
-    text-align: center;
+  float: left;
+  width: 30%;
+  font-size: 16px;
+  padding: 5px 0;
+  background-color: #9e9e9e38;
+  color: black;
+  text-align: center;
 }
 
 .scheshopname {
-  float:right;
-  width:70%;
-      font-size: 16px;
-    padding: 3px 16px 3px 0;
-    background-color: #2a2b2d;
-    color: white;
-    text-align: right;
+  float: right;
+  width: 70%;
+  font-size: 16px;
+  padding: 5px 16px 5px 0;
+  background-color: #2a2b2d;
+  color: white;
+  text-align: right;
 }
 
 .scheaddr {
   font-size: 15px;
-    padding: 3px 16px 3px 0;
-    background-color: #2a2b2d;
-    color: white;
-    text-align: left;
+  padding: 5px 16px 5px 5px;
+  background-color: #2a2b2d;
+  color: white;
+  text-align: left;
 }
-
+#feedlikecount{
+    font-size: 30px;
+    margin-right: 30px;
+    color: white;
+    font-weight: 500;
+}
+#photolikecnt{
+float:right;
+padding-right: 10px;
+}
+#avilikecnt{
+float:right;
+padding-right: 10px;
+}
 
 /* ::-webkit-scrollbar#avimodal {
   width: 16px;
@@ -357,15 +370,35 @@ body, .container.title {
       <div class="twPc-button">
         <table class="teaminfo1">
           <tr>
-            <td><h1 style="margin-right: 330px;">${busk.teamname }</h1></td>
-            <td><i class="far fa-heart" style="margin-right: 15px;">
-            </i></td>
-            <td><h2 style="margin-right: 30px; color: white;">${busk.likecount }</h2></td>
-            <td><i class="far fa-star"></i></td>
-            <!-- 
-               <i class="fas fa-heart"></i> 칠한 하트
-               <i class="fas fa-star"></i>  칠한 별
-             -->
+            <td><h1 style="margin-right: 400px;">${busk.teamname }</h1></td>
+            <!-- 좋아요 버튼 -->
+            <c:choose>
+              <c:when test="${loginuser.heartNum == 0}">
+                <td><i class="far fa-heart" id="feedheartbefore" style="margin-right: 15px;"></i> 
+                <i class="fas fa-heart" id="feedheartafter"
+                  style="margin-right: 15px;display: none;"></i></td>
+              </c:when>
+              <c:otherwise>
+                <td><i class="far fa-heart" id="feedheartbefore" style="margin-right: 15px; display: none;"></i> 
+                <i class="fas fa-heart" id="feedheartafter" style="margin-right: 15px;"></i></td>
+              </c:otherwise>
+            </c:choose>
+            
+            <td id="feedliketd"><i id="feedlikecount">${feedlikecount.likecount }</i></td>
+            
+            <!-- 팔로우 버튼 -->
+            <c:choose>
+              <c:when test="${loginuser.followNum == 0}">
+                <td><i class="far fa-star" id="feedstarbefore"></i>
+                  <i class="fas fa-star" id="feedstarafter"
+                  style="display: none"></i></td>
+              </c:when>
+              <c:otherwise>
+                <td><i class="far fa-star" id="feedstarbefore"
+                  style="display: none"></i> <i class="fas fa-star"
+                  id="feedstarafter"></i></td>
+              </c:otherwise>
+            </c:choose>
           </tr>
         </table>
       </div>
@@ -418,16 +451,14 @@ body, .container.title {
             <c:otherwise>
               <c:forEach items="${schelist}" var="sche">
                 <div class="schewrap">
-                  <div class="schedate">
-                    ${sche.feeddate }
-                  </div>
+                  <div class="schedate">${sche.bigDay }${sche.feeddate }</div>
                   <div class="timeshopname">
                     <div class="schetime">${sche.nsdt }~${sche.nedt }</div>
-                    <div class="scheshopname">
-                      ${sche.shopname }
-                    </div>
+                    <div class="scheshopname">${sche.shopname }</div>
                   </div>
-                  <div class="scheaddr"><i class="fas fa-map-marker-alt"></i>  ${sche.addr }</div>
+                  <div class="scheaddr">
+                    <i class="fas fa-map-marker-alt"></i> ${sche.addr }
+                  </div>
                 </div>
               </c:forEach>
             </c:otherwise>
@@ -484,50 +515,52 @@ body, .container.title {
           <div class="posttitle">
             <i class="far fa-image"> 사진게시글</i>
           </div>
-          <div >
-          <div class="row feedphotos">
-            <c:choose>
-              <c:when test="${empty recentplist }">
-                <h3>사진이 없습니다</h3>
-              </c:when>
-              <c:otherwise>
-                <c:forEach items="${recentplist}" var="t">
-                  <div class="col-md-4 photo"
-                    style="margin-bottom: 25px;">
-                    <button data-target="#photomodal"
-                      data-toggle="modal" value="${t.pbno }">
-                      <img src="../../upload/${t.firphot }"
-                        style="width: 110%; height: 150px;"
-                        class="feedmainphoto">
-                    </button>
-                    <div class="small title" style="padding-left: 10px">게시일:
-                      ${t.cdt }</div>
-                  </div>
-                </c:forEach>
-              </c:otherwise>
-            </c:choose>
+          <div>
+            <div class="row feedphotos">
+              <c:choose>
+                <c:when test="${empty recentplist }">
+                  <h3>사진이 없습니다</h3>
+                </c:when>
+                <c:otherwise>
+                  <c:forEach items="${recentplist}" var="t">
+                    <div class="col-md-4 photo"
+                      style="margin-bottom: 25px;">
+                      <button data-target="#photomodal"
+                        data-toggle="modal" value="${t.pbno }">
+                        <img src="../../upload/${t.firphot }"
+                          style="width: 110%; height: 150px;"
+                          class="feedmainphoto">
+                      </button>
+                      <div class="small title"
+                        style="padding-left: 10px">게시일: ${t.cdt }</div>
+                    </div>
+                  </c:forEach>
+                </c:otherwise>
+              </c:choose>
             </div>
-                       <nav aria-label="Page navigation example" class='pages' style="text-align: center;">
-                            <ul class="pagination justify-content-center">
-                                <li class="page-item">
-                                    <a class="page-link" href="javascript:goPage(${photo.prevPageNo})">Previous</a></li>
-                                    
-                                <c:forEach var="i" begin="${photo.startPageNo}" end="${photo.endPageNo}" step="1">
-                                 <c:choose>
-                                 <c:when test="${i eq photo.pageNo}">
-                                    <li class="page-item active">
-                                    <a href="javascript:goPage(${i})" class="choice">${i}</a></li>
-                                 </c:when>
-                                 <c:otherwise>
-                                  <li class="page-item">
-                                  <a href="javascript:goPage(${i})">${i}</a></li>
-                                </c:otherwise>
-                                </c:choose>
-                                </c:forEach>
-                                <li class="page-item">
-                                    <a class="page-link" href="javascript:goPage(${photo.nextPageNo})">Next</a></li>
-                            </ul>
-                  </nav>
+            <nav aria-label="Page navigation example" class='pages'
+              style="text-align: center;">
+              <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link"
+                  href="javascript:goPage(${photo.prevPageNo})">Previous</a></li>
+
+                <c:forEach var="i" begin="${photo.startPageNo}"
+                  end="${photo.endPageNo}" step="1">
+                  <c:choose>
+                    <c:when test="${i eq photo.pageNo}">
+                      <li class="page-item active"><a
+                        href="javascript:goPage(${i})" class="choice">${i}</a></li>
+                    </c:when>
+                    <c:otherwise>
+                      <li class="page-item"><a
+                        href="javascript:goPage(${i})">${i}</a></li>
+                    </c:otherwise>
+                  </c:choose>
+                </c:forEach>
+                <li class="page-item"><a class="page-link"
+                  href="javascript:goPage(${photo.nextPageNo})">Next</a></li>
+              </ul>
+            </nav>
           </div>
         </div>
       </div>
@@ -696,7 +729,7 @@ h2 {
   text-align: right;
 }
 
-.far.fa-heart.modallike {
+.far.fa-heart.modallike, .fas.fa-heart.modallike {
   color: black;
   font-size: 24px;
 }
@@ -1063,23 +1096,7 @@ h2 {
     </div>
   </div>
 
-
-
-
-
-  <!-- =========================================================== -->
-  <button type="button" class="btns btns-outline-primary">Primary</button>
-  <button type="button" class="btns btns-outline-secondary">Secondary</button>
-  <button type="button" class="btn btns-outline-success">Success</button>
-  <button type="button" class="btns btns-outline-danger">Danger</button>
-  <button type="button" class="btns btns-outline-warning">Warning</button>
-  <button type="button" class="btns btns-outline-info">Info</button>
-  <button type="button" class="btns btns-outline-light">Light</button>
-  <button type="button" class="btn btns-outline-dark">Dark</button>
-  <!-- ===================================================================== -->
-
-
-  <script src="/js/feeddetail4.js" type="text/javascript"></script>
+  <script src="/js/feeddetail2.js" type="text/javascript"></script>
   <script src="/js/feedupload.js" type="text/javascript"></script>
   <script src="/js/feed.js" type="text/javascript"></script>
   <script>
@@ -1120,6 +1137,141 @@ h2 {
           }
       });
   }
+  /* 하얀별누를때 */
+  $(document).on("click","#feedstarbefore",function(){
+      var feedbuskno = ${busk.bno};
+      var vvv = $("#memId").text().length;
+       if( vvv == 0){
+          swal({
+                title: "로그인 해주세요.", 
+              /* text: "로그인 해주세요!", */
+              icon: "warning",
+              buttons:{
+                  catch: {
+                      text: "확인",
+                      value: "ok",
+                    }
+              }
+        }).then((value)=>{
+             return;
+        })
+          
+      } else{
+          var loginno = $("#memId").text();
+          $(this).css("display","none");
+          $("#feedstarafter").css("display","");
+          
+           $.ajax({
+               type:"GET",
+               url:"followme",
+               data:{
+                   "loginno":loginno,
+                   "feedbuskno":feedbuskno
+               },
+               success:function(data){
+                   swal("Follower","가 되었습니다.","info");
+               }
+          });
+      }
+  });
+  /* 검은별누를때 */
+   $(document).on("click","#feedstarafter",function(){
+       var feedbuskno = ${busk.bno};
+       var vvv = $("#memId").text().length;
+        if( vvv == 0){
+            
+        }else{
+            var loginno = $("#memId").text();
+            $(this).css("display","none");
+            $("#feedstarbefore").css("display","");
+            
+             $.ajax({
+                 type:"GET",
+                 url:"nonefollow",
+                 data:{
+                     "loginno":loginno,
+                     "feedbuskno":feedbuskno
+                 },
+                 success:function(data){
+                     swal("Follow","가 취소되었습니다.","info");
+                 }
+            });
+        }
+      
+  }); 
+  
+   /* 하얀하트누를때 */
+   $(document).on("click","#feedheartbefore",function(){
+       var feedbuskno = ${busk.bno};
+       var vvv = $("#memId").text().length;
+        if( vvv == 0){
+           swal({
+                 title: "로그인 해주세요.", 
+               /* text: "로그인 해주세요!", */
+               icon: "warning",
+               buttons:{
+                   catch: {
+                       text: "확인",
+                       value: "ok",
+                     }
+               }
+         }).then((value)=>{
+              return;
+         })
+           
+       } else{
+           var loginno = $("#memId").text();
+           $(this).css("display","none");
+           $("#feedheartafter").css("display","");
+           
+            $.ajax({
+                type:"GET",
+                url:"likeme",
+                data:{
+                    "loginno":loginno,
+                    "feedbuskno":feedbuskno,
+                    "flag":1
+                },
+                success:function(data){
+                    $("#feedliketd").empty();
+                    
+                    $("#feedliketd").append(
+                            '<i id="feedlikecount">'+data.returnlikecount+'</i>'
+                    );
+                }
+           });
+       }
+   });
+   /* 검은하트누를때 */
+    $(document).on("click","#feedheartafter",function(){
+        var feedbuskno = ${busk.bno};
+        var vvv = $("#memId").text().length;
+         if( vvv == 0){
+             
+         }else{
+             var loginno = $("#memId").text();
+             $(this).css("display","none");
+             $("#feedheartbefore").css("display","");
+             
+              $.ajax({
+                  type:"GET",
+                  url:"nonelike",
+                  data:{
+                      "loginno":loginno,
+                      "feedbuskno":feedbuskno,
+                      "flag":1
+                  },
+                  success:function(data){
+                      $("#feedliketd").empty();
+                      
+                      $("#feedliketd").append(
+                              '<i id="feedlikecount">'+data.returnlikecount+'</i>'
+                      );
+                  }
+             });
+         }
+       
+   }); 
   </script>
 </body>
 <jsp:include page="../footer.jsp"></jsp:include>
