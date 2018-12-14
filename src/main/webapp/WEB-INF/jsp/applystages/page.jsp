@@ -689,7 +689,7 @@ $('#count').on("focusout",function(){
         position: new daum.maps.LatLng(${list.x}, ${list.y}),
         map: map
  });
- marker.setDraggable(true); // 마커를 움직일수 있게 설정 false일경우 고정!
+ marker.setDraggable(false); // 마커를 움직일수 있게 설정 false일경우 고정!
  map.relayout();
 
 

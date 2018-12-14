@@ -161,6 +161,7 @@ input::-webkit-input-placeholder{text-align: center;}
   <div class='col-lg-12'>
    <div class='join_form col-lg-10'>
     <p class='message'>영상이 제대로 올려졌는지 재생버튼을 눌러서 확인해 주시길 바랍니다.</p>
+    <p>ex)</p>
      <div class='countsort col-log-6'>
 	  <iframe type="text/html" src='https://www.youtube.com/embed/GeeM2V15QFY' frameborder="0"
 	          class="video">동영상</iframe>
