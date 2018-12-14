@@ -88,7 +88,7 @@ public class AviServiceImpl implements AviService {
 
     @Override
     public void delete(int abno) {
-      int randomno= (int)((Math.random()+1)*10000);
+      int randomno= (int)((Math.random()+1)*100000);
       
       
       Map<String,Object> params= new HashMap<>();
