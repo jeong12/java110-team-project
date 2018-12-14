@@ -29,7 +29,12 @@ $().ready(function(){
         
         // 프로필 이미지, accordian & iconbar 필터부분
         if(m_imgPath.length > 0 && b_imgPath.length == 0){
-            $('#pro_img').attr('src', 'http://localhost:8080/upload/'+m_imgPath);
+            
+            $('#pro_img').attr('src', '/upload/'+m_imgPath);
+            
+            if(b_imgPath.concat('http')){
+                $('#pro_img').attr('src',m_imgPath);
+            }
 
             busk_icon.style.display = 'none';
             sup_icon.style.display = 'none';
@@ -43,7 +48,7 @@ $().ready(function(){
         }
 
         if (b_imgPath.length > 0){
-            $('#pro_img').attr('src', 'http://localhost:8080/upload/'+b_imgPath);
+            $('#pro_img').attr('src', '/upload/'+b_imgPath);
 
             busk_icon.style.display = 'block';
             sup_icon.style.display = 'none';

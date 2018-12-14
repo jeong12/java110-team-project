@@ -266,7 +266,7 @@ public class AuthController {
         HttpSession session = request.getSession();
         session.invalidate();
 
-        return "redirect:http://localhost:8080/app/main";
+        return "redirect:/app/main";
     }
 
     @ResponseBody

@@ -202,12 +202,12 @@ input[type="password"]::placeholder, input[type="text"]::placeholder{
                 ,
                 success: function(result){
                     console.log(result);
-                    location.href = "http://localhost:8080/app/editprofile/member/form"; 
+                    location.href = "/app/main"; 
                 },
                 error: function(xhr, status, msg){
                     console.log(status);
                     console.log(msg);
-                    location.herf = "http://localhost:8080/app/auth/form"
+                    location.herf = "/app/auth/form"
                 }
             });
         }
