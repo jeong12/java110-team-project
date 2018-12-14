@@ -4,7 +4,7 @@
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"
 %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
@@ -26,7 +26,7 @@ th {
     >
         <table>
             <tr>
-                <th>이메일</th>
+                <th>아이디</th>
                 <td><input
                     type='text'
                     name='id'

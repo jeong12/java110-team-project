@@ -37,7 +37,7 @@
 
 	<select id="findByEmailPassword" parameterType="map"
 		resultType="Member">
-		select mno as no, id, email, nik as nickname, phot as photo
+		select mno as no, id, email, nik as nickname, phot as photo, flag as yn
 		from memb
 		where id=#{id} and pwd=password(#{password})
 	</select>
@@ -159,6 +159,17 @@
         set lcnt=#{lcnt}
         where abno=#{bono}
     </update>
+    
+    <update id="updateavifavlcnt" parameterType="map">
+        update avi_fav
+        set lcnt=#{lcnt}
+        where abno=#{abno}
+    </update>
+    
+    <insert id="insertavifavlcnt" parameterType="int">
+        insert into avi_fav(abno,lcnt)
+        values (#{abno},0)
+    </insert>
 
 </mapper>
 

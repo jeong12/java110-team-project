@@ -315,6 +315,7 @@ public class AuthController {
         String password,
         String save,
         HttpServletResponse response,
+        HttpServletRequest request,
         HttpSession session) { 
 
       ArrayList<Cookie> cookies = new ArrayList<>();
@@ -328,9 +329,13 @@ public class AuthController {
         cookie.setMaxAge(0);
         cookies.add(cookie);
       }
+      
+      // 정지회원은 로그인 불가능하게 설정
+      
+            
       Member loginUser = memberService.getMember(id, password);
 
-      if(loginUser != null) {
+      if(loginUser != null && loginUser.getYn() < 10) {
         session.setAttribute("loginUser", loginUser);
         List<Integer> bno = buskerService.checkBusker(loginUser.getNo());
         List<Integer> sno = supporterService.checkSupporter(loginUser.getNo());
@@ -351,9 +356,19 @@ public class AuthController {
 
         return "redirect:../main";
 
-      } else {
+      } else if(loginUser == null){ 
         session.invalidate();
         return "redirect:form";
+      } else if(loginUser.getYn() >= 10) {
+        session.invalidate();
+        int yn = loginUser.getYn();
+        Cookie cookie = new Cookie("yn", String.valueOf(yn));
+        cookie.setMaxAge(1);
+        response.addCookie(cookie);
+        return "redirect:form";
+      } else {
+        session.invalidate();
+        return "redirect:../main";
       }
     }
     

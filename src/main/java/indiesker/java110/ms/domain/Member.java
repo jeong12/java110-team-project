@@ -14,7 +14,7 @@ public class Member implements Serializable {
   protected String nickname;
   protected String photo;
   protected List<String> genre;
-  protected char yn;
+  protected int yn;
   protected String memo;
   protected String genre0;
   protected String genre1;
@@ -104,11 +104,11 @@ public class Member implements Serializable {
   public void setGenre(List<String> genre) {
     this.genre = genre;
   }
-  public char getYn() {
+  public int getYn() {
     return yn;
   }
-  public void setYn(char yn) {
-    this.yn = yn;
+  public void setYn(int flag) {
+    this.yn = flag;
   }
   public String getMemo() {
     return memo;
@@ -125,8 +125,10 @@ public class Member implements Serializable {
   @Override
   public String toString() {
     return "Member [no=" + no + ", id=" + id + ", email=" + email + ", password=" + password
-        + ", nickname=" + nickname + ", photo=" + photo + ", genre=" + genre+", yn=" + yn
-        + ", memo=" + memo + "]";
+        + ", nickname=" + nickname + ", photo=" + photo + ", genre=" + genre + ", yn=" +yn
+        + ", memo=" + memo + ", genre0=" + genre0 + ", genre1=" + genre1 + ", genre2=" + genre2
+        + ", membflag=" + membflag + ", cdt=" + cdt + ", followNum=" + followNum + ", heartNum="
+        + heartNum + ", casebono=" + casebono + "]";
   }
   public int getMembflag() {
     return membflag;

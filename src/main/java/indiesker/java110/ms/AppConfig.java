@@ -78,10 +78,10 @@ public class AppConfig {
   }
   
   //통계
-  @Scheduled(cron = "0 0 23 * * * ")
+  @Scheduled(cron = "0 0 6 * * * ")
   public void scheduledByWeek() {
     statisticsService.scheduleService();
-    System.out.println("실행됨 ㅎㅎㅎ");
+    System.out.println("인기동영상 일일 통계 시스템 작동");
   } 
 
   // 주로 테스트용!
