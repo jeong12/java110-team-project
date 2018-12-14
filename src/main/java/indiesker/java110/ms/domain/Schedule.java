@@ -29,9 +29,14 @@ public class Schedule {
   protected String bname;
   protected String simpleaddr;
   protected String feeddate;
+  protected String bigDay;
   
-  
-
+  public String getBigDay() {
+    return bigDay;
+  }
+  public void setBigDay(String bigDay) {
+    this.bigDay = bigDay;
+  }
   public String getFeeddate() {
     return feeddate;
   }

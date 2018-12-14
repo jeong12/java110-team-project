@@ -119,7 +119,75 @@ public class MemberServiceImpl implements MemberService {
     int type = memberDao.getType(no);
     return type;
   }
-  
+
+  @Override
+  public int followComeOn(int mno, int bno) {
+    Map<String,Object> params = new HashMap<>();
+    params.put("mno", mno);
+    params.put("bno", bno);
+    
+    return memberDao.followcomeon(params);
+  }
+
+  @Override
+  public int noneFollow(int mno, int bno) {
+    Map<String,Object> params = new HashMap<>();
+    params.put("mno", mno);
+    params.put("bno", bno);
+    
+    return memberDao.nonefollow(params);
+  }
+
+  @Override
+  public int searchFollow(int mno, int bno) {
+    Map<String,Object> params = new HashMap<>();
+    params.put("mno", mno);
+    params.put("bno", bno);
+    
+    return memberDao.searchfollow(params);
+  }
+
+  // 좋아요 관련
+  @Override
+  public int likeComeOn(int mno, int bono, int flag) {
+    Map<String,Object> params = new HashMap<>();
+    params.put("mno", mno);
+    params.put("bono", bono);
+    params.put("flag", flag);
+    
+    return memberDao.likecomeon(params);
+  }
+
+  @Override
+  public int noneLike(int mno, int bono, int flag) {
+    Map<String,Object> params = new HashMap<>();
+    params.put("mno", mno);
+    params.put("bono", bono);
+    params.put("flag", flag);
+    
+    return memberDao.nonelike(params);
+  }
+
+  @Override
+  public int searchLikeCount(int bono, int flag) {
+    Map<String,Object> params = new HashMap<>();
+    params.put("bono", bono);
+    params.put("flag", flag);
+    
+    return memberDao.searchlikecount(params);
+  }
+
+  @Override
+  public int searchLikeOX(int mno, int bono, int flag) {
+    Map<String,Object> params = new HashMap<>();
+    params.put("mno", mno);
+    params.put("bono", bono);
+    params.put("flag", flag);
+    
+    return memberDao.searchlikeox(params);
+  }
+
+
 }
 
 

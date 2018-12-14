@@ -73,8 +73,8 @@ ul li {
     transition: all 150ms ease-out;
     float: right;
     margin-top:    0rem;
-    margin-right: 2rem;
-    width: 17rem;
+    margin-right: 0rem;
+    width: 20rem;
 }
 
 .princing-item:hover {
@@ -212,9 +212,11 @@ display:inherit;
 }
 
 #selectday{
+    font-size:35px;
     margin-top: 10px;
-    margin-bottom: 20px
-
+    margin-bottom: 20px;
+    color: black;
+    
 }
 
 #databody{

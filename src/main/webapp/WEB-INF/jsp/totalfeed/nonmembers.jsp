@@ -380,10 +380,10 @@ padding: 0;
 			}
 		}
 		
-		$(document).scroll(function(){
-            var pos = document.getElementById('pos'); 
+        $(document).scroll(function(){
+            var st = $(window).scrollTop();
             var movetop = document.getElementById('movetop');
-            if($(pos).attr('value') > 50){
+            if(st > 50){
                 movetop.style.display = 'block';
             } else{
                 movetop.style.display = 'none';
@@ -391,7 +391,6 @@ padding: 0;
          });
          
          $('#movetop').click(function(){
-        	 //console.log("클릭됨");
              $('#top').animate({
                   scrollTop:0
              }, 800, 'easeInQuart');

@@ -408,7 +408,7 @@ table {
             <div class="thumb">
               <div class="caption" style="display: none;">
                 <h4>더 자세히 보고 싶다면?</h4>
-                <a href="#"><i class="fas fa-angle-right"></i></a>
+                <a href="/app/buskerfeed/enter?no="><i class="fas fa-angle-right"></i></a> 
               </div>
               <img class="BusMainImg" alt="test"><br>
             </div>

@@ -13,9 +13,23 @@ public class FeedPhoto extends Busker{
   protected List<Comment> comments;
   protected int comtcount;
   protected String strcdt;
+  protected int returnlikecount;
+  protected int likeOX;
   
   
   
+  public int getLikeOX() {
+    return likeOX;
+  }
+  public void setLikeOX(int likeOX) {
+    this.likeOX = likeOX;
+  }
+  public int getReturnlikecount() {
+    return returnlikecount;
+  }
+  public void setReturnlikecount(int returnlikecount) {
+    this.returnlikecount = returnlikecount;
+  }
   public String getStrcdt() {
     return strcdt;
   }

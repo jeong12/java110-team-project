@@ -12,6 +12,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,7 @@ import indiesker.java110.ms.domain.Avi;
 import indiesker.java110.ms.domain.Busker;
 import indiesker.java110.ms.domain.Comment;
 import indiesker.java110.ms.domain.FeedPhoto;
+import indiesker.java110.ms.domain.Member;
 import indiesker.java110.ms.domain.Paging;
 import indiesker.java110.ms.domain.Schedule;
 import indiesker.java110.ms.service.AviService;
@@ -61,15 +63,26 @@ public class FeedController {
       int no,
       @RequestParam(defaultValue="1") int pageNo,
       @RequestParam(defaultValue="9") int pageSize,
-      Model model) {
-    
-    Paging paging1 = new Paging();
-    
-    paging1.setPageSize(9);
+      Model model, HttpSession session) {
+    //팔로우,좋아요 OX 처리
+    Member m = new Member();
+    int followcount = 0;
+    int likecount = 0;
+    int loginNum = 0;
+    if(session.getAttribute("loginUser") != null) {
+      m = (Member)session.getAttribute("loginUser");
+      loginNum = m.getNo();
+      followcount = memberService.searchFollow(loginNum, no);
+      likecount = memberService.searchLikeOX(loginNum, no, 1);
+    }
+    //좋아요 count처리
+    Busker buskerlikecount = new Busker();
+    buskerlikecount.setLikecount(memberService.searchLikeCount(no, 1));
 
+    Paging paging1 = new Paging();
+    paging1.setPageSize(9);
     paging1.setTotalCount(feedPhotoService.recentPhotList2(no));
-    System.out.println("총 사진 갯수="+feedPhotoService.recentPhotList2(no));
-    
+
     List<Schedule> fplist = sheduleService.findFeedPerSchedule(no);//스케줄 now()이후 날짜부터 출력!
     List<Schedule> fflist = sheduleService.findFeedFixSchedule(no);
     Busker busker = buskerService.get(no);
@@ -113,14 +126,37 @@ public class FeedController {
       ps.setNsdt(formatsdt.format(ps.getSdt()));
       ps.setNedt(formatedt.format(ps.getEdt()));
     }
-    
-    SimpleDateFormat scheformatdate = new SimpleDateFormat("EEE. d MMM", new Locale("en", "US"));
+
+    // 요일 대문자로
+    SimpleDateFormat scheformatdate2 = new SimpleDateFormat("EEEE", new Locale("en", "US"));
+    for (Schedule ps : fplist) {
+      if((scheformatdate2.format(ps.getSdt())).equals("Monday")) {
+        ps.setBigDay("MONDAY");
+      }else if((scheformatdate2.format(ps.getSdt())).equals("Tuesday")) {
+        ps.setBigDay("TUESDAY");
+      }else if((scheformatdate2.format(ps.getSdt())).equals("Wednesday")) {
+        ps.setBigDay("WEDNESDAY");
+      }else if((scheformatdate2.format(ps.getSdt())).equals("Thursday")) {
+        ps.setBigDay("THURSDAY");
+      }else if((scheformatdate2.format(ps.getSdt())).equals("Friday")) {
+        ps.setBigDay("FRIDAY");
+      }else if((scheformatdate2.format(ps.getSdt())).equals("Saturday")) {
+        ps.setBigDay("SATURDAY");
+      }else if((scheformatdate2.format(ps.getSdt())).equals("Sunday")) {
+        ps.setBigDay("SUNDAY");
+      }
+    }
+
+    SimpleDateFormat scheformatdate = new SimpleDateFormat(". d MMM", new Locale("en", "US"));
     for (Schedule ps : fplist) {
       ps.setFeeddate(scheformatdate.format(ps.getSdt()));
-      System.out.println(ps.getFeeddate());
     }
-    
 
+    m.setFollowNum(followcount);
+    m.setHeartNum(likecount);
+
+    model.addAttribute("feedlikecount",buskerlikecount);
+    model.addAttribute("loginuser",m);
     model.addAttribute("photo", paging1);
     model.addAttribute("schelist",fplist);
     model.addAttribute("busk",busker);
@@ -131,13 +167,29 @@ public class FeedController {
   @ResponseBody
   @RequestMapping("showavi")
   public Avi getAviNo(
-      String abno, Model model) {   
+      String abno, Model model,HttpSession session) {  
+    int loginno = 0;
+    
     int abno2 = Integer.parseInt(abno);
     Avi feedavi=aviService.getfeedavibyAbno(abno2);
 
     if(feedavi == null) {
       feedavi = aviService.getfeedavibyAbnoNoComt(abno2);
       feedavi.setComtcount(0);
+      feedavi.setReturnlikecount(memberService.searchLikeCount(abno2, 3));
+      
+      if(session.getAttribute("loginUser") != null) {
+        Member mm = (Member)session.getAttribute("loginUser");
+        loginno = mm.getNo();
+
+        System.out.println("test: " +loginno + abno2);
+        if((memberService.searchLikeOX(loginno, abno2, 3))==1) {
+          feedavi.setLikeOX(1);
+        }else {
+          feedavi.setLikeOX(0);
+        }
+      }
+      
       return feedavi;
     }else {
       feedavi.setComtcount(5);
@@ -145,6 +197,21 @@ public class FeedController {
       for (Comment comment : comts) {
         comment.setStrcdt(comment.getCdt().toString());
       }
+      
+      feedavi.setReturnlikecount(memberService.searchLikeCount(abno2, 3));
+      
+      if(session.getAttribute("loginUser") != null) {
+        Member mm = (Member)session.getAttribute("loginUser");
+        loginno = mm.getNo();
+
+        System.out.println("test: " +loginno + abno2);
+        if((memberService.searchLikeOX(loginno, abno2, 3))==1) {
+          feedavi.setLikeOX(1);
+        }else {
+          feedavi.setLikeOX(0);
+        }
+      }
+      
       return feedavi;
     }
   }
@@ -152,12 +219,26 @@ public class FeedController {
   @ResponseBody
   @RequestMapping("showphoto")
   public FeedPhoto getPhotoNo(
-      String pbno, Model model) {   
+      String pbno, Model model,HttpSession session) {   
+    int loginno = 0;
     int pbno2 = Integer.parseInt(pbno);
     FeedPhoto feedphoto=feedPhotoService.getfeedphotobyPbno(pbno2);
     if(feedphoto == null) {
       feedphoto = feedPhotoService.getfeedphotobyPbnoNoComt(pbno2);
       feedphoto.setComtcount(0);
+      
+      feedphoto.setReturnlikecount(memberService.searchLikeCount(pbno2, 2));
+      if(session.getAttribute("loginUser") != null) {
+        Member mm = (Member)session.getAttribute("loginUser");
+        loginno = mm.getNo();
+
+        if((memberService.searchLikeOX(loginno, pbno2, 2))==1) {
+          feedphoto.setLikeOX(1);
+        }else {
+          feedphoto.setLikeOX(0);
+        }
+      }
+      
       return feedphoto;
     }else {
       feedphoto.setComtcount(5);
@@ -165,7 +246,19 @@ public class FeedController {
       for (Comment comment : comts) {
         comment.setStrcdt(comment.getCdt().toString());
       }
-      
+      feedphoto.setReturnlikecount(memberService.searchLikeCount(pbno2, 2));
+      if(session.getAttribute("loginUser") != null) {
+        Member mm = (Member)session.getAttribute("loginUser");
+        loginno = mm.getNo();
+
+        if((memberService.searchLikeOX(loginno, pbno2, 2))==1) {
+          feedphoto.setLikeOX(1);
+        }else {
+          feedphoto.setLikeOX(0);
+        }
+      }
+
+
       return feedphoto;
     }
   }
@@ -215,9 +308,6 @@ public class FeedController {
   @ResponseBody
   @RequestMapping("insertcomment")
   public Avi insertcomt(String abno, String mno, String cont) {
-    System.out.println(abno);
-    System.out.println(mno);
-    System.out.println(cont);
     int abno2 = Integer.parseInt(abno);
     int mno2 = Integer.parseInt(mno);
 
@@ -231,7 +321,7 @@ public class FeedController {
 
     return feedavi;
   }
-  
+
   @ResponseBody
   @RequestMapping("insertphotcomment")
   public FeedPhoto insertphotcomt(String pbno, String mno, String cont) {
@@ -239,7 +329,6 @@ public class FeedController {
     int mno2 = Integer.parseInt(mno);
 
     int no = feedPhotoService.insertPhotComt(pbno2, mno2, cont);
-    System.out.println(no);
     //입력완료================================
     FeedPhoto feedphoto = feedPhotoService.getfeedphotobyPbno(pbno2);
     List<Comment> comts=feedphoto.getComments();
@@ -254,7 +343,6 @@ public class FeedController {
   public int revisecomt(String acno,  String cont) {
     int acno2 = Integer.parseInt(acno);
     int kk = aviService.reviseComment(cont, acno2);
-    System.out.println(kk);
     return aviService.reviseComment(cont, acno2);
   }
 
@@ -262,10 +350,10 @@ public class FeedController {
   @RequestMapping("revisephotcomment")
   public int revisephotcomt(String pcno,  String cont) {
     int pcno2 = Integer.parseInt(pcno);
-    
+
     return feedPhotoService.revisePhotComment(cont, pcno2);
   }
-  
+
   @ResponseBody
   @RequestMapping("removecomment")
   public Avi removecomt(String acno,String abno) {
@@ -279,7 +367,7 @@ public class FeedController {
     for (Comment comment : comts) {
       comment.setStrcdt(comment.getCdt().toString());
     }
-    
+
     return feedavi;
   }
   @ResponseBody
@@ -295,7 +383,7 @@ public class FeedController {
     for (Comment comment : comts) {
       comment.setStrcdt(comment.getCdt().toString());
     }
-    
+
     return feedphoto;
   }
 
@@ -320,7 +408,23 @@ public class FeedController {
   }
 
   @RequestMapping("moreavi")
-  public void moreavi(int no,  Model model, @RequestParam(defaultValue="0")int pageNo, Paging paging){
+  public void moreavi(int no,  Model model, @RequestParam(defaultValue="0")int pageNo, Paging paging, HttpSession session){
+    
+  //팔로우,좋아요 OX 처리
+    Member m = new Member();
+    int followcount = 0;
+    int likecount = 0;
+    int loginNum = 0;
+    if(session.getAttribute("loginUser") != null) {
+      m = (Member)session.getAttribute("loginUser");
+      loginNum = m.getNo();
+      followcount = memberService.searchFollow(loginNum, no);
+      likecount = memberService.searchLikeOX(loginNum, no, 1);
+    }
+    //좋아요 count처리
+    Busker buskerlikecount = new Busker();
+    buskerlikecount.setLikecount(memberService.searchLikeCount(no, 1));
+    
     paging.setPageNo(pageNo);
     paging.setPageSize(12);
     paging.setTotalCount(aviService.totList(no));
@@ -341,6 +445,8 @@ public class FeedController {
     model.addAttribute("busk",busker);
     model.addAttribute("recentlist",alist);
     model.addAttribute("paging",paging);
+    model.addAttribute("feedlikecount",buskerlikecount);
+    model.addAttribute("loginuser",m);
 
   }
 
@@ -397,26 +503,75 @@ public class FeedController {
     int buskno2 = Integer.parseInt(buskno);
     int pageno2 = Integer.parseInt(pageno);
     Paging paging1 = new Paging();
-    
+
     paging1.setPageSize(9);
 
     paging1.setTotalCount(feedPhotoService.recentPhotList2(buskno2));
-    
+
     List<FeedPhoto> plist = feedPhotoService.recentPhotList(buskno2,pageno2,9);
-    
+
     for (FeedPhoto f : plist) {
-      System.out.println(f.getCdt());
       f.setStrcdt(f.getCdt().toString());
-      }
-    
+    }
+
     Map<String,Object> map = new HashMap<>();
     map.put("plist", plist);
     map.put("paging", paging1);
-    
-    
+
+
     return map;
   }
-  
+
+  @ResponseBody
+  @RequestMapping("followme")
+  public int followfollow(String loginno,String feedbuskno) {
+    int loginno2 = Integer.parseInt(loginno);
+    int feedbuskno2 = Integer.parseInt(feedbuskno);
+
+    return memberService.followComeOn(loginno2, feedbuskno2);
+  }
+
+  @ResponseBody
+  @RequestMapping("nonefollow")
+  public int nonefollow(String loginno,String feedbuskno) {
+    int loginno2 = Integer.parseInt(loginno);
+    int feedbuskno2 = Integer.parseInt(feedbuskno);
+
+    return memberService.noneFollow(loginno2, feedbuskno2);
+  }
+
+  // 좋아요 관련
+  @ResponseBody
+  @RequestMapping("likeme")
+  public Map<String,Object> likelike(String loginno,String feedbuskno, String flag) {
+    int loginno2 = Integer.parseInt(loginno);
+    int feedbuskno2 = Integer.parseInt(feedbuskno);
+    int flag2 = Integer.parseInt(flag);
+
+    memberService.likeComeOn(loginno2, feedbuskno2, flag2);
+
+    Map<String,Object> map = new HashMap<>();
+    map.put("returnlikecount", memberService.searchLikeCount(feedbuskno2, flag2));
+
+    return map;
+  }
+
+  @ResponseBody
+  @RequestMapping("nonelike")
+  public Map<String,Object> nonelike(String loginno,String feedbuskno, String flag) {
+    int loginno2 = Integer.parseInt(loginno);
+    int feedbuskno2 = Integer.parseInt(feedbuskno);
+    int flag2 = Integer.parseInt(flag);
+    
+
+    memberService.noneLike(loginno2, feedbuskno2,flag2);
+
+    Map<String,Object> map = new HashMap<>();
+    map.put("returnlikecount", memberService.searchLikeCount(feedbuskno2, flag2));
+
+    return map;
+  }
+
 }
 
 

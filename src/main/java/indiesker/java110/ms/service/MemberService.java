@@ -15,4 +15,11 @@ public interface MemberService {
     boolean isBusker(int no);
     Member getMember(int no);
     int getType(int no);
+    int followComeOn(int mno, int bno);
+    int noneFollow(int mno, int bno);
+    int searchFollow(int mno, int bno);
+    int likeComeOn(int mno, int bono, int flag);
+    int noneLike(int mno, int bono, int flag);
+    int searchLikeCount(int bono, int flag);
+    int searchLikeOX(int mno, int bono, int flag);
 }

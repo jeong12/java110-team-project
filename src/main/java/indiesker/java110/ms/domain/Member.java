@@ -21,7 +21,23 @@ public class Member implements Serializable {
   protected String genre2;
   protected int membflag;
   protected Date cdt;
+  protected int followNum;
+  protected int heartNum;
+  protected int casebono;
   
+  
+  public int getCasebono() {
+    return casebono;
+  }
+  public void setCasebono(int casebono) {
+    this.casebono = casebono;
+  }
+  public int getHeartNum() {
+    return heartNum;
+  }
+  public void setHeartNum(int heartNum) {
+    this.heartNum = heartNum;
+  }
   public Date getCdt() {
     return cdt;
   }
@@ -100,7 +116,12 @@ public class Member implements Serializable {
   public void setMemo(String memo) {
     this.memo = memo;
   }
-  
+  public int getFollowNum() {
+    return followNum;
+  }
+  public void setFollowNum(int followNum) {
+    this.followNum = followNum;
+  }
   @Override
   public String toString() {
     return "Member [no=" + no + ", id=" + id + ", email=" + email + ", password=" + password
