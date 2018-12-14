@@ -98,6 +98,14 @@ ORDER by bo.cdt DESC
        set cont=#{comment} 
      where bcno=#{bcno}
     </update>
+    
+    <select id="findBno" parameterType="int" resultType="Integer">
+    SELECT bno FROM busk_board WHERE bbno = #{bbno}
+    </select>
+    
+    <delete id="deletePage" parameterType="int">
+    DELETE FROM `busk_board` WHERE bbno = #{bbno}
+    </delete>
 </mapper>
 
 

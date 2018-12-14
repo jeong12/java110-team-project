@@ -120,10 +120,8 @@ public class BuskerPromotionController {
   
   @GetMapping("detail")
   public void detail(
-      int bbno, Paging paging, Model model) {
-    
-    
-    System.out.println(bbno);
+      int bbno, Paging paging, Model model, HttpSession session) {
+    int bno = buskerPromotionService.findBno(bbno);
     paging.setPageSize(13);
     paging.setTotalCount(buskerPromotionService.totCommetList(bbno));
     
@@ -151,6 +149,7 @@ public class BuskerPromotionController {
     model.addAttribute("list", bd);
     model.addAttribute("comment", commentList);
     model.addAttribute("paging",paging);
+    model.addAttribute("busk", bno);
   }
   
   
@@ -301,5 +300,12 @@ public class BuskerPromotionController {
  }
 
 
+ @ResponseBody
+ @RequestMapping("deletePage")
+ public int removePage(int bbno) {
+   return buskerPromotionService.deletePage(bbno);
+ }
+ 
+ 
 }
 
