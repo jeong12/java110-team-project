@@ -92,7 +92,7 @@ public class MapController {
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     SimpleDateFormat hformat = new SimpleDateFormat("HH:mm");
     SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
-    
+        
 
     List<Schedule> list = scheduleService.findbywordSearchAllSchedule(keyword);
     
@@ -100,6 +100,8 @@ public class MapController {
       l.setNsdt(format.format(l.getSdt()));
       l.setNedt(hformat.format(l.getEdt()));
       l.setNcdt(dformat.format(l.getCdt()));
+      int lst = l.getAddr().indexOf('구');
+      l.setSimpleaddr(l.getAddr().substring(0, lst+1));
     }
 
     return list;
