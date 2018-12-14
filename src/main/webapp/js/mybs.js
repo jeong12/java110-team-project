@@ -508,7 +508,6 @@ $('#regendtimepicker').focusout(function(){
     var f = {
         		"sdt": $('#regstarttimepicker').val(),
         		"edt": $('#regendtimepicker').val(),
-        		"no": 5
     }
        
     $.ajax({ 
@@ -517,6 +516,7 @@ $('#regendtimepicker').focusout(function(){
         dataType: 'json',
         data : f, //파라미터 넘겨줄 부분? : 이게 할말이 많은데 원래 GET방식으로 하라했다가 
         success : function(data) { // delete, update문 같은 경우에는 기본적으로 int값을 반환함.
+        	console.log(data);///testsetset
         	if(data==0){
         		$('#datecheck').html('등록 가능한 일정입니다.').css('color','green');
         		$("#appbtn").prop("disabled", false);
@@ -617,7 +617,6 @@ $('#editendtimepicker').focusout(function(){
     		"edt": oldedt,
      		"nsdt": $('#editstarttimepicker').val(),
      		"nedt": $('#editendtimepicker').val(),
-     		"no": 5
     }
      console.log(f);
     
@@ -627,15 +626,13 @@ $('#editendtimepicker').focusout(function(){
      dataType: 'json',
      data : f, //파라미터 넘겨줄 부분? : 이게 할말이 많은데 원래 GET방식으로 하라했다가 
      success : function(data) { // delete, update문 같은 경우에는 기본적으로 int값을 반환함.
-    	 
+    	 console.log('asdsad');
     	 console.log(data);
      	if(data==0){
      		$('#editdatecheck').html('등록 가능한 일정입니다.').css('color','green');
      		$("#editno").prop("disabled", false);
-     		console.log(data+"중복값이없어 바꾼다");	
      	}else{
      		$("#editno").prop("disabled", true);
-     		console.log(data+"중복일정이있어 못바꾸게한다");
      		$('#editdatecheck').html('중복된 일정이 존재합니다.').css('color','red');
      	}
      },
