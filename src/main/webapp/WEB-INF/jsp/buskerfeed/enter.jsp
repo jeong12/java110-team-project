@@ -549,7 +549,7 @@ body, .container.title {
               </c:choose>
             </div>
             <nav aria-label="Page navigation example" class='pages'
-              style="text-align: center;">
+              style="text-align: center;margin-top: 17px;">
               <ul class="pagination justify-content-center">
                 <li class="page-item"><a class="page-link"
                   href="javascript:goPage(${photo.prevPageNo})">Previous</a></li>
