@@ -103,8 +103,13 @@ ORDER by bo.cdt DESC
     SELECT bno FROM busk_board WHERE bbno = #{bbno}
     </select>
     
+    <delete id="deleteComment" parameterType="int">
+     DELETE FROM `board_comt` WHERE #{bbno}
+    </delete>
+    
+   
     <delete id="deletePage" parameterType="int">
-    DELETE FROM `busk_board` WHERE bbno = #{bbno}
+    DELETE FROM busk_board WHERE bbno = #{bbno}
     </delete>
     
     <update id="updatePromotion" parameterType="BuskerPromotion">
@@ -124,8 +129,8 @@ ORDER by bo.cdt DESC
     </update>
     
     <select id="toEdit" parameterType="int" resultType="BuskerPromotion">
-    SELECT `titl`, `genre`, `city`, `cnt`, `sdt`, `edt`, `tel1`, `tel2`, `etc`, `phot`, bbno
-    FROM `busk_board` 
+    SELECT titl, genre, city, cnt, sdt, edt, tel1, tel2, etc, phot, bbno
+    FROM busk_board 
     WHERE bbno = #{bbno}
     </select>
     
