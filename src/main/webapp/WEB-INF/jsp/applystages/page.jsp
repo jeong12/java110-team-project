@@ -683,16 +683,59 @@ $('#count').on("focusout",function(){
      center: new daum.maps.LatLng(${list.x}, ${list.y}),
      level: 3
 };
+ 
+ var MARKER_WIDTH = 33, // 기본, 클릭 마커의 너비
+ MARKER_HEIGHT = 36, // 기본, 클릭 마커의 높이
+ OFFSET_X = 12, // 기본, 클릭 마커의 기준 X좌표
+ OFFSET_Y = MARKER_HEIGHT, // 기본, 클릭 마커의 기준 Y좌표
+ OVER_MARKER_WIDTH = 40, // 오버 마커의 너비
+ OVER_MARKER_HEIGHT = 42, // 오버 마커의 높이
+ OVER_OFFSET_X = 13, // 오버 마커의 기준 X좌표
+ OVER_OFFSET_Y = OVER_MARKER_HEIGHT, // 오버 마커의 기준 Y좌표
+ SPRITE_MARKER_URL = 'http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markers_sprites2.png', // 스프라이트 마커 이미지 URL
+ SPRITE_WIDTH = 126, // 스프라이트 이미지 너비
+ SPRITE_HEIGHT = 146, // 스프라이트 이미지 높이
+ SPRITE_GAP = 10; // 스프라이트 이미지에서 마커간 간격
 
+ var markerSize = new daum.maps.Size(MARKER_WIDTH, MARKER_HEIGHT), // 기본, 클릭 마커의 크기
+ markerOffset = new daum.maps.Point(OFFSET_X, OFFSET_Y), // 기본, 클릭 마커의 기준좌표
+ overMarkerSize = new daum.maps.Size(OVER_MARKER_WIDTH, OVER_MARKER_HEIGHT), // 오버 마커의 크기
+ overMarkerOffset = new daum.maps.Point(OVER_OFFSET_X, OVER_OFFSET_Y), // 오버 마커의 기준 좌표
+ spriteImageSize = new daum.maps.Size(SPRITE_WIDTH, SPRITE_HEIGHT); // 스프라이트 이미지의 크기
+ 
+ var gapX = (MARKER_WIDTH + SPRITE_GAP), // 스프라이트 이미지에서 마커로 사용할 이미지 X좌표 간격 값
+ originY = (MARKER_HEIGHT + SPRITE_GAP) * 1, // 스프라이트 이미지에서 기본, 클릭 마커로 사용할 Y좌표 값
+ overOriginY = (OVER_MARKER_HEIGHT + SPRITE_GAP), // 스프라이트 이미지에서 오버 마커로 사용할 Y좌표 값
+ normalOrigin = new daum.maps.Point(0, originY), // 스프라이트 이미지에서 기본 마커로 사용할 영역의 좌상단 좌표
+ clickOrigin = new daum.maps.Point(gapX, originY), // 스프라이트 이미지에서 마우스오버 마커로 사용할 영역의 좌상단 좌표
+ overOrigin = new daum.maps.Point(gapX * 2, overOriginY); // 스프라이트 이미지에서 클릭 마커로 사용할 영역의 좌상단 좌표
+ 
+ var normalImage = createMarkerImage(markerSize, markerOffset, normalOrigin),
+ overImage = createMarkerImage(overMarkerSize, overMarkerOffset, overOrigin),
+ clickImage = createMarkerImage(markerSize, markerOffset, clickOrigin);
+ 
  var map = new daum.maps.Map(container, options);
  var marker = new daum.maps.Marker({
         position: new daum.maps.LatLng(${list.x}, ${list.y}),
-        map: map
+        map: map,
+        image: clickImage
  });
  marker.setDraggable(false); // 마커를 움직일수 있게 설정 false일경우 고정!
  map.relayout();
 
-
+ function createMarkerImage(markerSize, offset, spriteOrigin) {
+	    var markerImage = new daum.maps.MarkerImage(
+	        SPRITE_MARKER_URL, // 스프라이트 마커 이미지 URL
+	        markerSize, // 마커의 크기
+	        {
+	            offset: offset, // 마커 이미지에서의 기준 좌표
+	            spriteOrigin: spriteOrigin, // 스트라이프 이미지 중 사용할 영역의 좌상단 좌표
+	            spriteSize: spriteImageSize // 스프라이트 이미지의 크기
+	        }
+	    );
+	    
+	    return markerImage;
+	}
 
 
 </script>

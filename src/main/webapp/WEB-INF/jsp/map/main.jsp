@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<html>
+<html id="top"> <!--  -->
 <head>
     <meta charset="utf-8">
     <title>버스커 위치</title>
@@ -17,7 +17,7 @@
  <link rel="stylesheet" href="../../css/common.css">
    
    <!--  -->
-    <link rel="stylesheet" href="https://unpkg.com/flickity@2.0/dist/flickity.min.css">
+<link rel="stylesheet" href="https://unpkg.com/flickity@2.0/dist/flickity.min.css">
     
     
    <!-- 폰트 -->
@@ -311,8 +311,9 @@ footer{margin-top: 3rem;}
   <div class="carousel" data-flickity>
   
   <!-- 카르셀 시작 -->
-  <c:forEach items="${list}" var="cl">
-      <div class="carousel-cell" value="${cl.x},${cl.y}" >
+  <c:forEach items="${list}" var="cl" varStatus="status">
+      <div class="carousel-cell" value="${cl.x},${cl.y}" id="${status.index}" >
+        <a href="javascript:void(0)"></a>
         <h3 class="caselh3">${cl.bname}</h3>
         <label>${cl.nsdt}~${cl.nedt}</label>
         <label class='a'>${cl.simpleaddr}</label>
@@ -436,6 +437,9 @@ footer{margin-top: 3rem;}
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=15e2302756c9e7098ec0d79f7b4d53f4"></script>
 
 <script>
+
+
+
  $(".listbox ul li").mouseover(function(){
 	$(this).css("background-color","#d1e1fc");
 }) 
@@ -444,7 +448,27 @@ $(".listbox ul li").mouseleave(function(){
 })
 
 $(document).ready(function(){
-    
+
+	var MARKER_WIDTH = 33, // 기본, 클릭 마커의 너비
+	MARKER_HEIGHT = 36, // 기본, 클릭 마커의 높이
+	OFFSET_X = 12, // 기본, 클릭 마커의 기준 X좌표
+	OFFSET_Y = MARKER_HEIGHT, // 기본, 클릭 마커의 기준 Y좌표
+	OVER_MARKER_WIDTH = 40, // 오버 마커의 너비
+	OVER_MARKER_HEIGHT = 42, // 오버 마커의 높이
+	OVER_OFFSET_X = 13, // 오버 마커의 기준 X좌표
+	OVER_OFFSET_Y = OVER_MARKER_HEIGHT, // 오버 마커의 기준 Y좌표
+	SPRITE_MARKER_URL = 'http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markers_sprites2.png', // 스프라이트 마커 이미지 URL
+	SPRITE_WIDTH = 126, // 스프라이트 이미지 너비
+	SPRITE_HEIGHT = 146, // 스프라이트 이미지 높이
+	SPRITE_GAP = 10; // 스프라이트 이미지에서 마커간 간격
+
+	var markerSize = new daum.maps.Size(MARKER_WIDTH, MARKER_HEIGHT), // 기본, 클릭 마커의 크기
+	markerOffset = new daum.maps.Point(OFFSET_X, OFFSET_Y), // 기본, 클릭 마커의 기준좌표
+	overMarkerSize = new daum.maps.Size(OVER_MARKER_WIDTH, OVER_MARKER_HEIGHT), // 오버 마커의 크기
+	overMarkerOffset = new daum.maps.Point(OVER_OFFSET_X, OVER_OFFSET_Y), // 오버 마커의 기준 좌표
+	spriteImageSize = new daum.maps.Size(SPRITE_WIDTH, SPRITE_HEIGHT); // 스프라이트 이미지의 크기
+	
+	
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
     mapOption = { 
         center: new daum.maps.LatLng(37.5342, 126.992), // 지도의 중심좌표
@@ -465,19 +489,21 @@ function removeMarker() {
     markers = [];
     overlays =[];
 }
-/* daum.maps.event.addListener(markers, 'click', function() {
-    overlay.setMap(map);
-}); */
 
-// 기본 overlay를 숨김
-/* function close() {
-    for(var i=0; i<overlays.length ; i++){
-        overlays[i].setMap(null);
-        console.log(i);
-    }
-} */
+function createMarkerImage(markerSize, offset, spriteOrigin) {
+    var markerImage = new daum.maps.MarkerImage(
+        SPRITE_MARKER_URL, // 스프라이트 마커 이미지 URL
+        markerSize, // 마커의 크기
+        {
+            offset: offset, // 마커 이미지에서의 기준 좌표
+            spriteOrigin: spriteOrigin, // 스트라이프 이미지 중 사용할 영역의 좌상단 좌표
+            spriteSize: spriteImageSize // 스프라이트 이미지의 크기
+        }
+    );
+    
+    return markerImage;
+}
 
-//클릭시 overlay를 보여주기위한 function
 function makeClickContent(overlay,map,marker){
     return function(){
            overlay.setMap(map);
@@ -494,6 +520,7 @@ $(document).on('click','.closeOverlay',function (){
      var i=$(this).attr('value');
      overlays[i].setMap(null);
 });  
+
 var carouselcontent;
 var ie=23.51;
 
@@ -520,21 +547,16 @@ $(function(){
         '        </div>' + 
         '    </div>' +    
         '</div>';
+        //testsetsetssdsd
+        var gapX = (MARKER_WIDTH + SPRITE_GAP), // 스프라이트 이미지에서 마커로 사용할 이미지 X좌표 간격 값
+        originY = (MARKER_HEIGHT + SPRITE_GAP) * 1, // 스프라이트 이미지에서 기본, 클릭 마커로 사용할 Y좌표 값
+        overOriginY = (OVER_MARKER_HEIGHT + SPRITE_GAP) * i, // 스프라이트 이미지에서 오버 마커로 사용할 Y좌표 값
+        normalOrigin = new daum.maps.Point(0, originY), // 스프라이트 이미지에서 기본 마커로 사용할 영역의 좌상단 좌표
+        clickOrigin = new daum.maps.Point(gapX, originY), // 스프라이트 이미지에서 마우스오버 마커로 사용할 영역의 좌상단 좌표
+        overOrigin = new daum.maps.Point(gapX * 2, overOriginY); // 스프라이트 이미지에서 클릭 마커로 사용할 영역의 좌상단 좌표
         
-       
-        
-        
-        
-        /* 
-        carouselcontent= '<div class="carousel-cell">'+ 
-					         '<h3>${data.bname}</h3>'+
-					         '<a class="more" href="">Explore more</a>'+
-					         //'<span class="more">${data.nsdt}~${data.nedt}</span>'+
-					         '<img src="../../img/${data.phot}" />'+
-					         '</div>'; */
-					         
 					        
-       addMarker(new daum.maps.LatLng(${data.x}, ${data.y}),content);
+       addMarker(new daum.maps.LatLng(${data.x}, ${data.y}),content,normalOrigin, overOrigin, clickOrigin);
        
     </c:forEach>
     
@@ -542,12 +564,23 @@ $(function(){
 
 
 //마커를 생성하고 지도위에 표시하는 함수입니다
-function addMarker(position, content) {
+function addMarker(position, content,normalOrigin, overOrigin, clickOrigin) {
     
+	
+	/* var imageSrc = 'http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다    
+    imageSize = new daum.maps.Size(32, 34), // 마커이미지의 크기입니다
+    imageOption = {offset: new daum.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 
+    var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption);*/
     // 마커를 생성, 지도에 추가합니다
+    var normalImage = createMarkerImage(markerSize, markerOffset, normalOrigin),
+        overImage = createMarkerImage(overMarkerSize, overMarkerOffset, overOrigin),
+        clickImage = createMarkerImage(markerSize, markerOffset, clickOrigin);
+    
+    
     var marker = new daum.maps.Marker({
         map : map,
-        position : position
+        position : position,
+        image: clickImage
     });
     
     // 생성된 마커를 배열에 추가합니다
@@ -555,7 +588,6 @@ function addMarker(position, content) {
     
     var overlay = new daum.maps.CustomOverlay({
         content: content,
-        /* map: map, */
         position: marker.getPosition()       
     });
     overlays.push(overlay);
@@ -650,12 +682,14 @@ $(".All2 li").click(function(){
                        
     
                     var bounds = new daum.maps.LatLngBounds() ;
+                    var index=0;
                     $.each(data,function(index,item){
                         console.log(item);
                        bounds.extend(new daum.maps.LatLng(item.x, item.y));
                        
                        carouselcontent= 
-                           '<div class="carousel-cell" value="'+item.x+','+item.y+'" >'+
+                           '<div class="carousel-cell" value="'+item.x+','+item.y+'" id="'+index+'" >'+
+                                 '<a href="#"></a>'+     
                                  '<h3>'+item.bname+'</h3>'+
                                  '<label>'+item.nsdt+'~'+item.nedt+'</label>'+
                                  '<label class="a">'+item.simpleaddr+'</label>'+
@@ -670,38 +704,6 @@ $(".All2 li").click(function(){
                    $('.carousel').flickity();
                 }
             	
-            	
-                /* var i = 0;
-                var bounds = new daum.maps.LatLngBounds() ;
-                $('.carousel-wrapper').empty();
-                $('.carousel-wrapper').append('<div class="carousel"></div>'); 
-                
-                $.each(data,function(index,item){
-                    var content = '<div class="wrap">' + 
-                    '    <div class="info">' + 
-                    '        <div class="title">' + 
-                    item.bname +
-                    '            <div class="closeOverlay" onclick="close()" value='+(i++)+' title="닫기"></div>' + 
-                    '        </div>' + 
-                    '        <div class="body">' + 
-                    '            <div class="img">' +
-                    '                <img src="../../img/'+item.phot+' width="73" height="70">' +
-                    '           </div>' + 
-                    '            <div class="desc">' + 
-                    '                <div class="ellipsis">'+item.addr+'</div>' +
-                    '                <div class="ellipsis">'+item.shopname+'</div>' + 
-                    '                <div class="jibun ellipsis">'+item.nsdt+'~'+item.nedt+'</div>' + 
-                    '                <div><a href="/../buskerfeed/enter?no=+'+item.bno+' target="_blank" class="link">피드로 이동</a></div>' + 
-                    '            </div>' + 
-                    '        </div>' + 
-                    '    </div>' +    
-                    '</div>';
-                    
-                    
-                   bounds.extend(new daum.maps.LatLng(item.x, item.y)); 
-                   //addMarker(new daum.maps.LatLng(item.x, item.y),content);
-                });
-                   map.setBounds(bounds); */
             }else{
                 swal("","갬색 지역의 버스커 공연이 없습니다.","warning");
             }
@@ -721,8 +723,7 @@ $(".boxbt").click(function(){
     $("#All2").css('background-color','#f2f3f5');
 })
 
-
-$('.carousel-cell').click(function(){
+$(document).on('click','.carousel-cell',function (){
 	console.log('선택이미지');
 	var test = $(this).attr('value').split(',');
 	var x=test[0];
@@ -730,16 +731,56 @@ $('.carousel-cell').click(function(){
 	
 	var gocenter = new daum.maps.LatLng(x, y);
 	
-	map.setCenter(gocenter);
-	
+   map.setCenter(gocenter);
+   
+   $('#top body').animate({
+        scrollTop:0
+   }, 800, 'easeInQuart');
+   
+   /* 여기에 index값을 넘겨서  다끄고 인덱스만 추가한다. */
+   var thisno=$(this).attr('id');
+   console.log(thisno);
+   console.log('배열길이는'+overlays.length);
+   for(var index=0;index<overlays.length;index++){
+    overlays[index].setMap(null);
+   }
+   overlays[thisno].setMap(map);
 	
 });
+
+//마커를 생성하고 지도위에 표시하는 함수입니다
+function SearchaddMarker(position, content,normalOrigin, overOrigin, clickOrigin) {
+    
+    var normalImage = createMarkerImage(markerSize, markerOffset, normalOrigin),
+        overImage = createMarkerImage(overMarkerSize, overMarkerOffset, overOrigin),
+        clickImage = createMarkerImage(markerSize, markerOffset, clickOrigin);
+    
+    
+    var marker = new daum.maps.Marker({
+        map : map,
+        position : position,
+        image: clickImage
+    });
+    
+    // 생성된 마커를 배열에 추가합니다
+    markers.push(marker);
+    
+    var overlay = new daum.maps.CustomOverlay({
+        content: content,
+        position: marker.getPosition()       
+    });
+    overlays.push(overlay);
+    
+    daum.maps.event.addListener(marker, 'click', makeClickContent(overlay,map,marker));
+    
+}
 
 $('#sbutton').click(function(){
 	var keyword=$('#searchinput').val();
 	if(keyword.length==0){
 		swal("","검색어를 다시 설정해주세요.","warning");
 	}else{
+		
 		$.ajax({ 
 	        type : "POST", 
 	        url : "SearchByWord",
@@ -751,24 +792,56 @@ $('#sbutton').click(function(){
 	        	if(data.length=='0'){
 	        		swal("","갬색 지역의 버스커 공연이 없습니다.","warning");
 	        	}else{
-		               $('.carousel-wrapper').empty();
-		               $('.carousel-wrapper').append('<div class="carousel"></div>'); 
-		               
+	                
+		            $('.carousel-wrapper').empty();
+		            $('.carousel-wrapper').append('<div class="carousel"></div>'); 
+		            for(var index=0;index<overlays.length;index++){
+		            	overlays[index].setMap(null);
+		            	markers[index].setMap(null);
+		            }
+	        		markers=[];
+	                overlays=[];
 	
 		        	var bounds = new daum.maps.LatLngBounds() ;
 		        	$.each(data,function(index,item){
-		        	    console.log(item);
 		               bounds.extend(new daum.maps.LatLng(item.x, item.y));
-		               
+		               ///testest
 		               carouselcontent= 
-		            	   '<div class="carousel-cell" value="'+item.x+','+item.y+'" >'+
+		            	   '<div class="carousel-cell" value="'+item.x+','+item.y+'" id="'+index+'" >'+
+		            	         '<a href="#"></a>'+
 		            	         '<h3>'+item.bname+'</h3>'+
 		            	         '<label>'+item.nsdt+'~'+item.nedt+'</label>'+
 		            	         '<label class="a">'+item.simpleaddr+'</label>'+
 		            	         '<img style="height: 8rem;" src="/upload/'+item.phot+'}" />'+
-		            	   '</div>'
+		            	   '</div>';
 		            	   
-		                                
+		               var content = '<div class="wrap">' + 
+		                   '    <div class="info">' + 
+		                   '        <div class="title">' + 
+		                   item.bname +
+		                   '            <div class="closeOverlay" onclick="close()" value='+index+' title="닫기"></div>' + 
+		                   '        </div>' + 
+		                   '        <div class="body">' + 
+		                   '            <div class="img">' +
+		                   '                <img src="/upload/'+item.phot+'" width="73" height="70">' +
+		                   '           </div>' + 
+		                   '            <div class="desc">' + 
+		                   '                <div class="ellipsis">'+item.addr+'</div>' +
+		                   '                <div class="ellipsis">'+item.bname+'</div>' + 
+		                   '                <div class="wow"><div class="jibun ellipsis">'+item.nsdt+'~'+item.nedt+'</div><a href="/app/buskerfeed/enter?no='+item.bno+'" target="_blank" class="link">피드로 이동</a></div>' + 
+		                   '            </div>' + 
+		                   '        </div>' + 
+		                   '    </div>' +    
+		                   '</div>';   
+		            	   
+		                   var gapX = (MARKER_WIDTH + SPRITE_GAP), // 스프라이트 이미지에서 마커로 사용할 이미지 X좌표 간격 값
+		                   originY = (MARKER_HEIGHT + SPRITE_GAP) * 1, // 스프라이트 이미지에서 기본, 클릭 마커로 사용할 Y좌표 값
+		                   overOriginY = (OVER_MARKER_HEIGHT + SPRITE_GAP) * index, // 스프라이트 이미지에서 오버 마커로 사용할 Y좌표 값
+		                   normalOrigin = new daum.maps.Point(0, originY), // 스프라이트 이미지에서 기본 마커로 사용할 영역의 좌상단 좌표
+		                   clickOrigin = new daum.maps.Point(gapX, originY), // 스프라이트 이미지에서 마우스오버 마커로 사용할 영역의 좌상단 좌표
+		                   overOrigin = new daum.maps.Point(gapX * 2, overOriginY); // 스프라이트 이미지에서 클릭 마커로 사용할 영역의 좌상단 좌표
+		                   
+		               SearchaddMarker(new daum.maps.LatLng(item.x, item.y),content,normalOrigin, overOrigin, clickOrigin);	            	   
 		               $('.carousel').append(carouselcontent); 
 		               
 		            }); 
@@ -788,7 +861,8 @@ $('#sbutton').click(function(){
 
 
 </script>
-
+<script src='../../js/jquery.easing.1.3.js'></script>
+<script src="//code.jquery.com/ui/1.8.18/jquery-ui.js"></script> 
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> --> 
 </body>
 <footer>
