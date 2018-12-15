@@ -3,10 +3,8 @@ package indiesker.java110.ms.service.impl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import indiesker.java110.ms.dao.BuskerPromotionDao;
 import indiesker.java110.ms.domain.BuskerPromotion;
 import indiesker.java110.ms.domain.BuskerPromotionComment;
@@ -88,7 +86,31 @@ public class BuskerPromotionServiceimpl implements BuskerPromotionService {
       params.put("comment", comment);
       return buskerPromotionDao.bcContentEdit(params);
     }
+    
+    
+    @Override
+    public int deletePage(int bbno) {
+    return buskerPromotionDao.deletePage(bbno);
+    }
 
+    
+    @Override
+    public int findBno(int bbno) {
+    return buskerPromotionDao.findBno(bbno);
+    }
+    
+
+    @Override
+    public int editPge(BuskerPromotion bp) {
+    return buskerPromotionDao.updatePromotion(bp);
+    }
+    
+    
+    @Override
+    public BuskerPromotion toEdit(int bbno) {
+    return buskerPromotionDao.toEdit(bbno);
+    }
+    
 }
 
 

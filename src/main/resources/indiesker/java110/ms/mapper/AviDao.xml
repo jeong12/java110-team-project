@@ -60,6 +60,12 @@
 		FROM avi
 		WHERE abno=#{no}
 	</select>
+	
+	   <select id="printabno" resultMap="aviMap" parameterType="int">
+        SELECT abno
+        FROM avi
+        order by abno desc
+    </select>
 
 	<!-- 피드동영상 모달 -->
 	<select id="findfeedavibyAbno" resultMap="aviMap2"
@@ -186,6 +192,9 @@
 		insert into
 		avi(titl,cont,lcnt,cdt,stm,bno)
 		values(#{title},#{content},0,now(),#{urlid},#{buskerno});
+<!-- 		<selectKey resultType="Integer" keyProperty="aviboardno" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey> -->
 	</insert>
 
 	<!-- 댓글 입력 -->

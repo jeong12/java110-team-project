@@ -26,10 +26,8 @@
     .media-body{margin-top: 10px;}
     .titl{position: relative ;text-align: center; margin-bottom: 30px;}
     .pto{width: 40px; height: 40px; border-radius: 100px;position: relative; left: 9px;} 
-    .nik{border: 1px solid silver;    width: 3rem;
-    height: 1.1rem; border-radius: 100px;
-        text-align: center; background-color: darkgray; color: azure ;margin-bottom: auto; margin-top: 4%;
-  }
+    .nik{width: 3rem; height: 1.1rem; border-radius: 100px; text-align: center; 
+        background-color: darkgray; color: azure ;margin-bottom: auto; margin-top: 4%;}
     .box{width: 50%; margin: auto;}
     .container{margin-left: -15px; width: 100%;}
     .td{width: 100%}
@@ -69,7 +67,7 @@
 
 }
 
-    #ctnt{width: 10%;}
+    #ctnt{    width: 5%;}
     .fas,.far{float: left;}
      .far{margin-left: 1.5%;} 
     #commenttop{border-top: 1px solid silver;}
@@ -78,7 +76,7 @@
     .pn{margin: 0.5%; width: 5%;}
     .cc{width: 6%; text-align: center;}
     .text{width: 88%; padding-right: 0.3rem;}
-    .cdtr{float: right;}
+    .cdtr{float: right; color: gray;}
     .icon{
     display: -webkit-inline-box;
     float: right;
@@ -92,43 +90,49 @@
     .t1 label{float: left;}
     footer{clear: both;}
     #mang{display: flex;
-    margin-right: -9%;}
-    .contm{border: 1px solid white; overflow:hidden;  overflow-wrap:break-word;}
+    margin-right: 57%;}
+    .contm{border: 1px solid white; overflow:hidden;  overflow-wrap:break-word; width: 94%;}
     .pages{text-align: center;}
     .ftt{font-weight:800; }
     #titlt{margin-top: 2%; margin-bottom: 2%;     margin-left: 23rem;}
 #logo{float: left;}
 #haha{margin-top: 0rem; margin-top: 0.2rem;}
-#tabl{    margin-top: 5%;
-    margin-left: 7%;}
+#tabl{        margin-left: 2%;}
 .contents i{margin-right: 1rem;}
 .contents div{margin-bottom: 0.5rem;}
 .contents{margin-top: 1rem;}
 .far{margin-right: 0.2rem;}
+.modibtn{display: inline-block; float: right; width: 3rem; height: 1.8rem; font-size: 0.6rem; text-align: center; margin-top: 3.4%;}
+.delbtn{float: right; width: 3rem; height: 1.8rem; font-size: 0.6rem; text-align: center; margin-top: 3.4%;}
+#cot{width: 25rem;}
 </style>
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
 <body>
 <div id="titlt" class="container">
         <img id="logo" src="/img/playButton.PNG" alt="플레이로고">
-        <h3 id="haha">버스킹 일정</h3>
+        <h3 id="haha">버스킹 홍보</h3>
     </div>
     
 <div class="container">
-
-
      <div class="box">
-
   <div class="td">
+          <div class='delete'>
+            <c:if test="${busk == sessionScope.loginUser.no}">
+          <button class="modibtn btns btns btns-outline-m" onclick="editPage()">수정</button>
+          <form action='editform' class='editform'>
+          <input type="hidden" name="bbno" id="bbno">
+          </form>
+          <button class="delbtn btns btns btns-outline-m" onclick="deletePage()">삭제</button>
+          </c:if>
+          </div>
           <h1 class="titl">${list.titl}</h1>
+
           
           <div id="tobbox">
         <a class="pull-left" href="#">
             <img class="media-object" id="phot" src='/upload/${list.phot}'>
           </a>
-            <div class = 'cdtContext'>
-            <p>${list.ncdt}</p>
-            </div>
           <div class="t1">
                <div class="ft"><h3 id="tabl">${list.teamname}</h3>
             <div class='contents'>
@@ -136,9 +140,8 @@
               <i class="fas fa-map-marked-alt"></i><div>${list.city}<br></div>
               <div id="mang"><i class="far fa-calendar-alt"></i>${list.nsdt}~${list.nedt}<br></div>
               <i id="ctnt" class="fas fa-male" style="text-align: center;"></i><div>${list.cnt}<br></div>
-              <i class="far fa-sticky-note"></i><div>${list.etc}<br></div>
+              <i class="far fa-sticky-note"></i><div id="cot">${list.etc}<br></div>
             </div>
-     <!--  <button id="btn" name="singlebutton" class="btn btn-primary btn-xs" >버스커 피드</button> -->
       </div>
     </div>
      <a href='../buskerfeed/enter?no=${list.bno}'><button id="topbtn" class="btns btns btns-outline-m">피드가기</button></a>
@@ -167,9 +170,21 @@
     <div class="t">
 
     <div class="pn">
-        <a><img src="${com.phot}" class="pto"></a>
-       <p class="nik">${com.type}</p>
+        <a><img src="/upload/${com.phot}" class="pto"></a>
+        <c:choose>
+        <c:when test="${com.type == '일반회원' }">
+         <p class="nik" style="background-color: #92a8d1;">${com.type}</p>
+         </c:when>
+
+        <c:when test="${com.type == '버스커'}">
+        <p class="nik" style="background-color: #FF8B8B;">${com.type}</p>        
+        </c:when>
+        <c:when test="${com.type == '제공자'}">
+        <p class="nik" style="background-color: #61BFAD;">${com.type}</p>  
+        </c:when>
+        </c:choose>
     </div>
+    
     <div class="cc">
            <div  class="ftt">${com.nik}</div>
     </div>
@@ -261,10 +276,12 @@
                        $('.commentscontext').empty();
                        $('.pages').empty();
                        $.each(data.list,function(index,item){
-                    	   var content =   '<div class="t">'
+                    	   if(item.type == '일반회원'){
+                    	   var content =   
+                    		   '<div class="t">'
                                +'<div class="pn">'
-                               +'<a><img src="'+item.phot+'"class="pto"></a>'
-                               +'<p class="nik">'+item.type+'</p>'
+                               +'<a><img src="/upload/'+item.phot+'"class="pto"></a>'
+                               +'<p class="nik"  style="background-color: #92a8d1;">'+item.type+'</p>'
                                +'</div>'
                                +'<div class="cc">'
                                +'<div class="ft">'+item.nik+'</div>'
@@ -272,6 +289,35 @@
                                +'<div class="text">'
                                +'<div class="cdtr">'+item.ncdt+'</div><br>'
                                +'<textarea class="contm" readonly="readonly">'+item.cont+'</textarea>';
+                    	   }else if(item.type == '버스커'){
+                               var content =   
+                                   '<div class="t">'
+                                   +'<div class="pn">'
+                                   +'<a><img src="/upload/'+item.phot+'"class="pto"></a>'
+                                   +'<p class="nik" style="background-color: #FF8B8B;">'+item.type+'</p>'
+                                   +'</div>'
+                                   +'<div class="cc">'
+                                   +'<div class="ft">'+item.nik+'</div>'
+                                   +'</div>'
+                                   +'<div class="text">'
+                                   +'<div class="cdtr">'+item.ncdt+'</div><br>'
+                                   +'<textarea class="contm" readonly="readonly">'+item.cont+'</textarea>';
+                    		   
+                    	   }else if(item.type == '제공자'){
+                               var content =   
+                                   '<div class="t">'
+                                   +'<div class="pn">'
+                                   +'<a><img src="/upload/'+item.phot+'"class="pto"></a>'
+                                   +'<p class="nik" style="background-color: #61BFAD;">'+item.type+'</p>'
+                                   +'</div>'
+                                   +'<div class="cc">'
+                                   +'<div class="ft">'+item.nik+'</div>'
+                                   +'</div>'
+                                   +'<div class="text">'
+                                   +'<div class="cdtr">'+item.ncdt+'</div><br>'
+                                   +'<textarea class="contm" readonly="readonly">'+item.cont+'</textarea>';
+                    		   
+                    	   }
                                if(item.mno == data.mno){ 
                                    /* $('.comments').append( */
                                 content += '<div class="icon">'
@@ -317,9 +363,19 @@ function removeComment(e){
                     $('.commentscontext').empty();
                     $('.pages').empty();
                     $.each(data.list,function(index,item){
-                    $('.comments').append('<div class="t"><div class="pn"><a><img src="'+item.phot+'" class="pto"></a><p class="nik">'+
+                    if(item.type == '일반회원'){
+                    $('.comments').append('<div class="t"><div class="pn"><a><img src="/upload/'+item.phot+'" class="pto"></a><p class="nik" style="background-color: #92a8d1;">'+
                             item.type+'</p></div>'+'<div class="cc"><tr><th>'+item.nik+'</th><br><td>'+item.ncdt+'</td></tr></div>'+
-                    '<textarea class="contm" readonly="readonly">'+item.cont+'</textarea></div>'); 
+                    '<textarea class="contm" readonly="readonly">'+item.cont+'</textarea></div>');
+                    }else if(item.type == '버스커'){
+                    $('.comments').append('<div class="t"><div class="pn"><a><img src="/upload/'+item.phot+'" class="pto"></a><p class="nik" style="background-color: #FF8B8B;">'+
+                       item.type+'</p></div>'+'<div class="cc"><tr><th>'+item.nik+'</th><br><td>'+item.ncdt+'</td></tr></div>'+
+                      '<textarea class="contm" readonly="readonly">'+item.cont+'</textarea></div>');	
+                    }else if(item.type == '제공자'){
+                    $('.comments').append('<div class="t"><div class="pn"><a><img src="/upload/'+item.phot+'" class="pto"></a><p class="nik" style="background-color: #61BFAD;">'+
+                      item.type+'</p></div>'+'<div class="cc"><tr><th>'+item.nik+'</th><br><td>'+item.ncdt+'</td></tr></div>'+
+                      '<textarea class="contm" readonly="readonly">'+item.cont+'</textarea></div>');	
+                    }
                     if(item.mno == data.mno){
                         $('.comments').append('<div class="removecomment" onclick="removeComment(${com.bcno})"><i class="fas fa-minus"></i></div>'+
                                   '<div class="modifycomment" onclick="modifyComment(${com.bcno})"><i class="far fa-edit"></i></div>');
@@ -367,19 +423,48 @@ function goPage(e){
                $('.comments').empty();
                $('.pages').empty();
                $.each(data.list,function(index,item){
-               /* $('.comments').append( */
-                       
-                var content =   '<div class="t">'
-               +'<div class="pn">'
-               +'<a><img src="'+item.phot+'"class="pto"></a>'
-               +'<p class="nik">'+item.type+'</p>'
-               +'</div>'
-               +'<div class="cc">'
-               +'<div class="ft">'+item.nik+'</div>'
-               +'</div>'
-               +'<div class="text">'
-               +'<div class="cdtr">'+item.ncdt+'</div><br>'
-               +'<textarea class="contm" readonly="readonly">'+item.cont+'</textarea>';
+            	   if(item.type == '일반회원'){
+                       var content =   
+                           '<div class="t">'
+                           +'<div class="pn">'
+                           +'<a><img src="/upload/'+item.phot+'"class="pto"></a>'
+                           +'<p class="nik"  style="background-color: #92a8d1;">'+item.type+'</p>'
+                           +'</div>'
+                           +'<div class="cc">'
+                           +'<div class="ft">'+item.nik+'</div>'
+                           +'</div>'
+                           +'<div class="text">'
+                           +'<div class="cdtr">'+item.ncdt+'</div><br>'
+                           +'<textarea class="contm" readonly="readonly">'+item.cont+'</textarea>';
+                       }else if(item.type == '버스커'){
+                           var content =   
+                               '<div class="t">'
+                               +'<div class="pn">'
+                               +'<a><img src="/upload/'+item.phot+'"class="pto"></a>'
+                               +'<p class="nik" style="background-color: #FF8B8B;">'+item.type+'</p>'
+                               +'</div>'
+                               +'<div class="cc">'
+                               +'<div class="ft">'+item.nik+'</div>'
+                               +'</div>'
+                               +'<div class="text">'
+                               +'<div class="cdtr">'+item.ncdt+'</div><br>'
+                               +'<textarea class="contm" readonly="readonly">'+item.cont+'</textarea>';
+                           
+                       }else if(item.type == '제공자'){
+                           var content =   
+                               '<div class="t">'
+                               +'<div class="pn">'
+                               +'<a><img src="/upload/'+item.phot+'"class="pto"></a>'
+                               +'<p class="nik" style="background-color: #61BFAD;">'+item.type+'</p>'
+                               +'</div>'
+                               +'<div class="cc">'
+                               +'<div class="ft">'+item.nik+'</div>'
+                               +'</div>'
+                               +'<div class="text">'
+                               +'<div class="cdtr">'+item.ncdt+'</div><br>'
+                               +'<textarea class="contm" readonly="readonly">'+item.cont+'</textarea>';
+                           
+                       }
                if(item.mno == data.mno){
                    /* $('.comments').append( */
                content += '<div class="icon">'
@@ -454,7 +539,57 @@ $(".editcomment").click(function(){
 	
 });
 
+
+function deletePage(){
+    function getUrlParams() {
+        var params = {};
+        window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) { params[key] = value; });
+        return params;
+    } 
+  
+    var bbno = getUrlParams().bbno;
     
+    swal({
+        text: "해당 게시글을 삭제하시겠습니까?",
+        icon: 'info',
+        buttons: {
+            cancel:'취소',
+            confirm:"삭제"
+        }
+    }).then((will)=>{
+        if(will){
+	$.ajax({ 
+        type : "POST", 
+        url : "deletePage",
+        dataType: 'json',
+        data: {'bbno':bbno}, 
+        success : function(data) {
+        	location.href = "list.jsp";
+        },
+        error : function(request, status, error) {
+            swal("오류","삭제 오류","error");
+        }
+    });
+    }
+});
+}
+   
+function editPage(){    
+	function getUrlParams() {
+    var params = {};
+    window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) { params[key] = value; });
+    return params;
+} 
+
+    var bbno = getUrlParams().bbno;
+    
+    $('#bbno').val(bbno);
+    $('.editform').submit();
+    
+	
+}
+
+
 /* function modifyComment(event){
 	console.log("::"); 
 	var bcno=$(event).attr('value');

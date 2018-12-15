@@ -159,6 +159,17 @@
         set lcnt=#{lcnt}
         where abno=#{bono}
     </update>
+    
+    <update id="updateavifavlcnt" parameterType="map">
+        update avi_fav
+        set lcnt=#{lcnt}
+        where abno=#{abno}
+    </update>
+    
+    <insert id="insertavifavlcnt" parameterType="int">
+        insert into avi_fav(abno,lcnt)
+        values (#{abno},0)
+    </insert>
 
 </mapper>
 

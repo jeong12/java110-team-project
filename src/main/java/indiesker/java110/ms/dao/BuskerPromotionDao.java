@@ -19,4 +19,8 @@ public interface BuskerPromotionDao {
   int deleteComment(int bcno);
   int findBbno(int bcno);
   int bcContentEdit(Map<String,Object> params);
-}
+  int deletePage(int bbno);
+  int findBno(int bbno);
+  int updatePromotion(BuskerPromotion pb);
+  BuskerPromotion toEdit(int bbno);
+} 

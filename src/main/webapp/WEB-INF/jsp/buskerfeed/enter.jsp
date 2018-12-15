@@ -307,19 +307,22 @@ body, .container.title {
   color: white;
   text-align: left;
 }
-#feedlikecount{
-    font-size: 30px;
-    margin-right: 30px;
-    color: white;
-    font-weight: 500;
+
+#feedlikecount {
+  font-size: 30px;
+  margin-right: 30px;
+  color: white;
+  font-weight: 500;
 }
-#photolikecnt{
-float:right;
-padding-right: 10px;
+
+#photolikecnt {
+  float: right;
+  padding-right: 10px;
 }
-#avilikecnt{
-float:right;
-padding-right: 10px;
+
+#avilikecnt {
+  float: right;
+  padding-right: 10px;
 }
 
 /* ::-webkit-scrollbar#avimodal {
@@ -374,18 +377,21 @@ padding-right: 10px;
             <!-- 좋아요 버튼 -->
             <c:choose>
               <c:when test="${loginuser.heartNum == 0}">
-                <td><i class="far fa-heart" id="feedheartbefore" style="margin-right: 15px;"></i> 
-                <i class="fas fa-heart" id="feedheartafter"
-                  style="margin-right: 15px;display: none;"></i></td>
+                <td><i class="far fa-heart" id="feedheartbefore"
+                  style="margin-right: 15px;"></i> <i
+                  class="fas fa-heart" id="feedheartafter"
+                  style="margin-right: 15px; display: none;"></i></td>
               </c:when>
               <c:otherwise>
-                <td><i class="far fa-heart" id="feedheartbefore" style="margin-right: 15px; display: none;"></i> 
-                <i class="fas fa-heart" id="feedheartafter" style="margin-right: 15px;"></i></td>
+                <td><i class="far fa-heart" id="feedheartbefore"
+                  style="margin-right: 15px; display: none;"></i> <i
+                  class="fas fa-heart" id="feedheartafter"
+                  style="margin-right: 15px;"></i></td>
               </c:otherwise>
             </c:choose>
-            
+
             <td id="feedliketd"><i id="feedlikecount">${feedlikecount.likecount }</i></td>
-            
+
             <!-- 팔로우 버튼 -->
             <c:choose>
               <c:when test="${loginuser.followNum == 0}">
@@ -437,7 +443,7 @@ padding-right: 10px;
     </div>
     <!-- 여기까지 버스커 저옵~~~~~~~~ -->
     <div class="feedcontent" style="width: 100%">
-      <div class="imgschecon" style="min-height: 200px;">
+      <div class="imgschecon" style="min-height: 253px;">
         <div class="posttitle">
           <i class="far fa-calendar-check"> 공연/버스킹 스케줄</i>
         </div>
@@ -469,7 +475,7 @@ padding-right: 10px;
       <div class="aviphotcont" style="min-height: 300px;">
         <!-- 영상썸네일 -->
         <div class=avi
-          style="border: 1px solid gray; margin-bottom: 20px; min-height: 200px;">
+          style="border: 1px solid gray; margin-bottom: 20px; min-height: 253px;">
           <div class="posttitle">
             <i class="far fa-play-circle"> 영상게시글</i>
           </div>
@@ -501,13 +507,17 @@ padding-right: 10px;
                   </c:choose>
                 </div>
               </c:forEach>
+            </c:otherwise>
+          </c:choose>
+          <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+          <c:choose>
+            <c:when test="${ (fn:length(recentlist))>3 }">
               <p
                 style="text-align: right; margin: 5px 0; padding-right: 10px;">
                 <a href="moreavi?no=${busk.bno }">동영상더보기</a>
               </p>
-            </c:otherwise>
+            </c:when>
           </c:choose>
-
         </div>
         <!-- 사진 게시물 -->
         <div class="photo"
