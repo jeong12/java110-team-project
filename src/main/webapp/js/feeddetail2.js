@@ -270,7 +270,9 @@ $('.col-md-4.avi button').on('click', function() {
                     $.each(data.comments,function(index,item){
                         if(item.comtphot ==null){
                             var value = "<img class='teamphoto' style='width:100%;height: 100%;' src='/img/phot1.png' alt='프로필사진'>";
-                        } else{
+                        }if(item.comtphot.indexOf('http') >= 0){
+                    		var value = "<img class='teamphoto' style='width:100%;height: 100%;' alt='없넹' src='"+item.comtphot+"'>";
+                    	}  else{
                             var value = "<img class='teamphoto' style='width:100%;height: 100%;' alt='없넹' src='../../upload/"+item.comtphot+"'>";
                         }
                         if(item.mno == sessionno){
@@ -339,7 +341,9 @@ $(document).on("click","#photocomtsendbtn",function(){
                 $.each(data.comments,function(index,item){
                     if(item.comtphot ==null){
                         var value = "<img class='teamphoto' style='width:100%;height: 100%;' src='/img/phot1.png' alt='프로필사진'>";
-                    } else{
+                    }if(item.comtphot.indexOf('http') >= 0){
+                		var value = "<img class='teamphoto' style='width:100%;height: 100%;' alt='없넹' src='"+item.comtphot+"'>";
+                	} else{
                         var value = "<img class='teamphoto' style='width:100%;height: 100%;' alt='없넹' src='../../upload/"+item.comtphot+"'>";
                     }
                     if(item.mno == sessionno){
@@ -501,8 +505,12 @@ $(document).on("click","#avicomtsendbtn",function(){
             $.each(data.comments,function(index,item){
                 if(item.comtphot ==null){
                     var value = "<img class='teamphoto' style='width:100%;height: 100%;' src='/img/phot1.png' alt='프로필사진'>";
-                } else{
-                    var value = "<img class='teamphoto' style='width:100%;height: 100%;' alt='없넹' src='../../upload/"+item.comtphot+"'>";
+                } else {
+                	if(item.comtphot.indexOf('http') >= 0){
+                		var value = "<img class='teamphoto' style='width:100%;height: 100%;' alt='없넹' src='"+item.comtphot+"'>";
+                	} else {
+                		var value = "<img class='teamphoto' style='width:100%;height: 100%;' alt='없넹' src='../../upload/"+item.comtphot+"'>";
+                	}
                 }
                 if(item.mno == sessionno){
                     var comtrevise = 

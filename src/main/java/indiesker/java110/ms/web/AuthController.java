@@ -387,7 +387,6 @@ public class AuthController {
     @PostMapping(value="form", produces="application/json;charset=UTF-8")
     public void apiProfile(@RequestBody Map params, HttpSession session) {
       Member loginUser = memberService.getApiMember(params);
-
       if(loginUser != null) {
         session.setAttribute("loginUser", loginUser);
         System.out.println("Gd");

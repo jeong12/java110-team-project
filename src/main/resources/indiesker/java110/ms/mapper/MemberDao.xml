@@ -44,7 +44,7 @@
 
 	<select id="findByIdNick" parameterType="map"
 		resultType="Member">
-		select mno, id, email, nik as nickname, phot as photo
+		select mno as no, id, email, nik as nickname, phot as photo
 		from
 		memb
 		where id=#{id} and nik=#{nickname}

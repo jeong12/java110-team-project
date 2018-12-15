@@ -50,7 +50,9 @@ public class MemberServiceImpl implements MemberService {
   public Member getApiMember(Map<String,Object> params) {
 
     Member member = null;
+    System.out.println(params.get("id").toString());
     if(memberDao.checkId(params.get("id").toString()) == 1) {
+      System.out.println("이전에 로그인한적이 있는지 체크");
       member = memberDao.findByIdNick(params);
     }
 
