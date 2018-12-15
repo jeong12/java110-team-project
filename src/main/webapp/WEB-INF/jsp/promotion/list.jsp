@@ -51,7 +51,7 @@
 }
 
 h3 {
-    display: inline-block; position: relative; top: .5rem;
+    display: inline-block; position: relative; top: 0.3rem;
 }
 
 #td2 .more-button {

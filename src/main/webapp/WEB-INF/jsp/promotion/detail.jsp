@@ -46,6 +46,7 @@
     #te{margin-top: 50px;}
     .t-top{border: border; border-top: 1px solid silver}
     textarea{resize: none; overflow:hidden;}
+    .cdtContext{float: right;}
     #tobbox{
         border: 1px solid silver;
     border-radius: 5px;
