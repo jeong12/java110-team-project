@@ -35,27 +35,35 @@ public class MemberManagerController {
   }
 
   
-  // list의 전체 목록 뿌리는 메서드
-  @GetMapping("list") 
-  public void list(Paging paging, Model model, String pageNo) {
+//list의 전체 목록 뿌리는 메서드
+ @GetMapping("list") 
+ public void list(Model model, @RequestParam(defaultValue="1") int pageNo) {
+   Paging paging = new Paging();
+   paging.setTotalCount(memberManagerService.totlist());
+   paging.setPageSize(15);
+   paging.setPageNo(pageNo);
+   paging.setStartRowNo((pageNo-1)*15);
+   paging.setFinalPageNo((paging.getTotalCount()+14)/15);
+   if(paging.getFinalPageNo()<=5) paging.setEndPageNo(paging.getFinalPageNo());
+   else paging.setEndPageNo(5);
+   
+    List<MemberManager> list = memberManagerService.listAll(paging);
+    
+    SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
+    for (MemberManager mm : list) {
+     mm.setNcdt(dformat.format(mm.getCdt()));
+     if(mm.getMemo() == null) {
+       mm.setMemo("메모 없음");
+     }
+   }
+    
+     model.addAttribute("paging",paging);
+     model.addAttribute("list", list);
+     System.out.println("list's paging"+paging);
+ }
 
-    paging.setTotalCount(memberManagerService.totlist());
-     paging.setPageSize(15);
-     
-     List<MemberManager> list = memberManagerService.listAll(paging);
-     
-     SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
-     for (MemberManager mm : list) {
-      mm.setNcdt(dformat.format(mm.getCdt()));
-      if(mm.getMemo() == null) {
-        mm.setMemo("메모 없음");
-      }
-    }
-     
-      model.addAttribute("paging",paging);
-      model.addAttribute("list", list);
-  }
-
+  
+  
   
   //gradle 검색
   @GetMapping("select")
