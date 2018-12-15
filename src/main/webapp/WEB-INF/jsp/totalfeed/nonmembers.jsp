@@ -185,17 +185,19 @@ padding: 0;
     color: #fff;
     text-decoration: none;
 }
-
+#lo{margin-left: 2%;}
+#titl{margin-top: 2%; margin-bottom: 2%; margin-left: 23%;}
+#logo{float: left;}
+#haha{margin-top: 0.8%; margin-left: 5.5%;}
 </style>
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
 <body>
 <div id=bodybody>
-	<div class="container">
-	<div id="pos"></div>
-		<div id="titl">
-	        <h3><img id="logo" src="../../img/playButton.PNG" alt="플레이로고">버스커 목록보기</h3>
-	    </div>
+
+<div id="titl" class="container">
+        <img id="logo" src="/img/playButton.PNG" alt="플레이로고">
+        <h3 id="haha">버스커 목록</h3>
     </div>
 	
 	<div class="container">

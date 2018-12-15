@@ -167,7 +167,7 @@
     <div class="t">
 
     <div class="pn">
-        <a><img src="${com.phot}" class="pto"></a>
+        <a><img src='/upload/${com.phot}' class="pto"></a>
        <p class="nik">${com.type}</p>
     </div>
     <div class="cc">
@@ -263,7 +263,7 @@
                        $.each(data.list,function(index,item){
                     	   var content =   '<div class="t">'
                                +'<div class="pn">'
-                               +'<a><img src="'+item.phot+'"class="pto"></a>'
+                               +'<a><img src="/upload/'+item.phot+'"class="pto"></a>'
                                +'<p class="nik">'+item.type+'</p>'
                                +'</div>'
                                +'<div class="cc">'
