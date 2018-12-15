@@ -75,7 +75,7 @@ input[type="password"]::placeholder, input[type="text"]::placeholder{
                     <form accept-charset="UTF-8" role="form" action="login" method="post">
                     <fieldset>
                         <div class="form-group">
-                            <input class="form-control" placeholder="&#xf007 ID" name="id" type="text" value='${cookie.id.value}'>
+                            <input class="form-control" placeholder="&#xf007 ID" name="id" type="text" value='${cookie.id.value}' autocomplete="off">
                         </div>
                         <div class="form-group">
                             <input class="form-control" placeholder="&#xf023 Password" name="password" type="password" value="">

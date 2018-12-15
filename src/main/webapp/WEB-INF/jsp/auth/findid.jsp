@@ -154,7 +154,7 @@ a#movetop {
 	               <div style="text-align: center; border: 2px solid #555; border-radius:0.25rem; margin-bottom: 25px; padding-bottom: 10px;">
 		               <h2 class="contitl">아이디 찾기</h2>
 		               <p class="conp">회원가입시 입력한 이메일을 입력해 주세요.</p>
-		               <p style="font-weight: 600;">이메일 <input type="email" name="email" class="email" placeholder="email" id='findemail'>
+		               <p style="font-weight: 600;">이메일 <input type="email" name="email" class="email" placeholder="email" id='findemail' autocomplete="off">
 	                   <br><button class="btns btns-outline-dark" id='findemailbtn'>전송</button></p>
 	               </div>
 	          <!-- </form> -->
@@ -164,8 +164,8 @@ a#movetop {
 		               <h2 class="contitl">비밀번호 찾기</h2>
 		               <p>회원가입시 등록한 아이디와 이메일 주소를 입력하시면 </p>
 		               <p class="conp">해당 메일로 비밀번호와 초기화 메일이 발송됩니다.</p>
-		               <p style="font-weight: 600;">아이디 <input type="text" class="email" name="id" placeholder="ID" id='findpwid'>
-		               <br>이메일 <input type="email" name="email" class="email" placeholder="email" id='findpwemail'>
+		               <p style="font-weight: 600;">아이디 <input type="text" class="email" name="id" placeholder="ID" id='findpwid' autocomplete="off">
+		               <br>이메일 <input type="email" name="email" class="email" placeholder="email" id='findpwemail' autocomplete="off">
 		               <br><button class="btns btns-outline-dark" id='findpwbtn'>전송</button></p>
 		           </div>
 	           <!-- </form> -->

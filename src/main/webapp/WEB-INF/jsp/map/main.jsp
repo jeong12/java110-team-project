@@ -812,7 +812,7 @@ $('#sbutton').click(function(){
 		            	         '<h3>'+item.bname+'</h3>'+
 		            	         '<label>'+item.nsdt+'~'+item.nedt+'</label>'+
 		            	         '<label class="a">'+item.simpleaddr+'</label>'+
-		            	         '<img style="height: 8rem;" src="/upload/'+item.phot+'}" />'+
+		            	         '<img style="height: 8rem;" src="/upload/'+item.phot+'" />'+
 		            	   '</div>';
 		            	   
 		               var content = '<div class="wrap">' + 
