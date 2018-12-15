@@ -194,7 +194,7 @@ body {
     position: relative;
     top: 6px;}
 footer{clear: both;}
-#map{height: 30rem; clear: both;}
+#map{height: 22rem; clear: both;}
 #caseldiv{height: 20rem;}
 #maptitle{height: 3rem;
     text-align: -webkit-auto;
@@ -471,9 +471,10 @@ $(document).ready(function(){
 	
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
     mapOption = { 
-        center: new daum.maps.LatLng(37.5342, 126.992), // 지도의 중심좌표
-        level: 7 // 지도의 확대 레벨
-    };
+        center: new daum.maps.LatLng(37.5307, 126.988), // 지도의 중심좌표
+        level: 8 // 지도의 확대 레벨
+    }; 
+    
 
 var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다.
 

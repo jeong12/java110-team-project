@@ -2,7 +2,8 @@
     contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,7 +65,7 @@
     margin-top: -5%;
     margin-right: 1%;
 }
-    #ctnt{width: 10%;}
+    #ctnt{    width: 7%;}
     .fas,.far{float: left;}
      .far{margin-left: 1.5%;} 
     #commenttop{border-top: 1px solid silver;}
@@ -87,21 +88,23 @@
     .t1 label{float: left;}
     footer{clear: both;}
     #mang{display: flex;
-    margin-right: -9%;}
+    margin-right: 36%;}
     .contm{border: 1px solid white; overflow:hidden;  overflow-wrap:break-word; width: 94%;}
     .pages{text-align: center;}
     .ftt{font-weight:800; }
     #titlt{margin-top: 2%; margin-bottom: 2%;     margin-left: 23rem;}
 #logo{float: left;}
 #haha{margin-top: 0rem; margin-top: 0.2rem;}
-#tabl{    margin-top: 5%;
-    margin-left: 7%;}
+#tabl{    
+    margin-left: 2%;
+    }
 .contents i{margin-right: 1rem;}
 .contents div{margin-bottom: 0.5rem;}
 .contents{margin-top: 1rem;}
 .far{margin-right: 0.2rem;}
 .modibtn{display: inline-block; float: right; width: 3rem; height: 1.8rem; font-size: 0.6rem; text-align: center; margin-top: 3.4%;}
 .delbtn{float: right; width: 3rem; height: 1.8rem; font-size: 0.6rem; text-align: center; margin-top: 3.4%;}
+#bttttt{    width: 136%;}
 </style>
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
@@ -137,7 +140,7 @@
               <i class="fas fa-map-marked-alt"></i><div>${list.city}<br></div>
               <div id="mang"><i class="far fa-calendar-alt"></i>${list.nsdt}~${list.nedt}<br></div>
               <i id="ctnt" class="fas fa-male" style="text-align: center;"></i><div>${list.cnt}<br></div>
-              <i class="far fa-sticky-note"></i><div>${list.etc}<br></div>
+              <i class="far fa-sticky-note"></i><div id="bttttt">${list.etc}<br></div>
             </div>
       </div>
     </div>
@@ -167,7 +170,15 @@
     <div class="t">
 
     <div class="pn">
-        <a><img src="/upload/${com.phot}" class="pto"></a>
+    <c:set var="photApi" value="${com.phot}"/>
+        <c:choose>
+          <c:when test="${fn:contains(photApi, 'http')}">
+            <a><img src="${com.phot}" class="pto"></a>
+          </c:when>
+          <c:otherwise>
+            <a><img src="/upload/${com.phot}" class="pto"></a>
+          </c:otherwise>
+        </c:choose>
         <c:choose>
         <c:when test="${com.type == '일반회원' }">
          <p class="nik" style="background-color: #92a8d1;">${com.type}</p>
@@ -270,11 +281,17 @@
                        $('.commentscontext').empty();
                        $('.pages').empty();
                        $.each(data.list,function(index,item){
+                           console.log(item.phot);
+                           if(item.phot.indexOf('http')){
+                               var phot = '<a><img src="'+item.phot+'"class="pto"></a>'
+                           } else {
+                               var phot = '<a><img src="/upload/'+item.phot+'"class="pto"></a>'
+                           }
                            if(item.type == '일반회원'){
                            var content =   
                                '<div class="t">'
                                +'<div class="pn">'
-                               +'<a><img src="/upload/'+item.phot+'"class="pto"></a>'
+                               + phot
                                +'<p class="nik"  style="background-color: #92a8d1;">'+item.type+'</p>'
                                +'</div>'
                                +'<div class="cc">'
