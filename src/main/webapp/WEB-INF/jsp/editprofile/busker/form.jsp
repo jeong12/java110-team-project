@@ -123,53 +123,54 @@ h4 {
 }
 </style>
 <script>
-var chkName=0;
+/* var chkName=0;
 var chkCity=0;
 var chkTel=0;
 var chkFile=1;
 
-function checkName(){
+ */
+ function checkName(){
     var names=$('#teamname').val();
     if(names.length<=0) {
         $(".modi").prop("disabled", true);
         $("#nameMsg").html("팀명을 입력해주세요.");
-        chkName = 0;
+        //chkName = 0;
     }else if (names.length>0) {
-        chkName = 1;
+        //chkName = 1;
         $("#nameMsg").html("사용 가능한 팀명입니다.");
     }
-    if(chkName==1 && chkCity ==1 && chkTel ==1 && chkFile==1) {
+/*     if(chkName==1 && chkCity ==1 && chkTel ==1 && chkFile==1) {
         $(".modi").prop("disabled", false);
-    } 
+    }  */
 };
 function checkCity(){
     if($('#city').val()=="") {
         $(".modi").prop("disabled", true);
         $("#cityMsg").html("도시를 입력해주세요.");
-        chkCity = 0;
+        //chkCity = 0;
     } else if($('#city').val()!="") {
-        chkCity = 1;
+        //chkCity = 1;
         $("#cityMsg").html("등록 가능한 도시입니다.");
     }
-    if(chkName==1 && chkCity ==1 && chkTel ==1 && chkFile==1) {
+/*     if(chkName==1 && chkCity ==1 && chkTel ==1 && chkFile==1) {
         $(".modi").prop("disabled", false);
-    }
+    } */
 };
 
 function checkTel(){
     if($('#tel').val()=="") {
         $(".modi").prop("disabled", true);
         $("#telMsg").html("연락처를 입력해주세요.").css('color','black');
-        chkTel = 0;
+        //chkTel = 0;
     } else if (/(\d{2}).*(\d{3}).*(\d{4})/.test($('#tel').val())) {
-        chkTel = 1;
+        //chkTel = 1;
         $("#telMsg").html("등록 가능한 연락처입니다.").css('color','black');
     } else {
         $("#telMsg").html("올바르지 않은 연락처입니다.").css('color','red');
     }
-    if(chkName==1 && chkCity==1 && chkTel==1 && chkFile==1) {
+/*     if(chkName==1 && chkCity==1 && chkTel==1 && chkFile==1) {
         $(".modi").prop("disabled", false);
-    } 
+    }  */
 };
 
 function readURL(input) { 
@@ -177,7 +178,7 @@ function readURL(input) {
     chkImg=chkImg.slice(chkImg.indexOf(".")+1).toLowerCase();
     if(chkImg !="jpg" && chkImg !="jpeg" && 
             chkImg !="gif" && chkImg !="png" && chkImg !="bmp"){
-        chkFile=0;
+        //chkFile=0;
         $(".modi").prop("disabled", true);
         swal("","이미지 파일만 올려주세요","error"); 
         } else if (input.files && input.files[0]){ 
@@ -185,10 +186,10 @@ function readURL(input) {
         reader.onload = function (e) { 
             $('#upload').attr('src', e.target.result); } 
         reader.readAsDataURL(input.files[0]); 
-        chkFile = 1;
-      if(chkName==1 && chkCity==1 && chkTel==1 && chkFile==1) {
+        //chkFile = 1;
+/*       if(chkName==1 && chkCity==1 && chkTel==1 && chkFile==1) {
           $(".modi").prop("disabled", false);
-      }
+      } */
     }
 }
 
@@ -210,11 +211,11 @@ function readURL(input) {
                 onchange="readURL(this);" style="display:none;" /></label></div>
                 <div class="pd">
             <h4>팀명</h4>
-            <input type='text' name='teamname' oninput="checkName()" id="teamname"
+            <input type='text' name='teamname' oninput="checkName()" id="teamname" value="${busker.teamname}"
                 size=30><br> <div id="nameMsg" class="guide"></div>
             <h4 class="h4">장르</h4>
             <select name="teamgenre" id="genre">
-                <option value="ballad" selected="selected" id="test">발라드</option>
+                <option value="ballad" id="test" selected="selected">발라드</option>
                 <option value="dance">댄스</option>
                 <option value="trot">트로트</option>
                 <option value="folk">포크</option>
@@ -225,18 +226,18 @@ function readURL(input) {
                 <option value="rap">랩</option>
             </select><br>
             <h4>주요 활동 도시</h4>
-            <input type="text" name="city" id="city" oninput="checkCity()"
+            <input type="text" name="city" id="city" oninput="checkCity()" value="${busker.city}"
                 size=30><br> <div id="cityMsg" class="guide"></div>
             <h4>연락처</h4>
-            <input type="tel" name="tel" id="tel" oninput="checkTel()" size=30 placeholder="xxx-xxxx-xxxx">
+            <input type="tel" name="tel" id="tel" oninput="checkTel()" size=30 value="${busker.tel}">
             <br> <div id="telMsg" class="guide"></div>
             <h4 class="h4">주 연주 악기</h4>
-            <input type="text" name="instrument" size=30> <br>
+            <input type="text" name="instrument" size=30 value="${busker.instrument}"> <br>
             <h4>팀소개</h4>
-            <textarea name="teamInfo" rows="4" cols="31" class="nonesize" placeholder="100자 이내로 적어주시길 바랍니다."></textarea><br>
+            <textarea name="teamInfo" rows="4" cols="31" class="nonesize">${busker.teamInfo}</textarea><br>
             </div>
             <div id="modi-center">
-            <button class="modi btns btns-outline-dark" disabled="disabled">수정완료</button>
+            <button class="modi btns btns-outline-dark">수정완료</button>
             </div>
         </form>
     </div>
