@@ -312,14 +312,14 @@ div.qwer.modal-header{
     padding: 10px;
 }
 .tabbus{
-          margin: auto;
-    width: 20rem;
+             margin: auto;
+    width: 20.1rem;
     display: -webkit-box;
     text-align: center;
-    background-color: bisque;
+    background-color: #2a2b2d;
     padding-top: 3%;
     border-bottom: 1px solid snow;
-    color: inherit;
+    color: white;
     padding-bottom: 3%;
     border-radius: 5px 5px 0 0;
     border: 1px solid snow;
@@ -336,10 +336,11 @@ div.qwer.modal-header{
 .tabs{ width: 33.3333%
 }
 .tabb{
-margin: auto;
+    margin: auto;
     white-space: pre-line;
-    background-color: lavenderblush;
+    background-color: #f1bf08;
     padding: 4%;
+    width: 20rem;
     }
  .tabt{
         margin: auto;
