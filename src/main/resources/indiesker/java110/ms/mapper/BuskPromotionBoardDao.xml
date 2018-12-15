@@ -106,6 +106,29 @@ ORDER by bo.cdt DESC
     <delete id="deletePage" parameterType="int">
     DELETE FROM `busk_board` WHERE bbno = #{bbno}
     </delete>
+    
+    <update id="updatePromotion" parameterType="map">
+    UPDATE `busk_board` 
+    SET `titl`=#{bp.titl},
+        `genre`=#{bp.genre},
+        `city`=#{bp.city},
+        `cnt`=#{bp.cnt},
+        `sdt`=#{bp.nsdt},
+        `edt`=#{bp.nedt},
+        `tel1`=#{bp.tel1},
+        `tel2`=#{bp.tel2},
+        `etc`=#{bp.etc},
+        `cdt`=#{bp.cdt},
+        `phot`=#{bp.phot},
+        WHERE bbno = #{bbno.bbno}
+    </update>
+    
+    <select id="toEdit" parameterType="int" resultType="BuskerPromotion">
+    SELECT `titl`, `genre`, `city`, `cnt`, `sdt`, `edt`, `tel1`, `tel2`, `etc`, `phot`
+    FROM `busk_board` 
+    WHERE bbno = #{bbno}
+    </select>
+    
 </mapper>
 
 

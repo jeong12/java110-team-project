@@ -20,5 +20,8 @@ public interface BuskerPromotionService {
 	int editbcomt(int bcno, String comment);
 	int deletePage(int bbno);
 	int findBno(int bbno);
+	BuskerPromotion toEdit(int bbno); 
+	int editPge(int bbno, BuskerPromotion bp);
+	
     
 }

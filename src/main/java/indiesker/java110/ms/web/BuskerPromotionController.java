@@ -307,5 +307,34 @@ public class BuskerPromotionController {
  }
  
  
+ @RequestMapping("editform")
+ public void editPage(int bbno, Model model ){
+   BuskerPromotion bp = buskerPromotionService.toEdit(bbno);
+   System.out.println(bp);
+   SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+   bp.setNsdt(format.format(bp.getSdt()));
+   bp.setNedt(format.format(bp.getEdt()));
+   
+   
+   model.addAttribute("list", bp);
+ }
+ 
+ @RequestMapping("edit")
+ public String edit(BuskerPromotion buskerBoard,MultipartFile file1, HttpSession session) throws Exception {
+
+Member member = (Member)session.getAttribute("loginUser");
+int bbno = member.getNo();
+
+
+if (file1.getSize() > 0) {
+String filename = UUID.randomUUID().toString();
+file1.transferTo(new File(sc.getRealPath("/upload/" + filename)));
+buskerBoard.setPhot(filename);
+}
+
+buskerPromotionService.editPge(bbno, buskerBoard);
+
+return "redirect:list";
+}
 }
 

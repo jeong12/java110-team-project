@@ -118,7 +118,10 @@
   <div class="td">
           <div class='delete'>
             <c:if test="${busk == sessionScope.loginUser.no}">
-          <button class="modibtn btns btns btns-outline-m">수정</button>
+          <button class="modibtn btns btns btns-outline-m" onclick="editPage()">수정</button>
+          <form action='editform' class='editform'>
+          <input type="hidden" name="bbno" id="bbno">
+          </form>
           <button class="delbtn btns btns btns-outline-m" onclick="deletePage()">삭제</button>
           </c:if>
           </div>
@@ -166,7 +169,7 @@
     <div class="t">
 
     <div class="pn">
-        <a><img src="${com.phot}" class="pto"></a>
+        <a><img src="/upload/${com.phot}" class="pto"></a>
         <c:choose>
         <c:when test="${com.type == '일반회원' }">
          <p class="nik" style="background-color: #92a8d1;">${com.type}</p>
@@ -179,8 +182,8 @@
         <p class="nik" style="background-color: #61BFAD;">${com.type}</p>  
         </c:when>
         </c:choose>
-
     </div>
+    
     <div class="cc">
            <div  class="ftt">${com.nik}</div>
     </div>
@@ -276,7 +279,7 @@
                     	   var content =   
                     		   '<div class="t">'
                                +'<div class="pn">'
-                               +'<a><img src="'+item.phot+'"class="pto"></a>'
+                               +'<a><img src="/upload/'+item.phot+'"class="pto"></a>'
                                +'<p class="nik"  style="background-color: #92a8d1;">'+item.type+'</p>'
                                +'</div>'
                                +'<div class="cc">'
@@ -289,7 +292,7 @@
                                var content =   
                                    '<div class="t">'
                                    +'<div class="pn">'
-                                   +'<a><img src="'+item.phot+'"class="pto"></a>'
+                                   +'<a><img src="/upload/'+item.phot+'"class="pto"></a>'
                                    +'<p class="nik" style="background-color: #FF8B8B;">'+item.type+'</p>'
                                    +'</div>'
                                    +'<div class="cc">'
@@ -303,7 +306,7 @@
                                var content =   
                                    '<div class="t">'
                                    +'<div class="pn">'
-                                   +'<a><img src="'+item.phot+'"class="pto"></a>'
+                                   +'<a><img src="/upload/'+item.phot+'"class="pto"></a>'
                                    +'<p class="nik" style="background-color: #61BFAD;">'+item.type+'</p>'
                                    +'</div>'
                                    +'<div class="cc">'
@@ -360,15 +363,15 @@ function removeComment(e){
                     $('.pages').empty();
                     $.each(data.list,function(index,item){
                     if(item.type == '일반회원'){
-                    $('.comments').append('<div class="t"><div class="pn"><a><img src="'+item.phot+'" class="pto"></a><p class="nik" style="background-color: #92a8d1;">'+
+                    $('.comments').append('<div class="t"><div class="pn"><a><img src="/upload/'+item.phot+'" class="pto"></a><p class="nik" style="background-color: #92a8d1;">'+
                             item.type+'</p></div>'+'<div class="cc"><tr><th>'+item.nik+'</th><br><td>'+item.ncdt+'</td></tr></div>'+
                     '<textarea class="contm" readonly="readonly">'+item.cont+'</textarea></div>');
                     }else if(item.type == '버스커'){
-                    $('.comments').append('<div class="t"><div class="pn"><a><img src="'+item.phot+'" class="pto"></a><p class="nik" style="background-color: #FF8B8B;">'+
+                    $('.comments').append('<div class="t"><div class="pn"><a><img src="/upload/'+item.phot+'" class="pto"></a><p class="nik" style="background-color: #FF8B8B;">'+
                        item.type+'</p></div>'+'<div class="cc"><tr><th>'+item.nik+'</th><br><td>'+item.ncdt+'</td></tr></div>'+
                       '<textarea class="contm" readonly="readonly">'+item.cont+'</textarea></div>');	
                     }else if(item.type == '제공자'){
-                    $('.comments').append('<div class="t"><div class="pn"><a><img src="'+item.phot+'" class="pto"></a><p class="nik" style="background-color: #61BFAD;">'+
+                    $('.comments').append('<div class="t"><div class="pn"><a><img src="/upload/'+item.phot+'" class="pto"></a><p class="nik" style="background-color: #61BFAD;">'+
                       item.type+'</p></div>'+'<div class="cc"><tr><th>'+item.nik+'</th><br><td>'+item.ncdt+'</td></tr></div>'+
                       '<textarea class="contm" readonly="readonly">'+item.cont+'</textarea></div>');	
                     }
@@ -423,7 +426,7 @@ function goPage(e){
                        var content =   
                            '<div class="t">'
                            +'<div class="pn">'
-                           +'<a><img src="'+item.phot+'"class="pto"></a>'
+                           +'<a><img src="/upload/'+item.phot+'"class="pto"></a>'
                            +'<p class="nik"  style="background-color: #92a8d1;">'+item.type+'</p>'
                            +'</div>'
                            +'<div class="cc">'
@@ -436,7 +439,7 @@ function goPage(e){
                            var content =   
                                '<div class="t">'
                                +'<div class="pn">'
-                               +'<a><img src="'+item.phot+'"class="pto"></a>'
+                               +'<a><img src="/upload/'+item.phot+'"class="pto"></a>'
                                +'<p class="nik" style="background-color: #FF8B8B;">'+item.type+'</p>'
                                +'</div>'
                                +'<div class="cc">'
@@ -450,7 +453,7 @@ function goPage(e){
                            var content =   
                                '<div class="t">'
                                +'<div class="pn">'
-                               +'<a><img src="'+item.phot+'"class="pto"></a>'
+                               +'<a><img src="/upload/'+item.phot+'"class="pto"></a>'
                                +'<p class="nik" style="background-color: #61BFAD;">'+item.type+'</p>'
                                +'</div>'
                                +'<div class="cc">'
@@ -569,7 +572,23 @@ function deletePage(){
     }
 });
 }
+   
+function editPage(){    
+	function getUrlParams() {
+    var params = {};
+    window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) { params[key] = value; });
+    return params;
+} 
+
+    var bbno = getUrlParams().bbno;
     
+    $('#bbno').val(bbno);
+    $('.editform').submit();
+    
+	
+}
+
+
 /* function modifyComment(event){
 	console.log("::"); 
 	var bcno=$(event).attr('value');
