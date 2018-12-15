@@ -75,6 +75,7 @@
 <style>
 #bodybody{
 min-height: 850px;
+margin-right: 20px;
 }
 
 .teamnametr{
@@ -88,6 +89,7 @@ margin-top: 20px;
 #js-btn-wrap{
 margin-top: 50px;
 margin-bottom : 150px;
+margin-left:40px;
 }
 
 .teamPhotoImg {

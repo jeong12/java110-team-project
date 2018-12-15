@@ -45,6 +45,7 @@ padding: 0px;
 
 #bodybody{
     min-height: 850px;
+    margin-right: 20px;
 }
 
 #genrediv{
@@ -61,6 +62,7 @@ text-align: center;
 
 #js-btn-wrap{
 margin-bottom : 300px;
+margin-left: 40px;
 }
 
 .teamPhotoImg {
