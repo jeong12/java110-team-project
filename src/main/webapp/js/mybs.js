@@ -327,6 +327,7 @@ $(document).on('click','.detailinfobtn',function(){
              	$("#reqsdt").empty();
              	$("#reqedt").empty();
              	$("#reqaddr").empty();
+             	$("#reqcnt").empty();
              	$("#reqetc").empty();
              	$("#supimg1").empty();
              	$("#supimg2").empty();

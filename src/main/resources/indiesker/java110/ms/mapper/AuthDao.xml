@@ -23,7 +23,7 @@
 
     <update id="update_pw" parameterType="Map">
         update memb
-        set pwd = #{password}
+        set pwd =password(#{password})
         where email=#{email}
     </update>
 

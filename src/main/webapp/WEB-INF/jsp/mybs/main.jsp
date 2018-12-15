@@ -1136,7 +1136,7 @@ div.footer a.Cbtn-danger:hover{
                         <div class="stats">
 
                             <div>
-                                <strong><label>상세주소</label></strong>
+                                <strong><label>희망사항</label></strong>
                                 <span id='reqetc'></span> 
                             </div>
 
