@@ -24,4 +24,7 @@ public interface MemberDao {
   int searchlikeox(Map<String,Object> params);
   int busklcnt(Map<String,Object> params);
   int avilcnt(Map<String,Object> params);
+  
+  int updateavifavlcnt(Map<String,Object> params);
+  int insertavifavlcnt(int no);
 }

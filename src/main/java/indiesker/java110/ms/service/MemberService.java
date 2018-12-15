@@ -24,4 +24,6 @@ public interface MemberService {
     int searchLikeOX(int mno, int bono, int flag);
     void buskLikeCount(int lcnt,int bono);
     void aviLikeCount(int lcnt,int bono);
+    void inaviFavLikeCount(int bono);
+    void upaviFavLikeCount(int lcnt,int bono);
 }
