@@ -26,7 +26,6 @@ body{background-color: snow;}
 #titl{margin-top: 3.5%; margin-bottom: 2%;}
     #logo{float: left; width: 40px; height: 40px;}
     #haha{margin-top: 0.7%; margin-left: 4%;}
-.tab{display: none;}
 .hide-bullets {list-style:none;margin-left:-40px;margin-top:20px;}
 .iframe1{height: 17rem;}
 .iframe2{height: 17rem;}
