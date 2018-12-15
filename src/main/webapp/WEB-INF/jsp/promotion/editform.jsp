@@ -89,6 +89,7 @@
   <label class="leftlabel" for="textinput">연락처2</label>  
   <input id="textinput" name="tel2" type="tel" class="form-control input-md" value=${list.tel2}>
 </div>
+<input type="hidden" name="bbno" value=${list.bbno}>
 </div>
 <div class="right">
 <!-- <div class="imguppend">
@@ -140,7 +141,6 @@ function hihihi(){
 	var sdt = $("input[name='sdt']").val();
 	var edt = $("input[name='edt']").val();
 	var tel1 = $("input[name='tel1']").val();
-	var file1 = $("input[name='file1']").val();
 	    if(titl == ''){
 	    	swal("잠깐!","제목을 입력하세요.","error");}
 	    else if(gnere == ''){
@@ -155,8 +155,6 @@ function hihihi(){
 	    	swal("잠깐!","끝일을 입력하세요.","error");}
 	    else if(tel1 == ''){
 	    	swal("잠깐!","전화번호를 입력하세요.","error");}
-	    else if(file1 == ''){
-	    	swal("잠깐!","사진을 추가해주세요.","error");}
 	    else{
 	    	$('#add').submit();
 	    }

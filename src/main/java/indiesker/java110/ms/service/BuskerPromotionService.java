@@ -21,7 +21,7 @@ public interface BuskerPromotionService {
 	int deletePage(int bbno);
 	int findBno(int bbno);
 	BuskerPromotion toEdit(int bbno); 
-	int editPge(int bbno, BuskerPromotion bp);
+	int editPge(BuskerPromotion bp);
 	
     
 }

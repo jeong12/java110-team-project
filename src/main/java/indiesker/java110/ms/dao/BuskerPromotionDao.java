@@ -21,6 +21,6 @@ public interface BuskerPromotionDao {
   int bcContentEdit(Map<String,Object> params);
   int deletePage(int bbno);
   int findBno(int bbno);
-  int updatePromotion(Map<String,Object> params);
+  int updatePromotion(BuskerPromotion pb);
   BuskerPromotion toEdit(int bbno);
 } 

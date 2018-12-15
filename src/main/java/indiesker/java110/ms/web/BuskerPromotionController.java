@@ -322,17 +322,20 @@ public class BuskerPromotionController {
  @RequestMapping("edit")
  public String edit(BuskerPromotion buskerBoard,MultipartFile file1, HttpSession session) throws Exception {
 
-Member member = (Member)session.getAttribute("loginUser");
-int bbno = member.getNo();
-
-
+   BuskerPromotion bp = buskerPromotionService.toEdit(buskerBoard.getBbno());
+   System.out.println(bp.getPhot());
+   
 if (file1.getSize() > 0) {
 String filename = UUID.randomUUID().toString();
 file1.transferTo(new File(sc.getRealPath("/upload/" + filename)));
 buskerBoard.setPhot(filename);
+}else{
+  buskerBoard.setPhot(bp.getPhot());
 }
 
-buskerPromotionService.editPge(bbno, buskerBoard);
+
+
+buskerPromotionService.editPge(buskerBoard);
 
 return "redirect:list";
 }

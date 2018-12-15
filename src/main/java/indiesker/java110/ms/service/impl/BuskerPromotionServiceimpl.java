@@ -101,11 +101,8 @@ public class BuskerPromotionServiceimpl implements BuskerPromotionService {
     
 
     @Override
-    public int editPge(int bbno, BuskerPromotion bp) {
-      Map<String,Object> params = new HashMap<>();
-      params.put("bp",bp);
-      params.put("bbno", bbno);
-    return buskerPromotionDao.updatePromotion(params);
+    public int editPge(BuskerPromotion bp) {
+    return buskerPromotionDao.updatePromotion(bp);
     }
     
     
