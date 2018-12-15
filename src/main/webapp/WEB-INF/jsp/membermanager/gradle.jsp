@@ -26,7 +26,6 @@ body{background-color: snow;}
 #titl{margin-top: 3.5%; margin-bottom: 2%;}
     #logo{float: left; width: 40px; height: 40px;}
     #haha{margin-top: 0.7%; margin-left: 4%;}
-.tab{display: none;}
 .hide-bullets {list-style:none;margin-left:-40px;margin-top:20px;}
 .iframe1{height: 17rem;}
 .iframe2{height: 17rem;}
@@ -337,7 +336,7 @@ body{background-color: snow;}
         <label>선호지역 :</label><div class="bcity"></div>
         <label>장르 :</label><div class="bgenre"></div>
         <label>연락처 :</label><div class="btel"></div>
-        <label>팀소개 :</label><div class="bintro"></div>
+        <label style="margin-bottom: 0;">팀소개 </label><br><div class="bintro"></div>
     </div>  
      
     <div class="modal-footer">
@@ -481,8 +480,9 @@ $(document).on('click','.dtailbuskbutton',function(){
              $(".bintro").empty();
              $("#buskp").empty();
              $("#buskp2").empty();
-              $("#buskp").append("<iframe style='width: 100%;height: 376px;' src='"+data.avi1+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
-              $("#buskp2").append("<iframe style='width: 100%;height: 376px;' src='"+data.avi2+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
+             
+              $("#buskp").append("<iframe style='width: 100%;height: 376px;' src='https://www.youtube.com/embed/"+data.avi1+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
+              $("#buskp2").append("<iframe style='width: 100%;height: 376px;' src='https://www.youtube.com/embed/"+data.avi2+"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
                     $('.ttl').append(data.teamname);
                     $(".bname").append('<p>'+data.teamname+'</p>');
                     $(".bcity").append('<p>'+data.city+'</p>');

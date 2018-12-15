@@ -98,6 +98,42 @@ ORDER by bo.cdt DESC
        set cont=#{comment} 
      where bcno=#{bcno}
     </update>
+    
+    <select id="findBno" parameterType="int" resultType="Integer">
+    SELECT bno FROM busk_board WHERE bbno = #{bbno}
+    </select>
+    
+    <delete id="deleteCommentFor" parameterType="int">
+     DELETE FROM `board_comt` WHERE #{bbno}
+    </delete>
+    
+   
+    <delete id="deletePage" parameterType="int">
+    DELETE FROM busk_board WHERE bbno = #{bbno}
+    </delete>
+    
+    <update id="updatePromotion" parameterType="BuskerPromotion">
+    UPDATE busk_board 
+    SET titl=#{titl},
+        genre=#{genre},
+        city=#{city},
+        cnt=#{cnt},
+        sdt=#{nsdt},
+        edt=#{nedt},
+        tel1=#{tel1},
+        tel2=#{tel2},
+        etc=#{etc},
+        cdt=now(),
+        phot=#{phot}
+     WHERE bbno = #{bbno}
+    </update>
+    
+    <select id="toEdit" parameterType="int" resultType="BuskerPromotion">
+    SELECT titl, genre, city, cnt, sdt, edt, tel1, tel2, etc, phot, bbno
+    FROM busk_board 
+    WHERE bbno = #{bbno}
+    </select>
+    
 </mapper>
 
 

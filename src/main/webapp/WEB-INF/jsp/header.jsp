@@ -169,7 +169,10 @@ a:focus, a:hover {
                           </div>
                           <a href="/app/membermanager/list" id="user_manager" style="display:none;">
                           <i class="fas fa-users"></i>
-                          <span class="d-md-inline-block_c">회원 관리하기</span></a>  
+                          <span class="d-md-inline-block_c">회원 관리하기</span></a>
+                          <a href="/app/membermanager/gradle" id="user_grade" style="display:none;">
+                          <i class="fas fa-user-plus"></i>
+                          <span class="d-md-inline-block_c">등급 승인하기</span></a>
                           <a href="/app/auth/logout" class="logout-btn">
                           <i class="fas fa-sign-out-alt"></i>
                           <span class="d-md-inline-block_c">Sign Out</span></a>

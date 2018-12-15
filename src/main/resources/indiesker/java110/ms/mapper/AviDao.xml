@@ -60,6 +60,12 @@
 		FROM avi
 		WHERE abno=#{no}
 	</select>
+	
+	   <select id="printabno" resultMap="aviMap" parameterType="int">
+        SELECT abno
+        FROM avi
+        order by abno desc
+    </select>
 
 	<!-- 피드동영상 모달 -->
 	<select id="findfeedavibyAbno" resultMap="aviMap2"
@@ -143,7 +149,7 @@
 
 	<!-- 최신영상 조회(메인) -->
 	<select id="findAll" resultMap="aviMap">
-		SELECT a.abno,a.stm,a.titl, b.name
+		SELECT a.abno,a.stm,a.titl, b.name, a.lcnt
 		FROM busk b, avi a
 		WHERE b.bno=a.bno
 		ORDER BY cdt desc
@@ -152,7 +158,7 @@
 
 	<!-- 인기영상 조회(메인) -->
 	<select id="findbypopul" resultMap="aviMap">
-		SELECT a.abno,a.stm,a.titl, af.lcnt as lcnt, b.name
+		SELECT a.abno,a.stm,a.titl, (a.lcnt - af.lcnt) as lcnt, b.name
 		FROM busk b, avi a,
 		avi_fav af
 		WHERE b.bno=a.bno
@@ -186,6 +192,9 @@
 		insert into
 		avi(titl,cont,lcnt,cdt,stm,bno)
 		values(#{title},#{content},0,now(),#{urlid},#{buskerno});
+<!-- 		<selectKey resultType="Integer" keyProperty="aviboardno" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey> -->
 	</insert>
 
 	<!-- 댓글 입력 -->

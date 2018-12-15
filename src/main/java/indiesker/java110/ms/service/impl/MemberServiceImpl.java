@@ -205,6 +205,21 @@ public class MemberServiceImpl implements MemberService {
     memberDao.avilcnt(params);
   }
 
+  @Override
+  public void inaviFavLikeCount(int bono) {
+    
+    memberDao.insertavifavlcnt(bono);
+  }
+
+  @Override
+  public void upaviFavLikeCount(int lcnt, int bono) {
+    Map<String,Object> params = new HashMap<>();
+    params.put("lcnt", lcnt);
+    params.put("abno", bono);
+    
+    memberDao.updateavifavlcnt(params);
+  }
+
 
 }
 

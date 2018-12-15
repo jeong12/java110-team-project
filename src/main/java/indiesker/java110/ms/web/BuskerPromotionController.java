@@ -120,10 +120,8 @@ public class BuskerPromotionController {
   
   @GetMapping("detail")
   public void detail(
-      int bbno, Paging paging, Model model) {
-    
-    
-    System.out.println(bbno);
+      int bbno, Paging paging, Model model, HttpSession session) {
+    int bno = buskerPromotionService.findBno(bbno);
     paging.setPageSize(13);
     paging.setTotalCount(buskerPromotionService.totCommetList(bbno));
     
@@ -151,6 +149,7 @@ public class BuskerPromotionController {
     model.addAttribute("list", bd);
     model.addAttribute("comment", commentList);
     model.addAttribute("paging",paging);
+    model.addAttribute("busk", bno);
   }
   
   
@@ -301,5 +300,51 @@ public class BuskerPromotionController {
  }
 
 
+ @ResponseBody
+ @RequestMapping("deletePage")
+ public int removePage(int bbno) {
+   
+   int dno = buskerPromotionService.deleteCommetFor(bbno);
+
+   if(dno <0) {
+     return 0;
+   }
+   
+   return buskerPromotionService.deletePage(bbno);
+ }
+ 
+ 
+ @RequestMapping("editform")
+ public void editPage(int bbno, Model model ){
+   BuskerPromotion bp = buskerPromotionService.toEdit(bbno);
+   System.out.println(bp);
+   SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+   bp.setNsdt(format.format(bp.getSdt()));
+   bp.setNedt(format.format(bp.getEdt()));
+   
+   
+   model.addAttribute("list", bp);
+ }
+ 
+ @RequestMapping("edit")
+ public String edit(BuskerPromotion buskerBoard,MultipartFile file1, HttpSession session) throws Exception {
+
+   BuskerPromotion bp = buskerPromotionService.toEdit(buskerBoard.getBbno());
+   System.out.println(bp.getPhot());
+   
+if (file1.getSize() > 0) {
+String filename = UUID.randomUUID().toString();
+file1.transferTo(new File(sc.getRealPath("/upload/" + filename)));
+buskerBoard.setPhot(filename);
+}else{
+  buskerBoard.setPhot(bp.getPhot());
+}
+
+
+
+buskerPromotionService.editPge(buskerBoard);
+
+return "redirect:list";
+}
 }
 

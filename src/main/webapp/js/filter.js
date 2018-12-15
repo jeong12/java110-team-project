@@ -19,9 +19,11 @@ $().ready(function(){
         var sup_icon = document.getElementById('sup_icon');
         var edit_icon = document.getElementById('edit_icon');
         var user_manager = document.getElementById('user_manager');
+        var user_grade = document.getElementById('user_grade');
         
         if(id == 999999){
             user_manager.style.display = 'block';
+            user_grade.style.display = 'block';
             
         }
         

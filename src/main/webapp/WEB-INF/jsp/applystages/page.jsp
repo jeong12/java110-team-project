@@ -386,7 +386,7 @@ button.close{
 
 								<c:forEach items="${lists}" var="s">
 									<div class="item" id="tyy">
-										<img style="height: 100%" src="/upload/${s.photo}">
+										<img style="height: 100%;" width="100%;" src="/upload/${s.photo}">
 									</div>
 								</c:forEach>
 

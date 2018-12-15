@@ -312,13 +312,19 @@ div.qwer.modal-header{
     padding: 10px;
 }
 .tabbus{
-    margin: 20px auto 10px;
-    min-width: 400px;
-    height: 140px;
-    font-size: 18px;
-    border-top: 1px solid #bbafaf;
-    border-bottom: 1px solid #bbafaf;
+             margin: auto;
+    width: 20.1rem;
+    display: -webkit-box;
+    text-align: center;
+    background-color: #2a2b2d;
+    padding-top: 3%;
+    border-bottom: 1px solid snow;
+    color: white;
+    padding-bottom: 3%;
+    border-radius: 5px 5px 0 0;
+    border: 1px solid snow;
 }
+.tabb h4{margin-top: -1%;}
 .tabbus tr td:nth-child(2n+1){
     font-weight: 600;
     width:40%;
@@ -326,6 +332,24 @@ div.qwer.modal-header{
 .tabbus tr td:nth-child(2n){
     font-weight: 400;
 }
+
+.tabs{ width: 33.3333%
+}
+.tabb{
+    margin: auto;
+    white-space: pre-line;
+    background-color: #f1bf08;
+    padding: 4%;
+    width: 20rem;
+    }
+ .tabt{
+        margin: auto;
+    width: 20.1rem;
+ }
+ .close{
+     color: white;
+    opacity: 1;
+        margin-top: -4%;}
 </style>
 <jsp:include page="../header.jsp"></jsp:include>
 </head>
@@ -609,6 +633,7 @@ div.qwer.modal-header{
 				<!-- header -->
 				<div class="qwer modal-header">
 					<!-- 닫기(x) 버튼 -->
+					<div class="qwert"></div>
 					<button type="button" class="close" data-dismiss="modal">×</button>
 					<!-- header title -->
 				</div>
