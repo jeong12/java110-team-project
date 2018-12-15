@@ -379,7 +379,7 @@ table {
           <div class="streaming my-3"> 
             <h1 class="text-center">지금 공연중</h1>
             <iframe width="400" height="300"
-              src="https://www.youtube.com/embed/aR8Fe1lTKHo"
+              src="https://www.youtube.com/embed/6oR6_KXFK3U"
               frameborder="0"
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen style="display: block; margin: 0 auto;"
