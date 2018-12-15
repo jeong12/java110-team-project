@@ -459,6 +459,48 @@ function goPage(e){
                                +'<textarea class="contm" readonly="readonly">'+item.cont+'</textarea>';
                            
                        }
+            	   if(item.type == '일반회원'){
+                       var content =   
+                           '<div class="t">'
+                           +'<div class="pn">'
+                           +'<a><img src="/upload/'+item.phot+'"class="pto"></a>'
+                           +'<p class="nik"  style="background-color: #92a8d1;">'+item.type+'</p>'
+                           +'</div>'
+                           +'<div class="cc">'
+                           +'<div class="ft">'+item.nik+'</div>'
+                           +'</div>'
+                           +'<div class="text">'
+                           +'<div class="cdtr">'+item.ncdt+'</div><br>'
+                           +'<textarea class="contm" readonly="readonly">'+item.cont+'</textarea>';
+                       }else if(item.type == '버스커'){
+                           var content =   
+                               '<div class="t">'
+                               +'<div class="pn">'
+                               +'<a><img src="/upload/'+item.phot+'"class="pto"></a>'
+                               +'<p class="nik" style="background-color: #FF8B8B;">'+item.type+'</p>'
+                               +'</div>'
+                               +'<div class="cc">'
+                               +'<div class="ft">'+item.nik+'</div>'
+                               +'</div>'
+                               +'<div class="text">'
+                               +'<div class="cdtr">'+item.ncdt+'</div><br>'
+                               +'<textarea class="contm" readonly="readonly">'+item.cont+'</textarea>';
+                           
+                       }else if(item.type == '제공자'){
+                           var content =   
+                               '<div class="t">'
+                               +'<div class="pn">'
+                               +'<a><img src="/upload/'+item.phot+'"class="pto"></a>'
+                               +'<p class="nik" style="background-color: #61BFAD;">'+item.type+'</p>'
+                               +'</div>'
+                               +'<div class="cc">'
+                               +'<div class="ft">'+item.nik+'</div>'
+                               +'</div>'
+                               +'<div class="text">'
+                               +'<div class="cdtr">'+item.ncdt+'</div><br>'
+                               +'<textarea class="contm" readonly="readonly">'+item.cont+'</textarea>';
+                           
+                       }
                if(item.mno == data.mno){
                    /* $('.comments').append( */
                content += '<div class="icon">'
