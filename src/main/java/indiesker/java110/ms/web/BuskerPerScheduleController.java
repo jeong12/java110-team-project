@@ -264,6 +264,7 @@ public class BuskerPerScheduleController {
       if(s.getMessage()==null) {
         s.setMessage("해당 메시지가 없습니다.");
       }
+      detailschedule.setSupporter(s);
     }else {
       detailschedule= scheduleService.myperdetail(no);
     }
@@ -271,6 +272,7 @@ public class BuskerPerScheduleController {
     detailschedule.setNsdt(format.format(detailschedule.getSdt()).replaceAll("-", "/"));
     detailschedule.setNedt(format.format(detailschedule.getEdt()).replaceAll("-", "/"));
     detailschedule.setNcdt(format.format(detailschedule.getCdt()).replaceAll("-", "/"));
+    
     return detailschedule;
 
   }
