@@ -336,11 +336,15 @@ div.qwer.modal-header{
 .tabs{ width: 33.3333%
 }
 .tabb{
-    margin: auto;
+       margin: auto;
     white-space: pre-line;
     background-color: #f1bf08;
     padding: 4%;
     width: 20rem;
+    padding-left: 10%;
+    }
+    .modal-header .close{
+    margin-top: -5%;
     }
  .tabt{
         margin: auto;
