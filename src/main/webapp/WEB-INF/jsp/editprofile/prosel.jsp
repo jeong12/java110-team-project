@@ -42,7 +42,13 @@ ul li.prolist {
     font-size: 1.2rem;
     font-weight: 300;
 }
-
+#addr{
+    display: inline-block;
+    width: 68%;
+    position: relative;
+    top: 10px;
+    line-height: 1.3rem;
+}
 .col-md-10{
     margin-bottom: 1rem;
 }
@@ -201,7 +207,7 @@ ul li.prolist {
                               <ul class="pro_list">
                                   <li class="prolist"><h3 class="h3">제공자명</h3> ${sup.name}</li>
                                   <li class="prolist"><h3 class="h3">선호장르</h3> ${sup.sgnere}</li>
-                                  <li class="prolist"><h3 class="h3">주소</h3> ${sup.baseaddr} ${sup.detailaddr}</li>
+                                  <li class="prolist"><h3 class="h3">주소</h3> <div id="addr">${sup.baseaddr} ${sup.detailaddr}</div></li>
                                   <li class="prolist"><h3 class="h3">연락처</h3> ${sup.tel}</li>
                                   <li class="prolist"><h3 class="h3">수용가능인원</h3> ${sup.capa}</li>
                                   <li class="prolist" style="width:100%"><h3 class="h3 teamtitl">희망</h3><div class="teamcom"> ${sup.message}</div></li>
