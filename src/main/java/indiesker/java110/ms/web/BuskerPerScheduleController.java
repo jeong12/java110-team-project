@@ -228,10 +228,10 @@ public class BuskerPerScheduleController {
   public List<Schedule> getDateSchedule(
       HttpSession session,
       @RequestParam(value="date")String date) {
-    
     Member member = (Member)session.getAttribute("loginUser");
     int bno = member.getNo();
     
+    System.out.println(date);
     List<Schedule> clist = scheduleService.findbydate(bno, date);
 
     for (Schedule s : clist) {
