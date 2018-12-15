@@ -314,6 +314,7 @@ public class FeedController {
   public Avi insertcomt(String abno, String mno, String cont) {
     int abno2 = Integer.parseInt(abno);
     int mno2 = Integer.parseInt(mno);
+    System.out.println("mno2 : "+ mno2);
 
     aviService.insertComment(abno2, mno2, cont);
     //입력완료================================
