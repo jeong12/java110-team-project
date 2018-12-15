@@ -88,7 +88,18 @@ public class BuskerPromotionServiceimpl implements BuskerPromotionService {
       params.put("comment", comment);
       return buskerPromotionDao.bcContentEdit(params);
     }
+    
+    
+    @Override
+    public int deletePage(int bbno) {
+    return buskerPromotionDao.deletePage(bbno);
+    }
 
+    
+    @Override
+    public int findBno(int bbno) {
+    return buskerPromotionDao.findBno(bbno);
+    }
 }
 
 

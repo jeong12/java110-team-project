@@ -91,7 +91,6 @@ font-size: 0.8rem;
     width: 3rem;
 }
 #topp{margin-right: 0.2rem;margin-top: 1%;}
-img{width: 100%; height: 100%;}
 .bmimg,.carousel,.mc{    width: 26.5rem;
     height: 19rem;
     margin: auto;}
@@ -560,7 +559,7 @@ $(document).on("click",'.memberDetail',function(){
             $(".mmemo").empty();
             $(".mmimg").empty();
             
-            $(".mmimg").append("<img src='/upload/"+data.photo+"'>");
+            $(".mmimg").append("<img style='width: 26.5rem; height: 400px;' src='/upload/"+data.photo+"'>");
             $("#mttl").append('<h3>'+data.nickname+'</h3>');
             $(".mid").append('<p>'+data.id+'</p>');
             $(".meamil").append('<p>'+data.email+'</p>');
@@ -594,7 +593,7 @@ $(document).on("click",'.buskDetail',function(){
             $(".bmemo").empty();
             $(".bmimg").empty();
             
-            $(".bmimg").append("<img class='bbbmimg' src='/upload/"+data.teamPhoto+"'>")
+            $(".bmimg").append("<img style='width: 26.5rem; height: 400px;' class='bbbmimg' src='/upload/"+data.teamPhoto+"'>")
             $(".bttl").append('<h3>'+data.teamname+'</h3>')
             $(".bid").append('<p>'+data.id+'</p>')
             $(".bemail").append('<p>'+data.email+'</p>')
@@ -632,7 +631,7 @@ $(document).on("click",'.supDetail',function(){
             $(".dddd").empty();
            
             $.each(data.stagephotos,function(index,item){
-                $(".dddd").append("<div class='item'><img bbbmimg data-slide-number="+index+" src='/upload/"+item.photo+"'></div>")
+                $(".dddd").append("<div class='item'><img style='width: 26.5rem; height: 400px;' bbbmimg data-slide-number="+index+" src='/upload/"+item.photo+"'></div>")
                 /* fefefweafefxczbvxcvwfp */
             });
             $(".item:eq(2)").removeClass("item").addClass("item active");
