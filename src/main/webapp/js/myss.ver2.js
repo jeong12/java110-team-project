@@ -202,17 +202,21 @@ function chk(e){
 			$('.info').empty();
 			$(".dates2").empty();
 			$('.abtn').empty();
-			$('.qwer').empty();
+			$('.qwert').empty();
 			if(data.length != 0){
-				$(".qwer").append("<h4>"+data.busker.teamname+"님의 신청내역</h4>");
+				$(".qwert").append("<h4>"+data.busker.teamname+"님의 신청내역</h4>");
 				$(".info").append(
 						"<img class='modalimg' src='/upload/"+data.busker.teamPhoto+"' alt='버스커 이미지'>"+
-						"<table class='tabbus'><tbody>"+
-						"<tr><td>팀명</td><td>"+data.busker.teamname+"</td></tr>"+
-						"<tr><td>장르</td><td>"+data.busker.teamgenre+"</td></tr>"+
-						"<tr><td>좋아요</td><td>"+data.busker.likecount+"</td></tr>"+
-						"<tr><td>메세지</td><td>"+data.busker.message+"</td></tr>"+
-						"</tbody></table>"
+						"<div class='tabt'>"+
+						"<div class='tabbus'>"+
+						"<div class='tabs'>팀명<br>"+data.busker.teamname+"</div>"+
+						"<div class='tabs'>장르<br>"+data.busker.teamgenre+"</div>"+
+						"<div class='tabs'>좋아요<br>"+data.busker.likecount+"</div>"+
+						"</div>"+
+						"<div class='tabb'><h4>메세지</h4>"+data.busker.message+"</div>"+
+						"</div>"+
+						"</div>"
+						
 				);
 				if(data.flag == 1){
 					$('.abtn').prepend(

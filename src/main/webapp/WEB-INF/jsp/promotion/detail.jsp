@@ -46,6 +46,7 @@
     #te{margin-top: 50px;}
     .t-top{border: border; border-top: 1px solid silver}
     textarea{resize: none; overflow:hidden;}
+    .cdtContext{float: right;}
     #tobbox{
         border: 1px solid silver;
     border-radius: 5px;
@@ -66,7 +67,7 @@
 
 }
 
-    #ctnt{width: 10%;}
+    #ctnt{    width: 5%;}
     .fas,.far{float: left;}
      .far{margin-left: 1.5%;} 
     #commenttop{border-top: 1px solid silver;}
@@ -89,21 +90,21 @@
     .t1 label{float: left;}
     footer{clear: both;}
     #mang{display: flex;
-    margin-right: -9%;}
+    margin-right: 57%;}
     .contm{border: 1px solid white; overflow:hidden;  overflow-wrap:break-word; width: 94%;}
     .pages{text-align: center;}
     .ftt{font-weight:800; }
     #titlt{margin-top: 2%; margin-bottom: 2%;     margin-left: 23rem;}
 #logo{float: left;}
 #haha{margin-top: 0rem; margin-top: 0.2rem;}
-#tabl{    margin-top: 5%;
-    margin-left: 7%;}
+#tabl{        margin-left: 2%;}
 .contents i{margin-right: 1rem;}
 .contents div{margin-bottom: 0.5rem;}
 .contents{margin-top: 1rem;}
 .far{margin-right: 0.2rem;}
 .modibtn{display: inline-block; float: right; width: 3rem; height: 1.8rem; font-size: 0.6rem; text-align: center; margin-top: 3.4%;}
 .delbtn{float: right; width: 3rem; height: 1.8rem; font-size: 0.6rem; text-align: center; margin-top: 3.4%;}
+#cot{width: 25rem;}
 </style>
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
@@ -118,7 +119,10 @@
   <div class="td">
           <div class='delete'>
             <c:if test="${busk == sessionScope.loginUser.no}">
-          <button class="modibtn btns btns btns-outline-m">수정</button>
+          <button class="modibtn btns btns btns-outline-m" onclick="editPage()">수정</button>
+          <form action='editform' class='editform'>
+          <input type="hidden" name="bbno" id="bbno">
+          </form>
           <button class="delbtn btns btns btns-outline-m" onclick="deletePage()">삭제</button>
           </c:if>
           </div>
@@ -136,7 +140,7 @@
               <i class="fas fa-map-marked-alt"></i><div>${list.city}<br></div>
               <div id="mang"><i class="far fa-calendar-alt"></i>${list.nsdt}~${list.nedt}<br></div>
               <i id="ctnt" class="fas fa-male" style="text-align: center;"></i><div>${list.cnt}<br></div>
-              <i class="far fa-sticky-note"></i><div>${list.etc}<br></div>
+              <i class="far fa-sticky-note"></i><div id="cot">${list.etc}<br></div>
             </div>
       </div>
     </div>
@@ -166,7 +170,7 @@
     <div class="t">
 
     <div class="pn">
-        <a><img src="${com.phot}" class="pto"></a>
+        <a><img src="/upload/${com.phot}" class="pto"></a>
         <c:choose>
         <c:when test="${com.type == '일반회원' }">
          <p class="nik" style="background-color: #92a8d1;">${com.type}</p>
@@ -179,8 +183,8 @@
         <p class="nik" style="background-color: #61BFAD;">${com.type}</p>  
         </c:when>
         </c:choose>
-
     </div>
+    
     <div class="cc">
            <div  class="ftt">${com.nik}</div>
     </div>
@@ -276,7 +280,7 @@
                     	   var content =   
                     		   '<div class="t">'
                                +'<div class="pn">'
-                               +'<a><img src="'+item.phot+'"class="pto"></a>'
+                               +'<a><img src="/upload/'+item.phot+'"class="pto"></a>'
                                +'<p class="nik"  style="background-color: #92a8d1;">'+item.type+'</p>'
                                +'</div>'
                                +'<div class="cc">'
@@ -289,7 +293,7 @@
                                var content =   
                                    '<div class="t">'
                                    +'<div class="pn">'
-                                   +'<a><img src="'+item.phot+'"class="pto"></a>'
+                                   +'<a><img src="/upload/'+item.phot+'"class="pto"></a>'
                                    +'<p class="nik" style="background-color: #FF8B8B;">'+item.type+'</p>'
                                    +'</div>'
                                    +'<div class="cc">'
@@ -303,7 +307,7 @@
                                var content =   
                                    '<div class="t">'
                                    +'<div class="pn">'
-                                   +'<a><img src="'+item.phot+'"class="pto"></a>'
+                                   +'<a><img src="/upload/'+item.phot+'"class="pto"></a>'
                                    +'<p class="nik" style="background-color: #61BFAD;">'+item.type+'</p>'
                                    +'</div>'
                                    +'<div class="cc">'
@@ -360,15 +364,15 @@ function removeComment(e){
                     $('.pages').empty();
                     $.each(data.list,function(index,item){
                     if(item.type == '일반회원'){
-                    $('.comments').append('<div class="t"><div class="pn"><a><img src="'+item.phot+'" class="pto"></a><p class="nik" style="background-color: #92a8d1;">'+
+                    $('.comments').append('<div class="t"><div class="pn"><a><img src="/upload/'+item.phot+'" class="pto"></a><p class="nik" style="background-color: #92a8d1;">'+
                             item.type+'</p></div>'+'<div class="cc"><tr><th>'+item.nik+'</th><br><td>'+item.ncdt+'</td></tr></div>'+
                     '<textarea class="contm" readonly="readonly">'+item.cont+'</textarea></div>');
                     }else if(item.type == '버스커'){
-                    $('.comments').append('<div class="t"><div class="pn"><a><img src="'+item.phot+'" class="pto"></a><p class="nik" style="background-color: #FF8B8B;">'+
+                    $('.comments').append('<div class="t"><div class="pn"><a><img src="/upload/'+item.phot+'" class="pto"></a><p class="nik" style="background-color: #FF8B8B;">'+
                        item.type+'</p></div>'+'<div class="cc"><tr><th>'+item.nik+'</th><br><td>'+item.ncdt+'</td></tr></div>'+
                       '<textarea class="contm" readonly="readonly">'+item.cont+'</textarea></div>');	
                     }else if(item.type == '제공자'){
-                    $('.comments').append('<div class="t"><div class="pn"><a><img src="'+item.phot+'" class="pto"></a><p class="nik" style="background-color: #61BFAD;">'+
+                    $('.comments').append('<div class="t"><div class="pn"><a><img src="/upload/'+item.phot+'" class="pto"></a><p class="nik" style="background-color: #61BFAD;">'+
                       item.type+'</p></div>'+'<div class="cc"><tr><th>'+item.nik+'</th><br><td>'+item.ncdt+'</td></tr></div>'+
                       '<textarea class="contm" readonly="readonly">'+item.cont+'</textarea></div>');	
                     }
@@ -423,7 +427,7 @@ function goPage(e){
                        var content =   
                            '<div class="t">'
                            +'<div class="pn">'
-                           +'<a><img src="'+item.phot+'"class="pto"></a>'
+                           +'<a><img src="/upload/'+item.phot+'"class="pto"></a>'
                            +'<p class="nik"  style="background-color: #92a8d1;">'+item.type+'</p>'
                            +'</div>'
                            +'<div class="cc">'
@@ -436,7 +440,7 @@ function goPage(e){
                            var content =   
                                '<div class="t">'
                                +'<div class="pn">'
-                               +'<a><img src="'+item.phot+'"class="pto"></a>'
+                               +'<a><img src="/upload/'+item.phot+'"class="pto"></a>'
                                +'<p class="nik" style="background-color: #FF8B8B;">'+item.type+'</p>'
                                +'</div>'
                                +'<div class="cc">'
@@ -450,7 +454,7 @@ function goPage(e){
                            var content =   
                                '<div class="t">'
                                +'<div class="pn">'
-                               +'<a><img src="'+item.phot+'"class="pto"></a>'
+                               +'<a><img src="/upload/'+item.phot+'"class="pto"></a>'
                                +'<p class="nik" style="background-color: #61BFAD;">'+item.type+'</p>'
                                +'</div>'
                                +'<div class="cc">'
@@ -569,7 +573,23 @@ function deletePage(){
     }
 });
 }
+   
+function editPage(){    
+	function getUrlParams() {
+    var params = {};
+    window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) { params[key] = value; });
+    return params;
+} 
+
+    var bbno = getUrlParams().bbno;
     
+    $('#bbno').val(bbno);
+    $('.editform').submit();
+    
+	
+}
+
+
 /* function modifyComment(event){
 	console.log("::"); 
 	var bcno=$(event).attr('value');

@@ -45,6 +45,7 @@ padding: 0px;
 
 #bodybody{
     min-height: 850px;
+    margin-right: 20px;
 }
 
 #genrediv{
@@ -61,6 +62,7 @@ text-align: center;
 
 #js-btn-wrap{
 margin-bottom : 300px;
+margin-left: 40px;
 }
 
 .teamPhotoImg {
@@ -152,6 +154,7 @@ margin-right: 0;
 text-align: right;
 width: 100px;
 }
+#lo{margin-left: 14%;}
 /* 날짜 */
 #startdateenddate{
     margin-left: 18%;
@@ -159,16 +162,18 @@ width: 100px;
     #js-btn-wrap a.more-button:hover {
     color: white; text-decoration: none;
 }
+#titl{margin-top: 2%; margin-bottom: 2%;     margin-left: 22.4%;}
+#logo{float: left;}
+#haha{margin-top: 0.8%; margin-left: 5.5%;}
 </style>
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
 <body>
 <div id="bodybody">
 <div id="pos"></div>
-    <div class="container">
-        <div id="titl">
-            <h3><img id="logo" src="../../img/playButton.PNG" alt="플레이로고">공연장 현황</h3>
-        </div>
+   <div id="titl" class="container">
+        <img id="logo" src="/img/playButton.PNG" alt="플레이로고">
+        <h3 id="haha">공연장 현황</h3>
     </div>
     <div class="container" id="searchdiv">
         <div class="row">
