@@ -46,7 +46,6 @@
     #te{margin-top: 50px;}
     .t-top{border: border; border-top: 1px solid silver}
     textarea{resize: none; overflow:hidden;}
-    .cdtContext{float: right;}
     #tobbox{
         border: 1px solid silver;
     border-radius: 5px;
@@ -64,10 +63,8 @@
     clear: both;
     margin-top: -5%;
     margin-right: 1%;
-
 }
-
-    #ctnt{    width: 5%;}
+    #ctnt{width: 10%;}
     .fas,.far{float: left;}
      .far{margin-left: 1.5%;} 
     #commenttop{border-top: 1px solid silver;}
@@ -90,21 +87,21 @@
     .t1 label{float: left;}
     footer{clear: both;}
     #mang{display: flex;
-    margin-right: 57%;}
+    margin-right: -9%;}
     .contm{border: 1px solid white; overflow:hidden;  overflow-wrap:break-word; width: 94%;}
     .pages{text-align: center;}
     .ftt{font-weight:800; }
     #titlt{margin-top: 2%; margin-bottom: 2%;     margin-left: 23rem;}
 #logo{float: left;}
 #haha{margin-top: 0rem; margin-top: 0.2rem;}
-#tabl{        margin-left: 2%;}
+#tabl{    margin-top: 5%;
+    margin-left: 7%;}
 .contents i{margin-right: 1rem;}
 .contents div{margin-bottom: 0.5rem;}
 .contents{margin-top: 1rem;}
 .far{margin-right: 0.2rem;}
 .modibtn{display: inline-block; float: right; width: 3rem; height: 1.8rem; font-size: 0.6rem; text-align: center; margin-top: 3.4%;}
 .delbtn{float: right; width: 3rem; height: 1.8rem; font-size: 0.6rem; text-align: center; margin-top: 3.4%;}
-#cot{width: 25rem;}
 </style>
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
@@ -140,7 +137,7 @@
               <i class="fas fa-map-marked-alt"></i><div>${list.city}<br></div>
               <div id="mang"><i class="far fa-calendar-alt"></i>${list.nsdt}~${list.nedt}<br></div>
               <i id="ctnt" class="fas fa-male" style="text-align: center;"></i><div>${list.cnt}<br></div>
-              <i class="far fa-sticky-note"></i><div id="cot">${list.etc}<br></div>
+              <i class="far fa-sticky-note"></i><div>${list.etc}<br></div>
             </div>
       </div>
     </div>
@@ -237,18 +234,15 @@
     <script type="text/javascript">
     //textarea
     function resize(obj) {
-    	
+        
   var str = $(obj).val();
   var str_arr = str.split("\n");  // 줄바꿈 기준으로 나눔 
   var row = str_arr.length;  // row = 줄 수 
   if(row >3){
   //마지막 입력문자 삭제
-
   swal("3줄 이상 입력할 수 없습니다.");
   var lastChar = str.slice(0,-1); //열 
-
   $(obj).val(lastChar);
-
   obj.style.height = "1px";
   obj.style.height = (12+obj.scrollHeight)+"px";
   }
@@ -259,26 +253,26 @@
     
     // 댓글 입력
     $('#btn2').click(function(){
-    	
+        
     if($('.commentscontext').val().length == 0){
-    		swal("경고","내용을 입력하세요!","warning");
-    		return;
-    	}
-    	
+            swal("경고","내용을 입력하세요!","warning");
+            return;
+        }
+        
          $.ajax({
              type : "POST",
                 url : "comments",
                 dateType : "json",
                 data :{"comment":$('.commentscontext').val(), "bbno":${list.bbno}},
                 success : function(data){
-                	window.location.reload() ;
-            	   $('.comments').empty();
+                    window.location.reload() ;
+                   $('.comments').empty();
                        $('.commentscontext').empty();
                        $('.pages').empty();
                        $.each(data.list,function(index,item){
-                    	   if(item.type == '일반회원'){
-                    	   var content =   
-                    		   '<div class="t">'
+                           if(item.type == '일반회원'){
+                           var content =   
+                               '<div class="t">'
                                +'<div class="pn">'
                                +'<a><img src="/upload/'+item.phot+'"class="pto"></a>'
                                +'<p class="nik"  style="background-color: #92a8d1;">'+item.type+'</p>'
@@ -289,7 +283,7 @@
                                +'<div class="text">'
                                +'<div class="cdtr">'+item.ncdt+'</div><br>'
                                +'<textarea class="contm" readonly="readonly">'+item.cont+'</textarea>';
-                    	   }else if(item.type == '버스커'){
+                           }else if(item.type == '버스커'){
                                var content =   
                                    '<div class="t">'
                                    +'<div class="pn">'
@@ -302,8 +296,8 @@
                                    +'<div class="text">'
                                    +'<div class="cdtr">'+item.ncdt+'</div><br>'
                                    +'<textarea class="contm" readonly="readonly">'+item.cont+'</textarea>';
-                    		   
-                    	   }else if(item.type == '제공자'){
+                               
+                           }else if(item.type == '제공자'){
                                var content =   
                                    '<div class="t">'
                                    +'<div class="pn">'
@@ -316,8 +310,8 @@
                                    +'<div class="text">'
                                    +'<div class="cdtr">'+item.ncdt+'</div><br>'
                                    +'<textarea class="contm" readonly="readonly">'+item.cont+'</textarea>';
-                    		   
-                    	   }
+                               
+                           }
                                if(item.mno == data.mno){ 
                                    /* $('.comments').append( */
                                 content += '<div class="icon">'
@@ -370,11 +364,11 @@ function removeComment(e){
                     }else if(item.type == '버스커'){
                     $('.comments').append('<div class="t"><div class="pn"><a><img src="/upload/'+item.phot+'" class="pto"></a><p class="nik" style="background-color: #FF8B8B;">'+
                        item.type+'</p></div>'+'<div class="cc"><tr><th>'+item.nik+'</th><br><td>'+item.ncdt+'</td></tr></div>'+
-                      '<textarea class="contm" readonly="readonly">'+item.cont+'</textarea></div>');	
+                      '<textarea class="contm" readonly="readonly">'+item.cont+'</textarea></div>');    
                     }else if(item.type == '제공자'){
                     $('.comments').append('<div class="t"><div class="pn"><a><img src="/upload/'+item.phot+'" class="pto"></a><p class="nik" style="background-color: #61BFAD;">'+
                       item.type+'</p></div>'+'<div class="cc"><tr><th>'+item.nik+'</th><br><td>'+item.ncdt+'</td></tr></div>'+
-                      '<textarea class="contm" readonly="readonly">'+item.cont+'</textarea></div>');	
+                      '<textarea class="contm" readonly="readonly">'+item.cont+'</textarea></div>');    
                     }
                     if(item.mno == data.mno){
                         $('.comments').append('<div class="removecomment" onclick="removeComment(${com.bcno})"><i class="fas fa-minus"></i></div>'+
@@ -423,6 +417,48 @@ function goPage(e){
                $('.comments').empty();
                $('.pages').empty();
                $.each(data.list,function(index,item){
+                   if(item.type == '일반회원'){
+                       var content =   
+                           '<div class="t">'
+                           +'<div class="pn">'
+                           +'<a><img src="/upload/'+item.phot+'"class="pto"></a>'
+                           +'<p class="nik"  style="background-color: #92a8d1;">'+item.type+'</p>'
+                           +'</div>'
+                           +'<div class="cc">'
+                           +'<div class="ft">'+item.nik+'</div>'
+                           +'</div>'
+                           +'<div class="text">'
+                           +'<div class="cdtr">'+item.ncdt+'</div><br>'
+                           +'<textarea class="contm" readonly="readonly">'+item.cont+'</textarea>';
+                       }else if(item.type == '버스커'){
+                           var content =   
+                               '<div class="t">'
+                               +'<div class="pn">'
+                               +'<a><img src="/upload/'+item.phot+'"class="pto"></a>'
+                               +'<p class="nik" style="background-color: #FF8B8B;">'+item.type+'</p>'
+                               +'</div>'
+                               +'<div class="cc">'
+                               +'<div class="ft">'+item.nik+'</div>'
+                               +'</div>'
+                               +'<div class="text">'
+                               +'<div class="cdtr">'+item.ncdt+'</div><br>'
+                               +'<textarea class="contm" readonly="readonly">'+item.cont+'</textarea>';
+                           
+                       }else if(item.type == '제공자'){
+                           var content =   
+                               '<div class="t">'
+                               +'<div class="pn">'
+                               +'<a><img src="/upload/'+item.phot+'"class="pto"></a>'
+                               +'<p class="nik" style="background-color: #61BFAD;">'+item.type+'</p>'
+                               +'</div>'
+                               +'<div class="cc">'
+                               +'<div class="ft">'+item.nik+'</div>'
+                               +'</div>'
+                               +'<div class="text">'
+                               +'<div class="cdtr">'+item.ncdt+'</div><br>'
+                               +'<textarea class="contm" readonly="readonly">'+item.cont+'</textarea>';
+                           
+                       }
             	   if(item.type == '일반회원'){
                        var content =   
                            '<div class="t">'
@@ -498,48 +534,45 @@ function goPage(e){
     
 }
 $(".modifycomment").click(function(){
-	
-	$(this).parent().siblings('textarea').removeAttr('readonly').css('border','1px solid blue');
-	$(this).siblings().css('display','block');
-	$(this).css('display','none');//.css('background-color','red')
-			//parent().attr('class'));//test
+    
+    $(this).parent().siblings('textarea').removeAttr('readonly').css('border','1px solid blue');
+    $(this).siblings().css('display','block');
+    $(this).css('display','none');//.css('background-color','red')
+            //parent().attr('class'));//test
 });
-
 $(".editcomment").click(function(){
-	function getUrlParams() {
+    function getUrlParams() {
         var params = {};
         window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) { params[key] = value; });
         return params;
     } 
     var bbno = getUrlParams().bbno;
-	var bcno=$(this).attr('value'); 
-	var comment = $(this).parent().siblings('textarea').val();
-	
-	$(this).parent().siblings('textarea').attr('readonly','readonly').css('border','0');
+    var bcno=$(this).attr('value'); 
+    var comment = $(this).parent().siblings('textarea').val();
+    
+    $(this).parent().siblings('textarea').attr('readonly','readonly').css('border','0');
     $(this).siblings().css('display','block');
     $(this).css('display','none');
-	///test
-	
-	$.ajax({ 
+    ///test
+    
+    $.ajax({ 
         type : "POST", 
         url : "bcContentEdit",
         dataType: 'json',
         data: {
-        	'bbno':bbno,
-        	'bcno':bcno,
-        	'comment':comment
+            'bbno':bbno,
+            'bcno':bcno,
+            'comment':comment
         }, 
         success : function(data) {
-        	swal("짜잔","댓글이 수정완료!","success");
+            swal("짜잔","댓글이 수정완료!","success");
         },
         error : function(request, status, error) {
             swal("오류","달력데이터 오류","error");
         }
     });
-	
+    
 });
-
-
 function deletePage(){
     function getUrlParams() {
         var params = {};
@@ -558,13 +591,13 @@ function deletePage(){
         }
     }).then((will)=>{
         if(will){
-	$.ajax({ 
+    $.ajax({ 
         type : "POST", 
         url : "deletePage",
         dataType: 'json',
         data: {'bbno':bbno}, 
         success : function(data) {
-        	location.href = "list.jsp";
+            location.href = "list.jsp";
         },
         error : function(request, status, error) {
             swal("오류","삭제 오류","error");
@@ -575,27 +608,24 @@ function deletePage(){
 }
    
 function editPage(){    
-	function getUrlParams() {
+    function getUrlParams() {
     var params = {};
     window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) { params[key] = value; });
     return params;
 } 
-
     var bbno = getUrlParams().bbno;
     
     $('#bbno').val(bbno);
     $('.editform').submit();
     
-	
+    
 }
-
-
 /* function modifyComment(event){
-	console.log("::"); 
-	var bcno=$(event).attr('value');
-	var parent = $(event.parentNode);
-	console.log(parent);
-	parent.sibling().removeAttr('readonly');
+    console.log("::"); 
+    var bcno=$(event).attr('value');
+    var parent = $(event.parentNode);
+    console.log(parent);
+    parent.sibling().removeAttr('readonly');
 } */
     </script>   
 </body>
