@@ -95,18 +95,28 @@ public class EditProController{
   @PostMapping("busker/editB")
   public String modiB(Busker b, HttpSession session, MultipartFile file1) throws Exception{
 
+    Member m = (Member)session.getAttribute("loginUser");
+    Busker busk = buskerService.get(m.getNo());
+    System.out.println("::::::" + busk);
+    if(b.getTeamname() == null) b.setTeamname(busk.getTeamname());
+    if(b.getTeamgenre() == null) b.setTeamgenre(busk.getTeamgenre());
+    if(b.getCity() == null) b.setCity(busk.getCity());
+    if(b.getTel() == null) b.setTel(busk.getTel());
+    if(b.getInstrument() == null) b.setInstrument(busk.getInstrument());
+    if(b.getTeamInfo() == null) b.setTeamInfo(busk.getTeamInfo());
     if (file1.getSize() > 0) {
       String filename = UUID.randomUUID().toString();
       file1.transferTo(new File(sc.getRealPath("/upload/" + filename)));
       b.setTeamPhoto(filename);
+    }else {
+      b.setTeamPhoto(busk.getTeamPhoto());
     }
 
-    Member bus = (Member)session.getAttribute("loginUser");
-    b.setNo(bus.getNo());
-    System.out.println(b.toString());
+    b.setNo(busk.getNo());
+    b.setBno(busk.getBno());
     buskerService.modiBusk(b);
 
-    return "redirect:../../promotion/list";
+    return "redirect:../prosel";
   }
 
   @GetMapping("supporter/form")

@@ -81,7 +81,7 @@
     UPDATE busk
        SET name = #{teamname}, genre = #{teamgenre}, phot = #{teamPhoto}, city = #{city},
            tel = #{tel}, inst = #{instrument}, intro = #{teamInfo}
-     WHERE bno = #{no}
+     WHERE bno = #{bno}
     </update>
     
    	<select id="findBukserInfo" resultMap="buskerFeedMap" parameterType="int"> 

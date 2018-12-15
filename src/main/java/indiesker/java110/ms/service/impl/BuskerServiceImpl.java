@@ -45,6 +45,7 @@ public class BuskerServiceImpl implements BuskerService {
 
   @Override
   public void modiBusk(Busker busker) {
+    System.out.println(busker);
     buskerDao.updateBusk(busker);
   }
   

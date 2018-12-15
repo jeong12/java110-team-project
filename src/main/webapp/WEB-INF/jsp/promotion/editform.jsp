@@ -107,7 +107,7 @@
 <div class="bbtn">
 <div class="form-group">
   <label class="blabel" for="textarea">홍보 글</label>  
-   <textarea class="form-control" id="textarea" name="etc" value=${list.etc}>내용을 입력해주세요</textarea>
+   <textarea class="form-control" id="textarea" name="etc">${list.etc}</textarea>
 </div>
 </div>
 <div class="xybtn">
