@@ -2,7 +2,8 @@
     contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -167,7 +168,15 @@
     <div class="t">
 
     <div class="pn">
-        <a><img src="/upload/${com.phot}" class="pto"></a>
+    <c:set var="photApi" value="${com.phot}"/>
+        <c:choose>
+          <c:when test="${fn:contains(photApi, 'http')}">
+            <a><img src="${com.phot}" class="pto"></a>
+          </c:when>
+          <c:otherwise>
+            <a><img src="/upload/${com.phot}" class="pto"></a>
+          </c:otherwise>
+        </c:choose>
         <c:choose>
         <c:when test="${com.type == '일반회원' }">
          <p class="nik" style="background-color: #92a8d1;">${com.type}</p>
@@ -270,11 +279,17 @@
                        $('.commentscontext').empty();
                        $('.pages').empty();
                        $.each(data.list,function(index,item){
+                           console.log(item.phot);
+                           if(item.phot.indexOf('http')){
+                               var phot = '<a><img src="'+item.phot+'"class="pto"></a>'
+                           } else {
+                               var phot = '<a><img src="/upload/'+item.phot+'"class="pto"></a>'
+                           }
                            if(item.type == '일반회원'){
                            var content =   
                                '<div class="t">'
                                +'<div class="pn">'
-                               +'<a><img src="/upload/'+item.phot+'"class="pto"></a>'
+                               + phot
                                +'<p class="nik"  style="background-color: #92a8d1;">'+item.type+'</p>'
                                +'</div>'
                                +'<div class="cc">'
