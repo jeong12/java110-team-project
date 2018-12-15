@@ -158,7 +158,7 @@ input[type="text"]:focus, input[type="tel"]:focus, input[type="number"]:focus {
             </div>
             <div class="pd">
             <h4>상호명</h4>
-            <input type='text' name='name' oninput="checkName()" id="name"
+            <input type='text' name='name' id="name"
                 size=30><br> <div id="nameMsg" class="guide"></div>
             <h4>퍼포먼스/장르(희망)</h4>
             <select name='sgnere' id='sgnere'>
@@ -196,7 +196,7 @@ input[type="text"]:focus, input[type="tel"]:focus, input[type="number"]:focus {
     </div>
 
 <script>
-    var chkName=0;
+    var chkName=1;
 var chkDetAddr=0;
 var chkCapa=0;
 var chkDetAddr=0;
@@ -204,7 +204,7 @@ var chkFile1=1;
 var chkFile2=1;
 var chkFile3=1;
 
-function checkName(){
+/* function checkName(){
     var names=$('#name').val(); 
     $.ajax({
         data : {
@@ -230,7 +230,7 @@ function checkName(){
             } 
         }
     });
-}
+} */
 
 function checkDetailAddr(){ 
     var baddr=$('#baseaddr').val();
