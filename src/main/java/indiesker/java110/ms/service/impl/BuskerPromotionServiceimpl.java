@@ -111,6 +111,11 @@ public class BuskerPromotionServiceimpl implements BuskerPromotionService {
     return buskerPromotionDao.toEdit(bbno);
     }
     
+    @Override
+    public int deleteCommetFor(int bbno) {
+    return buskerPromotionDao.deleteCommentFor(bbno);
+    }
+    
 }
 
 

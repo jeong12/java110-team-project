@@ -303,6 +303,13 @@ public class BuskerPromotionController {
  @ResponseBody
  @RequestMapping("deletePage")
  public int removePage(int bbno) {
+   
+   int dno = buskerPromotionService.deleteCommetFor(bbno);
+
+   if(dno <0) {
+     return 0;
+   }
+   
    return buskerPromotionService.deletePage(bbno);
  }
  

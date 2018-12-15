@@ -23,4 +23,5 @@ public interface BuskerPromotionDao {
   int findBno(int bbno);
   int updatePromotion(BuskerPromotion pb);
   BuskerPromotion toEdit(int bbno);
+  int deleteCommentFor(int bbno);
 } 

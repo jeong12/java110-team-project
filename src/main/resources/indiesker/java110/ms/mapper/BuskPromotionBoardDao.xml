@@ -103,7 +103,7 @@ ORDER by bo.cdt DESC
     SELECT bno FROM busk_board WHERE bbno = #{bbno}
     </select>
     
-    <delete id="deleteComment" parameterType="int">
+    <delete id="deleteCommentFor" parameterType="int">
      DELETE FROM `board_comt` WHERE #{bbno}
     </delete>
     
