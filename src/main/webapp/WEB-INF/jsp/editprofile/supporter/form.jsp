@@ -158,17 +158,17 @@ input[type="text"]:focus, input[type="tel"]:focus, input[type="number"]:focus {
             </div>
             <div class="pd">
             <h4>상호명</h4>
-            <input type='text' name='name' id="name"
+            <input type='text' name='name' id="name" autocomplete="off"
                 size=30><br> <div id="nameMsg" class="guide"></div>
             <h4>퍼포먼스/장르(희망)</h4>
             <select name='sgnere' id='sgnere'>
-                <option value="ballad" selected="selected">발라드</option>
+                <option value="ballad">발라드</option>
                 <option value="dance">댄스</option>
                 <option value="trot">트로트</option>
                 <option value="folk">포크</option>
                 <option value="rock">락</option>
                 <option value="jazz">재즈</option>
-                <option value="country">컨츄리</option>
+                <option value="country" selected="selected">컨츄리</option>
                 <option value="rnb">알앤비</option>
                 <option value="rap">랩</option>
             </select><br>
@@ -181,10 +181,10 @@ input[type="text"]:focus, input[type="tel"]:focus, input[type="number"]:focus {
             <div id="daMsg" class="guide"></div>
             <div id="map"></div>
             <h4>수용가능인원</h4>
-            <input type="number" id="capa" name="capa" onchange="checkCapa()">
+            <input type="number" id="capa" name="capa" onchange="checkCapa()" autocomplete="off">
             <div id="capaMsg" class="guide"></div>
             <h4>연락처</h4>
-            <input type="tel" id="tel" name="tel" size=30 onchange="checkTel()"> 
+            <input type="tel" id="tel" name="tel" size=30 onchange="checkTel()" autocomplete="off"> 
             <br><div id="telMsg" class="guide"></div>
             <h4>기타(희망사항)</h4>
             <textarea name="message" id="message" rows="4" cols="34" class="nonesize" placeholder="100자 이내로 적어주시길 바랍니다."></textarea> <br>

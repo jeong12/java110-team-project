@@ -61,19 +61,19 @@
 <div class="left">
 <div class="form-group">
   <label class="leftlabel" for="textinput">제목</label>  
-  <input id="textinput" name="titl" type="text" placeholder="제목을 입력하시오" class="form-control input-md">
+  <input id="textinput" name="titl" type="text" placeholder="제목을 입력하시오" class="form-control input-md" autocomplete="off">
 </div>
 <div class="form-group">
   <label class="leftlabel" for="textinput">장르</label>  
-  <input id="textinput" name="genre" type="text" placeholder="장르를 입력하시오" class="form-control input-md">
+  <input id="textinput" name="genre" type="text" placeholder="장르를 입력하시오" class="form-control input-md" autocomplete="off">
 </div>
 <div class="form-group">
   <label class="leftlabel" for="textinput">도시</label>  
-  <input id="textinput" name="city" type="text" placeholder="도시를 입력하시오" class="form-control input-md">
+  <input id="textinput" name="city" type="text" placeholder="도시를 입력하시오" class="form-control input-md" autocomplete="off">
 </div>     
 <div class="form-group">
   <label class="leftlabel" for="textinput">인원</label>  
-  <input id="textinputmember" name="cnt" type="number" min="1"  placeholder="인원" class="member form-control input-md">
+  <input id="textinputmember" name="cnt" type="number" min="1"  placeholder="인원" class="member form-control input-md" autocomplete="off">
 </div>
 <div class="form-group" id='datetimepicker1'>
   <label class="leftlabel" for="textinput">날짜</label>  
@@ -83,11 +83,11 @@
 </div>
 <div class="form-group">
   <label class="leftlabel" for="textinput">연락처1</label>  
-  <input id="textinput" name="tel1" type="tel" placeholder="연락처를 입력하시오" class="form-control input-md">
+  <input id="textinput" name="tel1" type="tel" placeholder="연락처를 입력하시오" class="form-control input-md" autocomplete="off">
 </div>
 <div class="form-group">
   <label class="leftlabel" for="textinput">연락처2</label>  
-  <input id="textinput" name="tel2" type="tel" placeholder="연락처를 입력하시오" class="form-control input-md">
+  <input id="textinput" name="tel2" type="tel" placeholder="연락처를 입력하시오" class="form-control input-md" autocomplete="off">
 </div>
 </div>
 <div class="right">
@@ -98,7 +98,7 @@
   <label class=" control-label" for="filebutton">
   <img id="upload1" name="" alt="기본이미지" src="/img/anonymous.png">
   </label>
-    <input id="filebutton" name="file1" class="input-file" type="file" onchange="readURL1(this)">
+    <input id="filebutton" name="file1" class="input-file" type="file" onchange="readURL1(this)" >
 </div>
 </div>
 </div>

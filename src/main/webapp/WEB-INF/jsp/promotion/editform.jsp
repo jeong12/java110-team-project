@@ -61,19 +61,19 @@
 <div class="left">
 <div class="form-group">
   <label class="leftlabel" for="textinput">제목</label>  
-  <input id="textinput" name="titl" type="text" class="form-control input-md" value=${list.titl}>
+  <input id="textinput" name="titl" type="text" class="form-control input-md" value=${list.titl} autocomplete="off">
 </div>
 <div class="form-group">
   <label class="leftlabel" for="textinput">장르</label>  
-  <input id="textinput" name="genre" type="text" class="form-control input-md" value=${list.genre}>
+  <input id="textinput" name="genre" type="text" class="form-control input-md" value=${list.genre} autocomplete="off">
 </div>
 <div class="form-group">
   <label class="leftlabel" for="textinput">도시</label>  
-  <input id="textinput" name="city" type="text" class="form-control input-md" value=${list.city}>
+  <input id="textinput" name="city" type="text" class="form-control input-md" value=${list.city} autocomplete="off">
 </div>     
 <div class="form-group">
   <label class="leftlabel" for="textinput">인원</label>  
-  <input id="textinputmember" name="cnt" type="number" min="1"  class="member form-control input-md" value=${list.cnt}>
+  <input id="textinputmember" name="cnt" type="number" min="1"  class="member form-control input-md" value=${list.cnt} autocomplete="off">
 </div>
 <div class="form-group" id='datetimepicker1'>
   <label class="leftlabel" for="textinput">날짜</label>  
@@ -83,11 +83,11 @@
 </div>
 <div class="form-group">
   <label class="leftlabel" for="textinput">연락처1</label>  
-  <input id="textinput" name="tel1" type="tel" class="form-control input-md" value=${list.tel1}>
+  <input id="textinput" name="tel1" type="tel" class="form-control input-md" value=${list.tel1} autocomplete="off">
 </div>
 <div class="form-group">
   <label class="leftlabel" for="textinput">연락처2</label>  
-  <input id="textinput" name="tel2" type="tel" class="form-control input-md" value=${list.tel2}>
+  <input id="textinput" name="tel2" type="tel" class="form-control input-md" value=${list.tel2} autocomplete="off">
 </div>
 <input type="hidden" name="bbno" value=${list.bbno}>
 </div>

@@ -806,7 +806,7 @@ input, textarea, button { margin-top:0px }
                             <i class="fa fa-user">
                             </i>
                            </div>
-                           <input id="edit_shopname" name="shopname" type="text" class="form-control input-md">
+                           <input id="edit_shopname" name="shopname" type="text" class="form-control input-md" autocomplete="off">
                           </div>
                       </div>
                     </div>
@@ -820,7 +820,7 @@ input, textarea, button { margin-top:0px }
                           <i class="fa fa-male"></i>
                             
                            </div>
-                          <input id="edit_cnt" name="cnt" type="number" class="form-control input-md">
+                          <input id="edit_cnt" name="cnt" type="number" class="form-control input-md" autocomplete="off">
                     
                           </div>
                         
@@ -865,7 +865,7 @@ input, textarea, button { margin-top:0px }
                               <div class="input-group-addon">
                                  <i class="fa fa-street-view"></i>
                                </div>
-                              <input id="edit_addr" name="edit_addr" type="text" placeholder="주소" class="form-control input-md ">
+                              <input id="edit_addr" name="edit_addr" type="text" placeholder="주소" class="form-control input-md" autocomplete="off">
                           </div>
                       </div>
                     

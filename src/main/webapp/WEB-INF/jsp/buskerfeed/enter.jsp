@@ -373,7 +373,7 @@ body, .container.title {
       <div class="twPc-button">
         <table class="teaminfo1">
           <tr>
-            <td><h1 style="margin-right: 400px;">${busk.teamname }</h1></td>
+            <td><h1 style="margin-right: 390px;">${busk.teamname }</h1></td>
             <!-- 좋아요 버튼 -->
             <c:choose>
               <c:when test="${loginuser.heartNum == 0}">

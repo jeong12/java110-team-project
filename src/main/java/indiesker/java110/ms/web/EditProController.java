@@ -166,7 +166,7 @@ public class EditProController{
     
     supporterService.modiSup(s);
 
-    return "redirect:../../promotion/list";
+    return "redirect:../prosel";
   }
 
   @ResponseBody
