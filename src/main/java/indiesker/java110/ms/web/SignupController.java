@@ -156,35 +156,46 @@ public class SignupController{
   
   
   @RequestMapping("supporter/add")
-  public void add(Supporter s, StagePhoto sp, Model model, @RequestParam MultipartFile file1, 
+  public void add(Supporter s, Model model, @RequestParam MultipartFile file1, 
       @RequestParam MultipartFile file2, @RequestParam MultipartFile file3, HttpSession session) throws Exception {
     
     String id= (String) bsuknsup.get("id");
     int no = memberService.findNoById(id);
     s.setNo(no);
-    sp.setSno(no);
     List<StagePhoto> splist = new ArrayList<>();
+    
     System.out.println(s);
+    
     if (file1.getSize() > 0) {
       String filename = UUID.randomUUID().toString();
+      System.out.println(filename);
       file1.transferTo(new File(sc.getRealPath("/upload/" + filename)));
+      StagePhoto sp = new StagePhoto();
       sp.setPhoto(filename);
-      splist.add(0, sp);
+      sp.setSno(no);
+      splist.add(sp);
     }
     
     if (file2.getSize() > 0) {
-      String filename = UUID.randomUUID().toString();
-      file2.transferTo(new File(sc.getRealPath("/upload/" + filename)));
-      sp.setPhoto(filename);
-      splist.add(1,sp);
+      String filename2 = UUID.randomUUID().toString();
+      System.out.println(filename2);
+      file2.transferTo(new File(sc.getRealPath("/upload/" + filename2)));
+      StagePhoto sp2 = new StagePhoto();
+      sp2.setPhoto(filename2);
+      sp2.setSno(no);
+      splist.add(sp2);
     }
     if (file3.getSize() > 0) {
-      String filename = UUID.randomUUID().toString();
-      file3.transferTo(new File(sc.getRealPath("/upload/" + filename)));
-      sp.setPhoto(filename);
-      splist.add(2,sp);
+      String filename3 = UUID.randomUUID().toString();
+      System.out.println(filename3);
+      file3.transferTo(new File(sc.getRealPath("/upload/" + filename3)));
+      StagePhoto sp3 = new StagePhoto();
+      sp3.setPhoto(filename3);
+      sp3.setSno(no);
+      splist.add(sp3);
     }
     s.setStagesphoto(splist);
+    
     
     supporterService.insert(s);  
     session.removeAttribute("from");
