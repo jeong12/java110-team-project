@@ -156,7 +156,14 @@ ul li.prolist {
                               </ul>
                           </td>
                           <td>
-                          <img src="../../upload/${mem.photo}" alt="test1" class="proimg">
+                          <c:choose>
+                          <c:when test="${not empty mem.photo}">
+                          <img src="../../upload/${mem.photo}" alt="profile" class="proimg">
+                          </c:when>
+                          <c:otherwise>
+                          <img src="../../img/anonymous.png" alt="profile" class="proimg">
+                          </c:otherwise>
+                          </c:choose>
                           <div class="probtn"><button class="btns btns-outline-dark" onclick="EditMem()">수정하기</button></div>
                           </td>
                       </tr>

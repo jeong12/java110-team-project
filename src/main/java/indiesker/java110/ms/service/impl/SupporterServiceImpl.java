@@ -94,7 +94,15 @@ public class SupporterServiceImpl implements SupporterService {
 
     @Override
     public List<Supporter> getHot(Map<String,Object> city) {
-      return supporterDao.findByHot(city);
+      
+      List<Supporter> sup = supporterDao.findByHot(city);
+      
+      for(Supporter s: sup) {
+        String addr[] = s.getBaseaddr().split(" ");
+        String sub_addr = addr[1].substring(0, addr[1].length()-1);
+        s.setBaseaddr(sub_addr);
+      }
+      return sup;
     }
     
 }

@@ -24,10 +24,10 @@ function todayTime(){
         day ='Fri';
     } else if(day == 6){
         day ='Sat';
-    } else if(day == 7){
+    } else if(day == 0){
         day ='Sun';
     }
 
-    day = mm+'.'+dd+day;
+    day = mm+'.'+dd+' '+day;
     $('#today').text(day);
 }

@@ -75,7 +75,7 @@ public class EditProController{
     m.setNo(mem.getNo());
     memberService.modiMem(m);
 
-    return "redirect:../../promotion/list";
+    return "redirect:../prosel";
   }
 
   @ResponseBody
