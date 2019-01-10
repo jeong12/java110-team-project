@@ -68,6 +68,11 @@ public class BuskerServiceImpl implements BuskerService {
   public List<Busker> getByBestDetail(int no) {
     return buskerDao.findByBestDetail(no);
   }
+  
+  @Override
+	public String showFileName(int no) {
+		return buskerDao.showFileName(no);
+	}
 
 }
 

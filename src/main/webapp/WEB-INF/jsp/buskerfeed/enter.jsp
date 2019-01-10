@@ -1163,7 +1163,7 @@ h2 {
                     }
               }
         }).then((value)=>{
-             return;
+             window.location.href = '../auth/form';
         })
           
       } else{
@@ -1226,7 +1226,7 @@ h2 {
                      }
                }
          }).then((value)=>{
-              return;
+        	 window.location.href = '../auth/form';
          })
            
        } else{

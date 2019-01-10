@@ -111,6 +111,8 @@ public class BuskerPromotionController {
         String filename = UUID.randomUUID().toString();
         file1.transferTo(new File(sc.getRealPath("/upload/" + filename)));
         buskerBoard.setPhot(filename);
+      } else if(file1.getSize() <= 0) {
+    	  buskerBoard.setPhot(buskerService.showFileName(member.getNo()));
       }
       
       buskerPromotionService.add(buskerBoard);

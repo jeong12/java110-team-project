@@ -15,7 +15,7 @@
 
 <select id="findAll" resultMap="StageMap" parameterType="map">
 select S.sno, S.name, SP.phot, SUBSTR(SC.sdt,1,10), S.bas_addr
-  from sup S, stag_sche SC, stag_phot SP
+  from sup S, stag_sche_190108 SC, stag_phot SP
  where S.sno = SC.sno 
    and S.sno = SP.sno
    and SUBSTR(SC.sdt,1,10) between #{startDate} and #{endDate}
@@ -24,7 +24,7 @@ select S.sno, S.name, SP.phot, SUBSTR(SC.sdt,1,10), S.bas_addr
   
 <select id="findByName" resultMap="StageMap" parameterType="map">
 select S.sno, S.name, SP.phot, SUBSTR(SC.sdt,1,10), S.bas_addr
-  from sup S, stag_sche SC, stag_phot SP
+  from sup S, stag_sche_190108 SC, stag_phot SP
  where S.name like #{keyword}
    and S.sno = SC.sno 
    and S.sno = SP.sno
@@ -34,7 +34,7 @@ select S.sno, S.name, SP.phot, SUBSTR(SC.sdt,1,10), S.bas_addr
     
 <select id="findByLocal" resultMap="StageMap" parameterType="map">
 select S.sno, S.name, SP.phot, SUBSTR(SC.sdt,1,10), S.bas_addr
-  from sup S, stag_sche SC, stag_phot SP
+  from sup S, stag_sche_190108 SC, stag_phot SP
  where S.bas_addr like #{keyword}
    and S.sno = SC.sno 
    and S.sno = SP.sno
@@ -44,7 +44,7 @@ select S.sno, S.name, SP.phot, SUBSTR(SC.sdt,1,10), S.bas_addr
     
 <select id="findByGenre" resultMap="StageMap" parameterType="map">
 select S.sno, S.name, SP.phot, SUBSTR(SC.sdt,1,10), S.bas_addr
-  from sup S, stag_sche SC, stag_phot SP
+  from sup S, stag_sche_190108 SC, stag_phot SP
  where S.genre like #{keyword}
    and S.sno = SC.sno 
    and S.sno = SP.sno

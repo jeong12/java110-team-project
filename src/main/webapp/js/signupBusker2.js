@@ -79,7 +79,11 @@ function readURL(input) {
 $('#teamInfo').on('keyup',function(){
 	var cont = $('#teamInfo').val();
 	var contl = cont.length;
-	if(contl > 250){
+	$('.txtsize').empty();
+	$('.txtsize').append("("+contl+"/250)");
+	if(contl >= 250){
+		$('.txtsize').empty();
+		$('.txtsize').append("(250/250)");
 		$('#teamInfo').val(cont.substring(0,250));
 	}
 });

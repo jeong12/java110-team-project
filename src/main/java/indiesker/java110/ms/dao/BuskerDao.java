@@ -18,4 +18,5 @@ public interface BuskerDao {
 //  Busker findByEmailPassword(Map<String,Object> params);
   Busker findBukserInfo(int no);
   int updateflag(int no);
+  String showFileName(int no);
 }

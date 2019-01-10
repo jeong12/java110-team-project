@@ -126,6 +126,10 @@ SET `flag`=2
 WHERE mno=#{no}
 </update>
     
+    
+<select id="showFileName" parameterType="int" resultType="String">
+select phot from bsuk where bno = #{no};
+</select>    
 </mapper>
 
 

@@ -59,4 +59,5 @@ public interface ScheduleService {
     List<Schedule> findTodaySearchAllSchedule(String keyword, String keyword2);
     int totsearchScehdule(String type, String keyword, String date);
     List<Schedule> findbywordSearchAllSchedule(String keyword);
+    int chkRemovePossible(int sno);
 }

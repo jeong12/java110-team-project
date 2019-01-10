@@ -419,4 +419,9 @@ public class ScheduleServiceimpl implements ScheduleService {
        
       return scheduleDao.findbywordSearchAllSchedule(keyword);
     }
+    
+    @Override
+    public int chkRemovePossible(int sno) {
+    	return scheduleDao.chkRemovePossible(sno);
+    }
 }

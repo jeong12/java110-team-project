@@ -77,7 +77,7 @@ public class FeedController {
     }
     //좋아요 count처리
     Busker buskerlikecount = new Busker();
-    buskerlikecount.setLikecount(memberService.searchLikeCount(no, 1)+270);
+    buskerlikecount.setLikecount(memberService.searchLikeCount(no, 1));
 
     Paging paging1 = new Paging();
     paging1.setPageSize(9);
@@ -583,7 +583,7 @@ public class FeedController {
     }
 
     Map<String,Object> map = new HashMap<>();
-    map.put("returnlikecount", memberService.searchLikeCount(feedbuskno2, flag2)+270);
+    map.put("returnlikecount", memberService.searchLikeCount(feedbuskno2, flag2));
 
     return map;
   }
@@ -605,7 +605,7 @@ public class FeedController {
     }
 
     Map<String,Object> map = new HashMap<>();
-    map.put("returnlikecount", memberService.searchLikeCount(feedbuskno2, flag2)+270);
+    map.put("returnlikecount", memberService.searchLikeCount(feedbuskno2, flag2));
 
     return map;
   }

@@ -1162,7 +1162,9 @@ SELECT
  order by sdt asc
 </select>
 
-
+<select id="chkRemovePossible" parameterType="int" resultType="Integer">
+select count(*) from busk_stag where ssno = #{sno}
+</select>
 </mapper>
 
 

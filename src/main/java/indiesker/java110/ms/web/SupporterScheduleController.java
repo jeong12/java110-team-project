@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -121,11 +122,18 @@ public class SupporterScheduleController {
     int no = member.getNo();
     
     List<Schedule> slist = scheduleService.findunableSchedule(date, no);
+    
     SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-    for (Schedule ps : slist) {
-      ps.setNsdt(format.format(ps.getSdt()));
-      ps.setNedt(format.format(ps.getEdt()));
+    
+    for(Iterator<Schedule> ps = slist.iterator() ; ps.hasNext() ; ) {
+    if(scheduleService.chkRemovePossible(ps.next().getSno()) >= 1)  	ps.remove();
     }
+    
+    for (Schedule ps : slist) {
+		ps.setNsdt(format.format(ps.getSdt()));
+		ps.setNedt(format.format(ps.getEdt()));
+	}
+    
     return slist;
   }
 

@@ -128,6 +128,7 @@ input:invalid {
 
 #teamInfo{resize: none;}
 #input_img{opacity: 0;}
+.txtsize{text-align: right; width: 21rem; font-size: small;}
 </style>
 </head>
 <jsp:include page="../../header.jsp"></jsp:include>
@@ -172,6 +173,7 @@ input:invalid {
             <input type="text" name="instrument" size=30 id="instrument" autocomplete="off" onfocus="checkTel()"> <br>
             <label for="teamInfo">팀 소개</label><br>
             <textarea name="teamInfo" id="teamInfo" autocomplete="off" rows="4" cols="40" placeholder="최대 250자까지 입력됩니다."></textarea><br>
+            <div class='txtsize'>(0/250)</div>
             <div class='teamphoto'>
             <label for="input_img">팀 사진
             <img id="upload" src="/img/anonymous.png" alt="기본이미지"></label><br>
@@ -184,7 +186,7 @@ input:invalid {
     </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="/js/signupBusker.js" type="text/javascript"></script>
+<script src="/js/signupBusker2.js" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
